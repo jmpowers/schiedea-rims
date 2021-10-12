@@ -1,0 +1,371 @@
+---
+title: "Hybrids Vegetative Biomass GLMM"
+author: "John Powers"
+date: "May 14, 2019"
+output:
+  html_document:
+    code_folding: hide
+    toc: yes
+    toc_float: TRUE
+---
+<style type="text/css">
+.table { width: 40%; }
+</style>
+
+Modified from hybridInflo Biomass.Rmd (April 2017)
+
+# Purpose
+Identify reproductive barriers between two sympatric moth-pollinated plant species, *Schiedea kaalae* and *S. hookeri* by fitting a generalized linear mixed model (GLMM).
+
+In the experimental design, the following **crosstypes** were made:
+
+* within species, **between** population (may show outbreeding depression or heterosis)
+* within species, **within** populations (may show inbreeding depression)
+* **hybrids** between species (indicates species barrier from pollination to seed production)
+
+In this analysis the response variable is the biomass of the offspring produced by each cross. Other barriers (hybrid survival, flowering) could be analyzed in a similar framework, with appropriate changes to the underlying distribution. 
+
+Fixed effects:
+
+* **crosstype** - hybrids, within population, between populations
+* **species** - species of the maternal plant that produced the Vegetative Biomass
+
+Potential random effects:
+
+* **mompop** - maternal plant population
+* **mompid** - maternal plant, specified by its population and ID
+* **dadpop** - paternal plant population
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = T, warning= F, comment="  ", cache=T)
+library(lme4)
+library(MASS)
+library(car)
+library(glmmADMB)
+library(bbmle)
+library(lsmeans)
+library(vcd)
+library(countreg)
+
+source("glmm_funs.R")
+
+#Visualization
+library(coefplot2)
+library(ggplot2); theme_set(theme_gray())
+library(lattice)
+library(plyr); library(dplyr)
+library(beanplot)
+library(knitr)
+library(RColorBrewer)
+
+gg_color_hue <- function(n) {
+  hues = seq(15, 375, length = n + 1)
+  hcl(h = hues, l = 65, c = 100)[1:n]
+}
+```
+
+# Data Import
+
+```{r data}
+ib <- read.table("vegbiomass.csv", header=T, sep="\t", 
+                 colClasses=c(collect.date="Date", weigh.date="Date"))
+
+crosses <- read.table("hybrids.csv", header=T, sep="\t", colClasses=c(mompop="factor", dadpop="factor"))
+
+crosscol <- c("green","blue","orange","red")
+
+#treat populations as factors
+ib$mompop <- crosses$mompop[match(ib$crossid, crosses$crossid)]
+ib$momid <- crosses$momid[match(ib$crossid, crosses$crossid)]
+ib$species <- crosses$momsp[match(ib$crossid, crosses$crossid)]
+ib$dadpop <- crosses$dadpop[match(ib$crossid, crosses$crossid)]
+ib$dadid <- crosses$dadid[match(ib$crossid, crosses$crossid)]
+ib$dadsp <- crosses$dadsp[match(ib$crossid, crosses$crossid)]
+ib$crosstype <- crosses$crosstype[match(ib$crossid, crosses$crossid)]
+ib$cross <- crosses$cross[match(ib$crossid, crosses$crossid)]
+ib <- ib[!is.na(ib$crosstype),] #missing information for 2 samples
+
+#rename crosstype codes
+ib$crosstype <- factor(ib$crosstype, levels=c("between", "within", "hybrid"))
+#made "between" the first reference level to facilitate comparison between outcrossing populations and hybridizing species 
+
+ib$mompop <- sapply(ib$mompop, mapvalues, from = c("794","866","899","879","892","904","3587"), to = c("WK","WK","WK","879WKG","892WKG","904WPG","3587WP"))
+ib$dadpop <- sapply(ib$dadpop, mapvalues, from = c("794","866","899","879","892","904","3587"), to = c("WK","WK","WK","879WKG","892WKG","904WPG","3587WP"))
+
+#define interactions
+ib <- within(ib, sxc <- interaction(species,crosstype))
+ib <- within(ib, sxcxm <- interaction(species,crosstype,mompop,momid))
+ib <- within(ib, mompid <- as.factor(paste(mompop,momid,sep=".")))
+ib <- within(ib, dadpid <- as.factor(paste(dadpop,dadid,sep=".")))
+ib <- within(ib, smompop <- as.factor(paste(species,mompop,sep="")))
+
+ib$collect.date <- round(difftime(ib$collect.date, "2016-03-10"))
+
+#check final structure
+str(ib)
+
+
+```
+
+# Data Inspection
+
+```{r massdist, warning=FALSE}
+library(ggplot2)
+ggplot(ib, aes(x=log10(mass), fill=cross, color=cross)) + geom_density(alpha=0.1, bw=0.06) + scale_fill_manual(values=crosscol) +scale_color_manual(values=crosscol)
+```
+
+## Replication
+The sample sizes are unbalanced at all levels, including maternal population: 
+```{r reps}
+reptab <- with(ib, table(smompop,crosstype))
+mosaic(reptab, pop=F)
+labeling_cells(text = reptab, margin = 0)(reptab)
+```
+
+Replication is low for some **within**-population crosses. The replication is even lower for each maternal plant, so we need to be wary of estimates when subsetting at this level:
+
+```{r reps_mpid}
+with(ib, kable(table(mompid,crosstype)))
+```
+
+## Overall data distribution
+
+To identify the best-fitting distribution, we make quantile-quantile plots of the raw data against various distributions. The more points within the confidence interval envelopes, the better the fit. Later, we present quantile-quantile plots of the model residuals to assess model fit.
+
+```{r dists}
+#QQ plots against various distributions
+set.seed(1)
+par(mfrow=c(1,3))
+normal <- fitdistr(log10(ib$mass+1), "normal")
+qqp(log10(ib$mass+1), "norm", main="Normal")
+lognormal <- fitdistr(ib$mass+1, "lognormal")
+qqp(ib$mass+1, "lnorm", main="Log Normal")
+#pois <- fitdistr(ib$mass+1, "Poisson")
+#qqp(ib$mass, "pois", pois$estimate, main="Poisson")
+#nbinom <- fitdistr(ib$mass+1, "Negative Binomial") 
+#qqp(ib$mass+1, "nbinom", size = nbinom$estimate[[1]], mu=nbinom$estimate[[2]], main="Negative Binomial")
+gamma <- fitdistr(ib$mass+1, "gamma")
+qqp(ib$mass+1, "gamma", shape = gamma$estimate[[1]], rate = gamma$estimate[[2]], main="Gamma")
+```
+
+## Distributions by fixed factors
+```{r hst_fixed}
+ggplot(ib, aes(x = mass, fill=species)) +
+  geom_histogram(data=subset(ib,species == "hook"), aes(y=-..density..),binwidth=2)+
+  geom_histogram(data=subset(ib,species == "kaal"), aes(y= ..density..),binwidth=2)+
+  coord_flip() + facet_grid(~crosstype) + labs(y="Histogram", x="Vegetative biomass (g)") + 
+  scale_fill_manual("Maternal species", labels = c("S. hookeri  ", "S. kaalae  "), values=brewer.pal(name="Set1", n=3)[c(3,2)]) + theme_classic() + theme(legend.text=element_text(face="italic", size=rel(1)), legend.position="bottom", axis.text = element_text(colour="black", size=rel(1)), text=element_text(size=14), axis.ticks.x = element_blank())
+```
+
+## Distributions by random factors
+```{r hst_rand_mpid}
+ggplot(aes(y=mass, x=mompid, color=crosstype), data=ib) + geom_count(alpha=0.8) + coord_flip() + labs(x="Maternal plant", y="Mass")
+```
+
+## Homogeneity of variances across subsets
+Our mixed model uses one parameter to capture random effect variance, which is assumed to be homogeneous. Plotting on a log scale should uncouple variances from means to assess this visually. Subsets are **species** \* **crosstype** \* **maternal plant**.
+
+Subset variances are not homogeneous:
+```{r varhom}
+ggplot(aes(y=log10(mass+1), x=sxcxm, color=crosstype), data=ib) + geom_boxplot() + coord_flip() + labs(y="ln(Vegetative Biomass + 1)",x="Subsets")
+```
+
+
+## Subset mean-variance relationship
+Various distributions make different assumptions about the mean-variance (µ-Var) ratio. 
+
+```{r meanvar}
+grpVars <- with(ib, tapply(mass, list(sxcxm), var))
+grpMeans <- with(ib, tapply(mass, list(sxcxm), mean))
+grpCounts <- with(ib, tapply(mass, list(sxcxm), length))
+#set weight=grpCounts to weight loess by sample sizes
+ggplot(na.omit(data.frame(grpMeans,grpVars,grpCounts)),
+       aes(x=grpMeans,y=grpVars, weight=1))+geom_point(aes(size=grpCounts))+
+  guides(colour=guide_legend(title="Fit"),size=guide_legend(title="Sample size")) + labs(x="Subset Mean", y="Subset Variance") + labs(subtitle="Subset: species*crosstype*mompid")
+```
+
+## Fixed effects
+Effects and interactions in these plots are simply given by the mean, which may be unduly influenced by high values.
+```{r maineff}
+intplot <- ggplot(ib,aes(x=crosstype,y=mass))+
+  geom_count(aes(size = ..prop.., group=sxc),alpha=0.5)+
+  stat_summary(aes(x=as.numeric(crosstype)),fun.y=mean,geom="line")+ facet_grid(~species)
+intplot + aes(group=species, color=species)
+```
+
+## Random effects
+
+### Maternal population
+```{r randeff_mp}
+intplot + aes(group=mompop, color=mompop)
+```
+
+### Maternal plant
+```{r randeff_mpid}
+intplot + aes(group=mompid, color=mompop)
+```
+
+### Paternal population
+```{r randeff_dp}
+intplot + aes(group=dadpop, color=dadpop)
+```
+
+
+## Run models on subsets
+Run many generalized linear models on subsets of the data defined by **crosstype | mompid** to see if effects estimates are consistent within maternal plants.
+
+Most maternal plant subsets agree, but some are problematic outliers. These plants can be picked out visually from the random effects interaction plot above, the estimated parameters of each subset model, and the QQ plot of the estimated parameters:
+
+```{r lmlist, results=FALSE, warning=FALSE}
+ #had to get rid of species or mompid since mompid is nested inside species. dadpop also works
+glm.lis <- lmList(log10(mass)~crosstype|mompid,data=ib, family="gaussian")
+plot.lmList(glm.lis,scale=list(x=list(relation="free")))
+```
+
+```{r qqmath, results=FALSE, warning=FALSE}
+qqmath.lmList(glm.lis)#
+```
+
+
+# Models
+We constructed the following models with the package *glmmADMB*. They all have the same fixed effects, **species x crosstype**, and response variable, **log10(mass)**
+
+* X  = standard GL(M)M
+
+| Distribution, Random Effects: | None | Maternal plant | Maternal population |
+|-------------------------------|------|----------------|---------------------|
+| normal (norm) | X | X | X |
+
+```{r models, echo=T, cache=T}
+#Normal (Gaussian) distribution, identity link
+ib <- ib[!is.na(ib$collect.date),]
+sc.norm.l          <- lm(log10(mass)~species*crosstype+collect.date, data=ib)
+sc.mix.mompid.l           <- lmer(log10(mass)~species*crosstype+collect.date + (1|mompid), data=ib)
+sc.nd.mix.momdadpid.l           <- lmer(log10(mass)~species*crosstype + (1|mompid)+ (1|dadpid), data=ib)
+sc.mix.mompop.l    <- lmer(log10(mass)~species*crosstype+collect.date + (1|mompop), data=ib)
+sc.mix.momdadpid.l           <- lmer(log10(mass)~species*crosstype+collect.date + (1|mompid) + (1|dadpid), data=ib)
+sc.mix.momdadpop.l    <- lmer(log10(mass)~species*crosstype+collect.date + (1|mompop) + (1|dadpop), data=ib)
+```
+
+# Model comparison
+## AIC
+We will use the Aikake Information Criterion to pick the model the best fits the data, penalized by the number of parameters. Differences of 2 units are significant.
+
+
+```{r aic}
+sc.names <- c("sc.norm.l","sc.mix.mompid.l","sc.mix.mompop.l","sc.mix.momdadpid.l","sc.mix.momdadpop.l")
+sc.list <- sapply(sc.names, get, USE.NAMES=T)
+sc.AIC <- ICtab(sc.list,mnames=sc.names,type="AIC", base=T, delta=F) # for AICc, nobs=nobs(sc.list[[1]])
+class(sc.AIC)<-"data.frame"
+all.names <- c(sc.names)
+all.list <- sapply(all.names, get, USE.NAMES=T)
+all.AIC <- dfun(rbind(sc.AIC))
+all.AIC <- all.AIC[order(all.AIC$dAIC),]
+kable(all.AIC, format.arg=list(digits=3))
+```
+
+The chosen model is a mixed model with the following components:
+
+* 
+     + response: **log10(mass)**
+     + fixed effects: **species**, **crosstype**, **species x crosstype**
+     + random effect: **mompid**
+
+
+## Overdispersion
+
+Looking at the normal, fixed effects model, we see that the residuals are not normal:
+```{r shapiro}
+shapiro.test(sc.norm.l$residuals)#raw residuals!
+```
+
+## Coefficients
+The coefficients estimated for each model agree qualitatively.
+
+
+```{r coef, fig.asp=1}
+sc.log.names <- sc.names
+sc.log <- sapply(sc.log.names, get, USE.NAMES=T)
+
+coefplot2(sc.log, legend.x="topright",legend=T,legend.args=list(cex=0.8, xpd=T, inset=c(-0.1,0)), col.pts=sample(gg_color_hue(length(sc.log.names))), spacing=0.05, lwd.2=2, lwd.1=4, intercept=F)
+```
+
+# Inference
+We chose the model with nearly the best (lowest) AIC, to carry out inference tests and parameter estimation.
+
+## Description
+
+
+```{r pick}
+mod <- sc.mix.momdadpid.l
+print(mod)
+```
+
+
+## Test significance of interaction
+By dropping it from the model and performing a likelihood-ratio test, we see that the **species x crosstype** interaction is significant:
+
+
+```{r testint}
+sxc.chisq <- drop1(mod, test="Chisq") #load from file
+dfun(sxc.chisq)
+```
+
+## Model summary
+The model estimated the following parameters, with individual parameter significance determined by the Wald z-test, and fixed effect significance determined by analysis of deviance Wald test.
+
+
+```{r summ}
+summary(mod)
+Anova(mod, type=3)
+```
+
+## Least square means
+The least square means procedure can generate predictor estimates of each type, and give their significance groupings with a post-hoc Tukey test. *S. hookeri*-produced hybrids produce less Vegetative Biomass than either crosses between or within *S. hookeri* populations. The other differences are not significant, but remember that the fixed effect of hybrid (vs. between) was significant (model summary).
+
+
+```{r lsmeans, fig.asp=1, fig.width=5}
+#Count
+rg <- ref.grid(mod)
+#summary(rg)
+sxc.lsm <- lsmeans(rg, ~ crosstype*species)
+plot(sxc.lsm)
+options(digits=4)
+cld.mod <- cld(sxc.lsm, Letters=letters) #tukey letterings
+cld.mod$response <- 10 ^ cld.mod$lsmean
+cld.mod$uSE <- 10 ^ (cld.mod$lsmean+cld.mod$SE)
+cld.mod$lSE <- 10 ^ (cld.mod$lsmean-cld.mod$SE)
+cld.mod[rev(order(cld.mod$species, cld.mod$crosstype)),]
+
+H.wb <-  with(cld.mod[cld.mod$species=="hook",], response[crosstype=="within"]/response[crosstype=="between"] - 1)
+K.wb <- with(cld.mod[cld.mod$species=="kaal",], response[crosstype=="within"]/response[crosstype=="between"] - 1)
+K.H <- with(cld.mod[cld.mod$crosstype=="between",], response[species=="kaal"]/response[species=="hook"] - 1)
+maxsp <- ifelse(K.H>0, "kaal","hook")
+minsp <- ifelse(K.H<0, "kaal","hook")
+maxresp <- with(cld.mod, response[species==maxsp & crosstype=="between"])
+minresp <- with(cld.mod, response[species==minsp & crosstype=="between"])
+HK.resp <-  with(cld.mod, response[species=="hook" & crosstype=="hybrid"])
+KH.resp <-  with(cld.mod, response[species=="kaal" & crosstype=="hybrid"])
+HK.int <-   with(cld.mod, ifelse(HK.resp > minresp & HK.resp < maxresp, (HK.resp-minresp)/(maxresp-minresp), 
+                                 ifelse(HK.resp < minresp, HK.resp/minresp-1, HK.resp/maxresp-1)))
+KH.int <-   with(cld.mod, ifelse(KH.resp > minresp & KH.resp < maxresp, (KH.resp-minresp)/(maxresp-minresp), 
+                                 ifelse(KH.resp < minresp, KH.resp/minresp-1, KH.resp/maxresp-1)))
+
+intermed <- (minresp + maxresp) / 2
+with(ib, wilcox.test(ib[species=="kaal" & crosstype=="hybrid","mass"], mu=intermed))
+with(ib, wilcox.test(ib[species=="hook" & crosstype=="hybrid","mass"], mu=intermed))
+
+round(c(H.wb,K.wb,K.H,HK.int,KH.int),2)
+
+ggplot(as.data.frame(cld.mod), aes(y=response, x=relevel(crosstype, "within"), fill=species)) +
+  geom_col(position=position_dodge2()) +
+  geom_linerange(aes(ymin=lSE, ymax=uSE), position=position_dodge(0.9)) +
+  labs(x="", y="Vegetative biomass (g)",fill="Maternal species") +
+  scale_fill_manual(labels = c("S. hookeri  ", "S. kaalae  "), values=c("grey70","grey30")) +
+  scale_x_discrete(labels = c("Intrapopulation", "Interpopulation", "Hybrid")) +
+  geom_text(aes(label=.group), position=position_dodge(0.9), hjust=0, vjust=-1) +
+  scale_y_continuous(expand = expand_scale(add=c(0,0)), breaks = scales::pretty_breaks(n = 5)) +
+  theme_classic() + theme(legend.text=element_text(face="italic", size=rel(1)), legend.position="bottom", axis.text = element_text(colour="black", size=rel(1)), text=element_text(size=14), axis.ticks.x = element_blank()) + geom_segment(aes(x=2.5, y=intermed, xend=3.5, yend=intermed))
+```
+
+

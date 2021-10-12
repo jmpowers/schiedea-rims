@@ -1,0 +1,263 @@
+---
+title: "P and F1 Seeds GLMM"
+author: "John Powers"
+date: "April 17, 2017"
+output:
+  html_document:
+    code_folding: show
+    toc: yes
+    toc_float: TRUE
+---
+<style type="text/css">
+.main-container { max-width: 1600px; margin-left: 0; margin-right: auto; }
+img{ max-width:200%; height: auto; }
+td, th { padding : 6px }
+</style>
+
+#Purpose
+Identify reproductive barriers between two sympatric moth-pollinated plant species, *Schiedea kaalae* and *S. hookeri* by fitting a generalized linear mixed model (GLMM).
+
+Fixed effects:
+
+* **crosstype**
+
+Potential random effects:
+
+* **mompid** - maternal plant, specified by its population and ID
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = T, warning= F, comment="  ", cache=F, fig.width=9)
+library(lme4)
+library(MASS)
+library(car)
+library(glmmADMB)
+library(bbmle)
+library(lsmeans)
+library(vcd)
+library(countreg)
+
+source("glmm_funs.R")
+
+#Visualization
+library(coefplot2)
+library(ggplot2); theme_set(theme_gray())
+library(lattice)
+library(plyr)
+library(beanplot)
+library(knitr)
+
+#read in fitted models
+load("f1&hybridseeds_mod.Rdata")
+
+gg_color_hue <- function(n) {
+  hues = seq(15, 375, length = n + 1)
+  hcl(h = hues, l = 65, c = 100)[1:n]
+}
+```
+
+#Data Import
+
+```{r data}
+#DATA CHANGED
+#changed from within to hybrid in hybridseeds.csv and f1&hybridseeds.csv: 615	597	hook	794	2	892	hybrid	K	HK	16
+#need to fix dadpop = closed in hybridseeds.csv
+sds <- read.table("f1&hybridseeds2.csv", header=T, sep="\t")
+sds <- within(sds, yesno <- as.numeric(seednum>0))
+
+
+sdsm2 <- sds[grepl("x",sds$momfullcross),]
+sdsm2.split <- cbind(sdsm2$crossid, as.data.frame(matrix(unlist(matrix(lapply(matrix(unlist(strsplit(as.character(sdsm2$momfullcross), " x ", fixed=T)), nrow=2), function(x) { spl <- unlist(strsplit(unlist(strsplit(x, " ", fixed=T)), "-", fixed=T)); c(spl[1],gsub("-NA","",paste(spl[2],spl[3],spl[4], sep="-"))) }), ncol=2)), ncol=4, byrow=T)))
+colnames(sdsm2.split) <- c("crossid","mommompop","mommomid","momdadpop","momdadid")
+
+sdsd2 <- sds[grepl("x",sds$dadfullcross),]
+sdsd2.split <- cbind(sdsd2$crossid, as.data.frame(matrix(unlist(matrix(lapply(matrix(unlist(strsplit(as.character(sdsd2$dadfullcross), " x ", fixed=T)), nrow=2), function(x) { spl <- unlist(strsplit(unlist(strsplit(x, " ", fixed=T)), "-", fixed=T)); c(spl[1],gsub("-NA","",paste(spl[2],spl[3],spl[4], sep="-"))) }), ncol=2)), ncol=4, byrow=T)))
+colnames(sdsd2.split) <- c("crossid","dadmompop","dadmomid","daddadpop","daddadid")
+
+sdsm1 <- sds[!grepl("x",sds$momfullcross),]
+sdsm1.split <- cbind(sdsm1$crossid, as.data.frame(matrix(unlist(matrix(lapply(as.character(sdsm1$momfullcross), function(x) { spl <- unlist(strsplit(unlist(strsplit(x, " ", fixed=T)), "-", fixed=T)); c(spl[1],gsub("-NA","",paste(spl[2],spl[3],spl[4], sep="-"))) }), ncol=2)), ncol=2, byrow=T)))
+colnames(sdsm1.split) <- c("crossid","mompop","momid")
+
+sdsd1 <- sds[!grepl("x",sds$dadfullcross),]
+sdsd1.split <- cbind(sdsd1$crossid, as.data.frame(matrix(unlist(matrix(lapply(as.character(sdsd1$dadfullcross), function(x) { spl <- unlist(strsplit(unlist(strsplit(x, " ", fixed=T)), "-", fixed=T)); c(spl[1],gsub("-NA","",paste(spl[2],spl[3],spl[4], sep="-"))) }), ncol=2)), ncol=2, byrow=T)))
+colnames(sdsd1.split) <- c("crossid","dadpop","dadid")
+
+
+sds <- merge(sds, sdsm2.split, by="crossid", all.x=T)
+sds <- merge(sds, sdsd2.split, by="crossid", all.x=T)
+sds <- merge(sds, sdsm1.split, by="crossid", all.x=T)
+sds <- merge(sds, sdsd1.split, by="crossid", all.x=T)
+
+pop2sp <- function(x) { factor(ifelse(x %in% c("904","3587", "892"), "kaal", ifelse(is.na(x),NA,"hook")))}
+sds$mommomspecies <- pop2sp(sds$mommompop)
+sds$momdadspecies <- pop2sp(sds$momdadpop)
+sds$dadmomspecies <- pop2sp(sds$dadmompop)
+sds$daddadspecies <- pop2sp(sds$daddadpop)
+sds$momcross <- factor(toupper(paste0(substr(sds$mommomspecies,0,1), substr(sds$momdadspecies,0,1))))
+sds$dadcross <- factor(toupper(paste0(substr(sds$dadmomspecies,0,1), substr(sds$daddadspecies,0,1))))
+
+sds$momcross <- factor(ifelse(sds$momcross=="NANA", toupper(substr(as.character(pop2sp(sds$mompop)),0,1)), as.character(sds$momcross)))
+sds$dadcross <- factor(ifelse(sds$dadcross=="NANA", toupper(substr(as.character(pop2sp(sds$dadpop)),0,1)), as.character(sds$dadcross)))
+is.na(sds$dadcross) <- is.na(sds$momcross) <- sds$crosstype=="control"
+
+table(sds$crosstype)
+with(sds, plot(seednum~crosstype, las=2))
+
+sds$dadcross <- factor(sds$dadcross, c("H",  "HK", "KH", "K"))
+sds$momcross <- factor(sds$momcross, c("H",  "HK", "KH", "K"))
+
+table(sds$momcross, sds$dadcross)
+table(sds$momcross, sds$dadcross, sds$crosstype) #errors in crosstype!
+
+sds <- sds[sds$crosstype!="control",]
+#sds <- sds[!(sds$momcross=="KH" & sds$dadcross=="HK"),]
+
+sdsnum <- sds
+remove(sds)
+
+library(dplyr)
+sdsnum <- as.data.frame(summarise(group_by(sdsnum, momfullcross, dadfullcross, crosstype), seednum = mean(seednum)))
+###########################################################
+
+sds <- read.table("f1seedmass.csv", header=T, sep="\t")
+sds$smass <- sds$smass/10
+
+sdsm2 <- sds[grepl("x",sds$momfullcross),]
+sdsm2.split <- cbind(sdsm2$crossid, as.data.frame(matrix(unlist(matrix(lapply(matrix(unlist(strsplit(as.character(sdsm2$momfullcross), " x ", fixed=T)), nrow=2), function(x) { spl <- unlist(strsplit(unlist(strsplit(x, " ", fixed=T)), "-", fixed=T)); c(spl[1],gsub("-NA","",paste(spl[2],spl[3],spl[4], sep="-"))) }), ncol=2)), ncol=4, byrow=T)))
+colnames(sdsm2.split) <- c("crossid","mommompop","mommomid","momdadpop","momdadid")
+
+sdsd2 <- sds[grepl("x",sds$dadfullcross),]
+sdsd2.split <- cbind(sdsd2$crossid, as.data.frame(matrix(unlist(matrix(lapply(matrix(unlist(strsplit(as.character(sdsd2$dadfullcross), " x ", fixed=T)), nrow=2), function(x) { spl <- unlist(strsplit(unlist(strsplit(x, " ", fixed=T)), "-", fixed=T)); c(spl[1],gsub("-NA","",paste(spl[2],spl[3],spl[4], sep="-"))) }), ncol=2)), ncol=4, byrow=T)))
+colnames(sdsd2.split) <- c("crossid","dadmompop","dadmomid","daddadpop","daddadid")
+
+sdsm1 <- sds[!grepl("x",sds$momfullcross),]
+sdsm1.split <- cbind(sdsm1$crossid, as.data.frame(matrix(unlist(matrix(lapply(as.character(sdsm1$momfullcross), function(x) { spl <- unlist(strsplit(unlist(strsplit(x, " ", fixed=T)), "-", fixed=T)); c(spl[1],gsub("-NA","",paste(spl[2],spl[3],spl[4], sep="-"))) }), ncol=2)), ncol=2, byrow=T)))
+colnames(sdsm1.split) <- c("crossid","mompop","momid")
+
+sdsd1 <- sds[!grepl("x",sds$dadfullcross),]
+sdsd1.split <- cbind(sdsd1$crossid, as.data.frame(matrix(unlist(matrix(lapply(as.character(sdsd1$dadfullcross), function(x) { spl <- unlist(strsplit(unlist(strsplit(x, " ", fixed=T)), "-", fixed=T)); c(spl[1],gsub("-NA","",paste(spl[2],spl[3],spl[4], sep="-"))) }), ncol=2)), ncol=2, byrow=T)))
+colnames(sdsd1.split) <- c("crossid","dadpop","dadid")
+
+
+sds <- merge(sds, sdsm2.split, by="crossid", all.x=T)
+sds <- merge(sds, sdsd2.split, by="crossid", all.x=T)
+sds <- merge(sds, sdsm1.split, by="crossid", all.x=T)
+sds <- merge(sds, sdsd1.split, by="crossid", all.x=T)
+
+pop2sp <- function(x) { factor(ifelse(x %in% c("904","3587", "892"), "kaal", ifelse(is.na(x),NA,"hook")))}
+sds$mommomspecies <- pop2sp(sds$mommompop)
+sds$momdadspecies <- pop2sp(sds$momdadpop)
+sds$dadmomspecies <- pop2sp(sds$dadmompop)
+sds$daddadspecies <- pop2sp(sds$daddadpop)
+sds$momcross <- factor(toupper(paste0(substr(sds$mommomspecies,0,1), substr(sds$momdadspecies,0,1))))
+sds$dadcross <- factor(toupper(paste0(substr(sds$dadmomspecies,0,1), substr(sds$daddadspecies,0,1))))
+
+sds$momcross <- factor(ifelse(sds$momcross=="NANA", toupper(substr(as.character(pop2sp(sds$mompop)),0,1)), as.character(sds$momcross)))
+sds$dadcross <- factor(ifelse(sds$dadcross=="NANA", toupper(substr(as.character(pop2sp(sds$dadpop)),0,1)), as.character(sds$dadcross)))
+is.na(sds$dadcross) <- is.na(sds$momcross) <- sds$crosstype=="control"
+
+sds$dadcross <- factor(sds$dadcross, c("H",  "HK", "KH", "K"))
+sds$momcross <- factor(sds$momcross, c("H",  "HK", "KH", "K"))
+
+sdsmass <- sds
+remove(sds)
+
+sdsmass <- as.data.frame(summarise(group_by(sdsmass, momfullcross, dadfullcross), smass = mean(smass)))
+
+sds <- merge(sdsmass, sdsnum, by=c("momfullcross","dadfullcross"))
+qplot(smass,seednum, data=sds, color=sds$crosstype)+ geom_point(size=4) +  theme_gray(base_size=20) + xlab("Avg seed mass") + ylab("Avg seeds per pollination") + scale_color_discrete(name="Cross type")
+```
+
+#Models
+
+```{r models, echo=T}
+#f1.c.mix.qpoi.zi     <- glmmadmb(seednum~crosstype + (1|mompid), data=sds, family="nbinom1", zeroInflation=T)
+#f1.c.mix.hr          <- glmmadmb(yesno~crosstype + (1|mompid), data=sds, family="binom")
+#f1.c.mix.qpoi.tr     <- glmmadmb(seednum~crosstype + (1|mompid), data=subset(sds,seednum>0), family="truncnbinom1", admb.opts = admbControl(shess = FALSE, noinit = FALSE))
+
+#f1.md.qpoi.zi     <- glmmadmb(seednum~momcross*dadcross, data=sds, family="nbinom1", zeroInflation=T)
+#f1.md.hr          <- glmmadmb(yesno~momcross+dadcross, data=sds, family="binom")
+#f1.md.qpoi.tr     <- glmmadmb(seednum~momcross+dadcross, data=subset(sds,seednum>0), family="truncnbinom1", admb.opts = admbControl(shess = FALSE, noinit = FALSE))
+
+f1.md.qpoi        <- glm(seednum~momcross*dadcross, data=sds, family="quasipoisson")
+f1.md.hr          <- glm(yesno~momcross*dadcross, data=sds, family="binomial")
+f1.md.qpoi.tr     <- glm(seednum~momcross*dadcross, data=subset(sds,seednum>0), family="quasipoisson")
+```
+
+#Model summaries
+```{r summaries}
+summary(f1.md.qpoi)
+summary(f1.md.hr)
+summary(f1.md.qpoi.tr)
+
+Anova(f1.md.qpoi)
+Anova(f1.md.hr)
+Anova(f1.md.qpoi.tr)
+
+#add the count and binary models AIC to get the full hurdle model
+AIC(f1.md.qpoi, f1.md.hr, f1.md.qpoi.tr)
+```
+
+
+#lsmeans and Tukey tests
+
+##Zero-inflated 
+```{r lsmeans}
+#Count
+rg <- ref.grid(f1.md.qpoi)
+#summary(rg)
+c.lsm <- lsmeans(rg, ~ momcross*dadcross)
+plot(c.lsm)
+cld(c.lsm, Letters=letters) #tukey letterings
+```
+
+##Hurdle - count and binary components
+###Count
+```{r lsmeanstr}
+#Count
+rg.tr <- ref.grid(f1.md.qpoi.tr)
+#summary(rg)
+c.lsm <- lsmeans(rg.tr, ~ momcross*dadcross)
+plot(c.lsm)
+cld.mod <- cld(c.lsm, Letters=letters) #tukey letterings
+cld.mod$response <- exp(cld.mod$lsmean)
+cld.mod$uSE <- exp(cld.mod$lsmean+cld.mod$SE)
+cld.mod$lSE <- exp(cld.mod$lsmean-cld.mod$SE)
+cld.mod
+
+ggplot(as.data.frame(cld.mod), aes(y=response, x=momcross, fill=dadcross)) +
+  geom_col(position=position_dodge2()) +
+  geom_linerange(aes(ymin=lSE, ymax=uSE), position=position_dodge2(0.9)) +
+  labs(x="Maternal plant", y="Seeds per capsule") +
+  geom_text(aes(label=trimws(.group), x=momcross, hjust=length(trimws(.group))/30), position=position_dodge2(0.9), vjust=-2) + 
+  geom_text(aes(label=dadcross, y=0.5), position=position_dodge2(0.9)) +
+  scale_y_continuous(expand = expand_scale(mult=c(0,.1)), breaks = scales::pretty_breaks(n = 20))+
+  scale_fill_manual(values=c("grey80","gray60","gray20","gray40"))+
+  theme_classic() + theme(legend.text=element_text(size=rel(1)), legend.position="bottom", axis.text = element_text(colour="black", size=rel(1)), text=element_text(size=14), axis.ticks.x = element_blank()) + guides(fill=F)
+```
+
+###Binary
+```{r lsmeansbi}
+#Binary
+rg.hr <- ref.grid(f1.md.hr)
+c.lsm.hr <- lsmeans(rg.hr, ~ momcross*dadcross)
+plot(c.lsm.hr)
+cld.mod <- cld(c.lsm.hr, Letters=letters) #tukey letterings
+library(boot)
+cld.mod$response <- inv.logit(cld.mod$lsmean)
+cld.mod$uSE <- inv.logit(cld.mod$lsmean+cld.mod$SE)
+cld.mod$lSE <- inv.logit(cld.mod$lsmean-cld.mod$SE)
+options(digits=4)
+cld.mod
+#cld.mod[1,c("response","uSE","lSE",".group")] <- NA
+     
+ggplot(as.data.frame(cld.mod), aes(y=response, x=momcross, fill=dadcross)) +
+  geom_col(position=position_dodge2()) +
+  geom_linerange(aes(ymin=lSE, ymax=uSE), position=position_dodge2(0.9)) +
+  labs(x="Maternal plant", y="Capsule formation") +
+  geom_text(aes(label=trimws(.group), x=momcross, hjust=length(trimws(.group))/30), position=position_dodge2(0.9), vjust=-4) + 
+  geom_text(aes(label=dadcross, y=0.05), position=position_dodge2(0.9)) +
+  scale_y_continuous(expand = expand_scale(mult=c(0,0)), breaks = scales::pretty_breaks(n = 5), limits=c(0,1)) +
+  scale_fill_manual(values=c("grey80","gray60","gray20","gray40"))+
+  theme_classic() + theme(legend.text=element_text(size=rel(1)), legend.position="bottom", axis.text = element_text(colour="black", size=rel(1)), text=element_text(size=14), axis.ticks.x = element_blank()) + guides(fill=F)
+```

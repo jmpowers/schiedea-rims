@@ -1,0 +1,662 @@
+---
+title: "Hybrids Seeds GLMM"
+author: "John Powers"
+date: "April 4, 2017"
+output:
+  html_document:
+    code_folding: hide
+    toc: yes
+    toc_float: TRUE
+---
+<style type="text/css">
+.table { width: 40%; }
+</style>
+
+#Guides
+* Bolker et al. 2009. [Generalized linear mixed models: a practical guide for ecology and evolution](http://www.cell.com/trends/ecology-evolution/fulltext/S0169-5347(09)00019-6). Trends in Ecology & Evolution.
+* Bolker. [GLMM FAQ](http://bbolker.github.io/mixedmodels-misc/glmmFAQ.html)
+* Bolker et al. 2011. GLMMs in action: gene-by-environment interaction in total fruit production of wild populations of *Arabidopsis thaliana*. [Part 1](http://www.cell.com/cms/attachment/601623/4742452/mmc1.pdf), [Part 2](http://www.cell.com/cms/attachment/601623/4742453/mmc2.pdf)
+* Bolker. In: Ecological Statistics: Contemporary Theory and Application
+     + [GLMM:worked examples](http://ms.mcmaster.ca/~bolker/R/misc/foxchapter/bolker_chap.html) 
+     + [Reporting GLMM results](http://ms.mcmaster.ca/~bolker/misc/GLMM_results_report.pdf)
+* Bolker et al. 2013. [Strategies for fitting nonlinear ecological models in R, AD Model Builder, and BUGS](http://onlinelibrary.wiley.com/doi/10.1111/2041-210X.12044/full)
+     + Bolker et al. 2012. [Owls example: a zero-inflated, generalized linear
+mixed model for count data](https://groups.nceas.ucsb.edu/non-linear-modeling/projects/owls/WRITEUP/owls.pdf)
+     + other [examples](https://groups.nceas.ucsb.edu/non-linear-modeling/) from Non-Linear Model Working Group
+* [A Practical Guide to Mixed Models in R](http://ase.tufts.edu/gsc/gradresources/guidetomixedmodelsinr/mixed%20model%20guide.html)
+* Schielzeth and Nakagawa 2012. [Nested by design: model fitting and interpretation in a mixed model era](http://onlinelibrary.wiley.com/doi/10.1111/j.2041-210x.2012.00251.x/full). Methods in Ecology and Evolution.
+* Stroup. [Rethinking the Analysis of Non-Normal Data in Plant and Soil Science](https://dl.sciencesocieties.org/publications/aj/articles/107/2/811)
+* Elston et al. 2001. [Analysis of aggregation, a worked example: Numbers of ticks on red grouse chicks](https://www.researchgate.net/publication/11945272_Analysis_of_aggregation_a_worked_example_Numbers_of_ticks_on_red_grouse_chicks)
+* Annika Nelson. [Ant GLMM Example](http://rpubs.com/annikanelson/GLMM_Example)
+* R package *pscl* vignette: [Regression Models for Count Data in R](https://cran.r-project.org/web/packages/pscl/vignettes/countreg.pdf)
+
+#Purpose
+Identify reproductive barriers between two sympatric moth-pollinated plant species, *Schiedea kaalae* and *S. hookeri* by fitting a generalized linear mixed model (GLMM).
+
+In the experimental design, the following **crosstypes** were made:
+
+* within species, **between** population (may show outbreeding depression or heterosis)
+* within species, **within** populations (may show inbreeding depression)
+* **hybrids** between species (indicates species barrier from pollination to seed production)
+
+In this analysis the response variable is the number of seeds produced by each cross. Other barriers (hybrid survival, biomass, flowering) could be analyzed in a similar framework, with appropriate changes to the underlying distribution. For count data, we cannot use a normal distribution, even after transformation. Instead we use discrete distributions available in generalized models - Poisson, negative binomial, and variants. In addition, the data are zero-inflated, so we model this as a separate process.
+
+Fixed effects:
+
+* **crosstype** - hybrids, within population, between populations
+* **species** - species of the maternal plant that produced the seeds
+
+Potential random effects:
+
+* **mompop** - maternal plant population
+* **mompid** - maternal plant, specified by its population and ID
+* **dadpop** - paternal plant population
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = T, warning= F, comment="  ", cache=T)
+library(lme4)
+library(MASS)
+library(car)
+library(glmmADMB)
+library(bbmle)
+library(lsmeans)
+library(vcd)
+library(countreg)
+
+source("glmm_funs.R")
+
+#Visualization
+library(coefplot2)
+library(ggplot2); theme_set(theme_gray())
+library(lattice)
+library(plyr)
+library(beanplot)
+library(devEMF)
+library(knitr)
+
+#read in fitted models
+load("hybridseeds_mod3.RData")#(between="e",within="a",hybrid="h")
+
+gg_color_hue <- function(n) {
+  hues = seq(15, 375, length = n + 1)
+  hcl(h = hues, l = 65, c = 100)[1:n]
+}
+```
+
+#Data Import
+
+```{r data}
+sds <- read.table("hybridseeds.csv", header=T, sep="\t")
+
+#treat populations as factors
+sds$mompop <- as.factor(sds$mompop)
+sds$dadpop <- as.factor(sds$dadpop)
+sds$linenum <- as.factor(sds$linenum)
+
+#exclude "closed" dadpop 
+sds$dadpop[sds$dadpop=="closed"] <- NA
+sds$dadpop<- droplevels(sds$dadpop)
+sds <- na.omit(sds)
+
+#rename crosstype codes
+levels(sds$crosstype) <- list(between="e",within="a",hybrid="h")
+#made "between" the first reference level to facilitate comparison between outcrossing populations and hybridizing species 
+
+#define interactions
+sds <- within(sds, sxc <- interaction(species,crosstype))
+sds <- within(sds, sxcxm <- interaction(species,crosstype,mompop,momid))
+sds <- within(sds, mompid <- as.factor(paste(mompop,momid,sep=".")))
+sds <- within(sds, smompop <- as.factor(paste(species,mompop,sep="")))
+sds <- within(sds, yesno <- as.numeric(seednum>0))
+#check final structure
+str(sds)
+```
+
+#Data Inspection
+
+##Replication
+The sample sizes are unbalanced at all levels, including maternal population: 
+```{r reps}
+reptab <- with(sds, table(smompop,crosstype))
+mosaic(reptab, pop=F)
+labeling_cells(text = reptab, margin = 0)(reptab)
+```
+
+Replication is low for some **within**-population crosses. The replication is even lower for each maternal plant, so we need to be wary of estimates when subsetting at this level:
+
+```{r reps_mpid}
+with(sds, kable(table(mompid,crosstype)))
+```
+
+##Overall data distribution
+
+To identify the best-fitting distribution, we make quantile-quantile plots of the raw data against various distributions. The more points within the confidence interval envelopes, the better the fit. [Later][Location-scale plot], we present quantile-quantile plots of the model residuals to assess model fit.
+
+Based on these fits (none of which account for zero-inflation), the negative binomial distribution best fits the overall data. We will also formally test the Poisson and normal distributions. Zero-inflation is evident from the hockey-stick shapes:
+
+```{r dists}
+#QQ plots against various distributions
+set.seed(1)
+par(mfrow=c(2,3))
+normal <- fitdistr(sds$seednum+1, "normal")
+qqp(sds$seednum+1, "norm", main="Normal")
+lognormal <- fitdistr(sds$seednum+1, "lognormal")
+qqp(sds$seednum+1, "lnorm", main="Log Normal")
+pois <- fitdistr(sds$seednum+1, "Poisson")
+qqp(sds$seednum, "pois", pois$estimate, main="Poisson")
+nbinom <- fitdistr(sds$seednum+1, "Negative Binomial") 
+qqp(sds$seednum+1, "nbinom", size = nbinom$estimate[[1]], mu=nbinom$estimate[[2]], main="Negative Binomial")
+gamma <- fitdistr(sds$seednum+1, "gamma")
+qqp(sds$seednum+1, "gamma", shape = gamma$estimate[[1]], rate = gamma$estimate[[2]], main="Gamma")
+```
+
+Another visual technique to identify an underlying distribution is the rootogram:
+```{r rootogram}
+poisf <- goodfit(sds$seednum, type="poisson") 
+vcd::rootogram(poisf, main="Raw data Poisson fit", xlab="Seeds")
+nbinomf <- goodfit(sds$seednum, type="nbinom") 
+vcd::rootogram(nbinomf, main="Raw data negative binomial fit", xlab="Seeds")
+sc.c.nb.hurd <- countreg::hurdle(seednum~ species*crosstype | crosstype , data=sds, dist="negbin", zero="binom")
+countreg::rootogram(sc.c.nb.hurd, main="Fixed effects only hurdle model (negative binomial + binomial) fit")
+```
+
+
+##Distributions by fixed factors
+```{r hst_fixed}
+ggplot(sds, aes(x = seednum, fill=species)) +
+  geom_histogram(data=subset(sds,species == "hook"), aes(y=-..density..),binwidth=1)+
+  geom_histogram(data=subset(sds,species == "kaal"), aes(y= ..density..),binwidth=1)+
+  coord_flip() + facet_grid(~crosstype) + labs(y="Histogram", x="Seeds")
+```
+
+##Distributions by random factors
+```{r hst_rand_mpid}
+ggplot(aes(y=seednum, x=mompid, color=crosstype), data=sds) + geom_count(alpha=0.8) + coord_flip() + labs(x="Maternal plant", y="Seeds")
+```
+
+##Homogeneity of variances across subsets
+Our mixed model uses one parameter to capture random effect variance, which is assumed to be homogeneous. Plotting on a log scale should uncouple variances from means to assess this visually. Subsets are **species** \* **crosstype** \* **maternal plant**.
+
+Subset variances are not homogeneous:
+```{r varhom}
+ggplot(aes(y=log(seednum+1), x=sxcxm, color=crosstype), data=sds) + geom_boxplot() + coord_flip() + labs(y="ln(seeds + 1)",x="Subsets")
+```
+
+
+##Subset mean-variance relationship
+Various distributions make different assumptions about the mean-variance (µ-Var) ratio. If the variance is greater than the mean (Var > µ, region above the black line representing the Poisson distribution), the data are overdispersed.
+
+| Distribution | Variance-mean model |
+|---|---|
+|Poisson|Var = µ|
+|quasi-Poisson|Var = φµ|
+|Negative binomial|Var = µ(1 + αµ)|
+
+We can see that the data are overdispersed, but both the negative binomial and quasi-Poisson seem to fit better than the Poisson:
+```{r meanvar}
+grpVars <- with(sds, tapply(seednum, list(sxcxm), var))
+grpMeans <- with(sds, tapply(seednum, list(sxcxm), mean))
+grpCounts <- with(sds, tapply(seednum, list(sxcxm), length))
+#set weight=grpCounts to weight loess by sample sizes
+ggplot(na.omit(data.frame(grpMeans,grpVars,grpCounts)),
+       aes(x=grpMeans,y=grpVars, weight=1))+geom_point(aes(size=grpCounts))+
+  geom_abline(intercept = 0, slope = 1, aes(color="Poisson"))+
+  geom_smooth(method="loess", se=F, aes(color="Loess"))+
+  geom_smooth(method="lm",formula=y~x-1,aes(color="Quasi-Poisson"))+
+  geom_smooth(method="lm",formula=y~I(x^2)+offset(x)-1, aes(color="Negative Binomial"))+
+  guides(colour=guide_legend(title="Fit"),size=guide_legend(title="Sample size")) + labs(x="Subset Mean", y="Subset Variance") + labs(subtitle="Subset: species*crosstype*mompid")
+```
+
+##Fixed effects
+Effects and interactions in these plots are simply given by the mean, which may be unduly influenced by high values.
+```{r maineff}
+intplot <- ggplot(sds,aes(x=crosstype,y=seednum))+
+  geom_count(aes(size = ..prop.., group=sxc),alpha=0.5)+
+  stat_summary(aes(x=as.numeric(crosstype)),fun.y=mean,geom="line")+ facet_grid(~species)
+intplot + aes(group=species, color=species)
+```
+
+##Random effects
+
+### Maternal population
+```{r randeff_mp}
+intplot + aes(group=mompop, color=mompop)
+```
+
+### Maternal plant
+```{r randeff_mpid}
+intplot + aes(group=mompid, color=mompop)
+```
+
+### Paternal population
+```{r randeff_dp}
+intplot + aes(group=dadpop, color=dadpop)
+```
+
+##Zeroes by category
+```{r zeroes}
+ggplot(sds,aes(x=crosstype,fill=factor(seednum>0))) + geom_bar(position="fill") + facet_grid(~species) + labs(y="Proportion") + guides(fill=guide_legend(title="Seeds produced"))
+```
+
+
+##Run models on subsets
+Run many generalized linear models on subsets of the data defined by **crosstype | mompid** to see if effects estimates are consistent within maternal plants.
+
+Most maternal plant subsets agree, but some are problematic outliers. Three plants (plus two missing) can be picked out visually from the random effects interaction plot above, the estimated parameters of each subset model, and the QQ plot of the estimated parameters:
+
+```{r lmlist, results=FALSE}
+ #had to get rid of species or mompid since mompid is nested inside species. dadpop also works
+glm.lis <- lmList(seednum~crosstype|mompid,data=sds, family="poisson")
+plot.lmList(glm.lis,scale=list(x=list(relation="free")))
+```
+
+```{r qqmath, results=FALSE}
+qqmath.lmList(glm.lis)
+```
+
+Diagnosis of each problematic maternal plant:
+
+* 3587.10-1: only crossed to 1 hybrid
+* 794.6: only crossed to 1 within, with no seeds
+* 879.3-8: did not produce any seeds for any crosstype
+* 892.2: only crossed to 1 between
+* 892.4: only crossed to 1 within, with no seeds
+
+We should consider rerunning model without these to see if random effect variance changes.
+
+```{r xtreme}
+xtreme <- c("794.6","892.4","879.3-8","892.2","3587.10-1") 
+with(droplevels(sds[sds$mompid %in% xtreme,]), kable(table(mompid,crosstype)))
+```
+
+#Models
+We constructed the following models with the package *glmmADMB*. They all have the same fixed effects, **species x crosstype**
+
+* X  = standard GL(M)M
+* ZI = zero-inflation mixture model
+* HR = hurdle model
+
+| Distribution, Random Effects: | None | Maternal plant | Maternal population |
+|-------------------------------|------|----------------|---------------------|
+| normal (norm) | X | X | X |
+| Poisson (poi) | X, ZI | X, ZI, HR |  |
+| quasi-Poisson (qpoi) | X, ZI | X, ZI, HR | ZI |
+| negative binomial (nb) | X, ZI | X, ZI, HR | ZI |
+
+```{r models, echo=T, eval=FALSE}
+#Normal (Gaussian) distribution, identity link
+sc.norm          <- glmmadmb(seednum~species*crosstype, data=sds, family="gaussian")
+sc.mix           <- glmmadmb(seednum~species*crosstype + (1|mompid), data=sds, family="gaussian")
+sc.mix.mompop    <- glmmadmb(seednum~species*crosstype + (1|mompop), data=sds, family="gaussian")
+
+#Poissson distribution, log link
+sc.poi           <- glmmadmb(seednum~species*crosstype, data=sds, family="poisson")
+sc.poi.zi        <- glmmadmb(seednum~species*crosstype, data=sds, family="poisson", zeroInflation=T)
+sc.mix.poi       <- glmmadmb(seednum~species*crosstype + (1|mompid), data=sds, family="poisson")
+sc.mix.poi.zi    <- glmmadmb(seednum~species*crosstype + (1|mompid), data=sds, family="poisson", zeroInflation=T)
+
+#Negative binomial distribution, log link
+sc.nb            <- glmmadmb(seednum~species*crosstype, data=sds, family="nbinom")
+sc.nb.zi         <- glmmadmb(seednum~species*crosstype, data=sds, family="nbinom", zeroInflation=T)
+sc.mix.nb        <- glmmadmb(seednum~species*crosstype + (1|mompid), data=sds, family="nbinom")
+sc.mix.nb.zi     <- glmmadmb(seednum~species*crosstype + (1|mompid), data=sds, family="nbinom", zeroInflation=T)
+sc.mix.nb.zi.mompop    <- glmmadmb(seednum~species*crosstype + (1|mompop), data=sds, family="nbinom", zeroInflation=T)
+
+#Quasi-Poisson (NB1), log link
+sc.qpoi            <- glmmadmb(seednum~species*crosstype, data=sds, family="nbinom1")
+sc.qpoi.zi         <- glmmadmb(seednum~species*crosstype, data=sds, family="nbinom1", zeroInflation=T)
+sc.mix.qpoi        <- glmmadmb(seednum~species*crosstype + (1|mompid), data=sds, family="nbinom1")
+sc.mix.qpoi.zi     <- glmmadmb(seednum~species*crosstype + (1|mompid), data=sds, family="nbinom1", zeroInflation=T)
+sc.mix.qpoi.zi.mompop    <- glmmadmb(seednum~species*crosstype + (1|mompop), data=sds, family="nbinom1", zeroInflation=T)
+
+#Hurdle models - split into binary and count models
+#binary models
+intercept.hr       <- glmmadmb(yesno~1, data=sds, family="binom")
+c.hr               <- glmmadmb(yesno~crosstype, data=sds, family="binom")
+c.mix.hr           <- glmmadmb(yesno~crosstype + (1|mompid), data=sds, family="binom")
+sc.hr              <- glmmadmb(yesno~species*crosstype, data=sds, family="binom")
+sc.mix.hr          <- glmmadmb(yesno~species*crosstype + (1|mompid), data=sds, family="binom")
+
+#truncated count models
+sc.mix.poi.tr      <- glmmadmb(seednum~species*crosstype + (1|mompid), data=subset(sds,seednum>0), family="truncpoiss")
+sc.mix.nb.tr       <- glmmadmb(seednum~species*crosstype + (1|mompid), data=subset(sds,seednum>0), family="truncnbinom")
+sc.mix.qpoi.tr     <- glmmadmb(seednum~species*crosstype + (1|mompid), data=subset(sds,seednum>0), family="truncnbinom1", 
+                               admb.opts = admbControl(shess = FALSE, noinit = FALSE))
+```
+
+#Model comparison
+##AIC
+We will use the Aikake Information Criterion to pick the model the best fits the data, penalized by the number of parameters. Differences of 2 units are significant.
+
+Zero inflation is present, so fit is improved with zero-inflated and hurdle models.
+
+```{r aic}
+sc.names <- c("sc.norm","sc.mix","sc.mix.mompop","sc.poi","sc.poi.zi","sc.mix.poi","sc.mix.poi.zi","sc.nb","sc.nb.zi","sc.mix.nb","sc.mix.nb.zi","sc.mix.nb.zi.mompop","sc.qpoi","sc.qpoi.zi","sc.mix.qpoi","sc.mix.qpoi.zi","sc.mix.qpoi.zi.mompop")
+sc.list <- sapply(sc.names, get, USE.NAMES=T)
+sc.AIC <- ICtab(sc.list,mnames=sc.names,type="AIC", base=T, delta=F) # for AICc, nobs=nobs(sc.list[[1]])
+class(sc.AIC)<-"data.frame"
+hr <- AIC(intercept.hr, c.hr, c.mix.hr, sc.hr, sc.mix.hr)
+trunc <- AIC(sc.mix.poi.tr,sc.mix.nb.tr,sc.mix.qpoi.tr)
+combined <- trunc + hr[c(5,5,5),] #TODO: check df incorporation
+all.names <- c(sc.names, "sc.mix.poi.tr","sc.mix.nb.tr","sc.mix.qpoi.tr")
+all.list <- sapply(all.names, get, USE.NAMES=T)
+all.AIC <- dfun(rbind(sc.AIC,combined))
+all.AIC <- all.AIC[order(all.AIC$dAIC),]
+kable(all.AIC, format.arg=list(digits=3))
+```
+
+The best-fiting model is a hurdle model with the following components:
+
+* binary component (c.mix.hr):
+     + response: **yesno**, logit link, binomial distribution
+     + fixed effects: **species**, **crosstype**, **species x crosstype**
+     + random effect: **mompid**
+* count component (sc.mix.qpoi.tr)
+     + response: **seednum**>0, log link, truncated quasi-Poisson distribution
+     + fixed effects: **species**, **crosstype**, **species x crosstype**
+     + random effect: **mompid**
+
+##Compare hurdle models
+We can individually select the binary and count component of the hurdle models. The AIC of the combined model (sum of the AICs of the binary and count models) was computed above.
+```{r}
+dfun(hr)[order(dfun(hr)$dAIC),]
+dfun(trunc)[order(dfun(trunc)$dAIC),]
+```
+
+**Hurdle models are not easily comparable to regular GLMMs except by AIC, so they are omitted until inference below.**
+
+##Overdispersion
+
+Looking at the normal, fixed effects model, we see that the residuals are not normal:
+```{r shapiro}
+shapiro.test(sc.norm$residuals)#raw residuals!
+```
+
+Furthermore, we examined the overall data distribution for overdispersion above. This is a formal test of each model, with the null hypothesis that there is no overdispersion.
+
+The mixed negative binomial and mixed quasi-Poisson are not over-dispersed:
+```{r overdisp}
+sc.overdisp.names <- c("sc.mix.poi","sc.mix.poi.zi","sc.mix.nb","sc.mix.nb.zi.mompop", "sc.mix.nb.zi", "sc.mix.qpoi", "sc.mix.qpoi.zi.mompop","sc.mix.qpoi.zi")
+sc.overdisp <- sapply(sc.overdisp.names, get, USE.NAMES=T)
+kable(t(sapply(sc.overdisp, overdisp)))
+```
+
+##Coefficients
+The coefficients estimated for each model agree qualitatively (excluding the normal distribution models, not shown, which has a different link function). It's hard to interpret main effects in the presence of a significant interaction, but here are the non-rigorous results (wait for the lsmeans Tukey test):
+
+* *S. kaalae* produces fewer seeds than *S. hookeri*
+* Plants crossed **within** populations produce fewer seeds than **between** populations, the reference level
+* Plants crossed to another species (**hybrids**) produce fewer seeds than **between** populations
+* *S. kaalae* produces about the same number of seeds whether crossed **within** or **between** populations.
+
+```{r coef, fig.asp=1}
+sc.loglink.names <- c("sc.poi","sc.poi.zi","sc.mix.poi","sc.mix.poi.tr","sc.mix.poi.zi","sc.nb","sc.nb.zi","sc.mix.nb","sc.mix.nb.zi", "sc.mix.nb.zi.mompop","sc.mix.nb.tr","sc.qpoi","sc.qpoi.zi", "sc.mix.qpoi", "sc.mix.qpoi.zi.mompop","sc.mix.qpoi.zi","sc.mix.qpoi.tr")
+sc.loglink <- sapply(sc.loglink.names, get, USE.NAMES=T)
+coefplot2(sc.loglink, legend.x="topright",legend=T,legend.args=list(cex=0.8, xpd=T, inset=c(-0.1,0)), col.pts=sample(gg_color_hue(length(sc.loglink.names))), spacing=0.05, lwd.2=2, lwd.1=4, intercept=T)
+```
+
+##Residuals-fitted plot
+These are plots of residuals (y) against fitted values (x) for each model. Ideally, the black spline is horizontal and residuals are equally spread. Otherwise, there are non-linear relationships beteeen the predictors and outcome. Zeroes in the original data are marked in red.
+```{r resfitted, fig.asp=1}
+#cannot use the normal models since they do not have sd.est to compute Pearson residuals
+par(mfrow=c(3,5),mar=c(0,0,1,0))
+for(i in 4:length(sc.list)){ 
+  if(i %in% c(2,3,8)) plot.new()
+  plot(fitted(sc.list[[i]]), residuals(sc.list[[i]]), axes=F, frame= T, xlab = "Fitted Values", ylab = "Residuals", col=1+(sds$seednum==0), main=sc.names[i])
+  abline(h = 0, lty = 2)
+  lines(smooth.spline(fitted(sc.list[[i]]), residuals(sc.list[[i]])))
+}
+```
+
+##Residuals QQ plot
+Model residuals are normally distributed if they follow the fitted line. For large sample sizes, residuals of Poisson and negative binomial GLMs tend towards normality. Zeroes in the original data are marked in red.
+```{r resqq}
+par(mfrow=c(3,5),mar=c(2,0,1,0))
+for(i in 4:length(sc.list)){
+  if(i %in% c(2,3,8)) plot.new()
+  qqp(residuals(sc.list[[i]]), "norm", main=sc.names[i], lwd=1, col.lines=3, col=1+(sds$seednum==0))  
+}
+```
+
+##Location-scale plot
+These are plots of sqrt(abs(residuals)) (y) against fitted values (x) for each model. Ideally, the loess fit should be flat. This tests the assumption of equal variance (homoscedasticity). Zeroes in the original data are marked in red.
+```{r loc-scale, fig.asp=1}
+par(mfrow=c(3,5),mar=c(0,0,1,0))
+for(i in 4:length(sc.list)){
+  if(i==8) plot.new()
+  locscaleplot(sc.list[[i]],col=1+(sds$seednum==0))
+  title(main=sc.names[i])
+}
+```
+
+#Inference
+We chose the model with nearly the best (lowest) AIC, sc.mix.qpoi.tr+sc.mix.hr, to carry out inference tests and parameter estimation. This hurdle model is split into a binary model (data reduced to =0 or >0) and a count model (truncated distribution fit to observations >0), with the same fixed and random terms. Each model has its own parameter estimates.
+
+##Description
+
+###Count
+```{r pick}
+mod <- sc.mix.qpoi.tr
+print(mod)
+```
+
+###Binary
+```{r pickbi}
+mod.hr <- sc.mix.hr
+print(mod.hr)
+```
+
+##Test significance of random effects
+Using a likelihood ratio test, with a null hypothesis of zero variance, the random effect (maternal plant) is significant for both model parts:
+
+###Count
+```{r testrand}
+anova(sc.qpoi.zi, sc.mix.qpoi.zi) #double this p-value. or simulate null by permuting data.
+```
+
+###Binary
+```{r testrandbi}
+anova(sc.hr, sc.mix.hr)
+```
+
+##Test significance of interaction
+By dropping it from the model and performing a likelihood-ratio test, we see that the **species x crosstype** interaction is significant for the count model but not the binary model:
+
+###Count
+```{r testint}
+#sxc.chisq <- drop1(mod, test="Chisq") #load from file
+dfun(sxc.chisq)
+```
+
+###Binary
+```{r testintbi}
+# sxc.chisq.hr <- drop1(sc.mix.hr, test="Chisq") #load from file
+dfun(sxc.chisq.hr)
+```
+
+
+##Model summary
+The model estimated the following parameters, with individual parameter significance determined by the Wald z-test, and fixed effect significance determined by analysis of deviance Wald test.
+
+###Count
+```{r summ}
+summary(mod)
+Anova(mod, type=3)
+```
+
+###Binary
+```{r summbi}
+summary(mod.hr)
+Anova(mod.hr, type=3)
+```
+
+##Predicted random effects
+These are box and QQ (to check normality) plots of the estimated random effect of each maternal plant. Note that this is NOT an assuption of the model, but they should approach normality for high sample sizes in a well-fitted model.
+
+###Count
+```{r fitrand}
+predre <- setNames(data.frame(RE=ranef(mod)$mompid,SD=ranef(mod, sd=T)$`1`),c("RE","SD"))
+ggplot(predre, aes(x = rownames(predre),y=RE)) +
+  geom_point(size = 2) + coord_flip()+
+  geom_errorbar(aes(ymin = RE-SD, ymax = RE+SD)) + labs(x="Maternal plants", y="Predicted random effects")
+
+#Count
+reStack <- ldply(ranef(mod))
+print( qqmath( ~`(Intercept)`|.id, data=reStack, scales=list(relation="free"),
+                 prepanel = prepanel.qqmathline,
+                 panel = function(x, ...) {
+                   panel.qqmathline(x, ...)
+                   panel.qqmath(x, ...)
+                 },
+                 layout=c(1,1)))
+```
+
+###Binary
+```{r fitrandbi}
+#Binary
+reStack <- ldply(ranef(mod.hr))
+print( qqmath( ~`(Intercept)`|.id, data=reStack, scales=list(relation="free"),
+                 prepanel = prepanel.qqmathline,
+                 panel = function(x, ...) {
+                   panel.qqmathline(x, ...)
+                   panel.qqmath(x, ...)
+                 },
+                 layout=c(1,1)))
+```
+
+
+
+##Predicted fixed effects, Count
+
+###Confidence intervals
+
+These predictions and confidence intervals are only based on fixed effects, conditional on the estimates of the random-effect variances.
+```{r fitint}
+newdat <- expand.grid(crosstype=levels(sds$crosstype), species=levels(sds$species)) 
+mm <- model.matrix(delete.response(terms(mod)),newdat) ## design matrix (fixed effects)
+newdat$pred <- mm %*% fixef(mod) ## matrix-multiply X by the parameter vector β to get the predictions (or linear predictor in the case of GLM(M)s). could also use predict(mod, newdata=newdat)
+newdat$seednum <- exp(newdat$pred) #For GLMMs, back-transform this with the inverse link function (e.g. plogis() for binomial, beta;  exp() for Poisson, negative binomial
+predvar <- diag(mm %*% vcov(mod) %*% t(mm)) #extract the variance-covariance matrix of the parameters V, compute XVX′ to get the variance-covariance matrix of the predictions; extract the diagonal of this matrix to get variances of predictions; 
+
+pdl <- position_dodge(width=0.1)
+pd <- position_dodge(width=0.4)
+g0 <- ggplot(sds,aes(x=crosstype,y=seednum,color=species)) + geom_count(aes(size = ..prop..),position=pd) + scale_size_area() 
+g1 <- g0 + geom_line(aes(group=species),data=newdat, position=pd) 
+#confidence intervals
+newdat$SE <- sqrt(predvar) #take the square-root of the variances to get the standard deviations (errors) of the predictions
+#confidence intervals = based on fixed-effected uncertainty only
+#compute confidence intervals based on a Normal approximation;
+#for GL(M)Ms, run the confidence interval boundaries (not the standard errors) through the inverse-link function.
+g1 + geom_errorbar(data=newdat, aes(ymin=exp(pred-1.96*SE),ymax=exp(pred+1.96*SE)), position=pd)
+
+```
+
+###Prediction intervals
+
+These confidence intervals are based on fixed effects uncertainty *and* random effects variance.
+```{r predint}
+#if computing prediction rather than confidence intervals, add the residual variance
+newdat$SE2 <- sqrt(predvar+mod$alpha^2) 
+g1 + geom_errorbar(data=newdat, aes(ymin=pred-1.96*SE2,ymax=pred+1.96*SE2), position=pd)
+```
+
+
+##Least square means
+The least square means procedure can generate predictor estimates of each type, and give their significance groupings with a post-hoc Tukey test. *S. hookeri*-produced hybrids produce less seeds than either crosses between or within *S. hookeri* populations. The other differences are not significant, but remember that the fixed effect of hybrid (vs. between) was significant (model summary).
+
+###Count
+```{r lsmeans, fig.asp=1, fig.width=5}
+#Count
+rg <- ref.grid(mod)
+#summary(rg)
+sxc.lsm <- lsmeans(rg, ~ crosstype*species)
+#plot(sxc.lsm)
+cld.mod <- cld(sxc.lsm, Letters=letters) #tukey letterings
+cld.mod$response <- exp(cld.mod$lsmean)
+cld.mod$uSE <- exp(cld.mod$lsmean+cld.mod$SE)
+cld.mod$lSE <- exp(cld.mod$lsmean-cld.mod$SE)
+options(digits=4)
+cld.mod[rev(order(cld.mod$species, cld.mod$crosstype)),]
+
+H.wb <-  with(cld.mod[cld.mod$species=="hook",], response[crosstype=="within"]/response[crosstype=="between"] - 1)
+K.wb <- with(cld.mod[cld.mod$species=="kaal",], response[crosstype=="within"]/response[crosstype=="between"] - 1)
+K.H <- with(cld.mod[cld.mod$crosstype=="between",], response[species=="kaal"]/response[species=="hook"] - 1)
+maxsp <- ifelse(K.H>0, "kaal","hook")
+minsp <- ifelse(K.H<0, "kaal","hook")
+maxresp <- with(cld.mod, response[species==maxsp & crosstype=="between"])
+minresp <- with(cld.mod, response[species==minsp & crosstype=="between"])
+HK.resp <-  with(cld.mod, response[species=="hook" & crosstype=="hybrid"])
+KH.resp <-  with(cld.mod, response[species=="kaal" & crosstype=="hybrid"])
+HK.int <-   with(cld.mod, ifelse(HK.resp > minresp & HK.resp < maxresp, (HK.resp-minresp)/(maxresp-minresp), 
+                                 ifelse(HK.resp < minresp, HK.resp/minresp-1, HK.resp/maxresp-1)))
+KH.int <-   with(cld.mod, ifelse(KH.resp > minresp & KH.resp < maxresp, (KH.resp-minresp)/(maxresp-minresp), 
+                                 ifelse(KH.resp < minresp, KH.resp/minresp-1, KH.resp/maxresp-1)))
+
+intermed <- (minresp + maxresp) / 2
+with(sds, wilcox.test(sds[species=="kaal" & crosstype=="hybrid","seednum"], mu=intermed))
+with(sds, wilcox.test(sds[species=="hook" & crosstype=="hybrid","seednum"], mu=intermed))
+
+round(c(H.wb,K.wb,K.H,HK.int,KH.int),2)
+
+ggplot(as.data.frame(cld.mod), aes(y=response, x=relevel(crosstype, "within"), fill=species)) +
+  geom_col(position=position_dodge2()) +
+  geom_linerange(aes(ymin=lSE, ymax=uSE), position=position_dodge(0.9)) +
+  labs(x="", y="Seeds per capsule",fill="Maternal plant") +
+  scale_fill_manual(labels = c("S. hookeri  ", "S. kaalae  "), values=c("grey70","grey30")) +
+  scale_x_discrete(labels = c("Intrapopulation", "Interpopulation", "Hybrid")) +
+  geom_text(aes(label=.group), position=position_dodge(0.9), hjust=0, vjust=-1) +
+  scale_y_continuous(expand = expand_scale(add=c(0,1)), breaks = scales::pretty_breaks(n = 20)) +
+  theme_classic() + theme(legend.text=element_text(face="italic", size=rel(1)), legend.position="bottom", axis.text = element_text(colour="black", size=rel(1)), text=element_text(size=14), axis.ticks.x = element_blank()) + geom_segment(aes(x=2.5, y=intermed, xend=3.5, yend=intermed))
+
+```
+
+###Binary
+```{r lsmeansbi, fig.asp=1, fig.width=5}
+#Binary
+rg.hr <- ref.grid(mod.hr)
+sc.lsm.hr <- lsmeans(rg.hr, ~ crosstype*species)
+#plot(sc.lsm.hr)
+options(digits=4)
+cld.mod <- cld(sc.lsm.hr, Letters=letters) #tukey letterings
+library(boot)
+cld.mod$response <- inv.logit(cld.mod$lsmean)
+cld.mod$uSE <- inv.logit(cld.mod$lsmean+cld.mod$SE)
+cld.mod$lSE <- inv.logit(cld.mod$lsmean-cld.mod$SE)
+options(digits=4)
+cld.mod[rev(order(cld.mod$species, cld.mod$crosstype)),]
+
+H.wb <-  with(cld.mod[cld.mod$species=="hook",], response[crosstype=="within"]/response[crosstype=="between"] - 1)
+K.wb <- with(cld.mod[cld.mod$species=="kaal",], response[crosstype=="within"]/response[crosstype=="between"] - 1)
+K.H <- with(cld.mod[cld.mod$crosstype=="between",], response[species=="kaal"]/response[species=="hook"] - 1)
+maxsp <- ifelse(K.H>0, "kaal","hook")
+minsp <- ifelse(K.H<0, "kaal","hook")
+maxresp <- with(cld.mod, response[species==maxsp & crosstype=="between"])
+minresp <- with(cld.mod, response[species==minsp & crosstype=="between"])
+HK.resp <-  with(cld.mod, response[species=="hook" & crosstype=="hybrid"])
+KH.resp <-  with(cld.mod, response[species=="kaal" & crosstype=="hybrid"])
+HK.int <-   with(cld.mod, ifelse(HK.resp > minresp & HK.resp < maxresp, (HK.resp-minresp)/(maxresp-minresp), 
+                                 ifelse(HK.resp < minresp, HK.resp/minresp-1, HK.resp/maxresp-1)))
+KH.int <-   with(cld.mod, ifelse(KH.resp > minresp & KH.resp < maxresp, (KH.resp-minresp)/(maxresp-minresp), 
+                                 ifelse(KH.resp < minresp, KH.resp/minresp-1, KH.resp/maxresp-1)))
+
+intermed <- (minresp + maxresp) / 2
+HK.prop <-   with(sds, c(sum(sds[species=="hook" & crosstype=="hybrid","seednum"]>0), nrow(sds[species=="hook" & crosstype=="hybrid",])))
+prop.test(x=HK.prop[1], n=HK.prop[2], p=intermed)
+KH.prop <-   with(sds, c(sum(sds[species=="kaal" & crosstype=="hybrid","seednum"]>0), nrow(sds[species=="kaal" & crosstype=="hybrid",])))
+prop.test(x=KH.prop[1], n=KH.prop[2], p=intermed)
+
+
+round(c(H.wb,K.wb,K.H,HK.int,KH.int),2)
+
+ggplot(as.data.frame(cld.mod), aes(y=response, x=relevel(crosstype, "within"), fill=species)) +
+  geom_col(position=position_dodge2()) +
+  geom_linerange(aes(ymin=lSE, ymax=uSE), position=position_dodge(0.9)) +
+  labs(x="", y="Capsule formation",fill="Maternal plant") +
+  scale_fill_manual(labels = c("S. hookeri  ", "S. kaalae  "), values=c("grey70","grey30")) +
+  scale_x_discrete(labels = c("Intrapopulation", "Interpopulation", "Hybrid")) +
+  geom_text(aes(label=.group), position=position_dodge(0.9), hjust=0, vjust=-1) +
+  scale_y_continuous(expand = expand_scale(mult=c(0,0)), breaks = scales::pretty_breaks(n = 5), limits=c(0,1)) +
+  theme_classic() + theme(legend.text=element_text(face="italic", size=rel(1)), legend.position="bottom", axis.text = element_text(colour="black", size=rel(1)), text=element_text(size=14), axis.ticks.x = element_blank()) + geom_segment(aes(x=2.5, y=intermed, xend=3.5, yend=intermed))
+```
+
+

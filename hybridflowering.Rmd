@@ -1,0 +1,329 @@
+---
+title: "Hybrids Flowering GLMM No Add"
+author: "John Powers"
+date: "Jan 18, 2018"
+output:
+  html_document:
+    code_folding: hide
+    toc: yes
+    toc_float: TRUE
+---
+<style type="text/css">
+.table { width: 40%; }
+</style>
+
+Modified from hybridgerm.Rmd (Oct 2017)
+
+#Guides
+* Bolker et al. 2009. [Generalized linear mixed models: a practical guide for ecology and evolution](http://www.cell.com/trends/ecology-evolution/fulltext/S0169-5347(09)00019-6). Trends in Ecology & Evolution.
+* Bolker. [GLMM FAQ](http://bbolker.github.io/mixedmodels-misc/glmmFAQ.html)
+* Bolker et al. 2011. GLMMs in action: gene-by-environment interaction in total fruit production of wild populations of *Arabidopsis thaliana*. [Part 1](http://www.cell.com/cms/attachment/601623/4742452/mmc1.pdf), [Part 2](http://www.cell.com/cms/attachment/601623/4742453/mmc2.pdf)
+* Bolker. In: Ecological Statistics: Contemporary Theory and Application
+     + [GLMM:worked examples](http://ms.mcmaster.ca/~bolker/R/misc/foxchapter/bolker_chap.html) 
+     + [Reporting GLMM results](http://ms.mcmaster.ca/~bolker/misc/GLMM_results_report.pdf)
+* Bolker et al. 2013. [Strategies for fitting nonlinear ecological models in R, AD Model Builder, and BUGS](http://onlinelibrary.wiley.com/doi/10.1111/2041-210X.12044/full)
+     + Bolker et al. 2012. [Owls example: a zero-inflated, generalized linear
+mixed model for count data](https://groups.nceas.ucsb.edu/non-linear-modeling/projects/owls/WRITEUP/owls.pdf)
+     + other [examples](https://groups.nceas.ucsb.edu/non-linear-modeling/) from Non-Linear Model Working Group
+* [A Practical Guide to Mixed Models in R](http://ase.tufts.edu/gsc/gradresources/guidetomixedmodelsinr/mixed%20model%20guide.html)
+* Schielzeth and Nakagawa 2012. [Nested by design: model fitting and interpretation in a mixed model era](http://onlinelibrary.wiley.com/doi/10.1111/j.2041-210x.2012.00251.x/full). Methods in Ecology and Evolution.
+* Stroup. [Rethinking the Analysis of Non-Normal Data in Plant and Soil Science](https://dl.sciencesocieties.org/publications/aj/articles/107/2/811)
+* Elston et al. 2001. [Analysis of aggregation, a worked example: Numbers of ticks on red grouse chicks](https://www.researchgate.net/publication/11945272_Analysis_of_aggregation_a_worked_example_Numbers_of_ticks_on_red_grouse_chicks)
+* Annika Nelson. [Ant GLMM Example](http://rpubs.com/annikanelson/GLMM_Example)
+* R package *pscl* vignette: [Regression Models for Count Data in R](https://cran.r-project.org/web/packages/pscl/vignettes/countreg.pdf)
+
+#Purpose
+Identify reproductive barriers between two sympatric moth-fflinated plant species, *Schiedea kaalae* and *S. hookeri* by fitting a generalized linear mixed model (GLMM).
+
+In the experimental design, the following **crosstypes** were made:
+
+* within species, **between** population (may show outbreeding depression or heterosis)
+* within species, **within** populations (may show inbreeding depression)
+* **hybrids** between species (indicates species barrier from fflination to seed production)
+
+In this analysis the response variable is the fflen viability of each cross. Other barriers (hybrid survival, flowering) could be analyzed in a similar framework, with appropriate changes to the underlying distribution. 
+
+Fixed effects:
+
+* **crosstype** - hybrids, within population, between populations
+* **species** - species of the maternal plant that produced the Viability
+
+Potential random effects:
+
+* **mompop** - maternal plant population
+* **mompid** - maternal plant, specified by its population and ID
+* **dadpop** - paternal plant population
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = T, warning= F, comment="  ", cache=T)
+library(lme4)
+library(MASS)
+library(car)
+library(glmmADMB)
+library(bbmle)
+library(lsmeans)
+library(vcd)
+library(countreg)
+
+source("glmm_funs.R")
+
+#Visualization
+library(coefplot2)
+library(ggplot2); theme_set(theme_gray())
+library(lattice)
+library(plyr)
+library(beanplot)
+library(knitr)
+library(RColorBrewer)
+
+gg_color_hue <- function(n) {
+  hues = seq(15, 375, length = n + 1)
+  hcl(h = hues, l = 65, c = 100)[1:n]
+}
+```
+
+#Data Import
+
+```{r data}
+ff <- read.table("firstflower6_plusone.csv", header=T, sep="\t")#has one dummy entry that did not flower for each crosstype
+ff$firstflower.date[ff$firstflower.date==""] <- NA
+ff$firstflower.date[ff$use.firstflower!="yes"] <- NA
+ff$firstflower.date <- as.Date(ff$firstflower.date)
+ff$firstflower <- as.integer(round(difftime(ff$firstflower.date, "2016-03-01")))
+ff <- ff[ff$crossid!=107,] ##FIND OUT WHAT CROSS THIS IS
+
+ff$alive[ff$use.alive.flowered!="yes"] <- NA
+ff <- ff[ff$alive=="yes",] #only consider flowering of live individuals
+ff$alive <- ff$alive=="yes"
+ff$flowered[ff$flowered=="?"] <- NA
+ff$flowered <- ff$flowered=="yes"
+ff <- ff[!is.na(ff$flowered),]
+
+crosses <- read.table("hybrids.csv", header=T, sep="\t", colClasses=c(mompop="factor", dadpop="factor"))
+
+crosscol <- c("green","blue","orange","red")
+
+#treat populations as factors
+ff$mompop <- crosses$mompop[match(ff$crossid, crosses$crossid)]
+ff$momid <- crosses$momid[match(ff$crossid, crosses$crossid)]
+ff$species <- crosses$momsp[match(ff$crossid, crosses$crossid)]
+ff$dadpop <- crosses$dadpop[match(ff$crossid, crosses$crossid)]
+ff$dadid <- crosses$dadid[match(ff$crossid, crosses$crossid)]
+ff$dadsp <- crosses$dadsp[match(ff$crossid, crosses$crossid)]
+ff$crosstype <- crosses$crosstype[match(ff$crossid, crosses$crossid)]
+ff$cross <- crosses$cross[match(ff$crossid, crosses$crossid)]
+
+#rename crosstype codes
+ff$crosstype <- factor(ff$crosstype, levels=c("between", "within", "hybrid"))
+#made "between" the first reference level to facilitate comparison between outcrossing populations and hybridizing species 
+
+ff$mompop <- sapply(ff$mompop, mapvalues, from = c("794","866","899","879","892","904","3587"), to = c("WK","WK","WK","879WKG","892WKG","904WPG","3587WP"))
+ff$dadpop <- sapply(ff$dadpop, mapvalues, from = c("794","866","899","879","892","904","3587"), to = c("WK","WK","WK","879WKG","892WKG","904WPG","3587WP"))
+
+#define interactions
+ff <- within(ff, sxc <- interaction(species,crosstype))
+ff <- within(ff, sxcxm <- interaction(species,crosstype,mompop,momid))
+ff <- within(ff, mompid <- as.factor(paste(mompop,momid,sep=".")))
+ff <- within(ff, dadpid <- as.factor(paste(dadpop,dadid,sep=".")))
+ff <- within(ff, smompop <- as.factor(paste(species,mompop,sep="")))
+
+#check final structure
+str(ff)
+```
+
+#Data Inspection
+
+##Replication
+The sample sizes are unbalanced at all levels, including maternal population: 
+```{r reps}
+reptab <- with(ff, table(smompop,crosstype))
+mosaic(reptab, pop=F)
+labeling_cells(text = reptab, margin = 0)(reptab)
+```
+
+Replication is low for some **within**-population crosses. The replication is even lower for each maternal plant, so we need to be wary of estimates when subsetting at this level:
+
+```{r reps_mpid}
+with(ff, kable(table(mompid,crosstype)))
+```
+
+##Overall data distribution
+
+To identify the best-fitting distribution, we make quantile-quantile plots of the raw data against various distributions. The more points within the confidence interval envelopes, the better the fit. Later, we present quantile-quantile plots of the model residuals to assess model fit.
+
+##Fixed effects
+Effects and interactions in these plots are simply given by the mean, which may be unduly influenced by high values.
+```{r maineff}
+intplot <- ggplot(ff,aes(fill=factor(flowered))) + geom_bar(position="fill")  + labs(y="Proportion") + guides(fill=guide_legend(title="Flowered")) + facet_grid(~species)
+intplot + aes(x=crosstype) 
+```
+
+##Random effects
+
+### Maternal population
+```{r randeff_mp}
+intplot + aes(x=mompop) 
+```
+
+### Maternal plant
+```{r randeff_mpid}
+intplot + aes(x=mompid)
+```
+
+### Paternal population
+```{r randeff_dp}
+intplot + aes(x=dadpop)
+```
+
+#Models
+We constructed the following models with the package *glmmADMB*. They all have the same fixed effects, **species x crosstype**, and response variable, **flowered**
+
+* X  = standard GL(M)M
+
+| distribution, Random Effects: | None | Maternal plant | Maternal population |
+|-------------------------------|------|----------------|---------------------|
+| normal (norm) | X | X | X |
+
+```{r models, echo=T, cache=T}
+sc.bin          <- glm(flowered~species*crosstype, data=ff, family="binomial")
+sc.mix.mompid.bin         <- glmer(flowered~species*crosstype + (1|mompid), data=ff, family="binomial")
+sc.mix.mompop.bin    <- glmer(flowered~species*crosstype + (1|mompop), data=ff, family="binomial")
+sc.mix.momdadpid.bin         <- glmer(flowered~species*crosstype + (1|mompid) + (1|dadpid), data=ff, family="binomial")
+```
+
+#Model comparison
+##AIC
+We will use the Aikake Information Criterion to pick the model the best fits the data, penalized by the number of parameters. Differences of 2 units are significant.
+
+
+```{r aic}
+#AICtab(sc.b, sc.mix.mompop.b, sc.mix.mompid.b)
+sc.names <- c("sc.bin", "sc.mix.mompid.bin", "sc.mix.mompop.bin","sc.mix.momdadpid.bin")
+sc.list <- sapply(sc.names, get, USE.NAMES=T)
+sc.AIC <- ICtab(sc.list,mnames=sc.names,type="AIC", base=T, delta=F) # for AICc, nobs=nobs(sc.list[[1]])
+class(sc.AIC)<-"data.frame"
+all.names <- c(sc.names)
+all.list <- sapply(all.names, get, USE.NAMES=T)
+all.AIC <- dfun(rbind(sc.AIC))
+all.AIC <- all.AIC[order(all.AIC$dAIC),]
+kable(all.AIC, format.arg=list(digits=3))
+```
+
+The best-fiting model is a model with the following components:
+
+* 
+     + response: **flowered**
+     + fixed effects: **species**, **crosstype**, **species x crosstype**
+     + random effect: 
+
+
+##Coefficients
+The coefficients estimated for each model agree qualitatively.
+
+
+```{r coef, fig.asp=1}
+sc.log.names <- sc.names
+sc.log <- sapply(sc.log.names, get, USE.NAMES=T)
+
+coefplot2(sc.log, legend.x="topright",legend=T,legend.args=list(cex=0.8, xpd=T, inset=c(-0.1,0)), col.pts=sample(gg_color_hue(length(sc.log.names))), spacing=0.05, lwd.2=2, lwd.1=4, intercept=T)
+```
+
+#Inference
+We chose the model with nearly the best (lowest) AIC, to carry out inference tests and parameter estimation.
+
+##Description
+
+
+```{r pick}
+mod <- sc.bin
+print(mod)
+```
+
+##Test significance of interaction
+By dropping it from the model and performing a likelihood-ratio test, we see that the **species x crosstype** interaction is not significant.
+
+
+```{r testint}
+sxc.chisq <- drop1(mod, test="Chisq") #load from file
+dfun(sxc.chisq)
+```
+
+##Model summary
+The model estimated the following parameters, with individual parameter significance determined by the Wald z-test, and fixed effect significance determined by analysis of deviance Wald test.
+
+
+```{r summ}
+summary(mod)
+Anova(mod, type=3)
+```
+
+##Predicted random effects
+These are box and QQ (to check normality) plots of the estimated random effect of each maternal plant. 
+
+
+```{r fitrand, eval=FALSE}
+predre <- setNames(data.frame(RE=ranef(mod)$mompid,SD=ranef(mod, sd=T)$`1`),c("RE","SD"))
+ggplot(predre, aes(x = rownames(predre),y=RE)) +
+  geom_point(size = 2) + coord_flip()+
+  geom_errorbar(aes(ymin = RE-SD, ymax = RE+SD)) + labs(x="Maternal plants", y="Predicted random effects")
+
+#Count
+reStack <- ldply(ranef(mod))
+print( qqmath( ~`(Intercept)`|.id, data=reStack, scales=list(relation="free"),
+                 prepanel = prepanel.qqmathline,
+                 panel = function(x, ...) {
+                   panel.qqmathline(x, ...)
+                   panel.qqmath(x, ...)
+                 },
+                 layout=c(1,1)))
+```
+
+##Least square means
+The least square means procedure can generate predictor estimates of each type, and give their significance groupings with a post-hoc Tukey test. *S. hookeri*-produced hybrids produce less Viability than either crosses between or within *S. hookeri* populations. The other differences are not significant, but remember that the fixed effect of hybrid (vs. between) was significant (model summary).
+
+
+```{r lsmeans, fig.asp=1, fig.width=5}
+#Count
+rg <- ref.grid(mod)
+#summary(rg)
+sxc.lsm <- lsmeans(rg, ~ crosstype*species)
+plot(sxc.lsm)
+cld.mod <- cld(sxc.lsm, Letters=letters) #tukey letterings
+library(boot)
+cld.mod$response <- inv.logit(cld.mod$lsmean)
+#cld.mod$SE[c(5,6)] <- 0
+cld.mod$uSE <- inv.logit(cld.mod$lsmean+cld.mod$SE)
+cld.mod$lSE <- inv.logit(cld.mod$lsmean-cld.mod$SE)
+options(digits=4)
+cld.mod[rev(order(cld.mod$species, cld.mod$crosstype)),]
+
+H.wb <-  with(cld.mod[cld.mod$species=="hook",], response[crosstype=="within"]/response[crosstype=="between"] - 1)
+K.wb <- with(cld.mod[cld.mod$species=="kaal",], response[crosstype=="within"]/response[crosstype=="between"] - 1)
+K.H <- with(cld.mod[cld.mod$crosstype=="between",], response[species=="kaal"]/response[species=="hook"] - 1)
+maxsp <- ifelse(K.H>0, "kaal","hook")
+minsp <- ifelse(K.H<0, "kaal","hook")
+maxresp <- with(cld.mod, response[species==maxsp & crosstype=="between"])
+minresp <- with(cld.mod, response[species==minsp & crosstype=="between"])
+HK.resp <-  with(cld.mod, response[species=="hook" & crosstype=="hybrid"])
+KH.resp <-  with(cld.mod, response[species=="kaal" & crosstype=="hybrid"])
+HK.int <-   with(cld.mod, ifelse(HK.resp > minresp & HK.resp < maxresp, (HK.resp-minresp)/(maxresp-minresp), 
+                                 ifelse(HK.resp < minresp, HK.resp/minresp-1, HK.resp/maxresp-1)))
+KH.int <-   with(cld.mod, ifelse(KH.resp > minresp & KH.resp < maxresp, (KH.resp-minresp)/(maxresp-minresp), 
+                                 ifelse(KH.resp < minresp, KH.resp/minresp-1, KH.resp/maxresp-1)))
+
+intermed <- (minresp + maxresp) / 2
+
+round(c(H.wb,K.wb,K.H,HK.int,KH.int),2)
+
+ggplot(as.data.frame(cld.mod), aes(y=response, x=relevel(crosstype, "within"), fill=species)) +
+  geom_col(position=position_dodge2()) +
+  geom_linerange(aes(ymin=lSE, ymax=uSE), position=position_dodge(0.9)) +
+  labs(x="", y="Proportion flowered",fill="Maternal species") +
+  scale_fill_manual(labels = c("S. hookeri  ", "S. kaalae  "), values=brewer.pal(name="Set1", n=3)[c(3,2)]) +
+  scale_x_discrete(labels = c("Intrapopulation", "Interpopulation", "Hybrid")) +
+  geom_text(aes(label=.group), position=position_dodge(0.9), hjust=0, vjust=-0.2) +
+  scale_y_continuous(expand = expand_scale(mult=c(0,0.04)), breaks = scales::pretty_breaks(n = 5), limits=c(0,1)) +
+  theme_classic() + theme(legend.text=element_text(face="italic", size=rel(1)), legend.position="bottom", axis.text = element_text(colour="black", size=rel(1)), text=element_text(size=14), axis.ticks.x = element_blank()) + geom_segment(aes(x=2.5, y=intermed, xend=3.5, yend=intermed))
+```
+
+

@@ -1,0 +1,768 @@
+---
+title: "F2 Pollen GLMM"
+author: "John Powers"
+date: "Sept 10, 2018"
+output:
+  html_document:
+    code_folding: hide
+    toc: yes
+    toc_float: TRUE
+---
+<style type="text/css">
+.table { width: 40%; }
+</style>
+
+Modified from hybridViability.Rmd (Oct 2017)
+
+
+# Purpose
+Identify reproductive barriers between two sympatric moth-pollinated plant species, *Schiedea kaalae* and *S. hookeri* by fitting a generalized linear mixed model (GLMM).
+
+In this analysis the response variable is the pollen viability of each cross. Other barriers (hybrid survival, flowering) could be analyzed in a similar framework, with appropriate changes to the underlying distribution. 
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = T, warning= F, comment="  ", cache=T)
+library(lme4)
+library(MASS)
+library(car)
+library(glmmADMB)
+library(bbmle)
+library(emmeans)
+library(vcd)
+library(countreg)
+
+source("glmm_funs.R")
+
+# Visualization
+library(coefplot2)
+library(ggplot2); theme_set(theme_minimal())
+library(lattice)
+library(plyr)
+library(beanplot)
+library(knitr)
+
+gg_color_hue <- function(n) {
+  hues = seq(15, 375, length = n + 1)
+  hcl(h = hues, l = 65, c = 100)[1:n]
+}
+```
+
+# Data Import
+
+```{r data}
+setwd("~/MyDocs/Dropbox/UCI/Schiedea/Analysis/HybridSeeds")
+pol <- read.table("f2pollen.csv", header=T, sep="\t", colClasses=c(date="Date"))
+pol <- pol[!is.na(pol$V1) & pol$dadfullcross!="9999",]
+
+pol$v <- rowSums(pol[,grepl("V", colnames(pol))])/10 # average viable counts
+pol$i <- rowSums(pol[,grepl("I", colnames(pol))])/10 # average inviable counts
+pol$vpf <- (pol$v * 444.4/20) * 10      # number viable per flower (5 flrs)
+pol$ipf <- (pol$i * 444.4/20) * 10      # number inviable per flower (5 flrs)
+pol$vp <- pol$vpf / (pol$vpf + pol$ipf) # proportion viable
+pol$tpf <- pol$vpf + pol$ipf
+pol$t <- 10*(pol$v + pol$i)
+
+polm2 <- pol[grepl("x",pol$momfullcross),]
+polm2.split <- cbind(polm2$crossid, as.data.frame(matrix(unlist(matrix(lapply(matrix(unlist(strsplit(as.character(polm2$momfullcross), " x ", fixed=T)), nrow=2), function(x) { spl <- unlist(strsplit(unlist(strsplit(x, " ", fixed=T)), "-", fixed=T)); c(spl[1],gsub("-NA","",paste(spl[2],spl[3],spl[4], sep="-"))) }), ncol=2)), ncol=4, byrow=T)))
+colnames(polm2.split) <- c("crossid","mommompop","mommomid","momdadpop","momdadid")
+
+pold2 <- pol[grepl("x",pol$dadfullcross),]
+pold2.split <- cbind(pold2$crossid, as.data.frame(matrix(unlist(matrix(lapply(matrix(unlist(strsplit(as.character(pold2$dadfullcross), " x ", fixed=T)), nrow=2), function(x) { spl <- unlist(strsplit(unlist(strsplit(x, " ", fixed=T)), "-", fixed=T)); c(spl[1],gsub("-NA","",paste(spl[2],spl[3],spl[4], sep="-"))) }), ncol=2)), ncol=4, byrow=T)))
+colnames(pold2.split) <- c("crossid","dadmompop","dadmomid","daddadpop","daddadid")
+
+polm1 <- pol[!grepl("x",pol$momfullcross),]
+polm1.split <- cbind(polm1$crossid, as.data.frame(matrix(unlist(matrix(lapply(as.character(polm1$momfullcross), function(x) { spl <- unlist(strsplit(unlist(strsplit(x, " ", fixed=T)), "-", fixed=T)); c(spl[1],gsub("-NA","",paste(spl[2],spl[3],spl[4], sep="-"))) }), ncol=1)), ncol=2, byrow=T)))
+colnames(polm1.split) <- c("crossid","mompop","momid")
+
+pold1 <- pol[!grepl("x",pol$dadfullcross),]
+pold1.split <- cbind(pold1$crossid, as.data.frame(matrix(unlist(matrix(lapply(as.character(pold1$dadfullcross), function(x) { spl <- unlist(strsplit(unlist(strsplit(x, " ", fixed=T)), "-", fixed=T)); c(spl[1],gsub("-NA","",paste(spl[2],spl[3],spl[4], sep="-"))) }), ncol=1)), ncol=2, byrow=T)))
+colnames(pold1.split) <- c("crossid","dadpop","dadid")
+
+
+pol <- merge(pol, polm2.split, by="crossid", all.x=T)
+pol <- merge(pol, pold2.split, by="crossid", all.x=T)
+pol <- merge(pol, polm1.split, by="crossid", all.x=T)
+pol <- merge(pol, pold1.split, by="crossid", all.x=T)
+
+popcols <- c("mompop","dadpop","mommompop","momdadpop","dadmompop","daddadpop")
+pol[popcols] <- lapply(pol[popcols], function(x) { sapply(x, mapvalues, from = c("794","866","899","879","892","904","3587"), to = c("WK","WK","WK","879WKG","892WKG","904WPG","3587WP"), warn_missing=F) })
+
+kaalpops <- c("904WPG","3587WP", "892WKG")
+pop2sp <- function(x) { factor(ifelse(x %in% kaalpops, "kaal", ifelse(is.na(x),NA,"hook")))}
+pol$mommomspecies <- pop2sp(pol$mommompop)
+pol$momdadspecies <- pop2sp(pol$momdadpop)
+pol$dadmomspecies <- pop2sp(pol$dadmompop)
+pol$daddadspecies <- pop2sp(pol$daddadpop)
+pol$momcross <- factor(toupper(paste0(substr(pol$mommomspecies,0,1), substr(pol$momdadspecies,0,1))))
+pol$dadcross <- factor(toupper(paste0(substr(pol$dadmomspecies,0,1), substr(pol$daddadspecies,0,1))))
+
+pol$momcross <- factor(ifelse(pol$momcross=="NANA", toupper(substr(as.character(pop2sp(pol$mompop)),0,1)), as.character(pol$momcross)))
+pol$dadcross <- factor(ifelse(pol$dadcross=="NANA", toupper(substr(as.character(pop2sp(pol$dadpop)),0,1)), as.character(pol$dadcross)))
+# is.na(pol$dadcross) <- is.na(pol$momcross) <- pol$crosstype=="control"
+
+pol$dadcross <- factor(pol$dadcross, c("H",  "HK", "KH", "K"))
+pol$momcross  <- factor(pol$momcross, c("H",  "HK", "KH", "K"))
+pol$crosstype <- with(pol, factor(paste(momcross, dadcross, sep="x")))
+pol$species <- factor(ifelse(pol$mompop %in% kaalpops, "kaal", "hook"))
+pol$dadsp <-   factor(ifelse(pol$dadpop %in% kaalpops, "kaal", "hook"))
+pol <- within(pol, smompop <- as.factor(paste(species,mompop,sep="")))
+pol <- within(pol, mompid <- as.factor(paste(mompop,momid,sep=".")))
+pol <- within(pol, dadpid <- as.factor(paste(dadpop,dadid,sep=".")))
+
+pol$mompop <- as.character(pol$mompop)
+pol$mompop[is.na(pol$mompop)] <- as.character(pol$momcross[is.na(pol$mompop)])
+pol$mompop <- as.factor(pol$mompop)
+pol$dadpop <- as.character(pol$dadpop)
+pol$dadpop[is.na(pol$dadpop)] <- as.character(pol$dadcross[is.na(pol$dadpop)])
+pol$dadpop <- as.factor(pol$dadpop)
+
+
+# check final structure
+str(pol)
+```
+
+
+```{r merge}
+load("hybridpollen.Rdata")
+hybpol$momcross <- factor(substr(as.character(hybpol$cross),1,1))
+hybpol$dadcross <- factor(substr(as.character(hybpol$cross),2,2))
+pol$mompid <- pol$momfullcross
+pol$dadpid <- pol$dadfullcross
+
+merging <- intersect(colnames(hybpol), colnames(pol))#c("date", "v", "i", "vp", "tpf", "t", "momcross","dadcross","mompid","dadpid", "mompop","dadpop","crosstype")
+bothpol <- rbind(pol[, merging], hybpol[, merging])
+
+#with(bothpol, plot(vp~interaction(momcross,dadcross), las=2))
+#with(bothpol, plot(t~interaction(momcross,dadcross), las=2))
+table(bothpol$momcross, bothpol$dadcross)
+pol <- bothpol
+pol$v <- pol$v*10
+pol$i <- pol$i*10
+pol$momdadcross <- with(pol, droplevels(interaction(momcross, dadcross)))
+```
+
+# Viable percentage versus total pollen
+```{r vp_tpf}
+ggplot(pol, aes(x=tpf,y=vp)) + geom_smooth() + geom_point(aes(color=interaction(momcross,dadcross, sep=" x "))) + scale_color_discrete("Cross") + labs(x="Pollen grains per flower", y="Proportion viable")+theme_minimal()
+
+summary(lm(vp~tpf, data=pol))
+```
+
+#Viable percentage versus viable
+```{r vp_vpf}
+ggplot(pol, aes(x=vp,y=vpf)) + geom_smooth() + geom_point(aes(color=interaction(momcross,dadcross, sep=" x "))) + scale_color_discrete("Cross") + labs(x="Proportion viable", y="Viable pollen grains per flower")+theme_minimal()
+
+summary(lm(vpf~vp, data=pol))
+```
+
+# Pollen viability
+##  Distributions by random factors
+```{r hst_rand_mpid, fig.asp=1.5}
+ggplot(aes(y=vp, x=mompid, color=dadcross), data=pol) + geom_point() + coord_flip() + labs(x="Maternal plant", y="Proportion viable")+theme_minimal()
+```
+
+## Distributions by fixed factors
+
+```{r rawplot, fig.asp=1}
+(bothplot <- ggplot(pol, aes(y=vp, x=dadcross, fill=dadcross)) + 
+    facet_wrap(vars(momcross), nrow=1)+ ggtitle("Maternal parent") +
+   geom_boxplot() + geom_point(aes(color=mompop)) + scale_color_discrete("Maternal population",na.value="grey20") +
+  labs(x="Paternal parent", y="Pollen viability") +
+  scale_y_continuous(expand = expand_scale(mult=c(0,0)), breaks = scales::pretty_breaks(n = 5), limits=c(0,1)) +
+  scale_fill_manual("Paternal plant", values=c("grey90","gray70","gray50","gray30"))+
+  theme_classic() + theme(legend.text=element_text(size=rel(1)), legend.position="bottom", axis.text = element_text(colour="black", size=rel(1)), text=element_text(size=14), axis.ticks.x = element_blank(), plot.title=element_text(hjust=0.5, size=rel(1)))+guides(fill=F))
+
+ggsave("pollenviability.png", bothplot, width=7, height=6)
+```
+
+
+## Models
+
+```{r models, echo=T, cache=T, eval=T}
+sc.bin          <- glm(vp~momcross*dadcross, data=pol, family="binomial", weights=pol$t)
+sc.mix.mompop.bin         <- glmer(vp~momcross*dadcross + (1|mompop), data=pol, family="binomial", weights=pol$t)
+sc.mix.momdadpop.bin         <- glmer(vp~momcross*dadcross + (1|mompop) + (1|dadpop), data=pol, family="binomial", weights=pol$t)
+sc.mix.mompid.bin         <- glmer(vp~momcross*dadcross + (1|mompid), data=pol, family="binomial", weights=pol$t)
+sc.mix.momdadpid.bin         <- glmer(vp~momcross*dadcross + (1|mompid) + (1|dadpid), data=pol, family="binomial", weights=pol$t)
+
+#Observation-level random effect for overdispers
+pol$line <- 1:nrow(pol)
+sc.mix.momdadpop.olre.bin         <- glmer(vp~momcross*dadcross + (1|mompop) + (1|dadpop) +(1|line), data=pol, family="binomial", weights=pol$t)
+
+library(hglm)
+sc.mix.mompid.betabin.hglm <- hglm2(vp~momdadcross + (1|mompid) , data=pol, family=binomial(link = logit), rand.family=Beta(link = logit), weights=pol$t)
+
+library(spaMM)
+sc.mix.mompid.betabin.spamm <- HLfit(cbind(v,i)~momdadcross + (1|mompid) ,family=binomial(),rand.family=Beta(), HLmethod="HL(0,0)", data=pol)
+
+library(glmmTMB)
+sc.mix.mompid.betabin.tmb <- glmmTMB(cbind(v,i)~momdadcross + (1|mompid), data=pol, family="betabinomial")
+
+library(glmmADMB)
+sc.betabin.admb               <- glmmadmb(cbind(v,i)~momdadcross, data=pol, family="betabinomial")
+sc.mix.mompop.betabin.admb    <- glmmadmb(cbind(v,i)~momdadcross + (1|mompop), data=pol, family="betabinomial")
+sc.mix.momdadpop.betabin.admb <- glmmadmb(cbind(v,i)~momdadcross + (1|mompop) + (1|dadpop), data=pol, family="betabinomial")
+sc.mix.mompid.betabin.admb   <- glmmadmb(cbind(v,i)~momdadcross + (1|mompid), data=pol, family="betabinomial")
+sc.mix.momdadpid.betabin.admb   <- glmmadmb(cbind(v,i)~momdadcross + (1|mompid)+ (1|dadpid), data=pol, family="betabinomial")
+
+sc.mix.momdadpop.bin.admb     <- glmmadmb(cbind(v,i)~momdadcross + (1|mompop) + (1|dadpop), data=pol, family="binomial")
+sc.mix.mompid.bin.admb     <- glmmadmb(cbind(v,i)~momdadcross + (1|mompid), data=pol, family="binomial")
+sc.bin.admb     <- glmmadmb(cbind(v,i)~momdadcross, data=pol, family="binomial")
+
+
+```
+
+## Model comparison
+##  AIC
+We will use the Aikake Information Criterion to pick the model the best fits the data, penalized by the number of parameters. Differences of 2 units are significant.
+
+
+```{r aic}
+# AICtab(sc.b, sc.mix.mompop.b, sc.mix.mompid.b)
+sc.admb.names <- c("sc.betabin.admb", "sc.mix.mompop.betabin.admb","sc.mix.momdadpop.betabin.admb", "sc.mix.mompid.betabin.admb", "sc.mix.momdadpop.bin.admb","sc.mix.momdadpid.betabin.admb", "sc.mix.mompid.bin.admb", "sc.bin.admb")
+sc.names <- c("sc.bin", "sc.mix.mompid.bin","sc.mix.momdadpid.bin", "sc.mix.mompop.bin","sc.mix.momdadpop.bin", "sc.mix.momdadpop.olre.bin", sc.admb.names)
+sc.list <- sapply(sc.names, get, USE.NAMES=T)
+sc.AIC <- ICtab(sc.list,mnames=sc.names,type="AIC", base=T, delta=F) #  for AICc, nobs=nobs(sc.list[[1]])
+class(sc.AIC)<-"data.frame"
+all.names <- c(sc.names)
+all.list <- sapply(all.names, get, USE.NAMES=T)
+all.AIC <- dfun(rbind(sc.AIC))
+all.AIC <- all.AIC[order(all.AIC$dAIC),]
+kable(all.AIC, format.arg=list(digits=3))
+
+od <- as.data.frame(t(sapply(sc.list[-c(1,7)], overdisp)))
+od$logratio <- log(od$ratio)
+od[order(od$logratio),]
+```
+
+##  Overdispersion
+
+Looking at the normal, fixed effects model, we see that the residuals are not normal:
+```{r shapiro}
+shapiro.test(sc.bin$residuals)# raw residuals!
+```
+
+
+##  Coefficients
+The coefficients estimated for each model agree qualitatively.
+
+
+```{r coef, fig.asp=1}
+sc.log.names <- sc.names[-c(7:14)]
+sc.log <- sapply(sc.log.names, get, USE.NAMES=T)
+coefplot2(sc.log, legend.x="topright",legend=T,legend.args=list(cex=0.8, xpd=T, inset=c(-0.1,0)), col.pts=sample(gg_color_hue(length(sc.log.names))), spacing=0.05, lwd.2=2, lwd.1=4, intercept=T)
+
+
+sc.admb <- sapply(sc.admb.names, get, USE.NAMES=T)
+coefplot2(sc.admb, legend.x="topright",legend=T,legend.args=list(cex=0.8, xpd=T, inset=c(-0.1,0)), col.pts=sample(gg_color_hue(length(sc.admb.names))), spacing=0.05, lwd.2=2, lwd.1=4, intercept=T)
+
+
+sc.log.names <- c("sc.mix.mompid.betabin.tmb", "sc.mix.mompid.betabin.admb","sc.mix.mompid.betabin.hglm", "sc.mix.mompid.betabin.spamm")
+sc.log <- sapply(sc.log.names, get, USE.NAMES=T)
+sc.log.coef <- list(
+coef(summary(sc.log[[1]]))[[1]],
+coef(summary(sc.log[[2]])),
+summary(sc.log[[3]])$ FixCoefMat,
+summary(sc.log[[4]])$beta_table)
+colnames(sc.log.coef[[4]]) <- colnames(sc.log.coef[[3]])[1:3]
+library(data.table)
+sc.log.coef.all <- rbindlist(setNames(lapply(lapply(sc.log.coef, as.data.frame), setDT, keep.rownames = TRUE), sc.log.names), idcol="modelName", fill=T)
+setnames(sc.log.coef.all, 2:4, c("Variable","Coefficient","SE"))
+# Specify the width of your confidence intervals
+interval1 <- -qnorm((1-0.9)/2)  # 90% multiplier
+interval2 <- -qnorm((1-0.95)/2)  # 95% multiplier
+
+# Plot
+ggplot(sc.log.coef.all, aes(colour = modelName))+
+  geom_hline(yintercept = 0, colour = gray(1/2), lty = 2) +
+  geom_linerange(aes(x = Variable, ymin = Coefficient - SE*interval1,
+                                ymax = Coefficient + SE*interval1),
+                            lwd = 1, position = position_dodge(width = 1/2))+
+  geom_pointrange(aes(x = Variable, y = Coefficient, ymin = Coefficient - SE*interval2,
+                                 ymax = Coefficient + SE*interval2),
+                             lwd = 1/2, position = position_dodge(width = 1/2),
+                             shape = 21, fill = "WHITE")+
+  coord_flip() + theme_bw()
+```
+
+
+## Inference
+
+##  Description
+
+
+```{r pick}
+mod <- sc.mix.mompid.betabin.admb
+print(mod)
+```
+
+##  Model summary
+The model estimated the following parameters, with individual parameter significance determined by the Wald z-test, and fixed effect significance determined by analysis of deviance Wald test.
+
+
+```{r summ}
+summary(mod)
+```
+
+```{r validation}
+qqnorm(resid(mod), main="normal qq-plot, residuals")
+qqline(resid(mod))
+
+qqnorm(ranef(mod)[[1]][,1])
+qqline(ranef(mod)[[1]][,1])
+
+plot(fitted(mod), resid(mod)) #residuals vs fitted
+abline(h=0)
+
+pol$fitted <- fitted(mod)    #fitted vs observed
+plot(pol$fitted, jitter(pol$vp,0.1))
+abline(0,1)
+```
+
+##  Estimated marginal means
+The estimated marginal e means procedure can generate predictor estimates of each type, and give their significance groupings with a post-hoc Tukey test.
+
+```{r emmeans, fig.asp=0.7, fig.width=8}
+# Count
+rg <- ref_grid(mod)
+# summary(rg)
+#sxc.lsm <- emmeans(rg, ~ momcross*dadcross)
+sxc.lsm <- emmeans(rg, ~ momdadcross)
+plot(sxc.lsm, comparisons=T)
+CLD(sxc.lsm, Letters=letters)
+cld.mod <- cld(sxc.lsm, Letters=letters) # tukey letterings
+library(boot)
+cld.mod$response <- inv.logit(cld.mod$emmean)
+cld.mod$uSE <- inv.logit(cld.mod$emmean+cld.mod$SE)
+cld.mod$lSE <- inv.logit(cld.mod$emmean-cld.mod$SE)
+options(digits=4)
+cld.mod[c(15,16),] <- NA
+cld.mod$momdadcross <- as.character(cld.mod$momdadcross)
+cld.mod[c(15,16),1] <- c("HK.KH","KH.HK")
+cld.mod$momdadcross <- as.factor(cld.mod$momdadcross)
+cld.mod <- cbind(cld.mod, lapply(read.table(text = as.character(cld.mod$momdadcross), sep = ".", col.names=c("momcross","dadcross")), factor, levels=levels(pol$momcross)))
+cld.mod[rev(order(cld.mod$momcross, cld.mod$dadcross)),]
+
+ggplot(as.data.frame(cld.mod), aes(y=response, x=momcross, fill=dadcross)) +
+  geom_col(position=position_dodge2()) +
+  geom_linerange(aes(ymin=lSE, ymax=uSE), position=position_dodge2(0.9)) +
+  labs(x="Maternal plant", y="Pollen viability") +
+  geom_text(aes(label=trimws(.group), x=momcross, hjust=length(trimws(.group))/30), position=position_dodge2(0.9), vjust=-1) + 
+  geom_text(aes(label=dadcross, y=0.05), position=position_dodge2(0.9)) +
+  scale_y_continuous(expand = expand_scale(mult=c(0,0)), breaks = scales::pretty_breaks(n = 5), limits=c(0,1)) +
+  scale_fill_manual(values=c("grey80","gray60","gray20","gray40"))+
+  theme_classic() + theme(legend.text=element_text(size=rel(1)), legend.position="bottom", axis.text = element_text(colour="black", size=rel(1)), text=element_text(size=14), axis.ticks.x = element_blank()) + guides(fill=F)
+```
+
+## Contrasts
+
+Expect difference:
+
+1. HK x K - K x HK
+2. KH x H - H x KH
+
+No difference:
+
+3. HK x H - H x HK
+4. KH x K - K x KH
+```{r contrasts}
+K = matrix(rep(0,14*4), 4)
+colnames(K) <- substr(names(coef(mod)),12,16)
+K[1,c("HK.K","K.HK")] <- K[2,c("KH.H","H.KH")] <- K[3,c("HK.H","H.HK")] <- K[4,c("KH.K","K.KH")] <- c(1, -1)
+rownames(K) <- c("HK x K - K x HK","KH x H - H x KH","HK x H - H x HK","KH x K - K x KH")
+library(multcomp)
+summary(glht(mod, linfct=K),test=adjusted("none"))
+
+#diffdiff <- matrix(K[1,]+K[2,]-K[3,]-K[4,],1)
+#summary(glht(sc.mix.mompid.betabin.admb, linfct=diffdiff))
+
+custom.emmc <- function(levels) as.data.frame(t(K))
+contrast(sxc.lsm, "custom", adjust="none")
+contrast(sxc.lsm, "custom", adjust="none", type="response")
+```
+
+```{r emmeansplot_contrasts, fig.asp=0.7, fig.width=8, cache=F}
+
+(em_cont <- ggplot(as.data.frame(cld.mod[cld.mod$momdadcross %in% c("HK.K","K.HK","KH.H","H.KH","HK.H","H.HK","KH.K","K.KH"),]), aes(y=response, x=momcross, fill=dadcross)) +
+  geom_col(position=position_dodge2()) +
+  geom_linerange(aes(ymin=lSE, ymax=uSE), position=position_dodge2(0.9)) +
+  labs(x="Maternal plant", y="Pollen viability") +
+  geom_text(aes(label=dadcross, y=0.05), position=position_dodge2(0.9)) +
+  scale_y_continuous(expand = expand_scale(mult=c(0,0)), breaks = scales::pretty_breaks(n = 5), limits=c(0,1)) +
+  scale_fill_manual(values=c("grey80","gray60","gray20","gray40"))+
+  theme_classic() + theme(legend.text=element_text(size=rel(1)), legend.position="bottom", axis.text = element_text(colour="black", size=rel(1)), text=element_text(size=14), axis.ticks.x = element_blank()) + guides(fill=F))
+```
+
+```{r emmeansplot_reordered, fig.asp=0.7, fig.width=8, cache=F}
+library(RColorBrewer)
+grn_pur <- brewer.pal(10,"Paired")[c(8,2)]
+cld.mod$pair <- factor(c(8,7,6,5,7,2,1,6,3,4,5,1,4,8,9,9))[as.integer(rownames(cld.mod))]
+contr_order <- c("H.HK","HK.H","H.KH","KH.H","K.KH","KH.K","K.HK","HK.K")
+otherlevels <- levels(cld.mod$momdadcross)[!(levels(cld.mod$momdadcross) %in% contr_order)]
+cld.mod$momdadcross2 <- factor(cld.mod$momdadcross, levels = c(contr_order, otherlevels))
+levels(cld.mod$momdadcross2) <- gsub("."," x ",levels(cld.mod$momdadcross2), fixed=T)
+(em_cont_r <- ggplot(as.data.frame(cld.mod[cld.mod$momdadcross2 %in% gsub("."," x ",contr_order, fixed=T),]), 
+                   aes(y=response, x=momdadcross2, fill=pair)) +
+  geom_col() +
+  geom_linerange(aes(ymin=lSE, ymax=uSE)) +
+  labs(x="Cross", y="Pollen viability") +
+  scale_y_continuous(expand = expand_scale(mult=c(0,0)), labels=scales::percent, breaks = scales::pretty_breaks(n = 5), limits=c(0,1)) +
+  scale_fill_manual(values=setNames(rep(grn_pur,each=2), c(7,4,6,1)))+
+  theme_classic() + theme(legend.text=element_text(size=rel(1)), legend.position="bottom", axis.text = element_text(colour="black", size=rel(1)), text=element_text(size=14), axis.ticks.x = element_blank()) + guides(fill=F))
+ggsave("hybridpollenF2_viability.png", em_cont_r, width=7, height = 0.75*7, units="in")
+```
+
+# Pollen grains per flower
+
+##  Distributions by fixed factors
+```{r rawplottot, fig.asp=1}
+(bothplot <- ggplot(pol, aes(y=tpf, x=dadcross, fill=dadcross)) + 
+    facet_wrap(vars(momcross), nrow=1)+ ggtitle("Maternal parent") +
+   geom_boxplot() + geom_point(aes(color=mompop)) + scale_color_discrete("Maternal population",na.value="grey20") +
+  labs(x="Paternal parent", y="Pollen grains per flower") +
+  scale_fill_manual("Paternal plant", values=c("grey90","gray70","gray50","gray30"))+
+  theme_classic() + theme(legend.text=element_text(size=rel(1)), legend.position="bottom", axis.text = element_text(colour="black", size=rel(1)), text=element_text(size=14), axis.ticks.x = element_blank(), plot.title=element_text(hjust=0.5, size=rel(1)))+guides(fill=F))
+```
+
+##  Distributions by random factors
+```{r hst_rand_mpid_tpf, fig.asp=1.5}
+ggplot(aes(y=tpf, x=mompid, color=dadcross), data=pol) + geom_point() + coord_flip() + labs(x="Maternal plant", y="Pollen grains per flower")+theme_minimal()
+```
+
+## Models
+```{r models_tpf, echo=T, cache=F}
+sc          <- lm(tpf~momdadcross, data=pol)
+sc.mix.mompop         <- lmer(tpf~momdadcross + (1|mompop), data=pol)
+sc.mix.momdadpop      <- lmer(tpf~momdadcross + (1|mompop) + (1|dadpop), data=pol)
+sc.mix.mompid         <- lmer(tpf~momdadcross + (1|mompid), data=pol)
+sc.mix.momdadpid      <- lmer(tpf~momdadcross + (1|mompid) + (1|dadpid), data=pol)
+```
+
+## Model comparison
+##  AIC
+We will use the Aikake Information Criterion to pick the model the best fits the data, penalized by the number of parameters. Differences of 2 units are significant.
+
+
+```{r aic_tpf}
+# AICtab(sc.b, sc.mix.mompop.b, sc.mix.mompid.b)
+sc.names <- c("sc", "sc.mix.mompid","sc.mix.momdadpid", "sc.mix.mompop","sc.mix.momdadpop")
+sc.list <- sapply(sc.names, get, USE.NAMES=T)
+sc.AIC <- ICtab(sc.list,mnames=sc.names,type="AIC", base=T, delta=F) #  for AICc, nobs=nobs(sc.list[[1]])
+class(sc.AIC)<-"data.frame"
+all.names <- c(sc.names)
+all.list <- sapply(all.names, get, USE.NAMES=T)
+all.AIC <- dfun(rbind(sc.AIC))
+all.AIC <- all.AIC[order(all.AIC$dAIC),]
+kable(all.AIC, format.arg=list(digits=3))
+```
+
+##  Overdispersion
+
+Looking at the normal, fixed effects model, we see that the residuals are not normal:
+```{r shapiro_tpf}
+shapiro.test(sc$residuals)# raw residuals!
+```
+
+##  Coefficients
+The coefficients estimated for each model agree qualitatively.
+
+
+```{r coef_tpf, fig.asp=1}
+sc.log.names <- sc.names
+sc.log <- sapply(sc.log.names, get, USE.NAMES=T)
+
+coefplot2(sc.log, legend.x="topright",legend=T,legend.args=list(cex=0.8, xpd=T, inset=c(-0.1,0)), col.pts=sample(gg_color_hue(length(sc.log.names))), spacing=0.05, lwd.2=2, lwd.1=4, intercept=T)
+```
+
+
+## Inference
+
+##  Description
+
+
+```{r pick_tpf, cache=F}
+mod <- sc.mix.momdadpid
+print(mod)
+```
+
+##  Model summary
+The model estimated the following parameters, with individual parameter significance determined by the Wald z-test, and fixed effect significance determined by analysis of deviance Wald test.
+
+
+```{r summ_tpf}
+summary(mod)
+```
+
+##  Least square means
+The least square means procedure can generate predictor estimates of each type, and give their significance groupings with a post-hoc Tukey test.
+
+```{r emmeans_tpf, cache=F}
+# Count
+rg <- ref_grid(mod)
+# summary(rg)
+sxc.lsm <- emmeans(rg, ~ momdadcross)
+plot(sxc.lsm)
+cld.mod <- cld(sxc.lsm, Letters=letters) # tukey letterings
+cld.mod[c(15,16),] <- NA
+cld.mod$momdadcross <- as.character(cld.mod$momdadcross)
+cld.mod[c(15,16),1] <- c("HK.KH","KH.HK")
+cld.mod$momdadcross <- as.factor(cld.mod$momdadcross)
+cld.mod <- cbind(cld.mod, lapply(read.table(text = as.character(cld.mod$momdadcross), sep = ".", col.names=c("momcross","dadcross")), factor, levels=levels(pol$momcross)))
+options(digits=4)
+cld.mod[rev(order(cld.mod$momcross, cld.mod$dadcross)),]
+
+
+```
+
+
+```{r emmeansplot_tpf, fig.asp=0.7, fig.width=8}
+ggplot(as.data.frame(cld.mod), aes(y=emmean, x=momcross, fill=dadcross)) +
+  geom_col(position=position_dodge2()) +
+  geom_linerange(aes(ymin=emmean-SE, ymax=emmean+SE), position=position_dodge2(0.9)) +
+  labs(x="Maternal plant", y="Pollen grains per flower") +
+  geom_text(aes(label=trimws(.group), x=momcross, hjust=length(trimws(.group))/30), position=position_dodge2(0.9), vjust=-3) + 
+  geom_text(aes(label=dadcross, y=300), position=position_dodge2(0.9)) +
+  scale_y_continuous(expand = expand_scale(mult=c(0,0.05))) +
+  scale_fill_manual(values=c("grey80","gray60","gray20","gray40"))+
+  theme_classic() + theme(legend.text=element_text(size=rel(1)), legend.position="bottom", axis.text = element_text(colour="black", size=rel(1)), text=element_text(size=14), axis.ticks.x = element_blank()) + guides(fill=F)
+```
+
+
+## Contrasts
+
+Expect difference:
+
+1. HK x K - K x HK
+2. KH x H - H x KH
+
+No difference:
+
+3. HK x H - H x HK
+4. KH x K - K x KH
+```{r contrasts_tpf}
+K = matrix(rep(0,14*4), 4)
+colnames(K) <- substr(names(coef(summary(mod))[,1]),12,16)
+K[1,c("HK.K","K.HK")] <- K[2,c("KH.H","H.KH")] <- K[3,c("HK.H","H.HK")] <- K[4,c("KH.K","K.KH")] <- c(1, -1)
+rownames(K) <- c("HK x K - K x HK","KH x H - H x KH","HK x H - H x HK","KH x K - K x KH")
+library(multcomp)
+summary(glht(mod, linfct=K),test=adjusted("none"))
+
+#diffdiff <- matrix(K[1,]+K[2,]-K[3,]-K[4,],1)
+#summary(glht(sc.mix.mompid.betabin.admb, linfct=diffdiff))
+
+custom.emmc <- function(levels) as.data.frame(t(K))
+contrast(sxc.lsm, "custom", adjust="none")
+contrast(sxc.lsm, "custom", adjust="none", type="response")
+```
+
+```{r emmeansplot_tpf_contrasts}
+ggplot(as.data.frame(cld.mod[cld.mod$momdadcross %in% c("HK.K","K.HK","KH.H","H.KH","HK.H","H.HK","KH.K","K.KH"),]), aes(y=emmean, x=momcross, fill=dadcross)) +
+  geom_col(position=position_dodge2()) +
+  geom_linerange(aes(ymin=emmean-SE, ymax=emmean+SE), position=position_dodge2(0.9)) +
+  labs(x="Maternal plant", y="Pollen grains per flower") +
+  geom_text(aes(label=dadcross, y=300), position=position_dodge2(0.9)) +
+  scale_y_continuous(expand = expand_scale(mult=c(0,0.05))) +
+  scale_fill_manual(values=c("grey80","gray60","gray20","gray40"))+
+  theme_classic() + theme(legend.text=element_text(size=rel(1)), legend.position="bottom", axis.text = element_text(colour="black", size=rel(1)), text=element_text(size=14), axis.ticks.x = element_blank()) + guides(fill=F)
+```
+
+```{r emmeansplot_tpf_reordered, fig.asp=0.7, fig.width=8, cache=F}
+library(RColorBrewer)
+grn_pur <- brewer.pal(10,"Paired")[c(8,2)]
+cld.mod$pair <- factor(c(8,7,6,5,7,2,1,6,3,4,5,1,4,8,9,9))[as.integer(rownames(cld.mod))]
+contr_order <- c("H.HK","HK.H","H.KH","KH.H","K.KH","KH.K","K.HK","HK.K")
+otherlevels <- levels(cld.mod$momdadcross)[!(levels(cld.mod$momdadcross) %in% contr_order)]
+cld.mod$momdadcross2 <- factor(cld.mod$momdadcross, levels = c(contr_order, otherlevels))
+levels(cld.mod$momdadcross2) <- gsub("."," x ",levels(cld.mod$momdadcross2), fixed=T)
+
+library(scales)
+(em_tpf_cont_r <- ggplot(as.data.frame(cld.mod[cld.mod$momdadcross2 %in% gsub("."," x ",contr_order, fixed=T),]), 
+                   aes(y=emmean, x=momdadcross2, fill=pair)) +
+  geom_col() +
+  geom_linerange(aes(ymin=emmean-SE, ymax=emmean+SE)) +
+  labs(x="Cross", y="Pollen grains per flower") +
+  scale_y_continuous(expand = expand_scale(mult=c(0,0.05)), breaks= pretty_breaks(5)) +
+  scale_fill_manual(values=setNames(rep(grn_pur,each=2), c(7,4,6,1)))+
+  theme_classic() + theme(legend.text=element_text(size=rel(1)), legend.position="bottom", axis.text = element_text(colour="black", size=rel(1)), text=element_text(size=14), axis.ticks.x = element_blank()) + guides(fill=F))
+ggsave("hybridpollenF2_tpf.png", em_tpf_cont_r, width=7, height = 0.75*7, units="in")
+```
+
+
+# Viable pollen grains per flower
+
+##  Distributions by fixed factors
+```{r rawplot_vpf, fig.asp=1}
+(bothplot <- ggplot(pol, aes(y=vpf, x=dadcross, fill=dadcross)) + 
+    facet_wrap(vars(momcross), nrow=1)+ ggtitle("Maternal parent") +
+   geom_boxplot() + geom_point(aes(color=mompop)) + scale_color_discrete("Maternal population",na.value="grey20") +
+  labs(x="Paternal parent", y="Viable pollen grains per flower") +
+  scale_fill_manual("Paternal plant", values=c("grey90","gray70","gray50","gray30"))+
+  theme_classic() + theme(legend.text=element_text(size=rel(1)), legend.position="bottom", axis.text = element_text(colour="black", size=rel(1)), text=element_text(size=14), axis.ticks.x = element_blank(), plot.title=element_text(hjust=0.5, size=rel(1)))+guides(fill=F))
+```
+
+##  Distributions by random factors
+```{r hst_rand_mpid_vpf, fig.asp=1.5}
+ggplot(aes(y=vpf, x=mompid, color=dadcross), data=pol) + geom_point() + coord_flip() + labs(x="Maternal plant", y="Viable pollen grains per flower")+theme_minimal()
+```
+
+## Models
+```{r models_vpf, echo=T, cache=T}
+sc          <- lm(vpf~momdadcross, data=pol)
+sc.mix.mompop         <- lmer(vpf~momdadcross + (1|mompop), data=pol)
+sc.mix.momdadpop      <- lmer(vpf~momdadcross + (1|mompop) + (1|dadpop), data=pol)
+sc.mix.mompid         <- lmer(vpf~momdadcross + (1|mompid), data=pol)
+sc.mix.momdadpid      <- lmer(vpf~momdadcross + (1|mompid) + (1|dadpid), data=pol)
+```
+
+## Model comparison
+##  AIC
+We will use the Aikake Information Criterion to pick the model the best fits the data, penalized by the number of parameters. Differences of 2 units are significant.
+
+
+```{r aic_vpf}
+# AICtab(sc.b, sc.mix.mompop.b, sc.mix.mompid.b)
+sc.names <- c("sc", "sc.mix.mompid","sc.mix.momdadpid", "sc.mix.mompop","sc.mix.momdadpop")
+sc.list <- sapply(sc.names, get, USE.NAMES=T)
+sc.AIC <- ICtab(sc.list,mnames=sc.names,type="AIC", base=T, delta=F) #  for AICc, nobs=nobs(sc.list[[1]])
+class(sc.AIC)<-"data.frame"
+all.names <- c(sc.names)
+all.list <- sapply(all.names, get, USE.NAMES=T)
+all.AIC <- dfun(rbind(sc.AIC))
+all.AIC <- all.AIC[order(all.AIC$dAIC),]
+kable(all.AIC, format.arg=list(digits=3))
+
+```
+
+##  Overdispersion
+
+Looking at the normal, fixed effects model, we see that the residuals are not normal:
+```{r shapiro_vpf}
+shapiro.test(sc$residuals)# raw residuals!
+```
+
+##  Coefficients
+The coefficients estimated for each model agree qualitatively.
+
+
+```{r coef_vpf, fig.asp=1}
+sc.log.names <- sc.names
+sc.log <- sapply(sc.log.names, get, USE.NAMES=T)
+
+coefplot2(sc.log, legend.x="topright",legend=T,legend.args=list(cex=0.8, xpd=T, inset=c(-0.1,0)), col.pts=sample(gg_color_hue(length(sc.log.names))), spacing=0.05, lwd.2=2, lwd.1=4, intercept=T)
+```
+
+
+## Inference
+
+##  Description
+
+
+```{r pick_vpf, cache=F}
+mod_vpf  <- sc
+print(mod_vpf)
+```
+
+##  Model summary
+The model estimated the following parameters, with individual parameter significance determined by the Wald z-test, and fixed effect significance determined by analysis of deviance Wald test.
+
+
+```{r summ_vpf, cache=F}
+summary(mod_vpf)
+```
+
+##  Least square means
+The least square means procedure can generate predictor estimates of each type, and give their significance groupings with a post-hoc Tukey test.
+
+```{r emmeans_vpf, cache=F}
+# Count
+rg <- ref_grid(mod_vpf)
+# summary(rg)
+sxc.lsm <- emmeans(rg, ~ momdadcross)
+plot(sxc.lsm)
+cld.mod <- cld(sxc.lsm, Letters=letters) # tukey letterings
+cld.mod[c(15,16),] <- NA
+cld.mod$momdadcross <- as.character(cld.mod$momdadcross)
+cld.mod[c(15,16),1] <- c("HK.KH","KH.HK")
+cld.mod$momdadcross <- as.factor(cld.mod$momdadcross)
+cld.mod <- cbind(cld.mod, lapply(read.table(text = as.character(cld.mod$momdadcross), sep = ".", col.names=c("momcross","dadcross")), factor, levels=levels(pol$momcross)))
+options(digits=4)
+cld.mod[rev(order(cld.mod$momcross, cld.mod$dadcross)),]
+
+```
+
+
+```{r emmeansplot_vpf, fig.asp=0.7, fig.width=8, cache=F}
+
+ggplot(as.data.frame(cld.mod), aes(y=emmean, x=momcross, fill=dadcross)) +
+  geom_col(position=position_dodge2()) +
+  geom_linerange(aes(ymin=emmean-SE, ymax=emmean+SE), position=position_dodge2(0.9)) +
+  labs(x="Maternal plant", y="Viable pollen grains per flower") +
+  geom_text(aes(label=trimws(.group), x=momcross, hjust=length(trimws(.group))/30), position=position_dodge2(0.9), vjust=-3) + 
+  geom_text(aes(label=dadcross, y=300), position=position_dodge2(0.9)) +
+  scale_y_continuous(expand = expand_scale(mult=c(0,0.05))) +
+  scale_fill_manual(values=c("grey80","gray60","gray20","gray40"))+
+  theme_classic() + theme(legend.text=element_text(size=rel(1)), legend.position="bottom", axis.text = element_text(colour="black", size=rel(1)), text=element_text(size=14), axis.ticks.x = element_blank()) + 
+  guides(fill=F)
+```
+
+## Contrasts
+
+Expect difference:
+
+1. HK x K - K x HK
+2. KH x H - H x KH
+
+No difference:
+
+3. HK x H - H x HK
+4. KH x K - K x KH
+```{r contrasts_vpf, cache=F}
+K = matrix(rep(0,14*4), 4)
+colnames(K) <- substr(names(coef(mod_vpf)),12,16)
+K[1,c("HK.K","K.HK")] <- K[2,c("KH.H","H.KH")] <- K[3,c("HK.H","H.HK")] <- K[4,c("KH.K","K.KH")] <- c(1, -1)
+rownames(K) <- c("HK x K - K x HK","KH x H - H x KH","HK x H - H x HK","KH x K - K x KH")
+library(multcomp)
+summary(glht(mod_vpf, linfct=K),test=adjusted("none"))
+
+#diffdiff <- matrix(K[1,]+K[2,]-K[3,]-K[4,],1)
+#summary(glht(sc.mix.mompid.betabin.admb, linfct=diffdiff))
+
+custom.emmc <- function(levels) as.data.frame(t(K))
+contrast(sxc.lsm, "custom", adjust="none")
+```
+
+```{r emmeansplot_vpf_contrasts, fig.asp=0.7, fig.width=8, cache=F}
+
+ggplot(as.data.frame(cld.mod[cld.mod$momdadcross %in% c("HK.K","K.HK","KH.H","H.KH","HK.H","H.HK","KH.K","K.KH"),]), aes(y=emmean, x=momcross, fill=dadcross)) +
+  geom_col(position=position_dodge2()) +
+  geom_linerange(aes(ymin=emmean-SE, ymax=emmean+SE), position=position_dodge2(0.9)) +
+  labs(x="Maternal plant", y="Viable pollen grains per flower") +
+  geom_text(aes(label=dadcross, y=300), position=position_dodge2(0.9)) +
+  scale_y_continuous(expand = expand_scale(mult=c(0,0))) +
+  scale_fill_manual(values=c("grey80","gray60","gray20","gray40"))+
+  theme_classic() + theme(legend.text=element_text(size=rel(1)), legend.position="bottom", axis.text = element_text(colour="black", size=rel(1)), text=element_text(size=14), axis.ticks.x = element_blank()) + 
+  guides(fill=F)
+```
+
+
+```{r emmeansplot_vpf_reordered, fig.asp=0.7, fig.width=8, cache=F}
+library(RColorBrewer)
+grn_pur <- brewer.pal(10,"Paired")[c(8,2)]
+cld.mod$pair <- factor(c(8,7,6,5,7,2,1,6,3,4,5,1,4,8,9,9))[as.integer(rownames(cld.mod))]
+contr_order <- c("H.HK","HK.H","H.KH","KH.H","K.KH","KH.K","K.HK","HK.K")
+otherlevels <- levels(cld.mod$momdadcross)[!(levels(cld.mod$momdadcross) %in% contr_order)]
+cld.mod$momdadcross2 <- factor(cld.mod$momdadcross, levels = c(contr_order, otherlevels))
+levels(cld.mod$momdadcross2) <- gsub("."," x ",levels(cld.mod$momdadcross2), fixed=T)
+
+library(scales)
+(em_tpf_cont_r <- ggplot(as.data.frame(cld.mod[cld.mod$momdadcross2 %in% gsub("."," x ",contr_order, fixed=T),]), 
+                   aes(y=emmean, x=momdadcross2, fill=pair)) +
+  geom_col() +
+  geom_linerange(aes(ymin=emmean-SE, ymax=emmean+SE)) +
+  labs(x="Cross", y="Viable pollen grains per flower") +
+  scale_y_continuous(expand = expand_scale(mult=c(0,0.05)), breaks= pretty_breaks(5)) +
+  scale_fill_manual(values=setNames(rep(grn_pur,each=2), c(7,4,6,1)))+
+  theme_classic() + theme(legend.text=element_text(size=rel(1)), legend.position="bottom", axis.text = element_text(colour="black", size=rel(1)), text=element_text(size=14), axis.ticks.x = element_blank()) + guides(fill=F))
+ggsave("hybridpollenF2_vpf.png", em_tpf_cont_r, width=7, height = 0.75*7, units="in")
+```

@@ -1,0 +1,432 @@
+---
+title: "Backcross Seeds GLM"
+author: "John Powers"
+date: "Dec 13, 2019"
+output:
+  html_document:
+    code_folding: hide
+    toc: yes
+    toc_float: TRUE
+---
+<style type="text/css">
+.table { width: 40%; }
+.main-container { max-width: 1600px; margin-left: 0; margin-right: auto; }
+img{ max-width:200%; height: auto; }
+td, th { padding : 6px }
+</style>
+
+Modified from hybridViability.Rmd (Oct 2017)
+
+
+# Purpose
+
+Test for cytonuclear incompatabilities in two sympatric moth-pollinated plant species, *Schiedea kaalae* and *S. hookeri*.
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = T, warning= F, comment="  ", cache=T, fig.width=20, fig.height=10)
+library(lme4)
+#library(MASS)
+library(car)
+#library(glmmADMB)
+library(glmmTMB)
+library(bbmle)
+library(emmeans)
+library(multcomp)
+#library(vcd)
+#library(countreg)
+
+source("glmm_funs.R")
+
+# Visualization
+library(coefplot2)
+library(ggplot2); theme_set(theme_minimal())
+library(RColorBrewer)
+#library(lattice)
+library(plyr)
+library(dplyr)
+#library(beanplot)
+library(knitr)
+
+gg_color_hue <- function(n) {
+  hues = seq(15, 375, length = n + 1)
+  hcl(h = hues, l = 65, c = 100)[1:n]
+}
+
+#overwrite function to make emmeans and multcomp play nice
+modelparm.glmmTMB <- function (model, coef. = function(x) fixef(x)[[component]],
+                               vcov. = function(x) vcov(x)[[component]],
+                               df = NULL, component="cond", ...) {
+    multcomp:::modelparm.default(model, coef. = coef., vcov. = vcov.,
+                        df = df, ...)
+}
+```
+
+# Data Import
+```{r data}
+#DATA CHANGED
+#changed from within to hybrid in hybridseeds.csv and f1&hybridseeds.csv: 615	597	hook	794	2	892	hybrid	K	HK	16
+#need to fix dadpop = closed in hybridseeds.csv
+setwd("~/MyDocs/MEGA/UCI/Schiedea/Analysis/HybridSeeds")
+sds <- read.table("f1&hybridseeds2.csv", header=T, sep="\t")
+sds <- within(sds, yesno <- as.numeric(seednum>0))
+
+
+sdsm2 <- sds[grepl("x",sds$momfullcross),]
+sdsm2.split <- cbind(sdsm2$crossid, as.data.frame(matrix(unlist(matrix(lapply(matrix(unlist(strsplit(as.character(sdsm2$momfullcross), " x ", fixed=T)), nrow=2), function(x) { spl <- unlist(strsplit(unlist(strsplit(x, " ", fixed=T)), "-", fixed=T)); c(spl[1],gsub("-NA","",paste(spl[2],spl[3],spl[4], sep="-"))) }), ncol=2)), ncol=4, byrow=T)))
+colnames(sdsm2.split) <- c("crossid","mommompop","mommomid","momdadpop","momdadid")
+
+sdsd2 <- sds[grepl("x",sds$dadfullcross),]
+sdsd2.split <- cbind(sdsd2$crossid, as.data.frame(matrix(unlist(matrix(lapply(matrix(unlist(strsplit(as.character(sdsd2$dadfullcross), " x ", fixed=T)), nrow=2), function(x) { spl <- unlist(strsplit(unlist(strsplit(x, " ", fixed=T)), "-", fixed=T)); c(spl[1],gsub("-NA","",paste(spl[2],spl[3],spl[4], sep="-"))) }), ncol=2)), ncol=4, byrow=T)))
+colnames(sdsd2.split) <- c("crossid","dadmompop","dadmomid","daddadpop","daddadid")
+
+sdsm1 <- sds[!grepl("x",sds$momfullcross),]
+sdsm1.split <- cbind(sdsm1$crossid, as.data.frame(matrix(unlist(matrix(lapply(as.character(sdsm1$momfullcross), function(x) { spl <- unlist(strsplit(unlist(strsplit(x, " ", fixed=T)), "-", fixed=T)); c(spl[1],gsub("-NA","",paste(spl[2],spl[3],spl[4], sep="-"))) }), ncol=1)), ncol=2, byrow=T)))
+colnames(sdsm1.split) <- c("crossid","mompop","momid")
+
+sdsd1 <- sds[!grepl("x",sds$dadfullcross),]
+sdsd1.split <- cbind(sdsd1$crossid, as.data.frame(matrix(unlist(matrix(lapply(as.character(sdsd1$dadfullcross), function(x) { spl <- unlist(strsplit(unlist(strsplit(x, " ", fixed=T)), "-", fixed=T)); c(spl[1],gsub("-NA","",paste(spl[2],spl[3],spl[4], sep="-"))) }), ncol=1)), ncol=2, byrow=T)))
+colnames(sdsd1.split) <- c("crossid","dadpop","dadid")
+
+
+sds <- merge(sds, sdsm2.split, by="crossid", all.x=T)
+sds <- merge(sds, sdsd2.split, by="crossid", all.x=T)
+sds <- merge(sds, sdsm1.split, by="crossid", all.x=T)
+sds <- merge(sds, sdsd1.split, by="crossid", all.x=T)
+
+pop2sp <- function(x) { factor(ifelse(x %in% c("904","3587", "892"), "kaal", ifelse(is.na(x),NA,"hook")))}
+sds$mommomspecies <- pop2sp(sds$mommompop)
+sds$momdadspecies <- pop2sp(sds$momdadpop)
+sds$dadmomspecies <- pop2sp(sds$dadmompop)
+sds$daddadspecies <- pop2sp(sds$daddadpop)
+sds$momcross <- factor(toupper(paste0(substr(sds$mommomspecies,0,1), substr(sds$momdadspecies,0,1))))
+sds$dadcross <- factor(toupper(paste0(substr(sds$dadmomspecies,0,1), substr(sds$daddadspecies,0,1))))
+
+sds$momcross <- factor(ifelse(sds$momcross=="NANA", toupper(substr(as.character(pop2sp(sds$mompop)),0,1)), as.character(sds$momcross)))
+sds$dadcross <- factor(ifelse(sds$dadcross=="NANA", toupper(substr(as.character(pop2sp(sds$dadpop)),0,1)), as.character(sds$dadcross)))
+is.na(sds$dadcross) <- is.na(sds$momcross) <- sds$crosstype=="control"
+
+#table(sds$crosstype)
+#with(sds, plot(seednum~crosstype, las=2))
+
+sds$dadcross <- factor(sds$dadcross, c("H",  "HK", "KH", "K"))
+sds$momcross <- factor(sds$momcross, c("H",  "HK", "KH", "K"))
+
+#table(sds$momcross, sds$dadcross)
+#table(sds$momcross, sds$dadcross, sds$crosstype) #errors in crosstype! don't use this variable
+
+sds <- sds[sds$crosstype!="control",]
+sds <- sds[!(sds$momcross=="KH" & sds$dadcross=="HK"),]
+```
+
+```{r dataf2}
+#setwd("~/MyDocs/MEGA/UCI/Schiedea/Analysis/HybridSeeds")
+f2sds <- read.csv("f2seedsEH.csv", sep="\t")
+
+f2sdsm2 <- f2sds[grepl("x",f2sds$momfullcross),]
+f2sdsm2.split <- cbind(f2sdsm2$pollinationid, as.data.frame(matrix(unlist(matrix(lapply(matrix(unlist(strsplit(as.character(f2sdsm2$momfullcross), " x ", fixed=T)), nrow=2), function(x) { spl <- unlist(strsplit(unlist(strsplit(x, " ", fixed=T)), "-", fixed=T)); c(spl[1],gsub("-NA","",paste(spl[2],spl[3],spl[4], sep="-"))) }), ncol=2)), ncol=4, byrow=T)))
+colnames(f2sdsm2.split) <- c("pollinationid","mommompop","mommomid","momdadpop","momdadid")
+
+f2sdsd2 <- f2sds[grepl("x",f2sds$dadfullcross),]
+f2sdsd2.split <- cbind(f2sdsd2$pollinationid, as.data.frame(matrix(unlist(matrix(lapply(matrix(unlist(strsplit(as.character(f2sdsd2$dadfullcross), " x ", fixed=T)), nrow=2), function(x) { spl <- unlist(strsplit(unlist(strsplit(x, " ", fixed=T)), "-", fixed=T)); c(spl[1],gsub("-NA","",paste(spl[2],spl[3],spl[4], sep="-"))) }), ncol=2)), ncol=4, byrow=T)))
+colnames(f2sdsd2.split) <- c("pollinationid","dadmompop","dadmomid","daddadpop","daddadid")
+
+f2sdsm1 <- f2sds[!grepl("x",f2sds$momfullcross),]
+f2sdsm1.split <- cbind(f2sdsm1$pollinationid, as.data.frame(matrix(unlist(matrix(lapply(as.character(f2sdsm1$momfullcross), function(x) { spl <- unlist(strsplit(unlist(strsplit(x, " ", fixed=T)), "-", fixed=T)); c(spl[1],gsub("-NA","",paste(spl[2],spl[3],spl[4], sep="-"))) }), ncol=1)), ncol=2, byrow=T)))
+colnames(f2sdsm1.split) <- c("pollinationid","mompop","momid")
+
+f2sdsd1 <- f2sds[!grepl("x",f2sds$dadfullcross),]
+f2sdsd1.split <- cbind(f2sdsd1$pollinationid, as.data.frame(matrix(unlist(matrix(lapply(as.character(f2sdsd1$dadfullcross), function(x) { spl <- unlist(strsplit(unlist(strsplit(x, " ", fixed=T)), "-", fixed=T)); c(spl[1],gsub("-NA","",paste(spl[2],spl[3],spl[4], sep="-"))) }), ncol=1)), ncol=2, byrow=T)))
+colnames(f2sdsd1.split) <- c("pollinationid","dadpop","dadid")
+
+
+f2sds <- merge(f2sds, f2sdsm2.split, by="pollinationid", all.x=T)
+f2sds <- merge(f2sds, f2sdsd2.split, by="pollinationid", all.x=T)
+f2sds <- merge(f2sds, f2sdsm1.split, by="pollinationid", all.x=T)
+f2sds <- merge(f2sds, f2sdsd1.split, by="pollinationid", all.x=T)
+
+popcols <- c("mompop","dadpop","mommompop","momdadpop","dadmompop","daddadpop")
+f2sds[popcols] <- lapply(f2sds[popcols], function(x) { sapply(x, mapvalues, from = c("794","866","899","879","892","904","3587"), to = c("WK","WK","WK","879WKG","892WKG","904WPG","3587WP"), warn_missing=F) })
+
+kaalpops <- c("904WPG","3587WP", "892WKG")
+pop2sp <- function(x) { factor(ifelse(x %in% kaalpops, "kaal", ifelse(is.na(x),NA,"hook")))}
+f2sds$mommomspecies <- pop2sp(f2sds$mommompop)
+f2sds$momdadspecies <- pop2sp(f2sds$momdadpop)
+f2sds$dadmomspecies <- pop2sp(f2sds$dadmompop)
+f2sds$daddadspecies <- pop2sp(f2sds$daddadpop)
+f2sds$momcross <- factor(toupper(paste0(substr(f2sds$mommomspecies,0,1), substr(f2sds$momdadspecies,0,1))))
+f2sds$dadcross <- factor(toupper(paste0(substr(f2sds$dadmomspecies,0,1), substr(f2sds$daddadspecies,0,1))))
+
+f2sds$momcross <- factor(ifelse(f2sds$momcross=="NANA", toupper(substr(as.character(pop2sp(f2sds$mompop)),0,1)), as.character(f2sds$momcross)))
+f2sds$dadcross <- factor(ifelse(f2sds$dadcross=="NANA", toupper(substr(as.character(pop2sp(f2sds$dadpop)),0,1)), as.character(f2sds$dadcross)))
+# is.na(f2sds$dadcross) <- is.na(f2sds$momcross) <- f2sds$crosstype=="control"
+
+f2sds$dadcross <- factor(f2sds$dadcross, c("H",  "HK", "KH", "K"))
+f2sds$momcross  <- factor(f2sds$momcross, c("H",  "HK", "KH", "K"))
+f2sds$crosstype <- with(f2sds, factor(paste(momcross, dadcross, sep="x")))
+f2sds$species <- factor(ifelse(f2sds$mompop %in% kaalpops, "kaal", "hook"))
+f2sds$dadsp <-   factor(ifelse(f2sds$dadpop %in% kaalpops, "kaal", "hook"))
+f2sds <- within(f2sds, smompop <- as.factor(paste(species,mompop,sep="")))
+f2sds <- within(f2sds, mompid <- as.factor(paste(mompop,momid,sep=".")))
+f2sds <- within(f2sds, dadpid <- as.factor(paste(dadpop,dadid,sep=".")))
+
+f2sds$mompop <- as.character(f2sds$mompop)
+f2sds$mompop[is.na(f2sds$mompop)] <- as.character(f2sds$momcross[is.na(f2sds$mompop)])
+f2sds$mompop <- as.factor(f2sds$mompop)
+f2sds$dadpop <- as.character(f2sds$dadpop)
+f2sds$dadpop[is.na(f2sds$dadpop)] <- as.character(f2sds$dadcross[is.na(f2sds$dadpop)])
+f2sds$dadpop <- as.factor(f2sds$dadpop)
+
+
+# check final structure
+#str(f2sds)
+
+#the momcross for F2s is momcross x dadcross and the dadcross is pollen_donor. So put "mom" in front of everything
+f2sds.fix <- f2sds %>%
+  rename_at(vars(matches("mom|dad|cross|species")), function(x) paste0("mom",x)) %>%
+  dplyr::rename(momcross = momcrosstype, dadcross= pollen_donor, seednum=viable_seeds) %>%
+  mutate(yesno = as.numeric(seednum > 0), 
+         crosstype=paste0(momcross, "x", dadcross), 
+         momfullcross =paste(mommomfullcross, momdadfullcross),
+         dadfullcross = dadcross,
+         crossid=paste0("P",pollinationid))
+f2sds <- f2sds.fix
+
+#Inventory of attempted crosses
+#with(f2sds, table(momcross, dadcross))
+```
+
+
+```{r bind}
+#intersect(colnames(sds), colnames(f2sds))
+sds$crossid <- as.character(sds$crossid)
+sds.all <- bind_rows(sds, f2sds) %>% mutate_if(is.character, as.factor)
+str(sds.all)
+sds <- sds.all
+sds$dadcross <- factor(sds$dadcross, c("H",  "HK", "KH", "K"))
+sds$momcross <- factor(sds$momcross, c("H", "HK", "HxKH", "HxHK", "HKxH", "KHxH","HKxHK",
+                                       "KHxKH", "HKxK", "KHxK", "KxKH", "KxHK", "KH", "K" ))
+
+```
+
+# Inventory
+## Capsules
+```{r inventory}
+#number of capsules (multiple capsules per plant)
+with(sds, table(momcross, dadcross))
+sds_n <- sds %>% group_by(momcross, dadcross) %>% tally()
+sds_capsule <- sds %>% group_by(momcross, dadcross) %>% summarize_at(vars(yesno), mean)
+```
+
+## Maternal plants
+```{r invenotry_mom}
+sds_mom_n <- sds %>% group_by(momcross, dadcross, momfullcross) %>% tally
+with(sds_mom_n, table(momcross, dadcross))
+```
+
+
+## Maternal plants x Paternal plants
+```{r invenotry_momdad}
+sds_momdad_n <- sds %>% group_by(momcross, dadcross, momfullcross, dadfullcross) %>% tally
+with(sds_momdad_n, table(momcross, dadcross))
+```
+
+```{r lumping, eval = FALSE}
+#lump by plant
+f2sds_plant_n <- f2sds %>% group_by(mommomfullcross, momdadfullcross, momcrossid, dadcross) %>% tally()
+#hist(f2sds_plant_n$n)
+
+#leave out crosstype (errors), crossid, pollinationid, momcrossid, dependent variables, dates, comments
+sds_plant_n <- sds %>% group_by(momfullcross, dadfullcross, mommompop, mommomid, momdadpop, momdadid, dadmompop, dadmomid, daddadpop, daddadid, mompop, momid, dadpop, dadid, mommomspecies, momdadspecies, dadmomspecies, daddadspecies, momcross, dadcross, mommomfullcross, momdadfullcross,  mommommompop, mommommomid, mommomdadpop, momdadmomid, momdaddadpop, momdaddadid, mommommomspecies, mommomdadspecies, momdaddadspecies, mommomcross, momdadcross, momspecies, momdadsp, momsmompop, mommompid, momdadpid) %>% tally()
+hist(sds_plant_n$n)
+nrow(sds_plant_n)
+
+#these two variables (momfullcross, dadfullcross) are sufficient to describe the rest
+sds %>% group_by(momfullcross, dadfullcross) %>% tally %>% nrow
+sds %>% group_by(momcross, dadcross, momfullcross, dadfullcross) %>% tally
+
+#there are some plant x plant with multiple momcrossid's - lump those
+sds %>% group_by(momfullcross, dadfullcross, momcrossid) %>% tally %>% nrow
+sds %>% group_by(momfullcross,  momcrossid) %>% tally %>% filter(momfullcross %in% momfullcross[duplicated(momfullcross)])
+
+#there are some plant x plant with multiple crosstypes - these are the crosstype errors but we don't use this variable so OK
+sds %>% group_by(momfullcross, dadfullcross, crosstype) %>% tally %>% filter(momfullcross %in% momfullcross[duplicated(momfullcross)])
+
+#the plant x plant crosses with the highest tallies are often missing the dad plant ID (just has dad population from Thu)
+```
+
+# Plot of raw data
+
+```{r f2boxplot, eval=FALSE, include=FALSE}
+(f2seedplot <- 
+   ggplot(f2sds, aes(x=momcross, fill=momdadcross, y=seednum)) + 
+   #geom_boxplot(outlier.shape=NA, color="black")+
+   geom_violin(bw=0.7)+
+   geom_jitter(alpha=0.6, width=0.2, height=0.2, color="black") + 
+   facet_wrap(vars(dadcross), nrow=2, labeller = label_both) + 
+   scale_fill_manual(values=c("grey80","gray60","gray20","gray40"))+
+   scale_y_continuous("Viable seeds", breaks=0:max(na.omit(f2sds$seednum)), minor_breaks=NULL, expand=c(0.01,0.01)) +
+   xlab("Maternal plant") +
+   theme_bw() )
+#ggsave("f2seedplot.png", f2seedplot, height = 5)
+```
+
+
+
+```{r rawplot}
+(bothplot <- ggplot(sds, aes(y=seednum, x=dadcross, fill=dadcross)) + 
+   facet_wrap(vars(momcross), nrow=1, strip.position="bottom")+ 
+   #geom_boxplot(outlier.size=0.5) + 
+   geom_violin(scale="width")+
+   stat_summary(fun.y = median, fun.ymin = median, fun.ymax = median, geom = "crossbar", width = 0.9) +
+   geom_text(data=sds_n, aes(y=-2, label=n))+
+   geom_text(data=sds_capsule, aes(y=-1, label=scales::percent(yesno, accuracy=1)))+
+   labs(x="\nCapsule formation (%)\nNumber of pollinations\nFemale plant\nPollen donor", y="Viable seeds") +
+   scale_y_continuous(expand = expand_scale(add=c(0.5,0.5)), breaks = scales::pretty_breaks(n = 6)) +
+   scale_fill_manual("Paternal plant", values=c("grey90","gray70","gray50","gray30"))+
+   theme_classic()+ theme(axis.text = element_text(colour="black", size=rel(1)), 
+                          text=element_text(size=14),
+                          axis.ticks.x = element_blank(),
+                          panel.grid.major.y = element_line(color="grey80"))+
+   guides(fill=F))
+
+#ggsave("seedplot_all.pdf", bothplot, width=24, height=10)
+```
+
+# Models
+
+## Overall model
+### Number of seeds per pollination
+```{r lsmeans}
+f1.md.qpoi        <- glm(seednum~momcross*dadcross, data=sds, family="quasipoisson")
+Anova(f1.md.qpoi)
+cld.mod <- f1.md.qpoi %>% 
+  ref_grid %>%  emmeans(~ momcross*dadcross) %>% 
+  summary %>%
+  mutate(response = exp(emmean), uSE = exp(emmean+SE), lSE = exp(emmean-SE))
+cld.mod[,-c(3:7)]
+```
+
+## Hurdle model
+
+### Fraction of pollinations that produced capsules
+
+#### All data
+```{r lsmeansbi}
+f1.md.hr          <- glm(yesno~momcross*dadcross, data=sds, family="binomial")
+Anova(f1.md.hr)
+cld.mod <- f1.md.hr %>% 
+  ref_grid %>%  emmeans(~ momcross*dadcross) %>% 
+  summary%>%
+  mutate(response=plogis(emmean), uSE = plogis(emmean+SE), lSE = plogis(emmean-SE))
+cld.mod[1:26,-c(3:7)]
+
+ggplot(as.data.frame(cld.mod), aes(y=response, x=momcross, fill=dadcross)) +
+  geom_col(position=position_dodge2()) +
+  geom_linerange(aes(ymin=lSE, ymax=uSE), position=position_dodge2(0.9)) +
+  labs(x="Maternal plant", y="Capsule formation") +
+  #geom_text(aes(label=trimws(.group), x=momcross, hjust=length(trimws(.group))/30), position=position_dodge2(0.9), vjust=-4) + 
+  geom_text(aes(label=dadcross, y=0.05), position=position_dodge2(0.9)) +
+  scale_y_continuous(expand = expand_scale(mult=c(0,0)), breaks = scales::pretty_breaks(n = 5), limits=c(0,1)) +
+  scale_fill_manual(values=c("grey80","gray60","gray20","gray40"))+
+  theme_classic() + theme(legend.text=element_text(size=rel(1)), legend.position="bottom", axis.text = element_text(colour="black", size=rel(1)), text=element_text(size=14), axis.ticks.x = element_blank()) + guides(fill=F)
+```
+
+#### Contrasts for cytonuclear incompatibility
+This analysis uses the maternal plant ID (momfullcross) as a random effect.
+```{r contrasts_bi}
+f1.m.hr          <- glm(yesno~momcross, data=sds, family="binomial")
+f1.m.mixed.hr          <- glmmTMB(yesno~momcross + (1|momfullcross), data=sds, family="binomial")
+K = matrix(rep(0,14*4), 4)
+colnames(K) <- substr(names(coef(f1.m.hr)),9,13)
+K[1,c("HKxK","KxHK")] <- K[2,c("KHxH","HxKH")] <- K[3,c("HKxH","HxHK")] <- K[4,c("KHxK","KxKH")] <- c(1, -1)
+rownames(K) <- c("HK x K - K x HK","KH x H - H x KH","HK x H - H x HK","KH x K - K x KH")
+library(multcomp)
+summary(glht(f1.m.mixed.hr, linfct=K),test=adjusted("none"))
+```
+
+
+```{r emmeansplot_reordered_bi, fig.asp=0.7, fig.width=8, cache=F}
+cld.mod <- f1.m.mixed.hr %>% 
+  ref_grid %>%  emmeans(~ momcross) %>% 
+  summary%>%
+  mutate(response=plogis(emmean), uSE = plogis(emmean+SE), lSE = plogis(emmean-SE))
+cld.mod[,-c(2:6)]
+
+grn_pur <- brewer.pal(10,"Paired")[c(8,2)]
+cld.mod$pair <- factor(c(1,2,3,4,4,3,5,5,6,7,7,6,2,1))[as.integer(rownames(cld.mod))] #the reciprocal pairs
+contr_order <- c("HxHK","HKxH","HxKH","KHxH","KxKH","KHxK","KxHK","HKxK")
+otherlevels <- levels(cld.mod$momcross)[!(levels(cld.mod$momcross) %in% contr_order)]
+cld.mod$momcross2 <- factor(cld.mod$momcross, levels = c(contr_order, otherlevels))
+levels(cld.mod$momcross2) <- gsub("."," x ",levels(cld.mod$momcross2), fixed=T)
+(em_cont_r <- ggplot(as.data.frame(cld.mod[cld.mod$momcross2 %in% contr_order,]), 
+                   aes(y=response, x=momcross2, fill=pair)) +
+  geom_col() +
+  geom_linerange(aes(ymin=lSE, ymax=uSE)) +
+  labs(x="Cross", y="Capsule formation") +
+  scale_y_continuous(expand = expand_scale(mult=c(0,0)), labels=scales::percent, breaks = scales::pretty_breaks(n = 5), limits=c(0,1)) +
+  scale_fill_manual(values=setNames(rep(grn_pur,each=2), c(4, 7, 3, 6)))+ #7,4,6,1
+  theme_classic() + theme(legend.text=element_text(size=rel(1)), legend.position="bottom", axis.text = element_text(colour="black", size=rel(1)), text=element_text(size=14), axis.ticks.x = element_blank()) + guides(fill=F))
+ggsave("hybrid_capsule_F2.png", em_cont_r, width=7, height = 0.75*7, units="in")
+```
+
+### Number of seeds if capsule formed
+
+#### All data
+```{r lsmeanstr}
+f1.md.qpoi.tr     <- glm(seednum~momcross*dadcross, data=subset(sds,seednum>0), family="quasipoisson")
+Anova(f1.md.qpoi.tr)
+
+cld.mod <- f1.md.qpoi.tr %>% 
+  ref_grid %>%  emmeans(~ momcross*dadcross) %>% 
+  summary %>%
+  mutate(response = exp(emmean), uSE = exp(emmean+SE), lSE = exp(emmean-SE))
+cld.mod[,-c(3:7)]
+
+ggplot(as.data.frame(cld.mod), aes(y=response, x=momcross, fill=dadcross)) +
+  geom_col(position=position_dodge2()) +
+  geom_linerange(aes(ymin=lSE, ymax=uSE), position=position_dodge2(0.9)) +
+  labs(x="Maternal plant", y="Seeds per capsule") +
+  #geom_text(aes(label=trimws(.group), x=momcross, hjust=length(trimws(.group))/30), position=position_dodge2(0.9), vjust=-2) + 
+  geom_text(aes(label=dadcross, y=0.5), position=position_dodge2(0.9)) +
+  scale_y_continuous(expand = expand_scale(mult=c(0,.1)), breaks = scales::pretty_breaks(n = 20))+
+  scale_fill_manual(values=c("grey80","gray60","gray20","gray40"))+
+  theme_classic() + theme(legend.text=element_text(size=rel(1)), legend.position="bottom", axis.text = element_text(colour="black", size=rel(1)), text=element_text(size=14), axis.ticks.x = element_blank()) + guides(fill=F)
+```
+
+
+#### Contrasts for cytonuclear incompatibility
+This analysis uses the maternal plant ID (momfullcross) as a random effect.
+```{r contrasts_tr}
+f1.m.qpoi.tr     <- glm(seednum~momcross, data=subset(sds,seednum>0), family="quasipoisson")
+f1.m.mixed.tr     <- glmmTMB(seednum~momcross + (1|momfullcross), data=subset(sds,seednum>0), family="nbinom1")
+K = matrix(rep(0,14*4), 4)
+colnames(K) <- substr(names(coef(f1.m.qpoi.tr)),9,13)
+K[1,c("HKxK","KxHK")] <- K[2,c("KHxH","HxKH")] <- K[3,c("HKxH","HxHK")] <- K[4,c("KHxK","KxKH")] <- c(1, -1)
+rownames(K) <- c("HK x K - K x HK","KH x H - H x KH","HK x H - H x HK","KH x K - K x KH")
+summary(glht(f1.m.mixed.tr, linfct=K),test=adjusted("none"))
+```
+
+```{r emmeansplot_reordered_tr, fig.asp=0.7, fig.width=8, cache=F}
+cld.mod <- f1.m.mixed.tr %>% 
+  ref_grid %>%  emmeans(~ momcross) %>% 
+  summary%>%
+  mutate(response = exp(emmean), uSE = exp(emmean+SE), lSE = exp(emmean-SE))
+cld.mod[,-c(2:6)]
+
+grn_pur <- brewer.pal(10,"Paired")[c(8,2)]
+cld.mod$pair <- factor(c(1,2,3,4,4,3,5,5,6,7,7,6,2,1))[as.integer(rownames(cld.mod))] #the reciprocal pairs
+contr_order <- c("HxHK","HKxH","HxKH","KHxH","KxKH","KHxK","KxHK","HKxK")
+otherlevels <- levels(cld.mod$momcross)[!(levels(cld.mod$momcross) %in% contr_order)]
+cld.mod$momcross2 <- factor(cld.mod$momcross, levels = c(contr_order, otherlevels))
+levels(cld.mod$momcross2) <- gsub("."," x ",levels(cld.mod$momcross2), fixed=T)
+(em_cont_r <- ggplot(as.data.frame(cld.mod[cld.mod$momcross2 %in% contr_order,]), 
+                   aes(y=response, x=momcross2, fill=pair)) +
+  geom_col() +
+  geom_linerange(aes(ymin=lSE, ymax=uSE)) +
+  labs(x="Cross", y="Seeds per capsule") +
+  scale_y_continuous(expand = expand_scale(mult=c(0,0)), breaks = scales::pretty_breaks(n = 15)) +
+  scale_fill_manual(values=setNames(rep(grn_pur,each=2), c(4, 7, 3, 6)))+ #7,4,6,1
+  theme_classic() + theme(legend.text=element_text(size=rel(1)), legend.position="bottom", axis.text = element_text(colour="black", size=rel(1)), text=element_text(size=14), axis.ticks.x = element_blank()) + guides(fill=F))
+ggsave("hybrid_seedspercapsule_F2.png", em_cont_r, width=7, height = 0.75*7, units="in")
+```

@@ -1,0 +1,203 @@
+---
+title: "Backcross Pollen vs. Backcross Seeds"
+author: "John Powers"
+date: "Dec 9, 2019"
+output:
+  html_document:
+    code_folding: show
+    toc: yes
+    toc_float: TRUE
+---
+<style type="text/css">
+.table { width: 40%; }
+</style>
+
+Modified from hybridViability.Rmd (Oct 2017)
+
+# Purpose
+Test for trade-offs between male and female function in F2 hybrids of two sympatric moth-pollinated plant species, *Schiedea kaalae* and *S. hookeri*.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = T, warning= F, comment="  ", cache=T)
+library(lme4)
+library(MASS)
+library(car)
+library(glmmADMB)
+library(bbmle)
+library(emmeans)
+library(vcd)
+library(countreg)
+
+source("glmm_funs.R")
+
+# Visualization
+library(coefplot2)
+library(ggplot2); theme_set(theme_minimal())
+library(lattice)
+library(plyr)
+library(beanplot)
+library(knitr)
+library(dplyr)
+
+gg_color_hue <- function(n) {
+  hues = seq(15, 375, length = n + 1)
+  hcl(h = hues, l = 65, c = 100)[1:n]
+}
+```
+
+# Data Import
+
+```{r data}
+setwd("~/MyDocs/MEGA/UCI/Schiedea/Analysis/HybridSeeds")
+pol <- read.table("f2pollenEH.csv", header=T, sep="\t", colClasses=c(date="Date"))
+pol <- pol[!is.na(pol$V1) & pol$dadfullcross!="9999",]
+
+pol$v <- rowSums(pol[,grepl("V", colnames(pol))])/10 # average viable counts
+pol$i <- rowSums(pol[,grepl("I", colnames(pol))])/10 # average inviable counts
+pol$vpf <- (pol$v * 444.4/20) * 10      # number viable per flower (5 flrs)
+pol$ipf <- (pol$i * 444.4/20) * 10      # number inviable per flower (5 flrs)
+pol$vp <- pol$vpf / (pol$vpf + pol$ipf) # proportion viable
+pol$tpf <- pol$vpf + pol$ipf
+pol$t <- 10*(pol$v + pol$i)
+
+polm2 <- pol[grepl("x",pol$momfullcross),]
+polm2.split <- cbind(polm2$crossid, as.data.frame(matrix(unlist(matrix(lapply(matrix(unlist(strsplit(as.character(polm2$momfullcross), " x ", fixed=T)), nrow=2), function(x) { spl <- unlist(strsplit(unlist(strsplit(x, " ", fixed=T)), "-", fixed=T)); c(spl[1],gsub("-NA","",paste(spl[2],spl[3],spl[4], sep="-"))) }), ncol=2)), ncol=4, byrow=T)))
+colnames(polm2.split) <- c("crossid","mommompop","mommomid","momdadpop","momdadid")
+
+pold2 <- pol[grepl("x",pol$dadfullcross),]
+pold2.split <- cbind(pold2$crossid, as.data.frame(matrix(unlist(matrix(lapply(matrix(unlist(strsplit(as.character(pold2$dadfullcross), " x ", fixed=T)), nrow=2), function(x) { spl <- unlist(strsplit(unlist(strsplit(x, " ", fixed=T)), "-", fixed=T)); c(spl[1],gsub("-NA","",paste(spl[2],spl[3],spl[4], sep="-"))) }), ncol=2)), ncol=4, byrow=T)))
+colnames(pold2.split) <- c("crossid","dadmompop","dadmomid","daddadpop","daddadid")
+
+polm1 <- pol[!grepl("x",pol$momfullcross),]
+polm1.split <- cbind(polm1$crossid, as.data.frame(matrix(unlist(matrix(lapply(as.character(polm1$momfullcross), function(x) { spl <- unlist(strsplit(unlist(strsplit(x, " ", fixed=T)), "-", fixed=T)); c(spl[1],gsub("-NA","",paste(spl[2],spl[3],spl[4], sep="-"))) }), ncol=1)), ncol=2, byrow=T)))
+colnames(polm1.split) <- c("crossid","mompop","momid")
+
+pold1 <- pol[!grepl("x",pol$dadfullcross),]
+pold1.split <- cbind(pold1$crossid, as.data.frame(matrix(unlist(matrix(lapply(as.character(pold1$dadfullcross), function(x) { spl <- unlist(strsplit(unlist(strsplit(x, " ", fixed=T)), "-", fixed=T)); c(spl[1],gsub("-NA","",paste(spl[2],spl[3],spl[4], sep="-"))) }), ncol=1)), ncol=2, byrow=T)))
+colnames(pold1.split) <- c("crossid","dadpop","dadid")
+
+
+pol <- merge(pol, polm2.split, by="crossid", all.x=T)
+pol <- merge(pol, pold2.split, by="crossid", all.x=T)
+pol <- merge(pol, polm1.split, by="crossid", all.x=T)
+pol <- merge(pol, pold1.split, by="crossid", all.x=T)
+
+popcols <- c("mompop","dadpop","mommompop","momdadpop","dadmompop","daddadpop")
+pol[popcols] <- lapply(pol[popcols], function(x) { sapply(x, mapvalues, from = c("794","866","899","879","892","904","3587"), to = c("WK","WK","WK","879WKG","892WKG","904WPG","3587WP"), warn_missing=F) })
+
+kaalpops <- c("904WPG","3587WP", "892WKG")
+pop2sp <- function(x) { factor(ifelse(x %in% kaalpops, "kaal", ifelse(is.na(x),NA,"hook")))}
+pol$mommomspecies <- pop2sp(pol$mommompop)
+pol$momdadspecies <- pop2sp(pol$momdadpop)
+pol$dadmomspecies <- pop2sp(pol$dadmompop)
+pol$daddadspecies <- pop2sp(pol$daddadpop)
+pol$momcross <- factor(toupper(paste0(substr(pol$mommomspecies,0,1), substr(pol$momdadspecies,0,1))))
+pol$dadcross <- factor(toupper(paste0(substr(pol$dadmomspecies,0,1), substr(pol$daddadspecies,0,1))))
+
+pol$momcross <- factor(ifelse(pol$momcross=="NANA", toupper(substr(as.character(pop2sp(pol$mompop)),0,1)), as.character(pol$momcross)))
+pol$dadcross <- factor(ifelse(pol$dadcross=="NANA", toupper(substr(as.character(pop2sp(pol$dadpop)),0,1)), as.character(pol$dadcross)))
+# is.na(pol$dadcross) <- is.na(pol$momcross) <- pol$crosstype=="control"
+
+pol$dadcross <- factor(pol$dadcross, c("H",  "HK", "KH", "K"))
+pol$momcross  <- factor(pol$momcross, c("H",  "HK", "KH", "K"))
+pol$crosstype <- with(pol, factor(paste(momcross, dadcross, sep="x")))
+pol$species <- factor(ifelse(pol$mompop %in% kaalpops, "kaal", "hook"))
+pol$dadsp <-   factor(ifelse(pol$dadpop %in% kaalpops, "kaal", "hook"))
+pol <- within(pol, smompop <- as.factor(paste(species,mompop,sep="")))
+pol <- within(pol, mompid <- as.factor(paste(mompop,momid,sep=".")))
+pol <- within(pol, dadpid <- as.factor(paste(dadpop,dadid,sep=".")))
+
+pol$mompop <- as.character(pol$mompop)
+pol$mompop[is.na(pol$mompop)] <- as.character(pol$momcross[is.na(pol$mompop)])
+pol$mompop <- as.factor(pol$mompop)
+pol$dadpop <- as.character(pol$dadpop)
+pol$dadpop[is.na(pol$dadpop)] <- as.character(pol$dadcross[is.na(pol$dadpop)])
+pol$dadpop <- as.factor(pol$dadpop)
+
+```
+
+```{r f2seeddata}
+setwd("~/MyDocs/MEGA/UCI/Schiedea/Analysis/HybridSeeds")
+sds <- read.table("f2seedsEH.csv", header=T, sep="\t", colClasses=c(date_emasculation="Date",	date_pollination="Date"))
+
+msds <- sds %>% 
+  group_by(crossid,pollen_donor) %>% 
+  dplyr::summarize(viable_seeds = mean(viable_seeds), inviable_seeds = mean(inviable_seeds)) %>%
+  mutate(pviable_seeds = viable_seeds/(viable_seeds+inviable_seeds))
+
+sdspol <- merge(msds,pol,by="crossid")
+
+str(sdspol)
+```
+
+# Inventory
+Take out F2s before analysis
+```{r inventory}
+table(sdspol$crosstype)
+sdspol <- sdspol %>% filter(!(crosstype %in% c("HKxHK","KHxKH")))
+```
+
+# Analyses
+
+## Viable seeds vs. viable pollen
+```{r sdspol_plot, fig.height=7}
+(sdspol.plot <- ggplot(sdspol, aes(x=vpf, y=viable_seeds, color=crosstype, linetype=pollen_donor, shape=pollen_donor)) + 
+   geom_point(size=3) +
+   #geom_smooth(method = "lm", se=F, aes(group=crosstype)) + 
+   # geom_quantile(aes(group=1))+
+   xlab("Viable pollen grains per flower") + 
+   ylab("Mean number of viable seeds") +
+   scale_color_brewer("Backcross Type", type="qual", palette="Paired") +
+   #scale_shape_manual("Maternal Plant", values=c(15, 18, 16, 17))+  
+   scale_shape_manual("Pollen donor", values=c(15, 19))+
+   theme_minimal()+
+   theme(legend.key.size = unit(1.7,"lines")))
+#ggsave("viableseeds_viablepollen.png", sdspol.plot, type="cairo", width=6, height=6)
+```
+
+Variables: viable pollen grains per flower, mean number of viable seeds.
+
+1. Test for an overall relationship at the crosstype level, taking the mean values for each crosstype (low N)
+
+```{r sdspol_mean_model, echo=TRUE}
+sdspol.mean <- sdspol %>% group_by(crosstype) %>% summarize_at(c("viable_seeds", "vpf"), mean)
+sdspol.mean.mod <- lm(viable_seeds ~ vpf, data=sdspol.mean)
+summary(aov(sdspol.mean.mod))
+```
+
+2. Test for an overall relationship at the plant level, ignoring crosstype
+
+```{r sdspol_overall_model, echo=TRUE}
+sdspol.overall.mod <- lm(viable_seeds ~ vpf, data=sdspol)
+summary(aov(sdspol.overall.mod))
+```
+
+3. Test for a relationship within each cross type 
+
+```{r sdspol_model, echo=TRUE}
+sdspol.mod <- lm(viable_seeds ~ vpf * crosstype, data=sdspol)
+summary(aov(sdspol.mod))
+summary(sdspol.mod)
+```
+
+
+```{r sdspol_percent_plot, fig.height=7, include=F}
+(sdspol.percent.plot <- ggplot(sdspol, aes(x=vp, y=pviable_seeds, color=crosstype, linetype=momcross, shape=pollen_donor)) + 
+   geom_point(size=3) +
+   #geom_smooth(method = "loess", se=F, span=2, aes(group=momcross)) + 
+   xlab("Percent viable pollen") + 
+   ylab("Percent viable seeds") +
+   scale_x_continuous(labels = scales::percent_format(accuracy=1)) +
+   scale_y_continuous(labels = scales::percent_format(accuracy=1)) +
+   scale_color_brewer("Backcross Type", type="qual", palette="Paired") +
+   #scale_shape_manual("Maternal Plant", values=c(15, 18, 16, 17))+
+   scale_shape_manual("Pollen donor", values=c(15, 19))+
+   theme_minimal()+
+   theme(legend.key.size = unit(1.7,"lines")))
+#ggsave("viableseeds_viablepollen.png", sdspol.plot, type="cairo", width=6, height=6)
+```
+
+```{r sdspol_percent_model, include =F}
+sdspol.percent.mod <- lm(pviable_seeds ~ vp * crosstype + pollen_donor, data=sdspol)
+summary(aov(sdspol.percent.mod))
+```
