@@ -112,6 +112,23 @@ inflobiomass.sum <- inflobiomass %>% #add together envelopes for regression and 
 
 # f1seeds -----------------------------------------------------------------
 
+f1seeds <- read_sheet(gsheet, "f1seeds", col_types="c") %>% 
+  mutate(seednumum=as.integer(seednum))
+
+f1seeds <- bind_rows(
+f1seeds %>% filter(str_detect(momfullcross,"x")) %>% 
+  separate(momfullcross, sep=" x ", into=c("mommompid","momdadpid"), remove=F) %>% 
+  separate(mommompid, into=c("mommompop", "mommomid"), extra="merge") %>% 
+  separate(momdadpid, into=c("momdadpop", "momdadid"), extra="merge"),
+f1seeds %>% filter(str_detect(dadfullcross,"x")) %>% 
+  separate(dadfullcross, sep=" x ", into=c("dadmompid","daddadpid"), remove=F) %>% 
+  separate(dadmompid, into=c("dadmompop", "dadmomid"), extra="merge") %>% 
+  separate(daddadpid, into=c("daddadpop", "dadadid"), extra="merge"),
+f1seeds %>% filter(!str_detect(momfullcross,"x")) %>% 
+  separate(momfullcross, into=c("mompop", "momid"), extra="merge"),
+f1seeds %>% filter(!str_detect(dadfullcross,"x")) %>% 
+  separate(dadfullcross, into=c("dadpop", "dadid"), extra="merge"))
+
 
 # f1seedmass --------------------------------------------------------------
 
