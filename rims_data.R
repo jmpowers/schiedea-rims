@@ -1,6 +1,9 @@
 library(tidyverse)
 library(lubridate)
 library(googlesheets4)
+
+# common ------------------------------------------------------------------
+
 gsheet <- gs4_get("1pYbAnEDw2KfM34l85wlJV6pfAr1DroPj_7GjfApnCq8")
 sheet_names(gsheet)
 
@@ -91,5 +94,31 @@ pollen <- read_sheet(gsheet, "pollen", col_types="c") %>%
          dadsp =   recode(dadpop, !!!hk.species),
          cross = toupper(paste0(str_sub(species,0,1), str_sub(dadsp,0,1)))) %>% 
   add_combos()
+
+# inflobiomass ------------------------------------------------------------
+
+inflobiomass <- read_sheet(gsheet, "inflobiomass", col_types="c") %>% 
+  mutate(across(matches("date"), ymd),
+         across(c(flrs, inflo.e, inflo, mass), as.numeric),
+         collect = collect.date - first_planting) %>% 
+  left_join(crosses) %>% 
+  add_combos()
+
+inflobiomass.sum <- inflobiomass %>% #add together envelopes for regression and the rest
+  group_by(across(all_of(c("plantid", colnames(crosses))))) %>% 
+  summarize(inflo = sum(inflo, na.rm=T),
+            mass =  sum(mass,  na.rm=T),
+            collect = max(collect, na.rm=T), .groups="drop") 
+
+# f1seeds -----------------------------------------------------------------
+
+
+# f1seedmass --------------------------------------------------------------
+
+
+# f2pollen ----------------------------------------------------------------
+
+
+# f2seeds -----------------------------------------------------------------
 
 
