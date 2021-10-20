@@ -8,20 +8,59 @@ gsheet <- gs4_get("1pYbAnEDw2KfM34l85wlJV6pfAr1DroPj_7GjfApnCq8")
 sheet_names(gsheet)
 
 crosscol <- c("green","blue","orange","red")
+
 hk.pops <- set_names(c("WK","WK","WK","879WKG","892WKG","904WPG","3587WP"),
                      c("794","866","899","879","892","904","3587")) #merge Waianae Kai populations (WK)
 hk.species <- set_names(c(rep("hookeri",4),rep("kaalae",3)), names(hk.pops))
 
-add_combos <- function(x) {
-  mutate(x, 
+first_planting <- ymd("2016-03-10") #verified this is the first seed planting date for this set
+
+pop_factors <- function(data) {
+  mutate(data,
+         across(where(is.character), as.factor),
+         across(ends_with("pop"), recode_factor, !!!hk.pops))
+}
+
+add_combos <- function(data) {
+  mutate(data, 
          sxc = paste(species, crosstype, sep="."),
          sxcxm = paste(species, crosstype, mompop, momid, sep="."),
          mompid = paste(mompop, momid, sep="."),
          across(any_of("dadid"), dadpid= ~paste(dadpop, ., sep=".")),
-         smompop = paste(species, mompop, sep=""),
-         across(where(is.character), as.factor),
-         crosstype = relevel(crosstype, "hybrid", 3),
-         across(any_of(c("mompop", "dadpop")), recode_factor, !!!hk.pops)) 
+         smompop = paste(species, mompop, sep="")) %>% 
+    pop_factors() %>% 
+    mutate(crosstype = fct_relevel(crosstype, "hybrid", after = 2))
+}
+
+pop_to_species <- function(data) {
+  mutate(data,
+         species = recode(mompop, !!!hk.species),
+         dadsp =   recode(dadpop, !!!hk.species),
+         cross = toupper(paste0(str_sub(species,0,1), str_sub(dadsp,0,1))))
+}
+
+split_full_crosses <- function(data.full) {
+  data.mom <- bind_rows(
+    .id = "momgeneration", 
+    F = data.full %>% filter(str_detect(momfullcross,"x")) %>% 
+      separate(momfullcross, sep=" x ", into=c("mommompid","momdadpid"), remove=F) %>% 
+      separate(mommompid, into=c("mommompop", "mommomid"), extra="merge") %>% 
+      separate(momdadpid, into=c("momdadpop", "momdadid"), extra="merge"),
+    P = data.full %>% filter(!str_detect(momfullcross,"x")) %>% 
+      separate(momfullcross, into=c("mompop", "momid"), extra="merge", remove=F))
+  
+  data.mom.dad <- list(F = data.mom %>% filter(str_detect(dadfullcross,"x")) %>% 
+         separate(dadfullcross, sep=" x ", into=c("dadmompid","daddadpid"), remove=F) %>% 
+         separate(dadmompid, into=c("dadmompop", "dadmomid"), extra="merge") %>% 
+         separate(daddadpid, into=c("daddadpop", "dadadid"), extra="merge"),
+       P = data.mom %>% filter(!str_detect(dadfullcross,"x"), crosstype!="control") %>% 
+         separate(dadfullcross, into=c("dadpop", "dadid"), extra="merge", fill="right", remove=F),
+       control = data.mom %>% filter(crosstype == "control") %>% mutate(dadfullcross=NA))
+  
+  if(nrow(data.mom.dad$control)==0) data.mom.dad$control <- NULL
+  
+  bind_rows(data.mom.dad, .id = "dadgeneration") %>% 
+    mutate(generation = paste0(momgeneration,dadgeneration))
 }
 
 # crosses -----------------------------------------------------------------
@@ -48,8 +87,6 @@ germination <- read_sheet(gsheet, "germination", col_types="c") %>%
   add_combos()
 
 # vegbiomass --------------------------------------------------------------
-
-first_planting <- ymd("2016-03-10") #verified this is the first seed planting date for this set
 
 vegbiomass <- read_sheet(gsheet, "vegbiomass", col_types="c") %>% 
   drop_na(crossid) %>% 
@@ -90,9 +127,7 @@ pollen <- read_sheet(gsheet, "pollen", col_types="c") %>%
   separate(fullcross, sep=" x ", into=c("mompid","dadpid"), remove=F) %>% 
   separate(mompid, into=c("mompop", "momid"), extra="merge") %>% 
   separate(dadpid, into=c("dadpop", "dadid"), extra="merge") %>% 
-  mutate(species = recode(mompop, !!!hk.species),
-         dadsp =   recode(dadpop, !!!hk.species),
-         cross = toupper(paste0(str_sub(species,0,1), str_sub(dadsp,0,1)))) %>% 
+  pop_to_species() %>% 
   add_combos()
 
 # inflobiomass ------------------------------------------------------------
@@ -112,34 +147,23 @@ inflobiomass.sum <- inflobiomass %>% #add together envelopes for regression and 
 
 # f1seeds -----------------------------------------------------------------
 
-f1seeds.full <- read_sheet(gsheet, "f1seeds", col_types="c") %>% 
-  filter(dadfullcross!="closed") %>% #not sure what closed means
-  mutate(seednum=as.integer(seednum))
-
-f1seeds.mom <- bind_rows(
-  .id = "momgeneration", 
-  F = f1seeds.full %>% filter(str_detect(momfullcross,"x")) %>% 
-    separate(momfullcross, sep=" x ", into=c("mommompid","momdadpid"), remove=F) %>% 
-    separate(mommompid, into=c("mommompop", "mommomid"), extra="merge") %>% 
-    separate(momdadpid, into=c("momdadpop", "momdadid"), extra="merge"),
-  P = f1seeds.full %>% filter(!str_detect(momfullcross,"x")) %>% 
-    separate(momfullcross, into=c("mompop", "momid"), extra="merge", remove=F))
-
-f1seeds <- bind_rows(
-  .id = "dadgeneration", 
-  F = f1seeds.mom %>% filter(str_detect(dadfullcross,"x")) %>% 
-    separate(dadfullcross, sep=" x ", into=c("dadmompid","daddadpid"), remove=F) %>% 
-    separate(dadmompid, into=c("dadmompop", "dadmomid"), extra="merge") %>% 
-    separate(daddadpid, into=c("daddadpop", "dadadid"), extra="merge"),
-  P = f1seeds.mom %>% filter(!str_detect(dadfullcross,"x"), crosstype!="control") %>% 
-    separate(dadfullcross, into=c("dadpop", "dadid"), extra="merge", fill="right", remove=F),
-  control = f1seeds.mom %>% filter(crosstype == "control") %>% mutate(dadfullcross=NA)) %>% 
-  mutate(generation = paste0(momgeneration,dadgeneration))
+f1seeds <- read_sheet(gsheet, "f1seeds", col_types="c") %>% 
+  filter(dadfullcross != "closed") %>% #not sure what closed means
+  mutate(seednum=as.integer(seednum)) %>% 
+  split_full_crosses() %>% 
+  pop_to_species() %>% 
+  pop_factors()
 
 # f1seedmass --------------------------------------------------------------
 
+f1seedmass <- read_sheet(gsheet, "f1seedmass", col_types="c") %>% 
+  mutate(smass=as.numeric(smass)) %>% 
+  split_full_crosses() %>% 
+  pop_to_species() %>% 
+  pop_factors()
 
 # f2pollen ----------------------------------------------------------------
+
 
 
 # f2seeds -----------------------------------------------------------------
