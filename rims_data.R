@@ -112,23 +112,29 @@ inflobiomass.sum <- inflobiomass %>% #add together envelopes for regression and 
 
 # f1seeds -----------------------------------------------------------------
 
-f1seeds <- read_sheet(gsheet, "f1seeds", col_types="c") %>% 
-  mutate(seednumum=as.integer(seednum))
+f1seeds.full <- read_sheet(gsheet, "f1seeds", col_types="c") %>% 
+  filter(dadfullcross!="closed") %>% #not sure what closed means
+  mutate(seednum=as.integer(seednum))
+
+f1seeds.mom <- bind_rows(
+  .id = "momgeneration", 
+  F = f1seeds.full %>% filter(str_detect(momfullcross,"x")) %>% 
+    separate(momfullcross, sep=" x ", into=c("mommompid","momdadpid"), remove=F) %>% 
+    separate(mommompid, into=c("mommompop", "mommomid"), extra="merge") %>% 
+    separate(momdadpid, into=c("momdadpop", "momdadid"), extra="merge"),
+  P = f1seeds.full %>% filter(!str_detect(momfullcross,"x")) %>% 
+    separate(momfullcross, into=c("mompop", "momid"), extra="merge", remove=F))
 
 f1seeds <- bind_rows(
-f1seeds %>% filter(str_detect(momfullcross,"x")) %>% 
-  separate(momfullcross, sep=" x ", into=c("mommompid","momdadpid"), remove=F) %>% 
-  separate(mommompid, into=c("mommompop", "mommomid"), extra="merge") %>% 
-  separate(momdadpid, into=c("momdadpop", "momdadid"), extra="merge"),
-f1seeds %>% filter(str_detect(dadfullcross,"x")) %>% 
-  separate(dadfullcross, sep=" x ", into=c("dadmompid","daddadpid"), remove=F) %>% 
-  separate(dadmompid, into=c("dadmompop", "dadmomid"), extra="merge") %>% 
-  separate(daddadpid, into=c("daddadpop", "dadadid"), extra="merge"),
-f1seeds %>% filter(!str_detect(momfullcross,"x")) %>% 
-  separate(momfullcross, into=c("mompop", "momid"), extra="merge"),
-f1seeds %>% filter(!str_detect(dadfullcross,"x")) %>% 
-  separate(dadfullcross, into=c("dadpop", "dadid"), extra="merge"))
-
+  .id = "dadgeneration", 
+  F = f1seeds.mom %>% filter(str_detect(dadfullcross,"x")) %>% 
+    separate(dadfullcross, sep=" x ", into=c("dadmompid","daddadpid"), remove=F) %>% 
+    separate(dadmompid, into=c("dadmompop", "dadmomid"), extra="merge") %>% 
+    separate(daddadpid, into=c("daddadpop", "dadadid"), extra="merge"),
+  P = f1seeds.mom %>% filter(!str_detect(dadfullcross,"x"), crosstype!="control") %>% 
+    separate(dadfullcross, into=c("dadpop", "dadid"), extra="merge", fill="right", remove=F),
+  control = f1seeds.mom %>% filter(crosstype == "control") %>% mutate(dadfullcross=NA)) %>% 
+  mutate(generation = paste0(momgeneration,dadgeneration))
 
 # f1seedmass --------------------------------------------------------------
 
