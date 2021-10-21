@@ -1,0 +1,42 @@
+---
+title: "Schiedea hookeri/kaalae RIMs"
+author: "[John Powers](http://sites.uci.edu/powers/)"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    self_contained: no
+    lib_dir: libs
+    code_folding: hide
+    toc: yes
+    toc_float: TRUE
+editor_options: 
+  chunk_output_type: console
+---
+
+<style type="text/css">
+  .main-container { max-width: 1000px; margin-left: 0; margin-right: auto; }
+img{ max-width:200%; height: auto; }
+td, th { padding : 6px }
+</style>
+
+
+```{r setup, message = FALSE}
+library(tidyverse)
+
+library(knitr)
+knitr::opts_chunk$set(comment="", cache=T, warning = F, message = F, fig.path = "figures/")
+options(digits=4) # for kables
+
+load("data/rims_data.rda")
+```
+
+# Sample sizes
+
+```{r sampsize}
+F1 <- mget(datanames[1:6])
+F2 <- mget(datanames[7:10])
+
+map_dfr(F2, ~ tally(group_by(., momdadcross)), .id="dataset") %>% 
+  pivot_wider(names_from=dataset, values_from=n) %>% kable
+```
+
