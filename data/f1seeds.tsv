@@ -1,4 +1,4 @@
-dadgeneration	momgeneration	crossid	momfullcross	mommompop	mommomid	momdadpop	momdadid	dadfullcross	dadmompop	dadmomid	daddadpop	dadadid	crosstype	seednum	notes	mompop	momid	dadpop	dadid	generation	mommomsp	momdadsp	dadmomsp	daddadsp	momsp	dadsp	momcross	dadcross	momdadcross
+dadgeneration	momgeneration	crossid	momfullcross	mommompop	mommomid	momdadpop	momdadid	dadfullcross	dadmompop	dadmomid	daddadpop	dadadid	crosstype	viable.seeds	notes	mompop	momid	dadpop	dadid	generation	mommomsp	momdadsp	dadmomsp	daddadsp	momsp	dadsp	momcross	dadcross	momdadcross
 F	F	61	879-10-1 x 892-3ID9	879WKG	10-1	892WKG	3ID9	879-2-2 x 892-4ID12	879WKG	2-2	892WKG	4ID12	FF	0	NA	NA	NA	NA	NA	FF	hook	kaal	hook	kaal	NA	NA	HK	HK	HK x HK
 F	F	62	879-10-1 x 892-3ID9	879WKG	10-1	892WKG	3ID9	879-2-2 x 892-4ID12	879WKG	2-2	892WKG	4ID12	FF	0	NA	NA	NA	NA	NA	FF	hook	kaal	hook	kaal	NA	NA	HK	HK	HK x HK
 F	F	63	879-10-1 x 892-3ID9	879WKG	10-1	892WKG	3ID9	879-2-2 x 892-4ID12	879WKG	2-2	892WKG	4ID12	FF	1	NA	NA	NA	NA	NA	FF	hook	kaal	hook	kaal	NA	NA	HK	HK	HK x HK
@@ -564,6 +564,256 @@ F	P	1738	892-4	NA	NA	NA	NA	879-10-1 x 892-1ID1	879WKG	10-1	892WKG	1ID1	KF	3	NA	8
 F	P	1739	892-4	NA	NA	NA	NA	879-10-1 x 892-1ID1	879WKG	10-1	892WKG	1ID1	KF	1	NA	892WKG	4	NA	NA	PF	NA	NA	hook	kaal	kaal	NA	K	HK	K x HK
 F	P	1745	879-G2	NA	NA	NA	NA	904-5 x 879-10-1ID1	904WPG	5	879WKG	10-1ID1	HF	2	NA	879WKG	G2	NA	NA	PF	NA	NA	kaal	hook	hook	NA	H	KH	H x KH
 F	P	1782	904-2	NA	NA	NA	NA	879-2-2 x 904-5ID9	879WKG	2-2	904WPG	5ID9	KF	0	NA	904WPG	2	NA	NA	PF	NA	NA	hook	kaal	kaal	NA	K	HK	K x HK
+control	F	151	892-1 x 879-2-2ID1	892WKG	1	879WKG	2-2ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	152	892-1 x 879-2-2ID1	892WKG	1	879WKG	2-2ID1	NA	NA	NA	NA	NA	control	1	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	153	892-1 x 879-2-2ID1	892WKG	1	879WKG	2-2ID1	NA	NA	NA	NA	NA	control	2	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	154	892-1 x 879-2-2ID1	892WKG	1	879WKG	2-2ID1	NA	NA	NA	NA	NA	control	1	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	175	879-G2 x 904-5ID1	879WKG	G2	904WPG	5ID1	NA	NA	NA	NA	NA	control	2	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
+control	F	176	879-G2 x 904-5ID1	879WKG	G2	904WPG	5ID1	NA	NA	NA	NA	NA	control	1	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
+control	F	177	879-G2 x 904-5ID1	879WKG	G2	904WPG	5ID1	NA	NA	NA	NA	NA	control	2	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
+control	F	178	879-G2 x 904-5ID1	879WKG	G2	904WPG	5ID1	NA	NA	NA	NA	NA	control	5	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
+control	F	179	879-G2 x 904-5ID1	879WKG	G2	904WPG	5ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
+control	F	223	879-10-1 x 904-5ID4	879WKG	10-1	904WPG	5ID4	NA	NA	NA	NA	NA	control	3	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
+control	F	224	879-10-1 x 904-5ID4	879WKG	10-1	904WPG	5ID4	NA	NA	NA	NA	NA	control	3	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
+control	F	225	879-10-1 x 904-5ID4	879WKG	10-1	904WPG	5ID4	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
+control	F	231	3587-7 x 879-G2ID4	3587WP	7	879WKG	G2ID4	NA	NA	NA	NA	NA	control	1	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	232	3587-7 x 879-G2ID4	3587WP	7	879WKG	G2ID4	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	233	3587-7 x 879-G2ID4	3587WP	7	879WKG	G2ID4	NA	NA	NA	NA	NA	control	3	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	234	3587-7 x 879-G2ID4	3587WP	7	879WKG	G2ID4	NA	NA	NA	NA	NA	control	1	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	241	904-3 x 879-H-2ID4	904WPG	3	879WKG	H-2ID4	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	242	904-3 x 879-H-2ID4	904WPG	3	879WKG	H-2ID4	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	243	904-3 x 879-H-2ID4	904WPG	3	879WKG	H-2ID4	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	244	904-3 x 879-H-2ID4	904WPG	3	879WKG	H-2ID4	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	293	904-2 x 879-10-1ID4	904WPG	2	879WKG	10-1ID4	NA	NA	NA	NA	NA	control	1	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	294	904-2 x 879-10-1ID4	904WPG	2	879WKG	10-1ID4	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	295	904-2 x 879-10-1ID4	904WPG	2	879WKG	10-1ID4	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	296	904-2 x 879-10-1ID4	904WPG	2	879WKG	10-1ID4	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	297	904-2 x 879-10-1ID4	904WPG	2	879WKG	10-1ID4	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	309	879-G2 x 904-5ID3	879WKG	G2	904WPG	5ID3	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
+control	F	310	879-G2 x 904-5ID3	879WKG	G2	904WPG	5ID3	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
+control	F	311	879-G2 x 904-5ID3	879WKG	G2	904WPG	5ID3	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
+control	F	334	904-3 x 879-10-1ID2	904WPG	3	879WKG	10-1ID2	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	335	904-3 x 879-10-1ID2	904WPG	3	879WKG	10-1ID2	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	336	904-3 x 879-10-1ID2	904WPG	3	879WKG	10-1ID2	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	337	904-3 x 879-10-1ID2	904WPG	3	879WKG	10-1ID2	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	338	904-3 x 879-10-1ID2	904WPG	3	879WKG	10-1ID2	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	356	879-G2 x 904-3ID5	879WKG	G2	904WPG	3ID5	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
+control	F	357	879-G2 x 904-3ID5	879WKG	G2	904WPG	3ID5	NA	NA	NA	NA	NA	control	1	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
+control	F	358	879-G2 x 904-3ID5	879WKG	G2	904WPG	3ID5	NA	NA	NA	NA	NA	control	4	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
+control	F	359	879-G2 x 904-3ID5	879WKG	G2	904WPG	3ID5	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
+control	F	456	904-2 x 879-2-2ID4	904WPG	2	879WKG	2-2ID4	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	457	904-2 x 879-2-2ID4	904WPG	2	879WKG	2-2ID4	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	458	904-2 x 879-2-2ID4	904WPG	2	879WKG	2-2ID4	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	459	904-2 x 879-2-2ID4	904WPG	2	879WKG	2-2ID4	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	460	904-2 x 879-2-2ID4	904WPG	2	879WKG	2-2ID4	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	542	3587-A x 879-10-1ID1	3587WP	A	879WKG	10-1ID1	NA	NA	NA	NA	NA	control	2	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	543	3587-A x 879-10-1ID1	3587WP	A	879WKG	10-1ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	545	3587-A x 879-10-1ID1	3587WP	A	879WKG	10-1ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	576	879-2-2 x 892-10ID1	879WKG	2-2	892WKG	10ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
+control	F	577	879-2-2 x 892-10ID1	879WKG	2-2	892WKG	10ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
+control	F	578	879-2-2 x 892-10ID1	879WKG	2-2	892WKG	10ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
+control	F	579	879-2-2 x 892-10ID1	879WKG	2-2	892WKG	10ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
+control	F	642	3587-14 x 879-G-2ID1	3587WP	14	879WKG	G-2ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	644	3587-14 x 879-G-2ID1	3587WP	14	879WKG	G-2ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	689	904-5 x 879-10-1ID1	904WPG	5	879WKG	10-1ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	690	904-5 x 879-10-1ID1	904WPG	5	879WKG	10-1ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	691	904-5 x 879-10-1ID1	904WPG	5	879WKG	10-1ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	692	904-5 x 879-10-1ID1	904WPG	5	879WKG	10-1ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	714	3587-7 x 879-10-1ID1	3587WP	7	879WKG	10-1ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	715	3587-7 x 879-10-1ID1	3587WP	7	879WKG	10-1ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	716	3587-7 x 879-10-1ID1	3587WP	7	879WKG	10-1ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	717	3587-7 x 879-10-1ID1	3587WP	7	879WKG	10-1ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	734	879-10-1 x 904-3ID1	879WKG	10-1	904WPG	3ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
+control	F	736	879-10-1 x 904-3ID1	879WKG	10-1	904WPG	3ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
+control	F	737	879-10-1 x 904-3ID1	879WKG	10-1	904WPG	3ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
+control	F	740	904-3 x 879-G2ID3	904WPG	3	879WKG	G2ID3	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	741	904-3 x 879-G2ID3	904WPG	3	879WKG	G2ID3	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	742	904-3 x 879-G2ID3	904WPG	3	879WKG	G2ID3	NA	NA	NA	NA	NA	control	2	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	743	904-3 x 879-G2ID3	904WPG	3	879WKG	G2ID3	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	749	3587-14 x 879-10-1ID2	3587WP	14	879WKG	10-1ID2	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	750	3587-14 x 879-10-1ID2	3587WP	14	879WKG	10-1ID2	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	751	3587-14 x 879-10-1ID2	3587WP	14	879WKG	10-1ID2	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	752	3587-14 x 879-10-1ID2	3587WP	14	879WKG	10-1ID2	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	753	3587-A x 879-G2ID2	3587WP	A	879WKG	G2ID2	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	755	3587-A x 879-G2ID2	3587WP	A	879WKG	G2ID2	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	756	3587-A x 879-G2ID2	3587WP	A	879WKG	G2ID2	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	761	892-3 x 879-2-2ID1	892WKG	3	879WKG	2-2ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	762	892-3 x 879-2-2ID1	892WKG	3	879WKG	2-2ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	763	892-3 x 879-2-2ID1	892WKG	3	879WKG	2-2ID1	NA	NA	NA	NA	NA	control	3	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	764	892-3 x 879-2-2ID1	892WKG	3	879WKG	2-2ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	770	904-2 x 879-G2ID3	904WPG	2	879WKG	G2ID3	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	771	904-2 x 879-G2ID3	904WPG	2	879WKG	G2ID3	NA	NA	NA	NA	NA	control	1	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	772	904-2 x 879-G2ID3	904WPG	2	879WKG	G2ID3	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	773	904-2 x 879-G2ID3	904WPG	2	879WKG	G2ID3	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	774	892-10 x 879-10-1ID1	892WKG	10	879WKG	10-1ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	776	892-10 x 879-10-1ID1	892WKG	10	879WKG	10-1ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	777	892-10 x 879-10-1ID1	892WKG	10	879WKG	10-1ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	791	892-3 x 879-10-1ID1	892WKG	3	879WKG	10-1ID1	NA	NA	NA	NA	NA	control	3	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	792	892-3 x 879-10-1ID1	892WKG	3	879WKG	10-1ID1	NA	NA	NA	NA	NA	control	1	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	793	892-3 x 879-10-1ID1	892WKG	3	879WKG	10-1ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	794	892-3 x 879-10-1ID1	892WKG	3	879WKG	10-1ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	795	904-5 x 879-G2ID3	904WPG	5	879WKG	G2ID3	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	796	904-5 x 879-G2ID3	904WPG	5	879WKG	G2ID3	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	797	904-5 x 879-G2ID3	904WPG	5	879WKG	G2ID3	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	798	904-5 x 879-G2ID3	904WPG	5	879WKG	G2ID3	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	799	879-2-2 x 892-4ID8	879WKG	2-2	892WKG	4ID8	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
+control	F	800	879-2-2 x 892-4ID8	879WKG	2-2	892WKG	4ID8	NA	NA	NA	NA	NA	control	1	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
+control	F	801	879-2-2 x 892-4ID8	879WKG	2-2	892WKG	4ID8	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
+control	F	802	879-2-2 x 892-4ID8	879WKG	2-2	892WKG	4ID8	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
+control	F	803	879-10-1 x 892-1ID1	879WKG	10-1	892WKG	1ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
+control	F	804	879-10-1 x 892-1ID1	879WKG	10-1	892WKG	1ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
+control	F	805	879-10-1 x 892-1ID1	879WKG	10-1	892WKG	1ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
+control	F	806	879-10-1 x 892-1ID1	879WKG	10-1	892WKG	1ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
+control	F	807	879-10-1 x 904-5ID4	879WKG	10-1	904WPG	5ID4	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
+control	F	808	879-10-1 x 904-5ID4	879WKG	10-1	904WPG	5ID4	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
+control	F	809	879-10-1 x 904-5ID4	879WKG	10-1	904WPG	5ID4	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
+control	F	810	879-10-1 x 904-5ID4	879WKG	10-1	904WPG	5ID4	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
+control	F	811	879-10-1 x 892-3ID9	879WKG	10-1	892WKG	3ID9	NA	NA	NA	NA	NA	control	1	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
+control	F	812	879-10-1 x 892-3ID9	879WKG	10-1	892WKG	3ID9	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
+control	F	813	879-10-1 x 892-3ID9	879WKG	10-1	892WKG	3ID9	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
+control	F	814	879-10-1 x 892-3ID9	879WKG	10-1	892WKG	3ID9	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
+control	F	815	892-4 x 879-G2ID2	892WKG	4	879WKG	G2ID2	NA	NA	NA	NA	NA	control	4	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	816	892-4 x 879-G2ID2	892WKG	4	879WKG	G2ID2	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	817	892-4 x 879-G2ID2	892WKG	4	879WKG	G2ID2	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	F	818	892-4 x 879-G2ID2	892WKG	4	879WKG	G2ID2	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
+control	P	1407	904-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	5	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1408	904-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	5	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1409	904-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	5	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1410	904-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	5	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1411	904-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	5	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1424	879-G2	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	G2	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
+control	P	1426	879-G2	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	4	NA	879WKG	G2	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
+control	P	1427	879-G2	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	G2	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
+control	P	1428	879-G2	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	G2	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
+control	P	1452	3587-14	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	14	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1453	3587-14	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	14	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1461	3587-14	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	2	NA	3587WP	14	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1462	3587-14	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	6	NA	3587WP	14	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1463	3587-14	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	14	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1464	3587-14	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	14	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1465	3587-14	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	14	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1466	3587-14	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	14	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1467	3587-14	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	14	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1468	3587-14	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	14	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1474	879-N-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	N-5	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
+control	P	1475	879-N-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	N-5	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
+control	P	1476	879-N-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	1	NA	879WKG	N-5	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
+control	P	1477	879-N-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	1	NA	879WKG	N-5	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
+control	P	1478	879-N-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	N-5	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
+control	P	1491	904-3	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	3	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1492	904-3	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	3	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1493	904-3	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	3	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1494	904-3	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	3	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1495	904-3	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	3	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1507	879-2-2	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	2-2	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
+control	P	1508	879-2-2	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	2-2	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
+control	P	1509	879-2-2	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	2-2	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
+control	P	1510	879-2-2	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	2-2	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
+control	P	1511	879-10-1	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	10-1	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
+control	P	1519	879-10-1	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	1	NA	879WKG	10-1	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
+control	P	1520	879-10-1	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	10-1	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
+control	P	1521	879-10-1	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	10-1	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
+control	P	1532	3587-15	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	15	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1533	3587-15	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	15	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1554	879-10-1	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	10-1	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
+control	P	1555	879-10-1	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	10-1	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
+control	P	1556	879-10-1	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	10-1	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
+control	P	1557	879-10-1	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	10-1	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
+control	P	1558	879-10-1	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	10-1	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
+control	P	1559	879-10-1	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	10-1	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
+control	P	1585	879-2-2	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	2-2	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
+control	P	1586	879-2-2	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	2-2	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
+control	P	1587	879-2-2	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	2-2	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
+control	P	1588	879-2-2	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	2-2	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
+control	P	1589	879-2-2	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	2-2	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
+control	P	1595	3587-7	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	7	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1596	3587-7	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	7	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1597	3587-7	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	7	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1598	3587-7	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	7	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1604	879-N-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	N-5	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
+control	P	1605	879-N-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	N-5	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
+control	P	1606	879-N-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	N-5	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
+control	P	1607	879-N-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	N-5	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
+control	P	1608	879-N-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	N-5	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
+control	P	1614	3587-6ID1	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	5	NA	3587WP	6ID1	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1615	3587-6ID1	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	1	NA	3587WP	6ID1	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1616	3587-6ID1	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	1	NA	3587WP	6ID1	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1617	3587-6ID1	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	6ID1	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1618	3587-6ID1	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	6ID1	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1624	3587-12	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	12	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1626	3587-12	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	12	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1633	3587-12	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	12	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1652	3587-C	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	1	NA	3587WP	C	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1654	3587-C	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	C	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1656	3587-C	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	1	NA	3587WP	C	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1659	892-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	5	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1661	892-10	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	10	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1662	892-10	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	10	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1663	892-10	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	10	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1664	892-10	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	10	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1665	892-10	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	10	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1715	3587-7	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	7	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1716	3587-7	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	7	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1717	3587-12	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	1	NA	3587WP	12	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1718	3587-12	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	12	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1719	3587-12	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	1	NA	3587WP	12	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1720	3587-12	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	12	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1721	3587-12	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	1	NA	3587WP	12	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1722	892-4	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	4	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1723	892-4	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	4	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1724	892-4	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	4	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1725	892-4	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	4	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1726	892-4	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	4	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1727	904-2	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	2	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1728	904-2	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	2	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1730	904-2	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	2	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1731	904-2	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	2	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1737	892-1	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	1	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1740	892-4	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	4	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1741	892-4	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	4	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1742	892-4	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	4	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1744	892-4	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	4	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1746	879-G2	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	G2	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
+control	P	1748	3587-7	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	7	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1749	3587-7	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	7	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1750	3587-7	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	7	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1752	892-10	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	10	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1753	892-10	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	10	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1754	892-10	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	10	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1755	892-10	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	10	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1756	892-10	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	10	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1757	904-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	5	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1758	904-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	5	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1759	904-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	5	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1760	904-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	5	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1761	904-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	5	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1762	892-1	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	1	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1763	892-1	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	1	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1764	892-1	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	1	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1765	892-1	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	1	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1766	904-3	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	3	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1767	904-3	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	3	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1768	904-3	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	3	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1769	904-3	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	3	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1771	904-2	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	2	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1772	892-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	5	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1773	892-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	5	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1774	892-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	5	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1775	892-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	5	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1776	892-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	5	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1777	892-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	5	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1778	879-G2	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	G2	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
+control	P	1779	879-G2	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	G2	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
+control	P	1780	879-G2	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	G2	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
+control	P	1786	892-1	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	1	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1788	892-1	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	1	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1789	892-1	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	1	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1790	892-1	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	1	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1791	904-3	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	3	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1792	892-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	5	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1793	892-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	5	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1794	904-2	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	2	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
+control	P	1797	892-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	5	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
 P	F	1	879-G2 x 904-5ID1	879WKG	G2	904WPG	5ID1	866-211	NA	NA	NA	NA	FH	3	NA	NA	NA	WK	211	FP	hook	kaal	NA	NA	NA	hook	HK	H	HK x H
 P	F	2	879-G2 x 904-5ID1	879WKG	G2	904WPG	5ID1	866-211	NA	NA	NA	NA	FH	1	NA	NA	NA	WK	211	FP	hook	kaal	NA	NA	NA	hook	HK	H	HK x H
 P	F	3	879-G2 x 904-5ID1	879WKG	G2	904WPG	5ID1	866-211	NA	NA	NA	NA	FH	2	NA	NA	NA	WK	211	FP	hook	kaal	NA	NA	NA	hook	HK	H	HK x H
@@ -583,29 +833,9 @@ P	F	147	892-1 x 879-2-2ID1	892WKG	1	879WKG	2-2ID1	892-10.4/3/13	NA	NA	NA	NA	FK	5
 P	F	148	892-1 x 879-2-2ID1	892WKG	1	879WKG	2-2ID1	892-10.4/3/13	NA	NA	NA	NA	FK	6	NA	NA	NA	892WKG	10.4/3/13	FP	kaal	hook	NA	NA	NA	kaal	KH	K	KH x K
 P	F	149	892-1 x 879-2-2ID1	892WKG	1	879WKG	2-2ID1	892-10.4/3/13	NA	NA	NA	NA	FK	5	NA	NA	NA	892WKG	10.4/3/13	FP	kaal	hook	NA	NA	NA	kaal	KH	K	KH x K
 P	F	150	892-1 x 879-2-2ID1	892WKG	1	879WKG	2-2ID1	892-10.4/3/13	NA	NA	NA	NA	FK	10	NA	NA	NA	892WKG	10.4/3/13	FP	kaal	hook	NA	NA	NA	kaal	KH	K	KH x K
-P	F	151	892-1 x 879-2-2ID1	892WKG	1	879WKG	2-2ID1	Control	NA	NA	NA	NA	control	0	NA	NA	NA	Control	NA	FP	kaal	hook	NA	NA	NA	Control	KH	NA	KH x NA
-P	F	152	892-1 x 879-2-2ID1	892WKG	1	879WKG	2-2ID1	Control	NA	NA	NA	NA	control	1	NA	NA	NA	Control	NA	FP	kaal	hook	NA	NA	NA	Control	KH	NA	KH x NA
-P	F	153	892-1 x 879-2-2ID1	892WKG	1	879WKG	2-2ID1	Control	NA	NA	NA	NA	control	2	NA	NA	NA	Control	NA	FP	kaal	hook	NA	NA	NA	Control	KH	NA	KH x NA
-P	F	154	892-1 x 879-2-2ID1	892WKG	1	879WKG	2-2ID1	Control	NA	NA	NA	NA	control	1	NA	NA	NA	Control	NA	FP	kaal	hook	NA	NA	NA	Control	KH	NA	KH x NA
-P	F	175	879-G2 x 904-5ID1	879WKG	G2	904WPG	5ID1	Control	NA	NA	NA	NA	control	2	NA	NA	NA	Control	NA	FP	hook	kaal	NA	NA	NA	Control	HK	NA	HK x NA
-P	F	176	879-G2 x 904-5ID1	879WKG	G2	904WPG	5ID1	Control	NA	NA	NA	NA	control	1	NA	NA	NA	Control	NA	FP	hook	kaal	NA	NA	NA	Control	HK	NA	HK x NA
-P	F	177	879-G2 x 904-5ID1	879WKG	G2	904WPG	5ID1	Control	NA	NA	NA	NA	control	2	NA	NA	NA	Control	NA	FP	hook	kaal	NA	NA	NA	Control	HK	NA	HK x NA
-P	F	178	879-G2 x 904-5ID1	879WKG	G2	904WPG	5ID1	Control	NA	NA	NA	NA	control	5	NA	NA	NA	Control	NA	FP	hook	kaal	NA	NA	NA	Control	HK	NA	HK x NA
-P	F	179	879-G2 x 904-5ID1	879WKG	G2	904WPG	5ID1	Control	NA	NA	NA	NA	control	0	NA	NA	NA	Control	NA	FP	hook	kaal	NA	NA	NA	Control	HK	NA	HK x NA
-P	F	223	879-10-1 x 904-5ID4	879WKG	10-1	904WPG	5ID4	Control	NA	NA	NA	NA	control	3	NA	NA	NA	Control	NA	FP	hook	kaal	NA	NA	NA	Control	HK	NA	HK x NA
-P	F	224	879-10-1 x 904-5ID4	879WKG	10-1	904WPG	5ID4	Control	NA	NA	NA	NA	control	3	NA	NA	NA	Control	NA	FP	hook	kaal	NA	NA	NA	Control	HK	NA	HK x NA
-P	F	225	879-10-1 x 904-5ID4	879WKG	10-1	904WPG	5ID4	Control	NA	NA	NA	NA	control	0	NA	NA	NA	Control	NA	FP	hook	kaal	NA	NA	NA	Control	HK	NA	HK x NA
-P	F	231	3587-7 x 879-G2ID4	3587WP	7	879WKG	G2ID4	Control	NA	NA	NA	NA	control	1	NA	NA	NA	Control	NA	FP	kaal	hook	NA	NA	NA	Control	KH	NA	KH x NA
-P	F	232	3587-7 x 879-G2ID4	3587WP	7	879WKG	G2ID4	Control	NA	NA	NA	NA	control	0	NA	NA	NA	Control	NA	FP	kaal	hook	NA	NA	NA	Control	KH	NA	KH x NA
-P	F	233	3587-7 x 879-G2ID4	3587WP	7	879WKG	G2ID4	Control	NA	NA	NA	NA	control	3	NA	NA	NA	Control	NA	FP	kaal	hook	NA	NA	NA	Control	KH	NA	KH x NA
-P	F	234	3587-7 x 879-G2ID4	3587WP	7	879WKG	G2ID4	Control	NA	NA	NA	NA	control	1	NA	NA	NA	Control	NA	FP	kaal	hook	NA	NA	NA	Control	KH	NA	KH x NA
 P	F	235	904-3 x 879-H-2ID4	904WPG	3	879WKG	H-2ID4	904-2	NA	NA	NA	NA	FK	0	NA	NA	NA	904WPG	2	FP	kaal	hook	NA	NA	NA	kaal	KH	K	KH x K
 P	F	236	904-3 x 879-H-2ID4	904WPG	3	879WKG	H-2ID4	904-2	NA	NA	NA	NA	FK	7	NA	NA	NA	904WPG	2	FP	kaal	hook	NA	NA	NA	kaal	KH	K	KH x K
 P	F	237	904-3 x 879-H-2ID4	904WPG	3	879WKG	H-2ID4	904-2	NA	NA	NA	NA	FK	0	NA	NA	NA	904WPG	2	FP	kaal	hook	NA	NA	NA	kaal	KH	K	KH x K
-P	F	241	904-3 x 879-H-2ID4	904WPG	3	879WKG	H-2ID4	Control	NA	NA	NA	NA	control	0	NA	NA	NA	Control	NA	FP	kaal	hook	NA	NA	NA	Control	KH	NA	KH x NA
-P	F	242	904-3 x 879-H-2ID4	904WPG	3	879WKG	H-2ID4	Control	NA	NA	NA	NA	control	0	NA	NA	NA	Control	NA	FP	kaal	hook	NA	NA	NA	Control	KH	NA	KH x NA
-P	F	243	904-3 x 879-H-2ID4	904WPG	3	879WKG	H-2ID4	Control	NA	NA	NA	NA	control	0	NA	NA	NA	Control	NA	FP	kaal	hook	NA	NA	NA	Control	KH	NA	KH x NA
-P	F	244	904-3 x 879-H-2ID4	904WPG	3	879WKG	H-2ID4	Control	NA	NA	NA	NA	control	0	NA	NA	NA	Control	NA	FP	kaal	hook	NA	NA	NA	Control	KH	NA	KH x NA
 P	F	245	892-3 x 879-10-1ID1	892WKG	3	879WKG	10-1ID1	892-10	NA	NA	NA	NA	FK	6	NA	NA	NA	892WKG	10	FP	kaal	hook	NA	NA	NA	kaal	KH	K	KH x K
 P	F	246	892-3 x 879-10-1ID1	892WKG	3	879WKG	10-1ID1	892-10	NA	NA	NA	NA	FK	1	NA	NA	NA	892WKG	10	FP	kaal	hook	NA	NA	NA	kaal	KH	K	KH x K
 P	F	247	892-3 x 879-10-1ID1	892WKG	3	879WKG	10-1ID1	892-10	NA	NA	NA	NA	FK	4	NA	NA	NA	892WKG	10	FP	kaal	hook	NA	NA	NA	kaal	KH	K	KH x K
@@ -621,19 +851,11 @@ P	F	278	904-5 x 879-G2ID3	904WPG	5	879WKG	G2ID3	904-2	NA	NA	NA	NA	FK	0	NA	NA	NA	
 P	F	279	904-5 x 879-G2ID3	904WPG	5	879WKG	G2ID3	904-2	NA	NA	NA	NA	FK	4	NA	NA	NA	904WPG	2	FP	kaal	hook	NA	NA	NA	kaal	KH	K	KH x K
 P	F	280	904-5 x 879-G2ID3	904WPG	5	879WKG	G2ID3	904-2	NA	NA	NA	NA	FK	1	NA	NA	NA	904WPG	2	FP	kaal	hook	NA	NA	NA	kaal	KH	K	KH x K
 P	F	281	904-5 x 879-G2ID3	904WPG	5	879WKG	G2ID3	904-2	NA	NA	NA	NA	FK	0	NA	NA	NA	904WPG	2	FP	kaal	hook	NA	NA	NA	kaal	KH	K	KH x K
-P	F	293	904-2 x 879-10-1ID4	904WPG	2	879WKG	10-1ID4	Control	NA	NA	NA	NA	control	1	NA	NA	NA	Control	NA	FP	kaal	hook	NA	NA	NA	Control	KH	NA	KH x NA
-P	F	294	904-2 x 879-10-1ID4	904WPG	2	879WKG	10-1ID4	Control	NA	NA	NA	NA	control	0	NA	NA	NA	Control	NA	FP	kaal	hook	NA	NA	NA	Control	KH	NA	KH x NA
-P	F	295	904-2 x 879-10-1ID4	904WPG	2	879WKG	10-1ID4	Control	NA	NA	NA	NA	control	0	NA	NA	NA	Control	NA	FP	kaal	hook	NA	NA	NA	Control	KH	NA	KH x NA
-P	F	296	904-2 x 879-10-1ID4	904WPG	2	879WKG	10-1ID4	Control	NA	NA	NA	NA	control	0	NA	NA	NA	Control	NA	FP	kaal	hook	NA	NA	NA	Control	KH	NA	KH x NA
-P	F	297	904-2 x 879-10-1ID4	904WPG	2	879WKG	10-1ID4	Control	NA	NA	NA	NA	control	0	NA	NA	NA	Control	NA	FP	kaal	hook	NA	NA	NA	Control	KH	NA	KH x NA
 P	F	298	879-10-1 x 892-3ID9	879WKG	10-1	892WKG	3ID9	879-2-2	NA	NA	NA	NA	FH	0	NA	NA	NA	879WKG	2-2	FP	hook	kaal	NA	NA	NA	hook	HK	H	HK x H
 P	F	299	879-10-1 x 892-3ID9	879WKG	10-1	892WKG	3ID9	879-2-2	NA	NA	NA	NA	FH	0	NA	NA	NA	879WKG	2-2	FP	hook	kaal	NA	NA	NA	hook	HK	H	HK x H
 P	F	300	879-10-1 x 892-3ID9	879WKG	10-1	892WKG	3ID9	879-2-2	NA	NA	NA	NA	FH	1	NA	NA	NA	879WKG	2-2	FP	hook	kaal	NA	NA	NA	hook	HK	H	HK x H
 P	F	301	879-10-1 x 892-3ID9	879WKG	10-1	892WKG	3ID9	879-2-2	NA	NA	NA	NA	FH	2	NA	NA	NA	879WKG	2-2	FP	hook	kaal	NA	NA	NA	hook	HK	H	HK x H
 P	F	302	879-10-1 x 892-3ID9	879WKG	10-1	892WKG	3ID9	879-2-2	NA	NA	NA	NA	FH	4	NA	NA	NA	879WKG	2-2	FP	hook	kaal	NA	NA	NA	hook	HK	H	HK x H
-P	F	309	879-G2 x 904-5ID3	879WKG	G2	904WPG	5ID3	Control	NA	NA	NA	NA	control	0	NA	NA	NA	Control	NA	FP	hook	kaal	NA	NA	NA	Control	HK	NA	HK x NA
-P	F	310	879-G2 x 904-5ID3	879WKG	G2	904WPG	5ID3	Control	NA	NA	NA	NA	control	0	NA	NA	NA	Control	NA	FP	hook	kaal	NA	NA	NA	Control	HK	NA	HK x NA
-P	F	311	879-G2 x 904-5ID3	879WKG	G2	904WPG	5ID3	Control	NA	NA	NA	NA	control	0	NA	NA	NA	Control	NA	FP	hook	kaal	NA	NA	NA	Control	HK	NA	HK x NA
 P	F	319	892-3 x 879-10-1ID1	892WKG	3	879WKG	10-1ID1	879-2-2.3/25/14C1	NA	NA	NA	NA	FH	9	NA	NA	NA	879WKG	2-2.3/25/14C1	FP	kaal	hook	NA	NA	NA	hook	KH	H	KH x H
 P	F	320	892-3 x 879-10-1ID1	892WKG	3	879WKG	10-1ID1	879-2-2.3/25/14C1	NA	NA	NA	NA	FH	3	NA	NA	NA	879WKG	2-2.3/25/14C1	FP	kaal	hook	NA	NA	NA	hook	KH	H	KH x H
 P	F	321	892-3 x 879-10-1ID1	892WKG	3	879WKG	10-1ID1	879-2-2.3/25/14C1	NA	NA	NA	NA	FH	7	NA	NA	NA	879WKG	2-2.3/25/14C1	FP	kaal	hook	NA	NA	NA	hook	KH	H	KH x H
@@ -644,11 +866,6 @@ P	F	325	904-5 x 879-G2ID3	904WPG	5	879WKG	G2ID3	879-10-1.3/25/13C1	NA	NA	NA	NA	F
 P	F	326	904-5 x 879-G2ID3	904WPG	5	879WKG	G2ID3	879-10-1.3/25/13C1	NA	NA	NA	NA	FH	0	NA	NA	NA	879WKG	10-1.3/25/13C1	FP	kaal	hook	NA	NA	NA	hook	KH	H	KH x H
 P	F	327	904-5 x 879-G2ID3	904WPG	5	879WKG	G2ID3	879-10-1.3/25/13C1	NA	NA	NA	NA	FH	3	NA	NA	NA	879WKG	10-1.3/25/13C1	FP	kaal	hook	NA	NA	NA	hook	KH	H	KH x H
 P	F	328	904-5 x 879-G2ID3	904WPG	5	879WKG	G2ID3	879-10-1.3/25/13C1	NA	NA	NA	NA	FH	4	NA	NA	NA	879WKG	10-1.3/25/13C1	FP	kaal	hook	NA	NA	NA	hook	KH	H	KH x H
-P	F	334	904-3 x 879-10-1ID2	904WPG	3	879WKG	10-1ID2	Control	NA	NA	NA	NA	control	0	NA	NA	NA	Control	NA	FP	kaal	hook	NA	NA	NA	Control	KH	NA	KH x NA
-P	F	335	904-3 x 879-10-1ID2	904WPG	3	879WKG	10-1ID2	Control	NA	NA	NA	NA	control	0	NA	NA	NA	Control	NA	FP	kaal	hook	NA	NA	NA	Control	KH	NA	KH x NA
-P	F	336	904-3 x 879-10-1ID2	904WPG	3	879WKG	10-1ID2	Control	NA	NA	NA	NA	control	0	NA	NA	NA	Control	NA	FP	kaal	hook	NA	NA	NA	Control	KH	NA	KH x NA
-P	F	337	904-3 x 879-10-1ID2	904WPG	3	879WKG	10-1ID2	Control	NA	NA	NA	NA	control	0	NA	NA	NA	Control	NA	FP	kaal	hook	NA	NA	NA	Control	KH	NA	KH x NA
-P	F	338	904-3 x 879-10-1ID2	904WPG	3	879WKG	10-1ID2	Control	NA	NA	NA	NA	control	0	NA	NA	NA	Control	NA	FP	kaal	hook	NA	NA	NA	Control	KH	NA	KH x NA
 P	F	339	3587-A x 879-10-1ID1	3587WP	A	879WKG	10-1ID1	879-2-2	NA	NA	NA	NA	FH	5	NA	NA	NA	879WKG	2-2	FP	kaal	hook	NA	NA	NA	hook	KH	H	KH x H
 P	F	340	3587-A x 879-10-1ID1	3587WP	A	879WKG	10-1ID1	879-2-2	NA	NA	NA	NA	FH	3	NA	NA	NA	879WKG	2-2	FP	kaal	hook	NA	NA	NA	hook	KH	H	KH x H
 P	F	341	3587-A x 879-10-1ID1	3587WP	A	879WKG	10-1ID1	879-2-2	NA	NA	NA	NA	FH	3	NA	NA	NA	879WKG	2-2	FP	kaal	hook	NA	NA	NA	hook	KH	H	KH x H
@@ -660,10 +877,6 @@ P	F	346	904-3 x 879-10-1ID2	904WPG	3	879WKG	10-1ID2	879-2-2	NA	NA	NA	NA	FH	9	NA	
 P	F	347	904-3 x 879-10-1ID2	904WPG	3	879WKG	10-1ID2	879-2-2	NA	NA	NA	NA	FH	7	NA	NA	NA	879WKG	2-2	FP	kaal	hook	NA	NA	NA	hook	KH	H	KH x H
 P	F	348	904-3 x 879-10-1ID2	904WPG	3	879WKG	10-1ID2	879-2-2	NA	NA	NA	NA	FH	4	NA	NA	NA	879WKG	2-2	FP	kaal	hook	NA	NA	NA	hook	KH	H	KH x H
 P	F	349	904-3 x 879-10-1ID2	904WPG	3	879WKG	10-1ID2	879-2-2	NA	NA	NA	NA	FH	10	NA	NA	NA	879WKG	2-2	FP	kaal	hook	NA	NA	NA	hook	KH	H	KH x H
-P	F	356	879-G2 x 904-3ID5	879WKG	G2	904WPG	3ID5	Control	NA	NA	NA	NA	control	0	NA	NA	NA	Control	NA	FP	hook	kaal	NA	NA	NA	Control	HK	NA	HK x NA
-P	F	357	879-G2 x 904-3ID5	879WKG	G2	904WPG	3ID5	Control	NA	NA	NA	NA	control	1	NA	NA	NA	Control	NA	FP	hook	kaal	NA	NA	NA	Control	HK	NA	HK x NA
-P	F	358	879-G2 x 904-3ID5	879WKG	G2	904WPG	3ID5	Control	NA	NA	NA	NA	control	4	NA	NA	NA	Control	NA	FP	hook	kaal	NA	NA	NA	Control	HK	NA	HK x NA
-P	F	359	879-G2 x 904-3ID5	879WKG	G2	904WPG	3ID5	Control	NA	NA	NA	NA	control	0	NA	NA	NA	Control	NA	FP	hook	kaal	NA	NA	NA	Control	HK	NA	HK x NA
 P	F	366	892-3 x 879-2-2ID1	892WKG	3	879WKG	2-2ID1	879-10-1.3/25/13C1	NA	NA	NA	NA	FH	6	NA	NA	NA	879WKG	10-1.3/25/13C1	FP	kaal	hook	NA	NA	NA	hook	KH	H	KH x H
 P	F	379	3587-7 x 879-10-1ID1	3587WP	7	879WKG	10-1ID1	3587-A	NA	NA	NA	NA	FK	0	NA	NA	NA	3587WP	A	FP	kaal	hook	NA	NA	NA	kaal	KH	K	KH x K
 P	F	380	3587-7 x 879-10-1ID1	3587WP	7	879WKG	10-1ID1	3587-A	NA	NA	NA	NA	FK	0	NA	NA	NA	3587WP	A	FP	kaal	hook	NA	NA	NA	kaal	KH	K	KH x K
@@ -690,11 +903,6 @@ P	F	452	904-2 x 879-10-1ID4	904WPG	2	879WKG	10-1ID4	904-59/14/15	NA	NA	NA	NA	FK	
 P	F	453	904-2 x 879-10-1ID4	904WPG	2	879WKG	10-1ID4	904-59/14/15	NA	NA	NA	NA	FK	0	NA	NA	NA	904WPG	59/14/15	FP	kaal	hook	NA	NA	NA	kaal	KH	K	KH x K
 P	F	454	904-2 x 879-10-1ID4	904WPG	2	879WKG	10-1ID4	904-59/14/15	NA	NA	NA	NA	FK	1	NA	NA	NA	904WPG	59/14/15	FP	kaal	hook	NA	NA	NA	kaal	KH	K	KH x K
 P	F	455	904-2 x 879-10-1ID4	904WPG	2	879WKG	10-1ID4	904-59/14/15	NA	NA	NA	NA	FK	2	NA	NA	NA	904WPG	59/14/15	FP	kaal	hook	NA	NA	NA	kaal	KH	K	KH x K
-P	F	456	904-2 x 879-2-2ID4	904WPG	2	879WKG	2-2ID4	Control	NA	NA	NA	NA	control	0	NA	NA	NA	Control	NA	FP	kaal	hook	NA	NA	NA	Control	KH	NA	KH x NA
-P	F	457	904-2 x 879-2-2ID4	904WPG	2	879WKG	2-2ID4	Control	NA	NA	NA	NA	control	0	NA	NA	NA	Control	NA	FP	kaal	hook	NA	NA	NA	Control	KH	NA	KH x NA
-P	F	458	904-2 x 879-2-2ID4	904WPG	2	879WKG	2-2ID4	Control	NA	NA	NA	NA	control	0	NA	NA	NA	Control	NA	FP	kaal	hook	NA	NA	NA	Control	KH	NA	KH x NA
-P	F	459	904-2 x 879-2-2ID4	904WPG	2	879WKG	2-2ID4	Control	NA	NA	NA	NA	control	0	NA	NA	NA	Control	NA	FP	kaal	hook	NA	NA	NA	Control	KH	NA	KH x NA
-P	F	460	904-2 x 879-2-2ID4	904WPG	2	879WKG	2-2ID4	Control	NA	NA	NA	NA	control	0	NA	NA	NA	Control	NA	FP	kaal	hook	NA	NA	NA	Control	KH	NA	KH x NA
 P	F	466	892-10 x 879-10-1ID1	892WKG	10	879WKG	10-1ID1	892-4	NA	NA	NA	NA	FK	7	NA	NA	NA	892WKG	4	FP	kaal	hook	NA	NA	NA	kaal	KH	K	KH x K
 P	F	467	892-10 x 879-10-1ID1	892WKG	10	879WKG	10-1ID1	892-4	NA	NA	NA	NA	FK	1	NA	NA	NA	892WKG	4	FP	kaal	hook	NA	NA	NA	kaal	KH	K	KH x K
 P	F	468	892-10 x 879-10-1ID1	892WKG	10	879WKG	10-1ID1	892-4	NA	NA	NA	NA	FK	4	NA	NA	NA	892WKG	4	FP	kaal	hook	NA	NA	NA	kaal	KH	K	KH x K
@@ -725,9 +933,6 @@ P	F	527	879-G2 x 904-5ID1	879WKG	G2	904WPG	5ID1	879-10-1.3/25/13C1	NA	NA	NA	NA	F
 P	F	528	879-G2 x 904-5ID1	879WKG	G2	904WPG	5ID1	879-10-1.3/25/13C1	NA	NA	NA	NA	FH	0	NA	NA	NA	879WKG	10-1.3/25/13C1	FP	hook	kaal	NA	NA	NA	hook	HK	H	HK x H
 P	F	529	879-G2 x 904-5ID1	879WKG	G2	904WPG	5ID1	879-10-1.3/25/13C1	NA	NA	NA	NA	FH	0	NA	NA	NA	879WKG	10-1.3/25/13C1	FP	hook	kaal	NA	NA	NA	hook	HK	H	HK x H
 P	F	530	879-G2 x 904-5ID1	879WKG	G2	904WPG	5ID1	879-10-1.3/25/13C1	NA	NA	NA	NA	FH	0	NA	NA	NA	879WKG	10-1.3/25/13C1	FP	hook	kaal	NA	NA	NA	hook	HK	H	HK x H
-P	F	542	3587-A x 879-10-1ID1	3587WP	A	879WKG	10-1ID1	Control	NA	NA	NA	NA	control	2	NA	NA	NA	Control	NA	FP	kaal	hook	NA	NA	NA	Control	KH	NA	KH x NA
-P	F	543	3587-A x 879-10-1ID1	3587WP	A	879WKG	10-1ID1	Control	NA	NA	NA	NA	control	0	NA	NA	NA	Control	NA	FP	kaal	hook	NA	NA	NA	Control	KH	NA	KH x NA
-P	F	545	3587-A x 879-10-1ID1	3587WP	A	879WKG	10-1ID1	Control	NA	NA	NA	NA	control	0	NA	NA	NA	Control	NA	FP	kaal	hook	NA	NA	NA	Control	KH	NA	KH x NA
 P	F	546	892-4 x 879-G2ID2	892WKG	4	879WKG	G2ID2	892-10	NA	NA	NA	NA	FK	3	NA	NA	NA	892WKG	10	FP	kaal	hook	NA	NA	NA	kaal	KH	K	KH x K
 P	F	547	892-4 x 879-G2ID2	892WKG	4	879WKG	G2ID2	892-10	NA	NA	NA	NA	FK	4	NA	NA	NA	892WKG	10	FP	kaal	hook	NA	NA	NA	kaal	KH	K	KH x K
 P	F	548	892-4 x 879-G2ID2	892WKG	4	879WKG	G2ID2	892-10	NA	NA	NA	NA	FK	1	NA	NA	NA	892WKG	10	FP	kaal	hook	NA	NA	NA	kaal	KH	K	KH x K
@@ -744,10 +949,6 @@ P	F	568	904-3 x 879-10-1ID2	904WPG	3	879WKG	10-1ID2	879-2-2.3/25/13C1	NA	NA	NA	N
 P	F	569	904-3 x 879-10-1ID2	904WPG	3	879WKG	10-1ID2	879-2-2.3/25/13C1	NA	NA	NA	NA	FH	7	NA	NA	NA	879WKG	2-2.3/25/13C1	FP	kaal	hook	NA	NA	NA	hook	KH	H	KH x H
 P	F	574	879-2-2 x 892-10ID1	879WKG	2-2	892WKG	10ID1	879-10-1	NA	NA	NA	NA	FH	0	NA	NA	NA	879WKG	10-1	FP	hook	kaal	NA	NA	NA	hook	HK	H	HK x H
 P	F	575	879-2-2 x 892-10ID1	879WKG	2-2	892WKG	10ID1	879-10-1	NA	NA	NA	NA	FH	0	NA	NA	NA	879WKG	10-1	FP	hook	kaal	NA	NA	NA	hook	HK	H	HK x H
-P	F	576	879-2-2 x 892-10ID1	879WKG	2-2	892WKG	10ID1	Control	NA	NA	NA	NA	control	0	NA	NA	NA	Control	NA	FP	hook	kaal	NA	NA	NA	Control	HK	NA	HK x NA
-P	F	577	879-2-2 x 892-10ID1	879WKG	2-2	892WKG	10ID1	Control	NA	NA	NA	NA	control	0	NA	NA	NA	Control	NA	FP	hook	kaal	NA	NA	NA	Control	HK	NA	HK x NA
-P	F	578	879-2-2 x 892-10ID1	879WKG	2-2	892WKG	10ID1	Control	NA	NA	NA	NA	control	0	NA	NA	NA	Control	NA	FP	hook	kaal	NA	NA	NA	Control	HK	NA	HK x NA
-P	F	579	879-2-2 x 892-10ID1	879WKG	2-2	892WKG	10ID1	Control	NA	NA	NA	NA	control	0	NA	NA	NA	Control	NA	FP	hook	kaal	NA	NA	NA	Control	HK	NA	HK x NA
 P	F	585	892-3 x 879-2-2ID1	892WKG	3	879WKG	2-2ID1	879-10-1.3/25/13C1	NA	NA	NA	NA	FH	7	NA	NA	NA	879WKG	10-1.3/25/13C1	FP	kaal	hook	NA	NA	NA	hook	KH	H	KH x H
 P	F	586	892-3 x 879-2-2ID1	892WKG	3	879WKG	2-2ID1	879-10-1.3/25/13C1	NA	NA	NA	NA	FH	3	NA	NA	NA	879WKG	10-1.3/25/13C1	FP	kaal	hook	NA	NA	NA	hook	KH	H	KH x H
 P	F	588	892-3 x 879-2-2ID1	892WKG	3	879WKG	2-2ID1	879-10-1.3/25/13C1	NA	NA	NA	NA	FH	8	NA	NA	NA	879WKG	10-1.3/25/13C1	FP	kaal	hook	NA	NA	NA	hook	KH	H	KH x H
@@ -797,8 +998,6 @@ P	F	638	879-10-1 x 892-3ID9	879WKG	10-1	892WKG	3ID9	892-1	NA	NA	NA	NA	FK	1	NA	NA
 P	F	639	879-10-1 x 892-3ID9	879WKG	10-1	892WKG	3ID9	892-1	NA	NA	NA	NA	FK	4	NA	NA	NA	892WKG	1	FP	hook	kaal	NA	NA	NA	kaal	HK	K	HK x K
 P	F	640	879-10-1 x 892-3ID9	879WKG	10-1	892WKG	3ID9	892-1	NA	NA	NA	NA	FK	3	NA	NA	NA	892WKG	1	FP	hook	kaal	NA	NA	NA	kaal	HK	K	HK x K
 P	F	641	879-10-1 x 892-3ID9	879WKG	10-1	892WKG	3ID9	892-1	NA	NA	NA	NA	FK	4	NA	NA	NA	892WKG	1	FP	hook	kaal	NA	NA	NA	kaal	HK	K	HK x K
-P	F	642	3587-14 x 879-G-2ID1	3587WP	14	879WKG	G-2ID1	Control	NA	NA	NA	NA	control	0	NA	NA	NA	Control	NA	FP	kaal	hook	NA	NA	NA	Control	KH	NA	KH x NA
-P	F	644	3587-14 x 879-G-2ID1	3587WP	14	879WKG	G-2ID1	Control	NA	NA	NA	NA	control	0	NA	NA	NA	Control	NA	FP	kaal	hook	NA	NA	NA	Control	KH	NA	KH x NA
 P	F	646	879-10-1 x 892-1ID1	879WKG	10-1	892WKG	1ID1	879-2-2	NA	NA	NA	NA	FH	2	NA	NA	NA	879WKG	2-2	FP	hook	kaal	NA	NA	NA	hook	HK	H	HK x H
 P	F	647	879-10-1 x 892-1ID1	879WKG	10-1	892WKG	1ID1	879-2-2	NA	NA	NA	NA	FH	3	NA	NA	NA	879WKG	2-2	FP	hook	kaal	NA	NA	NA	hook	HK	H	HK x H
 P	F	648	879-10-1 x 892-1ID1	879WKG	10-1	892WKG	1ID1	879-2-2	NA	NA	NA	NA	FH	0	NA	NA	NA	879WKG	2-2	FP	hook	kaal	NA	NA	NA	hook	HK	H	HK x H
@@ -822,10 +1021,6 @@ P	F	685	3587-14 x 879-10-1ID2	3587WP	14	879WKG	10-1ID2	3587-A	NA	NA	NA	NA	FK	7	N
 P	F	686	3587-14 x 879-10-1ID2	3587WP	14	879WKG	10-1ID2	3587-A	NA	NA	NA	NA	FK	5	NA	NA	NA	3587WP	A	FP	kaal	hook	NA	NA	NA	kaal	KH	K	KH x K
 P	F	687	3587-14 x 879-10-1ID2	3587WP	14	879WKG	10-1ID2	3587-A	NA	NA	NA	NA	FK	4	NA	NA	NA	3587WP	A	FP	kaal	hook	NA	NA	NA	kaal	KH	K	KH x K
 P	F	688	3587-14 x 879-10-1ID2	3587WP	14	879WKG	10-1ID2	3587-A	NA	NA	NA	NA	FK	1	NA	NA	NA	3587WP	A	FP	kaal	hook	NA	NA	NA	kaal	KH	K	KH x K
-P	F	689	904-5 x 879-10-1ID1	904WPG	5	879WKG	10-1ID1	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	kaal	hook	NA	NA	NA	9999	KH	NA	KH x NA
-P	F	690	904-5 x 879-10-1ID1	904WPG	5	879WKG	10-1ID1	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	kaal	hook	NA	NA	NA	9999	KH	NA	KH x NA
-P	F	691	904-5 x 879-10-1ID1	904WPG	5	879WKG	10-1ID1	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	kaal	hook	NA	NA	NA	9999	KH	NA	KH x NA
-P	F	692	904-5 x 879-10-1ID1	904WPG	5	879WKG	10-1ID1	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	kaal	hook	NA	NA	NA	9999	KH	NA	KH x NA
 P	F	699	879-G2 x 904-5ID1	879WKG	G2	904WPG	5ID1	879-10-1	NA	NA	NA	NA	FH	0	NA	NA	NA	879WKG	10-1	FP	hook	kaal	NA	NA	NA	hook	HK	H	HK x H
 P	F	700	879-G2 x 904-5ID1	879WKG	G2	904WPG	5ID1	879-10-1	NA	NA	NA	NA	FH	0	NA	NA	NA	879WKG	10-1	FP	hook	kaal	NA	NA	NA	hook	HK	H	HK x H
 P	F	701	879-G2 x 904-5ID1	879WKG	G2	904WPG	5ID1	879-10-1	NA	NA	NA	NA	FH	0	NA	NA	NA	879WKG	10-1	FP	hook	kaal	NA	NA	NA	hook	HK	H	HK x H
@@ -833,10 +1028,6 @@ P	F	702	879-G2 x 904-5ID1	879WKG	G2	904WPG	5ID1	879-10-1	NA	NA	NA	NA	FH	0	NA	NA	
 P	F	706	879-G2 x 904-3ID5	879WKG	G2	904WPG	3ID5	904-5	NA	NA	NA	NA	FK	7	NA	NA	NA	904WPG	5	FP	hook	kaal	NA	NA	NA	kaal	HK	K	HK x K
 P	F	707	879-G2 x 904-3ID5	879WKG	G2	904WPG	3ID5	904-5	NA	NA	NA	NA	FK	1	NA	NA	NA	904WPG	5	FP	hook	kaal	NA	NA	NA	kaal	HK	K	HK x K
 P	F	708	879-G2 x 904-3ID5	879WKG	G2	904WPG	3ID5	904-5	NA	NA	NA	NA	FK	2	NA	NA	NA	904WPG	5	FP	hook	kaal	NA	NA	NA	kaal	HK	K	HK x K
-P	F	714	3587-7 x 879-10-1ID1	3587WP	7	879WKG	10-1ID1	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	kaal	hook	NA	NA	NA	9999	KH	NA	KH x NA
-P	F	715	3587-7 x 879-10-1ID1	3587WP	7	879WKG	10-1ID1	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	kaal	hook	NA	NA	NA	9999	KH	NA	KH x NA
-P	F	716	3587-7 x 879-10-1ID1	3587WP	7	879WKG	10-1ID1	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	kaal	hook	NA	NA	NA	9999	KH	NA	KH x NA
-P	F	717	3587-7 x 879-10-1ID1	3587WP	7	879WKG	10-1ID1	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	kaal	hook	NA	NA	NA	9999	KH	NA	KH x NA
 P	F	719	892-3 x 879-10-1ID1	892WKG	3	879WKG	10-1ID1	879-2-2	NA	NA	NA	NA	FH	5	NA	NA	NA	879WKG	2-2	FP	kaal	hook	NA	NA	NA	hook	KH	H	KH x H
 P	F	721	892-3 x 879-10-1ID1	892WKG	3	879WKG	10-1ID1	879-2-2	NA	NA	NA	NA	FH	1	NA	NA	NA	879WKG	2-2	FP	kaal	hook	NA	NA	NA	hook	KH	H	KH x H
 P	F	722	892-3 x 879-10-1ID1	892WKG	3	879WKG	10-1ID1	879-2-2	NA	NA	NA	NA	FH	0	NA	NA	NA	879WKG	2-2	FP	kaal	hook	NA	NA	NA	hook	KH	H	KH x H
@@ -846,46 +1037,21 @@ P	F	726	879-2-2 x 892-10ID1	879WKG	2-2	892WKG	10ID1	879-10-1	NA	NA	NA	NA	FH	3	NA
 P	F	727	879-2-2 x 892-10ID1	879WKG	2-2	892WKG	10ID1	879-10-1	NA	NA	NA	NA	FH	2	NA	NA	NA	879WKG	10-1	FP	hook	kaal	NA	NA	NA	hook	HK	H	HK x H
 P	F	728	879-2-2 x 892-10ID1	879WKG	2-2	892WKG	10ID1	879-10-1	NA	NA	NA	NA	FH	2	NA	NA	NA	879WKG	10-1	FP	hook	kaal	NA	NA	NA	hook	HK	H	HK x H
 P	F	733	879-10-1 x 904-3ID1	879WKG	10-1	904WPG	3ID1	879-2-2	NA	NA	NA	NA	FH	0	NA	NA	NA	879WKG	2-2	FP	hook	kaal	NA	NA	NA	hook	HK	H	HK x H
-P	F	734	879-10-1 x 904-3ID1	879WKG	10-1	904WPG	3ID1	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	hook	kaal	NA	NA	NA	9999	HK	NA	HK x NA
-P	F	736	879-10-1 x 904-3ID1	879WKG	10-1	904WPG	3ID1	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	hook	kaal	NA	NA	NA	9999	HK	NA	HK x NA
-P	F	737	879-10-1 x 904-3ID1	879WKG	10-1	904WPG	3ID1	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	hook	kaal	NA	NA	NA	9999	HK	NA	HK x NA
 P	F	738	904-3 x 879-G2ID3	904WPG	3	879WKG	G2ID3	904-59/14/15	NA	NA	NA	NA	FK	2	JP: fixed crosstype from FF to FK	NA	NA	904WPG	59/14/15	FP	kaal	hook	NA	NA	NA	kaal	KH	K	KH x K
 P	F	739	904-3 x 879-G2ID3	904WPG	3	879WKG	G2ID3	904-59/14/15	NA	NA	NA	NA	FK	0	NA	NA	NA	904WPG	59/14/15	FP	kaal	hook	NA	NA	NA	kaal	KH	K	KH x K
-P	F	740	904-3 x 879-G2ID3	904WPG	3	879WKG	G2ID3	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	kaal	hook	NA	NA	NA	9999	KH	NA	KH x NA
-P	F	741	904-3 x 879-G2ID3	904WPG	3	879WKG	G2ID3	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	kaal	hook	NA	NA	NA	9999	KH	NA	KH x NA
-P	F	742	904-3 x 879-G2ID3	904WPG	3	879WKG	G2ID3	9999	NA	NA	NA	NA	control	2	NA	NA	NA	9999	NA	FP	kaal	hook	NA	NA	NA	9999	KH	NA	KH x NA
-P	F	743	904-3 x 879-G2ID3	904WPG	3	879WKG	G2ID3	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	kaal	hook	NA	NA	NA	9999	KH	NA	KH x NA
 P	F	744	904-2 x 879-2-2ID4	904WPG	2	879WKG	2-2ID4	904-59/14/15	NA	NA	NA	NA	FK	0	NA	NA	NA	904WPG	59/14/15	FP	kaal	hook	NA	NA	NA	kaal	KH	K	KH x K
 P	F	745	904-2 x 879-2-2ID4	904WPG	2	879WKG	2-2ID4	904-59/14/15	NA	NA	NA	NA	FK	1	NA	NA	NA	904WPG	59/14/15	FP	kaal	hook	NA	NA	NA	kaal	KH	K	KH x K
 P	F	746	904-2 x 879-2-2ID4	904WPG	2	879WKG	2-2ID4	904-59/14/15	NA	NA	NA	NA	FK	1	NA	NA	NA	904WPG	59/14/15	FP	kaal	hook	NA	NA	NA	kaal	KH	K	KH x K
 P	F	747	904-2 x 879-2-2ID4	904WPG	2	879WKG	2-2ID4	904-59/14/15	NA	NA	NA	NA	FK	0	NA	NA	NA	904WPG	59/14/15	FP	kaal	hook	NA	NA	NA	kaal	KH	K	KH x K
 P	F	748	904-2 x 879-2-2ID4	904WPG	2	879WKG	2-2ID4	904-59/14/15	NA	NA	NA	NA	FK	0	NA	NA	NA	904WPG	59/14/15	FP	kaal	hook	NA	NA	NA	kaal	KH	K	KH x K
-P	F	749	3587-14 x 879-10-1ID2	3587WP	14	879WKG	10-1ID2	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	kaal	hook	NA	NA	NA	9999	KH	NA	KH x NA
-P	F	750	3587-14 x 879-10-1ID2	3587WP	14	879WKG	10-1ID2	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	kaal	hook	NA	NA	NA	9999	KH	NA	KH x NA
-P	F	751	3587-14 x 879-10-1ID2	3587WP	14	879WKG	10-1ID2	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	kaal	hook	NA	NA	NA	9999	KH	NA	KH x NA
-P	F	752	3587-14 x 879-10-1ID2	3587WP	14	879WKG	10-1ID2	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	kaal	hook	NA	NA	NA	9999	KH	NA	KH x NA
-P	F	753	3587-A x 879-G2ID2	3587WP	A	879WKG	G2ID2	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	kaal	hook	NA	NA	NA	9999	KH	NA	KH x NA
-P	F	755	3587-A x 879-G2ID2	3587WP	A	879WKG	G2ID2	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	kaal	hook	NA	NA	NA	9999	KH	NA	KH x NA
-P	F	756	3587-A x 879-G2ID2	3587WP	A	879WKG	G2ID2	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	kaal	hook	NA	NA	NA	9999	KH	NA	KH x NA
 P	F	757	3587-A x 879-G2ID2	3587WP	A	879WKG	G2ID2	3587-7	NA	NA	NA	NA	FK	0	NA	NA	NA	3587WP	7	FP	kaal	hook	NA	NA	NA	kaal	KH	K	KH x K
 P	F	759	3587-A x 879-G2ID2	3587WP	A	879WKG	G2ID2	3587-7	NA	NA	NA	NA	FK	0	NA	NA	NA	3587WP	7	FP	kaal	hook	NA	NA	NA	kaal	KH	K	KH x K
 P	F	760	3587-A x 879-G2ID2	3587WP	A	879WKG	G2ID2	3587-7	NA	NA	NA	NA	FK	0	NA	NA	NA	3587WP	7	FP	kaal	hook	NA	NA	NA	kaal	KH	K	KH x K
-P	F	761	892-3 x 879-2-2ID1	892WKG	3	879WKG	2-2ID1	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	kaal	hook	NA	NA	NA	9999	KH	NA	KH x NA
-P	F	762	892-3 x 879-2-2ID1	892WKG	3	879WKG	2-2ID1	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	kaal	hook	NA	NA	NA	9999	KH	NA	KH x NA
-P	F	763	892-3 x 879-2-2ID1	892WKG	3	879WKG	2-2ID1	9999	NA	NA	NA	NA	control	3	NA	NA	NA	9999	NA	FP	kaal	hook	NA	NA	NA	9999	KH	NA	KH x NA
-P	F	764	892-3 x 879-2-2ID1	892WKG	3	879WKG	2-2ID1	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	kaal	hook	NA	NA	NA	9999	KH	NA	KH x NA
 P	F	765	892-3 x 879-2-2ID1	892WKG	3	879WKG	2-2ID1	879-10-1	NA	NA	NA	NA	FH	8	NA	NA	NA	879WKG	10-1	FP	kaal	hook	NA	NA	NA	hook	KH	H	KH x H
 P	F	766	904-2 x 879-G2ID3	904WPG	2	879WKG	G2ID3	904-59/14/15	NA	NA	NA	NA	FK	3	NA	NA	NA	904WPG	59/14/15	FP	kaal	hook	NA	NA	NA	kaal	KH	K	KH x K
 P	F	767	904-2 x 879-G2ID3	904WPG	2	879WKG	G2ID3	904-59/14/15	NA	NA	NA	NA	FK	8	NA	NA	NA	904WPG	59/14/15	FP	kaal	hook	NA	NA	NA	kaal	KH	K	KH x K
 P	F	768	904-2 x 879-G2ID3	904WPG	2	879WKG	G2ID3	904-59/14/15	NA	NA	NA	NA	FK	2	NA	NA	NA	904WPG	59/14/15	FP	kaal	hook	NA	NA	NA	kaal	KH	K	KH x K
 P	F	769	904-2 x 879-G2ID3	904WPG	2	879WKG	G2ID3	904-59/14/15	NA	NA	NA	NA	FK	4	JP: fixed crosstype from FF to FK	NA	NA	904WPG	59/14/15	FP	kaal	hook	NA	NA	NA	kaal	KH	K	KH x K
-P	F	770	904-2 x 879-G2ID3	904WPG	2	879WKG	G2ID3	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	kaal	hook	NA	NA	NA	9999	KH	NA	KH x NA
-P	F	771	904-2 x 879-G2ID3	904WPG	2	879WKG	G2ID3	9999	NA	NA	NA	NA	control	1	NA	NA	NA	9999	NA	FP	kaal	hook	NA	NA	NA	9999	KH	NA	KH x NA
-P	F	772	904-2 x 879-G2ID3	904WPG	2	879WKG	G2ID3	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	kaal	hook	NA	NA	NA	9999	KH	NA	KH x NA
-P	F	773	904-2 x 879-G2ID3	904WPG	2	879WKG	G2ID3	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	kaal	hook	NA	NA	NA	9999	KH	NA	KH x NA
-P	F	774	892-10 x 879-10-1ID1	892WKG	10	879WKG	10-1ID1	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	kaal	hook	NA	NA	NA	9999	KH	NA	KH x NA
-P	F	776	892-10 x 879-10-1ID1	892WKG	10	879WKG	10-1ID1	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	kaal	hook	NA	NA	NA	9999	KH	NA	KH x NA
-P	F	777	892-10 x 879-10-1ID1	892WKG	10	879WKG	10-1ID1	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	kaal	hook	NA	NA	NA	9999	KH	NA	KH x NA
 P	F	778	892-4 x 879-G2ID2	892WKG	4	879WKG	G2ID2	892-10	NA	NA	NA	NA	FK	8	NA	NA	NA	892WKG	10	FP	kaal	hook	NA	NA	NA	kaal	KH	K	KH x K
 P	F	779	892-4 x 879-G2ID2	892WKG	4	879WKG	G2ID2	892-10	NA	NA	NA	NA	FK	9	NA	NA	NA	892WKG	10	FP	kaal	hook	NA	NA	NA	kaal	KH	K	KH x K
 P	F	780	892-4 x 879-G2ID2	892WKG	4	879WKG	G2ID2	892-10	NA	NA	NA	NA	FK	3	NA	NA	NA	892WKG	10	FP	kaal	hook	NA	NA	NA	kaal	KH	K	KH x K
@@ -898,34 +1064,6 @@ P	F	787	879-G2 x 904-5ID3	879WKG	G2	904WPG	5ID3	879-2-2	NA	NA	NA	NA	FH	2	NA	NA	N
 P	F	788	879-G2 x 904-5ID3	879WKG	G2	904WPG	5ID3	879-2-2	NA	NA	NA	NA	FH	2	NA	NA	NA	879WKG	2-2	FP	hook	kaal	NA	NA	NA	hook	HK	H	HK x H
 P	F	789	879-G2 x 904-5ID3	879WKG	G2	904WPG	5ID3	879-2-2	NA	NA	NA	NA	FH	0	NA	NA	NA	879WKG	2-2	FP	hook	kaal	NA	NA	NA	hook	HK	H	HK x H
 P	F	790	879-G2 x 904-5ID3	879WKG	G2	904WPG	5ID3	879-2-2	NA	NA	NA	NA	FH	1	NA	NA	NA	879WKG	2-2	FP	hook	kaal	NA	NA	NA	hook	HK	H	HK x H
-P	F	791	892-3 x 879-10-1ID1	892WKG	3	879WKG	10-1ID1	9999	NA	NA	NA	NA	control	3	NA	NA	NA	9999	NA	FP	kaal	hook	NA	NA	NA	9999	KH	NA	KH x NA
-P	F	792	892-3 x 879-10-1ID1	892WKG	3	879WKG	10-1ID1	9999	NA	NA	NA	NA	control	1	NA	NA	NA	9999	NA	FP	kaal	hook	NA	NA	NA	9999	KH	NA	KH x NA
-P	F	793	892-3 x 879-10-1ID1	892WKG	3	879WKG	10-1ID1	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	kaal	hook	NA	NA	NA	9999	KH	NA	KH x NA
-P	F	794	892-3 x 879-10-1ID1	892WKG	3	879WKG	10-1ID1	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	kaal	hook	NA	NA	NA	9999	KH	NA	KH x NA
-P	F	795	904-5 x 879-G2ID3	904WPG	5	879WKG	G2ID3	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	kaal	hook	NA	NA	NA	9999	KH	NA	KH x NA
-P	F	796	904-5 x 879-G2ID3	904WPG	5	879WKG	G2ID3	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	kaal	hook	NA	NA	NA	9999	KH	NA	KH x NA
-P	F	797	904-5 x 879-G2ID3	904WPG	5	879WKG	G2ID3	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	kaal	hook	NA	NA	NA	9999	KH	NA	KH x NA
-P	F	798	904-5 x 879-G2ID3	904WPG	5	879WKG	G2ID3	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	kaal	hook	NA	NA	NA	9999	KH	NA	KH x NA
-P	F	799	879-2-2 x 892-4ID8	879WKG	2-2	892WKG	4ID8	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	hook	kaal	NA	NA	NA	9999	HK	NA	HK x NA
-P	F	800	879-2-2 x 892-4ID8	879WKG	2-2	892WKG	4ID8	9999	NA	NA	NA	NA	control	1	NA	NA	NA	9999	NA	FP	hook	kaal	NA	NA	NA	9999	HK	NA	HK x NA
-P	F	801	879-2-2 x 892-4ID8	879WKG	2-2	892WKG	4ID8	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	hook	kaal	NA	NA	NA	9999	HK	NA	HK x NA
-P	F	802	879-2-2 x 892-4ID8	879WKG	2-2	892WKG	4ID8	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	hook	kaal	NA	NA	NA	9999	HK	NA	HK x NA
-P	F	803	879-10-1 x 892-1ID1	879WKG	10-1	892WKG	1ID1	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	hook	kaal	NA	NA	NA	9999	HK	NA	HK x NA
-P	F	804	879-10-1 x 892-1ID1	879WKG	10-1	892WKG	1ID1	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	hook	kaal	NA	NA	NA	9999	HK	NA	HK x NA
-P	F	805	879-10-1 x 892-1ID1	879WKG	10-1	892WKG	1ID1	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	hook	kaal	NA	NA	NA	9999	HK	NA	HK x NA
-P	F	806	879-10-1 x 892-1ID1	879WKG	10-1	892WKG	1ID1	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	hook	kaal	NA	NA	NA	9999	HK	NA	HK x NA
-P	F	807	879-10-1 x 904-5ID4	879WKG	10-1	904WPG	5ID4	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	hook	kaal	NA	NA	NA	9999	HK	NA	HK x NA
-P	F	808	879-10-1 x 904-5ID4	879WKG	10-1	904WPG	5ID4	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	hook	kaal	NA	NA	NA	9999	HK	NA	HK x NA
-P	F	809	879-10-1 x 904-5ID4	879WKG	10-1	904WPG	5ID4	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	hook	kaal	NA	NA	NA	9999	HK	NA	HK x NA
-P	F	810	879-10-1 x 904-5ID4	879WKG	10-1	904WPG	5ID4	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	hook	kaal	NA	NA	NA	9999	HK	NA	HK x NA
-P	F	811	879-10-1 x 892-3ID9	879WKG	10-1	892WKG	3ID9	9999	NA	NA	NA	NA	control	1	NA	NA	NA	9999	NA	FP	hook	kaal	NA	NA	NA	9999	HK	NA	HK x NA
-P	F	812	879-10-1 x 892-3ID9	879WKG	10-1	892WKG	3ID9	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	hook	kaal	NA	NA	NA	9999	HK	NA	HK x NA
-P	F	813	879-10-1 x 892-3ID9	879WKG	10-1	892WKG	3ID9	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	hook	kaal	NA	NA	NA	9999	HK	NA	HK x NA
-P	F	814	879-10-1 x 892-3ID9	879WKG	10-1	892WKG	3ID9	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	hook	kaal	NA	NA	NA	9999	HK	NA	HK x NA
-P	F	815	892-4 x 879-G2ID2	892WKG	4	879WKG	G2ID2	9999	NA	NA	NA	NA	control	4	NA	NA	NA	9999	NA	FP	kaal	hook	NA	NA	NA	9999	KH	NA	KH x NA
-P	F	816	892-4 x 879-G2ID2	892WKG	4	879WKG	G2ID2	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	kaal	hook	NA	NA	NA	9999	KH	NA	KH x NA
-P	F	817	892-4 x 879-G2ID2	892WKG	4	879WKG	G2ID2	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	kaal	hook	NA	NA	NA	9999	KH	NA	KH x NA
-P	F	818	892-4 x 879-G2ID2	892WKG	4	879WKG	G2ID2	9999	NA	NA	NA	NA	control	0	NA	NA	NA	9999	NA	FP	kaal	hook	NA	NA	NA	9999	KH	NA	KH x NA
 P	F	841	3587-7 x 879-10-1ID1	3587WP	7	879WKG	10-1ID1	3587-A	NA	NA	NA	NA	FK	0	NA	NA	NA	3587WP	A	FP	kaal	hook	NA	NA	NA	kaal	KH	K	KH x K
 P	F	842	3587-7 x 879-10-1ID1	3587WP	7	879WKG	10-1ID1	3587-A	NA	NA	NA	NA	FK	0	NA	NA	NA	3587WP	A	FP	kaal	hook	NA	NA	NA	kaal	KH	K	KH x K
 P	F	843	3587-7 x 879-10-1ID1	3587WP	7	879WKG	10-1ID1	3587-A	NA	NA	NA	NA	FK	0	NA	NA	NA	3587WP	A	FP	kaal	hook	NA	NA	NA	kaal	KH	K	KH x K
@@ -1228,144 +1366,6 @@ P	F	1297	879-10-1 x 904-3ID1	879WKG	10-1	904WPG	3ID1	904-5-A.4/3/13	NA	NA	NA	NA	
 P	F	1298	879-10-1 x 904-3ID1	879WKG	10-1	904WPG	3ID1	904-5-A.4/3/13	NA	NA	NA	NA	FK	0	NA	NA	NA	904WPG	5-A.4/3/13	FP	hook	kaal	NA	NA	NA	kaal	HK	K	HK x K
 P	F	1299	879-10-1 x 904-3ID1	879WKG	10-1	904WPG	3ID1	904-5-A.4/3/13	NA	NA	NA	NA	FK	0	NA	NA	NA	904WPG	5-A.4/3/13	FP	hook	kaal	NA	NA	NA	kaal	HK	K	HK x K
 P	F	1300	879-10-1 x 904-3ID1	879WKG	10-1	904WPG	3ID1	904-5-A.4/3/13	NA	NA	NA	NA	FK	0	NA	NA	NA	904WPG	5-A.4/3/13	FP	hook	kaal	NA	NA	NA	kaal	HK	K	HK x K
-P	P	1407	904-5	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	904WPG	5	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1408	904-5	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	904WPG	5	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1409	904-5	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	904WPG	5	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1410	904-5	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	904WPG	5	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1411	904-5	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	904WPG	5	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1424	879-G2	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	879WKG	G2	9999	NA	PP	NA	NA	NA	NA	hook	9999	H	NA	H x NA
-P	P	1426	879-G2	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	4	NA	879WKG	G2	9999	NA	PP	NA	NA	NA	NA	hook	9999	H	NA	H x NA
-P	P	1427	879-G2	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	879WKG	G2	9999	NA	PP	NA	NA	NA	NA	hook	9999	H	NA	H x NA
-P	P	1428	879-G2	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	879WKG	G2	9999	NA	PP	NA	NA	NA	NA	hook	9999	H	NA	H x NA
-P	P	1452	3587-14	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	3587WP	14	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1453	3587-14	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	3587WP	14	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1461	3587-14	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	2	NA	3587WP	14	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1462	3587-14	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	6	NA	3587WP	14	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1463	3587-14	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	3587WP	14	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1464	3587-14	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	3587WP	14	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1465	3587-14	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	3587WP	14	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1466	3587-14	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	3587WP	14	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1467	3587-14	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	3587WP	14	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1468	3587-14	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	3587WP	14	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1474	879-N-5	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	879WKG	N-5	9999	NA	PP	NA	NA	NA	NA	hook	9999	H	NA	H x NA
-P	P	1475	879-N-5	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	879WKG	N-5	9999	NA	PP	NA	NA	NA	NA	hook	9999	H	NA	H x NA
-P	P	1476	879-N-5	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	1	NA	879WKG	N-5	9999	NA	PP	NA	NA	NA	NA	hook	9999	H	NA	H x NA
-P	P	1477	879-N-5	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	1	NA	879WKG	N-5	9999	NA	PP	NA	NA	NA	NA	hook	9999	H	NA	H x NA
-P	P	1478	879-N-5	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	879WKG	N-5	9999	NA	PP	NA	NA	NA	NA	hook	9999	H	NA	H x NA
-P	P	1491	904-3	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	904WPG	3	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1492	904-3	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	904WPG	3	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1493	904-3	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	904WPG	3	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1494	904-3	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	904WPG	3	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1495	904-3	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	904WPG	3	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1507	879-2-2	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	879WKG	2-2	9999	NA	PP	NA	NA	NA	NA	hook	9999	H	NA	H x NA
-P	P	1508	879-2-2	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	879WKG	2-2	9999	NA	PP	NA	NA	NA	NA	hook	9999	H	NA	H x NA
-P	P	1509	879-2-2	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	879WKG	2-2	9999	NA	PP	NA	NA	NA	NA	hook	9999	H	NA	H x NA
-P	P	1510	879-2-2	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	879WKG	2-2	9999	NA	PP	NA	NA	NA	NA	hook	9999	H	NA	H x NA
-P	P	1511	879-10-1	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	879WKG	10-1	9999	NA	PP	NA	NA	NA	NA	hook	9999	H	NA	H x NA
-P	P	1519	879-10-1	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	1	NA	879WKG	10-1	9999	NA	PP	NA	NA	NA	NA	hook	9999	H	NA	H x NA
-P	P	1520	879-10-1	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	879WKG	10-1	9999	NA	PP	NA	NA	NA	NA	hook	9999	H	NA	H x NA
-P	P	1521	879-10-1	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	879WKG	10-1	9999	NA	PP	NA	NA	NA	NA	hook	9999	H	NA	H x NA
-P	P	1532	3587-15	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	3587WP	15	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1533	3587-15	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	3587WP	15	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1554	879-10-1	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	879WKG	10-1	9999	NA	PP	NA	NA	NA	NA	hook	9999	H	NA	H x NA
-P	P	1555	879-10-1	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	879WKG	10-1	9999	NA	PP	NA	NA	NA	NA	hook	9999	H	NA	H x NA
-P	P	1556	879-10-1	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	879WKG	10-1	9999	NA	PP	NA	NA	NA	NA	hook	9999	H	NA	H x NA
-P	P	1557	879-10-1	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	879WKG	10-1	9999	NA	PP	NA	NA	NA	NA	hook	9999	H	NA	H x NA
-P	P	1558	879-10-1	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	879WKG	10-1	9999	NA	PP	NA	NA	NA	NA	hook	9999	H	NA	H x NA
-P	P	1559	879-10-1	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	879WKG	10-1	9999	NA	PP	NA	NA	NA	NA	hook	9999	H	NA	H x NA
-P	P	1585	879-2-2	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	879WKG	2-2	9999	NA	PP	NA	NA	NA	NA	hook	9999	H	NA	H x NA
-P	P	1586	879-2-2	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	879WKG	2-2	9999	NA	PP	NA	NA	NA	NA	hook	9999	H	NA	H x NA
-P	P	1587	879-2-2	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	879WKG	2-2	9999	NA	PP	NA	NA	NA	NA	hook	9999	H	NA	H x NA
-P	P	1588	879-2-2	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	879WKG	2-2	9999	NA	PP	NA	NA	NA	NA	hook	9999	H	NA	H x NA
-P	P	1589	879-2-2	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	879WKG	2-2	9999	NA	PP	NA	NA	NA	NA	hook	9999	H	NA	H x NA
-P	P	1595	3587-7	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	3587WP	7	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1596	3587-7	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	3587WP	7	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1597	3587-7	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	3587WP	7	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1598	3587-7	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	3587WP	7	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1604	879-N-5	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	879WKG	N-5	9999	NA	PP	NA	NA	NA	NA	hook	9999	H	NA	H x NA
-P	P	1605	879-N-5	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	879WKG	N-5	9999	NA	PP	NA	NA	NA	NA	hook	9999	H	NA	H x NA
-P	P	1606	879-N-5	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	879WKG	N-5	9999	NA	PP	NA	NA	NA	NA	hook	9999	H	NA	H x NA
-P	P	1607	879-N-5	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	879WKG	N-5	9999	NA	PP	NA	NA	NA	NA	hook	9999	H	NA	H x NA
-P	P	1608	879-N-5	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	879WKG	N-5	9999	NA	PP	NA	NA	NA	NA	hook	9999	H	NA	H x NA
-P	P	1614	3587-6ID1	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	5	NA	3587WP	6ID1	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1615	3587-6ID1	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	1	NA	3587WP	6ID1	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1616	3587-6ID1	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	1	NA	3587WP	6ID1	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1617	3587-6ID1	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	3587WP	6ID1	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1618	3587-6ID1	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	3587WP	6ID1	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1624	3587-12	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	3587WP	12	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1626	3587-12	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	3587WP	12	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1633	3587-12	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	3587WP	12	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1652	3587-C	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	1	NA	3587WP	C	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1654	3587-C	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	3587WP	C	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1656	3587-C	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	1	NA	3587WP	C	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1659	892-5	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	892WKG	5	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1661	892-10	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	892WKG	10	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1662	892-10	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	892WKG	10	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1663	892-10	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	892WKG	10	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1664	892-10	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	892WKG	10	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1665	892-10	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	892WKG	10	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1715	3587-7	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	3587WP	7	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1716	3587-7	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	3587WP	7	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1717	3587-12	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	1	NA	3587WP	12	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1718	3587-12	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	3587WP	12	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1719	3587-12	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	1	NA	3587WP	12	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1720	3587-12	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	3587WP	12	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1721	3587-12	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	1	NA	3587WP	12	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1722	892-4	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	892WKG	4	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1723	892-4	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	892WKG	4	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1724	892-4	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	892WKG	4	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1725	892-4	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	892WKG	4	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1726	892-4	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	892WKG	4	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1727	904-2	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	904WPG	2	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1728	904-2	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	904WPG	2	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1730	904-2	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	904WPG	2	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1731	904-2	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	904WPG	2	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1737	892-1	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	892WKG	1	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1740	892-4	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	892WKG	4	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1741	892-4	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	892WKG	4	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1742	892-4	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	892WKG	4	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1744	892-4	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	892WKG	4	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1746	879-G2	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	879WKG	G2	9999	NA	PP	NA	NA	NA	NA	hook	9999	H	NA	H x NA
-P	P	1748	3587-7	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	3587WP	7	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1749	3587-7	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	3587WP	7	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1750	3587-7	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	3587WP	7	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1752	892-10	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	892WKG	10	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1753	892-10	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	892WKG	10	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1754	892-10	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	892WKG	10	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1755	892-10	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	892WKG	10	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1756	892-10	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	892WKG	10	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1757	904-5	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	904WPG	5	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1758	904-5	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	904WPG	5	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1759	904-5	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	904WPG	5	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1760	904-5	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	904WPG	5	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1761	904-5	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	904WPG	5	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1762	892-1	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	892WKG	1	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1763	892-1	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	892WKG	1	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1764	892-1	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	892WKG	1	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1765	892-1	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	892WKG	1	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1766	904-3	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	904WPG	3	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1767	904-3	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	904WPG	3	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1768	904-3	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	904WPG	3	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1769	904-3	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	904WPG	3	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1771	904-2	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	904WPG	2	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1772	892-5	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	892WKG	5	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1773	892-5	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	892WKG	5	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1774	892-5	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	892WKG	5	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1775	892-5	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	892WKG	5	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1776	892-5	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	892WKG	5	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1777	892-5	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	892WKG	5	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1778	879-G2	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	879WKG	G2	9999	NA	PP	NA	NA	NA	NA	hook	9999	H	NA	H x NA
-P	P	1779	879-G2	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	879WKG	G2	9999	NA	PP	NA	NA	NA	NA	hook	9999	H	NA	H x NA
-P	P	1780	879-G2	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	879WKG	G2	9999	NA	PP	NA	NA	NA	NA	hook	9999	H	NA	H x NA
-P	P	1786	892-1	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	892WKG	1	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1788	892-1	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	892WKG	1	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1789	892-1	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	892WKG	1	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1790	892-1	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	892WKG	1	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1791	904-3	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	904WPG	3	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1792	892-5	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	892WKG	5	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1793	892-5	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	892WKG	5	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1794	904-2	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	904WPG	2	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
-P	P	1797	892-5	NA	NA	NA	NA	9999	NA	NA	NA	NA	control	0	NA	892WKG	5	9999	NA	PP	NA	NA	NA	NA	kaal	9999	K	NA	K x NA
 P	P	2045	794-2	NA	NA	NA	NA	794	NA	NA	NA	NA	HHwithin	20	NA	WK	2	WK	NA	PP	NA	NA	NA	NA	hook	hook	H	H	H x H
 P	P	2046	794-2	NA	NA	NA	NA	879	NA	NA	NA	NA	HHbetween	18	NA	WK	2	879WKG	NA	PP	NA	NA	NA	NA	hook	hook	H	H	H x H
 P	P	2049	794-5	NA	NA	NA	NA	794	NA	NA	NA	NA	HHwithin	0	NA	WK	5	WK	NA	PP	NA	NA	NA	NA	hook	hook	H	H	H x H
@@ -1899,253 +1899,3 @@ P	P	2018	3587-14	NA	NA	NA	NA	3587	NA	NA	NA	NA	KKwithin	7	NA	3587WP	14	3587WP	NA	
 P	P	2021	3587-A	NA	NA	NA	NA	794	NA	NA	NA	NA	KH	8	NA	3587WP	A	WK	NA	PP	NA	NA	NA	NA	kaal	hook	K	H	K x H
 P	P	2020	3587-A	NA	NA	NA	NA	879	NA	NA	NA	NA	KH	9	NA	3587WP	A	879WKG	NA	PP	NA	NA	NA	NA	kaal	hook	K	H	K x H
 P	P	2016	3587-14	NA	NA	NA	NA	904	NA	NA	NA	NA	KKbetween	10	NA	3587WP	14	904WPG	NA	PP	NA	NA	NA	NA	kaal	kaal	K	K	K x K
-control	F	151	892-1 x 879-2-2ID1	892WKG	1	879WKG	2-2ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	152	892-1 x 879-2-2ID1	892WKG	1	879WKG	2-2ID1	NA	NA	NA	NA	NA	control	1	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	153	892-1 x 879-2-2ID1	892WKG	1	879WKG	2-2ID1	NA	NA	NA	NA	NA	control	2	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	154	892-1 x 879-2-2ID1	892WKG	1	879WKG	2-2ID1	NA	NA	NA	NA	NA	control	1	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	175	879-G2 x 904-5ID1	879WKG	G2	904WPG	5ID1	NA	NA	NA	NA	NA	control	2	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
-control	F	176	879-G2 x 904-5ID1	879WKG	G2	904WPG	5ID1	NA	NA	NA	NA	NA	control	1	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
-control	F	177	879-G2 x 904-5ID1	879WKG	G2	904WPG	5ID1	NA	NA	NA	NA	NA	control	2	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
-control	F	178	879-G2 x 904-5ID1	879WKG	G2	904WPG	5ID1	NA	NA	NA	NA	NA	control	5	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
-control	F	179	879-G2 x 904-5ID1	879WKG	G2	904WPG	5ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
-control	F	223	879-10-1 x 904-5ID4	879WKG	10-1	904WPG	5ID4	NA	NA	NA	NA	NA	control	3	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
-control	F	224	879-10-1 x 904-5ID4	879WKG	10-1	904WPG	5ID4	NA	NA	NA	NA	NA	control	3	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
-control	F	225	879-10-1 x 904-5ID4	879WKG	10-1	904WPG	5ID4	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
-control	F	231	3587-7 x 879-G2ID4	3587WP	7	879WKG	G2ID4	NA	NA	NA	NA	NA	control	1	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	232	3587-7 x 879-G2ID4	3587WP	7	879WKG	G2ID4	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	233	3587-7 x 879-G2ID4	3587WP	7	879WKG	G2ID4	NA	NA	NA	NA	NA	control	3	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	234	3587-7 x 879-G2ID4	3587WP	7	879WKG	G2ID4	NA	NA	NA	NA	NA	control	1	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	241	904-3 x 879-H-2ID4	904WPG	3	879WKG	H-2ID4	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	242	904-3 x 879-H-2ID4	904WPG	3	879WKG	H-2ID4	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	243	904-3 x 879-H-2ID4	904WPG	3	879WKG	H-2ID4	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	244	904-3 x 879-H-2ID4	904WPG	3	879WKG	H-2ID4	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	293	904-2 x 879-10-1ID4	904WPG	2	879WKG	10-1ID4	NA	NA	NA	NA	NA	control	1	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	294	904-2 x 879-10-1ID4	904WPG	2	879WKG	10-1ID4	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	295	904-2 x 879-10-1ID4	904WPG	2	879WKG	10-1ID4	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	296	904-2 x 879-10-1ID4	904WPG	2	879WKG	10-1ID4	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	297	904-2 x 879-10-1ID4	904WPG	2	879WKG	10-1ID4	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	309	879-G2 x 904-5ID3	879WKG	G2	904WPG	5ID3	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
-control	F	310	879-G2 x 904-5ID3	879WKG	G2	904WPG	5ID3	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
-control	F	311	879-G2 x 904-5ID3	879WKG	G2	904WPG	5ID3	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
-control	F	334	904-3 x 879-10-1ID2	904WPG	3	879WKG	10-1ID2	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	335	904-3 x 879-10-1ID2	904WPG	3	879WKG	10-1ID2	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	336	904-3 x 879-10-1ID2	904WPG	3	879WKG	10-1ID2	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	337	904-3 x 879-10-1ID2	904WPG	3	879WKG	10-1ID2	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	338	904-3 x 879-10-1ID2	904WPG	3	879WKG	10-1ID2	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	356	879-G2 x 904-3ID5	879WKG	G2	904WPG	3ID5	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
-control	F	357	879-G2 x 904-3ID5	879WKG	G2	904WPG	3ID5	NA	NA	NA	NA	NA	control	1	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
-control	F	358	879-G2 x 904-3ID5	879WKG	G2	904WPG	3ID5	NA	NA	NA	NA	NA	control	4	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
-control	F	359	879-G2 x 904-3ID5	879WKG	G2	904WPG	3ID5	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
-control	F	456	904-2 x 879-2-2ID4	904WPG	2	879WKG	2-2ID4	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	457	904-2 x 879-2-2ID4	904WPG	2	879WKG	2-2ID4	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	458	904-2 x 879-2-2ID4	904WPG	2	879WKG	2-2ID4	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	459	904-2 x 879-2-2ID4	904WPG	2	879WKG	2-2ID4	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	460	904-2 x 879-2-2ID4	904WPG	2	879WKG	2-2ID4	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	542	3587-A x 879-10-1ID1	3587WP	A	879WKG	10-1ID1	NA	NA	NA	NA	NA	control	2	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	543	3587-A x 879-10-1ID1	3587WP	A	879WKG	10-1ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	545	3587-A x 879-10-1ID1	3587WP	A	879WKG	10-1ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	576	879-2-2 x 892-10ID1	879WKG	2-2	892WKG	10ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
-control	F	577	879-2-2 x 892-10ID1	879WKG	2-2	892WKG	10ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
-control	F	578	879-2-2 x 892-10ID1	879WKG	2-2	892WKG	10ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
-control	F	579	879-2-2 x 892-10ID1	879WKG	2-2	892WKG	10ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
-control	F	642	3587-14 x 879-G-2ID1	3587WP	14	879WKG	G-2ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	644	3587-14 x 879-G-2ID1	3587WP	14	879WKG	G-2ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	689	904-5 x 879-10-1ID1	904WPG	5	879WKG	10-1ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	690	904-5 x 879-10-1ID1	904WPG	5	879WKG	10-1ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	691	904-5 x 879-10-1ID1	904WPG	5	879WKG	10-1ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	692	904-5 x 879-10-1ID1	904WPG	5	879WKG	10-1ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	714	3587-7 x 879-10-1ID1	3587WP	7	879WKG	10-1ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	715	3587-7 x 879-10-1ID1	3587WP	7	879WKG	10-1ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	716	3587-7 x 879-10-1ID1	3587WP	7	879WKG	10-1ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	717	3587-7 x 879-10-1ID1	3587WP	7	879WKG	10-1ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	734	879-10-1 x 904-3ID1	879WKG	10-1	904WPG	3ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
-control	F	736	879-10-1 x 904-3ID1	879WKG	10-1	904WPG	3ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
-control	F	737	879-10-1 x 904-3ID1	879WKG	10-1	904WPG	3ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
-control	F	740	904-3 x 879-G2ID3	904WPG	3	879WKG	G2ID3	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	741	904-3 x 879-G2ID3	904WPG	3	879WKG	G2ID3	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	742	904-3 x 879-G2ID3	904WPG	3	879WKG	G2ID3	NA	NA	NA	NA	NA	control	2	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	743	904-3 x 879-G2ID3	904WPG	3	879WKG	G2ID3	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	749	3587-14 x 879-10-1ID2	3587WP	14	879WKG	10-1ID2	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	750	3587-14 x 879-10-1ID2	3587WP	14	879WKG	10-1ID2	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	751	3587-14 x 879-10-1ID2	3587WP	14	879WKG	10-1ID2	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	752	3587-14 x 879-10-1ID2	3587WP	14	879WKG	10-1ID2	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	753	3587-A x 879-G2ID2	3587WP	A	879WKG	G2ID2	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	755	3587-A x 879-G2ID2	3587WP	A	879WKG	G2ID2	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	756	3587-A x 879-G2ID2	3587WP	A	879WKG	G2ID2	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	761	892-3 x 879-2-2ID1	892WKG	3	879WKG	2-2ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	762	892-3 x 879-2-2ID1	892WKG	3	879WKG	2-2ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	763	892-3 x 879-2-2ID1	892WKG	3	879WKG	2-2ID1	NA	NA	NA	NA	NA	control	3	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	764	892-3 x 879-2-2ID1	892WKG	3	879WKG	2-2ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	770	904-2 x 879-G2ID3	904WPG	2	879WKG	G2ID3	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	771	904-2 x 879-G2ID3	904WPG	2	879WKG	G2ID3	NA	NA	NA	NA	NA	control	1	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	772	904-2 x 879-G2ID3	904WPG	2	879WKG	G2ID3	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	773	904-2 x 879-G2ID3	904WPG	2	879WKG	G2ID3	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	774	892-10 x 879-10-1ID1	892WKG	10	879WKG	10-1ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	776	892-10 x 879-10-1ID1	892WKG	10	879WKG	10-1ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	777	892-10 x 879-10-1ID1	892WKG	10	879WKG	10-1ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	791	892-3 x 879-10-1ID1	892WKG	3	879WKG	10-1ID1	NA	NA	NA	NA	NA	control	3	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	792	892-3 x 879-10-1ID1	892WKG	3	879WKG	10-1ID1	NA	NA	NA	NA	NA	control	1	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	793	892-3 x 879-10-1ID1	892WKG	3	879WKG	10-1ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	794	892-3 x 879-10-1ID1	892WKG	3	879WKG	10-1ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	795	904-5 x 879-G2ID3	904WPG	5	879WKG	G2ID3	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	796	904-5 x 879-G2ID3	904WPG	5	879WKG	G2ID3	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	797	904-5 x 879-G2ID3	904WPG	5	879WKG	G2ID3	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	798	904-5 x 879-G2ID3	904WPG	5	879WKG	G2ID3	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	799	879-2-2 x 892-4ID8	879WKG	2-2	892WKG	4ID8	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
-control	F	800	879-2-2 x 892-4ID8	879WKG	2-2	892WKG	4ID8	NA	NA	NA	NA	NA	control	1	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
-control	F	801	879-2-2 x 892-4ID8	879WKG	2-2	892WKG	4ID8	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
-control	F	802	879-2-2 x 892-4ID8	879WKG	2-2	892WKG	4ID8	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
-control	F	803	879-10-1 x 892-1ID1	879WKG	10-1	892WKG	1ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
-control	F	804	879-10-1 x 892-1ID1	879WKG	10-1	892WKG	1ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
-control	F	805	879-10-1 x 892-1ID1	879WKG	10-1	892WKG	1ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
-control	F	806	879-10-1 x 892-1ID1	879WKG	10-1	892WKG	1ID1	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
-control	F	807	879-10-1 x 904-5ID4	879WKG	10-1	904WPG	5ID4	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
-control	F	808	879-10-1 x 904-5ID4	879WKG	10-1	904WPG	5ID4	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
-control	F	809	879-10-1 x 904-5ID4	879WKG	10-1	904WPG	5ID4	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
-control	F	810	879-10-1 x 904-5ID4	879WKG	10-1	904WPG	5ID4	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
-control	F	811	879-10-1 x 892-3ID9	879WKG	10-1	892WKG	3ID9	NA	NA	NA	NA	NA	control	1	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
-control	F	812	879-10-1 x 892-3ID9	879WKG	10-1	892WKG	3ID9	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
-control	F	813	879-10-1 x 892-3ID9	879WKG	10-1	892WKG	3ID9	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
-control	F	814	879-10-1 x 892-3ID9	879WKG	10-1	892WKG	3ID9	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	hook	kaal	NA	NA	NA	NA	HK	control	HK x control
-control	F	815	892-4 x 879-G2ID2	892WKG	4	879WKG	G2ID2	NA	NA	NA	NA	NA	control	4	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	816	892-4 x 879-G2ID2	892WKG	4	879WKG	G2ID2	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	817	892-4 x 879-G2ID2	892WKG	4	879WKG	G2ID2	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	F	818	892-4 x 879-G2ID2	892WKG	4	879WKG	G2ID2	NA	NA	NA	NA	NA	control	0	NA	NA	NA	NA	NA	Fcontrol	kaal	hook	NA	NA	NA	NA	KH	control	KH x control
-control	P	1407	904-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	5	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1408	904-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	5	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1409	904-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	5	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1410	904-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	5	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1411	904-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	5	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1424	879-G2	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	G2	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
-control	P	1426	879-G2	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	4	NA	879WKG	G2	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
-control	P	1427	879-G2	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	G2	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
-control	P	1428	879-G2	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	G2	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
-control	P	1452	3587-14	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	14	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1453	3587-14	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	14	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1461	3587-14	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	2	NA	3587WP	14	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1462	3587-14	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	6	NA	3587WP	14	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1463	3587-14	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	14	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1464	3587-14	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	14	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1465	3587-14	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	14	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1466	3587-14	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	14	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1467	3587-14	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	14	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1468	3587-14	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	14	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1474	879-N-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	N-5	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
-control	P	1475	879-N-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	N-5	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
-control	P	1476	879-N-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	1	NA	879WKG	N-5	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
-control	P	1477	879-N-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	1	NA	879WKG	N-5	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
-control	P	1478	879-N-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	N-5	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
-control	P	1491	904-3	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	3	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1492	904-3	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	3	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1493	904-3	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	3	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1494	904-3	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	3	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1495	904-3	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	3	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1507	879-2-2	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	2-2	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
-control	P	1508	879-2-2	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	2-2	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
-control	P	1509	879-2-2	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	2-2	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
-control	P	1510	879-2-2	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	2-2	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
-control	P	1511	879-10-1	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	10-1	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
-control	P	1519	879-10-1	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	1	NA	879WKG	10-1	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
-control	P	1520	879-10-1	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	10-1	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
-control	P	1521	879-10-1	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	10-1	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
-control	P	1532	3587-15	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	15	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1533	3587-15	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	15	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1554	879-10-1	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	10-1	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
-control	P	1555	879-10-1	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	10-1	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
-control	P	1556	879-10-1	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	10-1	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
-control	P	1557	879-10-1	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	10-1	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
-control	P	1558	879-10-1	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	10-1	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
-control	P	1559	879-10-1	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	10-1	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
-control	P	1585	879-2-2	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	2-2	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
-control	P	1586	879-2-2	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	2-2	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
-control	P	1587	879-2-2	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	2-2	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
-control	P	1588	879-2-2	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	2-2	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
-control	P	1589	879-2-2	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	2-2	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
-control	P	1595	3587-7	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	7	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1596	3587-7	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	7	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1597	3587-7	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	7	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1598	3587-7	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	7	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1604	879-N-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	N-5	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
-control	P	1605	879-N-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	N-5	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
-control	P	1606	879-N-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	N-5	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
-control	P	1607	879-N-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	N-5	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
-control	P	1608	879-N-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	N-5	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
-control	P	1614	3587-6ID1	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	5	NA	3587WP	6ID1	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1615	3587-6ID1	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	1	NA	3587WP	6ID1	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1616	3587-6ID1	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	1	NA	3587WP	6ID1	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1617	3587-6ID1	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	6ID1	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1618	3587-6ID1	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	6ID1	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1624	3587-12	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	12	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1626	3587-12	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	12	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1633	3587-12	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	12	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1652	3587-C	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	1	NA	3587WP	C	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1654	3587-C	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	C	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1656	3587-C	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	1	NA	3587WP	C	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1659	892-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	5	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1661	892-10	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	10	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1662	892-10	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	10	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1663	892-10	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	10	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1664	892-10	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	10	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1665	892-10	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	10	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1715	3587-7	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	7	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1716	3587-7	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	7	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1717	3587-12	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	1	NA	3587WP	12	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1718	3587-12	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	12	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1719	3587-12	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	1	NA	3587WP	12	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1720	3587-12	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	12	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1721	3587-12	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	1	NA	3587WP	12	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1722	892-4	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	4	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1723	892-4	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	4	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1724	892-4	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	4	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1725	892-4	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	4	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1726	892-4	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	4	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1727	904-2	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	2	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1728	904-2	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	2	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1730	904-2	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	2	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1731	904-2	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	2	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1737	892-1	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	1	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1740	892-4	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	4	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1741	892-4	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	4	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1742	892-4	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	4	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1744	892-4	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	4	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1746	879-G2	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	G2	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
-control	P	1748	3587-7	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	7	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1749	3587-7	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	7	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1750	3587-7	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	3587WP	7	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1752	892-10	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	10	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1753	892-10	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	10	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1754	892-10	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	10	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1755	892-10	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	10	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1756	892-10	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	10	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1757	904-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	5	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1758	904-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	5	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1759	904-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	5	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1760	904-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	5	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1761	904-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	5	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1762	892-1	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	1	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1763	892-1	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	1	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1764	892-1	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	1	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1765	892-1	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	1	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1766	904-3	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	3	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1767	904-3	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	3	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1768	904-3	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	3	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1769	904-3	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	3	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1771	904-2	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	2	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1772	892-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	5	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1773	892-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	5	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1774	892-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	5	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1775	892-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	5	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1776	892-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	5	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1777	892-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	5	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1778	879-G2	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	G2	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
-control	P	1779	879-G2	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	G2	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
-control	P	1780	879-G2	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	879WKG	G2	NA	NA	Pcontrol	NA	NA	NA	NA	hook	NA	H	control	H x control
-control	P	1786	892-1	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	1	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1788	892-1	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	1	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1789	892-1	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	1	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1790	892-1	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	1	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1791	904-3	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	3	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1792	892-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	5	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1793	892-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	5	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1794	904-2	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	904WPG	2	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control
-control	P	1797	892-5	NA	NA	NA	NA	NA	NA	NA	NA	NA	control	0	NA	892WKG	5	NA	NA	Pcontrol	NA	NA	NA	NA	kaal	NA	K	control	K x control

@@ -5,7 +5,7 @@ library(googlesheets4)
 # common ------------------------------------------------------------------
 
 gsheet <- gs4_get("1pYbAnEDw2KfM34l85wlJV6pfAr1DroPj_7GjfApnCq8")
-sheet_names(gsheet)
+datanames <- sheet_names(gsheet)[-1]
 
 species.pops <- tibble(
   collection = c("794","866","899","879","892","904","3587"),
@@ -44,18 +44,20 @@ split_full_crosses <- function(data.full) {
     P = data.full %>% filter(!str_detect(momfullcross,"x")) %>% 
       separate(momfullcross, into=c("mompop", "momid"), extra="merge", remove=F))
   
-  hascontrols <- ("crosstype" %in% colnames(data.full)) && ("control" %in% data.full$crosstype)
-
   data.mom.dad <- list(
     F = data.mom %>% filter(str_detect(dadfullcross,"x")) %>% 
       separate(dadfullcross, sep=" x ", into=c("dadmompid","daddadpid"), remove=F) %>% 
       separate(dadmompid, into=c("dadmompop", "dadmomid"), extra="merge") %>% 
-      separate(daddadpid, into=c("daddadpop", "dadadid"), extra="merge"),
-    P = data.mom %>% filter(!str_detect(dadfullcross,"x"), ifelse(hascontrols, crosstype != "control", TRUE)) %>% 
-      separate(dadfullcross, into=c("dadpop", "dadid"), extra="merge", fill="right", remove=F))
-
-  if(hascontrols) data.mom.dad[["control"]] <- data.mom %>% filter(crosstype == "control") %>% mutate(dadfullcross=NA)
-
+      separate(daddadpid, into=c("daddadpop", "dadadid"), extra="merge"))
+  
+  if(("crosstype" %in% colnames(data.full)) && ("control" %in% data.full$crosstype)) {
+    data.mom.dad[["control"]] <- data.mom %>% filter(crosstype == "control") %>% mutate(dadfullcross=NA)
+    data.mom.dad[["P"]] <- data.mom %>% filter(!str_detect(dadfullcross,"x"), crosstype != "control")
+  } else {
+    data.mom.dad[["P"]] <- data.mom %>% filter(!str_detect(dadfullcross,"x"))
+  }
+  data.mom.dad[["P"]] <- data.mom.dad[["P"]] %>% separate(dadfullcross, into=c("dadpop", "dadid"), extra="merge", fill="right", remove=F)
+  
   bind_rows(data.mom.dad, .id = "dadgeneration") %>% 
     mutate(generation = paste0(momgeneration,dadgeneration))
 }
@@ -93,17 +95,17 @@ crosses <- read_sheet(gsheet, "crosses", col_types="c") %>%
 
 seeds <- read_sheet(gsheet, "seeds", col_types="c") %>% 
   filter(dadpop != "closed") %>% 
-  mutate(seednum = as.integer(seednum), 
-         yesno = as.integer(seednum>0)) %>% # was a capsule formed?
+  mutate(viable.seeds = as.integer(viable.seeds), 
+         yesno = as.integer(viable.seeds>0)) %>% # was a capsule formed?
   add_combos()
   
 # germination -------------------------------------------------------------
 
 germination <- read_sheet(gsheet, "germination", col_types="c") %>% 
-  mutate(across(c(planted, germ), as.integer)) %>% 
+  mutate(across(c(planted, germinated), as.integer)) %>% 
   group_by(crossid, mompop, momid, momsp, dadpop, dadid, dadsp, crosstype) %>% 
-  summarize(planted = sum(planted), germ = sum(germ), .groups="drop") %>% # add together all the pots of one cross
-  mutate(vp = germ/planted) %>% # proportion of planted seeds that germinated (viable)
+  summarize(planted = sum(planted), germinated = sum(germinated), .groups="drop") %>% # add together all the pots of one cross
+  mutate(prop.germ = germinated/planted) %>% # proportion of planted seeds that germinated 
   add_combos()
 
 # vegbiomass --------------------------------------------------------------
@@ -113,8 +115,9 @@ vegbiomass <- read_sheet(gsheet, "vegbiomass", col_types="c") %>%
   mutate(across(contains("date"), ymd),
          #TODO from hybridbiomass.Rmd - is this the median planting date?
          collect = collect.date - first_planting, 
-         mass=as.numeric(mass)) %>%
+         veg.biomass.g=as.numeric(veg.biomass.g)) %>%
   left_join(crosses) %>% 
+  drop_na(crosstype) %>% 
   add_combos()
 
 # survflr -------------------------------------------------------------
@@ -141,7 +144,7 @@ pollen <- read_sheet(gsheet, "pollen", col_types="c") %>%
   separate(mompid, into=c("mompop", "momid"), extra="merge") %>% 
   separate(dadpid, into=c("dadpop", "dadid"), extra="merge") %>% 
   mutate(momsp = recode(mompop, !!!hk.species),
-         dadsp =   recode(dadpop, !!!hk.species),
+         dadsp = recode(dadpop, !!!hk.species),
          cross = toupper(paste0(str_sub(momsp,0,1), str_sub(dadsp,0,1)))) %>% 
   add_combos()
 
@@ -151,7 +154,7 @@ pollen <- read_sheet(gsheet, "pollen", col_types="c") %>%
 
 inflobiomass <- read_sheet(gsheet, "inflobiomass", col_types="c") %>% 
   mutate(across(matches("date"), ymd),
-         across(c(flrs, inflo.e, inflo, mass), as.numeric),
+         across(c(flrs, inflo.e, inflo, inflo.biomass.g), as.numeric),
          collect = collect.date - first_planting) %>% 
   left_join(crosses) %>% 
   add_combos()
@@ -159,14 +162,14 @@ inflobiomass <- read_sheet(gsheet, "inflobiomass", col_types="c") %>%
 inflobiomass.sum <- inflobiomass %>% #add together envelopes for regression and the rest
   group_by(across(all_of(c("plantid", colnames(crosses))))) %>% 
   summarize(inflo = sum(inflo, na.rm=T),
-            mass =  sum(mass,  na.rm=T),
+            inflo.biomass.g =  sum(inflo.biomass.g,  na.rm=T),
             collect = suppressWarnings(max(collect, na.rm=T)) %>% na_if(-Inf), .groups="drop") 
 
 # f1seeds -----------------------------------------------------------------
 
 f1seeds <- read_sheet(gsheet, "f1seeds", col_types="c") %>% 
   filter(dadfullcross != "closed") %>% #not sure what closed means
-  mutate(seednum=as.integer(seednum)) %>% 
+  mutate(viable.seeds=as.integer(viable.seeds)) %>% 
   split_full_crosses() %>% 
   pop_to_species() %>% 
   pop_factors()
@@ -174,7 +177,8 @@ f1seeds <- read_sheet(gsheet, "f1seeds", col_types="c") %>%
 # f1seedmass --------------------------------------------------------------
 
 f1seedmass <- read_sheet(gsheet, "f1seedmass", col_types="c") %>% 
-  mutate(smass=as.numeric(smass)/10) %>% #average mass of 10 seeds
+  mutate(tenseeds.mass.mg=as.numeric(tenseeds.mass.mg), #mass of 10 seeds
+         seed.mass.mg = tenseeds.mass.mg / 10) %>% 
   split_full_crosses() %>% 
   pop_to_species() %>% 
   pop_factors()
@@ -197,9 +201,9 @@ f2seeds <- read_sheet(gsheet, "f2seeds", col_types="c") %>%
   pop_factors()
 
 # export ------------------------------------------------------------------
-datanames <- c("seeds", "germination", "vegbiomass", "survflr", "pollen", "inflobiomass", "f1seeds", "f1seedmass", "f2pollen", "f2seeds")
-purrr::walk(datanames, ~write_tsv(get(.), paste0("data/",., ".tsv")))
+walk(datanames, ~write_tsv(get(.), paste0("data/",., ".tsv")))
 
+remove(F1, F2)
 save.image("data/rims_data.rda")
 
 

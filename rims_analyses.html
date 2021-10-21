@@ -11,7 +11,7 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2021-10-20" />
+<meta name="date" content="2021-10-21" />
 
 <title>Schiedea hookeri/kaalae RIMs</title>
 
@@ -255,7 +255,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Schiedea hookeri/kaalae RIMs</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John Powers</a></h4>
-<h4 class="date">2021-10-20</h4>
+<h4 class="date">2021-10-21</h4>
 
 </div>
 
@@ -269,7 +269,7 @@ td, th { padding : 6px }
 
 library(knitr)
 knitr::opts_chunk$set(comment=&quot;&quot;, cache=T, warning = F, message = F, fig.path = &quot;figures/&quot;)
-options(digits=4) # for kables
+options(digits=4, knitr.kable.NA = &quot;&quot;) # for kables
 
 load(&quot;data/rims_data.rda&quot;)</code></pre>
 <div id="sample-sizes" class="section level1">
@@ -277,11 +277,505 @@ load(&quot;data/rims_data.rda&quot;)</code></pre>
 <pre class="r"><code>F1 &lt;- mget(datanames[1:6])
 F2 &lt;- mget(datanames[7:10])
 
-map_dfr(F2, ~ tally(group_by(., momdadcross)), .id=&quot;dataset&quot;) %&gt;% 
-  pivot_wider(names_from=dataset, values_from=n) %&gt;% kable</code></pre>
+map_dfr(F1, ~ tally(.), .id=&quot;dataset&quot;) %&gt;% 
+  pivot_wider(names_from=dataset, values_from=n) %&gt;% kable(caption=&quot;F1 datasets totals&quot;)</code></pre>
 <table>
+<caption>F1 datasets totals</caption>
 <thead>
 <tr class="header">
+<th align="right">seeds</th>
+<th align="right">germination</th>
+<th align="right">vegbiomass</th>
+<th align="right">survflr</th>
+<th align="right">pollen</th>
+<th align="right">inflobiomass</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">533</td>
+<td align="right">236</td>
+<td align="right">1067</td>
+<td align="right">1567</td>
+<td align="right">197</td>
+<td align="right">1528</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>map_dfr(F1, ~ tally(group_by(., crosstype, momsp, dadsp)), .id=&quot;dataset&quot;) %&gt;% 
+  pivot_wider(names_from=dataset, values_from=n) %&gt;% kable(caption=&quot;F1 datasets by crosstype and species&quot;)</code></pre>
+<table>
+<caption>F1 datasets by crosstype and species</caption>
+<thead>
+<tr class="header">
+<th align="left">crosstype</th>
+<th align="left">momsp</th>
+<th align="left">dadsp</th>
+<th align="right">seeds</th>
+<th align="right">germination</th>
+<th align="right">vegbiomass</th>
+<th align="right">survflr</th>
+<th align="right">pollen</th>
+<th align="right">inflobiomass</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">between</td>
+<td align="left">hook</td>
+<td align="left">hook</td>
+<td align="right">64</td>
+<td align="right">26</td>
+<td align="right">257</td>
+<td align="right">377</td>
+<td align="right">15</td>
+<td align="right">328</td>
+</tr>
+<tr class="even">
+<td align="left">between</td>
+<td align="left">kaal</td>
+<td align="left">kaal</td>
+<td align="right">55</td>
+<td align="right">37</td>
+<td align="right">193</td>
+<td align="right">254</td>
+<td align="right">37</td>
+<td align="right">304</td>
+</tr>
+<tr class="odd">
+<td align="left">within</td>
+<td align="left">hook</td>
+<td align="left">hook</td>
+<td align="right">47</td>
+<td align="right">19</td>
+<td align="right">129</td>
+<td align="right">223</td>
+<td align="right">15</td>
+<td align="right">181</td>
+</tr>
+<tr class="even">
+<td align="left">within</td>
+<td align="left">kaal</td>
+<td align="left">kaal</td>
+<td align="right">34</td>
+<td align="right">19</td>
+<td align="right">85</td>
+<td align="right">125</td>
+<td align="right">20</td>
+<td align="right">128</td>
+</tr>
+<tr class="odd">
+<td align="left">hybrid</td>
+<td align="left">hook</td>
+<td align="left">kaal</td>
+<td align="right">156</td>
+<td align="right">62</td>
+<td align="right">332</td>
+<td align="right">469</td>
+<td align="right">61</td>
+<td align="right">490</td>
+</tr>
+<tr class="even">
+<td align="left">hybrid</td>
+<td align="left">kaal</td>
+<td align="left">hook</td>
+<td align="right">177</td>
+<td align="right">73</td>
+<td align="right">71</td>
+<td align="right">119</td>
+<td align="right">49</td>
+<td align="right">97</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>map_dfr(F1, ~ tally(group_by(., crosstype, momsp, dadsp, mompop, dadpop)), .id=&quot;dataset&quot;) %&gt;% 
+  pivot_wider(names_from=dataset, values_from=n) %&gt;% kable(caption=&quot;F1 datasets by crosstype and population&quot;)</code></pre>
+<table>
+<caption>F1 datasets by crosstype and population</caption>
+<colgroup>
+<col width="10%" />
+<col width="6%" />
+<col width="6%" />
+<col width="7%" />
+<col width="7%" />
+<col width="6%" />
+<col width="12%" />
+<col width="11%" />
+<col width="8%" />
+<col width="7%" />
+<col width="13%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">crosstype</th>
+<th align="left">momsp</th>
+<th align="left">dadsp</th>
+<th align="left">mompop</th>
+<th align="left">dadpop</th>
+<th align="right">seeds</th>
+<th align="right">germination</th>
+<th align="right">vegbiomass</th>
+<th align="right">survflr</th>
+<th align="right">pollen</th>
+<th align="right">inflobiomass</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">between</td>
+<td align="left">hook</td>
+<td align="left">hook</td>
+<td align="left">WK</td>
+<td align="left">879WKG</td>
+<td align="right">35</td>
+<td align="right">14</td>
+<td align="right">149</td>
+<td align="right">241</td>
+<td align="right">9</td>
+<td align="right">189</td>
+</tr>
+<tr class="even">
+<td align="left">between</td>
+<td align="left">hook</td>
+<td align="left">hook</td>
+<td align="left">879WKG</td>
+<td align="left">WK</td>
+<td align="right">29</td>
+<td align="right">12</td>
+<td align="right">108</td>
+<td align="right">136</td>
+<td align="right">6</td>
+<td align="right">139</td>
+</tr>
+<tr class="odd">
+<td align="left">between</td>
+<td align="left">kaal</td>
+<td align="left">kaal</td>
+<td align="left">892WKG</td>
+<td align="left">904WPG</td>
+<td align="right">11</td>
+<td align="right">8</td>
+<td align="right">31</td>
+<td align="right">44</td>
+<td align="right">7</td>
+<td align="right">47</td>
+</tr>
+<tr class="even">
+<td align="left">between</td>
+<td align="left">kaal</td>
+<td align="left">kaal</td>
+<td align="left">892WKG</td>
+<td align="left">3587WP</td>
+<td align="right">5</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">12</td>
+<td align="right">9</td>
+<td align="right">5</td>
+</tr>
+<tr class="odd">
+<td align="left">between</td>
+<td align="left">kaal</td>
+<td align="left">kaal</td>
+<td align="left">904WPG</td>
+<td align="left">892WKG</td>
+<td align="right">10</td>
+<td align="right">8</td>
+<td align="right">83</td>
+<td align="right">94</td>
+<td align="right">6</td>
+<td align="right">116</td>
+</tr>
+<tr class="even">
+<td align="left">between</td>
+<td align="left">kaal</td>
+<td align="left">kaal</td>
+<td align="left">904WPG</td>
+<td align="left">3587WP</td>
+<td align="right">7</td>
+<td align="right">4</td>
+<td align="right">23</td>
+<td align="right">30</td>
+<td align="right">5</td>
+<td align="right">42</td>
+</tr>
+<tr class="odd">
+<td align="left">between</td>
+<td align="left">kaal</td>
+<td align="left">kaal</td>
+<td align="left">3587WP</td>
+<td align="left">892WKG</td>
+<td align="right">11</td>
+<td align="right">7</td>
+<td align="right">24</td>
+<td align="right">31</td>
+<td align="right">4</td>
+<td align="right">46</td>
+</tr>
+<tr class="even">
+<td align="left">between</td>
+<td align="left">kaal</td>
+<td align="left">kaal</td>
+<td align="left">3587WP</td>
+<td align="left">904WPG</td>
+<td align="right">11</td>
+<td align="right">7</td>
+<td align="right">29</td>
+<td align="right">43</td>
+<td align="right">6</td>
+<td align="right">48</td>
+</tr>
+<tr class="odd">
+<td align="left">within</td>
+<td align="left">hook</td>
+<td align="left">hook</td>
+<td align="left">WK</td>
+<td align="left">WK</td>
+<td align="right">25</td>
+<td align="right">6</td>
+<td align="right">72</td>
+<td align="right">128</td>
+<td align="right">10</td>
+<td align="right">106</td>
+</tr>
+<tr class="even">
+<td align="left">within</td>
+<td align="left">hook</td>
+<td align="left">hook</td>
+<td align="left">879WKG</td>
+<td align="left">879WKG</td>
+<td align="right">22</td>
+<td align="right">13</td>
+<td align="right">57</td>
+<td align="right">95</td>
+<td align="right">5</td>
+<td align="right">75</td>
+</tr>
+<tr class="odd">
+<td align="left">within</td>
+<td align="left">kaal</td>
+<td align="left">kaal</td>
+<td align="left">892WKG</td>
+<td align="left">892WKG</td>
+<td align="right">9</td>
+<td align="right">6</td>
+<td align="right">5</td>
+<td align="right">15</td>
+<td align="right">7</td>
+<td align="right">9</td>
+</tr>
+<tr class="even">
+<td align="left">within</td>
+<td align="left">kaal</td>
+<td align="left">kaal</td>
+<td align="left">904WPG</td>
+<td align="left">904WPG</td>
+<td align="right">14</td>
+<td align="right">6</td>
+<td align="right">63</td>
+<td align="right">83</td>
+<td align="right">6</td>
+<td align="right">95</td>
+</tr>
+<tr class="odd">
+<td align="left">within</td>
+<td align="left">kaal</td>
+<td align="left">kaal</td>
+<td align="left">3587WP</td>
+<td align="left">3587WP</td>
+<td align="right">11</td>
+<td align="right">7</td>
+<td align="right">17</td>
+<td align="right">27</td>
+<td align="right">7</td>
+<td align="right">24</td>
+</tr>
+<tr class="even">
+<td align="left">hybrid</td>
+<td align="left">hook</td>
+<td align="left">kaal</td>
+<td align="left">WK</td>
+<td align="left">892WKG</td>
+<td align="right">28</td>
+<td align="right">11</td>
+<td align="right">81</td>
+<td align="right">118</td>
+<td align="right">9</td>
+<td align="right">110</td>
+</tr>
+<tr class="odd">
+<td align="left">hybrid</td>
+<td align="left">hook</td>
+<td align="left">kaal</td>
+<td align="left">WK</td>
+<td align="left">904WPG</td>
+<td align="right">20</td>
+<td align="right">8</td>
+<td align="right">34</td>
+<td align="right">61</td>
+<td align="right">10</td>
+<td align="right">50</td>
+</tr>
+<tr class="even">
+<td align="left">hybrid</td>
+<td align="left">hook</td>
+<td align="left">kaal</td>
+<td align="left">WK</td>
+<td align="left">3587WP</td>
+<td align="right">26</td>
+<td align="right">10</td>
+<td align="right">27</td>
+<td align="right">47</td>
+<td align="right">7</td>
+<td align="right">47</td>
+</tr>
+<tr class="odd">
+<td align="left">hybrid</td>
+<td align="left">hook</td>
+<td align="left">kaal</td>
+<td align="left">879WKG</td>
+<td align="left">892WKG</td>
+<td align="right">31</td>
+<td align="right">11</td>
+<td align="right">78</td>
+<td align="right">100</td>
+<td align="right">18</td>
+<td align="right">113</td>
+</tr>
+<tr class="even">
+<td align="left">hybrid</td>
+<td align="left">hook</td>
+<td align="left">kaal</td>
+<td align="left">879WKG</td>
+<td align="left">904WPG</td>
+<td align="right">23</td>
+<td align="right">10</td>
+<td align="right">64</td>
+<td align="right">84</td>
+<td align="right">17</td>
+<td align="right">100</td>
+</tr>
+<tr class="odd">
+<td align="left">hybrid</td>
+<td align="left">hook</td>
+<td align="left">kaal</td>
+<td align="left">879WKG</td>
+<td align="left">3587WP</td>
+<td align="right">28</td>
+<td align="right">12</td>
+<td align="right">48</td>
+<td align="right">59</td>
+<td align="right"></td>
+<td align="right">70</td>
+</tr>
+<tr class="even">
+<td align="left">hybrid</td>
+<td align="left">kaal</td>
+<td align="left">hook</td>
+<td align="left">892WKG</td>
+<td align="left">WK</td>
+<td align="right">13</td>
+<td align="right">7</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">hybrid</td>
+<td align="left">kaal</td>
+<td align="left">hook</td>
+<td align="left">892WKG</td>
+<td align="left">879WKG</td>
+<td align="right">33</td>
+<td align="right">15</td>
+<td align="right">18</td>
+<td align="right">24</td>
+<td align="right">8</td>
+<td align="right">27</td>
+</tr>
+<tr class="even">
+<td align="left">hybrid</td>
+<td align="left">kaal</td>
+<td align="left">hook</td>
+<td align="left">904WPG</td>
+<td align="left">WK</td>
+<td align="right">25</td>
+<td align="right">10</td>
+<td align="right">1</td>
+<td align="right">7</td>
+<td align="right">1</td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">hybrid</td>
+<td align="left">kaal</td>
+<td align="left">hook</td>
+<td align="left">904WPG</td>
+<td align="left">879WKG</td>
+<td align="right">36</td>
+<td align="right">13</td>
+<td align="right">34</td>
+<td align="right">53</td>
+<td align="right">25</td>
+<td align="right">44</td>
+</tr>
+<tr class="even">
+<td align="left">hybrid</td>
+<td align="left">kaal</td>
+<td align="left">hook</td>
+<td align="left">3587WP</td>
+<td align="left">WK</td>
+<td align="right">32</td>
+<td align="right">12</td>
+<td align="right">1</td>
+<td align="right">7</td>
+<td align="right">1</td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">hybrid</td>
+<td align="left">kaal</td>
+<td align="left">hook</td>
+<td align="left">3587WP</td>
+<td align="left">879WKG</td>
+<td align="right">38</td>
+<td align="right">16</td>
+<td align="right">17</td>
+<td align="right">28</td>
+<td align="right">14</td>
+<td align="right">26</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>map_dfr(F2, ~ tally(.), .id=&quot;dataset&quot;) %&gt;% 
+  pivot_wider(names_from=dataset, values_from=n) %&gt;% kable(caption=&quot;F2 datasets totals&quot;)</code></pre>
+<table>
+<caption>F2 datasets totals</caption>
+<thead>
+<tr class="header">
+<th align="right">f1seeds</th>
+<th align="right">f1seedmass</th>
+<th align="right">f2pollen</th>
+<th align="right">f2seeds</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1900</td>
+<td align="right">230</td>
+<td align="right">134</td>
+<td align="right">222</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>map_dfr(F2, ~ tally(group_by(., generation, momdadcross)), .id=&quot;dataset&quot;) %&gt;% 
+  pivot_wider(names_from=dataset, values_from=n) %&gt;% kable(caption=&quot;F2 datasets by cross&quot;)</code></pre>
+<table>
+<caption>F2 datasets by cross</caption>
+<thead>
+<tr class="header">
+<th align="left">generation</th>
 <th align="left">momdadcross</th>
 <th align="right">f1seeds</th>
 <th align="right">f1seedmass</th>
@@ -291,62 +785,23 @@ map_dfr(F2, ~ tally(group_by(., momdadcross)), .id=&quot;dataset&quot;) %&gt;%
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">H x control</td>
-<td align="right">37</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-</tr>
-<tr class="even">
-<td align="left">H x H</td>
-<td align="right">111</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-</tr>
-<tr class="odd">
-<td align="left">H x HK</td>
-<td align="right">57</td>
-<td align="right">23</td>
-<td align="right">17</td>
-<td align="right">26</td>
-</tr>
-<tr class="even">
-<td align="left">H x K</td>
-<td align="right">156</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-</tr>
-<tr class="odd">
-<td align="left">H x KH</td>
-<td align="right">91</td>
-<td align="right">56</td>
-<td align="right">22</td>
-<td align="right">11</td>
-</tr>
-<tr class="even">
-<td align="left">H x NA</td>
-<td align="right">37</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-</tr>
-<tr class="odd">
+<td align="left">Fcontrol</td>
 <td align="left">HK x control</td>
 <td align="right">38</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
 </tr>
 <tr class="even">
-<td align="left">HK x H</td>
-<td align="right">109</td>
-<td align="right">18</td>
-<td align="right">10</td>
-<td align="right">28</td>
+<td align="left">Fcontrol</td>
+<td align="left">KH x control</td>
+<td align="right">74</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
 </tr>
 <tr class="odd">
+<td align="left">FF</td>
 <td align="left">HK x HK</td>
 <td align="right">97</td>
 <td align="right">15</td>
@@ -354,83 +809,47 @@ map_dfr(F2, ~ tally(group_by(., momdadcross)), .id=&quot;dataset&quot;) %&gt;%
 <td align="right">38</td>
 </tr>
 <tr class="even">
+<td align="left">FF</td>
+<td align="left">KH x HK</td>
+<td align="right">1</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">FF</td>
+<td align="left">KH x KH</td>
+<td align="right">195</td>
+<td align="right">45</td>
+<td align="right">16</td>
+<td align="right">35</td>
+</tr>
+<tr class="even">
+<td align="left">FP</td>
+<td align="left">HK x H</td>
+<td align="right">109</td>
+<td align="right">18</td>
+<td align="right">10</td>
+<td align="right">28</td>
+</tr>
+<tr class="odd">
+<td align="left">FP</td>
 <td align="left">HK x K</td>
 <td align="right">75</td>
 <td align="right">7</td>
 <td align="right">6</td>
 <td align="right">7</td>
 </tr>
-<tr class="odd">
-<td align="left">HK x NA</td>
-<td align="right">38</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-</tr>
 <tr class="even">
-<td align="left">K x control</td>
-<td align="right">101</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-</tr>
-<tr class="odd">
-<td align="left">K x H</td>
-<td align="right">177</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-</tr>
-<tr class="even">
-<td align="left">K x HK</td>
-<td align="right">41</td>
-<td align="right">3</td>
-<td align="right">8</td>
-<td align="right">12</td>
-</tr>
-<tr class="odd">
-<td align="left">K x K</td>
-<td align="right">89</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-</tr>
-<tr class="even">
-<td align="left">K x KH</td>
-<td align="right">83</td>
-<td align="right">6</td>
-<td align="right">11</td>
-<td align="right">18</td>
-</tr>
-<tr class="odd">
-<td align="left">K x NA</td>
-<td align="right">101</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-</tr>
-<tr class="even">
-<td align="left">KH x control</td>
-<td align="right">74</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-</tr>
-<tr class="odd">
+<td align="left">FP</td>
 <td align="left">KH x H</td>
 <td align="right">191</td>
 <td align="right">28</td>
 <td align="right">17</td>
 <td align="right">25</td>
 </tr>
-<tr class="even">
-<td align="left">KH x HK</td>
-<td align="right">1</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-</tr>
 <tr class="odd">
+<td align="left">FP</td>
 <td align="left">KH x K</td>
 <td align="right">177</td>
 <td align="right">29</td>
@@ -438,18 +857,84 @@ map_dfr(F2, ~ tally(group_by(., momdadcross)), .id=&quot;dataset&quot;) %&gt;%
 <td align="right">22</td>
 </tr>
 <tr class="even">
-<td align="left">KH x KH</td>
-<td align="right">195</td>
-<td align="right">45</td>
-<td align="right">16</td>
-<td align="right">35</td>
+<td align="left">Pcontrol</td>
+<td align="left">H x control</td>
+<td align="right">37</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
 </tr>
 <tr class="odd">
-<td align="left">KH x NA</td>
-<td align="right">74</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
+<td align="left">Pcontrol</td>
+<td align="left">K x control</td>
+<td align="right">101</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">PF</td>
+<td align="left">H x HK</td>
+<td align="right">57</td>
+<td align="right">23</td>
+<td align="right">17</td>
+<td align="right">26</td>
+</tr>
+<tr class="odd">
+<td align="left">PF</td>
+<td align="left">H x KH</td>
+<td align="right">91</td>
+<td align="right">56</td>
+<td align="right">22</td>
+<td align="right">11</td>
+</tr>
+<tr class="even">
+<td align="left">PF</td>
+<td align="left">K x HK</td>
+<td align="right">41</td>
+<td align="right">3</td>
+<td align="right">8</td>
+<td align="right">12</td>
+</tr>
+<tr class="odd">
+<td align="left">PF</td>
+<td align="left">K x KH</td>
+<td align="right">83</td>
+<td align="right">6</td>
+<td align="right">11</td>
+<td align="right">18</td>
+</tr>
+<tr class="even">
+<td align="left">PP</td>
+<td align="left">H x H</td>
+<td align="right">111</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">PP</td>
+<td align="left">H x K</td>
+<td align="right">156</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">PP</td>
+<td align="left">K x H</td>
+<td align="right">177</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">PP</td>
+<td align="left">K x K</td>
+<td align="right">89</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
 </tr>
 </tbody>
 </table>

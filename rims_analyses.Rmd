@@ -25,7 +25,7 @@ library(tidyverse)
 
 library(knitr)
 knitr::opts_chunk$set(comment="", cache=T, warning = F, message = F, fig.path = "figures/")
-options(digits=4) # for kables
+options(digits=4, knitr.kable.NA = "") # for kables
 
 load("data/rims_data.rda")
 ```
@@ -36,7 +36,19 @@ load("data/rims_data.rda")
 F1 <- mget(datanames[1:6])
 F2 <- mget(datanames[7:10])
 
-map_dfr(F2, ~ tally(group_by(., momdadcross)), .id="dataset") %>% 
-  pivot_wider(names_from=dataset, values_from=n) %>% kable
+map_dfr(F1, ~ tally(.), .id="dataset") %>% 
+  pivot_wider(names_from=dataset, values_from=n) %>% kable(caption="F1 datasets totals")
+
+map_dfr(F1, ~ tally(group_by(., crosstype, momsp, dadsp)), .id="dataset") %>% 
+  pivot_wider(names_from=dataset, values_from=n) %>% kable(caption="F1 datasets by crosstype and species")
+
+map_dfr(F1, ~ tally(group_by(., crosstype, momsp, dadsp, mompop, dadpop)), .id="dataset") %>% 
+  pivot_wider(names_from=dataset, values_from=n) %>% kable(caption="F1 datasets by crosstype and population")
+
+map_dfr(F2, ~ tally(.), .id="dataset") %>% 
+  pivot_wider(names_from=dataset, values_from=n) %>% kable(caption="F2 datasets totals")
+
+map_dfr(F2, ~ tally(group_by(., generation, momdadcross)), .id="dataset") %>% 
+  pivot_wider(names_from=dataset, values_from=n) %>% kable(caption="F2 datasets by cross")
 ```
 

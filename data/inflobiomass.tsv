@@ -1,4 +1,4 @@
-crossid	plantid	cross.manual	block1	blockAB	collect.date	regression	flrs	inflo.e	inflo	weigh.date	mass	initials	check.initials	check.date	comments	linenum	collect	mompop	momid	momsp	dadpop	dadid	dadsp	crosstype	cross	full	sxc	sxcxm	mompid	smompop
+crossid	plantid	cross.manual	block1	blockAB	collect.date	regression	flrs	inflo.e	inflo	weigh.date	inflo.biomass.g	initials	check.initials	check.date	comments	linenum	collect	mompop	momid	momsp	dadpop	dadid	dadsp	crosstype	cross	full	sxc	sxcxm	mompid	smompop
 1	1	HH	12	NA	2017-02-14	No R	NA	1	1	2017-07-14	0.053	SS	AK	2017-08-15	NA	1	341	879WKG	2-2	hook	879WKG	G-2	hook	within	HH	879-2-2 x 879-G-2	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
 1	2	HH	12	NA	2017-02-17	No R	NA	4	4	2017-05-18	0.075	SS	AK	2017-08-15	NA	2	344	879WKG	2-2	hook	879WKG	G-2	hook	within	HH	879-2-2 x 879-G-2	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
 1	4	HH	11	NA	2017-02-11	No R	NA	10	10	2017-07-14	1.113	SS	AK	2017-08-15	NA	3	338	879WKG	2-2	hook	879WKG	G-2	hook	within	HH	879-2-2 x 879-G-2	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
@@ -586,43 +586,43 @@ crossid	plantid	cross.manual	block1	blockAB	collect.date	regression	flrs	inflo.e
 63	17	HH	11	NA	2016-12-11	Infls-Rplt	NA	15	16	2017-05-25	1.326	SS	SZ	2017-08-23	this and below not on paper	584	276	WK	2	hook	WK	4	hook	within	HH	794-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
 63	18	HH	11	NA	2017-02-10	No R	NA	12	12	2017-07-20	1.157	SS	SZ	2017-08-23	NA	586	337	WK	2	hook	WK	4	hook	within	HH	794-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
 63	19	HH	11	NA	2016-12-19	No R	NA	12	12	2017-06-26	0.574	SS	SZ	2017-08-23	NA	587	284	WK	2	hook	WK	4	hook	within	HH	794-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
-64	1	HH	11	NA	2016-12-15	No R	NA	10	10	2017-07-17	1.092	SS	SZ	2017-08-23	env. Also says "" ~ 10 + old fragments""	588	280	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-64	2	HH	11	NA	2017-02-18	No R	NA	3	3	2017-07-20	0.272	SS	SZ	2017-08-23	NA	589	345	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-64	3	HH	11	NA	2017-02-18	No R	NA	31	31	2017-05-18	2.775	SS	SZ	2017-08-23	NA	590	345	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-64	4	HH	11	NA	2017-02-10	Infls-Rplt	NA	4	5	2017-07-20	0.28	SS	SZ	2017-08-23	NA	591	337	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-64	4	HH	11	NA	2017-02-10	Regress	34	1	NA	2017-07-20	0.107	SS	SZ	2017-08-23	NA	592	337	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-64	5	HH	11	NA	2017-02-22	No R	NA	19	19	2017-07-20	2.48	SS	SZ	2017-08-23	NA	593	349	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-64	6	HH	11	NA	2017-01-31	Infls-Rplt	NA	17	18	2017-07-07	1.447	SS	SZ	2017-08-23	NA	594	327	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-64	6	HH	11	NA	2017-01-31	Regress	31	1	NA	2017-07-07	0.055	SS	SZ	2017-08-23	NA	595	327	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-64	7	HH	11	NA	2017-02-17	No R	NA	4	4	2017-07-21	0.23	SS	SZ	2017-08-23	NA	596	344	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-64	8	HH	11	NA	2017-02-19	No R	NA	11	11	2017-05-10	1.237	SS	AK	2017-08-24	NA	597	346	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-64	9	HH	11	NA	2016-12-15	Infls-Rplt	NA	19	20	2017-07-13	2.704	SS	AK	2017-08-24	NA	598	280	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-64	9	HH	11	NA	2016-12-15	Regress	122	1	NA	2017-07-13	0.387	SS	AK	2017-08-24	NA	599	280	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-64	10	HH	11	NA	2017-01-20	No R	NA	8	8	2017-07-10	0.594	SS	AK	2017-08-24	NA	600	316	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-64	11	HH	11	NA	2017-02-19	No R	NA	7	7	2017-07-21	0.355	SS	AK	2017-08-24	NA	601	346	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-64	12	HH	11	NA	2017-02-05	Infls-Rplt	NA	16	17	2017-05-30	2.1	SS	AK	2017-08-24	NA	602	332	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-64	12	HH	11	NA	2017-02-05	Regress	81	1	NA	2017-06-19	0.108	SS	AK	2017-08-24	NA	603	332	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-64	13	HH	11	NA	2017-02-19	No R	NA	7	7	2017-07-24	0.543	SS	AK	2017-08-24	NA	604	346	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-64	14	HH	11	NA	2016-12-18	Infls-Rplt	NA	28	29	2017-06-23	2.495	SS	AK	2017-08-24	NA	605	283	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-64	14	HH	11	NA	2016-12-18	Regress	49	1	NA	2017-06-23	0.13	SS	AK	2017-08-24	NA	606	283	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-64	15	HH	11	NA	2016-12-18	Infls-Rplt	NA	23	24	2017-06-23	1.781	SS	AK	2017-08-24	NA	607	283	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-64	15	HH	11	NA	2016-12-18	backup R	NA	1	NA	2017-06-23	0.086	SS	AK	2017-08-24	NA	608	283	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-64	16	HH	11	NA	2017-02-10	No R	NA	18	18	2017-07-14	2.451	SS	AK	2017-08-24	NA	609	337	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-64	17	HH	11	NA	2016-12-11	Infls-Rplt	NA	6	7	2017-05-30	0.806	SS	AK	2017-08-24	NA	610	276	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-64	17	HH	11	NA	2016-12-11	Regress	45	1	NA	2017-05-25	0.072	SS	AK	2017-08-24	NA	611	276	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-64	18	HH	11	NA	2017-01-12	No R	NA	17	17	2017-07-17	1.925	SS	AK	2017-08-24	NA	612	308	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-64	19	HH	11	NA	2016-12-21	No R	NA	40	40	2017-05-18	4.784	SS	AK	2017-08-24	checked 8/30/17	613	286	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-64	20	HH	11	NA	2017-02-18	No R	NA	8	8	2017-07-20	0.559	SS	AK	2017-08-24	NA	614	345	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-65	3	HH	11	NA	2017-02-17	Infls-Rplt	NA	17	18	2017-07-24	0.891	SS	AK	2017-08-24	NA	615	344	WK	2	hook	WK	2E	hook	between	HH	794-2 x 899-2E	hook.between	hook.between.WK.2	WK.2	hookWK
-65	3	HH	11	NA	2017-02-17	Regress	30	1	NA	2017-07-24	0.082	SS	AK	2017-08-24	NA	616	344	WK	2	hook	WK	2E	hook	between	HH	794-2 x 899-2E	hook.between	hook.between.WK.2	WK.2	hookWK
-65	4	HH	11	NA	2017-02-05	Infls-Rplt	NA	17	18	2017-06-07	0.86	SS	AK	2017-08-24	NA	617	332	WK	2	hook	WK	2E	hook	between	HH	794-2 x 899-2E	hook.between	hook.between.WK.2	WK.2	hookWK
-65	4	HH	11	NA	2017-02-05	Regress	61	1	NA	2017-06-07	0.138	SS	AK	2017-08-24	NA	618	332	WK	2	hook	WK	2E	hook	between	HH	794-2 x 899-2E	hook.between	hook.between.WK.2	WK.2	hookWK
-65	5	HH	11	NA	2016-12-17	No R	NA	4	4	2017-07-13	0.196	SS	AK	2017-08-24	NA	619	282	WK	2	hook	WK	2E	hook	between	HH	794-2 x 899-2E	hook.between	hook.between.WK.2	WK.2	hookWK
-65	7	HH	11	NA	2016-12-07	Infls-Rplt	NA	23	24	2017-06-29	2.629	SS	AK	2017-08-24	NA	620	272	WK	2	hook	WK	2E	hook	between	HH	794-2 x 899-2E	hook.between	hook.between.WK.2	WK.2	hookWK
-65	7	HH	11	NA	2016-12-07	Regress	35	1	NA	2017-06-29	0.114	SS	AK	2017-08-24	NA	621	272	WK	2	hook	WK	2E	hook	between	HH	794-2 x 899-2E	hook.between	hook.between.WK.2	WK.2	hookWK
-65	8	HH	11	NA	2017-02-19	No R	NA	14	14	2017-05-18	1.369	SS	AK	2017-08-24	NA	622	346	WK	2	hook	WK	2E	hook	between	HH	794-2 x 899-2E	hook.between	hook.between.WK.2	WK.2	hookWK
-65	9	HH	11	NA	2017-01-20	Infls-Rplt	NA	9	10	2017-07-10	0.4	SS	AK	2017-08-24	NA	623	316	WK	2	hook	WK	2E	hook	between	HH	794-2 x 899-2E	hook.between	hook.between.WK.2	WK.2	hookWK
-65	9	HH	11	NA	2017-01-20	Regress	23	1	NA	2017-07-10	0.064	SS	AK	2017-08-24	NA	624	316	WK	2	hook	WK	2E	hook	between	HH	794-2 x 899-2E	hook.between	hook.between.WK.2	WK.2	hookWK
+64	1	HH	11	NA	2016-12-15	No R	NA	10	10	2017-07-17	1.092	SS	SZ	2017-08-23	env. Also says "" ~ 10 + old fragments""	588	280	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+64	2	HH	11	NA	2017-02-18	No R	NA	3	3	2017-07-20	0.272	SS	SZ	2017-08-23	NA	589	345	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+64	3	HH	11	NA	2017-02-18	No R	NA	31	31	2017-05-18	2.775	SS	SZ	2017-08-23	NA	590	345	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+64	4	HH	11	NA	2017-02-10	Infls-Rplt	NA	4	5	2017-07-20	0.28	SS	SZ	2017-08-23	NA	591	337	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+64	4	HH	11	NA	2017-02-10	Regress	34	1	NA	2017-07-20	0.107	SS	SZ	2017-08-23	NA	592	337	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+64	5	HH	11	NA	2017-02-22	No R	NA	19	19	2017-07-20	2.48	SS	SZ	2017-08-23	NA	593	349	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+64	6	HH	11	NA	2017-01-31	Infls-Rplt	NA	17	18	2017-07-07	1.447	SS	SZ	2017-08-23	NA	594	327	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+64	6	HH	11	NA	2017-01-31	Regress	31	1	NA	2017-07-07	0.055	SS	SZ	2017-08-23	NA	595	327	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+64	7	HH	11	NA	2017-02-17	No R	NA	4	4	2017-07-21	0.23	SS	SZ	2017-08-23	NA	596	344	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+64	8	HH	11	NA	2017-02-19	No R	NA	11	11	2017-05-10	1.237	SS	AK	2017-08-24	NA	597	346	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+64	9	HH	11	NA	2016-12-15	Infls-Rplt	NA	19	20	2017-07-13	2.704	SS	AK	2017-08-24	NA	598	280	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+64	9	HH	11	NA	2016-12-15	Regress	122	1	NA	2017-07-13	0.387	SS	AK	2017-08-24	NA	599	280	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+64	10	HH	11	NA	2017-01-20	No R	NA	8	8	2017-07-10	0.594	SS	AK	2017-08-24	NA	600	316	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+64	11	HH	11	NA	2017-02-19	No R	NA	7	7	2017-07-21	0.355	SS	AK	2017-08-24	NA	601	346	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+64	12	HH	11	NA	2017-02-05	Infls-Rplt	NA	16	17	2017-05-30	2.1	SS	AK	2017-08-24	NA	602	332	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+64	12	HH	11	NA	2017-02-05	Regress	81	1	NA	2017-06-19	0.108	SS	AK	2017-08-24	NA	603	332	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+64	13	HH	11	NA	2017-02-19	No R	NA	7	7	2017-07-24	0.543	SS	AK	2017-08-24	NA	604	346	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+64	14	HH	11	NA	2016-12-18	Infls-Rplt	NA	28	29	2017-06-23	2.495	SS	AK	2017-08-24	NA	605	283	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+64	14	HH	11	NA	2016-12-18	Regress	49	1	NA	2017-06-23	0.13	SS	AK	2017-08-24	NA	606	283	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+64	15	HH	11	NA	2016-12-18	Infls-Rplt	NA	23	24	2017-06-23	1.781	SS	AK	2017-08-24	NA	607	283	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+64	15	HH	11	NA	2016-12-18	backup R	NA	1	NA	2017-06-23	0.086	SS	AK	2017-08-24	NA	608	283	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+64	16	HH	11	NA	2017-02-10	No R	NA	18	18	2017-07-14	2.451	SS	AK	2017-08-24	NA	609	337	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+64	17	HH	11	NA	2016-12-11	Infls-Rplt	NA	6	7	2017-05-30	0.806	SS	AK	2017-08-24	NA	610	276	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+64	17	HH	11	NA	2016-12-11	Regress	45	1	NA	2017-05-25	0.072	SS	AK	2017-08-24	NA	611	276	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+64	18	HH	11	NA	2017-01-12	No R	NA	17	17	2017-07-17	1.925	SS	AK	2017-08-24	NA	612	308	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+64	19	HH	11	NA	2016-12-21	No R	NA	40	40	2017-05-18	4.784	SS	AK	2017-08-24	checked 8/30/17	613	286	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+64	20	HH	11	NA	2017-02-18	No R	NA	8	8	2017-07-20	0.559	SS	AK	2017-08-24	NA	614	345	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+65	3	HH	11	NA	2017-02-17	Infls-Rplt	NA	17	18	2017-07-24	0.891	SS	AK	2017-08-24	NA	615	344	WK	2	hook	WK	2E	hook	within	HH	794-2 x 899-2E	hook.within	hook.within.WK.2	WK.2	hookWK
+65	3	HH	11	NA	2017-02-17	Regress	30	1	NA	2017-07-24	0.082	SS	AK	2017-08-24	NA	616	344	WK	2	hook	WK	2E	hook	within	HH	794-2 x 899-2E	hook.within	hook.within.WK.2	WK.2	hookWK
+65	4	HH	11	NA	2017-02-05	Infls-Rplt	NA	17	18	2017-06-07	0.86	SS	AK	2017-08-24	NA	617	332	WK	2	hook	WK	2E	hook	within	HH	794-2 x 899-2E	hook.within	hook.within.WK.2	WK.2	hookWK
+65	4	HH	11	NA	2017-02-05	Regress	61	1	NA	2017-06-07	0.138	SS	AK	2017-08-24	NA	618	332	WK	2	hook	WK	2E	hook	within	HH	794-2 x 899-2E	hook.within	hook.within.WK.2	WK.2	hookWK
+65	5	HH	11	NA	2016-12-17	No R	NA	4	4	2017-07-13	0.196	SS	AK	2017-08-24	NA	619	282	WK	2	hook	WK	2E	hook	within	HH	794-2 x 899-2E	hook.within	hook.within.WK.2	WK.2	hookWK
+65	7	HH	11	NA	2016-12-07	Infls-Rplt	NA	23	24	2017-06-29	2.629	SS	AK	2017-08-24	NA	620	272	WK	2	hook	WK	2E	hook	within	HH	794-2 x 899-2E	hook.within	hook.within.WK.2	WK.2	hookWK
+65	7	HH	11	NA	2016-12-07	Regress	35	1	NA	2017-06-29	0.114	SS	AK	2017-08-24	NA	621	272	WK	2	hook	WK	2E	hook	within	HH	794-2 x 899-2E	hook.within	hook.within.WK.2	WK.2	hookWK
+65	8	HH	11	NA	2017-02-19	No R	NA	14	14	2017-05-18	1.369	SS	AK	2017-08-24	NA	622	346	WK	2	hook	WK	2E	hook	within	HH	794-2 x 899-2E	hook.within	hook.within.WK.2	WK.2	hookWK
+65	9	HH	11	NA	2017-01-20	Infls-Rplt	NA	9	10	2017-07-10	0.4	SS	AK	2017-08-24	NA	623	316	WK	2	hook	WK	2E	hook	within	HH	794-2 x 899-2E	hook.within	hook.within.WK.2	WK.2	hookWK
+65	9	HH	11	NA	2017-01-20	Regress	23	1	NA	2017-07-10	0.064	SS	AK	2017-08-24	NA	624	316	WK	2	hook	WK	2E	hook	within	HH	794-2 x 899-2E	hook.within	hook.within.WK.2	WK.2	hookWK
 66	1	HK	5	A	2017-02-19	No R	NA	10	10	2017-07-24	2.251	SS	AK	2017-08-24	NA	625	346	WK	2	hook	892WKG	1	kaal	hybrid	HK	794-2 x 892-1	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
 66	2	HK	5	A	2017-02-19	No R	NA	9	9	2017-05-18	4.528	SS	AK	2017-08-24	NA	626	346	WK	2	hook	892WKG	1	kaal	hybrid	HK	794-2 x 892-1	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
 66	4	HK	5	A	2016-12-20	Infls-Rplt	NA	14	15	2017-06-26	1.283	SS	AK	2017-08-24	NA	627	285	WK	2	hook	892WKG	1	kaal	hybrid	HK	794-2 x 892-1	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
@@ -759,22 +759,22 @@ crossid	plantid	cross.manual	block1	blockAB	collect.date	regression	flrs	inflo.e
 78	17	HH	11	NA	2017-01-31	Regress	130	1	NA	2017-07-07	0.234	AK	SS	2017-08-15	NA	759	327	WK	4	hook	WK	2	hook	within	HH	794-4 x 794-2	hook.within	hook.within.WK.4	WK.4	hookWK
 78	18	HH	11	NA	2017-01-13	Infls-Rplt	NA	19	20	2017-05-24	1.455	AK	SS	2017-08-15	NA	760	309	WK	4	hook	WK	2	hook	within	HH	794-4 x 794-2	hook.within	hook.within.WK.4	WK.4	hookWK
 78	18	HH	11	NA	2017-01-13	Regress	25	1	NA	2017-05-24	0.054	AK	SS	2017-08-15	NA	761	309	WK	4	hook	WK	2	hook	within	HH	794-4 x 794-2	hook.within	hook.within.WK.4	WK.4	hookWK
-79	1	HH	11	NA	2016-12-07	Infls-Rplt	NA	23	24	2017-06-29	1.965	AK	SS	2017-08-15	NA	762	272	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
-79	1	HH	11	NA	2016-12-07	Regress	74	1	NA	2017-06-29	0.172	AK	SS	2017-08-15	NA	763	272	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
-79	7	HH	11	NA	2017-02-10	Infls-Rplt	NA	18	19	2017-07-20	0.598	AK	SS	2017-08-15	NA	764	337	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
-79	7	HH	11	NA	2017-02-10	Regress	12	1	NA	2017-07-20	0.04	AK	SS	2017-08-15	NA	765	337	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
-79	9	HH	11	NA	2017-01-17	Infls-Rplt	NA	24	25	2017-07-14	0.94	AK	SS	2017-08-15	NA	766	313	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
-79	9	HH	11	NA	2017-01-17	Regress	41	1	NA	2017-07-14	0.131	AK	SS	2017-08-15	NA	767	313	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
-79	11	HH	11	NA	2016-12-19	No R	NA	3	3	2017-06-26	0.156	AK	SS	2017-08-15	NA	768	284	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
-79	14	HH	11	NA	2017-02-18	No R	NA	7	7	2017-07-20	0.167	AK	SS	2017-08-15	NA	769	345	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
-79	17	HH	11	NA	2017-02-16	No R	NA	1	1	2017-07-06	0.006	AK	SS	2017-08-15	NA	770	343	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
-79	18	HH	11	NA	2017-02-18	No R	NA	12	12	2017-07-24	0.522	AK	SS	2017-08-15	NA	771	345	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
-79	19	HH	11	NA	NA	Infls-Rplt	NA	21	22	2017-07-06	0.933	AK	SS	2017-08-15	no collection date	772	NA	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
-79	19	HH	11	NA	NA	Regress	53	1	NA	2017-07-06	0.128	AK	SS	2017-08-15	no collection date	773	NA	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
-79	20	HH	11	NA	2017-01-13	Infls-Rplt	NA	15	16	2017-05-17	2.069	AK	SS	2017-08-15	NA	774	309	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
-79	20	HH	11	NA	2017-01-13	Regress	63	1	NA	2017-05-24	0.24	AK	SS	2017-08-15	NA	775	309	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
-79	28	HH	11	NA	2016-12-09	Infls-Rplt	NA	26	27	2017-06-07	1.658	AK	SS	2017-08-15	NA	776	274	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
-79	28	HH	11	NA	2016-12-09	Regress	33	1	NA	2017-06-07	0.115	AK	SS	2017-08-15	NA	777	274	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
+79	1	HH	11	NA	2016-12-07	Infls-Rplt	NA	23	24	2017-06-29	1.965	AK	SS	2017-08-15	NA	762	272	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
+79	1	HH	11	NA	2016-12-07	Regress	74	1	NA	2017-06-29	0.172	AK	SS	2017-08-15	NA	763	272	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
+79	7	HH	11	NA	2017-02-10	Infls-Rplt	NA	18	19	2017-07-20	0.598	AK	SS	2017-08-15	NA	764	337	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
+79	7	HH	11	NA	2017-02-10	Regress	12	1	NA	2017-07-20	0.04	AK	SS	2017-08-15	NA	765	337	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
+79	9	HH	11	NA	2017-01-17	Infls-Rplt	NA	24	25	2017-07-14	0.94	AK	SS	2017-08-15	NA	766	313	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
+79	9	HH	11	NA	2017-01-17	Regress	41	1	NA	2017-07-14	0.131	AK	SS	2017-08-15	NA	767	313	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
+79	11	HH	11	NA	2016-12-19	No R	NA	3	3	2017-06-26	0.156	AK	SS	2017-08-15	NA	768	284	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
+79	14	HH	11	NA	2017-02-18	No R	NA	7	7	2017-07-20	0.167	AK	SS	2017-08-15	NA	769	345	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
+79	17	HH	11	NA	2017-02-16	No R	NA	1	1	2017-07-06	0.006	AK	SS	2017-08-15	NA	770	343	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
+79	18	HH	11	NA	2017-02-18	No R	NA	12	12	2017-07-24	0.522	AK	SS	2017-08-15	NA	771	345	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
+79	19	HH	11	NA	NA	Infls-Rplt	NA	21	22	2017-07-06	0.933	AK	SS	2017-08-15	no collection date	772	NA	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
+79	19	HH	11	NA	NA	Regress	53	1	NA	2017-07-06	0.128	AK	SS	2017-08-15	no collection date	773	NA	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
+79	20	HH	11	NA	2017-01-13	Infls-Rplt	NA	15	16	2017-05-17	2.069	AK	SS	2017-08-15	NA	774	309	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
+79	20	HH	11	NA	2017-01-13	Regress	63	1	NA	2017-05-24	0.24	AK	SS	2017-08-15	NA	775	309	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
+79	28	HH	11	NA	2016-12-09	Infls-Rplt	NA	26	27	2017-06-07	1.658	AK	SS	2017-08-15	NA	776	274	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
+79	28	HH	11	NA	2016-12-09	Regress	33	1	NA	2017-06-07	0.115	AK	SS	2017-08-15	NA	777	274	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
 80	1	HK	5	A	2017-02-03	Infls-Rplt	NA	10	11	2017-07-10	4.432	AK	SS	2017-08-15	NA	778	330	WK	4	hook	892WKG	1	kaal	hybrid	HK	794-4 x 892-1	hook.hybrid	hook.hybrid.WK.4	WK.4	hookWK
 80	1	HK	5	A	2017-02-03	Regress	280	1	NA	2017-07-10	0.529	AK	SS	2017-08-15	NA	779	330	WK	4	hook	892WKG	1	kaal	hybrid	HK	794-4 x 892-1	hook.hybrid	hook.hybrid.WK.4	WK.4	hookWK
 80	2	HK	5	A	2017-01-20	Infls-Rplt	NA	8	9	2017-07-10	4.118	AK	SS	2017-08-15	NA	780	316	WK	4	hook	892WKG	1	kaal	hybrid	HK	794-4 x 892-1	hook.hybrid	hook.hybrid.WK.4	WK.4	hookWK
@@ -877,23 +877,23 @@ crossid	plantid	cross.manual	block1	blockAB	collect.date	regression	flrs	inflo.e
 92	11	HH	1	A	2016-12-13	Regress	30	1	NA	2017-06-19	0.101	SS	AK	2017-08-29	NA	877	278	WK	2	hook	879WKG	N-5	hook	between	HH	866-2 x 879-N-5	hook.between	hook.between.WK.2	WK.2	hookWK
 92	12	HH	1	A	2017-01-31	No R	NA	5	5	2017-07-07	0.355	SS	AK	2017-08-29	NA	878	327	WK	2	hook	879WKG	N-5	hook	between	HH	866-2 x 879-N-5	hook.between	hook.between.WK.2	WK.2	hookWK
 92	13	HH	1	A	2017-02-18	No R	NA	4	4	2017-07-20	0.608	SS	AK	2017-08-29	NA	879	345	WK	2	hook	879WKG	N-5	hook	between	HH	866-2 x 879-N-5	hook.between	hook.between.WK.2	WK.2	hookWK
-93	1	HH	11	NA	2016-12-19	Infls-Rplt	NA	11	12	2017-06-19	0.558	SS	AK	2017-08-29	NA	880	284	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
-93	1	HH	11	NA	2016-12-19	Regress	40	1	NA	2017-06-19	0.076	SS	AK	2017-08-29	NA	881	284	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
-93	2	HH	11	NA	2017-02-19	No R	NA	19	19	2017-07-24	1.207	SS	AK	2017-08-29	NA	882	346	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
-93	3	HH	11	NA	2017-01-12	Infls-Rplt	NA	30	31	2017-07-14	1.496	SS	AK	2017-08-29	NA	883	308	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
-93	3	HH	11	NA	2017-01-12	backup R	NA	1	NA	2017-07-14	0.077	SS	AK	2017-08-29	NA	884	308	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
-93	5	HH	11	NA	2016-12-20	Infls-Rplt	NA	14	15	2017-06-28	1.275	SS	AK	2017-08-29	NA	885	285	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
-93	5	HH	11	NA	2016-12-20	Regress	50	1	NA	2017-06-29	0.083	SS	AK	2017-08-29	NA	886	285	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
-93	8	HH	11	NA	2017-01-20	No R	NA	8	8	2017-07-11	0.431	SS	AK	2017-08-29	NA	887	316	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
-93	9	HH	11	NA	2017-01-12	Infls-Rplt	NA	5	6	2017-07-14	0.074	SS	AK	2017-08-29	NA	888	308	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
-93	9	HH	11	NA	2017-01-12	Regress	13	1	NA	2017-07-14	0.027	SS	AK	2017-08-29	NA	889	308	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
-93	13	HH	11	NA	2017-01-20	No R	NA	19	19	2017-07-25	0.842	SS	AK	2017-08-29	NA	890	316	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
-93	15	HH	11	NA	2016-12-15	Infls-Rplt	NA	13	14	2017-07-17	0.727	SS	AK	2017-08-29	NA	891	280	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
-93	15	HH	11	NA	2016-12-15	Regress	56	1	NA	2017-07-17	0.131	SS	AK	2017-08-29	NA	892	280	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
-93	16	HH	11	NA	2017-02-10	No R	NA	33	33	2017-07-20	1.381	SS	AK	2017-08-29	NA	893	337	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
-93	18	HH	11	NA	2017-02-11	No R	NA	44	44	2017-07-14	2.03	SS	AK	2017-08-29	NA	894	338	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
-93	19	HH	11	NA	2017-02-10	Infls-Rplt	NA	22	23	2017-07-14	1.226	SS	AK	2017-08-29	NA	895	337	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
-93	19	HH	11	NA	2017-02-10	Regress	29	1	NA	2017-07-14	0.044	SS	AK	2017-08-29	NA	896	337	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
+93	1	HH	11	NA	2016-12-19	Infls-Rplt	NA	11	12	2017-06-19	0.558	SS	AK	2017-08-29	NA	880	284	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+93	1	HH	11	NA	2016-12-19	Regress	40	1	NA	2017-06-19	0.076	SS	AK	2017-08-29	NA	881	284	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+93	2	HH	11	NA	2017-02-19	No R	NA	19	19	2017-07-24	1.207	SS	AK	2017-08-29	NA	882	346	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+93	3	HH	11	NA	2017-01-12	Infls-Rplt	NA	30	31	2017-07-14	1.496	SS	AK	2017-08-29	NA	883	308	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+93	3	HH	11	NA	2017-01-12	backup R	NA	1	NA	2017-07-14	0.077	SS	AK	2017-08-29	NA	884	308	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+93	5	HH	11	NA	2016-12-20	Infls-Rplt	NA	14	15	2017-06-28	1.275	SS	AK	2017-08-29	NA	885	285	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+93	5	HH	11	NA	2016-12-20	Regress	50	1	NA	2017-06-29	0.083	SS	AK	2017-08-29	NA	886	285	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+93	8	HH	11	NA	2017-01-20	No R	NA	8	8	2017-07-11	0.431	SS	AK	2017-08-29	NA	887	316	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+93	9	HH	11	NA	2017-01-12	Infls-Rplt	NA	5	6	2017-07-14	0.074	SS	AK	2017-08-29	NA	888	308	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+93	9	HH	11	NA	2017-01-12	Regress	13	1	NA	2017-07-14	0.027	SS	AK	2017-08-29	NA	889	308	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+93	13	HH	11	NA	2017-01-20	No R	NA	19	19	2017-07-25	0.842	SS	AK	2017-08-29	NA	890	316	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+93	15	HH	11	NA	2016-12-15	Infls-Rplt	NA	13	14	2017-07-17	0.727	SS	AK	2017-08-29	NA	891	280	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+93	15	HH	11	NA	2016-12-15	Regress	56	1	NA	2017-07-17	0.131	SS	AK	2017-08-29	NA	892	280	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+93	16	HH	11	NA	2017-02-10	No R	NA	33	33	2017-07-20	1.381	SS	AK	2017-08-29	NA	893	337	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+93	18	HH	11	NA	2017-02-11	No R	NA	44	44	2017-07-14	2.03	SS	AK	2017-08-29	NA	894	338	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+93	19	HH	11	NA	2017-02-10	Infls-Rplt	NA	22	23	2017-07-14	1.226	SS	AK	2017-08-29	NA	895	337	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+93	19	HH	11	NA	2017-02-10	Regress	29	1	NA	2017-07-14	0.044	SS	AK	2017-08-29	NA	896	337	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
 94	1	HK	5	A	2017-02-18	No R	NA	11	11	2017-07-25	2.814	SS	AK	2017-08-29	NA	897	345	WK	2	hook	892WKG	1	kaal	hybrid	HK	866-2 x 892-1	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
 94	2	HK	5	A	2017-01-25	No R	NA	1	1	2017-05-22	0.03	SS	AK	2017-08-29	NA	898	321	WK	2	hook	892WKG	1	kaal	hybrid	HK	866-2 x 892-1	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
 94	3	HK	5	A	2017-02-14	Infls-Rplt	NA	1	2	2017-07-14	0.053	SS	AK	2017-08-29	NA	899	341	WK	2	hook	892WKG	1	kaal	hybrid	HK	866-2 x 892-1	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK

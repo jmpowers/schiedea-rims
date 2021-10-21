@@ -1,5 +1,5 @@
-crossid	plantid	block1	blockAB	crosstype_manual	collect.date	mass	weigh.date	comments	linenum	collect	mompop	momid	momsp	dadpop	dadid	dadsp	crosstype	cross	full	sxc	sxcxm	mompid	smompop
-93	15	12	NA	NA	2016-12-15	14.41	2017-08-03	NA	1	280	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
+crossid	plantid	block1	blockAB	crosstype_manual	collect.date	veg.biomass.g	weigh.date	comments	linenum	collect	mompop	momid	momsp	dadpop	dadid	dadsp	crosstype	cross	full	sxc	sxcxm	mompid	smompop
+93	15	12	NA	NA	2016-12-15	14.41	2017-08-03	NA	1	280	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
 76	2	1	A	NA	2016-12-15	10.28	2017-08-03	NA	2	280	WK	4	hook	879WKG	G-2	hook	between	HH	794-4 x 879-G-2	hook.between	hook.between.WK.4	WK.4	hookWK
 67	14	5	A	NA	2016-12-15	11.22	2017-08-03	NA	3	280	WK	2	hook	892WKG	4	kaal	hybrid	HK	794-2 x 892-4	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
 3	4	12	NA	NA	2016-12-17	4.26	2017-08-03	NA	4	282	879WKG	2-2	hook	879WKG	N-5	hook	within	HH	879-2-2 x 879-N-5	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
@@ -15,14 +15,14 @@ crossid	plantid	block1	blockAB	crosstype_manual	collect.date	mass	weigh.date	com
 58	1	10	A	NA	2016-12-16	25.14	2017-08-03	NA	14	281	879WKG	N-5	hook	3587WP	C	kaal	hybrid	HK	879-N-5 x 3587-C	hook.hybrid	hook.hybrid.879WKG.N-5	879WKG.N-5	hook879WKG
 90	4	1	A	NA	2016-12-15	9.58	2017-08-03	NA	15	280	WK	2	hook	879WKG	10-1	hook	between	HH	866-2 x 879-10-1	hook.between	hook.between.WK.2	WK.2	hookWK
 90	17	1	A	NA	2016-12-15	7.21	2017-08-03	NA	16	280	WK	2	hook	879WKG	10-1	hook	between	HH	866-2 x 879-10-1	hook.between	hook.between.WK.2	WK.2	hookWK
-65	5	11	NA	NA	2016-12-17	9.68	2017-08-03	NA	17	282	WK	2	hook	WK	2E	hook	between	HH	794-2 x 899-2E	hook.between	hook.between.WK.2	WK.2	hookWK
+65	5	11	NA	NA	2016-12-17	9.68	2017-08-03	NA	17	282	WK	2	hook	WK	2E	hook	within	HH	794-2 x 899-2E	hook.within	hook.within.WK.2	WK.2	hookWK
 89	5	1	A	NA	2016-12-16	11.33	2017-08-03	NA	18	281	WK	2	hook	879WKG	2-2	hook	between	HH	866-2 x 879-2-2	hook.between	hook.between.WK.2	WK.2	hookWK
 19	3	1	B	NA	2016-12-17	9.3	2017-08-03	NA	19	282	879WKG	10-1	hook	WK	2	hook	between	HH	879-10-1 x 794-2	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
 21	17	1	B	NA	2016-12-17	14.38	2017-08-03	NA	20	282	879WKG	10-1	hook	WK	2	hook	between	HH	879-10-1 x 866-2	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
 60	14	1	A	NA	2016-12-15	11.05	2017-08-03	NA	21	280	WK	2	hook	879WKG	10-1	hook	between	HH	794-2 x 879-10-1	hook.between	hook.between.WK.2	WK.2	hookWK
 2	2	12	NA	NA	2016-12-17	8.65	2017-08-03	NA	22	282	879WKG	2-2	hook	879WKG	10-1	hook	within	HH	879-2-2 x 879-10-1	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
 3	17	12	NA	NA	2016-12-16	8.18	2017-08-03	NA	23	281	879WKG	2-2	hook	879WKG	N-5	hook	within	HH	879-2-2 x 879-N-5	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
-64	9	11	NA	NA	2016-12-15	17.13	2017-08-03	NA	24	280	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
+64	9	11	NA	NA	2016-12-15	17.13	2017-08-03	NA	24	280	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
 60	3	1	A	NA	2016-12-15	9.6	2017-08-03	NA	25	280	WK	2	hook	879WKG	10-1	hook	between	HH	794-2 x 879-10-1	hook.between	hook.between.WK.2	WK.2	hookWK
 1	4	11	NA	HH	2017-02-11	14.487	2017-08-15	NA	26	338	879WKG	2-2	hook	879WKG	G-2	hook	within	HH	879-2-2 x 879-G-2	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
 188	1	10	B	KH	2017-02-12	14.229	2017-08-15	NA	27	339	3587WP	7	kaal	879WKG	2-2	hook	hybrid	KH	3587-7 x 879-2-2	kaal.hybrid	kaal.hybrid.3587WP.7	3587WP.7	kaal3587WP
@@ -145,7 +145,7 @@ crossid	plantid	block1	blockAB	crosstype_manual	collect.date	mass	weigh.date	com
 159	1	9	B	KH	2017-02-05	13.588	2017-09-19	NA	144	332	904WPG	3	kaal	879WKG	2-2	hook	hybrid	KH	904-3 x 879-2-2	kaal.hybrid	kaal.hybrid.904WPG.3	904WPG.3	kaal904WPG
 147	6	9	B	KH	NA	2.055	2017-09-19	No collected date	145	NA	904WPG	2	kaal	879WKG	2-2	hook	hybrid	KH	904-2 x 879-2-2	kaal.hybrid	kaal.hybrid.904WPG.2	904WPG.2	kaal904WPG
 180	5	2	B	KK	2017-02-05	4.468	2017-09-19	NA	146	332	904WPG	5	kaal	892WKG	3	kaal	between	KK	904-5 x 892-3	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
-64	3	11	NA	HH	2017-02-14	21.737	2017-09-19	NA	147	341	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
+64	3	11	NA	HH	2017-02-14	21.737	2017-09-19	NA	147	341	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
 168	16	14	NA	KK	2017-02-05	7.919	2017-09-19	NA	148	332	904WPG	3	kaal	904WPG	2	kaal	within	KK	904-3 x 904-2	kaal.within	kaal.within.904WPG.3	904WPG.3	kaal904WPG
 90	20	1	A	HH	2017-02-05	15.011	2017-09-19	NA	149	332	WK	2	hook	879WKG	10-1	hook	between	HH	866-2 x 879-10-1	hook.between	hook.between.WK.2	WK.2	hookWK
 77	3	1	A	HH	2017-02-18	18.151	2017-09-19	NA	150	345	WK	4	hook	879WKG	N-5	hook	between	HH	794-4 x 879-N-5	hook.between	hook.between.WK.4	WK.4	hookWK
@@ -169,14 +169,14 @@ crossid	plantid	block1	blockAB	crosstype_manual	collect.date	mass	weigh.date	com
 91	11	1	A	HH	2017-02-05	11.026	2017-09-29	NA	168	332	WK	2	hook	879WKG	G-2	hook	between	HH	866-2 x 879-G-2	hook.between	hook.between.WK.2	WK.2	hookWK
 11	6	9	A	HK	2017-02-05	12.619	2017-09-29	NA	169	332	879WKG	2-2	hook	904WPG	3	kaal	hybrid	HK	879-2-2 x 904-3	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
 198	13	15	NA	KK	2017-02-05	8.519	2017-09-29	NA	170	332	3587WP	7	kaal	3587WP	14	kaal	within	KK	3587-7 x 3587-14	kaal.within	kaal.within.3587WP.7	3587WP.7	kaal3587WP
-64	11	11	NA	HH	2017-02-05	11.273	2017-09-29	NA	171	332	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
+64	11	11	NA	HH	2017-02-05	11.273	2017-09-29	NA	171	332	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
 11	7	9	A	HK	2017-02-05	15.66	2017-09-29	NA	172	332	879WKG	2-2	hook	904WPG	3	kaal	hybrid	HK	879-2-2 x 904-3	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
 198	8	15	NA	KK	2017-02-05	9.05	2017-09-29	NA	173	332	3587WP	7	kaal	3587WP	14	kaal	within	KK	3587-7 x 3587-14	kaal.within	kaal.within.3587WP.7	3587WP.7	kaal3587WP
 68	6	5	A	HK	2017-02-05	8.59	2017-09-29	NA	174	332	WK	2	hook	892WKG	5	kaal	hybrid	HK	794-2 x 892-5	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
 62	1	1	A	HH	2017-02-05	13.909	2017-09-29	NA	175	332	WK	2	hook	879WKG	N-5	hook	between	HH	794-2 x 879-N-5	hook.between	hook.between.WK.2	WK.2	hookWK
 117	1	2	A	KK	2017-02-05	3.076	2017-09-29	NA	176	332	892WKG	1	kaal	904WPG	2	kaal	between	KK	892-1 x 904-2	kaal.between	kaal.between.892WKG.1	892WKG.1	kaal892WKG
 89	8	1	A	HH	2017-02-05	10.566	2017-09-29	NA	177	332	WK	2	hook	879WKG	2-2	hook	between	HH	866-2 x 879-2-2	hook.between	hook.between.WK.2	WK.2	hookWK
-65	4	11	NA	HH	2017-02-05	15.162	2017-09-29	NA	178	332	WK	2	hook	WK	2E	hook	between	HH	794-2 x 899-2E	hook.between	hook.between.WK.2	WK.2	hookWK
+65	4	11	NA	HH	2017-02-05	15.162	2017-09-29	NA	178	332	WK	2	hook	WK	2E	hook	within	HH	794-2 x 899-2E	hook.within	hook.within.WK.2	WK.2	hookWK
 22	2	1	B	HH	2017-02-05	16.776	2017-09-29	NA	179	332	879WKG	10-1	hook	WK	2E- 1	hook	between	HH	879-10-1 x 899-2E- 1	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
 204	3	10	B	KH	2017-02-05	27.225	2017-09-29	NA	180	332	3587WP	14	kaal	879WKG	2-2	hook	hybrid	KH	3587-14 x 879-2-2	kaal.hybrid	kaal.hybrid.3587WP.14	3587WP.14	kaal3587WP
 11	3	9	A	HK	2017-02-05	32.996	2017-09-29	NA	181	332	879WKG	2-2	hook	904WPG	3	kaal	hybrid	HK	879-2-2 x 904-3	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
@@ -193,12 +193,12 @@ crossid	plantid	block1	blockAB	crosstype_manual	collect.date	mass	weigh.date	com
 63	13	11	NA	HH	2017-02-17	18.261	2017-10-24	NA	192	344	WK	2	hook	WK	4	hook	within	HH	794-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
 105	4	6	A	HK	2017-02-18	8.305	2017-10-24	NA	193	345	WK	2E- 1	hook	904WPG	5	kaal	hybrid	HK	899-2E- 1 x 904-5	hook.hybrid	hook.hybrid.WK.2E- 1	WK.2E- 1	hookWK
 20	1	1	B	HH	2017-02-17	11.712	2017-10-25	NA	194	344	879WKG	10-1	hook	WK	4	hook	between	HH	879-10-1 x 794-4	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
-64	2	11	NA	HH	2017-02-18	14.652	2017-10-25	NA	195	345	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
+64	2	11	NA	HH	2017-02-18	14.652	2017-10-25	NA	195	345	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
 19	8	1	B	HH	2017-02-17	15.64	2017-10-25	NA	196	344	879WKG	10-1	hook	WK	2	hook	between	HH	879-10-1 x 794-2	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
 73	1	7	A	HK	2017-02-17	6.667	2017-10-25	NA	197	344	WK	2	hook	3587WP	C	kaal	hybrid	HK	794-2 x 3587-C	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
 9	17	8	A	HK	2017-02-17	8.893	2017-10-25	NA	198	344	879WKG	2-2	hook	892WKG	5	kaal	hybrid	HK	879-2-2 x 892-5	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
 95	3	5	A	HK	2017-02-17	2.816	2017-10-25	NA	199	344	WK	2	hook	892WKG	4	kaal	hybrid	HK	866-2 x 892-4	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
-79	14	11	NA	HH	2017-02-18	16.104	2017-10-25	NA	200	345	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
+79	14	11	NA	HH	2017-02-18	16.104	2017-10-25	NA	200	345	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
 167	7	2	B	KK	2017-02-18	8.618	2017-10-25	NA	201	345	904WPG	3	kaal	892WKG	4	kaal	between	KK	904-3 x 892-4	kaal.between	kaal.between.904WPG.3	904WPG.3	kaal904WPG
 89	16	1	A	HH	2017-02-05	16.825	2017-10-25	NA	202	332	WK	2	hook	879WKG	2-2	hook	between	HH	866-2 x 879-2-2	hook.between	hook.between.WK.2	WK.2	hookWK
 171	4	9	B	KH	2017-02-19	8.772	2017-10-25	NA	203	346	904WPG	5	kaal	879WKG	2-2	hook	hybrid	KH	904-5 x 879-2-2	kaal.hybrid	kaal.hybrid.904WPG.5	904WPG.5	kaal904WPG
@@ -229,7 +229,7 @@ crossid	plantid	block1	blockAB	crosstype_manual	collect.date	mass	weigh.date	com
 10	11	9	A	HK	2017-02-17	9.072	2017-11-03	NA	228	344	879WKG	2-2	hook	904WPG	2	kaal	hybrid	HK	879-2-2 x 904-2	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
 1	2	12	NA	HH	2017-02-17	26.963	2017-11-03	NA	229	344	879WKG	2-2	hook	879WKG	G-2	hook	within	HH	879-2-2 x 879-G-2	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
 196	13	3	B	KK	2017-02-14	10.5	2017-11-08	NA	230	341	3587WP	7	kaal	892WKG	5	kaal	between	KK	3587-7 x 892-5	kaal.between	kaal.between.3587WP.7	3587WP.7	kaal3587WP
-93	10	11	NA	HH	2017-02-17	18.2	2017-11-08	NA	231	344	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
+93	10	11	NA	HH	2017-02-17	18.2	2017-11-08	NA	231	344	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
 50	10	1	B	HH	2017-02-14	20.677	2017-11-08	NA	232	341	879WKG	N-5	hook	WK	4	hook	between	HH	879-N-5 x 794-4	hook.between	hook.between.879WKG.N-5	879WKG.N-5	hook879WKG
 39	9	9	A	HK	2017-02-17	19.83	2017-11-08	NA	233	344	879WKG	G-2	hook	904WPG	5	kaal	hybrid	HK	879-G-2 x 904-5	hook.hybrid	hook.hybrid.879WKG.G-2	879WKG.G-2	hook879WKG
 101	10	7	A	HK	2017-02-17	13.794	2017-11-08	NA	234	344	WK	2	hook	3587WP	C	kaal	hybrid	HK	866-2 x 3587-C	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
@@ -258,7 +258,7 @@ crossid	plantid	block1	blockAB	crosstype_manual	collect.date	mass	weigh.date	com
 181	3	2	B	KK	2017-02-12	7.312	2017-01-08	NA	257	339	904WPG	5	kaal	892WKG	4	kaal	between	KK	904-5 x 892-4	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
 106	3	7	A	HK	2017-02-12	12.755	2017-01-08	NA	258	339	WK	2E- 1	hook	3587WP	14	kaal	hybrid	HK	899-2E- 1 x 3587-14	hook.hybrid	hook.hybrid.WK.2E- 1	WK.2E- 1	hookWK
 181	12	2	B	KK	2017-02-12	6.925	2017-01-08	NA	259	339	904WPG	5	kaal	892WKG	4	kaal	between	KK	904-5 x 892-4	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
-93	18	11	NA	HH	2017-02-11	20.697	2017-01-08	NA	260	338	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
+93	18	11	NA	HH	2017-02-11	20.697	2017-01-08	NA	260	338	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
 105	18	6	A	HK	2017-02-12	16.46	2017-01-08	NA	261	339	WK	2E- 1	hook	904WPG	5	kaal	hybrid	HK	899-2E- 1 x 904-5	hook.hybrid	hook.hybrid.WK.2E- 1	WK.2E- 1	hookWK
 213	6	4	B	KK	2017-02-12	6.451	2017-01-08	NA	262	339	3587WP	14	kaal	904WPG	3	kaal	between	KK	3587-14 x 904-3	kaal.between	kaal.between.3587WP.14	3587WP.14	kaal3587WP
 118	6	2	A	KK	2017-02-12	6.516	2017-01-08	NA	263	339	892WKG	1	kaal	904WPG	3	kaal	between	KK	892-1 x 904-3	kaal.between	kaal.between.892WKG.1	892WKG.1	kaal892WKG
@@ -296,7 +296,7 @@ crossid	plantid	block1	blockAB	crosstype_manual	collect.date	mass	weigh.date	com
 41	5	10	A	HYBRID	2017-01-11	16.288	2018-05-29	NA	295	307	879WKG	G-2	hook	3587WP	14	kaal	hybrid	HK	879-G-2 x 3587-14	hook.hybrid	hook.hybrid.879WKG.G-2	879WKG.G-2	hook879WKG
 180	3	2	B	KK	2016-12-21	4.332	2018-05-29	NA	296	286	904WPG	5	kaal	892WKG	3	kaal	between	KK	904-5 x 892-3	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
 8	3	8	A	HYBRID	2016-12-15	10.036	2018-05-29	NA	297	280	879WKG	2-2	hook	892WKG	4	kaal	hybrid	HK	879-2-2 x 892-4	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
-64	1	11	NA	HH	2016-12-15	12.819	2018-06-05	NA	298	280	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
+64	1	11	NA	HH	2016-12-15	12.819	2018-06-05	NA	298	280	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
 3	3	12	NA	HH	2016-12-21	17.889	2018-06-05	NA	299	286	879WKG	2-2	hook	879WKG	N-5	hook	within	HH	879-2-2 x 879-N-5	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
 35	5	1	B	HH	2016-12-21	13.527	2018-06-05	NA	300	286	879WKG	G-2	hook	WK	2	hook	between	HH	879-G-2 x 866-2	hook.between	hook.between.879WKG.G-2	879WKG.G-2	hook879WKG
 63	7	11	NA	HH	2016-12-21	9.624	2018-06-05	NA	301	286	WK	2	hook	WK	4	hook	within	HH	794-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
@@ -309,7 +309,7 @@ crossid	plantid	block1	blockAB	crosstype_manual	collect.date	mass	weigh.date	com
 182	3	2	B	KK	2016-12-22	8.826	2018-06-05	NA	308	287	904WPG	5	kaal	892WKG	5	kaal	between	KK	904-5 x 892-5	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
 98	10	6	A	HK	2017-01-30	6.686	2018-06-05	NA	309	326	WK	2	hook	904WPG	5	kaal	hybrid	HK	866-2 x 904-5	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
 76	12	1	A	HH	2016-12-21	12.696	2018-06-05	NA	310	286	WK	4	hook	879WKG	G-2	hook	between	HH	794-4 x 879-G-2	hook.between	hook.between.WK.4	WK.4	hookWK
-64	19	11	NA	HH	2016-12-21	10.752	2018-06-05	JP: changed year from 2017	311	286	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
+64	19	11	NA	HH	2016-12-21	10.752	2018-06-05	JP: changed year from 2017	311	286	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
 21	19	1	B	HH	2017-01-30	7.152	2018-06-05	NA	312	326	879WKG	10-1	hook	WK	2	hook	between	HH	879-10-1 x 866-2	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
 12	12	9	A	HYBRID	2016-11-11	6.811	2018-06-05	JP: changed year from 2017	313	246	879WKG	2-2	hook	904WPG	5	kaal	hybrid	HK	879-2-2 x 904-5	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
 95	12	5	A	HYBRID	2016-12-21	12.93	2018-06-05	NA	314	286	WK	2	hook	892WKG	4	kaal	hybrid	HK	866-2 x 892-4	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
@@ -350,7 +350,7 @@ crossid	plantid	block1	blockAB	crosstype_manual	collect.date	mass	weigh.date	com
 20	2	1	B	HH	2016-12-09	13.537	2018-07-11	NA	349	274	879WKG	10-1	hook	WK	4	hook	between	HH	879-10-1 x 794-4	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
 50	1	1	B	HH	2016-12-09	12.292	2018-07-11	NA	350	274	879WKG	N-5	hook	WK	4	hook	between	HH	879-N-5 x 794-4	hook.between	hook.between.879WKG.N-5	879WKG.N-5	hook879WKG
 21	21	1	B	HH	2016-12-12	10.16	2018-07-11	NA	351	277	879WKG	10-1	hook	WK	2	hook	between	HH	879-10-1 x 866-2	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
-79	28	11	NA	HH? - Sarah	2016-12-09	8.72	2018-07-11	NA	352	274	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
+79	28	11	NA	HH? - Sarah	2016-12-09	8.72	2018-07-11	NA	352	274	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
 105	13	6	A	HK	2017-02-22	10.574	2018-07-11	NA	353	349	WK	2E- 1	hook	904WPG	5	kaal	hybrid	HK	899-2E- 1 x 904-5	hook.hybrid	hook.hybrid.WK.2E- 1	WK.2E- 1	hookWK
 183	4	14	NA	KK	2017-02-22	9.821	2018-07-11	NA	354	349	904WPG	5	kaal	904WPG	2	kaal	within	KK	904-5 x 904-2	kaal.within	kaal.within.904WPG.5	904WPG.5	kaal904WPG
 89	10	1	A	HH	2017-02-18	19.563	2018-07-11	NA	355	345	WK	2	hook	879WKG	2-2	hook	between	HH	866-2 x 879-2-2	hook.between	hook.between.WK.2	WK.2	hookWK
@@ -408,7 +408,7 @@ crossid	plantid	block1	blockAB	crosstype_manual	collect.date	mass	weigh.date	com
 60	10	1	A	HH	2016-12-12	8.095	2018-07-18	NA	407	277	WK	2	hook	879WKG	10-1	hook	between	HH	794-2 x 879-10-1	hook.between	hook.between.WK.2	WK.2	hookWK
 19	17	1	B	HH	2016-12-12	10.753	2018-07-18	NA	408	277	879WKG	10-1	hook	WK	2	hook	between	HH	879-10-1 x 794-2	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
 92	10	1	A	HH	2016-12-12	11.319	2018-07-18	NA	409	277	WK	2	hook	879WKG	N-5	hook	between	HH	866-2 x 879-N-5	hook.between	hook.between.WK.2	WK.2	hookWK
-64	17	11	NA	HH	2016-12-11	8.022	2018-07-18	NA	410	276	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
+64	17	11	NA	HH	2016-12-11	8.022	2018-07-18	NA	410	276	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
 44	3	9	A	HK	2016-12-13	12.465	2018-07-18	NA	411	278	879WKG	H-2	hook	904WPG	5	kaal	hybrid	HK	879-H-2 x 904-5	hook.hybrid	hook.hybrid.879WKG.H-2	879WKG.H-2	hook879WKG
 3	16	12	NA	HH	2016-12-12	6.036	2018-07-18	NA	412	277	879WKG	2-2	hook	879WKG	N-5	hook	within	HH	879-2-2 x 879-N-5	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
 3	26	12	NA	HH	2016-12-11	18.863	2018-07-18	NA	413	276	879WKG	2-2	hook	879WKG	N-5	hook	within	HH	879-2-2 x 879-N-5	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
@@ -461,9 +461,9 @@ crossid	plantid	block1	blockAB	crosstype_manual	collect.date	mass	weigh.date	com
 39	12	9	A	HYBRID	2017-01-12	29.487	2018-07-25	NA	460	308	879WKG	G-2	hook	904WPG	5	kaal	hybrid	HK	879-G-2 x 904-5	hook.hybrid	hook.hybrid.879WKG.G-2	879WKG.G-2	hook879WKG
 183	9	14	NA	KK	2017-01-13	6.26	2018-07-25	NA	461	309	904WPG	5	kaal	904WPG	2	kaal	within	KK	904-5 x 904-2	kaal.within	kaal.within.904WPG.5	904WPG.5	kaal904WPG
 74	19	1	A	HH	2017-01-13	19.288	2018-07-25	NA	462	309	WK	4	hook	879WKG	2-2	hook	between	HH	794-4 x 879-2-2	hook.between	hook.between.WK.4	WK.4	hookWK
-79	6	1	A	HH	2017-01-13	24.309	2018-07-25	NA	463	309	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
+79	6	1	A	HH	2017-01-13	24.309	2018-07-25	NA	463	309	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
 78	18	11	NA	HH	2017-01-13	19.666	2018-07-25	NA	464	309	WK	4	hook	WK	2	hook	within	HH	794-4 x 794-2	hook.within	hook.within.WK.4	WK.4	hookWK
-79	2	11	NA	HH	2017-01-13	13.082	2018-07-25	NA	465	309	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
+79	2	11	NA	HH	2017-01-13	13.082	2018-07-25	NA	465	309	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
 183	16	14	NA	KK	2017-01-13	11.099	2018-07-25	NA	466	309	904WPG	5	kaal	904WPG	2	kaal	within	KK	904-5 x 904-2	kaal.within	kaal.within.904WPG.5	904WPG.5	kaal904WPG
 90	15	1	A	HH	2017-01-13	12.099	2018-07-25	NA	467	309	WK	2	hook	879WKG	10-1	hook	between	HH	866-2 x 879-10-1	hook.between	hook.between.WK.2	WK.2	hookWK
 59	6	1	A	HH	2017-01-12	11.052	2018-08-01	NA	468	308	WK	2	hook	879WKG	2-2	hook	between	HH	794-2 x 879-2-2	hook.between	hook.between.WK.2	WK.2	hookWK
@@ -486,14 +486,14 @@ crossid	plantid	block1	blockAB	crosstype_manual	collect.date	mass	weigh.date	com
 3	12	12	NA	HH	2017-01-12	13.928	2018-08-01	NA	485	308	879WKG	2-2	hook	879WKG	N-5	hook	within	HH	879-2-2 x 879-N-5	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
 198	17	15	NA	KK	2017-01-12	2.597	2018-08-01	NA	486	308	3587WP	7	kaal	3587WP	14	kaal	within	KK	3587-7 x 3587-14	kaal.within	kaal.within.3587WP.7	3587WP.7	kaal3587WP
 77	7	1	A	HH	2017-01-12	14.991	2018-08-01	NA	487	308	WK	4	hook	879WKG	N-5	hook	between	HH	794-4 x 879-N-5	hook.between	hook.between.WK.4	WK.4	hookWK
-64	18	11	NA	HH	2017-01-12	14.427	2018-08-01	NA	488	308	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-79	9	11	NA	HH	2017-01-12	18.688	2018-08-01	NA	489	308	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
+64	18	11	NA	HH	2017-01-12	14.427	2018-08-01	NA	488	308	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+79	9	11	NA	HH	2017-01-12	18.688	2018-08-01	NA	489	308	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
 117	11	2	A	KK	2017-01-12	7.514	2018-08-01	NA	490	308	892WKG	1	kaal	904WPG	2	kaal	between	KK	892-1 x 904-2	kaal.between	kaal.between.892WKG.1	892WKG.1	kaal892WKG
 117	12	2	A	KK	2017-01-12	7.66	2018-08-01	NA	491	308	892WKG	1	kaal	904WPG	2	kaal	between	KK	892-1 x 904-2	kaal.between	kaal.between.892WKG.1	892WKG.1	kaal892WKG
-93	3	11	NA	HH	2017-01-12	12.488	2018-08-01	NA	492	308	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
+93	3	11	NA	HH	2017-01-12	12.488	2018-08-01	NA	492	308	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
 76	3	1	A	HH	2017-01-12	13.773	2018-08-01	NA	493	308	WK	4	hook	879WKG	G-2	hook	between	HH	794-4 x 879-G-2	hook.between	hook.between.WK.4	WK.4	hookWK
 196	6	3	B	KK	2017-01-12	7.69	2018-08-01	NA	494	308	3587WP	7	kaal	892WKG	5	kaal	between	KK	3587-7 x 892-5	kaal.between	kaal.between.3587WP.7	3587WP.7	kaal3587WP
-93	9	11	NA	HH	2017-01-12	13.442	2018-08-01	NA	495	308	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
+93	9	11	NA	HH	2017-01-12	13.442	2018-08-01	NA	495	308	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
 20	6	1	B	HH	2017-01-13	13.103	2018-08-01	NA	496	309	879WKG	10-1	hook	WK	4	hook	between	HH	879-10-1 x 794-4	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
 2	6	12	NA	HH	2017-01-13	20.119	2018-08-01	NA	497	309	879WKG	2-2	hook	879WKG	10-1	hook	within	HH	879-2-2 x 879-10-1	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
 62	3	1	A	HH	2017-01-13	13.964	2018-08-01	NA	498	309	WK	2	hook	879WKG	N-5	hook	between	HH	794-2 x 879-N-5	hook.between	hook.between.WK.2	WK.2	hookWK
@@ -545,14 +545,14 @@ crossid	plantid	block1	blockAB	crosstype_manual	collect.date	mass	weigh.date	com
 181	7	2	B	KK	2017-02-10	9.545	2018-08-28	NA	543.5	337	904WPG	5	kaal	892WKG	4	kaal	between	KK	904-5 x 892-4	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
 197	2	4	B	KK	2017-02-10	10.593	2018-08-28	NA	544	337	3587WP	7	kaal	904WPG	5	kaal	between	KK	3587-7 x 904-5	kaal.between	kaal.between.3587WP.7	3587WP.7	kaal3587WP
 59	1	1	A	HH	2017-02-10	13.299	2018-08-28	NA	545	337	WK	2	hook	879WKG	2-2	hook	between	HH	794-2 x 879-2-2	hook.between	hook.between.WK.2	WK.2	hookWK
-64	4	11	NA	HH	2017-02-10	16.581	2018-08-28	NA	546	337	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
+64	4	11	NA	HH	2017-02-10	16.581	2018-08-28	NA	546	337	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
 89	11	1	A	HH	2017-02-10	13.31	2018-08-28	NA	547	337	WK	2	hook	879WKG	2-2	hook	between	HH	866-2 x 879-2-2	hook.between	hook.between.WK.2	WK.2	hookWK
 10	7	9	A	HK	2017-02-10	12.707	2018-08-28	NA	548	337	879WKG	2-2	hook	904WPG	2	kaal	hybrid	HK	879-2-2 x 904-2	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
 169	9	14	NA	KK	2017-02-10	5.954	2018-08-28	NA	549	337	904WPG	3	kaal	904WPG	5	kaal	within	KK	904-3 x 904-5	kaal.within	kaal.within.904WPG.3	904WPG.3	kaal904WPG
 6	7	8	A	HK	2017-02-10	9.693	2018-08-28	NA	550	337	879WKG	2-2	hook	892WKG	1	kaal	hybrid	HK	879-2-2 x 892-1	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
 41	9	10	A	HK	2017-02-10	19.451	2018-08-28	NA	551	337	879WKG	G-2	hook	3587WP	14	kaal	hybrid	HK	879-G-2 x 3587-14	hook.hybrid	hook.hybrid.879WKG.G-2	879WKG.G-2	hook879WKG
 62	11	1	A	HH	2017-02-10	14.119	2018-08-28	NA	552	337	WK	2	hook	879WKG	N-5	hook	between	HH	794-2 x 879-N-5	hook.between	hook.between.WK.2	WK.2	hookWK
-93	16	11	NA	HH	2017-02-10	11.756	2018-08-28	NA	553	337	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
+93	16	11	NA	HH	2017-02-10	11.756	2018-08-28	NA	553	337	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
 96	1	5	A	HK	2017-02-10	6.389	2018-08-28	NA	554	337	WK	2	hook	892WKG	5	kaal	hybrid	HK	866-2 x 892-5	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
 95	5	1	A	HH	2017-02-10	15.07	2018-08-28	NA	555	337	WK	2	hook	892WKG	4	kaal	hybrid	HK	866-2 x 892-4	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
 181	14	2	B	""KK""	2017-02-03	10.393	2018-08-28	?""KK""-Sara	556	330	904WPG	5	kaal	892WKG	4	kaal	between	KK	904-5 x 892-4	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
@@ -573,7 +573,7 @@ crossid	plantid	block1	blockAB	crosstype_manual	collect.date	mass	weigh.date	com
 41	6	10	A	HK	2017-02-19	10.109	2018-09-04	NA	571	346	879WKG	G-2	hook	3587WP	14	kaal	hybrid	HK	879-G-2 x 3587-14	hook.hybrid	hook.hybrid.879WKG.G-2	879WKG.G-2	hook879WKG
 98	11	6	A	HK	2017-02-19	13.906	2018-09-04	NA	572	346	WK	2	hook	904WPG	5	kaal	hybrid	HK	866-2 x 904-5	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
 167	2	2	B	KK	2017-02-19	6.525	2018-09-04	NA	573	346	904WPG	3	kaal	892WKG	4	kaal	between	KK	904-3 x 892-4	kaal.between	kaal.between.904WPG.3	904WPG.3	kaal904WPG
-64	11	11	NA	HH	2017-02-19	12.791	2018-09-04	NA	574	346	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
+64	11	11	NA	HH	2017-02-19	12.791	2018-09-04	NA	574	346	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
 95	10	5	A	HK	2017-02-19	15.832	2018-09-04	NA	575	346	WK	2	hook	892WKG	4	kaal	hybrid	HK	866-2 x 892-4	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
 66	10	5	A	HK	2017-02-19	19.239	2018-09-04	NA	576	346	WK	2	hook	892WKG	1	kaal	hybrid	HK	794-2 x 892-1	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
 98	8	6	A	HK	2017-02-19	17.955	2018-09-04	NA	577	346	WK	2	hook	904WPG	5	kaal	hybrid	HK	866-2 x 904-5	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
@@ -582,7 +582,7 @@ crossid	plantid	block1	blockAB	crosstype_manual	collect.date	mass	weigh.date	com
 233	4	3	B	KK	NA	9.87	2018-09-04	No collected date	580	NA	3587WP	C	kaal	892WKG	3	kaal	between	KK	3587-C x 892-3	kaal.between	kaal.between.3587WP.C	3587WP.C	kaal3587WP
 183	6	14	NA	KK	2017-02-16	6.344	2018-09-04	NA	581	343	904WPG	5	kaal	904WPG	2	kaal	within	KK	904-5 x 904-2	kaal.within	kaal.within.904WPG.5	904WPG.5	kaal904WPG
 180	7	2	B	KK	2017-02-21	5.448	2018-09-04	NA	582	348	904WPG	5	kaal	892WKG	3	kaal	between	KK	904-5 x 892-3	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
-79	17	11	NA	HH	2017-02-16	15.876	2018-09-04	NA	583	343	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
+79	17	11	NA	HH	2017-02-16	15.876	2018-09-04	NA	583	343	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
 57	2	10	A	HK	2017-02-16	17.217	2018-09-04	NA	584	343	879WKG	N-5	hook	3587WP	A	kaal	hybrid	HK	879-N-5 x 3587-A	hook.hybrid	hook.hybrid.879WKG.N-5	879WKG.N-5	hook879WKG
 157	1	14	NA	KK	2017-02-21	4.338	2018-09-04	NA	585	348	904WPG	2	kaal	904WPG	3	kaal	within	KK	904-2 x 904-3	kaal.within	kaal.within.904WPG.2	904WPG.2	kaal904WPG
 155	3	2	B	KK	2017-02-16	6.598	2018-09-04	NA	586	343	904WPG	2	kaal	892WKG	1	kaal	between	KK	904-2 x 892-1	kaal.between	kaal.between.904WPG.2	904WPG.2	kaal904WPG
@@ -621,13 +621,13 @@ crossid	plantid	block1	blockAB	crosstype_manual	collect.date	mass	weigh.date	com
 190	5	10	NA	KH	2017-01-27	14.766	2018-09-12	NA	619	323	3587WP	7	kaal	879WKG	G-2	hook	hybrid	KH	3587-7 x 879-G-2	kaal.hybrid	kaal.hybrid.3587WP.7	3587WP.7	kaal3587WP
 213	4	4	B	KK	NA	10.478	2018-10-03	No collected date	620	NA	3587WP	14	kaal	904WPG	3	kaal	between	KK	3587-14 x 904-3	kaal.between	kaal.between.3587WP.14	3587WP.14	kaal3587WP
 29	18	11	NA	HH	2017-02-18	13.648	2018-10-03	NA	621	345	879WKG	10-1	hook	3587WP	15	kaal	hybrid	HK	879-10-1 x 3587-15	hook.hybrid	hook.hybrid.879WKG.10-1	879WKG.10-1	hook879WKG
-64	13	11	NA	HH	2017-02-19	18.7	2018-10-05	NA	622	346	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
+64	13	11	NA	HH	2017-02-19	18.7	2018-10-05	NA	622	346	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
 63	3	11	NA	HH	2017-02-19	18.26	2018-10-05	NA	623	346	WK	2	hook	WK	4	hook	within	HH	794-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
 21	12	1	B	HH	2017-02-19	18.17	2018-10-05	NA	624	346	879WKG	10-1	hook	WK	2	hook	between	HH	879-10-1 x 866-2	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
 214	2	4	B	KK	2017-02-19	10.293	2018-10-05	NA	625	346	3587WP	14	kaal	904WPG	5	kaal	between	KK	3587-14 x 904-5	kaal.between	kaal.between.3587WP.14	3587WP.14	kaal3587WP
 80	4	5	A	HK	2017-02-22	17.369	2018-10-05	NA	626	349	WK	4	hook	892WKG	1	kaal	hybrid	HK	794-4 x 892-1	hook.hybrid	hook.hybrid.WK.4	WK.4	hookWK
 31	5	12	NA	HH	2017-02-19	16.553	2018-10-05	NA	627	346	879WKG	G-2	hook	879WKG	2-2	hook	within	HH	879-G-2 x 879-2-2	hook.within	hook.within.879WKG.G-2	879WKG.G-2	hook879WKG
-64	20	11	NA	HH	2017-02-18	12.826	2018-10-05	NA	628	345	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
+64	20	11	NA	HH	2017-02-18	12.826	2018-10-05	NA	628	345	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
 197	5	4	B	KK	2017-02-19	16.186	2018-10-05	NA	629	346	3587WP	7	kaal	904WPG	5	kaal	between	KK	3587-7 x 904-5	kaal.between	kaal.between.3587WP.7	3587WP.7	kaal3587WP
 63	9	11	NA	HH	2017-02-19	22.152	2018-10-05	NA	630	346	WK	2	hook	WK	4	hook	within	HH	794-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
 3	14	12	NA	HH	2017-02-08	14.507	2018-10-05	NA	631	335	879WKG	2-2	hook	879WKG	N-5	hook	within	HH	879-2-2 x 879-N-5	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
@@ -656,7 +656,7 @@ crossid	plantid	block1	blockAB	crosstype_manual	collect.date	mass	weigh.date	com
 63	15	11	NA	NA	2017-02-03	14.131	2018-10-15	No Cross Type	654	330	WK	2	hook	WK	4	hook	within	HH	794-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
 94	9	5	A	NA	2017-02-03	5.096	2018-10-15	No Cross Type	655	330	WK	2	hook	892WKG	1	kaal	hybrid	HK	866-2 x 892-1	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
 51	3	8	A	HK	2017-01-26	16.302	2018-10-24	NA	656	322	879WKG	N-5	hook	WK	2	hook	between	HH	879-N-5 x 866-2	hook.between	hook.between.879WKG.N-5	879WKG.N-5	hook879WKG
-79	19	11	NA	HH	2017-01-26	11.121	2018-10-24	NA	657	322	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
+79	19	11	NA	HH	2017-01-26	11.121	2018-10-24	NA	657	322	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
 89	9	1	A	HH	2017-02-18	18.851	2018-10-24	NA	658	345	WK	2	hook	879WKG	2-2	hook	between	HH	866-2 x 879-2-2	hook.between	hook.between.WK.2	WK.2	hookWK
 74	6	1	A	HH	2017-02-18	9.686	2018-10-24	NA	659	345	WK	4	hook	879WKG	2-2	hook	between	HH	794-4 x 879-2-2	hook.between	hook.between.WK.4	WK.4	hookWK
 67	6	5	A	HK	2017-02-18	14.862	2018-10-24	NA	660	345	WK	2	hook	892WKG	4	kaal	hybrid	HK	794-2 x 892-4	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
@@ -695,7 +695,7 @@ crossid	plantid	block1	blockAB	crosstype_manual	collect.date	mass	weigh.date	com
 186	5	4	A	KK	2017-02-18	9.753	2018-11-21	No R	693	345	904WPG	5	kaal	3587WP	10	kaal	between	KK	904-5 x 3587-10	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
 10	18	9	A	HK	2017-02-18	10.69	2018-11-21	No R	694	345	879WKG	2-2	hook	904WPG	2	kaal	hybrid	HK	879-2-2 x 904-2	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
 89	3	1	A	HH	2017-02-18	11.46	2018-11-21	No R	695	345	WK	2	hook	879WKG	2-2	hook	between	HH	866-2 x 879-2-2	hook.between	hook.between.WK.2	WK.2	hookWK
-64	5	11	NA	HH	2017-02-22	19.078	2018-11-30	NA	696	349	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
+64	5	11	NA	HH	2017-02-22	19.078	2018-11-30	NA	696	349	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
 75	11	1	A	HH	2017-02-18	10.055	2018-11-30	NA	697	345	WK	4	hook	879WKG	10-1	hook	between	HH	794-4 x 879-10-1	hook.between	hook.between.WK.4	WK.4	hookWK
 156	10	2	B	KK	2017-02-18	5.085	2018-11-30	NA	698	345	904WPG	2	kaal	892WKG	10	kaal	between	KK	904-2 x 892-10	kaal.between	kaal.between.904WPG.2	904WPG.2	kaal904WPG
 140	2	13	NA	KK	2017-02-22	5.342	2018-11-30	NA	699	349	892WKG	5	kaal	892WKG	4	kaal	within	KK	892-5 x 892-4	kaal.within	kaal.within.892WKG.5	892WKG.5	kaal892WKG
@@ -711,14 +711,14 @@ crossid	plantid	block1	blockAB	crosstype_manual	collect.date	mass	weigh.date	com
 29	12	10	A	HK	2017-02-10	15.213	2018-11-30	No R	709	337	879WKG	10-1	hook	3587WP	15	kaal	hybrid	HK	879-10-1 x 3587-15	hook.hybrid	hook.hybrid.879WKG.10-1	879WKG.10-1	hook879WKG
 9	10	8	A	HK	2017-02-10	25.612	2018-11-30	No R	710	337	879WKG	2-2	hook	892WKG	5	kaal	hybrid	HK	879-2-2 x 892-5	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
 58	4	10	A	HK	2017-02-10	15.447	2018-11-30	NA	711	337	879WKG	N-5	hook	3587WP	C	kaal	hybrid	HK	879-N-5 x 3587-C	hook.hybrid	hook.hybrid.879WKG.N-5	879WKG.N-5	hook879WKG
-64	16	11	NA	HH	2017-02-10	8.073	2018-11-30	No R	712	337	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-79	7	11	NA	HH	2017-02-10	10.766	2018-11-30	NA	713	337	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
+64	16	11	NA	HH	2017-02-10	8.073	2018-11-30	No R	712	337	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+79	7	11	NA	HH	2017-02-10	10.766	2018-11-30	NA	713	337	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
 95	6	NA	NA	HK	2017-02-10	10.031	2018-11-30	Never flowered,No Blk	714	337	WK	2	hook	892WKG	4	kaal	hybrid	HK	866-2 x 892-4	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
 85	5	6	A	HK	2017-02-10	9.115	2018-11-30	NA	715	337	WK	4	hook	904WPG	5	kaal	hybrid	HK	794-4 x 904-5	hook.hybrid	hook.hybrid.WK.4	WK.4	hookWK
 82	5	5	A	HK	2017-02-10	15.594	2018-11-30	Never flowered	716	337	WK	4	hook	892WKG	4	kaal	hybrid	HK	794-4 x 892-4	hook.hybrid	hook.hybrid.WK.4	WK.4	hookWK
 24	7	8	A	HK	2017-02-10	23.74	2018-11-30	NA	717	337	879WKG	10-1	hook	892WKG	4	kaal	hybrid	HK	879-10-1 x 892-4	hook.hybrid	hook.hybrid.879WKG.10-1	879WKG.10-1	hook879WKG
 59	18	1	A	HH	2017-02-10	16.323	2018-11-30	No R	718	337	WK	2	hook	879WKG	2-2	hook	between	HH	794-2 x 879-2-2	hook.between	hook.between.WK.2	WK.2	hookWK
-93	19	11	NA	HH	2017-02-10	16.078	2018-11-30	NA	719	337	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
+93	19	11	NA	HH	2017-02-10	16.078	2018-11-30	NA	719	337	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
 67	7	5	A	HK	2017-02-10	18.128	2018-11-30	No R	720	337	WK	2	hook	892WKG	4	kaal	hybrid	HK	794-2 x 892-4	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
 29	4	10	A	HK	2017-02-10	20.248	2018-11-30	NA	721	337	879WKG	10-1	hook	3587WP	15	kaal	hybrid	HK	879-10-1 x 3587-15	hook.hybrid	hook.hybrid.879WKG.10-1	879WKG.10-1	hook879WKG
 77	1	1	A	HH	2017-02-10	11.233	2018-11-30	No R	722	337	WK	4	hook	879WKG	N-5	hook	between	HH	794-4 x 879-N-5	hook.between	hook.between.WK.4	WK.4	hookWK
@@ -774,7 +774,7 @@ crossid	plantid	block1	blockAB	crosstype_manual	collect.date	mass	weigh.date	com
 179	3	2	B	KK	2016-12-07	3.293	2019-01-23	NA	772	272	904WPG	5	kaal	892WKG	1	kaal	between	KK	904-5 x 892-1	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
 204	2	10	B	HYBRID	2016-12-08	8.369	2019-01-23	NA	773	273	3587WP	14	kaal	879WKG	2-2	hook	hybrid	KH	3587-14 x 879-2-2	kaal.hybrid	kaal.hybrid.3587WP.14	3587WP.14	kaal3587WP
 21	7	1	B	HH	2016-12-13	11.19	2019-02-06	NA	774	278	879WKG	10-1	hook	WK	2	hook	between	HH	879-10-1 x 866-2	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
-65	7	11	NA	HH	2016-12-07	11.014	2019-02-06	NA	775	272	WK	2	hook	WK	2E	hook	between	HH	794-2 x 899-2E	hook.between	hook.between.WK.2	WK.2	hookWK
+65	7	11	NA	HH	2016-12-07	11.014	2019-02-06	NA	775	272	WK	2	hook	WK	2E	hook	within	HH	794-2 x 899-2E	hook.within	hook.within.WK.2	WK.2	hookWK
 61	`4	1	A	HH	2016-12-13	11.328	2019-02-06	NA	776	278	WK	2	hook	879WKG	G-2	hook	between	HH	794-2 x 879-G-2	hook.between	hook.between.WK.2	WK.2	hookWK
 34	3	1	B	HH	2016-12-11	16.414	2019-02-06	NA	777	276	879WKG	G-2	hook	WK	4	hook	between	HH	879-G-2 x 794-4	hook.between	hook.between.879WKG.G-2	879WKG.G-2	hook879WKG
 74	17	1	A	HH	2016-12-14	13.091	2019-02-06	NA	778	279	WK	4	hook	879WKG	2-2	hook	between	HH	794-4 x 879-2-2	hook.between	hook.between.WK.4	WK.4	hookWK
@@ -789,7 +789,7 @@ crossid	plantid	block1	blockAB	crosstype_manual	collect.date	mass	weigh.date	com
 181	5	2	B	KK	2016-12-07	8.587	2019-02-06	NA	787	272	904WPG	5	kaal	892WKG	4	kaal	between	KK	904-5 x 892-4	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
 19	4	1	B	HH	2016-12-11	14.633	2019-02-06	NA	788	276	879WKG	10-1	hook	WK	2	hook	between	HH	879-10-1 x 794-2	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
 180	9	2	B	KK	2016-12-09	14.3	2019-02-06	NA	789	274	904WPG	5	kaal	892WKG	3	kaal	between	KK	904-5 x 892-3	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
-79	1	11	NA	HH	2016-12-07	10.893	2019-02-06	NA	790	272	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
+79	1	11	NA	HH	2016-12-07	10.893	2019-02-06	NA	790	272	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
 21	4	1	B	HH	2016-12-11	12.184	2019-02-06	NA	791	276	879WKG	10-1	hook	WK	2	hook	between	HH	879-10-1 x 866-2	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
 35	9	1	B	HH	2016-12-07	11.527	2019-02-06	NA	792	272	879WKG	G-2	hook	WK	2	hook	between	HH	879-G-2 x 866-2	hook.between	hook.between.879WKG.G-2	879WKG.G-2	hook879WKG
 75	1	1	A	HH	2016-12-07	8.844	2019-02-08	NA	793	272	WK	4	hook	879WKG	10-1	hook	between	HH	794-4 x 879-10-1	hook.between	hook.between.WK.4	WK.4	hookWK
@@ -808,10 +808,10 @@ crossid	plantid	block1	blockAB	crosstype_manual	collect.date	mass	weigh.date	com
 77	6	1	A	HH	2016-12-20	8.62	2019-02-15	NA	806	285	WK	4	hook	879WKG	N-5	hook	between	HH	794-4 x 879-N-5	hook.between	hook.between.WK.4	WK.4	hookWK
 77	5	1	A	HH	2016-12-18	10.47	2019-02-15	NA	807	283	WK	4	hook	879WKG	N-5	hook	between	HH	794-4 x 879-N-5	hook.between	hook.between.WK.4	WK.4	hookWK
 63	8	11	NA	HH	2016-12-19	11.429	2019-02-15	NA	808	284	WK	2	hook	WK	4	hook	within	HH	794-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
-93	1	11	NA	HH	2016-12-19	11.24	2019-02-15	NA	809	284	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
-64	14	11	NA	HH	2016-12-18	14.411	2019-02-15	NA	810	283	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
+93	1	11	NA	HH	2016-12-19	11.24	2019-02-15	NA	809	284	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+64	14	11	NA	HH	2016-12-18	14.411	2019-02-15	NA	810	283	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
 2	13	12	NA	HH	2016-12-18	10.578	2019-02-15	NA	811	283	879WKG	2-2	hook	879WKG	10-1	hook	within	HH	879-2-2 x 879-10-1	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
-64	15	11	NA	HH	2016-12-18	9.181	2019-02-15	NA	812	283	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
+64	15	11	NA	HH	2016-12-18	9.181	2019-02-15	NA	812	283	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
 20	7	1	B	HH	2016-12-19	14.333	2019-02-22	NA	813	284	879WKG	10-1	hook	WK	4	hook	between	HH	879-10-1 x 794-4	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
 75	4	1	A	HH	2016-12-19	14.018	2019-02-22	NA	814	284	WK	4	hook	879WKG	10-1	hook	between	HH	794-4 x 879-10-1	hook.between	hook.between.WK.4	WK.4	hookWK
 34	5	1	B	HH	2016-12-20	11.716	2019-02-22	No inflo	815	285	879WKG	G-2	hook	WK	4	hook	between	HH	879-G-2 x 794-4	hook.between	hook.between.879WKG.G-2	879WKG.G-2	hook879WKG
@@ -831,9 +831,9 @@ crossid	plantid	block1	blockAB	crosstype_manual	collect.date	mass	weigh.date	com
 63	19	11	NA	HH	2016-12-19	14.865	2019-02-28	NA	829	284	WK	2	hook	WK	4	hook	within	HH	794-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
 31	3	12	NA	HH	2016-12-19	9.639	2019-02-28	No inflo	830	284	879WKG	G-2	hook	879WKG	2-2	hook	within	HH	879-G-2 x 879-2-2	hook.within	hook.within.879WKG.G-2	879WKG.G-2	hook879WKG
 52	1	8	A	HYBRID	2016-12-20	12.78	2019-02-28	NA	831	285	879WKG	N-5	hook	892WKG	1	kaal	hybrid	HK	879-N-5 x 892-1	hook.hybrid	hook.hybrid.879WKG.N-5	879WKG.N-5	hook879WKG
-79	11	11	NA	HH	2016-12-19	7.459	2019-02-28	NA	832	284	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
+79	11	11	NA	HH	2016-12-19	7.459	2019-02-28	NA	832	284	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
 140	1	13	NA	KK	2016-12-20	3.877	2019-02-28	NA	833	285	892WKG	5	kaal	892WKG	4	kaal	within	KK	892-5 x 892-4	kaal.within	kaal.within.892WKG.5	892WKG.5	kaal892WKG
-93	5	11	NA	HH	2016-12-20	10.607	2019-02-28	NA	834	285	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
+93	5	11	NA	HH	2016-12-20	10.607	2019-02-28	NA	834	285	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
 162	1	9	B	KH	2016-12-20	13.58	2019-02-28	No inflo, No envolope	835	285	904WPG	3	kaal	879WKG	N-5	hook	hybrid	KH	904-3 x 879-N-5	kaal.hybrid	kaal.hybrid.904WPG.3	904WPG.3	kaal904WPG
 196	2	3	B	KK	2016-12-20	10.44	2019-02-28	No flowering inflos for reg, inflos with buds	836	285	3587WP	7	kaal	892WKG	5	kaal	between	KK	3587-7 x 892-5	kaal.between	kaal.between.3587WP.7	3587WP.7	kaal3587WP
 214	4	4	B	KK	2016-12-20	6.326	2019-03-01	NA	837	285	3587WP	14	kaal	904WPG	5	kaal	between	KK	3587-14 x 904-5	kaal.between	kaal.between.3587WP.14	3587WP.14	kaal3587WP
@@ -856,7 +856,7 @@ crossid	plantid	block1	blockAB	crosstype_manual	collect.date	mass	weigh.date	com
 94	3	5	A	HK	2017-02-04	12.888	2019-03-08	R	854	331	WK	2	hook	892WKG	1	kaal	hybrid	HK	866-2 x 892-1	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
 29	11	9	A	HK	2017-02-22	9.266	2019-03-08	No flower	855	349	879WKG	10-1	hook	3587WP	15	kaal	hybrid	HK	879-10-1 x 3587-15	hook.hybrid	hook.hybrid.879WKG.10-1	879WKG.10-1	hook879WKG
 183	17	14	NA	KK	2017-02-19	15.11	2019-03-08	No R	856	346	904WPG	5	kaal	904WPG	2	kaal	within	KK	904-5 x 904-2	kaal.within	kaal.within.904WPG.5	904WPG.5	kaal904WPG
-93	2	11	NA	HH	2017-02-19	14.83	2019-03-08	No R	857	346	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
+93	2	11	NA	HH	2017-02-19	14.83	2019-03-08	No R	857	346	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
 68	4	5	A	HK	2017-02-14	1.131	2019-03-08	Never flowered	858	341	WK	2	hook	892WKG	5	kaal	hybrid	HK	794-2 x 892-5	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
 48	4	12	NA	HH	2017-02-19	12.254	2019-03-08	R	859	346	879WKG	N-5	hook	879WKG	H-2	hook	within	HH	879-N-5 x 879-H-2	hook.within	hook.within.879WKG.N-5	879WKG.N-5	hook879WKG
 10	9	9	A	HK	2017-02-17	16.636	2019-03-08	No R	860	344	879WKG	2-2	hook	904WPG	2	kaal	hybrid	HK	879-2-2 x 904-2	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
@@ -879,7 +879,7 @@ crossid	plantid	block1	blockAB	crosstype_manual	collect.date	mass	weigh.date	com
 4	3	1	B	HH	2017-02-19	14.271	2019-03-25	No R	877	346	879WKG	2-2	hook	WK	2	hook	between	HH	879-2-2 x 794-2	hook.between	hook.between.879WKG.2-2	879WKG.2-2	hook879WKG
 4	17	1	B	HH	2017-02-18	15.677	2019-03-25	No R	878	345	879WKG	2-2	hook	WK	2	hook	between	HH	879-2-2 x 794-2	hook.between	hook.between.879WKG.2-2	879WKG.2-2	hook879WKG
 3	18	12	NA	HH	2017-02-18	9.26	2019-03-25	No flower	879	345	879WKG	2-2	hook	879WKG	N-5	hook	within	HH	879-2-2 x 879-N-5	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
-65	8	11	NA	HH	2017-02-19	10.094	2019-03-25	No R	880	346	WK	2	hook	WK	2E	hook	between	HH	794-2 x 899-2E	hook.between	hook.between.WK.2	WK.2	hookWK
+65	8	11	NA	HH	2017-02-19	10.094	2019-03-25	No R	880	346	WK	2	hook	WK	2E	hook	within	HH	794-2 x 899-2E	hook.within	hook.within.WK.2	WK.2	hookWK
 67	10	5	A	HK	2017-02-18	14.747	2019-03-25	No R	881	345	WK	2	hook	892WKG	4	kaal	hybrid	HK	794-2 x 892-4	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
 21	16	1	B	HH	2017-02-19	10.827	2019-03-25	No R	882	346	879WKG	10-1	hook	WK	2	hook	between	HH	879-10-1 x 866-2	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
 50	3	1	B	HH	2017-02-18	19.396	2019-03-25	No R	883	345	879WKG	N-5	hook	WK	4	hook	between	HH	879-N-5 x 794-4	hook.between	hook.between.879WKG.N-5	879WKG.N-5	hook879WKG
@@ -900,7 +900,7 @@ crossid	plantid	block1	blockAB	crosstype_manual	collect.date	mass	weigh.date	com
 108	8	8	B	NA	NA	22.093	2019-04-01	No collected date,No Cross type	898	NA	892WKG	1	kaal	879WKG	2-2	hook	hybrid	KH	892-1 x 879-2-2	kaal.hybrid	kaal.hybrid.892WKG.1	892WKG.1	kaal892WKG
 156	3	2	B	NA	2017-01-20	23.355	2019-04-01	No Cross Type	899	316	904WPG	2	kaal	892WKG	10	kaal	between	KK	904-2 x 892-10	kaal.between	kaal.between.904WPG.2	904WPG.2	kaal904WPG
 95	11	5	A	NA	2017-01-20	6.88	2019-04-01	No Cross Type	900	316	WK	2	hook	892WKG	4	kaal	hybrid	HK	866-2 x 892-4	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
-93	13	11	NA	NA	2017-01-20	12.737	2019-04-01	No Cross Type	901	316	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
+93	13	11	NA	NA	2017-01-20	12.737	2019-04-01	No Cross Type	901	316	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
 76	8	1	A	NA	2017-01-19	13.115	2019-04-01	No Cross Type, Never flower	902	315	WK	4	hook	879WKG	G-2	hook	between	HH	794-4 x 879-G-2	hook.between	hook.between.WK.4	WK.4	hookWK
 196	12a	3	B	NA	2017-01-20	11.192	2019-04-01	No Cross Type	903	316	3587WP	7	kaal	892WKG	5	kaal	between	KK	3587-7 x 892-5	kaal.between	kaal.between.3587WP.7	3587WP.7	kaal3587WP
 185	7	4	A	NA	2017-01-20	9.554	2019-04-01	No Cross Type	904	316	904WPG	5	kaal	3587WP	7	kaal	between	KK	904-5 x 3587-7	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
@@ -941,7 +941,6 @@ crossid	plantid	block1	blockAB	crosstype_manual	collect.date	mass	weigh.date	com
 172	6	9	B	NA	2017-01-25	0.061	2019-04-11	No Cross type, No flower	939	321	904WPG	5	kaal	879WKG	10-1	hook	hybrid	KH	904-5 x 879-10-1	kaal.hybrid	kaal.hybrid.904WPG.5	904WPG.5	kaal904WPG
 10	13	9	A	NA	2017-01-25	6.536	2019-04-11	No Cross type	940	321	879WKG	2-2	hook	904WPG	2	kaal	hybrid	HK	879-2-2 x 904-2	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
 67	8	5	A	NA	2017-01-19	4.059	2019-04-11	No Cross type, Never flower	941	315	WK	2	hook	892WKG	4	kaal	hybrid	HK	794-2 x 892-4	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
-253	1	3	B	NA	2017-01-19	8.634	2019-04-11	No Cross type	943	315	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA.NA	NA.NA.NA.NA	NA.NA	NANA
 85	2	6	A	HK	2017-01-25	18.646	2019-04-11	NA	944	321	WK	4	hook	904WPG	5	kaal	hybrid	HK	794-4 x 904-5	hook.hybrid	hook.hybrid.WK.4	WK.4	hookWK
 83	1	5	A	HK	2017-01-25	19.858	2019-04-11	NA	945	321	WK	4	hook	892WKG	5	kaal	hybrid	HK	794-4 x 892-5	hook.hybrid	hook.hybrid.WK.4	WK.4	hookWK
 117	8	2	A	KK	2017-01-20	5.616	2019-04-11	NA	946	316	892WKG	1	kaal	904WPG	2	kaal	between	KK	892-1 x 904-2	kaal.between	kaal.between.892WKG.1	892WKG.1	kaal892WKG
@@ -960,11 +959,11 @@ crossid	plantid	block1	blockAB	crosstype_manual	collect.date	mass	weigh.date	com
 227	4	4	B	KK	2017-01-20	4.825	2019-04-16	NA	959	316	3587WP	A	kaal	904WPG	5	kaal	between	KK	3587-A x 904-5	kaal.between	kaal.between.3587WP.A	3587WP.A	kaal3587WP
 168	14	14	NA	KK	2017-01-20	3.214	2019-04-16	NA	960	316	904WPG	3	kaal	904WPG	2	kaal	within	KK	904-3 x 904-2	kaal.within	kaal.within.904WPG.3	904WPG.3	kaal904WPG
 52	2	8	A	HK	2017-01-21	13.848	2019-04-16	NA	961	317	879WKG	N-5	hook	892WKG	1	kaal	hybrid	HK	879-N-5 x 892-1	hook.hybrid	hook.hybrid.879WKG.N-5	879WKG.N-5	hook879WKG
-64	10	11	NA	HH	2017-01-20	19.857	2019-04-16	No R	962	316	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
+64	10	11	NA	HH	2017-01-20	19.857	2019-04-16	No R	962	316	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
 184	12	14	NA	KK	2017-01-20	7.364	2019-04-16	NA	963	316	904WPG	5	kaal	904WPG	3	kaal	within	KK	904-5 x 904-3	kaal.within	kaal.within.904WPG.5	904WPG.5	kaal904WPG
 67	11	5	A	HK	2017-01-20	18.763	2019-04-16	NA	964	316	WK	2	hook	892WKG	4	kaal	hybrid	HK	794-2 x 892-4	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
 91	5	1	A	HH	2017-01-21	15.567	2019-04-16	NA	965	317	WK	2	hook	879WKG	G-2	hook	between	HH	866-2 x 879-G-2	hook.between	hook.between.WK.2	WK.2	hookWK
-65	9	11	NA	HH	2017-01-20	14.336	2019-04-16	NA	966	316	WK	2	hook	WK	2E	hook	between	HH	794-2 x 899-2E	hook.between	hook.between.WK.2	WK.2	hookWK
+65	9	11	NA	HH	2017-01-20	14.336	2019-04-16	NA	966	316	WK	2	hook	WK	2E	hook	within	HH	794-2 x 899-2E	hook.within	hook.within.WK.2	WK.2	hookWK
 191	4	10	B	KH	2017-01-20	12.497	2019-04-16	NA	967	316	3587WP	7	kaal	879WKG	N-5	hook	hybrid	KH	3587-7 x 879-N-5	kaal.hybrid	kaal.hybrid.3587WP.7	3587WP.7	kaal3587WP
 90	14b	1	A	HH	2017-01-21	16.43	2019-04-16	NA	968	317	WK	2	hook	879WKG	10-1	hook	between	HH	866-2 x 879-10-1	hook.between	hook.between.WK.2	WK.2	hookWK
 66	19	5	A	HK	2017-01-20	15.154	2019-04-16	NA	969	316	WK	2	hook	892WKG	1	kaal	hybrid	HK	794-2 x 892-1	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
@@ -980,7 +979,7 @@ crossid	plantid	block1	blockAB	crosstype_manual	collect.date	mass	weigh.date	com
 166	3	2	B	KK	2017-01-20	8.021	2019-04-17	NA	979	316	904WPG	3	kaal	892WKG	1	kaal	between	KK	904-3 x 892-1	kaal.between	kaal.between.904WPG.3	904WPG.3	kaal904WPG
 62	8	1	A	HH	2017-01-21	20.45	2019-04-17	NA	980	317	WK	2	hook	879WKG	N-5	hook	between	HH	794-2 x 879-N-5	hook.between	hook.between.WK.2	WK.2	hookWK
 44	7	9	A	HK	2017-01-20	14.242	2019-04-18	NA	981	316	879WKG	H-2	hook	904WPG	5	kaal	hybrid	HK	879-H-2 x 904-5	hook.hybrid	hook.hybrid.879WKG.H-2	879WKG.H-2	hook879WKG
-93	8	11	NA	HH	2017-01-20	13.141	2019-04-18	NA	982	316	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
+93	8	11	NA	HH	2017-01-20	13.141	2019-04-18	NA	982	316	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
 187	2	4	A	KK	2017-01-20	8.226	2019-04-18	NA	983	316	904WPG	5	kaal	3587WP	14	kaal	between	KK	904-5 x 3587-14	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
 66	15	5	A	HK	2017-01-20	0.225	2019-04-18	NA	984	316	WK	2	hook	892WKG	1	kaal	hybrid	HK	794-2 x 892-1	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
 9	5	8	A	HK	2017-01-20	8.047	2019-04-18	NA	985	316	879WKG	2-2	hook	892WKG	5	kaal	hybrid	HK	879-2-2 x 892-5	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
@@ -1000,11 +999,11 @@ crossid	plantid	block1	blockAB	crosstype_manual	collect.date	mass	weigh.date	com
 6	16	8	A	HK	2017-02-19	0.478	2019-04-28	No Flower	999	346	879WKG	2-2	hook	892WKG	1	kaal	hybrid	HK	879-2-2 x 892-1	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
 73	3	7	A	HK	2017-02-19	14.049	2019-04-28	NA	1000	346	WK	2	hook	3587WP	C	kaal	hybrid	HK	794-2 x 3587-C	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
 197	4	4	B	KK	2017-02-19	11.391	2019-04-28	NA	1001	346	3587WP	7	kaal	904WPG	5	kaal	between	KK	3587-7 x 904-5	kaal.between	kaal.between.3587WP.7	3587WP.7	kaal3587WP
-64	8	11	NA	HH	2017-02-19	11.653	2019-04-28	No R	1002	346	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
+64	8	11	NA	HH	2017-02-19	11.653	2019-04-28	No R	1002	346	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
 196	3	3	B	KK	2017-02-21	8.028	2019-04-28	No R	1003	348	3587WP	7	kaal	892WKG	5	kaal	between	KK	3587-7 x 892-5	kaal.between	kaal.between.3587WP.7	3587WP.7	kaal3587WP
 147	4	9	B	KH	2017-02-21	11.249	2019-04-28	NA	1004	348	904WPG	2	kaal	879WKG	2-2	hook	hybrid	KH	904-2 x 879-2-2	kaal.hybrid	kaal.hybrid.904WPG.2	904WPG.2	kaal904WPG
 98	3	6	A	HK	2017-02-19	24.813	2019-04-28	No R	1005	346	WK	2	hook	904WPG	5	kaal	hybrid	HK	866-2 x 904-5	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
-64	7	11	NA	HH	2017-02-17	11.798	2019-04-29	No R	1006	344	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
+64	7	11	NA	HH	2017-02-17	11.798	2019-04-29	No R	1006	344	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
 108	6	8	B	KH	2017-02-17	20.653	2019-04-29	No R	1007	344	892WKG	1	kaal	879WKG	2-2	hook	hybrid	KH	892-1 x 879-2-2	kaal.hybrid	kaal.hybrid.892WKG.1	892WKG.1	kaal892WKG
 143	2	3	A	KK	2017-02-19	10.247	2019-04-29	NA	1008	346	892WKG	5	kaal	3587WP	14	kaal	between	KK	892-5 x 3587-14	kaal.between	kaal.between.892WKG.5	892WKG.5	kaal892WKG
 134	1	8	B	KH	2017-02-21	17.813	2019-04-29	NA	1009	348	892WKG	5	kaal	879WKG	2-2	hook	hybrid	KH	892-5 x 879-2-2	kaal.hybrid	kaal.hybrid.892WKG.5	892WKG.5	kaal892WKG
@@ -1040,7 +1039,7 @@ crossid	plantid	block1	blockAB	crosstype_manual	collect.date	mass	weigh.date	com
 181	13	2	B	KK	2017-01-31	5.051	2019-05-08	NA	1039	327	904WPG	5	kaal	892WKG	4	kaal	between	KK	904-5 x 892-4	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
 74	11	1	A	HH	2017-01-31	19.81	2019-05-08	NA	1040	327	WK	4	hook	879WKG	2-2	hook	between	HH	794-4 x 879-2-2	hook.between	hook.between.WK.4	WK.4	hookWK
 90	9	1	A	HH	2017-01-31	10.952	2019-05-08	NA	1041	327	WK	2	hook	879WKG	10-1	hook	between	HH	866-2 x 879-10-1	hook.between	hook.between.WK.2	WK.2	hookWK
-64	6	11	NA	HH	2017-01-31	23.277	2019-05-08	NA	1042	327	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
+64	6	11	NA	HH	2017-01-31	23.277	2019-05-08	NA	1042	327	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
 12	3	9	A	HK	2017-01-31	27.423	2019-05-08	NA	1043	327	879WKG	2-2	hook	904WPG	5	kaal	hybrid	HK	879-2-2 x 904-5	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
 63	11	11	NA	HH	2017-01-31	14.733	2019-05-08	NA	1044	327	WK	2	hook	WK	4	hook	within	HH	794-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
 98	19	6	A	HK	2017-02-17	35.385	2019-05-08	No R	1045	344	WK	2	hook	904WPG	5	kaal	hybrid	HK	866-2 x 904-5	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK

@@ -581,37 +581,37 @@ index	crossid	plantid	death.date	firstflower.date	use.alive.flowered	alive	use.f
 647	63	18	NA	2016-09-04	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	4	2016-09-08	2017-08-18	57	NA	NA	NA	178	WK	2	hook	WK	4	hook	within	HH	794-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
 648	63	19	NA	2016-07-21	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	5	2016-07-26	2017-08-16	37	NA	NA	NA	133	WK	2	hook	WK	4	hook	within	HH	794-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
 649	63	20	NA	2016-08-16	yes	TRUE	yes	TRUE	no	no	no	no	yes	yes	5	2016-08-21	2017-08-16	89	NA	NA	NA	159	WK	2	hook	WK	4	hook	within	HH	794-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
-651	64	1	NA	2016-07-29	yes	TRUE	yes	TRUE	no	no	no	yes	yes	double	7	2016-08-05	2017-11-28	NA	""second portion of infl""	NA	NA	141	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-652	64	2	NA	2016-08-16	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	0	2016-08-16	2017-08-07	181.7	NA	NA	NA	159	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-653	64	3	NA	2016-08-11	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	3	2016-08-14	2017-08-04	124.3	NA	NA	NA	154	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-654	64	4	NA	2016-11-12	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	13	2016-11-25	2017-07-26	47.7	NA	NA	NA	247	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-655	64	5	NA	2016-08-21	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	2	2016-08-23	2017-08-10	122.2	NA	NA	NA	164	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-656	64	6	NA	2016-08-16	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	5	2016-08-21	2017-08-16	90.2	NA	NA	NA	159	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-657	64	7	NA	2016-08-14	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	2	2016-08-16	2017-08-04	102.8	NA	NA	NA	157	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-658	64	8	NA	2016-08-14	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	2	2016-08-16	2017-08-08	226.2	NA	NA	NA	157	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-659	64	9	NA	NA	yes	TRUE	no	TRUE	no	no	no	yes	yes	yes	NA	2016-08-09	2017-07-27	170.1	NA	no date	NA	NA	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-660	64	10	NA	2016-08-25	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	5	2016-08-30	2017-07-31	78.2	NA	NA	NA	168	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-661	64	11	NA	2016-08-11	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	3	2016-08-14	2017-08-04	178.1	NA	NA	NA	154	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-662	64	12	NA	NA	yes	TRUE	missed	TRUE	no	no	no	yes	yes	yes	NA	2016-09-01	2017-11-03	143.7	NA	MISSED	NA	NA	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-663	64	13	NA	2016-09-04	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	7	2016-09-11	2017-08-17	39.2	NA	NA	NA	178	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-664	64	14	NA	2016-08-09	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	5	2016-08-14	2017-08-04	112.9	NA	NA	NA	152	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-665	64	15	NA	2016-08-01	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	1	2016-08-02	2017-08-04	132.3	NA	NA	NA	144	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-666	64	16	NA	2016-08-09	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	2	2016-08-11	2017-08-08	108.5	NA	NA	NA	152	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-667	64	17	NA	2016-08-02	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	0	2016-08-02	2017-08-04	114.6	NA	NA	NA	145	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-668	64	18	NA	2016-08-23	yes	TRUE	yes	TRUE	no	no	no	yes	no	NA	NA	NA	NA	NA	NA	NA	""main branch broken-8/23/16"", added first flower info	166	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-669	64	19	NA	2016-08-05	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	4	2016-08-09	2017-07-28	123.8	NA	NA	NA	148	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-670	64	20	NA	2016-08-16	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	5	2016-08-21	2017-08-16	151	NA	NA	NA	159	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
-672	65	1	2016-06-15	NA	yes	FALSE	no	FALSE	no	no	no	no	no	NA	NA	NA	NA	NA	NA	DEAD	NA	NA	WK	2	hook	WK	2E	hook	between	HH	794-2 x 899-2E	hook.between	hook.between.WK.2	WK.2	hookWK
-673	65	2	NA	NA	yes	TRUE	missed	TRUE	yes	yes	no	no	yes	yes	NA	2016-08-23	2017-08-16	63	NA	MISSED	NA	NA	WK	2	hook	WK	2E	hook	between	HH	794-2 x 899-2E	hook.between	hook.between.WK.2	WK.2	hookWK
-674	65	3	NA	NA	yes	TRUE	no	TRUE	no	no	no	yes	yes	yes	NA	2016-08-11	2017-08-08	171.1	NA	no date	have biomass date we can	NA	WK	2	hook	WK	2E	hook	between	HH	794-2 x 899-2E	hook.between	hook.between.WK.2	WK.2	hookWK
-675	65	4	NA	NA	yes	TRUE	missed	TRUE	no	no	no	yes	yes	yes	NA	2016-08-18	2017-08-24	130.2	NA	MISSED	NA	NA	WK	2	hook	WK	2E	hook	between	HH	794-2 x 899-2E	hook.between	hook.between.WK.2	WK.2	hookWK
-676	65	5	NA	2016-08-02	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	2	2016-08-04	2017-08-08	128.5	NA	NA	NA	145	WK	2	hook	WK	2E	hook	between	HH	794-2 x 899-2E	hook.between	hook.between.WK.2	WK.2	hookWK
-677	65	6	NA	2016-08-01	yes	TRUE	yes	TRUE	yes	yes	no	no	yes	yes	3	2016-08-04	2017-08-08	97.2	NA	NA	NA	144	WK	2	hook	WK	2E	hook	between	HH	794-2 x 899-2E	hook.between	hook.between.WK.2	WK.2	hookWK
-678	65	7	NA	2016-07-21	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	4	2016-07-25	2017-08-17	138.4	NA	NA	NA	133	WK	2	hook	WK	2E	hook	between	HH	794-2 x 899-2E	hook.between	hook.between.WK.2	WK.2	hookWK
-679	65	8	NA	2016-08-11	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	3	2016-08-14	2017-08-04	144.7	NA	NA	NA	154	WK	2	hook	WK	2E	hook	between	HH	794-2 x 899-2E	hook.between	hook.between.WK.2	WK.2	hookWK
-680	65	9	NA	NA	yes	TRUE	no	TRUE	no	no	no	yes	no	NA	NA	NA	NA	NA	NA	""N/A broken""	NA	NA	WK	2	hook	WK	2E	hook	between	HH	794-2 x 899-2E	hook.between	hook.between.WK.2	WK.2	hookWK
-681	65	10	NA	2016-07-21	yes	TRUE	yes	TRUE	yes	yes	no	no	yes	yes	4	2016-07-25	2017-08-17	140.3	NA	NA	NA	133	WK	2	hook	WK	2E	hook	between	HH	794-2 x 899-2E	hook.between	hook.between.WK.2	WK.2	hookWK
-682	65	11	NA	NA	?	NA	no	NA	no	no	no	no	no	NA	NA	NA	NA	NA	NA	nothing written	NA	NA	WK	2	hook	WK	2E	hook	between	HH	794-2 x 899-2E	hook.between	hook.between.WK.2	WK.2	hookWK
+651	64	1	NA	2016-07-29	yes	TRUE	yes	TRUE	no	no	no	yes	yes	double	7	2016-08-05	2017-11-28	NA	""second portion of infl""	NA	NA	141	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+652	64	2	NA	2016-08-16	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	0	2016-08-16	2017-08-07	181.7	NA	NA	NA	159	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+653	64	3	NA	2016-08-11	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	3	2016-08-14	2017-08-04	124.3	NA	NA	NA	154	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+654	64	4	NA	2016-11-12	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	13	2016-11-25	2017-07-26	47.7	NA	NA	NA	247	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+655	64	5	NA	2016-08-21	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	2	2016-08-23	2017-08-10	122.2	NA	NA	NA	164	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+656	64	6	NA	2016-08-16	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	5	2016-08-21	2017-08-16	90.2	NA	NA	NA	159	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+657	64	7	NA	2016-08-14	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	2	2016-08-16	2017-08-04	102.8	NA	NA	NA	157	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+658	64	8	NA	2016-08-14	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	2	2016-08-16	2017-08-08	226.2	NA	NA	NA	157	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+659	64	9	NA	NA	yes	TRUE	no	TRUE	no	no	no	yes	yes	yes	NA	2016-08-09	2017-07-27	170.1	NA	no date	NA	NA	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+660	64	10	NA	2016-08-25	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	5	2016-08-30	2017-07-31	78.2	NA	NA	NA	168	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+661	64	11	NA	2016-08-11	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	3	2016-08-14	2017-08-04	178.1	NA	NA	NA	154	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+662	64	12	NA	NA	yes	TRUE	missed	TRUE	no	no	no	yes	yes	yes	NA	2016-09-01	2017-11-03	143.7	NA	MISSED	NA	NA	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+663	64	13	NA	2016-09-04	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	7	2016-09-11	2017-08-17	39.2	NA	NA	NA	178	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+664	64	14	NA	2016-08-09	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	5	2016-08-14	2017-08-04	112.9	NA	NA	NA	152	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+665	64	15	NA	2016-08-01	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	1	2016-08-02	2017-08-04	132.3	NA	NA	NA	144	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+666	64	16	NA	2016-08-09	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	2	2016-08-11	2017-08-08	108.5	NA	NA	NA	152	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+667	64	17	NA	2016-08-02	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	0	2016-08-02	2017-08-04	114.6	NA	NA	NA	145	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+668	64	18	NA	2016-08-23	yes	TRUE	yes	TRUE	no	no	no	yes	no	NA	NA	NA	NA	NA	NA	NA	""main branch broken-8/23/16"", added first flower info	166	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+669	64	19	NA	2016-08-05	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	4	2016-08-09	2017-07-28	123.8	NA	NA	NA	148	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+670	64	20	NA	2016-08-16	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	5	2016-08-21	2017-08-16	151	NA	NA	NA	159	WK	2	hook	WK	2	hook	within	HH	794-2 x 866-2	hook.within	hook.within.WK.2	WK.2	hookWK
+672	65	1	2016-06-15	NA	yes	FALSE	no	FALSE	no	no	no	no	no	NA	NA	NA	NA	NA	NA	DEAD	NA	NA	WK	2	hook	WK	2E	hook	within	HH	794-2 x 899-2E	hook.within	hook.within.WK.2	WK.2	hookWK
+673	65	2	NA	NA	yes	TRUE	missed	TRUE	yes	yes	no	no	yes	yes	NA	2016-08-23	2017-08-16	63	NA	MISSED	NA	NA	WK	2	hook	WK	2E	hook	within	HH	794-2 x 899-2E	hook.within	hook.within.WK.2	WK.2	hookWK
+674	65	3	NA	NA	yes	TRUE	no	TRUE	no	no	no	yes	yes	yes	NA	2016-08-11	2017-08-08	171.1	NA	no date	have biomass date we can	NA	WK	2	hook	WK	2E	hook	within	HH	794-2 x 899-2E	hook.within	hook.within.WK.2	WK.2	hookWK
+675	65	4	NA	NA	yes	TRUE	missed	TRUE	no	no	no	yes	yes	yes	NA	2016-08-18	2017-08-24	130.2	NA	MISSED	NA	NA	WK	2	hook	WK	2E	hook	within	HH	794-2 x 899-2E	hook.within	hook.within.WK.2	WK.2	hookWK
+676	65	5	NA	2016-08-02	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	2	2016-08-04	2017-08-08	128.5	NA	NA	NA	145	WK	2	hook	WK	2E	hook	within	HH	794-2 x 899-2E	hook.within	hook.within.WK.2	WK.2	hookWK
+677	65	6	NA	2016-08-01	yes	TRUE	yes	TRUE	yes	yes	no	no	yes	yes	3	2016-08-04	2017-08-08	97.2	NA	NA	NA	144	WK	2	hook	WK	2E	hook	within	HH	794-2 x 899-2E	hook.within	hook.within.WK.2	WK.2	hookWK
+678	65	7	NA	2016-07-21	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	4	2016-07-25	2017-08-17	138.4	NA	NA	NA	133	WK	2	hook	WK	2E	hook	within	HH	794-2 x 899-2E	hook.within	hook.within.WK.2	WK.2	hookWK
+679	65	8	NA	2016-08-11	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	3	2016-08-14	2017-08-04	144.7	NA	NA	NA	154	WK	2	hook	WK	2E	hook	within	HH	794-2 x 899-2E	hook.within	hook.within.WK.2	WK.2	hookWK
+680	65	9	NA	NA	yes	TRUE	no	TRUE	no	no	no	yes	no	NA	NA	NA	NA	NA	NA	""N/A broken""	NA	NA	WK	2	hook	WK	2E	hook	within	HH	794-2 x 899-2E	hook.within	hook.within.WK.2	WK.2	hookWK
+681	65	10	NA	2016-07-21	yes	TRUE	yes	TRUE	yes	yes	no	no	yes	yes	4	2016-07-25	2017-08-17	140.3	NA	NA	NA	133	WK	2	hook	WK	2E	hook	within	HH	794-2 x 899-2E	hook.within	hook.within.WK.2	WK.2	hookWK
+682	65	11	NA	NA	?	NA	no	NA	no	no	no	no	no	NA	NA	NA	NA	NA	NA	nothing written	NA	NA	WK	2	hook	WK	2E	hook	within	HH	794-2 x 899-2E	hook.within	hook.within.WK.2	WK.2	hookWK
 684	66	1	NA	2016-08-14	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	2	2016-08-16	2017-08-04	296.1	NA	NA	NA	157	WK	2	hook	892WKG	1	kaal	hybrid	HK	794-2 x 892-1	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
 685	66	2	NA	2016-09-08	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	3	2016-09-11	2017-08-17	132	NA	NA	NA	182	WK	2	hook	892WKG	1	kaal	hybrid	HK	794-2 x 892-1	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
 686	66	3	NA	2016-08-14	yes	TRUE	yes	TRUE	yes	yes	no	no	yes	yes	2	2016-08-16	2017-08-04	307.9	NA	NA	NA	157	WK	2	hook	892WKG	1	kaal	hybrid	HK	794-2 x 892-1	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
@@ -773,35 +773,35 @@ index	crossid	plantid	death.date	firstflower.date	use.alive.flowered	alive	use.f
 854	78	23	NA	NA	no	NA	no	NA	no	no	no	no	no	NA	NA	NA	NA	NA	NA	nothing written	not used because of late transplant date	NA	WK	4	hook	WK	2	hook	within	HH	794-4 x 794-2	hook.within	hook.within.WK.4	WK.4	hookWK
 855	78	24	NA	NA	no	NA	no	NA	no	no	no	no	no	NA	NA	NA	NA	NA	NA	nothing written	not used because of late transplant date	NA	WK	4	hook	WK	2	hook	within	HH	794-4 x 794-2	hook.within	hook.within.WK.4	WK.4	hookWK
 856	78	25	NA	NA	no	NA	no	NA	yes	yes	no	no	no	NA	NA	NA	NA	NA	NA	nothing written	not used because of late transplant date	NA	WK	4	hook	WK	2	hook	within	HH	794-4 x 794-2	hook.within	hook.within.WK.4	WK.4	hookWK
-858	79	1	NA	2016-08-05	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	4	2016-08-09	2017-07-26	119.9	NA	NA	NA	148	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
-859	79	2	2016-06-15	NA	yes	FALSE	no	FALSE	no	no	no	no	no	NA	NA	NA	NA	NA	NA	DEAD	NA	NA	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
-860	79	3	NA	NA	yes	TRUE	missed	TRUE	no	yes	yes	no	yes	yes	NA	2016-08-14	2017-08-04	122.4	NA	no date but tag marked	NA	NA	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
-861	79	4	2016-06-15	NA	no	NA	no	NA	no	no	no	no	no	NA	NA	NA	NA	NA	NA	DEAD?	Resurrected?  SGW: Unclear, do not use	NA	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
-862	79	5	2016-06-15	NA	yes	FALSE	no	FALSE	no	no	no	no	no	NA	NA	NA	NA	NA	NA	DEAD	NA	NA	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
-863	79	6	2016-06-15	NA	yes	FALSE	no	FALSE	no	no	no	no	no	NA	NA	NA	NA	NA	NA	DEAD	NA	NA	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
-864	79	7	NA	2016-09-20	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	2	2016-09-22	2017-09-12	58.2	NA	NA	NA	194	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
-865	79	8	2016-06-15	NA	yes	FALSE	no	FALSE	no	no	no	no	no	NA	NA	NA	NA	NA	NA	DEAD	NA	NA	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
-866	79	9	NA	2016-08-18	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	5	2016-08-23	2017-08-08	99.5	NA	NA	NA	161	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
-867	79	10	2016-06-22	NA	yes	FALSE	no	FALSE	no	no	no	no	no	NA	NA	NA	NA	NA	NA	DEAD	NA	NA	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
-868	79	11	NA	2016-08-21	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	4	2016-08-25	2017-08-08	112.1	NA	NA	NA	164	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
-869	79	12	NA	NA	yes	TRUE	missed	TRUE	no	yes	no	no	yes	yes	NA	2016-09-01	2017-11-03	127.5	NA	MISSED	NA	NA	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
-870	79	13	2016-06-15	NA	yes	FALSE	no	FALSE	no	no	no	no	no	NA	NA	NA	NA	NA	NA	DEAD	NA	NA	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
-871	79	14	NA	2016-08-11	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	3	2016-08-14	2017-08-04	140.3	NA	NA	NA	154	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
-872	79	15	2016-06-15	NA	yes	FALSE	no	FALSE	no	no	no	no	no	NA	NA	NA	NA	NA	NA	DEAD	NA	NA	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
-873	79	16	2016-06-22	NA	yes	FALSE	no	FALSE	no	no	no	no	no	NA	NA	NA	NA	NA	NA	DEAD	NA	NA	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
-874	79	17	NA	2016-10-18	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	2	2016-10-20	2017-08-18	68.2	NA	NA	NA	222	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
-875	79	18	NA	2016-08-11	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	5	2016-08-16	2017-08-07	162.8	NA	NA	NA	154	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
-876	79	19	NA	2016-09-14	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	-6	2016-09-08	2017-09-28	46.7	check collect date (before date of first flower)	NA	NA	188	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
-877	79	20	NA	2016-08-25	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	5	2016-08-30	2017-07-31	145.1	NA	NA	NA	168	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
-878	79	21	NA	NA	no	NA	no	NA	yes	yes	yes	no	no	NA	NA	NA	NA	NA	NA	nothing written	not used because of late transplant date	NA	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
-879	79	22	NA	NA	no	NA	no	NA	no	no	no	no	no	NA	NA	NA	NA	NA	NA	nothing written	not used because of late transplant date	NA	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
-880	79	23	NA	NA	no	NA	no	NA	no	no	no	no	no	NA	NA	NA	NA	NA	NA	nothing written	not used because of late transplant date	NA	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
-881	79	24	NA	NA	no	NA	no	NA	no	no	no	no	no	NA	NA	NA	NA	NA	NA	nothing written	not used because of late transplant date	NA	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
-882	79	25	NA	NA	no	NA	no	NA	no	no	no	no	no	NA	NA	NA	NA	NA	NA	nothing written	not used because of late transplant date	NA	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
-883	79	26	NA	NA	no	NA	no	NA	yes	yes	yes	no	no	NA	NA	NA	NA	NA	NA	nothing written	not used because of late transplant date	NA	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
-884	79	27	NA	NA	no	NA	no	NA	yes	yes	no	no	no	NA	NA	NA	NA	NA	NA	nothing written	not used because of late transplant date	NA	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
-885	79	28	NA	NA	no	NA	no	NA	no	no	no	yes	no	NA	NA	NA	NA	NA	NA	nothing written	not used because of late transplant date	NA	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
-886	79	29	NA	NA	no	NA	no	NA	no	no	no	no	no	NA	NA	NA	NA	NA	NA	nothing written	not used because of late transplant date	NA	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
+858	79	1	NA	2016-08-05	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	4	2016-08-09	2017-07-26	119.9	NA	NA	NA	148	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
+859	79	2	2016-06-15	NA	yes	FALSE	no	FALSE	no	no	no	no	no	NA	NA	NA	NA	NA	NA	DEAD	NA	NA	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
+860	79	3	NA	NA	yes	TRUE	missed	TRUE	no	yes	yes	no	yes	yes	NA	2016-08-14	2017-08-04	122.4	NA	no date but tag marked	NA	NA	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
+861	79	4	2016-06-15	NA	no	NA	no	NA	no	no	no	no	no	NA	NA	NA	NA	NA	NA	DEAD?	Resurrected?  SGW: Unclear, do not use	NA	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
+862	79	5	2016-06-15	NA	yes	FALSE	no	FALSE	no	no	no	no	no	NA	NA	NA	NA	NA	NA	DEAD	NA	NA	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
+863	79	6	2016-06-15	NA	yes	FALSE	no	FALSE	no	no	no	no	no	NA	NA	NA	NA	NA	NA	DEAD	NA	NA	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
+864	79	7	NA	2016-09-20	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	2	2016-09-22	2017-09-12	58.2	NA	NA	NA	194	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
+865	79	8	2016-06-15	NA	yes	FALSE	no	FALSE	no	no	no	no	no	NA	NA	NA	NA	NA	NA	DEAD	NA	NA	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
+866	79	9	NA	2016-08-18	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	5	2016-08-23	2017-08-08	99.5	NA	NA	NA	161	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
+867	79	10	2016-06-22	NA	yes	FALSE	no	FALSE	no	no	no	no	no	NA	NA	NA	NA	NA	NA	DEAD	NA	NA	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
+868	79	11	NA	2016-08-21	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	4	2016-08-25	2017-08-08	112.1	NA	NA	NA	164	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
+869	79	12	NA	NA	yes	TRUE	missed	TRUE	no	yes	no	no	yes	yes	NA	2016-09-01	2017-11-03	127.5	NA	MISSED	NA	NA	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
+870	79	13	2016-06-15	NA	yes	FALSE	no	FALSE	no	no	no	no	no	NA	NA	NA	NA	NA	NA	DEAD	NA	NA	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
+871	79	14	NA	2016-08-11	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	3	2016-08-14	2017-08-04	140.3	NA	NA	NA	154	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
+872	79	15	2016-06-15	NA	yes	FALSE	no	FALSE	no	no	no	no	no	NA	NA	NA	NA	NA	NA	DEAD	NA	NA	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
+873	79	16	2016-06-22	NA	yes	FALSE	no	FALSE	no	no	no	no	no	NA	NA	NA	NA	NA	NA	DEAD	NA	NA	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
+874	79	17	NA	2016-10-18	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	2	2016-10-20	2017-08-18	68.2	NA	NA	NA	222	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
+875	79	18	NA	2016-08-11	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	5	2016-08-16	2017-08-07	162.8	NA	NA	NA	154	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
+876	79	19	NA	2016-09-14	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	-6	2016-09-08	2017-09-28	46.7	check collect date (before date of first flower)	NA	NA	188	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
+877	79	20	NA	2016-08-25	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	5	2016-08-30	2017-07-31	145.1	NA	NA	NA	168	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
+878	79	21	NA	NA	no	NA	no	NA	yes	yes	yes	no	no	NA	NA	NA	NA	NA	NA	nothing written	not used because of late transplant date	NA	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
+879	79	22	NA	NA	no	NA	no	NA	no	no	no	no	no	NA	NA	NA	NA	NA	NA	nothing written	not used because of late transplant date	NA	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
+880	79	23	NA	NA	no	NA	no	NA	no	no	no	no	no	NA	NA	NA	NA	NA	NA	nothing written	not used because of late transplant date	NA	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
+881	79	24	NA	NA	no	NA	no	NA	no	no	no	no	no	NA	NA	NA	NA	NA	NA	nothing written	not used because of late transplant date	NA	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
+882	79	25	NA	NA	no	NA	no	NA	no	no	no	no	no	NA	NA	NA	NA	NA	NA	nothing written	not used because of late transplant date	NA	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
+883	79	26	NA	NA	no	NA	no	NA	yes	yes	yes	no	no	NA	NA	NA	NA	NA	NA	nothing written	not used because of late transplant date	NA	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
+884	79	27	NA	NA	no	NA	no	NA	yes	yes	no	no	no	NA	NA	NA	NA	NA	NA	nothing written	not used because of late transplant date	NA	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
+885	79	28	NA	NA	no	NA	no	NA	no	no	no	yes	no	NA	NA	NA	NA	NA	NA	nothing written	not used because of late transplant date	NA	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
+886	79	29	NA	NA	no	NA	no	NA	no	no	no	no	no	NA	NA	NA	NA	NA	NA	nothing written	not used because of late transplant date	NA	WK	4	hook	WK	2	hook	within	HH	794-4 x 866-2	hook.within	hook.within.WK.4	WK.4	hookWK
 888	80	1	NA	2016-09-11	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	4	2016-09-15	2017-08-17	136	NA	NA	NA	185	WK	4	hook	892WKG	1	kaal	hybrid	HK	794-4 x 892-1	hook.hybrid	hook.hybrid.WK.4	WK.4	hookWK
 889	80	2	NA	2016-09-20	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	2	2016-09-22	2017-09-12	99.4	NA	NA	NA	194	WK	4	hook	892WKG	1	kaal	hybrid	HK	794-4 x 892-1	hook.hybrid	hook.hybrid.WK.4	WK.4	hookWK
 890	80	3	NA	2016-09-15	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	3	2016-09-18	2017-08-31	106.1	NA	NA	NA	189	WK	4	hook	892WKG	1	kaal	hybrid	HK	794-4 x 892-1	hook.hybrid	hook.hybrid.WK.4	WK.4	hookWK
@@ -923,29 +923,29 @@ index	crossid	plantid	death.date	firstflower.date	use.alive.flowered	alive	use.f
 1018	92	11	NA	2016-09-20	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	7	2016-09-27	2017-08-18	100.1	NA	NA	NA	194	WK	2	hook	879WKG	N-5	hook	between	HH	866-2 x 879-N-5	hook.between	hook.between.WK.2	WK.2	hookWK
 1019	92	12	NA	2016-08-16	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	2	2016-08-18	2017-08-24	152.6	NA	NA	NA	159	WK	2	hook	879WKG	N-5	hook	between	HH	866-2 x 879-N-5	hook.between	hook.between.WK.2	WK.2	hookWK
 1020	92	13	NA	2016-09-20	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	5	2016-09-25	2017-08-18	80.4	NA	NA	NA	194	WK	2	hook	879WKG	N-5	hook	between	HH	866-2 x 879-N-5	hook.between	hook.between.WK.2	WK.2	hookWK
-1022	93	1	NA	2016-08-18	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	3	2016-08-21	2017-08-16	95	NA	NA	NA	161	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
-1023	93	2	NA	2016-08-11	yes	TRUE	yes	TRUE	yes	no	no	yes	yes	yes	3	2016-08-14	2017-08-04	102	NA	NA	NA	154	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
-1024	93	3	NA	NA	yes	TRUE	missed	TRUE	no	no	no	yes	yes	yes	NA	2016-09-01	2017-11-28	62.1	NA	MISSED	NA	NA	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
-1025	93	4	NA	NA	?	NA	no	NA	no	no	no	no	no	NA	NA	NA	NA	NA	NA	nothing written	no survival info - checked - no infl biomass - ask Steve  check VOCs	NA	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
-1026	93	5	NA	2016-08-28	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	4	2016-09-01	2017-11-08	128.1	NA	NA	NA	171	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
-1027	93	6	NA	2016-08-06	yes	TRUE	yes	TRUE	no	yes	yes	no	yes	yes	3	2016-08-09	2017-07-27	129.7	NA	NA	NA	149	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
-1028	93	7	2016-06-15	NA	yes	FALSE	no	FALSE	no	no	no	no	no	NA	NA	NA	NA	NA	NA	DEAD	NA	NA	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
-1029	93	8	NA	2016-09-25	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	4	2016-09-29	2017-09-13	31.6	NA	NA	NA	199	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
-1030	93	9	NA	2016-08-16	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	7	2016-08-23	2017-08-15	81.1	NA	NA	NA	159	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
-1031	93	10	NA	2016-09-27	yes	TRUE	yes	TRUE	no	no	no	no	yes	yes	2	2016-09-29	2017-09-19	30.2	NA	NA	NA	201	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
-1032	93	11	2016-05-19	NA	yes	FALSE	no	FALSE	no	no	no	no	no	NA	NA	NA	NA	NA	NA	DEAD	NA	NA	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
-1033	93	12	2016-06-15	NA	yes	FALSE	no	FALSE	no	no	no	no	no	NA	NA	NA	NA	NA	NA	DEAD	NA	NA	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
-1034	93	13	NA	2016-10-04	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	5	2016-10-09	2017-08-22	55.7	""10/9/13""?	NA	NA	208	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
-1035	93	14	NA	2016-08-01	yes	TRUE	yes	TRUE	yes	yes	no	no	yes	yes	1	2016-08-02	2017-08-08	76.4	NA	NA	NA	144	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
-1036	93	15	NA	2016-08-18	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	10	2016-08-28	2017-08-08	83.5	NA	NA	NA	161	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
-1037	93	16	NA	2016-08-16	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	2	2016-08-18	2017-08-08	121.9	NA	NA	NA	159	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
-1038	93	17	NA	2016-08-21	yes	TRUE	yes	TRUE	yes	yes	no	no	yes	yes	2	2016-08-23	2017-08-08	145.2	NA	NA	NA	164	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
-1039	93	18	NA	2016-08-25	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	5	2016-08-30	2017-07-31	58.3	NA	NA	NA	168	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
-1040	93	19	NA	2016-08-09	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	2	2016-08-11	2017-08-08	124.9	NA	NA	NA	152	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
-1041	93	20	NA	2016-08-16	yes	TRUE	yes	TRUE	yes	yes	yes	no	yes	yes	5	2016-08-21	2017-08-16	279.5	NA	NA	NA	159	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
-1042	93	21	2016-05-19	NA	no	NA	no	NA	yes	no	no	no	yes	no	4	2016-08-06	2017-08-08	NA	NA	DEAD	""discard 7/25"" - resurrected?, first inflo biomass 8/16. found in Rm 11	NA	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
-1043	93	22	NA	NA	no	NA	no	NA	no	yes	no	no	no	NA	NA	NA	NA	NA	NA	nothing written	not used because of late transplant date. found in Rm 11	NA	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
-1044	93	23	NA	NA	no	NA	no	NA	no	no	no	no	no	NA	NA	NA	NA	NA	NA	nothing written	not used because of late transplant date	NA	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
+1022	93	1	NA	2016-08-18	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	3	2016-08-21	2017-08-16	95	NA	NA	NA	161	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+1023	93	2	NA	2016-08-11	yes	TRUE	yes	TRUE	yes	no	no	yes	yes	yes	3	2016-08-14	2017-08-04	102	NA	NA	NA	154	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+1024	93	3	NA	NA	yes	TRUE	missed	TRUE	no	no	no	yes	yes	yes	NA	2016-09-01	2017-11-28	62.1	NA	MISSED	NA	NA	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+1025	93	4	NA	NA	?	NA	no	NA	no	no	no	no	no	NA	NA	NA	NA	NA	NA	nothing written	no survival info - checked - no infl biomass - ask Steve  check VOCs	NA	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+1026	93	5	NA	2016-08-28	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	4	2016-09-01	2017-11-08	128.1	NA	NA	NA	171	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+1027	93	6	NA	2016-08-06	yes	TRUE	yes	TRUE	no	yes	yes	no	yes	yes	3	2016-08-09	2017-07-27	129.7	NA	NA	NA	149	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+1028	93	7	2016-06-15	NA	yes	FALSE	no	FALSE	no	no	no	no	no	NA	NA	NA	NA	NA	NA	DEAD	NA	NA	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+1029	93	8	NA	2016-09-25	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	4	2016-09-29	2017-09-13	31.6	NA	NA	NA	199	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+1030	93	9	NA	2016-08-16	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	7	2016-08-23	2017-08-15	81.1	NA	NA	NA	159	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+1031	93	10	NA	2016-09-27	yes	TRUE	yes	TRUE	no	no	no	no	yes	yes	2	2016-09-29	2017-09-19	30.2	NA	NA	NA	201	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+1032	93	11	2016-05-19	NA	yes	FALSE	no	FALSE	no	no	no	no	no	NA	NA	NA	NA	NA	NA	DEAD	NA	NA	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+1033	93	12	2016-06-15	NA	yes	FALSE	no	FALSE	no	no	no	no	no	NA	NA	NA	NA	NA	NA	DEAD	NA	NA	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+1034	93	13	NA	2016-10-04	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	5	2016-10-09	2017-08-22	55.7	""10/9/13""?	NA	NA	208	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+1035	93	14	NA	2016-08-01	yes	TRUE	yes	TRUE	yes	yes	no	no	yes	yes	1	2016-08-02	2017-08-08	76.4	NA	NA	NA	144	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+1036	93	15	NA	2016-08-18	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	10	2016-08-28	2017-08-08	83.5	NA	NA	NA	161	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+1037	93	16	NA	2016-08-16	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	2	2016-08-18	2017-08-08	121.9	NA	NA	NA	159	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+1038	93	17	NA	2016-08-21	yes	TRUE	yes	TRUE	yes	yes	no	no	yes	yes	2	2016-08-23	2017-08-08	145.2	NA	NA	NA	164	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+1039	93	18	NA	2016-08-25	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	5	2016-08-30	2017-07-31	58.3	NA	NA	NA	168	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+1040	93	19	NA	2016-08-09	yes	TRUE	yes	TRUE	no	no	no	yes	yes	yes	2	2016-08-11	2017-08-08	124.9	NA	NA	NA	152	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+1041	93	20	NA	2016-08-16	yes	TRUE	yes	TRUE	yes	yes	yes	no	yes	yes	5	2016-08-21	2017-08-16	279.5	NA	NA	NA	159	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+1042	93	21	2016-05-19	NA	no	NA	no	NA	yes	no	no	no	yes	no	4	2016-08-06	2017-08-08	NA	NA	DEAD	""discard 7/25"" - resurrected?, first inflo biomass 8/16. found in Rm 11	NA	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+1043	93	22	NA	NA	no	NA	no	NA	no	yes	no	no	no	NA	NA	NA	NA	NA	NA	nothing written	not used because of late transplant date. found in Rm 11	NA	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+1044	93	23	NA	NA	no	NA	no	NA	no	no	no	no	no	NA	NA	NA	NA	NA	NA	nothing written	not used because of late transplant date	NA	WK	2	hook	WK	4	hook	within	HH	866-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
 1046	94	1	NA	NA	yes	TRUE	missed	TRUE	no	no	no	yes	yes	yes	NA	2016-08-18	2017-08-24	285.9	NA	MISSED	NA	NA	WK	2	hook	892WKG	1	kaal	hybrid	HK	866-2 x 892-1	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
 1047	94	2	NA	NA	yes	TRUE	no	TRUE	no	no	no	yes	no	NA	NA	NA	NA	NA	NA	nothing written	NA	NA	WK	2	hook	892WKG	1	kaal	hybrid	HK	866-2 x 892-1	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
 1048	94	3	NA	NA	yes	TRUE	missed	TRUE	no	no	no	yes	yes	yes	NA	2016-10-18	2017-08-18	29.8	NA	MISSED	NA	NA	WK	2	hook	892WKG	1	kaal	hybrid	HK	866-2 x 892-1	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
