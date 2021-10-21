@@ -1,0 +1,1069 @@
+crossid	plantid	block1	blockAB	crosstype_manual	collect.date	mass	weigh.date	comments	linenum	collect	mompop	momid	momsp	dadpop	dadid	dadsp	crosstype	cross	full	sxc	sxcxm	mompid	smompop
+93	15	12	NA	NA	2016-12-15	14.41	2017-08-03	NA	1	280	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
+76	2	1	A	NA	2016-12-15	10.28	2017-08-03	NA	2	280	WK	4	hook	879WKG	G-2	hook	between	HH	794-4 x 879-G-2	hook.between	hook.between.WK.4	WK.4	hookWK
+67	14	5	A	NA	2016-12-15	11.22	2017-08-03	NA	3	280	WK	2	hook	892WKG	4	kaal	hybrid	HK	794-2 x 892-4	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+3	4	12	NA	NA	2016-12-17	4.26	2017-08-03	NA	4	282	879WKG	2-2	hook	879WKG	N-5	hook	within	HH	879-2-2 x 879-N-5	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
+29	14	10	A	NA	2016-12-15	12.98	2017-08-03	NA	5	280	879WKG	10-1	hook	3587WP	15	kaal	hybrid	HK	879-10-1 x 3587-15	hook.hybrid	hook.hybrid.879WKG.10-1	879WKG.10-1	hook879WKG
+7	1	8	A	NA	2016-12-16	5.51	2017-08-03	NA	6	281	879WKG	2-2	hook	892WKG	3	kaal	hybrid	HK	879-2-2 x 892-3	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+2	18	12	NA	NA	2016-12-17	13.4	2017-08-03	NA	7	282	879WKG	2-2	hook	879WKG	10-1	hook	within	HH	879-2-2 x 879-10-1	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
+89	19	NA	A	NA	2016-12-15	8.9	2017-08-03	NA	8	280	WK	2	hook	879WKG	2-2	hook	between	HH	866-2 x 879-2-2	hook.between	hook.between.WK.2	WK.2	hookWK
+63	4	11	NA	NA	2016-12-17	11.44	2017-08-03	NA	9	282	WK	2	hook	WK	4	hook	within	HH	794-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+60	5	1	A	NA	2016-12-15	11.16	2017-08-03	NA	10	280	WK	2	hook	879WKG	10-1	hook	between	HH	794-2 x 879-10-1	hook.between	hook.between.WK.2	WK.2	hookWK
+34	2	1	B	NA	2016-12-15	7.51	2017-08-03	NA	11	280	879WKG	G-2	hook	WK	4	hook	between	HH	879-G-2 x 794-4	hook.between	hook.between.879WKG.G-2	879WKG.G-2	hook879WKG
+3	11	12	NA	NA	2016-12-17	7.65	2017-08-03	NA	12	282	879WKG	2-2	hook	879WKG	N-5	hook	within	HH	879-2-2 x 879-N-5	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
+3	10	12	NA	NA	2016-12-17	7.69	2017-08-03	NA	13	282	879WKG	2-2	hook	879WKG	N-5	hook	within	HH	879-2-2 x 879-N-5	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
+58	1	10	A	NA	2016-12-16	25.14	2017-08-03	NA	14	281	879WKG	N-5	hook	3587WP	C	kaal	hybrid	HK	879-N-5 x 3587-C	hook.hybrid	hook.hybrid.879WKG.N-5	879WKG.N-5	hook879WKG
+90	4	1	A	NA	2016-12-15	9.58	2017-08-03	NA	15	280	WK	2	hook	879WKG	10-1	hook	between	HH	866-2 x 879-10-1	hook.between	hook.between.WK.2	WK.2	hookWK
+90	17	1	A	NA	2016-12-15	7.21	2017-08-03	NA	16	280	WK	2	hook	879WKG	10-1	hook	between	HH	866-2 x 879-10-1	hook.between	hook.between.WK.2	WK.2	hookWK
+65	5	11	NA	NA	2016-12-17	9.68	2017-08-03	NA	17	282	WK	2	hook	WK	2E	hook	between	HH	794-2 x 899-2E	hook.between	hook.between.WK.2	WK.2	hookWK
+89	5	1	A	NA	2016-12-16	11.33	2017-08-03	NA	18	281	WK	2	hook	879WKG	2-2	hook	between	HH	866-2 x 879-2-2	hook.between	hook.between.WK.2	WK.2	hookWK
+19	3	1	B	NA	2016-12-17	9.3	2017-08-03	NA	19	282	879WKG	10-1	hook	WK	2	hook	between	HH	879-10-1 x 794-2	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+21	17	1	B	NA	2016-12-17	14.38	2017-08-03	NA	20	282	879WKG	10-1	hook	WK	2	hook	between	HH	879-10-1 x 866-2	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+60	14	1	A	NA	2016-12-15	11.05	2017-08-03	NA	21	280	WK	2	hook	879WKG	10-1	hook	between	HH	794-2 x 879-10-1	hook.between	hook.between.WK.2	WK.2	hookWK
+2	2	12	NA	NA	2016-12-17	8.65	2017-08-03	NA	22	282	879WKG	2-2	hook	879WKG	10-1	hook	within	HH	879-2-2 x 879-10-1	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
+3	17	12	NA	NA	2016-12-16	8.18	2017-08-03	NA	23	281	879WKG	2-2	hook	879WKG	N-5	hook	within	HH	879-2-2 x 879-N-5	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
+64	9	11	NA	NA	2016-12-15	17.13	2017-08-03	NA	24	280	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
+60	3	1	A	NA	2016-12-15	9.6	2017-08-03	NA	25	280	WK	2	hook	879WKG	10-1	hook	between	HH	794-2 x 879-10-1	hook.between	hook.between.WK.2	WK.2	hookWK
+1	4	11	NA	HH	2017-02-11	14.487	2017-08-15	NA	26	338	879WKG	2-2	hook	879WKG	G-2	hook	within	HH	879-2-2 x 879-G-2	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
+188	1	10	B	KH	2017-02-12	14.229	2017-08-15	NA	27	339	3587WP	7	kaal	879WKG	2-2	hook	hybrid	KH	3587-7 x 879-2-2	kaal.hybrid	kaal.hybrid.3587WP.7	3587WP.7	kaal3587WP
+59	19	1	A	HH	2017-02-11	16.845	2017-08-15	NA	28	338	WK	2	hook	879WKG	2-2	hook	between	HH	794-2 x 879-2-2	hook.between	hook.between.WK.2	WK.2	hookWK
+6	20	8	A	HK	2017-02-12	14.824	2017-08-15	NA	29	339	879WKG	2-2	hook	892WKG	1	kaal	hybrid	HK	879-2-2 x 892-1	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+185	9	4	A	KK	2017-02-12	5.407	2017-08-15	NA	30	339	904WPG	5	kaal	3587WP	7	kaal	between	KK	904-5 x 3587-7	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+140	7	13	NA	KK	2017-02-12	2.829	2017-08-15	NA	31	339	892WKG	5	kaal	892WKG	4	kaal	within	KK	892-5 x 892-4	kaal.within	kaal.within.892WKG.5	892WKG.5	kaal892WKG
+117	2	2	A	KK	2017-02-12	3.526	2017-08-15	NA	32	339	892WKG	1	kaal	904WPG	2	kaal	between	KK	892-1 x 904-2	kaal.between	kaal.between.892WKG.1	892WKG.1	kaal892WKG
+168	3	14	NA	KK	2017-02-12	5.434	2017-08-15	NA	33	339	904WPG	3	kaal	904WPG	2	kaal	within	KK	904-3 x 904-2	kaal.within	kaal.within.904WPG.3	904WPG.3	kaal904WPG
+234	2	3	B	KK	2017-02-12	7.963	2017-08-15	NA	34	339	3587WP	C	kaal	892WKG	4	kaal	between	KK	3587-C x 892-4	kaal.between	kaal.between.3587WP.C	3587WP.C	kaal3587WP
+169	10	14	NA	KK	NA	4.624	2017-08-15	No collected date	35	NA	904WPG	3	kaal	904WPG	5	kaal	within	KK	904-3 x 904-5	kaal.within	kaal.within.904WPG.3	904WPG.3	kaal904WPG
+117	4	2	A	KK	2017-02-12	6.465	2017-08-15	NA	36	339	892WKG	1	kaal	904WPG	2	kaal	between	KK	892-1 x 904-2	kaal.between	kaal.between.892WKG.1	892WKG.1	kaal892WKG
+35	7	1	B	HH	2017-02-12	15.131	2017-08-15	NA	37	339	879WKG	G-2	hook	WK	2	hook	between	HH	879-G-2 x 866-2	hook.between	hook.between.879WKG.G-2	879WKG.G-2	hook879WKG
+95	15	5	A	HK	2017-02-12	8.347	2017-08-15	NA	38	339	WK	2	hook	892WKG	4	kaal	hybrid	HK	866-2 x 892-4	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+173	3	9	B	KH	2017-02-12	16.514	2017-08-15	NA	39	339	904WPG	5	kaal	879WKG	G-2	hook	hybrid	KH	904-5 x 879-G-2	kaal.hybrid	kaal.hybrid.904WPG.5	904WPG.5	kaal904WPG
+98	15	6	A	HK	2017-02-12	19.403	2017-08-15	NA	40	339	WK	2	hook	904WPG	5	kaal	hybrid	HK	866-2 x 904-5	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+9	3	8	A	NA	2016-12-15	8.342	2017-08-15	No Cross Type	41	280	879WKG	2-2	hook	892WKG	5	kaal	hybrid	HK	879-2-2 x 892-5	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+8	19	8	A	HK	2017-02-12	9.07	2017-08-15	NA	42	339	879WKG	2-2	hook	892WKG	4	kaal	hybrid	HK	879-2-2 x 892-4	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+234	4	3	B	NA	2016-12-15	6.393	2017-08-15	No Cross Type	43	280	3587WP	C	kaal	892WKG	4	kaal	between	KK	3587-C x 892-4	kaal.between	kaal.between.3587WP.C	3587WP.C	kaal3587WP
+92	7	1	A	NA	2016-12-15	8.038	2017-08-15	No Cross Type	44	280	WK	2	hook	879WKG	N-5	hook	between	HH	866-2 x 879-N-5	hook.between	hook.between.WK.2	WK.2	hookWK
+74	20	1	A	NA	2016-12-15	6.142	2017-08-15	No Cross Type	45	280	WK	4	hook	879WKG	2-2	hook	between	HH	794-4 x 879-2-2	hook.between	hook.between.WK.4	WK.4	hookWK
+96	2	5	A	NA	2016-12-15	4.837	2017-08-15	No Cross Type	46	280	WK	2	hook	892WKG	5	kaal	hybrid	HK	866-2 x 892-5	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+48	3	12	NA	NA	2016-12-15	10.595	2017-08-15	No Cross Type	47	280	879WKG	N-5	hook	879WKG	H-2	hook	within	HH	879-N-5 x 879-H-2	hook.within	hook.within.879WKG.N-5	879WKG.N-5	hook879WKG
+35	6	1	B	NA	2016-12-15	12.822	2017-08-15	No Cross Type	48	280	879WKG	G-2	hook	WK	2	hook	between	HH	879-G-2 x 866-2	hook.between	hook.between.879WKG.G-2	879WKG.G-2	hook879WKG
+76	5	1	A	NA	2016-12-15	10.171	2017-08-15	No Cross Type	49	280	WK	4	hook	879WKG	G-2	hook	between	HH	794-4 x 879-G-2	hook.between	hook.between.WK.4	WK.4	hookWK
+21	14	1	B	NA	2016-12-15	13.136	2017-08-15	No Cross Type	50	280	879WKG	10-1	hook	WK	2	hook	between	HH	879-10-1 x 866-2	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+5	16	1	B	NA	2016-12-15	14.008	2017-08-16	No Cross Type	51	280	879WKG	2-2	hook	WK	4	hook	between	HH	879-2-2 x 794-4	hook.between	hook.between.879WKG.2-2	879WKG.2-2	hook879WKG
+103	6	5	A	NA	2016-12-15	9.6	2017-08-16	No Cross Type	52	280	WK	2E- 1	hook	892WKG	1	kaal	hybrid	HK	899-2E- 1 x 892-1	hook.hybrid	hook.hybrid.WK.2E- 1	WK.2E- 1	hookWK
+22	9	1	B	NA	2016-12-15	11.676	2017-08-16	No Cross Type	53	280	879WKG	10-1	hook	WK	2E- 1	hook	between	HH	879-10-1 x 899-2E- 1	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+57	1	10	A	HK	2017-02-12	19.566	2017-08-25	NA	54	339	879WKG	N-5	hook	3587WP	A	kaal	hybrid	HK	879-N-5 x 3587-A	hook.hybrid	hook.hybrid.879WKG.N-5	879WKG.N-5	hook879WKG
+52	3	8	A	HK	2017-02-12	16.53	2017-08-25	NA	55	339	879WKG	N-5	hook	892WKG	1	kaal	hybrid	HK	879-N-5 x 892-1	hook.hybrid	hook.hybrid.879WKG.N-5	879WKG.N-5	hook879WKG
+8	1	8	A	HK	2017-02-10	3.218	2017-08-25	NA	56	337	879WKG	2-2	hook	892WKG	4	kaal	hybrid	HK	879-2-2 x 892-4	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+173	7	9	B	KH	2017-02-12	14.01	2017-08-25	NA	57	339	904WPG	5	kaal	879WKG	G-2	hook	hybrid	KH	904-5 x 879-G-2	kaal.hybrid	kaal.hybrid.904WPG.5	904WPG.5	kaal904WPG
+184	16	14	NA	KK	2017-02-13	7.093	2017-08-25	NA	58	340	904WPG	5	kaal	904WPG	3	kaal	within	KK	904-5 x 904-3	kaal.within	kaal.within.904WPG.5	904WPG.5	kaal904WPG
+62	4	1	A	HH	2017-02-13	14.405	2017-08-25	NA	59	340	WK	2	hook	879WKG	N-5	hook	between	HH	794-2 x 879-N-5	hook.between	hook.between.WK.2	WK.2	hookWK
+6	12	8	A	HK	2017-02-13	16	2017-08-25	NA	60	340	879WKG	2-2	hook	892WKG	1	kaal	hybrid	HK	879-2-2 x 892-1	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+184	1	14	NA	KK	2017-02-13	3.201	2017-08-25	NA	61	340	904WPG	5	kaal	904WPG	3	kaal	within	KK	904-5 x 904-3	kaal.within	kaal.within.904WPG.5	904WPG.5	kaal904WPG
+182	17	2	B	KK	2017-02-13	9.948	2017-08-25	NA	62	340	904WPG	5	kaal	892WKG	5	kaal	between	KK	904-5 x 892-5	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+24	4	8	A	HK	2017-02-13	23.608	2017-08-25	NA	63	340	879WKG	10-1	hook	892WKG	4	kaal	hybrid	HK	879-10-1 x 892-4	hook.hybrid	hook.hybrid.879WKG.10-1	879WKG.10-1	hook879WKG
+53	2	8	A	HK	2017-02-13	19.102	2017-08-25	NA	64	340	879WKG	N-5	hook	892WKG	5	kaal	hybrid	HK	879-N-5 x 892-5	hook.hybrid	hook.hybrid.879WKG.N-5	879WKG.N-5	hook879WKG
+169	1	14	NA	KK	2017-02-13	10.304	2017-08-25	NA	65	340	904WPG	3	kaal	904WPG	5	kaal	within	KK	904-3 x 904-5	kaal.within	kaal.within.904WPG.3	904WPG.3	kaal904WPG
+205	4	10	B	KH	2017-02-14	23.699	2017-08-25	NA	66	341	3587WP	14	kaal	879WKG	10-1	hook	hybrid	KH	3587-14 x 879-10-1	kaal.hybrid	kaal.hybrid.3587WP.14	3587WP.14	kaal3587WP
+182	10	2	B	KK	2017-02-14	10.652	2017-08-25	NA	67	341	904WPG	5	kaal	892WKG	5	kaal	between	KK	904-5 x 892-5	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+94	4	5	A	HK	2017-02-12	8.773	2017-08-25	NA	68	339	WK	2	hook	892WKG	1	kaal	hybrid	HK	866-2 x 892-1	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+76	7	1	A	HH	2017-02-12	10.957	2017-08-25	NA	69	339	WK	4	hook	879WKG	G-2	hook	between	HH	794-4 x 879-G-2	hook.between	hook.between.WK.4	WK.4	hookWK
+149	9	9	B	KH	2017-02-12	23.733	2017-08-25	NA	70	339	904WPG	2	kaal	879WKG	G-2	hook	hybrid	KH	904-2 x 879-G-2	kaal.hybrid	kaal.hybrid.904WPG.2	904WPG.2	kaal904WPG
+92	8	1	A	HH	2017-02-12	7.109	2017-08-25	NA	71	339	WK	2	hook	879WKG	N-5	hook	between	HH	866-2 x 879-N-5	hook.between	hook.between.WK.2	WK.2	hookWK
+33	1	1	B	HH	2017-02-12	15.184	2017-08-25	NA	72	339	879WKG	G-2	hook	WK	2	hook	between	HH	879-G-2 x 794-2	hook.between	hook.between.879WKG.G-2	879WKG.G-2	hook879WKG
+24	5	8	A	HK	2017-02-13	10.709	2017-08-25	NA	73	340	879WKG	10-1	hook	892WKG	4	kaal	hybrid	HK	879-10-1 x 892-4	hook.hybrid	hook.hybrid.879WKG.10-1	879WKG.10-1	hook879WKG
+174	2	9	B	KH	2017-02-12	29.895	2017-08-25	NA	74	339	904WPG	5	kaal	879WKG	N-5	hook	hybrid	KH	904-5 x 879-N-5	kaal.hybrid	kaal.hybrid.904WPG.5	904WPG.5	kaal904WPG
+182	2	2	B	KK	2017-02-13	7.458	2017-08-25	NA	75	340	904WPG	5	kaal	892WKG	5	kaal	between	KK	904-5 x 892-5	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+169	14	14	NA	KK	2017-02-13	5.668	2017-08-25	NA	76	340	904WPG	3	kaal	904WPG	5	kaal	within	KK	904-3 x 904-5	kaal.within	kaal.within.904WPG.3	904WPG.3	kaal904WPG
+234	6	3	B	KK	2017-02-13	8.294	2017-08-25	NA	77	340	3587WP	C	kaal	892WKG	4	kaal	between	KK	3587-C x 892-4	kaal.between	kaal.between.3587WP.C	3587WP.C	kaal3587WP
+39	3	9	A	HK	2017-02-12	10.967	2017-08-25	NA	78	339	879WKG	G-2	hook	904WPG	5	kaal	hybrid	HK	879-G-2 x 904-5	hook.hybrid	hook.hybrid.879WKG.G-2	879WKG.G-2	hook879WKG
+41	4	10	A	HK	2017-02-12	28.251	2017-08-25	NA	79	339	879WKG	G-2	hook	3587WP	14	kaal	hybrid	HK	879-G-2 x 3587-14	hook.hybrid	hook.hybrid.879WKG.G-2	879WKG.G-2	hook879WKG
+169	8	14	NA	KK	2017-02-13	4.276	2017-09-05	NA	80	340	904WPG	3	kaal	904WPG	5	kaal	within	KK	904-3 x 904-5	kaal.within	kaal.within.904WPG.3	904WPG.3	kaal904WPG
+68	1	5	A	HK	2017-02-13	4.528	2017-09-05	NA	81	340	WK	2	hook	892WKG	5	kaal	hybrid	HK	794-2 x 892-5	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+186	4	4	A	KK	2017-02-13	7.418	2017-09-05	NA	82	340	904WPG	5	kaal	3587WP	10	kaal	between	KK	904-5 x 3587-10	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+81	1	5	A	HK	2017-02-13	15.401	2017-09-05	NA	83	340	WK	4	hook	892WKG	3	kaal	hybrid	HK	794-4 x 892-3	hook.hybrid	hook.hybrid.WK.4	WK.4	hookWK
+105	8	6	A	HK	2017-02-13	20.617	2017-09-05	NA	84	340	WK	2E- 1	hook	904WPG	5	kaal	hybrid	HK	899-2E- 1 x 904-5	hook.hybrid	hook.hybrid.WK.2E- 1	WK.2E- 1	hookWK
+183	11	14	NA	KK	2017-02-13	8.255	2017-09-05	NA	85	340	904WPG	5	kaal	904WPG	2	kaal	within	KK	904-5 x 904-2	kaal.within	kaal.within.904WPG.5	904WPG.5	kaal904WPG
+12	11	9	A	HK	2017-02-12	25.836	2017-09-05	NA	86	339	879WKG	2-2	hook	904WPG	5	kaal	hybrid	HK	879-2-2 x 904-5	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+12	7	9	A	HK	2017-02-12	19.918	2017-09-05	NA	87	339	879WKG	2-2	hook	904WPG	5	kaal	hybrid	HK	879-2-2 x 904-5	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+50	9	1	B	HH	NA	15.823	2017-09-05	No collected date	88	NA	879WKG	N-5	hook	WK	4	hook	between	HH	879-N-5 x 794-4	hook.between	hook.between.879WKG.N-5	879WKG.N-5	hook879WKG
+184	19	14	NA	KK	2017-02-13	3.92	2017-09-05	NA	89	340	904WPG	5	kaal	904WPG	3	kaal	within	KK	904-5 x 904-3	kaal.within	kaal.within.904WPG.5	904WPG.5	kaal904WPG
+39	4	9	A	HK	2017-02-12	24.631	2017-09-05	NA	90	339	879WKG	G-2	hook	904WPG	5	kaal	hybrid	HK	879-G-2 x 904-5	hook.hybrid	hook.hybrid.879WKG.G-2	879WKG.G-2	hook879WKG
+183	7	14	NA	KK	2017-02-13	8.508	2017-09-05	NA	91	340	904WPG	5	kaal	904WPG	2	kaal	within	KK	904-5 x 904-2	kaal.within	kaal.within.904WPG.5	904WPG.5	kaal904WPG
+186	2	4	A	KK	2017-02-22	7.845	2017-09-05	NA	92	349	904WPG	5	kaal	3587WP	10	kaal	between	KK	904-5 x 3587-10	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+99	9	7	A	HK	2017-02-21	25.049	2017-09-05	NA	93	348	WK	2	hook	3587WP	7	kaal	hybrid	HK	866-2 x 3587-7	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+74	9	1	A	HH	2017-02-13	23.047	2017-09-05	NA	94	340	WK	4	hook	879WKG	2-2	hook	between	HH	794-4 x 879-2-2	hook.between	hook.between.WK.4	WK.4	hookWK
+98	16	6	A	HK	2017-02-13	26.455	2017-09-05	NA	95	340	WK	2	hook	904WPG	5	kaal	hybrid	HK	866-2 x 904-5	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+166	10	2	B	KK	2017-02-13	6.237	2017-09-05	NA	96	340	904WPG	3	kaal	892WKG	1	kaal	between	KK	904-3 x 892-1	kaal.between	kaal.between.904WPG.3	904WPG.3	kaal904WPG
+183	18	14	NA	KK	2017-02-13	6.909	2017-09-05	NA	97	340	904WPG	5	kaal	904WPG	2	kaal	within	KK	904-5 x 904-2	kaal.within	kaal.within.904WPG.5	904WPG.5	kaal904WPG
+68	3	5	A	HK	2017-02-13	13.911	2017-09-05	NA	98	340	WK	2	hook	892WKG	5	kaal	hybrid	HK	794-2 x 892-5	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+6	8	8	A	HK	2017-02-14	23.885	2017-09-05	NA	99	341	879WKG	2-2	hook	892WKG	1	kaal	hybrid	HK	879-2-2 x 892-1	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+91	16	1	A	HH	2017-02-13	21.827	2017-09-05	NA	100	340	WK	2	hook	879WKG	G-2	hook	between	HH	866-2 x 879-G-2	hook.between	hook.between.WK.2	WK.2	hookWK
+23	4	8	A	HK	2017-02-12	9.724	2017-09-05	NA	101	339	879WKG	10-1	hook	892WKG	1	kaal	hybrid	HK	879-10-1 x 892-1	hook.hybrid	hook.hybrid.879WKG.10-1	879WKG.10-1	hook879WKG
+9	13	8	A	HK	2017-02-12	6.733	2017-09-05	NA	102	339	879WKG	2-2	hook	892WKG	5	kaal	hybrid	HK	879-2-2 x 892-5	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+8	12	8	A	HK	2017-02-12	17.413	2017-09-05	NA	103	339	879WKG	2-2	hook	892WKG	4	kaal	hybrid	HK	879-2-2 x 892-4	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+106	6	7	A	HK	2017-02-18	21.702	2017-09-12	NA	104	345	WK	2E- 1	hook	3587WP	14	kaal	hybrid	HK	899-2E- 1 x 3587-14	hook.hybrid	hook.hybrid.WK.2E- 1	WK.2E- 1	hookWK
+9	12	8	A	HK	2017-02-18	16.515	2017-09-12	NA	105	345	879WKG	2-2	hook	892WKG	5	kaal	hybrid	HK	879-2-2 x 892-5	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+91	18	1	A	HH	2017-02-18	14.865	2017-09-12	NA	106	345	WK	2	hook	879WKG	G-2	hook	between	HH	866-2 x 879-G-2	hook.between	hook.between.WK.2	WK.2	hookWK
+6	1	8	A	HK	2017-02-18	13.663	2017-09-12	NA	107	345	879WKG	2-2	hook	892WKG	1	kaal	hybrid	HK	879-2-2 x 892-1	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+5	17	1	B	HH	2017-02-18	24.31	2017-09-12	NA	108	345	879WKG	2-2	hook	WK	4	hook	between	HH	879-2-2 x 794-4	hook.between	hook.between.879WKG.2-2	879WKG.2-2	hook879WKG
+185	2	4	A	KK	2017-02-18	7.066	2017-09-12	NA	109	345	904WPG	5	kaal	3587WP	7	kaal	between	KK	904-5 x 3587-7	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+181	11	2	B	KK	2017-02-18	10.691	2017-09-12	NA	110	345	904WPG	5	kaal	892WKG	4	kaal	between	KK	904-5 x 892-4	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+89	20	5	A	HH	2017-02-18	14.056	2017-09-12	NA	111	345	WK	2	hook	879WKG	2-2	hook	between	HH	866-2 x 879-2-2	hook.between	hook.between.WK.2	WK.2	hookWK
+179	9	2	B	KK	2017-02-18	13.906	2017-09-12	NA	112	345	904WPG	5	kaal	892WKG	1	kaal	between	KK	904-5 x 892-1	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+94	1	5	A	HK	2017-02-18	10.991	2017-09-12	NA	113	345	WK	2	hook	892WKG	1	kaal	hybrid	HK	866-2 x 892-1	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+44	5	9	A	HK	2017-02-21	13.188	2017-09-12	NA	114	348	879WKG	H-2	hook	904WPG	5	kaal	hybrid	HK	879-H-2 x 904-5	hook.hybrid	hook.hybrid.879WKG.H-2	879WKG.H-2	hook879WKG
+19	12	1	B	HH	2017-02-18	16.971	2017-09-12	NA	115	345	879WKG	10-1	hook	WK	2	hook	between	HH	879-10-1 x 794-2	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+195	1	3	B	KK	2017-02-18	14.33	2017-09-12	NA	116	345	3587WP	7	kaal	892WKG	4	kaal	between	KK	3587-7 x 892-4	kaal.between	kaal.between.3587WP.7	3587WP.7	kaal3587WP
+29	8	10	A	HK	2017-02-18	21.833	2017-09-12	NA	117	345	879WKG	10-1	hook	3587WP	15	kaal	hybrid	HK	879-10-1 x 3587-15	hook.hybrid	hook.hybrid.879WKG.10-1	879WKG.10-1	hook879WKG
+98	7	6	A	HK	2017-02-21	26.876	2017-09-12	NA	118	348	WK	2	hook	904WPG	5	kaal	hybrid	HK	866-2 x 904-5	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+80	5	5	A	HK	2017-02-18	18.661	2017-09-12	NA	119	345	WK	4	hook	892WKG	1	kaal	hybrid	HK	794-4 x 892-1	hook.hybrid	hook.hybrid.WK.4	WK.4	hookWK
+77	11	1	A	HH	2017-02-18	10.456	2017-09-12	NA	120	345	WK	4	hook	879WKG	N-5	hook	between	HH	794-4 x 879-N-5	hook.between	hook.between.WK.4	WK.4	hookWK
+106	2	7	A	HK	2017-02-18	17.735	2017-09-12	NA	121	345	WK	2E- 1	hook	3587WP	14	kaal	hybrid	HK	899-2E- 1 x 3587-14	hook.hybrid	hook.hybrid.WK.2E- 1	WK.2E- 1	hookWK
+187	7	4	A	KK	2017-02-18	6.69	2017-09-12	NA	122	345	904WPG	5	kaal	3587WP	14	kaal	between	KK	904-5 x 3587-14	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+68	7	5	A	HK	2017-02-18	7.242	2017-09-12	NA	123	345	WK	2	hook	892WKG	5	kaal	hybrid	HK	794-2 x 892-5	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+140	4	13	NA	KK	2017-02-21	2.728	2017-09-12	NA	124	348	892WKG	5	kaal	892WKG	4	kaal	within	KK	892-5 x 892-4	kaal.within	kaal.within.892WKG.5	892WKG.5	kaal892WKG
+82	8	5	A	HK	2017-02-18	11.36	2017-09-12	NA	125	345	WK	4	hook	892WKG	4	kaal	hybrid	HK	794-4 x 892-4	hook.hybrid	hook.hybrid.WK.4	WK.4	hookWK
+26	2	9	A	HK	2017-02-22	24.168	2017-09-12	NA	126	349	879WKG	10-1	hook	904WPG	3	kaal	hybrid	HK	879-10-1 x 904-3	hook.hybrid	hook.hybrid.879WKG.10-1	879WKG.10-1	hook879WKG
+9	15	8	A	HK	2017-02-18	16.487	2017-09-12	NA	127	345	879WKG	2-2	hook	892WKG	5	kaal	hybrid	HK	879-2-2 x 892-5	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+69	12	5	A	HK	2017-02-05	10.422	2017-09-19	67-12?	128	332	WK	2	hook	904WPG	3	kaal	hybrid	HK	794-2 x 904-3	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+63	12	11	NA	HH	2017-02-05	15.34	2017-09-19	NA	129	332	WK	2	hook	WK	4	hook	within	HH	794-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+90	8	1	A	HH	2017-02-05	20.536	2017-09-19	NA	130	332	WK	2	hook	879WKG	10-1	hook	between	HH	866-2 x 879-10-1	hook.between	hook.between.WK.2	WK.2	hookWK
+171	2	9	B	KH	2017-02-05	10.012	2017-09-19	NA	131	332	904WPG	5	kaal	879WKG	2-2	hook	hybrid	KH	904-5 x 879-2-2	kaal.hybrid	kaal.hybrid.904WPG.5	904WPG.5	kaal904WPG
+196	10	3	B	KK	2016-12-05	11.71	2017-09-19	JP: changed year from 2017	132	270	3587WP	7	kaal	892WKG	5	kaal	between	KK	3587-7 x 892-5	kaal.between	kaal.between.3587WP.7	3587WP.7	kaal3587WP
+182	20	2	B	KK	2017-02-05	14.333	2017-09-19	NA	133	332	904WPG	5	kaal	892WKG	5	kaal	between	KK	904-5 x 892-5	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+92	3	1	A	HH	2017-02-05	12.201	2017-09-19	NA	134	332	WK	2	hook	879WKG	N-5	hook	between	HH	866-2 x 879-N-5	hook.between	hook.between.WK.2	WK.2	hookWK
+169	12	14	NA	KK	2017-02-05	9.3	2017-09-19	NA	135	332	904WPG	3	kaal	904WPG	5	kaal	within	KK	904-3 x 904-5	kaal.within	kaal.within.904WPG.3	904WPG.3	kaal904WPG
+188	2	10	B	KH	2017-02-05	0.575	2017-09-19	NA	136	332	3587WP	7	kaal	879WKG	2-2	hook	hybrid	KH	3587-7 x 879-2-2	kaal.hybrid	kaal.hybrid.3587WP.7	3587WP.7	kaal3587WP
+59	3	1	A	HH	2017-02-05	14.036	2017-09-19	NA	137	332	WK	2	hook	879WKG	2-2	hook	between	HH	794-2 x 879-2-2	hook.between	hook.between.WK.2	WK.2	hookWK
+90	19	1	A	HH	2017-02-05	14.52	2017-09-19	NA	138	332	WK	2	hook	879WKG	10-1	hook	between	HH	866-2 x 879-10-1	hook.between	hook.between.WK.2	WK.2	hookWK
+90	7	1	A	HH	2017-02-05	13.81	2017-09-19	NA	139	332	WK	2	hook	879WKG	10-1	hook	between	HH	866-2 x 879-10-1	hook.between	hook.between.WK.2	WK.2	hookWK
+141	3	2	A	KK	2017-02-05	9.248	2017-09-19	NA	140	332	892WKG	5	kaal	904WPG	3	kaal	between	KK	892-5 x 904-3	kaal.between	kaal.between.892WKG.5	892WKG.5	kaal892WKG
+76	1	1	A	HH	2017-02-05	11.83	2017-09-19	NA	141	332	WK	4	hook	879WKG	G-2	hook	between	HH	794-4 x 879-G-2	hook.between	hook.between.WK.4	WK.4	hookWK
+134	2	8	B	KH	2017-02-05	9.028	2017-09-19	NA	142	332	892WKG	5	kaal	879WKG	2-2	hook	hybrid	KH	892-5 x 879-2-2	kaal.hybrid	kaal.hybrid.892WKG.5	892WKG.5	kaal892WKG
+38	1	9	A	HK	2017-02-05	10.149	2017-09-19	NA	143	332	879WKG	G-2	hook	904WPG	2	kaal	hybrid	HK	879-G-2 x 904-2	hook.hybrid	hook.hybrid.879WKG.G-2	879WKG.G-2	hook879WKG
+159	1	9	B	KH	2017-02-05	13.588	2017-09-19	NA	144	332	904WPG	3	kaal	879WKG	2-2	hook	hybrid	KH	904-3 x 879-2-2	kaal.hybrid	kaal.hybrid.904WPG.3	904WPG.3	kaal904WPG
+147	6	9	B	KH	NA	2.055	2017-09-19	No collected date	145	NA	904WPG	2	kaal	879WKG	2-2	hook	hybrid	KH	904-2 x 879-2-2	kaal.hybrid	kaal.hybrid.904WPG.2	904WPG.2	kaal904WPG
+180	5	2	B	KK	2017-02-05	4.468	2017-09-19	NA	146	332	904WPG	5	kaal	892WKG	3	kaal	between	KK	904-5 x 892-3	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+64	3	11	NA	HH	2017-02-14	21.737	2017-09-19	NA	147	341	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
+168	16	14	NA	KK	2017-02-05	7.919	2017-09-19	NA	148	332	904WPG	3	kaal	904WPG	2	kaal	within	KK	904-3 x 904-2	kaal.within	kaal.within.904WPG.3	904WPG.3	kaal904WPG
+90	20	1	A	HH	2017-02-05	15.011	2017-09-19	NA	149	332	WK	2	hook	879WKG	10-1	hook	between	HH	866-2 x 879-10-1	hook.between	hook.between.WK.2	WK.2	hookWK
+77	3	1	A	HH	2017-02-18	18.151	2017-09-19	NA	150	345	WK	4	hook	879WKG	N-5	hook	between	HH	794-4 x 879-N-5	hook.between	hook.between.WK.4	WK.4	hookWK
+68	2	5	A	HK	2017-02-18	4.576	2017-09-19	NA	151	345	WK	2	hook	892WKG	5	kaal	hybrid	HK	794-2 x 892-5	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+184	15	14	NA	KK	2017-02-18	10.999	2017-09-19	NA	152	345	904WPG	5	kaal	904WPG	3	kaal	within	KK	904-5 x 904-3	kaal.within	kaal.within.904WPG.5	904WPG.5	kaal904WPG
+10	3	9	A	HK	2017-02-18	23	2017-09-19	NA	153	345	879WKG	2-2	hook	904WPG	2	kaal	hybrid	HK	879-2-2 x 904-2	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+4	6	1	B	HH	2017-02-05	11.025	2017-09-19	NA	154	332	879WKG	2-2	hook	WK	2	hook	between	HH	879-2-2 x 794-2	hook.between	hook.between.879WKG.2-2	879WKG.2-2	hook879WKG
+166	1	2	B	KK	2017-02-18	7.089	2017-09-19	NA	155	345	904WPG	3	kaal	892WKG	1	kaal	between	KK	904-3 x 892-1	kaal.between	kaal.between.904WPG.3	904WPG.3	kaal904WPG
+2	1	12	NA	HH	2017-02-05	15.296	2017-09-29	NA	156	332	879WKG	2-2	hook	879WKG	10-1	hook	within	HH	879-2-2 x 879-10-1	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
+6	16	8	A	HK	2017-02-05	13.744	2017-09-29	NA	157	332	879WKG	2-2	hook	892WKG	1	kaal	hybrid	HK	879-2-2 x 892-1	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+22	7	1	B	HH	2017-02-05	14.415	2017-09-29	NA	158	332	879WKG	10-1	hook	WK	2E- 1	hook	between	HH	879-10-1 x 899-2E- 1	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+168	13	NA	NA	KK	NA	5.757	2017-09-29	No collected date,No Blk	159	NA	904WPG	3	kaal	904WPG	2	kaal	within	KK	904-3 x 904-2	kaal.within	kaal.within.904WPG.3	904WPG.3	kaal904WPG
+74	7	1	A	HH	2017-02-05	15.737	2017-09-29	NA	160	332	WK	4	hook	879WKG	2-2	hook	between	HH	794-4 x 879-2-2	hook.between	hook.between.WK.4	WK.4	hookWK
+63	1	11	NA	HH	2017-02-05	16.864	2017-09-29	""2/5/16""?	161	332	WK	2	hook	WK	4	hook	within	HH	794-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+34	6	1	B	HH	2017-02-05	11.281	2017-09-29	NA	162	332	879WKG	G-2	hook	WK	4	hook	between	HH	879-G-2 x 794-4	hook.between	hook.between.879WKG.G-2	879WKG.G-2	hook879WKG
+21	5	1	B	HH	2017-02-05	18.497	2017-09-29	NA	163	332	879WKG	10-1	hook	WK	2	hook	between	HH	879-10-1 x 866-2	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+21	15	1	B	HH	2017-02-05	11.271	2017-09-29	NA	164	332	879WKG	10-1	hook	WK	2	hook	between	HH	879-10-1 x 866-2	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+36	4	8	A	HK	2017-02-05	10.885	2017-09-29	NA	165	332	879WKG	G-2	hook	892WKG	3	kaal	hybrid	HK	879-G-2 x 892-3	hook.hybrid	hook.hybrid.879WKG.G-2	879WKG.G-2	hook879WKG
+19	14	1	B	HH	2017-02-05	16.295	2017-09-29	NA	166	332	879WKG	10-1	hook	WK	2	hook	between	HH	879-10-1 x 794-2	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+78	7	11	NA	HH	2017-02-05	16.57	2017-09-29	NA	167	332	WK	4	hook	WK	2	hook	within	HH	794-4 x 794-2	hook.within	hook.within.WK.4	WK.4	hookWK
+91	11	1	A	HH	2017-02-05	11.026	2017-09-29	NA	168	332	WK	2	hook	879WKG	G-2	hook	between	HH	866-2 x 879-G-2	hook.between	hook.between.WK.2	WK.2	hookWK
+11	6	9	A	HK	2017-02-05	12.619	2017-09-29	NA	169	332	879WKG	2-2	hook	904WPG	3	kaal	hybrid	HK	879-2-2 x 904-3	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+198	13	15	NA	KK	2017-02-05	8.519	2017-09-29	NA	170	332	3587WP	7	kaal	3587WP	14	kaal	within	KK	3587-7 x 3587-14	kaal.within	kaal.within.3587WP.7	3587WP.7	kaal3587WP
+64	11	11	NA	HH	2017-02-05	11.273	2017-09-29	NA	171	332	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
+11	7	9	A	HK	2017-02-05	15.66	2017-09-29	NA	172	332	879WKG	2-2	hook	904WPG	3	kaal	hybrid	HK	879-2-2 x 904-3	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+198	8	15	NA	KK	2017-02-05	9.05	2017-09-29	NA	173	332	3587WP	7	kaal	3587WP	14	kaal	within	KK	3587-7 x 3587-14	kaal.within	kaal.within.3587WP.7	3587WP.7	kaal3587WP
+68	6	5	A	HK	2017-02-05	8.59	2017-09-29	NA	174	332	WK	2	hook	892WKG	5	kaal	hybrid	HK	794-2 x 892-5	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+62	1	1	A	HH	2017-02-05	13.909	2017-09-29	NA	175	332	WK	2	hook	879WKG	N-5	hook	between	HH	794-2 x 879-N-5	hook.between	hook.between.WK.2	WK.2	hookWK
+117	1	2	A	KK	2017-02-05	3.076	2017-09-29	NA	176	332	892WKG	1	kaal	904WPG	2	kaal	between	KK	892-1 x 904-2	kaal.between	kaal.between.892WKG.1	892WKG.1	kaal892WKG
+89	8	1	A	HH	2017-02-05	10.566	2017-09-29	NA	177	332	WK	2	hook	879WKG	2-2	hook	between	HH	866-2 x 879-2-2	hook.between	hook.between.WK.2	WK.2	hookWK
+65	4	11	NA	HH	2017-02-05	15.162	2017-09-29	NA	178	332	WK	2	hook	WK	2E	hook	between	HH	794-2 x 899-2E	hook.between	hook.between.WK.2	WK.2	hookWK
+22	2	1	B	HH	2017-02-05	16.776	2017-09-29	NA	179	332	879WKG	10-1	hook	WK	2E- 1	hook	between	HH	879-10-1 x 899-2E- 1	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+204	3	10	B	KH	2017-02-05	27.225	2017-09-29	NA	180	332	3587WP	14	kaal	879WKG	2-2	hook	hybrid	KH	3587-14 x 879-2-2	kaal.hybrid	kaal.hybrid.3587WP.14	3587WP.14	kaal3587WP
+11	3	9	A	HK	2017-02-05	32.996	2017-09-29	NA	181	332	879WKG	2-2	hook	904WPG	3	kaal	hybrid	HK	879-2-2 x 904-3	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+67	2	5	A	HK	2017-02-05	11.296	2017-10-24	NA	182	332	WK	2	hook	892WKG	4	kaal	hybrid	HK	794-2 x 892-4	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+20	5	1	B	HH	2017-02-05	27.676	2017-10-24	NA	183	332	879WKG	10-1	hook	WK	4	hook	between	HH	879-10-1 x 794-4	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+198	14	15	NA	KK	2017-02-05	9.132	2017-10-24	NA	184	332	3587WP	7	kaal	3587WP	14	kaal	within	KK	3587-7 x 3587-14	kaal.within	kaal.within.3587WP.7	3587WP.7	kaal3587WP
+41	2	10	A	HK	2017-02-17	15.626	2017-10-24	NA	185	344	879WKG	G-2	hook	3587WP	14	kaal	hybrid	HK	879-G-2 x 3587-14	hook.hybrid	hook.hybrid.879WKG.G-2	879WKG.G-2	hook879WKG
+6	18	8	A	HK	2017-02-17	13.118	2017-10-24	NA	186	344	879WKG	2-2	hook	892WKG	1	kaal	hybrid	HK	879-2-2 x 892-1	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+62	21	1	A	HH	2017-02-17	19.482	2017-10-24	NA	187	344	WK	2	hook	879WKG	N-5	hook	between	HH	794-2 x 879-N-5	hook.between	hook.between.WK.2	WK.2	hookWK
+181	10	2	B	KK	2017-02-17	6.003	2017-10-24	NA	188	344	904WPG	5	kaal	892WKG	4	kaal	between	KK	904-5 x 892-4	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+23	3	8	A	HK	2017-02-17	12.909	2017-10-24	NA	189	344	879WKG	10-1	hook	892WKG	1	kaal	hybrid	HK	879-10-1 x 892-1	hook.hybrid	hook.hybrid.879WKG.10-1	879WKG.10-1	hook879WKG
+89	14	1	A	HH	2017-02-17	10.507	2017-10-24	NA	190	344	WK	2	hook	879WKG	2-2	hook	between	HH	866-2 x 879-2-2	hook.between	hook.between.WK.2	WK.2	hookWK
+99	8	7	A	HK	2017-02-17	17.72	2017-10-24	NA	191	344	WK	2	hook	3587WP	7	kaal	hybrid	HK	866-2 x 3587-7	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+63	13	11	NA	HH	2017-02-17	18.261	2017-10-24	NA	192	344	WK	2	hook	WK	4	hook	within	HH	794-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+105	4	6	A	HK	2017-02-18	8.305	2017-10-24	NA	193	345	WK	2E- 1	hook	904WPG	5	kaal	hybrid	HK	899-2E- 1 x 904-5	hook.hybrid	hook.hybrid.WK.2E- 1	WK.2E- 1	hookWK
+20	1	1	B	HH	2017-02-17	11.712	2017-10-25	NA	194	344	879WKG	10-1	hook	WK	4	hook	between	HH	879-10-1 x 794-4	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+64	2	11	NA	HH	2017-02-18	14.652	2017-10-25	NA	195	345	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
+19	8	1	B	HH	2017-02-17	15.64	2017-10-25	NA	196	344	879WKG	10-1	hook	WK	2	hook	between	HH	879-10-1 x 794-2	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+73	1	7	A	HK	2017-02-17	6.667	2017-10-25	NA	197	344	WK	2	hook	3587WP	C	kaal	hybrid	HK	794-2 x 3587-C	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+9	17	8	A	HK	2017-02-17	8.893	2017-10-25	NA	198	344	879WKG	2-2	hook	892WKG	5	kaal	hybrid	HK	879-2-2 x 892-5	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+95	3	5	A	HK	2017-02-17	2.816	2017-10-25	NA	199	344	WK	2	hook	892WKG	4	kaal	hybrid	HK	866-2 x 892-4	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+79	14	11	NA	HH	2017-02-18	16.104	2017-10-25	NA	200	345	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
+167	7	2	B	KK	2017-02-18	8.618	2017-10-25	NA	201	345	904WPG	3	kaal	892WKG	4	kaal	between	KK	904-3 x 892-4	kaal.between	kaal.between.904WPG.3	904WPG.3	kaal904WPG
+89	16	1	A	HH	2017-02-05	16.825	2017-10-25	NA	202	332	WK	2	hook	879WKG	2-2	hook	between	HH	866-2 x 879-2-2	hook.between	hook.between.WK.2	WK.2	hookWK
+171	4	9	B	KH	2017-02-19	8.772	2017-10-25	NA	203	346	904WPG	5	kaal	879WKG	2-2	hook	hybrid	KH	904-5 x 879-2-2	kaal.hybrid	kaal.hybrid.904WPG.5	904WPG.5	kaal904WPG
+58	2	10	A	HK	2017-02-17	24.425	2017-10-25	NA	204	344	879WKG	N-5	hook	3587WP	C	kaal	hybrid	HK	879-N-5 x 3587-C	hook.hybrid	hook.hybrid.879WKG.N-5	879WKG.N-5	hook879WKG
+4	1	1	B	HH	2017-02-17	19.127	2017-10-25	NA	205	344	879WKG	2-2	hook	WK	2	hook	between	HH	879-2-2 x 794-2	hook.between	hook.between.879WKG.2-2	879WKG.2-2	hook879WKG
+5	5	1	B	HH	2017-02-17	2.465	2017-11-01	NA	206	344	879WKG	2-2	hook	WK	4	hook	between	HH	879-2-2 x 794-4	hook.between	hook.between.879WKG.2-2	879WKG.2-2	hook879WKG
+182	13	2	B	KK	2017-02-17	4.791	2017-11-01	NA	207	344	904WPG	5	kaal	892WKG	5	kaal	between	KK	904-5 x 892-5	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+2	5	12	NA	HH	2017-02-14	13.684	2017-11-01	NA	208	341	879WKG	2-2	hook	879WKG	10-1	hook	within	HH	879-2-2 x 879-10-1	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
+148	3	9	B	KH	2017-02-17	11.784	2017-11-01	NA	209	344	904WPG	2	kaal	879WKG	10-1	hook	hybrid	KH	904-2 x 879-10-1	kaal.hybrid	kaal.hybrid.904WPG.2	904WPG.2	kaal904WPG
+67	15	5	A	HK	2017-02-18	18.174	2017-11-01	NA	210	345	WK	2	hook	892WKG	4	kaal	hybrid	HK	794-2 x 892-4	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+66	16	5	A	HK	2017-02-17	9.605	2017-11-01	NA	211	344	WK	2	hook	892WKG	1	kaal	hybrid	HK	794-2 x 892-1	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+67	18	5	A	HK	2017-02-14	11.074	2017-11-01	NA	212	341	WK	2	hook	892WKG	4	kaal	hybrid	HK	794-2 x 892-4	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+213	13	4	B	KK	2017-02-17	5.705	2017-11-01	NA	213	344	3587WP	14	kaal	904WPG	3	kaal	between	KK	3587-14 x 904-3	kaal.between	kaal.between.3587WP.14	3587WP.14	kaal3587WP
+167	5	2	B	KK	2017-02-17	6.367	2017-11-01	NA	214	344	904WPG	3	kaal	892WKG	4	kaal	between	KK	904-3 x 892-4	kaal.between	kaal.between.904WPG.3	904WPG.3	kaal904WPG
+61	3	1	A	HH	2017-02-18	16.688	2017-11-01	NA	215	345	WK	2	hook	879WKG	G-2	hook	between	HH	794-2 x 879-G-2	hook.between	hook.between.WK.2	WK.2	hookWK
+22	3	1	B	HH	2017-02-17	20.67	2017-11-01	NA	216	344	879WKG	10-1	hook	WK	2E- 1	hook	between	HH	879-10-1 x 899-2E- 1	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+184	11	14	NA	KK	2017-02-17	5.277	2017-11-01	NA	217	344	904WPG	5	kaal	904WPG	3	kaal	within	KK	904-5 x 904-3	kaal.within	kaal.within.904WPG.5	904WPG.5	kaal904WPG
+78	12	11	NA	HH	2017-02-17	22.135	2017-11-03	NA	218	344	WK	4	hook	WK	2	hook	within	HH	794-4 x 794-2	hook.within	hook.within.WK.4	WK.4	hookWK
+179	8	2	B	KK	2017-02-17	13.89	2017-11-03	NA	219	344	904WPG	5	kaal	892WKG	1	kaal	between	KK	904-5 x 892-1	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+12	18	9	A	HK	2017-02-17	27.671	2017-11-03	NA	220	344	879WKG	2-2	hook	904WPG	5	kaal	hybrid	HK	879-2-2 x 904-5	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+44	1	9	A	HK	2017-02-17	29.095	2017-11-03	NA	221	344	879WKG	H-2	hook	904WPG	5	kaal	hybrid	HK	879-H-2 x 904-5	hook.hybrid	hook.hybrid.879WKG.H-2	879WKG.H-2	hook879WKG
+9	18	8	A	HK	2017-02-17	19.3	2017-11-03	NA	222	344	879WKG	2-2	hook	892WKG	5	kaal	hybrid	HK	879-2-2 x 892-5	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+134	3	8	B	KH	2017-02-17	15.527	2017-11-03	NA	223	344	892WKG	5	kaal	879WKG	2-2	hook	hybrid	KH	892-5 x 879-2-2	kaal.hybrid	kaal.hybrid.892WKG.5	892WKG.5	kaal892WKG
+75	18	1	A	HH	2017-02-17	19.767	2017-11-03	NA	224	344	WK	4	hook	879WKG	10-1	hook	between	HH	794-4 x 879-10-1	hook.between	hook.between.WK.4	WK.4	hookWK
+12	4	9	A	HK	2017-02-18	15.679	2017-11-03	NA	225	345	879WKG	2-2	hook	904WPG	5	kaal	hybrid	HK	879-2-2 x 904-5	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+19	2	1	B	HH	2017-02-17	17.107	2017-11-03	NA	226	344	879WKG	10-1	hook	WK	2	hook	between	HH	879-10-1 x 794-2	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+74	13	1	A	HH	2017-02-14	13.811	2017-11-03	NA	227	341	WK	4	hook	879WKG	2-2	hook	between	HH	794-4 x 879-2-2	hook.between	hook.between.WK.4	WK.4	hookWK
+10	11	9	A	HK	2017-02-17	9.072	2017-11-03	NA	228	344	879WKG	2-2	hook	904WPG	2	kaal	hybrid	HK	879-2-2 x 904-2	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+1	2	12	NA	HH	2017-02-17	26.963	2017-11-03	NA	229	344	879WKG	2-2	hook	879WKG	G-2	hook	within	HH	879-2-2 x 879-G-2	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
+196	13	3	B	KK	2017-02-14	10.5	2017-11-08	NA	230	341	3587WP	7	kaal	892WKG	5	kaal	between	KK	3587-7 x 892-5	kaal.between	kaal.between.3587WP.7	3587WP.7	kaal3587WP
+93	10	11	NA	HH	2017-02-17	18.2	2017-11-08	NA	231	344	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
+50	10	1	B	HH	2017-02-14	20.677	2017-11-08	NA	232	341	879WKG	N-5	hook	WK	4	hook	between	HH	879-N-5 x 794-4	hook.between	hook.between.879WKG.N-5	879WKG.N-5	hook879WKG
+39	9	9	A	HK	2017-02-17	19.83	2017-11-08	NA	233	344	879WKG	G-2	hook	904WPG	5	kaal	hybrid	HK	879-G-2 x 904-5	hook.hybrid	hook.hybrid.879WKG.G-2	879WKG.G-2	hook879WKG
+101	10	7	A	HK	2017-02-17	13.794	2017-11-08	NA	234	344	WK	2	hook	3587WP	C	kaal	hybrid	HK	866-2 x 3587-C	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+61	18	1	A	HH	2017-02-14	16.139	2017-11-08	NA	235	341	WK	2	hook	879WKG	G-2	hook	between	HH	794-2 x 879-G-2	hook.between	hook.between.WK.2	WK.2	hookWK
+179	1	2	B	KK	2017-02-17	17.406	2017-11-08	NA	236	344	904WPG	5	kaal	892WKG	1	kaal	between	KK	904-5 x 892-1	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+2	9	12	NA	HH	2017-02-14	16.14	2017-11-08	NA	237	341	879WKG	2-2	hook	879WKG	10-1	hook	within	HH	879-2-2 x 879-10-1	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
+4	5	1	B	HH	2017-02-14	11.207	2017-11-08	NA	238	341	879WKG	2-2	hook	WK	2	hook	between	HH	879-2-2 x 794-2	hook.between	hook.between.879WKG.2-2	879WKG.2-2	hook879WKG
+66	17	5	A	HK	2017-02-17	16.372	2017-11-08	NA	239	344	WK	2	hook	892WKG	1	kaal	hybrid	HK	794-2 x 892-1	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+67	3	5	A	HK	2017-02-17	15.65	2017-11-08	NA	240	344	WK	2	hook	892WKG	4	kaal	hybrid	HK	794-2 x 892-4	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+61	8	1	A	HH	2017-02-14	16.2	2017-11-08	NA	241	341	WK	2	hook	879WKG	G-2	hook	between	HH	794-2 x 879-G-2	hook.between	hook.between.WK.2	WK.2	hookWK
+118	4	2	A	KK	2017-02-19	5.56	2018-01-08	NA	242	346	892WKG	1	kaal	904WPG	3	kaal	between	KK	892-1 x 904-3	kaal.between	kaal.between.892WKG.1	892WKG.1	kaal892WKG
+83	4	5	A	HK	2017-02-17	17.019	2018-01-08	NA	243	344	WK	4	hook	892WKG	5	kaal	hybrid	HK	794-4 x 892-5	hook.hybrid	hook.hybrid.WK.4	WK.4	hookWK
+157	5	14	NA	KK	2017-02-19	9.681	2018-01-08	NA	244	346	904WPG	2	kaal	904WPG	3	kaal	within	KK	904-2 x 904-3	kaal.within	kaal.within.904WPG.2	904WPG.2	kaal904WPG
+4	4	1	B	HH	2017-02-17	16.186	2018-01-08	NA	245	344	879WKG	2-2	hook	WK	2	hook	between	HH	879-2-2 x 794-2	hook.between	hook.between.879WKG.2-2	879WKG.2-2	hook879WKG
+91	2	1	A	HH	2017-02-17	16.111	2018-01-08	NA	246	344	WK	2	hook	879WKG	G-2	hook	between	HH	866-2 x 879-G-2	hook.between	hook.between.WK.2	WK.2	hookWK
+75	15	1	A	HH	2017-02-18	14.62	2017-01-08	NA	247	345	WK	4	hook	879WKG	10-1	hook	between	HH	794-4 x 879-10-1	hook.between	hook.between.WK.4	WK.4	hookWK
+3	6	12	NA	HH	2017-02-11	10.82	2017-01-08	NA	248	338	879WKG	2-2	hook	879WKG	N-5	hook	within	HH	879-2-2 x 879-N-5	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
+133	1	2	A	KK	2017-02-22	11.46	2017-01-08	NA	249	349	892WKG	4	kaal	904WPG	5	kaal	between	KK	892-4 x 904-5	kaal.between	kaal.between.892WKG.4	892WKG.4	kaal892WKG
+70	7	6	A	HK	2017-02-12	12.45	2017-01-08	NA	250	339	WK	2	hook	904WPG	5	kaal	hybrid	HK	794-2 x 904-5	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+66	18	5	A	HK	2017-02-18	14.297	2017-01-08	NA	251	345	WK	2	hook	892WKG	1	kaal	hybrid	HK	794-2 x 892-1	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+8	19	8	A	HK	2017-02-12	22.461	2017-01-08	NA	252	339	879WKG	2-2	hook	892WKG	4	kaal	hybrid	HK	879-2-2 x 892-4	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+78	4	11	NA	HH	2017-02-11	12.49	2017-01-08	NA	253	338	WK	4	hook	WK	2	hook	within	HH	794-4 x 794-2	hook.within	hook.within.WK.4	WK.4	hookWK
+5	14	1	B	HH	2017-02-11	11.203	2017-01-08	NA	254	338	879WKG	2-2	hook	WK	4	hook	between	HH	879-2-2 x 794-4	hook.between	hook.between.879WKG.2-2	879WKG.2-2	hook879WKG
+5	10	1	B	HH	2017-02-11	13.53	2017-01-08	NA	255	338	879WKG	2-2	hook	WK	4	hook	between	HH	879-2-2 x 794-4	hook.between	hook.between.879WKG.2-2	879WKG.2-2	hook879WKG
+89	4	1	A	HH	2017-02-11	9.297	2017-01-08	NA	256	338	WK	2	hook	879WKG	2-2	hook	between	HH	866-2 x 879-2-2	hook.between	hook.between.WK.2	WK.2	hookWK
+181	3	2	B	KK	2017-02-12	7.312	2017-01-08	NA	257	339	904WPG	5	kaal	892WKG	4	kaal	between	KK	904-5 x 892-4	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+106	3	7	A	HK	2017-02-12	12.755	2017-01-08	NA	258	339	WK	2E- 1	hook	3587WP	14	kaal	hybrid	HK	899-2E- 1 x 3587-14	hook.hybrid	hook.hybrid.WK.2E- 1	WK.2E- 1	hookWK
+181	12	2	B	KK	2017-02-12	6.925	2017-01-08	NA	259	339	904WPG	5	kaal	892WKG	4	kaal	between	KK	904-5 x 892-4	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+93	18	11	NA	HH	2017-02-11	20.697	2017-01-08	NA	260	338	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
+105	18	6	A	HK	2017-02-12	16.46	2017-01-08	NA	261	339	WK	2E- 1	hook	904WPG	5	kaal	hybrid	HK	899-2E- 1 x 904-5	hook.hybrid	hook.hybrid.WK.2E- 1	WK.2E- 1	hookWK
+213	6	4	B	KK	2017-02-12	6.451	2017-01-08	NA	262	339	3587WP	14	kaal	904WPG	3	kaal	between	KK	3587-14 x 904-3	kaal.between	kaal.between.3587WP.14	3587WP.14	kaal3587WP
+118	6	2	A	KK	2017-02-12	6.516	2017-01-08	NA	263	339	892WKG	1	kaal	904WPG	3	kaal	between	KK	892-1 x 904-3	kaal.between	kaal.between.892WKG.1	892WKG.1	kaal892WKG
+101	8	7	A	HK	2017-02-12	4.144	2017-01-08	NA	264	339	WK	2	hook	3587WP	C	kaal	hybrid	HK	866-2 x 3587-C	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+182	12	2	B	KK	2017-02-12	4.375	2017-01-08	NA	265	339	904WPG	5	kaal	892WKG	5	kaal	between	KK	904-5 x 892-5	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+191	2	10	B	KH	2017-02-12	19.518	2017-01-08	NA	266	339	3587WP	7	kaal	879WKG	N-5	hook	hybrid	KH	3587-7 x 879-N-5	kaal.hybrid	kaal.hybrid.3587WP.7	3587WP.7	kaal3587WP
+99	3	7	A	HK	2017-02-11	15.121	2017-01-08	NA	267	338	WK	2	hook	3587WP	7	kaal	hybrid	HK	866-2 x 3587-7	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+109	2	8	B	KH	2017-02-17	6.299	2017-01-08	NA	268	344	892WKG	1	kaal	879WKG	G-2	hook	hybrid	KH	892-1 x 879-G-2	kaal.hybrid	kaal.hybrid.892WKG.1	892WKG.1	kaal892WKG
+5	15	1	B	HH	2017-02-12	23.058	2017-01-08	NA	269	339	879WKG	2-2	hook	WK	4	hook	between	HH	879-2-2 x 794-4	hook.between	hook.between.879WKG.2-2	879WKG.2-2	hook879WKG
+134	6	8	B	KH	2017-02-12	9.391	2017-01-08	NA	270	339	892WKG	5	kaal	879WKG	2-2	hook	hybrid	KH	892-5 x 879-2-2	kaal.hybrid	kaal.hybrid.892WKG.5	892WKG.5	kaal892WKG
+60	9	1	A	HH	2017-02-11	11.583	2017-01-08	NA	271	338	WK	2	hook	879WKG	10-1	hook	between	HH	794-2 x 879-10-1	hook.between	hook.between.WK.2	WK.2	hookWK
+12	14	9	A	HYBRID	2017-01-11	19.904	2018-05-29	NA	272	307	879WKG	2-2	hook	904WPG	5	kaal	hybrid	HK	879-2-2 x 904-5	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+187	5	4	A	KK	2016-12-21	7.481	2018-05-29	JP: changed year from 2017	273	286	904WPG	5	kaal	3587WP	14	kaal	between	KK	904-5 x 3587-14	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+213	1	4	B	KK	2017-01-11	7.167	2018-05-29	NA	274	307	3587WP	14	kaal	904WPG	3	kaal	between	KK	3587-14 x 904-3	kaal.between	kaal.between.3587WP.14	3587WP.14	kaal3587WP
+23	2	8	A	HYBRID	2016-12-12	14.569	2018-05-29	NA	275	277	879WKG	10-1	hook	892WKG	1	kaal	hybrid	HK	879-10-1 x 892-1	hook.hybrid	hook.hybrid.879WKG.10-1	879WKG.10-1	hook879WKG
+157	2	14	NA	KK	2016-12-21	8.69	2018-05-29	NA	276	286	904WPG	2	kaal	904WPG	3	kaal	within	KK	904-2 x 904-3	kaal.within	kaal.within.904WPG.2	904WPG.2	kaal904WPG
+198	2	15	NA	KK	2017-01-11	3.942	2018-05-29	NA	277	307	3587WP	7	kaal	3587WP	14	kaal	within	KK	3587-7 x 3587-14	kaal.within	kaal.within.3587WP.7	3587WP.7	kaal3587WP
+142	4	2	A	KK	2016-12-21	5.14	2018-05-29	NA	278	286	892WKG	5	kaal	904WPG	5	kaal	between	KK	892-5 x 904-5	kaal.between	kaal.between.892WKG.5	892WKG.5	kaal892WKG
+39	8	9	A	HYBRID	2017-01-11	9.663	2018-05-29	NA	279	307	879WKG	G-2	hook	904WPG	5	kaal	hybrid	HK	879-G-2 x 904-5	hook.hybrid	hook.hybrid.879WKG.G-2	879WKG.G-2	hook879WKG
+82	6	5	A	HYBRID	2016-12-21	9.329	2018-05-29	NA	280	286	WK	4	hook	892WKG	4	kaal	hybrid	HK	794-4 x 892-4	hook.hybrid	hook.hybrid.WK.4	WK.4	hookWK
+6	14	8	A	HYBRID	2016-12-21	2.508	2018-05-29	NA	281	286	879WKG	2-2	hook	892WKG	1	kaal	hybrid	HK	879-2-2 x 892-1	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+181	4	2	B	KK	2016-12-21	5.265	2018-05-29	NA	282	286	904WPG	5	kaal	892WKG	4	kaal	between	KK	904-5 x 892-4	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+109	3	8	B	HYBRID	2016-12-21	20.987	2018-05-29	NA	283	286	892WKG	1	kaal	879WKG	G-2	hook	hybrid	KH	892-1 x 879-G-2	kaal.hybrid	kaal.hybrid.892WKG.1	892WKG.1	kaal892WKG
+173	6	9	B	KH	2016-12-21	20.472	2018-05-29	NA	284	286	904WPG	5	kaal	879WKG	G-2	hook	hybrid	KH	904-5 x 879-G-2	kaal.hybrid	kaal.hybrid.904WPG.5	904WPG.5	kaal904WPG
+185	12	4	A	KK	2016-12-21	5.423	2018-05-29	NA	285	286	904WPG	5	kaal	3587WP	7	kaal	between	KK	904-5 x 3587-7	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+227	5	4	B	KK	2016-12-22	4.438	2018-05-29	NA	286	287	3587WP	A	kaal	904WPG	5	kaal	between	KK	3587-A x 904-5	kaal.between	kaal.between.3587WP.A	3587WP.A	kaal3587WP
+8	7	8	A	HYBRID	2016-12-21	9.843	2018-05-29	NA	287	286	879WKG	2-2	hook	892WKG	4	kaal	hybrid	HK	879-2-2 x 892-4	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+234	5	3	B	KK	2016-12-21	7.134	2018-05-29	NA	288	286	3587WP	C	kaal	892WKG	4	kaal	between	KK	3587-C x 892-4	kaal.between	kaal.between.3587WP.C	3587WP.C	kaal3587WP
+214	3	4	B	KK	2017-01-11	3.518	2018-05-29	NA	289	307	3587WP	14	kaal	904WPG	5	kaal	between	KK	3587-14 x 904-5	kaal.between	kaal.between.3587WP.14	3587WP.14	kaal3587WP
+180	4	4	B	KK	2017-01-11	9.756	2018-05-29	2B?	290	307	904WPG	5	kaal	892WKG	3	kaal	between	KK	904-5 x 892-3	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+119	2	2	A	KK	2017-01-11	13.951	2018-05-29	NA	291	307	892WKG	1	kaal	904WPG	5	kaal	between	KK	892-1 x 904-5	kaal.between	kaal.between.892WKG.1	892WKG.1	kaal892WKG
+37	1	8	A	HYBRID	2016-12-22	18.022	2018-05-29	JP: changed year from 2017	292	287	879WKG	G-2	hook	892WKG	5	kaal	hybrid	HK	879-G-2 x 892-5	hook.hybrid	hook.hybrid.879WKG.G-2	879WKG.G-2	hook879WKG
+55	3	9	A	HYBRID	2016-12-21	12.762	2018-05-29	NA	293	286	879WKG	N-5	hook	904WPG	5	kaal	hybrid	HK	879-N-5 x 904-5	hook.hybrid	hook.hybrid.879WKG.N-5	879WKG.N-5	hook879WKG
+83	8	5	A	HYBRID	2017-01-11	9.326	2018-05-29	NA	294	307	WK	4	hook	892WKG	5	kaal	hybrid	HK	794-4 x 892-5	hook.hybrid	hook.hybrid.WK.4	WK.4	hookWK
+41	5	10	A	HYBRID	2017-01-11	16.288	2018-05-29	NA	295	307	879WKG	G-2	hook	3587WP	14	kaal	hybrid	HK	879-G-2 x 3587-14	hook.hybrid	hook.hybrid.879WKG.G-2	879WKG.G-2	hook879WKG
+180	3	2	B	KK	2016-12-21	4.332	2018-05-29	NA	296	286	904WPG	5	kaal	892WKG	3	kaal	between	KK	904-5 x 892-3	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+8	3	8	A	HYBRID	2016-12-15	10.036	2018-05-29	NA	297	280	879WKG	2-2	hook	892WKG	4	kaal	hybrid	HK	879-2-2 x 892-4	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+64	1	11	NA	HH	2016-12-15	12.819	2018-06-05	NA	298	280	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
+3	3	12	NA	HH	2016-12-21	17.889	2018-06-05	NA	299	286	879WKG	2-2	hook	879WKG	N-5	hook	within	HH	879-2-2 x 879-N-5	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
+35	5	1	B	HH	2016-12-21	13.527	2018-06-05	NA	300	286	879WKG	G-2	hook	WK	2	hook	between	HH	879-G-2 x 866-2	hook.between	hook.between.879WKG.G-2	879WKG.G-2	hook879WKG
+63	7	11	NA	HH	2016-12-21	9.624	2018-06-05	NA	301	286	WK	2	hook	WK	4	hook	within	HH	794-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+60	7	1	A	HH	2016-12-15	8.575	2018-06-05	NA	302	280	WK	2	hook	879WKG	10-1	hook	between	HH	794-2 x 879-10-1	hook.between	hook.between.WK.2	WK.2	hookWK
+185	13	4	A	KK	NA	3.424	2018-06-05	No collected date	303	NA	904WPG	5	kaal	3587WP	7	kaal	between	KK	904-5 x 3587-7	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+85	3	6	A	HYBRID	2017-01-11	18.57	2018-06-05	JP: changed year from 2016	304	307	WK	4	hook	904WPG	5	kaal	hybrid	HK	794-4 x 904-5	hook.hybrid	hook.hybrid.WK.4	WK.4	hookWK
+35	3	1	B	HH	2016-12-21	10.13	2018-06-05	NA	305	286	879WKG	G-2	hook	WK	2	hook	between	HH	879-G-2 x 866-2	hook.between	hook.between.879WKG.G-2	879WKG.G-2	hook879WKG
+63	16	11	NA	HH	2016-12-15	10.553	2018-06-05	NA	306	280	WK	2	hook	WK	4	hook	within	HH	794-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+2	10	12	NA	HH	2016-12-15	13.535	2018-06-05	2-16?	307	280	879WKG	2-2	hook	879WKG	10-1	hook	within	HH	879-2-2 x 879-10-1	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
+182	3	2	B	KK	2016-12-22	8.826	2018-06-05	NA	308	287	904WPG	5	kaal	892WKG	5	kaal	between	KK	904-5 x 892-5	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+98	10	6	A	HK	2017-01-30	6.686	2018-06-05	NA	309	326	WK	2	hook	904WPG	5	kaal	hybrid	HK	866-2 x 904-5	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+76	12	1	A	HH	2016-12-21	12.696	2018-06-05	NA	310	286	WK	4	hook	879WKG	G-2	hook	between	HH	794-4 x 879-G-2	hook.between	hook.between.WK.4	WK.4	hookWK
+64	19	11	NA	HH	2016-12-21	10.752	2018-06-05	JP: changed year from 2017	311	286	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
+21	19	1	B	HH	2017-01-30	7.152	2018-06-05	NA	312	326	879WKG	10-1	hook	WK	2	hook	between	HH	879-10-1 x 866-2	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+12	12	9	A	HYBRID	2016-11-11	6.811	2018-06-05	JP: changed year from 2017	313	246	879WKG	2-2	hook	904WPG	5	kaal	hybrid	HK	879-2-2 x 904-5	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+95	12	5	A	HYBRID	2016-12-21	12.93	2018-06-05	NA	314	286	WK	2	hook	892WKG	4	kaal	hybrid	HK	866-2 x 892-4	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+156	8	2	B	KK	2017-02-02	4.198	2018-06-05	NA	315	329	904WPG	2	kaal	892WKG	10	kaal	between	KK	904-2 x 892-10	kaal.between	kaal.between.904WPG.2	904WPG.2	kaal904WPG
+66	17	1	A	HH	2017-01-30	19.226	2018-06-05	NA	316	326	WK	2	hook	892WKG	1	kaal	hybrid	HK	794-2 x 892-1	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+63	6	11	NA	HH	2017-01-30	30.04	2018-06-05	NA	317	326	WK	2	hook	WK	4	hook	within	HH	794-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+166	2	2	B	KK	2017-01-11	9.855	2018-06-05	NA	318	307	904WPG	3	kaal	892WKG	1	kaal	between	KK	904-3 x 892-1	kaal.between	kaal.between.904WPG.3	904WPG.3	kaal904WPG
+103	7	5	A	HYBRID	2017-01-11	12.437	2018-06-05	NA	319	307	WK	2E- 1	hook	892WKG	1	kaal	hybrid	HK	899-2E- 1 x 892-1	hook.hybrid	hook.hybrid.WK.2E- 1	WK.2E- 1	hookWK
+91	19	1	A	HH	2017-01-30	13.877	2018-06-05	NA	320	326	WK	2	hook	879WKG	G-2	hook	between	HH	866-2 x 879-G-2	hook.between	hook.between.WK.2	WK.2	hookWK
+19	9	1	B	HH	2016-12-15	7.616	2018-06-05	NA	321	280	879WKG	10-1	hook	WK	2	hook	between	HH	879-10-1 x 794-2	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+5	2	1	B	HH	2016-12-15	9.827	2018-06-05	NA	322	280	879WKG	2-2	hook	WK	4	hook	between	HH	879-2-2 x 794-4	hook.between	hook.between.879WKG.2-2	879WKG.2-2	hook879WKG
+74	12	1	A	HH	NA	9.382	2018-06-05	No collected date	323	NA	WK	4	hook	879WKG	2-2	hook	between	HH	794-4 x 879-2-2	hook.between	hook.between.WK.4	WK.4	hookWK
+53	3	8	A	HK	2017-02-02	10.425	2018-06-27	NA	324	329	879WKG	N-5	hook	892WKG	5	kaal	hybrid	HK	879-N-5 x 892-5	hook.hybrid	hook.hybrid.879WKG.N-5	879WKG.N-5	hook879WKG
+24	1	8	A	HK	2017-02-02	16.213	2018-06-27	NA	325	329	879WKG	10-1	hook	892WKG	4	kaal	hybrid	HK	879-10-1 x 892-4	hook.hybrid	hook.hybrid.879WKG.10-1	879WKG.10-1	hook879WKG
+148	1	9	B	KH	2017-02-02	15.576	2018-06-27	NA	326	329	904WPG	2	kaal	879WKG	10-1	hook	hybrid	KH	904-2 x 879-10-1	kaal.hybrid	kaal.hybrid.904WPG.2	904WPG.2	kaal904WPG
+118	1	2	A	KK	2017-02-02	2.836	2018-06-27	NA	327	329	892WKG	1	kaal	904WPG	3	kaal	between	KK	892-1 x 904-3	kaal.between	kaal.between.892WKG.1	892WKG.1	kaal892WKG
+67	1	5	A	HK	2017-02-02	6.782	2018-06-27	Never flowered	328	329	WK	2	hook	892WKG	4	kaal	hybrid	HK	794-2 x 892-4	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+61	14	1	A	HH	2017-02-02	11.8	2018-06-27	NA	329	329	WK	2	hook	879WKG	G-2	hook	between	HH	794-2 x 879-G-2	hook.between	hook.between.WK.2	WK.2	hookWK
+5	12	1	B	HH	2017-02-02	7.519	2018-06-27	NA	330	329	879WKG	2-2	hook	WK	4	hook	between	HH	879-2-2 x 794-4	hook.between	hook.between.879WKG.2-2	879WKG.2-2	hook879WKG
+99	7	9	A	HK	2017-02-02	8.992	2018-06-27	NA	331	329	WK	2	hook	3587WP	7	kaal	hybrid	HK	866-2 x 3587-7	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+181	6	2	B	KK	2017-01-30	8.212	2018-06-27	NA	332	326	904WPG	5	kaal	892WKG	4	kaal	between	KK	904-5 x 892-4	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+8	5	8	A	HK	2017-02-02	12.68	2018-06-27	NA	333	329	879WKG	2-2	hook	892WKG	4	kaal	hybrid	HK	879-2-2 x 892-4	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+36	7	8	A	HK	2017-02-02	8.688	2018-06-27	NA	334	329	879WKG	G-2	hook	892WKG	3	kaal	hybrid	HK	879-G-2 x 892-3	hook.hybrid	hook.hybrid.879WKG.G-2	879WKG.G-2	hook879WKG
+4	10	1	B	HH	2017-02-02	14.735	2018-06-27	NA	335	329	879WKG	2-2	hook	WK	2	hook	between	HH	879-2-2 x 794-2	hook.between	hook.between.879WKG.2-2	879WKG.2-2	hook879WKG
+6	3	8	A	HK	2017-02-22	7.375	2018-06-27	No R	336	349	879WKG	2-2	hook	892WKG	1	kaal	hybrid	HK	879-2-2 x 892-1	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+95	14	5	A	HK	2017-02-22	11.487	2018-06-27	No R	337	349	WK	2	hook	892WKG	4	kaal	hybrid	HK	866-2 x 892-4	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+74	16	1	A	HH	2017-01-30	13.755	2018-06-27	NA	338	326	WK	4	hook	879WKG	2-2	hook	between	HH	794-4 x 879-2-2	hook.between	hook.between.WK.4	WK.4	hookWK
+11	5	9	A	HK	2017-02-02	20.951	2018-06-27	NA	339	329	879WKG	2-2	hook	904WPG	3	kaal	hybrid	HK	879-2-2 x 904-3	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+99	5	5	A	HK	2017-02-02	17.595	2018-06-27	NA	340	329	WK	2	hook	3587WP	7	kaal	hybrid	HK	866-2 x 3587-7	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+94	8	5	A	HK	2017-02-02	14.416	2018-06-27	NA	341	329	WK	2	hook	892WKG	1	kaal	hybrid	HK	866-2 x 892-1	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+182	8	2	B	KK	2017-02-02	4.549	2018-06-27	NA	342	329	904WPG	5	kaal	892WKG	5	kaal	between	KK	904-5 x 892-5	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+181	8	2	B	KK	2017-02-02	4.686	2018-06-27	NA	343	329	904WPG	5	kaal	892WKG	4	kaal	between	KK	904-5 x 892-4	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+181	2	2	B	KK	2017-01-30	5.59	2018-06-27	NA	344	326	904WPG	5	kaal	892WKG	4	kaal	between	KK	904-5 x 892-4	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+54	1	9	A	HK	2017-02-02	6.345	2018-06-27	NA	345	329	879WKG	N-5	hook	904WPG	2	kaal	hybrid	HK	879-N-5 x 904-2	hook.hybrid	hook.hybrid.879WKG.N-5	879WKG.N-5	hook879WKG
+12	13	9	A	HK	2017-01-30	8.254	2018-06-27	NA	346	326	879WKG	2-2	hook	904WPG	5	kaal	hybrid	HK	879-2-2 x 904-5	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+14	1	10	A	HK	2017-01-30	14.79	2018-06-27	NA	347	326	879WKG	2-2	hook	3587WP	C	kaal	hybrid	HK	879-2-2 x 3587-C	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+174	7	9	B	KH	2017-02-02	8.463	2018-06-27	NA	348	329	904WPG	5	kaal	879WKG	N-5	hook	hybrid	KH	904-5 x 879-N-5	kaal.hybrid	kaal.hybrid.904WPG.5	904WPG.5	kaal904WPG
+20	2	1	B	HH	2016-12-09	13.537	2018-07-11	NA	349	274	879WKG	10-1	hook	WK	4	hook	between	HH	879-10-1 x 794-4	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+50	1	1	B	HH	2016-12-09	12.292	2018-07-11	NA	350	274	879WKG	N-5	hook	WK	4	hook	between	HH	879-N-5 x 794-4	hook.between	hook.between.879WKG.N-5	879WKG.N-5	hook879WKG
+21	21	1	B	HH	2016-12-12	10.16	2018-07-11	NA	351	277	879WKG	10-1	hook	WK	2	hook	between	HH	879-10-1 x 866-2	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+79	28	11	NA	HH? - Sarah	2016-12-09	8.72	2018-07-11	NA	352	274	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
+105	13	6	A	HK	2017-02-22	10.574	2018-07-11	NA	353	349	WK	2E- 1	hook	904WPG	5	kaal	hybrid	HK	899-2E- 1 x 904-5	hook.hybrid	hook.hybrid.WK.2E- 1	WK.2E- 1	hookWK
+183	4	14	NA	KK	2017-02-22	9.821	2018-07-11	NA	354	349	904WPG	5	kaal	904WPG	2	kaal	within	KK	904-5 x 904-2	kaal.within	kaal.within.904WPG.5	904WPG.5	kaal904WPG
+89	10	1	A	HH	2017-02-18	19.563	2018-07-11	NA	355	345	WK	2	hook	879WKG	2-2	hook	between	HH	866-2 x 879-2-2	hook.between	hook.between.WK.2	WK.2	hookWK
+4	12	1	B	HH	2017-02-18	17.399	2018-07-11	NA	356	345	879WKG	2-2	hook	WK	2	hook	between	HH	879-2-2 x 794-2	hook.between	hook.between.879WKG.2-2	879WKG.2-2	hook879WKG
+88	1	7	A	HK	2017-02-18	16.222	2018-07-11	NA	357	345	WK	4	hook	3587WP	C	kaal	hybrid	HK	794-4 x 3587-C	hook.hybrid	hook.hybrid.WK.4	WK.4	hookWK
+182	11	2	B	KK	2017-02-21	4.243	2018-07-11	NA	358	348	904WPG	5	kaal	892WKG	5	kaal	between	KK	904-5 x 892-5	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+166	7	2	B	KK	2017-02-21	3.775	2018-07-11	NA	359	348	904WPG	3	kaal	892WKG	1	kaal	between	KK	904-3 x 892-1	kaal.between	kaal.between.904WPG.3	904WPG.3	kaal904WPG
+183	14	14	NA	KK	2017-02-19	7.047	2018-07-11	NA	360	346	904WPG	5	kaal	904WPG	2	kaal	within	KK	904-5 x 904-2	kaal.within	kaal.within.904WPG.5	904WPG.5	kaal904WPG
+101	2	7	A	HK	2017-02-22	6.574	2018-07-11	NA	361	349	WK	2	hook	3587WP	C	kaal	hybrid	HK	866-2 x 3587-C	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+55	1	9	A	HK	2017-02-19	22.59	2018-07-11	NA	362	346	879WKG	N-5	hook	904WPG	5	kaal	hybrid	HK	879-N-5 x 904-5	hook.hybrid	hook.hybrid.879WKG.N-5	879WKG.N-5	hook879WKG
+29	1	10	A	HK	2017-02-22	13.135	2018-07-11	NA	363	349	879WKG	10-1	hook	3587WP	15	kaal	hybrid	HK	879-10-1 x 3587-15	hook.hybrid	hook.hybrid.879WKG.10-1	879WKG.10-1	hook879WKG
+196	7	3	B	KK	2017-02-22	8.493	2018-07-11	NA	364	349	3587WP	7	kaal	892WKG	5	kaal	between	KK	3587-7 x 892-5	kaal.between	kaal.between.3587WP.7	3587WP.7	kaal3587WP
+78	3	11	NA	HH	2017-02-18	19.364	2018-07-11	NA	365	345	WK	4	hook	WK	2	hook	within	HH	794-4 x 794-2	hook.within	hook.within.WK.4	WK.4	hookWK
+66	2	5	A	HK	2017-02-19	17.76	2018-07-11	NA	366	346	WK	2	hook	892WKG	1	kaal	hybrid	HK	794-2 x 892-1	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+14	5	10	A	HK	2017-02-21	13.096	2018-07-11	NA	367	348	879WKG	2-2	hook	3587WP	C	kaal	hybrid	HK	879-2-2 x 3587-C	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+26	1	9	A	HK	2017-02-22	17.31	2018-07-11	NA	368	349	879WKG	10-1	hook	904WPG	3	kaal	hybrid	HK	879-10-1 x 904-3	hook.hybrid	hook.hybrid.879WKG.10-1	879WKG.10-1	hook879WKG
+156	7	2	B	KK	2017-02-22	4.19	2018-07-11	NA	369	349	904WPG	2	kaal	892WKG	10	kaal	between	KK	904-2 x 892-10	kaal.between	kaal.between.904WPG.2	904WPG.2	kaal904WPG
+75	7	1	A	HH	2017-02-22	14.11	2018-07-11	NA	370	349	WK	4	hook	879WKG	10-1	hook	between	HH	794-4 x 879-10-1	hook.between	hook.between.WK.4	WK.4	hookWK
+180	11	2	B	KK	2017-02-22	8.067	2018-07-11	NA	371	349	904WPG	5	kaal	892WKG	3	kaal	between	KK	904-5 x 892-3	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+62	5	1	A	HH	2017-02-18	15.62	2018-07-11	NA	372	345	WK	2	hook	879WKG	N-5	hook	between	HH	794-2 x 879-N-5	hook.between	hook.between.WK.2	WK.2	hookWK
+162	2	9	B	KH	2017-02-21	7.509	2018-07-11	NA	373	348	904WPG	3	kaal	879WKG	N-5	hook	hybrid	KH	904-3 x 879-N-5	kaal.hybrid	kaal.hybrid.904WPG.3	904WPG.3	kaal904WPG
+58	6	10	A	HK	2017-02-22	23.21	2018-07-11	NA	374	349	879WKG	N-5	hook	3587WP	C	kaal	hybrid	HK	879-N-5 x 3587-C	hook.hybrid	hook.hybrid.879WKG.N-5	879WKG.N-5	hook879WKG
+122	1	8	B	HH	2017-02-22	11.252	2018-07-11	NA	375	349	892WKG	3	kaal	879WKG	10-1	hook	hybrid	KH	892-3 x 879-10-1	kaal.hybrid	kaal.hybrid.892WKG.3	892WKG.3	kaal892WKG
+50	7	1	B	HH	2016-12-11	14.858	2018-07-11	NA	376	276	879WKG	N-5	hook	WK	4	hook	between	HH	879-N-5 x 794-4	hook.between	hook.between.879WKG.N-5	879WKG.N-5	hook879WKG
+171	8	9	B	KH	2016-12-13	12.613	2018-07-11	NA	377	278	904WPG	5	kaal	879WKG	2-2	hook	hybrid	KH	904-5 x 879-2-2	kaal.hybrid	kaal.hybrid.904WPG.5	904WPG.5	kaal904WPG
+8	6	8	A	HK	2016-12-12	8.277	2018-07-11	NA	378	277	879WKG	2-2	hook	892WKG	4	kaal	hybrid	HK	879-2-2 x 892-4	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+60	16	1	A	HH	2016-12-12	13.399	2018-07-11	NA	379	277	WK	2	hook	879WKG	10-1	hook	between	HH	794-2 x 879-10-1	hook.between	hook.between.WK.2	WK.2	hookWK
+92	1	1	A	HH	2016-12-12	16.082	2018-07-11	NA	380	277	WK	2	hook	879WKG	N-5	hook	between	HH	866-2 x 879-N-5	hook.between	hook.between.WK.2	WK.2	hookWK
+74	4	1	A	HH	2016-12-12	14.04	2018-07-11	NA	381	277	WK	4	hook	879WKG	2-2	hook	between	HH	794-4 x 879-2-2	hook.between	hook.between.WK.4	WK.4	hookWK
+76	4	1	A	HH	2016-12-12	13.774	2018-07-11	NA	382	277	WK	4	hook	879WKG	G-2	hook	between	HH	794-4 x 879-G-2	hook.between	hook.between.WK.4	WK.4	hookWK
+35	1	1	B	HH	2016-12-12	6.331	2018-07-11	NA	383	277	879WKG	G-2	hook	WK	2	hook	between	HH	879-G-2 x 866-2	hook.between	hook.between.879WKG.G-2	879WKG.G-2	hook879WKG
+21	16	1	B	HH	2016-12-12	9.643	2018-07-11	NA	384	277	879WKG	10-1	hook	WK	2	hook	between	HH	879-10-1 x 866-2	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+5	13	1	B	HH	2016-12-12	9.629	2018-07-11	NA	385	277	879WKG	2-2	hook	WK	4	hook	between	HH	879-2-2 x 794-4	hook.between	hook.between.879WKG.2-2	879WKG.2-2	hook879WKG
+12	17	9	A	HK	2016-12-11	12.642	2018-07-11	NA	386	276	879WKG	2-2	hook	904WPG	5	kaal	hybrid	HK	879-2-2 x 904-5	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+90	11	1	A	HH	2016-12-12	12.991	2018-07-11	NA	387	277	WK	2	hook	879WKG	10-1	hook	between	HH	866-2 x 879-10-1	hook.between	hook.between.WK.2	WK.2	hookWK
+35	10	1	B	HH	2016-12-12	19.454	2018-07-11	NA	388	277	879WKG	G-2	hook	WK	2	hook	between	HH	879-G-2 x 866-2	hook.between	hook.between.879WKG.G-2	879WKG.G-2	hook879WKG
+70	6	6	A	HK	2016-12-12	8.902	2018-07-11	NA	389	277	WK	2	hook	904WPG	5	kaal	hybrid	HK	794-2 x 904-5	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+63	19	11	NA	HH	2016-12-12	12.422	2018-07-11	NA	390	277	WK	2	hook	WK	4	hook	within	HH	794-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+74	5	1	A	HH	2016-12-12	7.365	2018-07-11	NA	391	277	WK	4	hook	879WKG	2-2	hook	between	HH	794-4 x 879-2-2	hook.between	hook.between.WK.4	WK.4	hookWK
+74	3	1	A	HH	2016-12-12	10.885	2018-07-11	NA	392	277	WK	4	hook	879WKG	2-2	hook	between	HH	794-4 x 879-2-2	hook.between	hook.between.WK.4	WK.4	hookWK
+158	2	14	NA	KK	2016-12-09	8.932	2018-07-11	NA	393	274	904WPG	2	kaal	904WPG	5	kaal	within	KK	904-2 x 904-5	kaal.within	kaal.within.904WPG.2	904WPG.2	kaal904WPG
+123	1	8	B	KH	2016-12-19	12.716	2018-07-11	NA	394	284	892WKG	3	kaal	879WKG	G-2	hook	hybrid	KH	892-3 x 879-G-2	kaal.hybrid	kaal.hybrid.892WKG.3	892WKG.3	kaal892WKG
+5	18	1	B	HH	2016-12-12	12.391	2018-07-11	NA	395	277	879WKG	2-2	hook	WK	4	hook	between	HH	879-2-2 x 794-4	hook.between	hook.between.879WKG.2-2	879WKG.2-2	hook879WKG
+90	12	1	A	HH	2016-12-13	12.548	2018-07-11	NA	396	278	WK	2	hook	879WKG	10-1	hook	between	HH	866-2 x 879-10-1	hook.between	hook.between.WK.2	WK.2	hookWK
+66	8	5	A	HK	2016-12-12	7.444	2018-07-11	NA	397	277	WK	2	hook	892WKG	1	kaal	hybrid	HK	794-2 x 892-1	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+19	18	1	B	HH	2016-12-09	9.688	2018-07-11	NA	398	274	879WKG	10-1	hook	WK	2	hook	between	HH	879-10-1 x 794-2	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+19	11	1	B	HH	2016-12-12	8.998	2018-07-11	NA	399	277	879WKG	10-1	hook	WK	2	hook	between	HH	879-10-1 x 794-2	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+71	4	7	A	HK	2016-12-12	12.69	2018-07-11	NA	400	277	WK	2	hook	3587WP	7	kaal	hybrid	HK	794-2 x 3587-7	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+62	7	1	A	HH	2016-12-09	6.245	2018-07-18	NA	401	274	WK	2	hook	879WKG	N-5	hook	between	HH	794-2 x 879-N-5	hook.between	hook.between.WK.2	WK.2	hookWK
+46	5	12	NA	hh	2016-12-09	12.778	2018-07-18	NA	402	274	879WKG	N-5	hook	879WKG	2-2	hook	within	HH	879-N-5 x 879-2-2	hook.within	hook.within.879WKG.N-5	879WKG.N-5	hook879WKG
+73	4	7	B	KH	2016-12-13	9.252	2018-07-18	NA	403	278	WK	2	hook	3587WP	C	kaal	hybrid	HK	794-2 x 3587-C	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+10	6	9	A	HYBRID	2017-01-13	12.285	2018-07-18	NA	404	309	879WKG	2-2	hook	904WPG	2	kaal	hybrid	HK	879-2-2 x 904-2	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+2	16	12	NA	HH	2016-12-12	10.5	2018-07-18	NA	405	277	879WKG	2-2	hook	879WKG	10-1	hook	within	HH	879-2-2 x 879-10-1	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
+21	2	1	B	HH	2016-12-12	15.05	2018-07-18	NA	406	277	879WKG	10-1	hook	WK	2	hook	between	HH	879-10-1 x 866-2	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+60	10	1	A	HH	2016-12-12	8.095	2018-07-18	NA	407	277	WK	2	hook	879WKG	10-1	hook	between	HH	794-2 x 879-10-1	hook.between	hook.between.WK.2	WK.2	hookWK
+19	17	1	B	HH	2016-12-12	10.753	2018-07-18	NA	408	277	879WKG	10-1	hook	WK	2	hook	between	HH	879-10-1 x 794-2	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+92	10	1	A	HH	2016-12-12	11.319	2018-07-18	NA	409	277	WK	2	hook	879WKG	N-5	hook	between	HH	866-2 x 879-N-5	hook.between	hook.between.WK.2	WK.2	hookWK
+64	17	11	NA	HH	2016-12-11	8.022	2018-07-18	NA	410	276	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
+44	3	9	A	HK	2016-12-13	12.465	2018-07-18	NA	411	278	879WKG	H-2	hook	904WPG	5	kaal	hybrid	HK	879-H-2 x 904-5	hook.hybrid	hook.hybrid.879WKG.H-2	879WKG.H-2	hook879WKG
+3	16	12	NA	HH	2016-12-12	6.036	2018-07-18	NA	412	277	879WKG	2-2	hook	879WKG	N-5	hook	within	HH	879-2-2 x 879-N-5	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
+3	26	12	NA	HH	2016-12-11	18.863	2018-07-18	NA	413	276	879WKG	2-2	hook	879WKG	N-5	hook	within	HH	879-2-2 x 879-N-5	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
+59	5	1	A	HH	2017-01-13	7.34	2018-07-18	NA	414	309	WK	2	hook	879WKG	2-2	hook	between	HH	794-2 x 879-2-2	hook.between	hook.between.WK.2	WK.2	hookWK
+91	14	1	A	HH	2017-01-13	16.829	2018-07-18	NA	415	309	WK	2	hook	879WKG	G-2	hook	between	HH	866-2 x 879-G-2	hook.between	hook.between.WK.2	WK.2	hookWK
+53	5	8	A	HYBRID	2017-01-13	15.129	2018-07-18	NA	416	309	879WKG	N-5	hook	892WKG	5	kaal	hybrid	HK	879-N-5 x 892-5	hook.hybrid	hook.hybrid.879WKG.N-5	879WKG.N-5	hook879WKG
+196	8	3	B	KK	2017-01-13	6.313	2018-07-18	NA	417	309	3587WP	7	kaal	892WKG	5	kaal	between	KK	3587-7 x 892-5	kaal.between	kaal.between.3587WP.7	3587WP.7	kaal3587WP
+6	9	8	A	HYBRID	2017-01-13	13.125	2018-07-18	NA	418	309	879WKG	2-2	hook	892WKG	1	kaal	hybrid	HK	879-2-2 x 892-1	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+9	6	8	A	HYBRID	2017-01-13	13.73	2018-07-18	NA	419	309	879WKG	2-2	hook	892WKG	5	kaal	hybrid	HK	879-2-2 x 892-5	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+182	16	2	B	KK	2017-01-13	6.644	2018-07-18	NA	420	309	904WPG	5	kaal	892WKG	5	kaal	between	KK	904-5 x 892-5	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+22	5	1	B	HH	2017-01-13	12.998	2018-07-18	NA	421	309	879WKG	10-1	hook	WK	2E- 1	hook	between	HH	879-10-1 x 899-2E- 1	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+166	6	2	B	KK	2017-01-13	7.548	2018-07-18	NA	422	309	904WPG	3	kaal	892WKG	1	kaal	between	KK	904-3 x 892-1	kaal.between	kaal.between.904WPG.3	904WPG.3	kaal904WPG
+234	3	3	B	KK	2017-01-13	8.876	2018-07-18	NA	423	309	3587WP	C	kaal	892WKG	4	kaal	between	KK	3587-C x 892-4	kaal.between	kaal.between.3587WP.C	3587WP.C	kaal3587WP
+158	4	14	NA	KK	2017-01-13	7.555	2018-07-18	NA	424	309	904WPG	2	kaal	904WPG	5	kaal	within	KK	904-2 x 904-5	kaal.within	kaal.within.904WPG.2	904WPG.2	kaal904WPG
+168	15	14	NA	KK	2017-01-13	4.839	2018-07-18	NA	425	309	904WPG	3	kaal	904WPG	2	kaal	within	KK	904-3 x 904-2	kaal.within	kaal.within.904WPG.3	904WPG.3	kaal904WPG
+141	4	2	A	KK	2017-01-13	4.217	2018-07-18	NA	426	309	892WKG	5	kaal	904WPG	3	kaal	between	KK	892-5 x 904-3	kaal.between	kaal.between.892WKG.5	892WKG.5	kaal892WKG
+166	5	2	B	KK	2016-12-27	5.379	2018-07-18	NA	427	292	904WPG	3	kaal	892WKG	1	kaal	between	KK	904-3 x 892-1	kaal.between	kaal.between.904WPG.3	904WPG.3	kaal904WPG
+6	4	8	A	HK	2017-02-02	10.761	2018-07-25	NA	428	329	879WKG	2-2	hook	892WKG	1	kaal	hybrid	HK	879-2-2 x 892-1	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+2	14	12	NA	HH	2017-02-17	12.856	2018-07-25	NA	429	344	879WKG	2-2	hook	879WKG	10-1	hook	within	HH	879-2-2 x 879-10-1	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
+35	2	1	B	HH	2017-02-19	19.207	2018-07-25	NA	430	346	879WKG	G-2	hook	WK	2	hook	between	HH	879-G-2 x 866-2	hook.between	hook.between.879WKG.G-2	879WKG.G-2	hook879WKG
+74	18	1	A	HH	2017-02-19	13.155	2018-07-25	NA	431	346	WK	4	hook	879WKG	2-2	hook	between	HH	794-4 x 879-2-2	hook.between	hook.between.WK.4	WK.4	hookWK
+184	3	14	NA	KK	2017-02-02	5.704	2018-07-25	NA	432	329	904WPG	5	kaal	904WPG	3	kaal	within	KK	904-5 x 904-3	kaal.within	kaal.within.904WPG.5	904WPG.5	kaal904WPG
+60	11	1	A	HH	2017-02-19	19.862	2018-07-25	NA	433	346	WK	2	hook	879WKG	10-1	hook	between	HH	794-2 x 879-10-1	hook.between	hook.between.WK.2	WK.2	hookWK
+213	14	4	B	KK	2017-02-02	9.728	2018-07-25	NA	434	329	3587WP	14	kaal	904WPG	3	kaal	between	KK	3587-14 x 904-3	kaal.between	kaal.between.3587WP.14	3587WP.14	kaal3587WP
+67	9	5	A	HK	2017-02-19	16.344	2018-07-25	NA	435	346	WK	2	hook	892WKG	4	kaal	hybrid	HK	794-2 x 892-4	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+205	3	10	B	KH	2017-02-17	23.406	2018-07-25	NA	436	344	3587WP	14	kaal	879WKG	10-1	hook	hybrid	KH	3587-14 x 879-10-1	kaal.hybrid	kaal.hybrid.3587WP.14	3587WP.14	kaal3587WP
+1	7	12	NA	HH	2017-02-28	12.295	2018-07-25	NA	437	355	879WKG	2-2	hook	879WKG	G-2	hook	within	HH	879-2-2 x 879-G-2	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
+63	3	11	NA	HH	2017-02-17	14.842	2018-07-25	NA	438	344	WK	2	hook	WK	4	hook	within	HH	794-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+235	2	4	B	KK	2017-02-22	5.773	2018-07-25	NA	439	349	3587WP	C	kaal	904WPG	5	kaal	between	KK	3587-C x 904-5	kaal.between	kaal.between.3587WP.C	3587WP.C	kaal3587WP
+181	9	2	B	KK	2017-02-22	5.759	2018-07-25	NA	440	349	904WPG	5	kaal	892WKG	4	kaal	between	KK	904-5 x 892-4	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+185	5	4	A	KK	2017-02-19	7.567	2018-07-25	NA	441	346	904WPG	5	kaal	3587WP	7	kaal	between	KK	904-5 x 3587-7	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+59	14	1	A	HH	2017-02-19	16.786	2018-07-25	NA	442	346	WK	2	hook	879WKG	2-2	hook	between	HH	794-2 x 879-2-2	hook.between	hook.between.WK.2	WK.2	hookWK
+1	18	12	NA	HH	2017-02-17	14.148	2018-07-25	NA	443	344	879WKG	2-2	hook	879WKG	G-2	hook	within	HH	879-2-2 x 879-G-2	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
+180	2	2	B	KK	2017-02-22	8.151	2018-07-25	NA	444	349	904WPG	5	kaal	892WKG	3	kaal	between	KK	904-5 x 892-3	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+1	11	12	NA	HH	2017-02-19	16.769	2018-07-25	NA	445	346	879WKG	2-2	hook	879WKG	G-2	hook	within	HH	879-2-2 x 879-G-2	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
+62	20	1	A	HH	2017-02-18	20.313	2018-07-25	NA	446	345	WK	2	hook	879WKG	N-5	hook	between	HH	794-2 x 879-N-5	hook.between	hook.between.WK.2	WK.2	hookWK
+92	13	1	A	HH	2017-02-18	12.026	2018-07-25	NA	447	345	WK	2	hook	879WKG	N-5	hook	between	HH	866-2 x 879-N-5	hook.between	hook.between.WK.2	WK.2	hookWK
+213	12	4	B	KK	2017-02-02	7.752	2018-07-25	NA	448	329	3587WP	14	kaal	904WPG	3	kaal	between	KK	3587-14 x 904-3	kaal.between	kaal.between.3587WP.14	3587WP.14	kaal3587WP
+78	15	11	NA	HH	NA	26.737	2018-07-25	No collected date	449	NA	WK	4	hook	WK	2	hook	within	HH	794-4 x 794-2	hook.within	hook.within.WK.4	WK.4	hookWK
+190	2	10	B	HYBRID	2017-01-12	18.836	2018-07-25	NA	450	308	3587WP	7	kaal	879WKG	G-2	hook	hybrid	KH	3587-7 x 879-G-2	kaal.hybrid	kaal.hybrid.3587WP.7	3587WP.7	kaal3587WP
+39	7	9	A	HYBRID	2017-01-13	26.21	2018-07-25	NA	451	309	879WKG	G-2	hook	904WPG	5	kaal	hybrid	HK	879-G-2 x 904-5	hook.hybrid	hook.hybrid.879WKG.G-2	879WKG.G-2	hook879WKG
+54	4	9	A	HYBRID	2017-01-12	18.998	2018-07-25	NA	452	308	879WKG	N-5	hook	904WPG	2	kaal	hybrid	HK	879-N-5 x 904-2	hook.hybrid	hook.hybrid.879WKG.N-5	879WKG.N-5	hook879WKG
+205	1	10	B	HYBRID	2017-01-12	0.743	2018-07-25	NA	453	308	3587WP	14	kaal	879WKG	10-1	hook	hybrid	KH	3587-14 x 879-10-1	kaal.hybrid	kaal.hybrid.3587WP.14	3587WP.14	kaal3587WP
+12	1	9	A	HYBRID	2017-01-12	12.965	2018-07-25	NA	454	308	879WKG	2-2	hook	904WPG	5	kaal	hybrid	HK	879-2-2 x 904-5	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+12	16	9	A	HYBRID	2017-01-13	18.434	2018-07-25	NA	455	309	879WKG	2-2	hook	904WPG	5	kaal	hybrid	HK	879-2-2 x 904-5	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+21	11	1	B	HH	2017-01-13	10.533	2018-07-25	NA	456	309	879WKG	10-1	hook	WK	2	hook	between	HH	879-10-1 x 866-2	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+31	6	8	A	HYBRID	2017-01-12	11.007	2018-07-25	NA	457	308	879WKG	G-2	hook	879WKG	2-2	hook	within	HH	879-G-2 x 879-2-2	hook.within	hook.within.879WKG.G-2	879WKG.G-2	hook879WKG
+5	11	1	B	HH	2017-01-13	13.946	2018-07-25	NA	458	309	879WKG	2-2	hook	WK	4	hook	between	HH	879-2-2 x 794-4	hook.between	hook.between.879WKG.2-2	879WKG.2-2	hook879WKG
+11	1	9	A	HYBRID	2017-01-17	21.688	2018-07-25	NA	459	313	879WKG	2-2	hook	904WPG	3	kaal	hybrid	HK	879-2-2 x 904-3	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+39	12	9	A	HYBRID	2017-01-12	29.487	2018-07-25	NA	460	308	879WKG	G-2	hook	904WPG	5	kaal	hybrid	HK	879-G-2 x 904-5	hook.hybrid	hook.hybrid.879WKG.G-2	879WKG.G-2	hook879WKG
+183	9	14	NA	KK	2017-01-13	6.26	2018-07-25	NA	461	309	904WPG	5	kaal	904WPG	2	kaal	within	KK	904-5 x 904-2	kaal.within	kaal.within.904WPG.5	904WPG.5	kaal904WPG
+74	19	1	A	HH	2017-01-13	19.288	2018-07-25	NA	462	309	WK	4	hook	879WKG	2-2	hook	between	HH	794-4 x 879-2-2	hook.between	hook.between.WK.4	WK.4	hookWK
+79	6	1	A	HH	2017-01-13	24.309	2018-07-25	NA	463	309	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
+78	18	11	NA	HH	2017-01-13	19.666	2018-07-25	NA	464	309	WK	4	hook	WK	2	hook	within	HH	794-4 x 794-2	hook.within	hook.within.WK.4	WK.4	hookWK
+79	2	11	NA	HH	2017-01-13	13.082	2018-07-25	NA	465	309	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
+183	16	14	NA	KK	2017-01-13	11.099	2018-07-25	NA	466	309	904WPG	5	kaal	904WPG	2	kaal	within	KK	904-5 x 904-2	kaal.within	kaal.within.904WPG.5	904WPG.5	kaal904WPG
+90	15	1	A	HH	2017-01-13	12.099	2018-07-25	NA	467	309	WK	2	hook	879WKG	10-1	hook	between	HH	866-2 x 879-10-1	hook.between	hook.between.WK.2	WK.2	hookWK
+59	6	1	A	HH	2017-01-12	11.052	2018-08-01	NA	468	308	WK	2	hook	879WKG	2-2	hook	between	HH	794-2 x 879-2-2	hook.between	hook.between.WK.2	WK.2	hookWK
+36	2	8	A	HYBRID	2017-01-12	21.642	2018-08-01	NA	469	308	879WKG	G-2	hook	892WKG	3	kaal	hybrid	HK	879-G-2 x 892-3	hook.hybrid	hook.hybrid.879WKG.G-2	879WKG.G-2	hook879WKG
+28	8	10	A	HYBRID	2017-01-12	9.253	2018-08-01	NA	470	308	879WKG	10-1	hook	3587WP	7	kaal	hybrid	HK	879-10-1 x 3587-7	hook.hybrid	hook.hybrid.879WKG.10-1	879WKG.10-1	hook879WKG
+19	10	1	B	HH	2017-01-17	16.54	2018-08-01	NA	471	313	879WKG	10-1	hook	WK	2	hook	between	HH	879-10-1 x 794-2	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+117	6	2	A	KK	2017-01-12	5.625	2018-08-01	NA	472	308	892WKG	1	kaal	904WPG	2	kaal	between	KK	892-1 x 904-2	kaal.between	kaal.between.892WKG.1	892WKG.1	kaal892WKG
+196	9	3	B	KK	2017-01-12	10.26	2018-08-01	NA	473	308	3587WP	7	kaal	892WKG	5	kaal	between	KK	3587-7 x 892-5	kaal.between	kaal.between.3587WP.7	3587WP.7	kaal3587WP
+227	1	4	B	KK	2017-01-12	9.109	2018-08-01	NA	474	308	3587WP	A	kaal	904WPG	5	kaal	between	KK	3587-A x 904-5	kaal.between	kaal.between.3587WP.A	3587WP.A	kaal3587WP
+50	8	1	B	HH	2017-01-12	15.74	2018-08-01	NA	475	308	879WKG	N-5	hook	WK	4	hook	between	HH	879-N-5 x 794-4	hook.between	hook.between.879WKG.N-5	879WKG.N-5	hook879WKG
+182	18	2	B	KK	2017-01-12	4.638	2018-08-01	NA	476	308	904WPG	5	kaal	892WKG	5	kaal	between	KK	904-5 x 892-5	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+42	2	10	A	HYBRID	2017-01-12	14.818	2018-08-01	NA	477	308	879WKG	G-2	hook	3587WP	15	kaal	hybrid	HK	879-G-2 x 3587-15	hook.hybrid	hook.hybrid.879WKG.G-2	879WKG.G-2	hook879WKG
+195	3	3	B	KK	2017-01-12	4.239	2018-08-01	NA	478	308	3587WP	7	kaal	892WKG	4	kaal	between	KK	3587-7 x 892-4	kaal.between	kaal.between.3587WP.7	3587WP.7	kaal3587WP
+196	11	3	B	KK	2017-01-12	4.778	2018-08-01	NA	479	308	3587WP	7	kaal	892WKG	5	kaal	between	KK	3587-7 x 892-5	kaal.between	kaal.between.3587WP.7	3587WP.7	kaal3587WP
+67	4	5	A	HYBRID	2017-01-12	4.594	2018-08-01	NA	480	308	WK	2	hook	892WKG	4	kaal	hybrid	HK	794-2 x 892-4	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+53	4	8	A	HYBRID	2017-01-12	12.666	2018-08-01	NA	481	308	879WKG	N-5	hook	892WKG	5	kaal	hybrid	HK	879-N-5 x 892-5	hook.hybrid	hook.hybrid.879WKG.N-5	879WKG.N-5	hook879WKG
+173	4	9	B	HYBRID	2017-01-12	18.792	2018-08-01	NA	482	308	904WPG	5	kaal	879WKG	G-2	hook	hybrid	KH	904-5 x 879-G-2	kaal.hybrid	kaal.hybrid.904WPG.5	904WPG.5	kaal904WPG
+61	16	1	A	HH	2017-01-12	10.418	2018-08-01	NA	483	308	WK	2	hook	879WKG	G-2	hook	between	HH	794-2 x 879-G-2	hook.between	hook.between.WK.2	WK.2	hookWK
+20	4	1	B	HH	2017-01-12	12.705	2018-08-01	NA	484	308	879WKG	10-1	hook	WK	4	hook	between	HH	879-10-1 x 794-4	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+3	12	12	NA	HH	2017-01-12	13.928	2018-08-01	NA	485	308	879WKG	2-2	hook	879WKG	N-5	hook	within	HH	879-2-2 x 879-N-5	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
+198	17	15	NA	KK	2017-01-12	2.597	2018-08-01	NA	486	308	3587WP	7	kaal	3587WP	14	kaal	within	KK	3587-7 x 3587-14	kaal.within	kaal.within.3587WP.7	3587WP.7	kaal3587WP
+77	7	1	A	HH	2017-01-12	14.991	2018-08-01	NA	487	308	WK	4	hook	879WKG	N-5	hook	between	HH	794-4 x 879-N-5	hook.between	hook.between.WK.4	WK.4	hookWK
+64	18	11	NA	HH	2017-01-12	14.427	2018-08-01	NA	488	308	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
+79	9	11	NA	HH	2017-01-12	18.688	2018-08-01	NA	489	308	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
+117	11	2	A	KK	2017-01-12	7.514	2018-08-01	NA	490	308	892WKG	1	kaal	904WPG	2	kaal	between	KK	892-1 x 904-2	kaal.between	kaal.between.892WKG.1	892WKG.1	kaal892WKG
+117	12	2	A	KK	2017-01-12	7.66	2018-08-01	NA	491	308	892WKG	1	kaal	904WPG	2	kaal	between	KK	892-1 x 904-2	kaal.between	kaal.between.892WKG.1	892WKG.1	kaal892WKG
+93	3	11	NA	HH	2017-01-12	12.488	2018-08-01	NA	492	308	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
+76	3	1	A	HH	2017-01-12	13.773	2018-08-01	NA	493	308	WK	4	hook	879WKG	G-2	hook	between	HH	794-4 x 879-G-2	hook.between	hook.between.WK.4	WK.4	hookWK
+196	6	3	B	KK	2017-01-12	7.69	2018-08-01	NA	494	308	3587WP	7	kaal	892WKG	5	kaal	between	KK	3587-7 x 892-5	kaal.between	kaal.between.3587WP.7	3587WP.7	kaal3587WP
+93	9	11	NA	HH	2017-01-12	13.442	2018-08-01	NA	495	308	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
+20	6	1	B	HH	2017-01-13	13.103	2018-08-01	NA	496	309	879WKG	10-1	hook	WK	4	hook	between	HH	879-10-1 x 794-4	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+2	6	12	NA	HH	2017-01-13	20.119	2018-08-01	NA	497	309	879WKG	2-2	hook	879WKG	10-1	hook	within	HH	879-2-2 x 879-10-1	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
+62	3	1	A	HH	2017-01-13	13.964	2018-08-01	NA	498	309	WK	2	hook	879WKG	N-5	hook	between	HH	794-2 x 879-N-5	hook.between	hook.between.WK.2	WK.2	hookWK
+198	7	15	NA	KK	2017-01-13	5.399	2018-08-01	NA	499	309	3587WP	7	kaal	3587WP	14	kaal	within	KK	3587-7 x 3587-14	kaal.within	kaal.within.3587WP.7	3587WP.7	kaal3587WP
+6	15	8	A	HYBRID	2017-01-13	14.928	2018-08-01	NA	500	309	879WKG	2-2	hook	892WKG	1	kaal	hybrid	HK	879-2-2 x 892-1	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+60	8	1	A	HH	2017-01-13	10.055	2018-08-01	NA	501	309	WK	2	hook	879WKG	10-1	hook	between	HH	794-2 x 879-10-1	hook.between	hook.between.WK.2	WK.2	hookWK
+235	3	4	B	KK	2017-02-18	4.992	2018-08-15	NA	502	345	3587WP	C	kaal	904WPG	5	kaal	between	KK	3587-C x 904-5	kaal.between	kaal.between.3587WP.C	3587WP.C	kaal3587WP
+5	19	1	B	HH	2017-02-15	17.545	2018-08-15	NA	503	342	879WKG	2-2	hook	WK	4	hook	between	HH	879-2-2 x 794-4	hook.between	hook.between.879WKG.2-2	879WKG.2-2	hook879WKG
+9	11	8	A	HK	2017-02-15	8.155	2018-08-15	NA	504	342	879WKG	2-2	hook	892WKG	5	kaal	hybrid	HK	879-2-2 x 892-5	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+184	7	14	NA	KK	2017-02-19	5.788	2018-08-15	NA	505	346	904WPG	5	kaal	904WPG	3	kaal	within	KK	904-5 x 904-3	kaal.within	kaal.within.904WPG.5	904WPG.5	kaal904WPG
+70	4	6	A	""HH""	2017-02-03	11.444	2018-08-15	?HH-SARA	506	330	WK	2	hook	904WPG	5	kaal	hybrid	HK	794-2 x 904-5	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+6	13	8	A	""HH""	2017-02-19	21.35	2018-08-15	?HH-SARA	507	346	879WKG	2-2	hook	892WKG	1	kaal	hybrid	HK	879-2-2 x 892-1	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+19	5	1	B	HH	2017-02-19	18.988	2018-08-15	NA	508	346	879WKG	10-1	hook	WK	2	hook	between	HH	879-10-1 x 794-2	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+149	4	9	B	KK	2017-02-19	3.008	2018-08-15	NA	509	346	904WPG	2	kaal	879WKG	G-2	hook	hybrid	KH	904-2 x 879-G-2	kaal.hybrid	kaal.hybrid.904WPG.2	904WPG.2	kaal904WPG
+183	3	1	NA	KK	2017-02-19	5.512	2018-08-15	NA	510	346	904WPG	5	kaal	904WPG	2	kaal	within	KK	904-5 x 904-2	kaal.within	kaal.within.904WPG.5	904WPG.5	kaal904WPG
+73	5	7	A	""HH""	2017-02-03	6.959	2018-08-15	?HH-SARA	511	330	WK	2	hook	3587WP	C	kaal	hybrid	HK	794-2 x 3587-C	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+10	8	9	A	HK	2017-02-16	14.017	2018-08-15	NA	512	343	879WKG	2-2	hook	904WPG	2	kaal	hybrid	HK	879-2-2 x 904-2	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+179	10	2	B	KK	2017-02-21	8.619	2018-08-15	NA	513	348	904WPG	5	kaal	892WKG	1	kaal	between	KK	904-5 x 892-1	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+117	7	2	A	KK	2017-02-22	9.408	2018-08-15	NA	514	349	892WKG	1	kaal	904WPG	2	kaal	between	KK	892-1 x 904-2	kaal.between	kaal.between.892WKG.1	892WKG.1	kaal892WKG
+182	19	2	V	KK	2017-02-16	13.773	2018-08-15	NA	515	343	904WPG	5	kaal	892WKG	5	kaal	between	KK	904-5 x 892-5	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+192	2	2	A	KK	2017-02-16	14.471	2018-08-15	NA	516	343	3587WP	7	kaal	WK	4	hook	hybrid	KH	3587-7 x 794-4	kaal.hybrid	kaal.hybrid.3587WP.7	3587WP.7	kaal3587WP
+91	13	1	A	HH	2017-02-15	3.325	2018-08-15	NA	517	342	WK	2	hook	879WKG	G-2	hook	between	HH	866-2 x 879-G-2	hook.between	hook.between.WK.2	WK.2	hookWK
+9	16	8	A	HK	2017-02-16	4.318	2018-08-15	NA	518	343	879WKG	2-2	hook	892WKG	5	kaal	hybrid	HK	879-2-2 x 892-5	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+41	7	10	A	HK	NA	16.75	2018-08-15	No collected date	519	NA	879WKG	G-2	hook	3587WP	14	kaal	hybrid	HK	879-G-2 x 3587-14	hook.hybrid	hook.hybrid.879WKG.G-2	879WKG.G-2	hook879WKG
+31	6	12	NA	HH	2017-02-15	16.978	2018-08-15	NA	520	342	879WKG	G-2	hook	879WKG	2-2	hook	within	HH	879-G-2 x 879-2-2	hook.within	hook.within.879WKG.G-2	879WKG.G-2	hook879WKG
+105	19	6	A	HK	2017-02-16	27.449	2018-08-15	NA	521	343	WK	2E- 1	hook	904WPG	5	kaal	hybrid	HK	899-2E- 1 x 904-5	hook.hybrid	hook.hybrid.WK.2E- 1	WK.2E- 1	hookWK
+29	10	10	A	HK	2017-02-15	22.609	2018-08-15	NA	522	342	879WKG	10-1	hook	3587WP	15	kaal	hybrid	HK	879-10-1 x 3587-15	hook.hybrid	hook.hybrid.879WKG.10-1	879WKG.10-1	hook879WKG
+13	2	10	A	HK	2017-02-15	29.985	2018-08-15	NA	523	342	879WKG	2-2	hook	3587WP	7	kaal	hybrid	HK	879-2-2 x 3587-7	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+173	2	9	B	KH	2017-02-15	14.779	2018-08-15	NA	524	342	904WPG	5	kaal	879WKG	G-2	hook	hybrid	KH	904-5 x 879-G-2	kaal.hybrid	kaal.hybrid.904WPG.5	904WPG.5	kaal904WPG
+5	3	1	B	HH	2017-02-03	16.779	2018-08-15	NA	525	330	879WKG	2-2	hook	WK	4	hook	between	HH	879-2-2 x 794-4	hook.between	hook.between.879WKG.2-2	879WKG.2-2	hook879WKG
+22	1	1	B	HH	2017-01-13	14.061	2018-08-15	NA	526	309	879WKG	10-1	hook	WK	2E- 1	hook	between	HH	879-10-1 x 899-2E- 1	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+213	2	4	B	KK	2017-02-16	10.29	2018-08-15	NA	527	343	3587WP	14	kaal	904WPG	3	kaal	between	KK	3587-14 x 904-3	kaal.between	kaal.between.3587WP.14	3587WP.14	kaal3587WP
+184	8	14	NA	KK	2017-02-16	4.068	2018-08-15	NA	528	343	904WPG	5	kaal	904WPG	3	kaal	within	KK	904-5 x 904-3	kaal.within	kaal.within.904WPG.5	904WPG.5	kaal904WPG
+37	2	8	A	HK	2017-02-16	18.847	2018-08-15	NA	529	343	879WKG	G-2	hook	892WKG	5	kaal	hybrid	HK	879-G-2 x 892-5	hook.hybrid	hook.hybrid.879WKG.G-2	879WKG.G-2	hook879WKG
+81	6	5	A	HK	2017-02-15	21.599	2018-08-15	NA	530	342	WK	4	hook	892WKG	3	kaal	hybrid	HK	794-4 x 892-3	hook.hybrid	hook.hybrid.WK.4	WK.4	hookWK
+95	5	5	A	HK	2017-02-16	14.598	2018-08-15	NA	531	343	WK	2	hook	892WKG	4	kaal	hybrid	HK	866-2 x 892-4	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+4	20	1	B	HH	2017-02-15	20.818	2018-08-15	NA	532	342	879WKG	2-2	hook	WK	2	hook	between	HH	879-2-2 x 794-2	hook.between	hook.between.879WKG.2-2	879WKG.2-2	hook879WKG
+24	6	8	A	HK	2017-02-16	21.102	2018-08-15	NA	533	343	879WKG	10-1	hook	892WKG	4	kaal	hybrid	HK	879-10-1 x 892-4	hook.hybrid	hook.hybrid.879WKG.10-1	879WKG.10-1	hook879WKG
+190	6	10	B	HYBRID	2017-01-12	27.43	2018-08-15	NA	534	308	3587WP	7	kaal	879WKG	G-2	hook	hybrid	KH	3587-7 x 879-G-2	kaal.hybrid	kaal.hybrid.3587WP.7	3587WP.7	kaal3587WP
+30	1	10	A	HK	2017-02-15	33.366	2018-08-15	NA	535	342	879WKG	10-1	hook	3587WP	C	kaal	hybrid	HK	879-10-1 x 3587-C	hook.hybrid	hook.hybrid.879WKG.10-1	879WKG.10-1	hook879WKG
+5	7	1	B	HH	2017-02-10	16.281	2018-08-28	NA	536	337	879WKG	2-2	hook	WK	4	hook	between	HH	879-2-2 x 794-4	hook.between	hook.between.879WKG.2-2	879WKG.2-2	hook879WKG
+41	1	10	A	HK	2017-02-10	26.373	2018-08-28	NA	537	337	879WKG	G-2	hook	3587WP	14	kaal	hybrid	HK	879-G-2 x 3587-14	hook.hybrid	hook.hybrid.879WKG.G-2	879WKG.G-2	hook879WKG
+213	11	4	B	KK	2017-02-10	8.126	2018-08-28	NA	538	337	3587WP	14	kaal	904WPG	3	kaal	between	KK	3587-14 x 904-3	kaal.between	kaal.between.3587WP.14	3587WP.14	kaal3587WP
+184	2	14	NA	KK	2017-02-10	5.796	2018-08-28	NA	539	337	904WPG	5	kaal	904WPG	3	kaal	within	KK	904-5 x 904-3	kaal.within	kaal.within.904WPG.5	904WPG.5	kaal904WPG
+3	13	12	NA	HH	2017-02-10	14.943	2018-08-28	NA	540	337	879WKG	2-2	hook	879WKG	N-5	hook	within	HH	879-2-2 x 879-N-5	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
+185	3	4	A	KK	2017-02-10	4.49	2018-08-28	NA	541	337	904WPG	5	kaal	3587WP	7	kaal	between	KK	904-5 x 3587-7	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+182	4	2	B	KK	2017-02-10	7.852	2018-08-28	NA	542	337	904WPG	5	kaal	892WKG	5	kaal	between	KK	904-5 x 892-5	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+63	18	11	NA	HH	2017-02-10	8.038	2018-08-28	NA	543	337	WK	2	hook	WK	4	hook	within	HH	794-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+181	7	2	B	KK	2017-02-10	9.545	2018-08-28	NA	543.5	337	904WPG	5	kaal	892WKG	4	kaal	between	KK	904-5 x 892-4	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+197	2	4	B	KK	2017-02-10	10.593	2018-08-28	NA	544	337	3587WP	7	kaal	904WPG	5	kaal	between	KK	3587-7 x 904-5	kaal.between	kaal.between.3587WP.7	3587WP.7	kaal3587WP
+59	1	1	A	HH	2017-02-10	13.299	2018-08-28	NA	545	337	WK	2	hook	879WKG	2-2	hook	between	HH	794-2 x 879-2-2	hook.between	hook.between.WK.2	WK.2	hookWK
+64	4	11	NA	HH	2017-02-10	16.581	2018-08-28	NA	546	337	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
+89	11	1	A	HH	2017-02-10	13.31	2018-08-28	NA	547	337	WK	2	hook	879WKG	2-2	hook	between	HH	866-2 x 879-2-2	hook.between	hook.between.WK.2	WK.2	hookWK
+10	7	9	A	HK	2017-02-10	12.707	2018-08-28	NA	548	337	879WKG	2-2	hook	904WPG	2	kaal	hybrid	HK	879-2-2 x 904-2	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+169	9	14	NA	KK	2017-02-10	5.954	2018-08-28	NA	549	337	904WPG	3	kaal	904WPG	5	kaal	within	KK	904-3 x 904-5	kaal.within	kaal.within.904WPG.3	904WPG.3	kaal904WPG
+6	7	8	A	HK	2017-02-10	9.693	2018-08-28	NA	550	337	879WKG	2-2	hook	892WKG	1	kaal	hybrid	HK	879-2-2 x 892-1	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+41	9	10	A	HK	2017-02-10	19.451	2018-08-28	NA	551	337	879WKG	G-2	hook	3587WP	14	kaal	hybrid	HK	879-G-2 x 3587-14	hook.hybrid	hook.hybrid.879WKG.G-2	879WKG.G-2	hook879WKG
+62	11	1	A	HH	2017-02-10	14.119	2018-08-28	NA	552	337	WK	2	hook	879WKG	N-5	hook	between	HH	794-2 x 879-N-5	hook.between	hook.between.WK.2	WK.2	hookWK
+93	16	11	NA	HH	2017-02-10	11.756	2018-08-28	NA	553	337	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
+96	1	5	A	HK	2017-02-10	6.389	2018-08-28	NA	554	337	WK	2	hook	892WKG	5	kaal	hybrid	HK	866-2 x 892-5	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+95	5	1	A	HH	2017-02-10	15.07	2018-08-28	NA	555	337	WK	2	hook	892WKG	4	kaal	hybrid	HK	866-2 x 892-4	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+181	14	2	B	""KK""	2017-02-03	10.393	2018-08-28	?""KK""-Sara	556	330	904WPG	5	kaal	892WKG	4	kaal	between	KK	904-5 x 892-4	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+234	4	3	B	KK	2017-02-03	9.819	2018-08-28	NA	557	330	3587WP	C	kaal	892WKG	4	kaal	between	KK	3587-C x 892-4	kaal.between	kaal.between.3587WP.C	3587WP.C	kaal3587WP
+82	7	5	A	HK	2017-02-15	9.896	2018-08-28	NA	558	342	WK	4	hook	892WKG	4	kaal	hybrid	HK	794-4 x 892-4	hook.hybrid	hook.hybrid.WK.4	WK.4	hookWK
+156	1	2	B	KK	2017-02-03	6.863	2018-08-28	NA	559	330	904WPG	2	kaal	892WKG	10	kaal	between	KK	904-2 x 892-10	kaal.between	kaal.between.904WPG.2	904WPG.2	kaal904WPG
+83	5	5	A	HK	2017-02-10	23.246	2018-08-28	NA	560	337	WK	4	hook	892WKG	5	kaal	hybrid	HK	794-4 x 892-5	hook.hybrid	hook.hybrid.WK.4	WK.4	hookWK
+186	1	4	A	KK	2017-02-10	5.756	2018-08-28	NA	561	337	904WPG	5	kaal	3587WP	10	kaal	between	KK	904-5 x 3587-10	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+90	6	1	A	HH	2017-02-10	13.618	2018-08-28	NA	562	337	WK	2	hook	879WKG	10-1	hook	between	HH	866-2 x 879-10-1	hook.between	hook.between.WK.2	WK.2	hookWK
+21	13	1	B	HH	2017-02-10	14.873	2018-08-28	NA	563	337	879WKG	10-1	hook	WK	2	hook	between	HH	879-10-1 x 866-2	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+141	1	2	A	KK	2017-02-10	9.562	2018-08-28	NA	564	337	892WKG	5	kaal	904WPG	3	kaal	between	KK	892-5 x 904-3	kaal.between	kaal.between.892WKG.5	892WKG.5	kaal892WKG
+119	3	2	A	KK	2017-02-10	0.666	2018-08-28	NA	565	337	892WKG	1	kaal	904WPG	5	kaal	between	KK	892-1 x 904-5	kaal.between	kaal.between.892WKG.1	892WKG.1	kaal892WKG
+182	14	2	B	KK	2017-02-10	11.387	2018-08-28	NA	566	337	904WPG	5	kaal	892WKG	5	kaal	between	KK	904-5 x 892-5	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+176	1	6	B	HK	2017-02-10	13.279	2018-08-28	NA	567	337	904WPG	5	kaal	WK	4	hook	hybrid	KH	904-5 x 794-4	kaal.hybrid	kaal.hybrid.904WPG.5	904WPG.5	kaal904WPG
+94	7	5	A	HK	2017-02-10	15.611	2018-08-28	NA	568	337	WK	2	hook	892WKG	1	kaal	hybrid	HK	866-2 x 892-1	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+21	8	1	B	HH	2017-02-19	23.53	2018-09-04	NA	569	346	879WKG	10-1	hook	WK	2	hook	between	HH	879-10-1 x 866-2	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+46	1	12	NA	HH	2017-02-16	26.466	2018-09-04	NA	570	343	879WKG	N-5	hook	879WKG	2-2	hook	within	HH	879-N-5 x 879-2-2	hook.within	hook.within.879WKG.N-5	879WKG.N-5	hook879WKG
+41	6	10	A	HK	2017-02-19	10.109	2018-09-04	NA	571	346	879WKG	G-2	hook	3587WP	14	kaal	hybrid	HK	879-G-2 x 3587-14	hook.hybrid	hook.hybrid.879WKG.G-2	879WKG.G-2	hook879WKG
+98	11	6	A	HK	2017-02-19	13.906	2018-09-04	NA	572	346	WK	2	hook	904WPG	5	kaal	hybrid	HK	866-2 x 904-5	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+167	2	2	B	KK	2017-02-19	6.525	2018-09-04	NA	573	346	904WPG	3	kaal	892WKG	4	kaal	between	KK	904-3 x 892-4	kaal.between	kaal.between.904WPG.3	904WPG.3	kaal904WPG
+64	11	11	NA	HH	2017-02-19	12.791	2018-09-04	NA	574	346	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
+95	10	5	A	HK	2017-02-19	15.832	2018-09-04	NA	575	346	WK	2	hook	892WKG	4	kaal	hybrid	HK	866-2 x 892-4	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+66	10	5	A	HK	2017-02-19	19.239	2018-09-04	NA	576	346	WK	2	hook	892WKG	1	kaal	hybrid	HK	794-2 x 892-1	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+98	8	6	A	HK	2017-02-19	17.955	2018-09-04	NA	577	346	WK	2	hook	904WPG	5	kaal	hybrid	HK	866-2 x 904-5	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+156	6	2	B	KK	2017-02-19	7.178	2018-09-04	NA	578	346	904WPG	2	kaal	892WKG	10	kaal	between	KK	904-2 x 892-10	kaal.between	kaal.between.904WPG.2	904WPG.2	kaal904WPG
+44	4	9	A	HK	2017-02-19	8.649	2018-09-04	NA	579	346	879WKG	H-2	hook	904WPG	5	kaal	hybrid	HK	879-H-2 x 904-5	hook.hybrid	hook.hybrid.879WKG.H-2	879WKG.H-2	hook879WKG
+233	4	3	B	KK	NA	9.87	2018-09-04	No collected date	580	NA	3587WP	C	kaal	892WKG	3	kaal	between	KK	3587-C x 892-3	kaal.between	kaal.between.3587WP.C	3587WP.C	kaal3587WP
+183	6	14	NA	KK	2017-02-16	6.344	2018-09-04	NA	581	343	904WPG	5	kaal	904WPG	2	kaal	within	KK	904-5 x 904-2	kaal.within	kaal.within.904WPG.5	904WPG.5	kaal904WPG
+180	7	2	B	KK	2017-02-21	5.448	2018-09-04	NA	582	348	904WPG	5	kaal	892WKG	3	kaal	between	KK	904-5 x 892-3	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+79	17	11	NA	HH	2017-02-16	15.876	2018-09-04	NA	583	343	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
+57	2	10	A	HK	2017-02-16	17.217	2018-09-04	NA	584	343	879WKG	N-5	hook	3587WP	A	kaal	hybrid	HK	879-N-5 x 3587-A	hook.hybrid	hook.hybrid.879WKG.N-5	879WKG.N-5	hook879WKG
+157	1	14	NA	KK	2017-02-21	4.338	2018-09-04	NA	585	348	904WPG	2	kaal	904WPG	3	kaal	within	KK	904-2 x 904-3	kaal.within	kaal.within.904WPG.2	904WPG.2	kaal904WPG
+155	3	2	B	KK	2017-02-16	6.598	2018-09-04	NA	586	343	904WPG	2	kaal	892WKG	1	kaal	between	KK	904-2 x 892-1	kaal.between	kaal.between.904WPG.2	904WPG.2	kaal904WPG
+185	8	4	A	KK	2017-02-16	5.358	2018-09-04	NA	587	343	904WPG	5	kaal	3587WP	7	kaal	between	KK	904-5 x 3587-7	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+182	6	2	B	KK	2017-02-16	2.626	2018-09-04	NA	588	343	904WPG	5	kaal	892WKG	5	kaal	between	KK	904-5 x 892-5	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+173	1	9	B	KH	2017-02-21	18.425	2018-09-04	123-1?	589	348	904WPG	5	kaal	879WKG	G-2	hook	hybrid	KH	904-5 x 879-G-2	kaal.hybrid	kaal.hybrid.904WPG.5	904WPG.5	kaal904WPG
+10	1	9	A	HK	2017-02-13	13.754	2018-09-04	NA	590	340	879WKG	2-2	hook	904WPG	2	kaal	hybrid	HK	879-2-2 x 904-2	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+103	8	5	A	HK	2017-02-21	23.785	2018-09-04	NA	591	348	WK	2E- 1	hook	892WKG	1	kaal	hybrid	HK	899-2E- 1 x 892-1	hook.hybrid	hook.hybrid.WK.2E- 1	WK.2E- 1	hookWK
+9	14	8	A	HK	2017-02-16	9.75	2018-09-04	NA	592	343	879WKG	2-2	hook	892WKG	5	kaal	hybrid	HK	879-2-2 x 892-5	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+105	16	6	A	HK	2017-02-18	18.811	2018-09-04	NA	593	345	WK	2E- 1	hook	904WPG	5	kaal	hybrid	HK	899-2E- 1 x 904-5	hook.hybrid	hook.hybrid.WK.2E- 1	WK.2E- 1	hookWK
+92	4	1	A	HH	2017-02-19	11.871	2018-09-04	NA	594	346	WK	2	hook	879WKG	N-5	hook	between	HH	866-2 x 879-N-5	hook.between	hook.between.WK.2	WK.2	hookWK
+55	5	9	A	HK	2017-02-21	15.065	2018-09-04	NA	595	348	879WKG	N-5	hook	904WPG	5	kaal	hybrid	HK	879-N-5 x 904-5	hook.hybrid	hook.hybrid.879WKG.N-5	879WKG.N-5	hook879WKG
+168	10	14	NA	KK	2017-02-02	9.378	2018-09-04	NA	596	329	904WPG	3	kaal	904WPG	2	kaal	within	KK	904-3 x 904-2	kaal.within	kaal.within.904WPG.3	904WPG.3	kaal904WPG
+3	19	12	NA	HH	2017-02-16	9.888	2018-09-04	NA	597	343	879WKG	2-2	hook	879WKG	N-5	hook	within	HH	879-2-2 x 879-N-5	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
+184	17	14	NA	KK	2017-02-16	6.84	2018-09-04	NA	598	343	904WPG	5	kaal	904WPG	3	kaal	within	KK	904-5 x 904-3	kaal.within	kaal.within.904WPG.5	904WPG.5	kaal904WPG
+134	4	8	B	KH	2017-02-16	9.815	2018-09-04	NA	599	343	892WKG	5	kaal	879WKG	2-2	hook	hybrid	KH	892-5 x 879-2-2	kaal.hybrid	kaal.hybrid.892WKG.5	892WKG.5	kaal892WKG
+203	2	15	NA	KK	2017-02-16	8.554	2018-09-04	NA	600	343	3587WP	10	kaal	3587WP	C	kaal	within	KK	3587-10 x 3587-C	kaal.within	kaal.within.3587WP.10	3587WP.10	kaal3587WP
+19	1	1	B	HH	2017-02-16	8.006	2018-09-04	NA	601	343	879WKG	10-1	hook	WK	2	hook	between	HH	879-10-1 x 794-2	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+42	3	10	A	HK	2017-02-16	9.478	2018-09-04	NA	602	343	879WKG	G-2	hook	3587WP	15	kaal	hybrid	HK	879-G-2 x 3587-15	hook.hybrid	hook.hybrid.879WKG.G-2	879WKG.G-2	hook879WKG
+118	7	2	A	KK	2017-02-21	5.484	2018-09-04	NA	603	348	892WKG	1	kaal	904WPG	3	kaal	between	KK	892-1 x 904-3	kaal.between	kaal.between.892WKG.1	892WKG.1	kaal892WKG
+22	11	1	B	HH	2017-02-19	18.715	2018-09-04	NA	604	346	879WKG	10-1	hook	WK	2E- 1	hook	between	HH	879-10-1 x 899-2E- 1	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+2	3	12	NA	HH	2017-02-10	17.233	2018-09-04	NA	605	337	879WKG	2-2	hook	879WKG	10-1	hook	within	HH	879-2-2 x 879-10-1	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
+35	8	1	B	HH	2017-02-10	17.349	2018-09-04	NA	606	337	879WKG	G-2	hook	WK	2	hook	between	HH	879-G-2 x 866-2	hook.between	hook.between.879WKG.G-2	879WKG.G-2	hook879WKG
+29	11	10	A	HK	2017-02-10	26.616	2018-09-04	NA	607	337	879WKG	10-1	hook	3587WP	15	kaal	hybrid	HK	879-10-1 x 3587-15	hook.hybrid	hook.hybrid.879WKG.10-1	879WKG.10-1	hook879WKG
+62	12	1	A	HH	2017-02-19	23.418	2018-09-04	NA	608	346	WK	2	hook	879WKG	N-5	hook	between	HH	794-2 x 879-N-5	hook.between	hook.between.WK.2	WK.2	hookWK
+42	4	10	A	HK	2017-02-14	7.56	2018-09-12	NA	609	341	879WKG	G-2	hook	3587WP	15	kaal	hybrid	HK	879-G-2 x 3587-15	hook.hybrid	hook.hybrid.879WKG.G-2	879WKG.G-2	hook879WKG
+117	3	2	A	KK	2017-02-17	6.68	2018-09-12	NA	610	344	892WKG	1	kaal	904WPG	2	kaal	between	KK	892-1 x 904-2	kaal.between	kaal.between.892WKG.1	892WKG.1	kaal892WKG
+48	2	12	NA	HH	2017-02-14	10.317	2018-09-12	NA	611	341	879WKG	N-5	hook	879WKG	H-2	hook	within	HH	879-N-5 x 879-H-2	hook.within	hook.within.879WKG.N-5	879WKG.N-5	hook879WKG
+141	2	2	A	KK	2017-01-27	7.748	2018-09-12	NA	612	323	892WKG	5	kaal	904WPG	3	kaal	between	KK	892-5 x 904-3	kaal.between	kaal.between.892WKG.5	892WKG.5	kaal892WKG
+1	12	12	NA	NA	2017-01-27	8.849	2018-09-12	No Cross Type	613	323	879WKG	2-2	hook	879WKG	G-2	hook	within	HH	879-2-2 x 879-G-2	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
+108	2	8	B	KH	2017-01-26	14.229	2018-09-12	NA	614	322	892WKG	1	kaal	879WKG	2-2	hook	hybrid	KH	892-1 x 879-2-2	kaal.hybrid	kaal.hybrid.892WKG.1	892WKG.1	kaal892WKG
+169	13	14	NA	NA	2017-01-27	1.986	2018-09-12	No Cross Type 1/27/2017? JP: changed year from 2016	615	323	904WPG	3	kaal	904WPG	5	kaal	within	KK	904-3 x 904-5	kaal.within	kaal.within.904WPG.3	904WPG.3	kaal904WPG
+180	10	2	B	KK	2017-01-26	7.875	2018-09-12	NA	616	322	904WPG	5	kaal	892WKG	3	kaal	between	KK	904-5 x 892-3	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+74	8	1	A	HH	2017-01-27	6.382	2018-09-12	NA	617	323	WK	4	hook	879WKG	2-2	hook	between	HH	794-4 x 879-2-2	hook.between	hook.between.WK.4	WK.4	hookWK
+98	12	6	A	HK	2017-02-14	12.025	2018-09-12	2/14/2017? JP: changed year from 2016	618	341	WK	2	hook	904WPG	5	kaal	hybrid	HK	866-2 x 904-5	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+190	5	10	NA	KH	2017-01-27	14.766	2018-09-12	NA	619	323	3587WP	7	kaal	879WKG	G-2	hook	hybrid	KH	3587-7 x 879-G-2	kaal.hybrid	kaal.hybrid.3587WP.7	3587WP.7	kaal3587WP
+213	4	4	B	KK	NA	10.478	2018-10-03	No collected date	620	NA	3587WP	14	kaal	904WPG	3	kaal	between	KK	3587-14 x 904-3	kaal.between	kaal.between.3587WP.14	3587WP.14	kaal3587WP
+29	18	11	NA	HH	2017-02-18	13.648	2018-10-03	NA	621	345	879WKG	10-1	hook	3587WP	15	kaal	hybrid	HK	879-10-1 x 3587-15	hook.hybrid	hook.hybrid.879WKG.10-1	879WKG.10-1	hook879WKG
+64	13	11	NA	HH	2017-02-19	18.7	2018-10-05	NA	622	346	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
+63	3	11	NA	HH	2017-02-19	18.26	2018-10-05	NA	623	346	WK	2	hook	WK	4	hook	within	HH	794-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+21	12	1	B	HH	2017-02-19	18.17	2018-10-05	NA	624	346	879WKG	10-1	hook	WK	2	hook	between	HH	879-10-1 x 866-2	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+214	2	4	B	KK	2017-02-19	10.293	2018-10-05	NA	625	346	3587WP	14	kaal	904WPG	5	kaal	between	KK	3587-14 x 904-5	kaal.between	kaal.between.3587WP.14	3587WP.14	kaal3587WP
+80	4	5	A	HK	2017-02-22	17.369	2018-10-05	NA	626	349	WK	4	hook	892WKG	1	kaal	hybrid	HK	794-4 x 892-1	hook.hybrid	hook.hybrid.WK.4	WK.4	hookWK
+31	5	12	NA	HH	2017-02-19	16.553	2018-10-05	NA	627	346	879WKG	G-2	hook	879WKG	2-2	hook	within	HH	879-G-2 x 879-2-2	hook.within	hook.within.879WKG.G-2	879WKG.G-2	hook879WKG
+64	20	11	NA	HH	2017-02-18	12.826	2018-10-05	NA	628	345	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
+197	5	4	B	KK	2017-02-19	16.186	2018-10-05	NA	629	346	3587WP	7	kaal	904WPG	5	kaal	between	KK	3587-7 x 904-5	kaal.between	kaal.between.3587WP.7	3587WP.7	kaal3587WP
+63	9	11	NA	HH	2017-02-19	22.152	2018-10-05	NA	630	346	WK	2	hook	WK	4	hook	within	HH	794-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+3	14	12	NA	HH	2017-02-08	14.507	2018-10-05	NA	631	335	879WKG	2-2	hook	879WKG	N-5	hook	within	HH	879-2-2 x 879-N-5	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
+1	10	12	NA	HH	2017-02-08	21.928	2018-10-05	NA	632	335	879WKG	2-2	hook	879WKG	G-2	hook	within	HH	879-2-2 x 879-G-2	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
+204	1	10	B	KH	2017-02-08	23.661	2018-10-05	NA	633	335	3587WP	14	kaal	879WKG	2-2	hook	hybrid	KH	3587-14 x 879-2-2	kaal.hybrid	kaal.hybrid.3587WP.14	3587WP.14	kaal3587WP
+142	3	2	A	KK	2017-02-08	17.798	2018-10-05	NA	634	335	892WKG	5	kaal	904WPG	5	kaal	between	KK	892-5 x 904-5	kaal.between	kaal.between.892WKG.5	892WKG.5	kaal892WKG
+43	1	12	NA	HH	2017-02-08	14.029	2018-10-05	NA	635	335	879WKG	H-2	hook	879WKG	G-2	hook	within	HH	879-H-2 x 879-G-2	hook.within	hook.within.879WKG.H-2	879WKG.H-2	hook879WKG
+17	3	12	NA	HH	2017-02-08	13.464	2018-10-05	NA	636	335	879WKG	10-1	hook	879WKG	H-2	hook	within	HH	879-10-1 x 879-H-2	hook.within	hook.within.879WKG.10-1	879WKG.10-1	hook879WKG
+3	5	12	NA	HH	2017-02-08	5.252	2018-10-05	NA	637	335	879WKG	2-2	hook	879WKG	N-5	hook	within	HH	879-2-2 x 879-N-5	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
+198	4	15	NA	KK	2017-02-08	4.816	2018-10-05	NA	638	335	3587WP	7	kaal	3587WP	14	kaal	within	KK	3587-7 x 3587-14	kaal.within	kaal.within.3587WP.7	3587WP.7	kaal3587WP
+214	1	4	B	KK	2017-02-08	8.482	2018-10-05	NA	639	335	3587WP	14	kaal	904WPG	5	kaal	between	KK	3587-14 x 904-5	kaal.between	kaal.between.3587WP.14	3587WP.14	kaal3587WP
+171	6	9	B	KH	2017-02-08	18.59	2018-10-05	NA	640	335	904WPG	5	kaal	879WKG	2-2	hook	hybrid	KH	904-5 x 879-2-2	kaal.hybrid	kaal.hybrid.904WPG.5	904WPG.5	kaal904WPG
+157	3	14	NA	KK	2017-01-27	4.573	2018-10-05	NA	641	323	904WPG	2	kaal	904WPG	3	kaal	within	KK	904-2 x 904-3	kaal.within	kaal.within.904WPG.2	904WPG.2	kaal904WPG
+186	6	4	A	NA	2017-01-27	8.579	2018-10-05	No Cross Type	642	323	904WPG	5	kaal	3587WP	10	kaal	between	KK	904-5 x 3587-10	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+196	5	3	B	KK	2017-02-08	13.535	2018-10-05	NA	643	335	3587WP	7	kaal	892WKG	5	kaal	between	KK	3587-7 x 892-5	kaal.between	kaal.between.3587WP.7	3587WP.7	kaal3587WP
+198	4	15	NA	KK	2017-02-08	11.591	2018-10-05	NA	644	335	3587WP	7	kaal	3587WP	14	kaal	within	KK	3587-7 x 3587-14	kaal.within	kaal.within.3587WP.7	3587WP.7	kaal3587WP
+236	1	15	NA	KK	2017-01-26	8.61	2018-10-05	NA	645	322	3587WP	C	kaal	3587WP	14	kaal	within	KK	3587-C x 3587-14	kaal.within	kaal.within.3587WP.C	3587WP.C	kaal3587WP
+169	3	14	NA	NA	2017-01-27	4.474	2018-10-05	No Cross Type	646	323	904WPG	3	kaal	904WPG	5	kaal	within	KK	904-3 x 904-5	kaal.within	kaal.within.904WPG.3	904WPG.3	kaal904WPG
+6	5	8	A	HK	2017-01-26	19.698	2018-10-12	Not Needed	647	322	879WKG	2-2	hook	892WKG	1	kaal	hybrid	HK	879-2-2 x 892-1	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+185	4	4	A	KK	2017-02-03	4.398	2018-10-15	NA	648	330	904WPG	5	kaal	3587WP	7	kaal	between	KK	904-5 x 3587-7	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+182	5	2	B	KK	2017-02-10	6.289	2018-10-15	NA	649	337	904WPG	5	kaal	892WKG	5	kaal	between	KK	904-5 x 892-5	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+171	1	9	B	NA	2017-02-03	21.951	2018-10-15	No Cross Type	650	330	904WPG	5	kaal	879WKG	2-2	hook	hybrid	KH	904-5 x 879-2-2	kaal.hybrid	kaal.hybrid.904WPG.5	904WPG.5	kaal904WPG
+80	1	5	A	NA	2017-02-03	16.764	2018-10-15	No Cross Type	651	330	WK	4	hook	892WKG	1	kaal	hybrid	HK	794-4 x 892-1	hook.hybrid	hook.hybrid.WK.4	WK.4	hookWK
+183	5	14	NA	NA	2017-02-03	7.094	2018-10-15	No Cross Type	652	330	904WPG	5	kaal	904WPG	2	kaal	within	KK	904-5 x 904-2	kaal.within	kaal.within.904WPG.5	904WPG.5	kaal904WPG
+127	3	3	A	NA	2017-02-03	10.859	2018-10-15	No Cross Type	653	330	892WKG	3	kaal	3587WP	7	kaal	between	KK	892-3 x 3587-7	kaal.between	kaal.between.892WKG.3	892WKG.3	kaal892WKG
+63	15	11	NA	NA	2017-02-03	14.131	2018-10-15	No Cross Type	654	330	WK	2	hook	WK	4	hook	within	HH	794-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+94	9	5	A	NA	2017-02-03	5.096	2018-10-15	No Cross Type	655	330	WK	2	hook	892WKG	1	kaal	hybrid	HK	866-2 x 892-1	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+51	3	8	A	HK	2017-01-26	16.302	2018-10-24	NA	656	322	879WKG	N-5	hook	WK	2	hook	between	HH	879-N-5 x 866-2	hook.between	hook.between.879WKG.N-5	879WKG.N-5	hook879WKG
+79	19	11	NA	HH	2017-01-26	11.121	2018-10-24	NA	657	322	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
+89	9	1	A	HH	2017-02-18	18.851	2018-10-24	NA	658	345	WK	2	hook	879WKG	2-2	hook	between	HH	866-2 x 879-2-2	hook.between	hook.between.WK.2	WK.2	hookWK
+74	6	1	A	HH	2017-02-18	9.686	2018-10-24	NA	659	345	WK	4	hook	879WKG	2-2	hook	between	HH	794-4 x 879-2-2	hook.between	hook.between.WK.4	WK.4	hookWK
+67	6	5	A	HK	2017-02-18	14.862	2018-10-24	NA	660	345	WK	2	hook	892WKG	4	kaal	hybrid	HK	794-2 x 892-4	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+76	L	1	A	HH	2016-11-27	21.89	2018-10-24	JP: changed year from 2017	661	262	WK	4	hook	879WKG	G-2	hook	between	HH	794-4 x 879-G-2	hook.between	hook.between.WK.4	WK.4	hookWK
+169	2	14	NA	KK	2016-11-26	4.803	2018-10-24	JP: changed year from 2017	662	261	904WPG	3	kaal	904WPG	5	kaal	within	KK	904-3 x 904-5	kaal.within	kaal.within.904WPG.3	904WPG.3	kaal904WPG
+8	10	8	A	HK	2016-11-26	17.885	2018-10-24	JP: changed year from 2017	663	261	879WKG	2-2	hook	892WKG	4	kaal	hybrid	HK	879-2-2 x 892-4	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+2	12	12	NA	HH	2017-02-12	11.78	2018-10-24	NA	664	339	879WKG	2-2	hook	879WKG	10-1	hook	within	HH	879-2-2 x 879-10-1	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
+182	9	2	B	KK	2017-01-26	8.228	2018-10-24	NA	665	322	904WPG	5	kaal	892WKG	5	kaal	between	KK	904-5 x 892-5	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+180	13	2	B	KK	2017-01-26	12.408	2018-10-24	NA	666	322	904WPG	5	kaal	892WKG	3	kaal	between	KK	904-5 x 892-3	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+90	3	1	A	HH	2017-01-26	9.978	2018-10-24	NA	667	322	WK	2	hook	879WKG	10-1	hook	between	HH	866-2 x 879-10-1	hook.between	hook.between.WK.2	WK.2	hookWK
+77	2	1	A	HH	2017-01-26	13.556	2018-10-24	NA	668	322	WK	4	hook	879WKG	N-5	hook	between	HH	794-4 x 879-N-5	hook.between	hook.between.WK.4	WK.4	hookWK
+213	10	4	B	KK	2017-01-26	3.71	2018-10-29	NA	669	322	3587WP	14	kaal	904WPG	3	kaal	between	KK	3587-14 x 904-3	kaal.between	kaal.between.3587WP.14	3587WP.14	kaal3587WP
+182	15	2	B	KK	2017-01-26	13.048	2018-10-29	NA	670	322	904WPG	5	kaal	892WKG	5	kaal	between	KK	904-5 x 892-5	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+213	15	4	B	KK	2017-01-26	6.385	2018-10-29	NA	671	322	3587WP	14	kaal	904WPG	3	kaal	between	KK	3587-14 x 904-3	kaal.between	kaal.between.3587WP.14	3587WP.14	kaal3587WP
+166	8	2	B	KK	2017-02-18	9.434	2018-10-29	No R	672	345	904WPG	3	kaal	892WKG	1	kaal	between	KK	904-3 x 892-1	kaal.between	kaal.between.904WPG.3	904WPG.3	kaal904WPG
+24	9	8	A	HK	2017-02-18	27.901	2018-10-29	No R	673	345	879WKG	10-1	hook	892WKG	4	kaal	hybrid	HK	879-10-1 x 892-4	hook.hybrid	hook.hybrid.879WKG.10-1	879WKG.10-1	hook879WKG
+183	10	14	NA	KK	2017-02-22	6.697	2018-10-29	NA	674	349	904WPG	5	kaal	904WPG	2	kaal	within	KK	904-5 x 904-2	kaal.within	kaal.within.904WPG.5	904WPG.5	kaal904WPG
+173	10	9	B	KH	2017-02-22	18.87	2018-10-29	No R	675	349	904WPG	5	kaal	879WKG	G-2	hook	hybrid	KH	904-5 x 879-G-2	kaal.hybrid	kaal.hybrid.904WPG.5	904WPG.5	kaal904WPG
+184	4	14	NA	KK	2017-02-18	3.702	2018-11-13	No R	676	345	904WPG	5	kaal	904WPG	3	kaal	within	KK	904-5 x 904-3	kaal.within	kaal.within.904WPG.5	904WPG.5	kaal904WPG
+39	6	9	A	HK	2017-02-22	12.372	2018-11-13	No R	677	349	879WKG	G-2	hook	904WPG	5	kaal	hybrid	HK	879-G-2 x 904-5	hook.hybrid	hook.hybrid.879WKG.G-2	879WKG.G-2	hook879WKG
+183	12	14	NA	KK	2017-02-22	6.123	2018-11-13	No R	678	349	904WPG	5	kaal	904WPG	2	kaal	within	KK	904-5 x 904-2	kaal.within	kaal.within.904WPG.5	904WPG.5	kaal904WPG
+83	9	5	A	HK	2017-01-27	9.166	2018-11-13	NA	679	323	WK	4	hook	892WKG	5	kaal	hybrid	HK	794-4 x 892-5	hook.hybrid	hook.hybrid.WK.4	WK.4	hookWK
+183	8	14	NA	KK	2017-02-22	7.402	2018-11-13	No R	680	349	904WPG	5	kaal	904WPG	2	kaal	within	KK	904-5 x 904-2	kaal.within	kaal.within.904WPG.5	904WPG.5	kaal904WPG
+92	9	1	A	HH	2017-02-18	6.23	2018-11-13	No R	681	345	WK	2	hook	879WKG	N-5	hook	between	HH	866-2 x 879-N-5	hook.between	hook.between.WK.2	WK.2	hookWK
+36	6	8	A	HK	2017-01-26	20.716	2018-11-13	NA	682	322	879WKG	G-2	hook	892WKG	3	kaal	hybrid	HK	879-G-2 x 892-3	hook.hybrid	hook.hybrid.879WKG.G-2	879WKG.G-2	hook879WKG
+101	9	7	A	HK	2017-02-18	22.147	2018-11-15	No R	683	345	WK	2	hook	3587WP	C	kaal	hybrid	HK	866-2 x 3587-C	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+179	6	2	B	KK	2017-02-18	5.108	2018-11-15	No R	684	345	904WPG	5	kaal	892WKG	1	kaal	between	KK	904-5 x 892-1	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+172	7	9	B	KH	2017-01-26	12.518	2018-11-15	NA	685	322	904WPG	5	kaal	879WKG	10-1	hook	hybrid	KH	904-5 x 879-10-1	kaal.hybrid	kaal.hybrid.904WPG.5	904WPG.5	kaal904WPG
+21	6	1	B	HH	2017-02-19	19.542	2018-11-15	No R	686	346	879WKG	10-1	hook	WK	2	hook	between	HH	879-10-1 x 866-2	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+120	4	3	A	KK	2017-02-18	6.099	2018-11-15	No R	687	345	892WKG	1	kaal	3587WP	7	kaal	between	KK	892-1 x 3587-7	kaal.between	kaal.between.892WKG.1	892WKG.1	kaal892WKG
+179	4	2	B	KK	2017-02-18	5.564	2018-11-15	No R	688	345	904WPG	5	kaal	892WKG	1	kaal	between	KK	904-5 x 892-1	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+74	15	1	A	HH	2017-02-18	0.331	2018-11-21	Never flowered	689	345	WK	4	hook	879WKG	2-2	hook	between	HH	794-4 x 879-2-2	hook.between	hook.between.WK.4	WK.4	hookWK
+168	4	14	NA	KK	2017-02-18	5.982	2018-11-21	No R	690	345	904WPG	3	kaal	904WPG	2	kaal	within	KK	904-3 x 904-2	kaal.within	kaal.within.904WPG.3	904WPG.3	kaal904WPG
+155	5	2	B	KK	2017-02-18	11.769	2018-11-21	No R	691	345	904WPG	2	kaal	892WKG	1	kaal	between	KK	904-2 x 892-1	kaal.between	kaal.between.904WPG.2	904WPG.2	kaal904WPG
+6	2	8	A	HK	2017-02-18	11.007	2018-11-21	No R	692	345	879WKG	2-2	hook	892WKG	1	kaal	hybrid	HK	879-2-2 x 892-1	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+186	5	4	A	KK	2017-02-18	9.753	2018-11-21	No R	693	345	904WPG	5	kaal	3587WP	10	kaal	between	KK	904-5 x 3587-10	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+10	18	9	A	HK	2017-02-18	10.69	2018-11-21	No R	694	345	879WKG	2-2	hook	904WPG	2	kaal	hybrid	HK	879-2-2 x 904-2	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+89	3	1	A	HH	2017-02-18	11.46	2018-11-21	No R	695	345	WK	2	hook	879WKG	2-2	hook	between	HH	866-2 x 879-2-2	hook.between	hook.between.WK.2	WK.2	hookWK
+64	5	11	NA	HH	2017-02-22	19.078	2018-11-30	NA	696	349	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
+75	11	1	A	HH	2017-02-18	10.055	2018-11-30	NA	697	345	WK	4	hook	879WKG	10-1	hook	between	HH	794-4 x 879-10-1	hook.between	hook.between.WK.4	WK.4	hookWK
+156	10	2	B	KK	2017-02-18	5.085	2018-11-30	NA	698	345	904WPG	2	kaal	892WKG	10	kaal	between	KK	904-2 x 892-10	kaal.between	kaal.between.904WPG.2	904WPG.2	kaal904WPG
+140	2	13	NA	KK	2017-02-22	5.342	2018-11-30	NA	699	349	892WKG	5	kaal	892WKG	4	kaal	within	KK	892-5 x 892-4	kaal.within	kaal.within.892WKG.5	892WKG.5	kaal892WKG
+155	4	2	B	KK	2017-02-18	10.335	2018-11-30	NA	700	345	904WPG	2	kaal	892WKG	1	kaal	between	KK	904-2 x 892-1	kaal.between	kaal.between.904WPG.2	904WPG.2	kaal904WPG
+179	5	2	B	KK	2017-02-22	2.458	2018-11-30	NA	701	349	904WPG	5	kaal	892WKG	1	kaal	between	KK	904-5 x 892-1	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+10	17	9	A	HK	2017-02-21	4.751	2018-11-30	NA	702	348	879WKG	2-2	hook	904WPG	2	kaal	hybrid	HK	879-2-2 x 904-2	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+119	1	2	A	KK	2017-02-10	10.312	2018-11-30	NA	703	337	892WKG	1	kaal	904WPG	5	kaal	between	KK	892-1 x 904-5	kaal.between	kaal.between.892WKG.1	892WKG.1	kaal892WKG
+39	2	9	A	HK	2017-02-10	11.863	2018-11-30	NA	704	337	879WKG	G-2	hook	904WPG	5	kaal	hybrid	HK	879-G-2 x 904-5	hook.hybrid	hook.hybrid.879WKG.G-2	879WKG.G-2	hook879WKG
+218	3	4	B	KK	2017-02-10	3.898	2018-11-30	NA	705	337	3587WP	15	kaal	904WPG	3	kaal	between	KK	3587-15 x 904-3	kaal.between	kaal.between.3587WP.15	3587WP.15	kaal3587WP
+101	3	7	A	HK	2017-02-10	10.433	2018-11-30	NA	706	337	WK	2	hook	3587WP	C	kaal	hybrid	HK	866-2 x 3587-C	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+105	`4	6	A	HK	2017-02-10	14.196	2018-11-30	NA	707	337	WK	2E- 1	hook	904WPG	5	kaal	hybrid	HK	899-2E- 1 x 904-5	hook.hybrid	hook.hybrid.WK.2E- 1	WK.2E- 1	hookWK
+110	1	NA	NA	KH	2017-02-10	2.802	2018-11-30	Never flowered,No Blk	708	337	892WKG	1	kaal	879WKG	H-2	hook	hybrid	KH	892-1 x 879-H-2	kaal.hybrid	kaal.hybrid.892WKG.1	892WKG.1	kaal892WKG
+29	12	10	A	HK	2017-02-10	15.213	2018-11-30	No R	709	337	879WKG	10-1	hook	3587WP	15	kaal	hybrid	HK	879-10-1 x 3587-15	hook.hybrid	hook.hybrid.879WKG.10-1	879WKG.10-1	hook879WKG
+9	10	8	A	HK	2017-02-10	25.612	2018-11-30	No R	710	337	879WKG	2-2	hook	892WKG	5	kaal	hybrid	HK	879-2-2 x 892-5	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+58	4	10	A	HK	2017-02-10	15.447	2018-11-30	NA	711	337	879WKG	N-5	hook	3587WP	C	kaal	hybrid	HK	879-N-5 x 3587-C	hook.hybrid	hook.hybrid.879WKG.N-5	879WKG.N-5	hook879WKG
+64	16	11	NA	HH	2017-02-10	8.073	2018-11-30	No R	712	337	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
+79	7	11	NA	HH	2017-02-10	10.766	2018-11-30	NA	713	337	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
+95	6	NA	NA	HK	2017-02-10	10.031	2018-11-30	Never flowered,No Blk	714	337	WK	2	hook	892WKG	4	kaal	hybrid	HK	866-2 x 892-4	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+85	5	6	A	HK	2017-02-10	9.115	2018-11-30	NA	715	337	WK	4	hook	904WPG	5	kaal	hybrid	HK	794-4 x 904-5	hook.hybrid	hook.hybrid.WK.4	WK.4	hookWK
+82	5	5	A	HK	2017-02-10	15.594	2018-11-30	Never flowered	716	337	WK	4	hook	892WKG	4	kaal	hybrid	HK	794-4 x 892-4	hook.hybrid	hook.hybrid.WK.4	WK.4	hookWK
+24	7	8	A	HK	2017-02-10	23.74	2018-11-30	NA	717	337	879WKG	10-1	hook	892WKG	4	kaal	hybrid	HK	879-10-1 x 892-4	hook.hybrid	hook.hybrid.879WKG.10-1	879WKG.10-1	hook879WKG
+59	18	1	A	HH	2017-02-10	16.323	2018-11-30	No R	718	337	WK	2	hook	879WKG	2-2	hook	between	HH	794-2 x 879-2-2	hook.between	hook.between.WK.2	WK.2	hookWK
+93	19	11	NA	HH	2017-02-10	16.078	2018-11-30	NA	719	337	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
+67	7	5	A	HK	2017-02-10	18.128	2018-11-30	No R	720	337	WK	2	hook	892WKG	4	kaal	hybrid	HK	794-2 x 892-4	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+29	4	10	A	HK	2017-02-10	20.248	2018-11-30	NA	721	337	879WKG	10-1	hook	3587WP	15	kaal	hybrid	HK	879-10-1 x 3587-15	hook.hybrid	hook.hybrid.879WKG.10-1	879WKG.10-1	hook879WKG
+77	1	1	A	HH	2017-02-10	11.233	2018-11-30	No R	722	337	WK	4	hook	879WKG	N-5	hook	between	HH	794-4 x 879-N-5	hook.between	hook.between.WK.4	WK.4	hookWK
+158	1	14	NA	KK	2017-02-10	7.692	2018-12-06	NA	723	337	904WPG	2	kaal	904WPG	5	kaal	within	KK	904-2 x 904-5	kaal.within	kaal.within.904WPG.2	904WPG.2	kaal904WPG
+83	2	5	A	HK	2017-02-10	14.598	2018-12-06	NA	724	337	WK	4	hook	892WKG	5	kaal	hybrid	HK	794-4 x 892-5	hook.hybrid	hook.hybrid.WK.4	WK.4	hookWK
+68	5	5	A	HK	2017-02-10	9.667	2018-12-06	No R	725	337	WK	2	hook	892WKG	5	kaal	hybrid	HK	794-2 x 892-5	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+44	8	9	A	HK	NA	11.543	2018-12-06	Never flowered,No collected date	726	NA	879WKG	H-2	hook	904WPG	5	kaal	hybrid	HK	879-H-2 x 904-5	hook.hybrid	hook.hybrid.879WKG.H-2	879WKG.H-2	hook879WKG
+50	5	1	B	HH	2017-02-10	13.165	2018-12-06	No R	727	337	879WKG	N-5	hook	WK	4	hook	between	HH	879-N-5 x 794-4	hook.between	hook.between.879WKG.N-5	879WKG.N-5	hook879WKG
+60	6	1	A	HH	2017-02-10	20.026	2018-12-06	No R	728	337	WK	2	hook	879WKG	10-1	hook	between	HH	794-2 x 879-10-1	hook.between	hook.between.WK.2	WK.2	hookWK
+2	4	12	NA	HH	2017-02-10	22.295	2018-12-06	NA	729	337	879WKG	2-2	hook	879WKG	10-1	hook	within	HH	879-2-2 x 879-10-1	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
+3	20	12	NA	HH	2017-02-10	17.194	2018-12-06	NA	730	337	879WKG	2-2	hook	879WKG	N-5	hook	within	HH	879-2-2 x 879-N-5	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
+29	5	10	A	HK	2017-02-10	14.805	2018-12-07	No R	731	337	879WKG	10-1	hook	3587WP	15	kaal	hybrid	HK	879-10-1 x 3587-15	hook.hybrid	hook.hybrid.879WKG.10-1	879WKG.10-1	hook879WKG
+66	9	5	A	HK	2017-02-10	22.509	2018-12-07	No R	732	337	WK	2	hook	892WKG	1	kaal	hybrid	HK	794-2 x 892-1	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+5	20	1	B	HH	2017-02-10	14.251	2018-12-07	No R	733	337	879WKG	2-2	hook	WK	4	hook	between	HH	879-2-2 x 794-4	hook.between	hook.between.879WKG.2-2	879WKG.2-2	hook879WKG
+12	8	9	A	HK	2017-02-10	8.224	2018-12-07	NA	734	337	879WKG	2-2	hook	904WPG	5	kaal	hybrid	HK	879-2-2 x 904-5	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+4	8	1	B	HH	2017-02-10	14.983	2018-12-07	No R	735	337	879WKG	2-2	hook	WK	2	hook	between	HH	879-2-2 x 794-2	hook.between	hook.between.879WKG.2-2	879WKG.2-2	hook879WKG
+66	7	5	A	HYBRID	2016-12-07	8.629	2019-01-07	NA	736	272	WK	2	hook	892WKG	1	kaal	hybrid	HK	794-2 x 892-1	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+172	3	9	B	HYBRID	2016-12-08	8.254	2019-01-07	NA	737	273	904WPG	5	kaal	879WKG	10-1	hook	hybrid	KH	904-5 x 879-10-1	kaal.hybrid	kaal.hybrid.904WPG.5	904WPG.5	kaal904WPG
+73	6	7	A	HYBRID	2016-12-14	1.311	2019-01-07	No inflo	738	279	WK	2	hook	3587WP	C	kaal	hybrid	HK	794-2 x 3587-C	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+81	2	5	A	HYBRID	2016-12-08	9.91	2019-01-07	NA	739	273	WK	4	hook	892WKG	3	kaal	hybrid	HK	794-4 x 892-3	hook.hybrid	hook.hybrid.WK.4	WK.4	hookWK
+28	3	10	A	HYBRID	2016-12-13	14.997	2019-01-07	NA	740	278	879WKG	10-1	hook	3587WP	7	kaal	hybrid	HK	879-10-1 x 3587-7	hook.hybrid	hook.hybrid.879WKG.10-1	879WKG.10-1	hook879WKG
+101	7	7	A	HYBRID	2016-12-08	6.506	2019-01-07	NA	741	273	WK	2	hook	3587WP	C	kaal	hybrid	HK	866-2 x 3587-C	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+9	1	8	A	HYBRID	2016-12-07	5.891	2019-01-07	NA	742	272	879WKG	2-2	hook	892WKG	5	kaal	hybrid	HK	879-2-2 x 892-5	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+10	19	9	A	HYBRID	2016-12-13	7.016	2019-01-07	No inflo	743	278	879WKG	2-2	hook	904WPG	2	kaal	hybrid	HK	879-2-2 x 904-2	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+98	4	6	A	HYBRID	2016-12-08	6.222	2019-01-07	NA	744	273	WK	2	hook	904WPG	5	kaal	hybrid	HK	866-2 x 904-5	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+8	11	8	A	HYBRID	2016-12-07	11.976	2019-01-07	NA	745	272	879WKG	2-2	hook	892WKG	4	kaal	hybrid	HK	879-2-2 x 892-4	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+98	6	6	A	HYBRID	2016-12-07	12.332	2019-01-07	NA	746	272	WK	2	hook	904WPG	5	kaal	hybrid	HK	866-2 x 904-5	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+98	8	6	A	HYBRID	2016-12-14	9.796	2019-01-07	NA	747	279	WK	2	hook	904WPG	5	kaal	hybrid	HK	866-2 x 904-5	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+108	7	8	B	HYBRID	2016-12-06	13.826	2019-01-07	NA	748	271	892WKG	1	kaal	879WKG	2-2	hook	hybrid	KH	892-1 x 879-2-2	kaal.hybrid	kaal.hybrid.892WKG.1	892WKG.1	kaal892WKG
+12	5	9	A	HYBRID	2016-12-11	15.859	2019-01-07	NA	749	276	879WKG	2-2	hook	904WPG	5	kaal	hybrid	HK	879-2-2 x 904-5	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+66	6	5	A	HYBRID	2016-12-14	7.094	2019-01-22	NA	750	279	WK	2	hook	892WKG	1	kaal	hybrid	HK	794-2 x 892-1	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+66	5	5	A	HYBRID	2016-12-13	12.815	2019-01-22	NA	751	278	WK	2	hook	892WKG	1	kaal	hybrid	HK	794-2 x 892-1	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+98	14	6	A	HYBRID	2016-12-08	8.521	2019-01-22	NA	752	273	WK	2	hook	904WPG	5	kaal	hybrid	HK	866-2 x 904-5	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+83	7	5	A	HYBRID	2016-12-08	13.889	2019-01-22	NA	753	273	WK	4	hook	892WKG	5	kaal	hybrid	HK	794-4 x 892-5	hook.hybrid	hook.hybrid.WK.4	WK.4	hookWK
+168	5	14	NA	KK	2016-12-13	4.438	2019-01-22	NA	754	278	904WPG	3	kaal	904WPG	2	kaal	within	KK	904-3 x 904-2	kaal.within	kaal.within.904WPG.3	904WPG.3	kaal904WPG
+67	13	5	A	HYBRID	2016-12-09	13.787	2019-01-22	NA	755	274	WK	2	hook	892WKG	4	kaal	hybrid	HK	794-2 x 892-4	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+179	2	2	B	KK	2016-12-08	18.947	2019-01-22	NA	756	273	904WPG	5	kaal	892WKG	1	kaal	between	KK	904-5 x 892-1	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+10	12	9	A	HYBRID	2016-12-09	15.772	2019-01-22	NA	757	274	879WKG	2-2	hook	904WPG	2	kaal	hybrid	HK	879-2-2 x 904-2	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+183	15	14	NA	KK	2016-12-14	6.824	2019-01-22	NA	758	279	904WPG	5	kaal	904WPG	2	kaal	within	KK	904-5 x 904-2	kaal.within	kaal.within.904WPG.5	904WPG.5	kaal904WPG
+117	3	2	A	KK	2016-12-08	6.518	2019-01-22	NA	759	273	892WKG	1	kaal	904WPG	2	kaal	between	KK	892-1 x 904-2	kaal.between	kaal.between.892WKG.1	892WKG.1	kaal892WKG
+198	5	15	NA	KK	2016-12-07	6.558	2019-01-22	NA	760	272	3587WP	7	kaal	3587WP	14	kaal	within	KK	3587-7 x 3587-14	kaal.within	kaal.within.3587WP.7	3587WP.7	kaal3587WP
+185	11	4	A	KK	2016-12-08	5.572	2019-01-22	NA	761	273	904WPG	5	kaal	3587WP	7	kaal	between	KK	904-5 x 3587-7	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+8	15	8	A	HYBRID	2016-12-14	12.619	2019-01-22	NA	762	279	879WKG	2-2	hook	892WKG	4	kaal	hybrid	HK	879-2-2 x 892-4	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+213	5	4	B	KK	2016-12-08	5.064	2019-01-23	NA	763	273	3587WP	14	kaal	904WPG	3	kaal	between	KK	3587-14 x 904-3	kaal.between	kaal.between.3587WP.14	3587WP.14	kaal3587WP
+168	8	14	NA	KK	2016-12-08	6.39	2019-01-23	NA	764	273	904WPG	3	kaal	904WPG	2	kaal	within	KK	904-3 x 904-2	kaal.within	kaal.within.904WPG.3	904WPG.3	kaal904WPG
+117	5	2	A	KK	2016-12-07	5.831	2019-01-23	NA	765	272	892WKG	1	kaal	904WPG	2	kaal	between	KK	892-1 x 904-2	kaal.between	kaal.between.892WKG.1	892WKG.1	kaal892WKG
+198	3	15	NA	KK	2016-12-08	6.87	2019-01-23	NA	766	273	3587WP	7	kaal	3587WP	14	kaal	within	KK	3587-7 x 3587-14	kaal.within	kaal.within.3587WP.7	3587WP.7	kaal3587WP
+198	12	15	NA	KK	2016-12-08	9.744	2019-01-23	NA	767	273	3587WP	7	kaal	3587WP	14	kaal	within	KK	3587-7 x 3587-14	kaal.within	kaal.within.3587WP.7	3587WP.7	kaal3587WP
+169	15	14	NA	KK	2016-12-08	3.802	2019-01-23	NA	768	273	904WPG	3	kaal	904WPG	5	kaal	within	KK	904-3 x 904-5	kaal.within	kaal.within.904WPG.3	904WPG.3	kaal904WPG
+180	8	2	B	KK	2016-12-13	0.453	2019-01-23	No inflo	769	278	904WPG	5	kaal	892WKG	3	kaal	between	KK	904-5 x 892-3	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+14	2	10	A	HYBRID	2016-12-14	13.793	2019-01-23	NA	770	279	879WKG	2-2	hook	3587WP	C	kaal	hybrid	HK	879-2-2 x 3587-C	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+6	11	8	A	HYBRID	2016-12-08	8.772	2019-01-23	NA	771	273	879WKG	2-2	hook	892WKG	1	kaal	hybrid	HK	879-2-2 x 892-1	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+179	3	2	B	KK	2016-12-07	3.293	2019-01-23	NA	772	272	904WPG	5	kaal	892WKG	1	kaal	between	KK	904-5 x 892-1	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+204	2	10	B	HYBRID	2016-12-08	8.369	2019-01-23	NA	773	273	3587WP	14	kaal	879WKG	2-2	hook	hybrid	KH	3587-14 x 879-2-2	kaal.hybrid	kaal.hybrid.3587WP.14	3587WP.14	kaal3587WP
+21	7	1	B	HH	2016-12-13	11.19	2019-02-06	NA	774	278	879WKG	10-1	hook	WK	2	hook	between	HH	879-10-1 x 866-2	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+65	7	11	NA	HH	2016-12-07	11.014	2019-02-06	NA	775	272	WK	2	hook	WK	2E	hook	between	HH	794-2 x 899-2E	hook.between	hook.between.WK.2	WK.2	hookWK
+61	`4	1	A	HH	2016-12-13	11.328	2019-02-06	NA	776	278	WK	2	hook	879WKG	G-2	hook	between	HH	794-2 x 879-G-2	hook.between	hook.between.WK.2	WK.2	hookWK
+34	3	1	B	HH	2016-12-11	16.414	2019-02-06	NA	777	276	879WKG	G-2	hook	WK	4	hook	between	HH	879-G-2 x 794-4	hook.between	hook.between.879WKG.G-2	879WKG.G-2	hook879WKG
+74	17	1	A	HH	2016-12-14	13.091	2019-02-06	NA	778	279	WK	4	hook	879WKG	2-2	hook	between	HH	794-4 x 879-2-2	hook.between	hook.between.WK.4	WK.4	hookWK
+2	17	12	NA	HH	2016-12-13	9.454	2019-02-06	NA	779	278	879WKG	2-2	hook	879WKG	10-1	hook	within	HH	879-2-2 x 879-10-1	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
+60	18	1	A	HH	2016-12-11	12.967	2019-02-06	NA	780	276	WK	2	hook	879WKG	10-1	hook	between	HH	794-2 x 879-10-1	hook.between	hook.between.WK.2	WK.2	hookWK
+219	NA	4	B	KK	2016-12-08	7.367	2019-02-06	No Prog ID	781	273	3587WP	15	kaal	904WPG	5	kaal	between	KK	3587-15 x 904-5	kaal.between	kaal.between.3587WP.15	3587WP.15	kaal3587WP
+5	6	1	B	HH	2016-12-14	16.515	2019-02-06	NA	782	279	879WKG	2-2	hook	WK	4	hook	between	HH	879-2-2 x 794-4	hook.between	hook.between.879WKG.2-2	879WKG.2-2	hook879WKG
+108	7	8	B	HYBRID	2016-12-06	13.554	2019-02-06	NA	783	271	892WKG	1	kaal	879WKG	2-2	hook	hybrid	KH	892-1 x 879-2-2	kaal.hybrid	kaal.hybrid.892WKG.1	892WKG.1	kaal892WKG
+98	8	6	A	HYBRID	2016-12-14	9.733	2019-02-06	NA	784	279	WK	2	hook	904WPG	5	kaal	hybrid	HK	866-2 x 904-5	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+92	11	1	A	HH	2016-12-13	10.39	2019-02-06	NA	785	278	WK	2	hook	879WKG	N-5	hook	between	HH	866-2 x 879-N-5	hook.between	hook.between.WK.2	WK.2	hookWK
+147	4	14	NA	KK	2016-12-07	4.484	2019-02-06	NA	786	272	904WPG	2	kaal	879WKG	2-2	hook	hybrid	KH	904-2 x 879-2-2	kaal.hybrid	kaal.hybrid.904WPG.2	904WPG.2	kaal904WPG
+181	5	2	B	KK	2016-12-07	8.587	2019-02-06	NA	787	272	904WPG	5	kaal	892WKG	4	kaal	between	KK	904-5 x 892-4	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+19	4	1	B	HH	2016-12-11	14.633	2019-02-06	NA	788	276	879WKG	10-1	hook	WK	2	hook	between	HH	879-10-1 x 794-2	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+180	9	2	B	KK	2016-12-09	14.3	2019-02-06	NA	789	274	904WPG	5	kaal	892WKG	3	kaal	between	KK	904-5 x 892-3	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+79	1	11	NA	HH	2016-12-07	10.893	2019-02-06	NA	790	272	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
+21	4	1	B	HH	2016-12-11	12.184	2019-02-06	NA	791	276	879WKG	10-1	hook	WK	2	hook	between	HH	879-10-1 x 866-2	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+35	9	1	B	HH	2016-12-07	11.527	2019-02-06	NA	792	272	879WKG	G-2	hook	WK	2	hook	between	HH	879-G-2 x 866-2	hook.between	hook.between.879WKG.G-2	879WKG.G-2	hook879WKG
+75	1	1	A	HH	2016-12-07	8.844	2019-02-08	NA	793	272	WK	4	hook	879WKG	10-1	hook	between	HH	794-4 x 879-10-1	hook.between	hook.between.WK.4	WK.4	hookWK
+59	10	1	A	HH	2016-12-06	10.485	2019-02-08	NA	794	271	WK	2	hook	879WKG	2-2	hook	between	HH	794-2 x 879-2-2	hook.between	hook.between.WK.2	WK.2	hookWK
+34	1	1	B	HH	2016-12-11	12.751	2019-02-08	NA	795	276	879WKG	G-2	hook	WK	4	hook	between	HH	879-G-2 x 794-4	hook.between	hook.between.879WKG.G-2	879WKG.G-2	hook879WKG
+63	17	11	NA	HH	2016-12-11	12.476	2019-02-08	NA	796	276	WK	2	hook	WK	4	hook	within	HH	794-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+62	6	1	A	HH	2016-12-08	10.665	2019-02-08	NA	797	273	WK	2	hook	879WKG	N-5	hook	between	HH	794-2 x 879-N-5	hook.between	hook.between.WK.2	WK.2	hookWK
+60	13	1	A	HH	2016-12-11	11.41	2019-02-08	NA	798	276	WK	2	hook	879WKG	10-1	hook	between	HH	794-2 x 879-10-1	hook.between	hook.between.WK.2	WK.2	hookWK
+63	2	11	NA	HH	2016-12-14	10.147	2019-02-08	NA	799	279	WK	2	hook	WK	4	hook	within	HH	794-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+60	2	1	A	HH	2016-12-08	18.79	2019-02-08	NA	800	273	WK	2	hook	879WKG	10-1	hook	between	HH	794-2 x 879-10-1	hook.between	hook.between.WK.2	WK.2	hookWK
+3	8	12	NA	HH	2016-12-08	10.546	2019-02-08	NA	801	273	879WKG	2-2	hook	879WKG	N-5	hook	within	HH	879-2-2 x 879-N-5	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
+5	1	1	B	HH	2016-12-09	8.923	2019-02-08	NA	802	274	879WKG	2-2	hook	WK	4	hook	between	HH	879-2-2 x 794-4	hook.between	hook.between.879WKG.2-2	879WKG.2-2	hook879WKG
+91	20	1	A	HH	2016-12-08	11.504	2019-02-08	NA	803	273	WK	2	hook	879WKG	G-2	hook	between	HH	866-2 x 879-G-2	hook.between	hook.between.WK.2	WK.2	hookWK
+19	15	1	B	HH	2016-12-14	11.557	2019-02-08	NA	804	279	879WKG	10-1	hook	WK	2	hook	between	HH	879-10-1 x 794-2	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+74	1a	1	A	HH	2016-12-18	10.785	2019-02-15	No inflo, No envolope	805	283	WK	4	hook	879WKG	2-2	hook	between	HH	794-4 x 879-2-2	hook.between	hook.between.WK.4	WK.4	hookWK
+77	6	1	A	HH	2016-12-20	8.62	2019-02-15	NA	806	285	WK	4	hook	879WKG	N-5	hook	between	HH	794-4 x 879-N-5	hook.between	hook.between.WK.4	WK.4	hookWK
+77	5	1	A	HH	2016-12-18	10.47	2019-02-15	NA	807	283	WK	4	hook	879WKG	N-5	hook	between	HH	794-4 x 879-N-5	hook.between	hook.between.WK.4	WK.4	hookWK
+63	8	11	NA	HH	2016-12-19	11.429	2019-02-15	NA	808	284	WK	2	hook	WK	4	hook	within	HH	794-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+93	1	11	NA	HH	2016-12-19	11.24	2019-02-15	NA	809	284	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
+64	14	11	NA	HH	2016-12-18	14.411	2019-02-15	NA	810	283	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
+2	13	12	NA	HH	2016-12-18	10.578	2019-02-15	NA	811	283	879WKG	2-2	hook	879WKG	10-1	hook	within	HH	879-2-2 x 879-10-1	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
+64	15	11	NA	HH	2016-12-18	9.181	2019-02-15	NA	812	283	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
+20	7	1	B	HH	2016-12-19	14.333	2019-02-22	NA	813	284	879WKG	10-1	hook	WK	4	hook	between	HH	879-10-1 x 794-4	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+75	4	1	A	HH	2016-12-19	14.018	2019-02-22	NA	814	284	WK	4	hook	879WKG	10-1	hook	between	HH	794-4 x 879-10-1	hook.between	hook.between.WK.4	WK.4	hookWK
+34	5	1	B	HH	2016-12-20	11.716	2019-02-22	No inflo	815	285	879WKG	G-2	hook	WK	4	hook	between	HH	879-G-2 x 794-4	hook.between	hook.between.879WKG.G-2	879WKG.G-2	hook879WKG
+60	15	1	A	HH	2016-12-18	12.088	2019-02-22	NA	816	283	WK	2	hook	879WKG	10-1	hook	between	HH	794-2 x 879-10-1	hook.between	hook.between.WK.2	WK.2	hookWK
+61	5	1	A	HH	2016-12-18	14	2019-02-22	NA	817	283	WK	2	hook	879WKG	G-2	hook	between	HH	794-2 x 879-G-2	hook.between	hook.between.WK.2	WK.2	hookWK
+22	10	1	B	HH	2016-12-18	12.169	2019-02-22	NA	818	283	879WKG	10-1	hook	WK	2E- 1	hook	between	HH	879-10-1 x 899-2E- 1	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+75	13	1	A	HH	2016-12-18	8.521	2019-02-22	NA	819	283	WK	4	hook	879WKG	10-1	hook	between	HH	794-4 x 879-10-1	hook.between	hook.between.WK.4	WK.4	hookWK
+19	13	1	B	HH	2016-12-18	14.454	2019-02-22	NA	820	283	879WKG	10-1	hook	WK	2	hook	between	HH	879-10-1 x 794-2	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+77	4	1	A	HH	2016-12-20	7.748	2019-02-28	No inflo, No envolope	821	285	WK	4	hook	879WKG	N-5	hook	between	HH	794-4 x 879-N-5	hook.between	hook.between.WK.4	WK.4	hookWK
+8	17	8	A	HYBRID	2016-12-20	15.411	2019-02-28	No inflo	822	285	879WKG	2-2	hook	892WKG	4	kaal	hybrid	HK	879-2-2 x 892-4	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+41	3	10	A	HYBRID	2016-12-20	14.406	2019-02-28	NA	823	285	879WKG	G-2	hook	3587WP	14	kaal	hybrid	HK	879-G-2 x 3587-14	hook.hybrid	hook.hybrid.879WKG.G-2	879WKG.G-2	hook879WKG
+23	1	8	A	HYBRID	2016-12-20	12.118	2019-02-28	NA	824	285	879WKG	10-1	hook	892WKG	1	kaal	hybrid	HK	879-10-1 x 892-1	hook.hybrid	hook.hybrid.879WKG.10-1	879WKG.10-1	hook879WKG
+117	9	2	A	KK	2016-12-20	8.626	2019-02-28	NA	825	285	892WKG	1	kaal	904WPG	2	kaal	between	KK	892-1 x 904-2	kaal.between	kaal.between.892WKG.1	892WKG.1	kaal892WKG
+219	1	4	B	KK	2016-12-20	1.467	2019-02-28	NA	826	285	3587WP	15	kaal	904WPG	5	kaal	between	KK	3587-15 x 904-5	kaal.between	kaal.between.3587WP.15	3587WP.15	kaal3587WP
+184	6	14	NA	KK	2016-12-19	4.008	2019-02-28	Had ouls, first inflo, no other inflo	827	284	904WPG	5	kaal	904WPG	3	kaal	within	KK	904-5 x 904-3	kaal.within	kaal.within.904WPG.5	904WPG.5	kaal904WPG
+156	9	2	B	KK	2016-12-20	7.714	2019-02-28	NA	828	285	904WPG	2	kaal	892WKG	10	kaal	between	KK	904-2 x 892-10	kaal.between	kaal.between.904WPG.2	904WPG.2	kaal904WPG
+63	19	11	NA	HH	2016-12-19	14.865	2019-02-28	NA	829	284	WK	2	hook	WK	4	hook	within	HH	794-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+31	3	12	NA	HH	2016-12-19	9.639	2019-02-28	No inflo	830	284	879WKG	G-2	hook	879WKG	2-2	hook	within	HH	879-G-2 x 879-2-2	hook.within	hook.within.879WKG.G-2	879WKG.G-2	hook879WKG
+52	1	8	A	HYBRID	2016-12-20	12.78	2019-02-28	NA	831	285	879WKG	N-5	hook	892WKG	1	kaal	hybrid	HK	879-N-5 x 892-1	hook.hybrid	hook.hybrid.879WKG.N-5	879WKG.N-5	hook879WKG
+79	11	11	NA	HH	2016-12-19	7.459	2019-02-28	NA	832	284	WK	4	hook	WK	2	hook	between	HH	794-4 x 866-2	hook.between	hook.between.WK.4	WK.4	hookWK
+140	1	13	NA	KK	2016-12-20	3.877	2019-02-28	NA	833	285	892WKG	5	kaal	892WKG	4	kaal	within	KK	892-5 x 892-4	kaal.within	kaal.within.892WKG.5	892WKG.5	kaal892WKG
+93	5	11	NA	HH	2016-12-20	10.607	2019-02-28	NA	834	285	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
+162	1	9	B	KH	2016-12-20	13.58	2019-02-28	No inflo, No envolope	835	285	904WPG	3	kaal	879WKG	N-5	hook	hybrid	KH	904-3 x 879-N-5	kaal.hybrid	kaal.hybrid.904WPG.3	904WPG.3	kaal904WPG
+196	2	3	B	KK	2016-12-20	10.44	2019-02-28	No flowering inflos for reg, inflos with buds	836	285	3587WP	7	kaal	892WKG	5	kaal	between	KK	3587-7 x 892-5	kaal.between	kaal.between.3587WP.7	3587WP.7	kaal3587WP
+214	4	4	B	KK	2016-12-20	6.326	2019-03-01	NA	837	285	3587WP	14	kaal	904WPG	5	kaal	between	KK	3587-14 x 904-5	kaal.between	kaal.between.3587WP.14	3587WP.14	kaal3587WP
+180	6	2	B	KK	2016-12-20	5.622	2019-03-01	No flower	838	285	904WPG	5	kaal	892WKG	3	kaal	between	KK	904-5 x 892-3	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+44	2	9	A	HYBRID	2016-12-19	19.13	2019-03-01	NA	839	284	879WKG	H-2	hook	904WPG	5	kaal	hybrid	HK	879-H-2 x 904-5	hook.hybrid	hook.hybrid.879WKG.H-2	879WKG.H-2	hook879WKG
+29	6	10	A	HYBRID	2016-12-20	13.152	2019-03-01	NA	840	285	879WKG	10-1	hook	3587WP	15	kaal	hybrid	HK	879-10-1 x 3587-15	hook.hybrid	hook.hybrid.879WKG.10-1	879WKG.10-1	hook879WKG
+26	3	9	A	HYBRID	2016-12-19	15.302	2019-03-01	NA	841	284	879WKG	10-1	hook	904WPG	3	kaal	hybrid	HK	879-10-1 x 904-3	hook.hybrid	hook.hybrid.879WKG.10-1	879WKG.10-1	hook879WKG
+12	2	9	A	HYBRID	2016-12-19	10.481	2019-03-01	NA	842	284	879WKG	2-2	hook	904WPG	5	kaal	hybrid	HK	879-2-2 x 904-5	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+66	4	5	A	HYBRID	2016-12-20	10.123	2019-03-01	NA	843	285	WK	2	hook	892WKG	1	kaal	hybrid	HK	794-2 x 892-1	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+75	5	1	A	HH	2016-12-20	10.367	2019-03-01	NA	844	285	WK	4	hook	879WKG	10-1	hook	between	HH	794-4 x 879-10-1	hook.between	hook.between.WK.4	WK.4	hookWK
+29	9	10	A	HYBRID	2016-12-20	13.67	2019-03-01	NA	845	285	879WKG	10-1	hook	3587WP	15	kaal	hybrid	HK	879-10-1 x 3587-15	hook.hybrid	hook.hybrid.879WKG.10-1	879WKG.10-1	hook879WKG
+75	3	1	A	HH	2016-12-19	11.156	2019-03-01	NA	846	284	WK	4	hook	879WKG	10-1	hook	between	HH	794-4 x 879-10-1	hook.between	hook.between.WK.4	WK.4	hookWK
+38	2	9	A	HK	2016-12-20	23.438	2019-03-01	NA	847	285	879WKG	G-2	hook	904WPG	2	kaal	hybrid	HK	879-G-2 x 904-2	hook.hybrid	hook.hybrid.879WKG.G-2	879WKG.G-2	hook879WKG
+198	10	15	NA	KK	2016-12-20	7.416	2019-03-01	No coontabl fl, no envolope,only dried infls.	848	285	3587WP	7	kaal	3587WP	14	kaal	within	KK	3587-7 x 3587-14	kaal.within	kaal.within.3587WP.7	3587WP.7	kaal3587WP
+21	20	1	B	HH	2016-12-18	13.018	2019-03-01	NA	849	283	879WKG	10-1	hook	WK	2	hook	between	HH	879-10-1 x 866-2	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+103	5	5	A	HYBRID	2016-12-20	18.508	2019-03-01	NA	850	285	WK	2E- 1	hook	892WKG	1	kaal	hybrid	HK	899-2E- 1 x 892-1	hook.hybrid	hook.hybrid.WK.2E- 1	WK.2E- 1	hookWK
+9	7	8	A	HYBRID	2016-12-20	9.526	2019-03-01	NA	851	285	879WKG	2-2	hook	892WKG	5	kaal	hybrid	HK	879-2-2 x 892-5	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+191	1	10	B	KH	2016-12-20	5.718	2019-03-01	NA	852	285	3587WP	7	kaal	879WKG	N-5	hook	hybrid	KH	3587-7 x 879-N-5	kaal.hybrid	kaal.hybrid.3587WP.7	3587WP.7	kaal3587WP
+98	18	6	A	HYBRID	2016-12-19	14.836	2019-03-01	NA	853	284	WK	2	hook	904WPG	5	kaal	hybrid	HK	866-2 x 904-5	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+94	3	5	A	HK	2017-02-04	12.888	2019-03-08	R	854	331	WK	2	hook	892WKG	1	kaal	hybrid	HK	866-2 x 892-1	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+29	11	9	A	HK	2017-02-22	9.266	2019-03-08	No flower	855	349	879WKG	10-1	hook	3587WP	15	kaal	hybrid	HK	879-10-1 x 3587-15	hook.hybrid	hook.hybrid.879WKG.10-1	879WKG.10-1	hook879WKG
+183	17	14	NA	KK	2017-02-19	15.11	2019-03-08	No R	856	346	904WPG	5	kaal	904WPG	2	kaal	within	KK	904-5 x 904-2	kaal.within	kaal.within.904WPG.5	904WPG.5	kaal904WPG
+93	2	11	NA	HH	2017-02-19	14.83	2019-03-08	No R	857	346	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
+68	4	5	A	HK	2017-02-14	1.131	2019-03-08	Never flowered	858	341	WK	2	hook	892WKG	5	kaal	hybrid	HK	794-2 x 892-5	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+48	4	12	NA	HH	2017-02-19	12.254	2019-03-08	R	859	346	879WKG	N-5	hook	879WKG	H-2	hook	within	HH	879-N-5 x 879-H-2	hook.within	hook.within.879WKG.N-5	879WKG.N-5	hook879WKG
+10	9	9	A	HK	2017-02-17	16.636	2019-03-08	No R	860	344	879WKG	2-2	hook	904WPG	2	kaal	hybrid	HK	879-2-2 x 904-2	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+33	3	1	B	HH	2017-02-19	1.764	2019-03-08	No flower	861	346	879WKG	G-2	hook	WK	2	hook	between	HH	879-G-2 x 794-2	hook.between	hook.between.879WKG.G-2	879WKG.G-2	hook879WKG
+187	6	4	A	KK	2017-02-17	13.515	2019-03-08	R JP: changed year from 2016	862	344	904WPG	5	kaal	3587WP	14	kaal	between	KK	904-5 x 3587-14	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+59	9	1	A	HH	2017-02-19	21.271	2019-03-08	No R	863	346	WK	2	hook	879WKG	2-2	hook	between	HH	794-2 x 879-2-2	hook.between	hook.between.WK.2	WK.2	hookWK
+90	13	1	A	HH	2017-02-19	15.744	2019-03-08	No R	864	346	WK	2	hook	879WKG	10-1	hook	between	HH	866-2 x 879-10-1	hook.between	hook.between.WK.2	WK.2	hookWK
+169	18	14	NA	KK	2017-02-21	4.308	2019-03-08	No R	865	348	904WPG	3	kaal	904WPG	5	kaal	within	KK	904-3 x 904-5	kaal.within	kaal.within.904WPG.3	904WPG.3	kaal904WPG
+50	6	1	B	HH	2017-02-17	11.576	2019-03-08	No R	866	344	879WKG	N-5	hook	WK	4	hook	between	HH	879-N-5 x 794-4	hook.between	hook.between.879WKG.N-5	879WKG.N-5	hook879WKG
+167	9	2	B	KK	2017-02-17	7.438	2019-03-08	R	867	344	904WPG	3	kaal	892WKG	4	kaal	between	KK	904-3 x 892-4	kaal.between	kaal.between.904WPG.3	904WPG.3	kaal904WPG
+180	12	2	B	KK	2017-02-19	6.234	2019-03-08	No R	868	346	904WPG	5	kaal	892WKG	3	kaal	between	KK	904-5 x 892-3	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+10	2	9	A	HK	2017-02-21	13.972	2019-03-08	No R	869	348	879WKG	2-2	hook	904WPG	2	kaal	hybrid	HK	879-2-2 x 904-2	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+28	5	10	A	HK	2017-02-22	21.462	2019-03-08	R	870	349	879WKG	10-1	hook	3587WP	7	kaal	hybrid	HK	879-10-1 x 3587-7	hook.hybrid	hook.hybrid.879WKG.10-1	879WKG.10-1	hook879WKG
+59	4	1	A	HH	2017-02-18	17.248	2019-03-08	No R	871	345	WK	2	hook	879WKG	2-2	hook	between	HH	794-2 x 879-2-2	hook.between	hook.between.WK.2	WK.2	hookWK
+119	5	2	A	KK	2017-02-17	3.404	2019-03-08	No flower	872	344	892WKG	1	kaal	904WPG	5	kaal	between	KK	892-1 x 904-5	kaal.between	kaal.between.892WKG.1	892WKG.1	kaal892WKG
+233	3	3	B	KK	2017-02-14	5.197	2019-03-08	R	873	341	3587WP	C	kaal	892WKG	3	kaal	between	KK	3587-C x 892-3	kaal.between	kaal.between.3587WP.C	3587WP.C	kaal3587WP
+9	2	8	A	HK	NA	18.162	2019-03-08	No collected date	874	NA	879WKG	2-2	hook	892WKG	5	kaal	hybrid	HK	879-2-2 x 892-5	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+66	1	5	A	HK	2017-02-19	10.539	2019-03-25	No R	875	346	WK	2	hook	892WKG	1	kaal	hybrid	HK	794-2 x 892-1	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+89	7	1	A	HH	2017-02-19	12.271	2019-03-25	No R	876	346	WK	2	hook	879WKG	2-2	hook	between	HH	866-2 x 879-2-2	hook.between	hook.between.WK.2	WK.2	hookWK
+4	3	1	B	HH	2017-02-19	14.271	2019-03-25	No R	877	346	879WKG	2-2	hook	WK	2	hook	between	HH	879-2-2 x 794-2	hook.between	hook.between.879WKG.2-2	879WKG.2-2	hook879WKG
+4	17	1	B	HH	2017-02-18	15.677	2019-03-25	No R	878	345	879WKG	2-2	hook	WK	2	hook	between	HH	879-2-2 x 794-2	hook.between	hook.between.879WKG.2-2	879WKG.2-2	hook879WKG
+3	18	12	NA	HH	2017-02-18	9.26	2019-03-25	No flower	879	345	879WKG	2-2	hook	879WKG	N-5	hook	within	HH	879-2-2 x 879-N-5	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
+65	8	11	NA	HH	2017-02-19	10.094	2019-03-25	No R	880	346	WK	2	hook	WK	2E	hook	between	HH	794-2 x 899-2E	hook.between	hook.between.WK.2	WK.2	hookWK
+67	10	5	A	HK	2017-02-18	14.747	2019-03-25	No R	881	345	WK	2	hook	892WKG	4	kaal	hybrid	HK	794-2 x 892-4	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+21	16	1	B	HH	2017-02-19	10.827	2019-03-25	No R	882	346	879WKG	10-1	hook	WK	2	hook	between	HH	879-10-1 x 866-2	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+50	3	1	B	HH	2017-02-18	19.396	2019-03-25	No R	883	345	879WKG	N-5	hook	WK	4	hook	between	HH	879-N-5 x 794-4	hook.between	hook.between.879WKG.N-5	879WKG.N-5	hook879WKG
+89	13	1	A	HH	2017-02-19	13.718	2019-03-25	No R	884	346	WK	2	hook	879WKG	2-2	hook	between	HH	866-2 x 879-2-2	hook.between	hook.between.WK.2	WK.2	hookWK
+75	19	1	A	HH	NA	19.572	2019-03-25	No collected date	885	NA	WK	4	hook	879WKG	10-1	hook	between	HH	794-4 x 879-10-1	hook.between	hook.between.WK.4	WK.4	hookWK
+72	1	7	A	HH	2017-01-20	9.344	2019-04-01	NA	886	316	WK	2	hook	3587WP	14	kaal	hybrid	HK	794-2 x 3587-14	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+187	8	4	A	NA	2017-01-20	11.236	2019-04-01	No Cross Type	887	316	904WPG	5	kaal	3587WP	14	kaal	between	KK	904-5 x 3587-14	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+98	20	6	A	NA	2017-01-20	21.746	2019-04-01	No Cross Type	888	316	WK	2	hook	904WPG	5	kaal	hybrid	HK	866-2 x 904-5	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+198	16	15	NA	NA	2017-01-20	11.115	2019-04-01	No Cross Type	889	316	3587WP	7	kaal	3587WP	14	kaal	within	KK	3587-7 x 3587-14	kaal.within	kaal.within.3587WP.7	3587WP.7	kaal3587WP
+8	14	8	A	NA	2017-01-20	19.261	2019-04-01	No Cross Type	890	316	879WKG	2-2	hook	892WKG	4	kaal	hybrid	HK	879-2-2 x 892-4	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+10	15	9	A	NA	2017-01-27	1.147	2019-04-01	No Cross Type	891	323	879WKG	2-2	hook	904WPG	2	kaal	hybrid	HK	879-2-2 x 904-2	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+182	7	2	B	NA	2017-01-20	8.316	2019-04-01	No Cross Type	892	316	904WPG	5	kaal	892WKG	5	kaal	between	KK	904-5 x 892-5	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+179	7	2	B	NA	2017-01-20	4.715	2019-04-01	No Cross Type	893	316	904WPG	5	kaal	892WKG	1	kaal	between	KK	904-5 x 892-1	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+75	8	1	A	NA	2017-01-20	13.348	2019-04-01	No Cross Type	894	316	WK	4	hook	879WKG	10-1	hook	between	HH	794-4 x 879-10-1	hook.between	hook.between.WK.4	WK.4	hookWK
+171	7	9	B	NA	2017-01-20	10.865	2019-04-01	No Cross Type	895	316	904WPG	5	kaal	879WKG	2-2	hook	hybrid	KH	904-5 x 879-2-2	kaal.hybrid	kaal.hybrid.904WPG.5	904WPG.5	kaal904WPG
+166	4	7	A	NA	2017-01-20	23.074	2019-04-01	No Cross Type	896	316	904WPG	3	kaal	892WKG	1	kaal	between	KK	904-3 x 892-1	kaal.between	kaal.between.904WPG.3	904WPG.3	kaal904WPG
+1	17	12	NA	NA	2017-01-19	20.003	2019-04-01	No Cross Type	897	315	879WKG	2-2	hook	879WKG	G-2	hook	within	HH	879-2-2 x 879-G-2	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
+108	8	8	B	NA	NA	22.093	2019-04-01	No collected date,No Cross type	898	NA	892WKG	1	kaal	879WKG	2-2	hook	hybrid	KH	892-1 x 879-2-2	kaal.hybrid	kaal.hybrid.892WKG.1	892WKG.1	kaal892WKG
+156	3	2	B	NA	2017-01-20	23.355	2019-04-01	No Cross Type	899	316	904WPG	2	kaal	892WKG	10	kaal	between	KK	904-2 x 892-10	kaal.between	kaal.between.904WPG.2	904WPG.2	kaal904WPG
+95	11	5	A	NA	2017-01-20	6.88	2019-04-01	No Cross Type	900	316	WK	2	hook	892WKG	4	kaal	hybrid	HK	866-2 x 892-4	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+93	13	11	NA	NA	2017-01-20	12.737	2019-04-01	No Cross Type	901	316	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
+76	8	1	A	NA	2017-01-19	13.115	2019-04-01	No Cross Type, Never flower	902	315	WK	4	hook	879WKG	G-2	hook	between	HH	794-4 x 879-G-2	hook.between	hook.between.WK.4	WK.4	hookWK
+196	12a	3	B	NA	2017-01-20	11.192	2019-04-01	No Cross Type	903	316	3587WP	7	kaal	892WKG	5	kaal	between	KK	3587-7 x 892-5	kaal.between	kaal.between.3587WP.7	3587WP.7	kaal3587WP
+185	7	4	A	NA	2017-01-20	9.554	2019-04-01	No Cross Type	904	316	904WPG	5	kaal	3587WP	7	kaal	between	KK	904-5 x 3587-7	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+140	5	13	NA	NA	2017-01-20	3.613	2019-04-01	No Cross Type	905	316	892WKG	5	kaal	892WKG	4	kaal	within	KK	892-5 x 892-4	kaal.within	kaal.within.892WKG.5	892WKG.5	kaal892WKG
+118	5	2	A	NA	2017-01-20	2.331	2019-04-01	No Cross Type	906	316	892WKG	1	kaal	904WPG	3	kaal	between	KK	892-1 x 904-3	kaal.between	kaal.between.892WKG.1	892WKG.1	kaal892WKG
+1	16	12	NA	NA	2017-01-20	14.327	2019-04-01	No Cross Type	907	316	879WKG	2-2	hook	879WKG	G-2	hook	within	HH	879-2-2 x 879-G-2	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
+20	10	1	B	HH	2017-01-25	20.143	2019-04-03	NA	908	321	879WKG	10-1	hook	WK	4	hook	between	HH	879-10-1 x 794-4	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+173	8	9	B	NA	2017-01-20	9.394	2019-04-03	No Cross Type	909	316	904WPG	5	kaal	879WKG	G-2	hook	hybrid	KH	904-5 x 879-G-2	kaal.hybrid	kaal.hybrid.904WPG.5	904WPG.5	kaal904WPG
+187	3	4	A	NA	2017-01-20	7.553	2019-04-03	No Cross Type	910	316	904WPG	5	kaal	3587WP	14	kaal	between	KK	904-5 x 3587-14	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+99	2	7	A	NA	2017-01-09	12.102	2019-04-03	No Cross Type, Never flower	911	305	WK	2	hook	3587WP	7	kaal	hybrid	HK	866-2 x 3587-7	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+119	4	2	A	NA	2017-01-19	16.884	2019-04-03	No Cross Type	912	315	892WKG	1	kaal	904WPG	5	kaal	between	KK	892-1 x 904-5	kaal.between	kaal.between.892WKG.1	892WKG.1	kaal892WKG
+166	9	29	NA	NA	2017-01-20	8.766	2019-04-03	No Cross Type	913	316	904WPG	3	kaal	892WKG	1	kaal	between	KK	904-3 x 892-1	kaal.between	kaal.between.904WPG.3	904WPG.3	kaal904WPG
+5	9	1	B	NA	2017-01-25	15.89	2019-04-03	No Cross Type	914	321	879WKG	2-2	hook	WK	4	hook	between	HH	879-2-2 x 794-4	hook.between	hook.between.879WKG.2-2	879WKG.2-2	hook879WKG
+105	5	6	A	NA	2017-01-20	16.362	2019-04-03	No Cross Type	915	316	WK	2E- 1	hook	904WPG	5	kaal	hybrid	HK	899-2E- 1 x 904-5	hook.hybrid	hook.hybrid.WK.2E- 1	WK.2E- 1	hookWK
+73	2	7	A	NA	2017-01-20	18.015	2019-04-03	No Cross Type	916	316	WK	2	hook	3587WP	C	kaal	hybrid	HK	794-2 x 3587-C	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+105	6	6	A	NA	2017-01-19	27.233	2019-04-03	No Cross Type	917	315	WK	2E- 1	hook	904WPG	5	kaal	hybrid	HK	899-2E- 1 x 904-5	hook.hybrid	hook.hybrid.WK.2E- 1	WK.2E- 1	hookWK
+44	6	9	A	NA	2017-01-19	22.215	2019-04-03	No Cross Type, No 1st flower scored	918	315	879WKG	H-2	hook	904WPG	5	kaal	hybrid	HK	879-H-2 x 904-5	hook.hybrid	hook.hybrid.879WKG.H-2	879WKG.H-2	hook879WKG
+118	3	2	A	NA	2017-01-19	5.04	2019-04-03	No Cross Type	919	315	892WKG	1	kaal	904WPG	3	kaal	between	KK	892-1 x 904-3	kaal.between	kaal.between.892WKG.1	892WKG.1	kaal892WKG
+205	2	10	B	NA	2017-01-19	29.18	2019-04-03	No Cross Type	920	315	3587WP	14	kaal	879WKG	10-1	hook	hybrid	KH	3587-14 x 879-10-1	kaal.hybrid	kaal.hybrid.3587WP.14	3587WP.14	kaal3587WP
+8	18	8	A	NA	2017-01-20	21.498	2019-04-03	No Cross Type	921	316	879WKG	2-2	hook	892WKG	4	kaal	hybrid	HK	879-2-2 x 892-4	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+219	2	4	B	NA	2017-01-20	3.924	2019-04-03	No Cross Type	922	316	3587WP	15	kaal	904WPG	5	kaal	between	KK	3587-15 x 904-5	kaal.between	kaal.between.3587WP.15	3587WP.15	kaal3587WP
+19	7	1	B	NA	2017-01-20	17.078	2019-04-03	No Cross Type	923	316	879WKG	10-1	hook	WK	2	hook	between	HH	879-10-1 x 794-2	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+56	1	10	A	NA	2017-01-19	26.348	2019-04-10	No Cross Type	924	315	879WKG	N-5	hook	3587WP	7	kaal	hybrid	HK	879-N-5 x 3587-7	hook.hybrid	hook.hybrid.879WKG.N-5	879WKG.N-5	hook879WKG
+1	8	12	NA	NA	2017-01-20	22.346	2019-04-10	No Cross Type	925	316	879WKG	2-2	hook	879WKG	G-2	hook	within	HH	879-2-2 x 879-G-2	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
+54	3	9	A	NA	2017-01-20	15.231	2019-04-10	No Cross Type	926	316	879WKG	N-5	hook	904WPG	2	kaal	hybrid	HK	879-N-5 x 904-2	hook.hybrid	hook.hybrid.879WKG.N-5	879WKG.N-5	hook879WKG
+10	4	9	A	NA	NA	18.71	2019-04-10	No Cross Type	927	NA	879WKG	2-2	hook	904WPG	2	kaal	hybrid	HK	879-2-2 x 904-2	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+227	2	4	B	KK	2017-01-25	5.763	2019-04-10	NA	928	321	3587WP	A	kaal	904WPG	5	kaal	between	KK	3587-A x 904-5	kaal.between	kaal.between.3587WP.A	3587WP.A	kaal3587WP
+74	14	1	A	NA	2017-01-20	9.671	2019-04-10	No Cross Type	929	316	WK	4	hook	879WKG	2-2	hook	between	HH	794-4 x 879-2-2	hook.between	hook.between.WK.4	WK.4	hookWK
+169	4	14	NA	NA	2017-01-19	6.406	2019-04-10	No Cross Type	930	315	904WPG	3	kaal	904WPG	5	kaal	within	KK	904-3 x 904-5	kaal.within	kaal.within.904WPG.3	904WPG.3	kaal904WPG
+8	13	8	A	NA	2017-01-20	15.014	2019-04-10	No Cross Type	931	316	879WKG	2-2	hook	892WKG	4	kaal	hybrid	HK	879-2-2 x 892-4	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+227	3	4	B	NA	2017-01-19	3.46	2019-04-10	No Cross Type	932	315	3587WP	A	kaal	904WPG	5	kaal	between	KK	3587-A x 904-5	kaal.between	kaal.between.3587WP.A	3587WP.A	kaal3587WP
+77	9	1	A	NA	2017-01-25	12.132	2019-04-10	No Cross Type	933	321	WK	4	hook	879WKG	N-5	hook	between	HH	794-4 x 879-N-5	hook.between	hook.between.WK.4	WK.4	hookWK
+190	3	10	B	NA	2017-01-20	13.268	2019-04-10	No Cross Type	934	316	3587WP	7	kaal	879WKG	G-2	hook	hybrid	KH	3587-7 x 879-G-2	kaal.hybrid	kaal.hybrid.3587WP.7	3587WP.7	kaal3587WP
+94	2	5	A	NA	2017-01-25	7.06	2019-04-11	No Cross Type	935	321	WK	2	hook	892WKG	1	kaal	hybrid	HK	866-2 x 892-1	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+60	4	1	A	NA	2017-01-25	14.664	2019-04-11	No Cross Type	936	321	WK	2	hook	879WKG	10-1	hook	between	HH	794-2 x 879-10-1	hook.between	hook.between.WK.2	WK.2	hookWK
+28	4	10	A	NA	2017-01-25	1.677	2019-04-11	No Cross Type, Never flower	937	321	879WKG	10-1	hook	3587WP	7	kaal	hybrid	HK	879-10-1 x 3587-7	hook.hybrid	hook.hybrid.879WKG.10-1	879WKG.10-1	hook879WKG
+10	16	9	A	HK	2017-01-25	7.814	2019-04-11	Immature	938	321	879WKG	2-2	hook	904WPG	2	kaal	hybrid	HK	879-2-2 x 904-2	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+172	6	9	B	NA	2017-01-25	0.061	2019-04-11	No Cross type, No flower	939	321	904WPG	5	kaal	879WKG	10-1	hook	hybrid	KH	904-5 x 879-10-1	kaal.hybrid	kaal.hybrid.904WPG.5	904WPG.5	kaal904WPG
+10	13	9	A	NA	2017-01-25	6.536	2019-04-11	No Cross type	940	321	879WKG	2-2	hook	904WPG	2	kaal	hybrid	HK	879-2-2 x 904-2	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+67	8	5	A	NA	2017-01-19	4.059	2019-04-11	No Cross type, Never flower	941	315	WK	2	hook	892WKG	4	kaal	hybrid	HK	794-2 x 892-4	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+253	1	3	B	NA	2017-01-19	8.634	2019-04-11	No Cross type	943	315	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA.NA	NA.NA.NA.NA	NA.NA	NANA
+85	2	6	A	HK	2017-01-25	18.646	2019-04-11	NA	944	321	WK	4	hook	904WPG	5	kaal	hybrid	HK	794-4 x 904-5	hook.hybrid	hook.hybrid.WK.4	WK.4	hookWK
+83	1	5	A	HK	2017-01-25	19.858	2019-04-11	NA	945	321	WK	4	hook	892WKG	5	kaal	hybrid	HK	794-4 x 892-5	hook.hybrid	hook.hybrid.WK.4	WK.4	hookWK
+117	8	2	A	KK	2017-01-20	5.616	2019-04-11	NA	946	316	892WKG	1	kaal	904WPG	2	kaal	between	KK	892-1 x 904-2	kaal.between	kaal.between.892WKG.1	892WKG.1	kaal892WKG
+80	2	5	A	HK	2017-01-20	14.667	2019-04-11	NA	947	316	WK	4	hook	892WKG	1	kaal	hybrid	HK	794-4 x 892-1	hook.hybrid	hook.hybrid.WK.4	WK.4	hookWK
+36	5	8	A	HK	2017-01-21	19.289	2019-04-11	NA	948	317	879WKG	G-2	hook	892WKG	3	kaal	hybrid	HK	879-G-2 x 892-3	hook.hybrid	hook.hybrid.879WKG.G-2	879WKG.G-2	hook879WKG
+4	2	1	B	HH	2017-01-21	11.701	2019-04-11	NA	949	317	879WKG	2-2	hook	WK	2	hook	between	HH	879-2-2 x 794-2	hook.between	hook.between.879WKG.2-2	879WKG.2-2	hook879WKG
+157	6	14	NA	KK	2017-01-20	5.12	2019-04-11	NA	950	316	904WPG	2	kaal	904WPG	3	kaal	within	KK	904-2 x 904-3	kaal.within	kaal.within.904WPG.2	904WPG.2	kaal904WPG
+60	19	1	A	HH	2017-01-20	10.34	2019-04-11	No Reg	951	316	WK	2	hook	879WKG	10-1	hook	between	HH	794-2 x 879-10-1	hook.between	hook.between.WK.2	WK.2	hookWK
+195	4	3	B	KK	2017-01-20	10.222	2019-04-16	NA	952	316	3587WP	7	kaal	892WKG	4	kaal	between	KK	3587-7 x 892-4	kaal.between	kaal.between.3587WP.7	3587WP.7	kaal3587WP
+61	10	1	A	HH	2017-01-21	10.878	2019-04-16	NA	953	317	WK	2	hook	879WKG	G-2	hook	between	HH	794-2 x 879-G-2	hook.between	hook.between.WK.2	WK.2	hookWK
+119	6	2	A	KK	2017-01-20	9.239	2019-04-16	NA	954	316	892WKG	1	kaal	904WPG	5	kaal	between	KK	892-1 x 904-5	kaal.between	kaal.between.892WKG.1	892WKG.1	kaal892WKG
+172	1	9	B	KH	2017-01-21	15.856	2019-04-16	No inflos	955	317	904WPG	5	kaal	879WKG	10-1	hook	hybrid	KH	904-5 x 879-10-1	kaal.hybrid	kaal.hybrid.904WPG.5	904WPG.5	kaal904WPG
+42	1	10	A	HK	2017-01-21	11.707	2019-04-16	Never flowered	956	317	879WKG	G-2	hook	3587WP	15	kaal	hybrid	HK	879-G-2 x 3587-15	hook.hybrid	hook.hybrid.879WKG.G-2	879WKG.G-2	hook879WKG
+19	16	1	B	HH	2017-01-21	12.005	2019-04-16	No flower	957	317	879WKG	10-1	hook	WK	2	hook	between	HH	879-10-1 x 794-2	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+31	2	12	NA	HH	2017-01-20	9.064	2019-04-16	NA	958	316	879WKG	G-2	hook	879WKG	2-2	hook	within	HH	879-G-2 x 879-2-2	hook.within	hook.within.879WKG.G-2	879WKG.G-2	hook879WKG
+227	4	4	B	KK	2017-01-20	4.825	2019-04-16	NA	959	316	3587WP	A	kaal	904WPG	5	kaal	between	KK	3587-A x 904-5	kaal.between	kaal.between.3587WP.A	3587WP.A	kaal3587WP
+168	14	14	NA	KK	2017-01-20	3.214	2019-04-16	NA	960	316	904WPG	3	kaal	904WPG	2	kaal	within	KK	904-3 x 904-2	kaal.within	kaal.within.904WPG.3	904WPG.3	kaal904WPG
+52	2	8	A	HK	2017-01-21	13.848	2019-04-16	NA	961	317	879WKG	N-5	hook	892WKG	1	kaal	hybrid	HK	879-N-5 x 892-1	hook.hybrid	hook.hybrid.879WKG.N-5	879WKG.N-5	hook879WKG
+64	10	11	NA	HH	2017-01-20	19.857	2019-04-16	No R	962	316	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
+184	12	14	NA	KK	2017-01-20	7.364	2019-04-16	NA	963	316	904WPG	5	kaal	904WPG	3	kaal	within	KK	904-5 x 904-3	kaal.within	kaal.within.904WPG.5	904WPG.5	kaal904WPG
+67	11	5	A	HK	2017-01-20	18.763	2019-04-16	NA	964	316	WK	2	hook	892WKG	4	kaal	hybrid	HK	794-2 x 892-4	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+91	5	1	A	HH	2017-01-21	15.567	2019-04-16	NA	965	317	WK	2	hook	879WKG	G-2	hook	between	HH	866-2 x 879-G-2	hook.between	hook.between.WK.2	WK.2	hookWK
+65	9	11	NA	HH	2017-01-20	14.336	2019-04-16	NA	966	316	WK	2	hook	WK	2E	hook	between	HH	794-2 x 899-2E	hook.between	hook.between.WK.2	WK.2	hookWK
+191	4	10	B	KH	2017-01-20	12.497	2019-04-16	NA	967	316	3587WP	7	kaal	879WKG	N-5	hook	hybrid	KH	3587-7 x 879-N-5	kaal.hybrid	kaal.hybrid.3587WP.7	3587WP.7	kaal3587WP
+90	14b	1	A	HH	2017-01-21	16.43	2019-04-16	NA	968	317	WK	2	hook	879WKG	10-1	hook	between	HH	866-2 x 879-10-1	hook.between	hook.between.WK.2	WK.2	hookWK
+66	19	5	A	HK	2017-01-20	15.154	2019-04-16	NA	969	316	WK	2	hook	892WKG	1	kaal	hybrid	HK	794-2 x 892-1	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+195	2	3	B	KK	2017-01-21	3.335	2019-04-16	NA	970	317	3587WP	7	kaal	892WKG	4	kaal	between	KK	3587-7 x 892-4	kaal.between	kaal.between.3587WP.7	3587WP.7	kaal3587WP
+29	13	10	A	HK	2017-01-21	21.287	2019-04-17	NA	971	317	879WKG	10-1	hook	3587WP	15	kaal	hybrid	HK	879-10-1 x 3587-15	hook.hybrid	hook.hybrid.879WKG.10-1	879WKG.10-1	hook879WKG
+28	1	10	A	HK	2017-01-21	26.552	2019-04-17	NA	972	317	879WKG	10-1	hook	3587WP	7	kaal	hybrid	HK	879-10-1 x 3587-7	hook.hybrid	hook.hybrid.879WKG.10-1	879WKG.10-1	hook879WKG
+20	9	1	B	HH	2017-01-20	10.644	2019-04-17	NA	973	316	879WKG	10-1	hook	WK	4	hook	between	HH	879-10-1 x 794-4	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+10	4	9	A	HK	2017-01-20	7.388	2019-04-17	NA	974	316	879WKG	2-2	hook	904WPG	2	kaal	hybrid	HK	879-2-2 x 904-2	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+168	7	14	NA	KK	2017-01-20	6.378	2019-04-17	NA	975	316	904WPG	3	kaal	904WPG	2	kaal	within	KK	904-3 x 904-2	kaal.within	kaal.within.904WPG.3	904WPG.3	kaal904WPG
+173	9	9	B	KH	2017-01-21	23.844	2019-04-17	Never flowered	976	317	904WPG	5	kaal	879WKG	G-2	hook	hybrid	KH	904-5 x 879-G-2	kaal.hybrid	kaal.hybrid.904WPG.5	904WPG.5	kaal904WPG
+198	11	15	NA	KK	2017-01-20	10.333	2019-04-17	NA	977	316	3587WP	7	kaal	3587WP	14	kaal	within	KK	3587-7 x 3587-14	kaal.within	kaal.within.3587WP.7	3587WP.7	kaal3587WP
+59	16	1	A	HH	2017-01-20	6.824	2019-04-17	NA	978	316	WK	2	hook	879WKG	2-2	hook	between	HH	794-2 x 879-2-2	hook.between	hook.between.WK.2	WK.2	hookWK
+166	3	2	B	KK	2017-01-20	8.021	2019-04-17	NA	979	316	904WPG	3	kaal	892WKG	1	kaal	between	KK	904-3 x 892-1	kaal.between	kaal.between.904WPG.3	904WPG.3	kaal904WPG
+62	8	1	A	HH	2017-01-21	20.45	2019-04-17	NA	980	317	WK	2	hook	879WKG	N-5	hook	between	HH	794-2 x 879-N-5	hook.between	hook.between.WK.2	WK.2	hookWK
+44	7	9	A	HK	2017-01-20	14.242	2019-04-18	NA	981	316	879WKG	H-2	hook	904WPG	5	kaal	hybrid	HK	879-H-2 x 904-5	hook.hybrid	hook.hybrid.879WKG.H-2	879WKG.H-2	hook879WKG
+93	8	11	NA	HH	2017-01-20	13.141	2019-04-18	NA	982	316	WK	2	hook	WK	4	hook	between	HH	866-2 x 794-4	hook.between	hook.between.WK.2	WK.2	hookWK
+187	2	4	A	KK	2017-01-20	8.226	2019-04-18	NA	983	316	904WPG	5	kaal	3587WP	14	kaal	between	KK	904-5 x 3587-14	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+66	15	5	A	HK	2017-01-20	0.225	2019-04-18	NA	984	316	WK	2	hook	892WKG	1	kaal	hybrid	HK	794-2 x 892-1	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+9	5	8	A	HK	2017-01-20	8.047	2019-04-18	NA	985	316	879WKG	2-2	hook	892WKG	5	kaal	hybrid	HK	879-2-2 x 892-5	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+123	3	8	B	KH	2017-01-21	17.54	2019-04-18	NA	986	317	892WKG	3	kaal	879WKG	G-2	hook	hybrid	KH	892-3 x 879-G-2	kaal.hybrid	kaal.hybrid.892WKG.3	892WKG.3	kaal892WKG
+185	10	4	A	KK	2017-02-18	6.967	2019-04-28	NA	987	345	904WPG	5	kaal	3587WP	7	kaal	between	KK	904-5 x 3587-7	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+9	19	8	A	HK	2017-02-19	12.725	2019-04-28	No R	988	346	879WKG	2-2	hook	892WKG	5	kaal	hybrid	HK	879-2-2 x 892-5	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+180	1	2	B	KK	2017-02-19	6.067	2019-04-28	No R	989	346	904WPG	5	kaal	892WKG	3	kaal	between	KK	904-5 x 892-3	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+187	1	4	A	KK	2017-02-19	5.528	2019-04-28	No R	990	346	904WPG	5	kaal	3587WP	14	kaal	between	KK	904-5 x 3587-14	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+167	4	2	B	KK	2017-02-18	5.332	2019-04-28	NA	991	345	904WPG	3	kaal	892WKG	4	kaal	between	KK	904-3 x 892-4	kaal.between	kaal.between.904WPG.3	904WPG.3	kaal904WPG
+156	4	2	B	KK	2017-02-19	3.474	2019-04-28	No R	992	346	904WPG	2	kaal	892WKG	10	kaal	between	KK	904-2 x 892-10	kaal.between	kaal.between.904WPG.2	904WPG.2	kaal904WPG
+198	1	15	NA	KK	2017-02-19	12.287	2019-04-28	No R	993	346	3587WP	7	kaal	3587WP	14	kaal	within	KK	3587-7 x 3587-14	kaal.within	kaal.within.3587WP.7	3587WP.7	kaal3587WP
+168	9	14	NA	KK	2017-02-19	2.545	2019-04-28	NA	994	346	904WPG	3	kaal	904WPG	2	kaal	within	KK	904-3 x 904-2	kaal.within	kaal.within.904WPG.3	904WPG.3	kaal904WPG
+4	19	1	B	HH	2017-02-17	21.74	2019-04-28	No R	995	344	879WKG	2-2	hook	WK	2	hook	between	HH	879-2-2 x 794-2	hook.between	hook.between.879WKG.2-2	879WKG.2-2	hook879WKG
+233	2	3	B	KK	2017-02-19	20.065	2019-04-28	NA	996	346	3587WP	C	kaal	892WKG	3	kaal	between	KK	3587-C x 892-3	kaal.between	kaal.between.3587WP.C	3587WP.C	kaal3587WP
+60	12	1	A	HH	2017-02-19	28.473	2019-04-28	No R	997	346	WK	2	hook	879WKG	10-1	hook	between	HH	794-2 x 879-10-1	hook.between	hook.between.WK.2	WK.2	hookWK
+182	1	2	B	KK	2017-02-19	13.401	2019-04-28	No R	998	346	904WPG	5	kaal	892WKG	5	kaal	between	KK	904-5 x 892-5	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+6	16	8	A	HK	2017-02-19	0.478	2019-04-28	No Flower	999	346	879WKG	2-2	hook	892WKG	1	kaal	hybrid	HK	879-2-2 x 892-1	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+73	3	7	A	HK	2017-02-19	14.049	2019-04-28	NA	1000	346	WK	2	hook	3587WP	C	kaal	hybrid	HK	794-2 x 3587-C	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+197	4	4	B	KK	2017-02-19	11.391	2019-04-28	NA	1001	346	3587WP	7	kaal	904WPG	5	kaal	between	KK	3587-7 x 904-5	kaal.between	kaal.between.3587WP.7	3587WP.7	kaal3587WP
+64	8	11	NA	HH	2017-02-19	11.653	2019-04-28	No R	1002	346	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
+196	3	3	B	KK	2017-02-21	8.028	2019-04-28	No R	1003	348	3587WP	7	kaal	892WKG	5	kaal	between	KK	3587-7 x 892-5	kaal.between	kaal.between.3587WP.7	3587WP.7	kaal3587WP
+147	4	9	B	KH	2017-02-21	11.249	2019-04-28	NA	1004	348	904WPG	2	kaal	879WKG	2-2	hook	hybrid	KH	904-2 x 879-2-2	kaal.hybrid	kaal.hybrid.904WPG.2	904WPG.2	kaal904WPG
+98	3	6	A	HK	2017-02-19	24.813	2019-04-28	No R	1005	346	WK	2	hook	904WPG	5	kaal	hybrid	HK	866-2 x 904-5	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+64	7	11	NA	HH	2017-02-17	11.798	2019-04-29	No R	1006	344	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
+108	6	8	B	KH	2017-02-17	20.653	2019-04-29	No R	1007	344	892WKG	1	kaal	879WKG	2-2	hook	hybrid	KH	892-1 x 879-2-2	kaal.hybrid	kaal.hybrid.892WKG.1	892WKG.1	kaal892WKG
+143	2	3	A	KK	2017-02-19	10.247	2019-04-29	NA	1008	346	892WKG	5	kaal	3587WP	14	kaal	between	KK	892-5 x 3587-14	kaal.between	kaal.between.892WKG.5	892WKG.5	kaal892WKG
+134	1	8	B	KH	2017-02-21	17.813	2019-04-29	NA	1009	348	892WKG	5	kaal	879WKG	2-2	hook	hybrid	KH	892-5 x 879-2-2	kaal.hybrid	kaal.hybrid.892WKG.5	892WKG.5	kaal892WKG
+101	1	7	A	HK	2017-02-21	19.334	2019-04-29	NA	1010	348	WK	2	hook	3587WP	C	kaal	hybrid	HK	866-2 x 3587-C	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+14	4	10	A	HK	2017-02-21	26.078	2019-04-29	NA	1011	348	879WKG	2-2	hook	3587WP	C	kaal	hybrid	HK	879-2-2 x 3587-C	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+14	3	10	A	HK	2017-02-21	24.447	2019-04-29	NA	1012	348	879WKG	2-2	hook	3587WP	C	kaal	hybrid	HK	879-2-2 x 3587-C	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+13	3	10	A	HK	2017-02-19	22.553	2019-04-29	NA	1013	346	879WKG	2-2	hook	3587WP	7	kaal	hybrid	HK	879-2-2 x 3587-7	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+147	2	9	B	KH	2017-02-21	25.079	2019-04-29	NA	1014	348	904WPG	2	kaal	879WKG	2-2	hook	hybrid	KH	904-2 x 879-2-2	kaal.hybrid	kaal.hybrid.904WPG.2	904WPG.2	kaal904WPG
+23	6	8	A	HK	2017-02-22	16.991	2019-04-29	No R	1015	349	879WKG	10-1	hook	892WKG	1	kaal	hybrid	HK	879-10-1 x 892-1	hook.hybrid	hook.hybrid.879WKG.10-1	879WKG.10-1	hook879WKG
+31	7	12	NA	HH	2017-01-31	15.71	2019-05-07	NA	1016	327	879WKG	G-2	hook	879WKG	2-2	hook	within	HH	879-G-2 x 879-2-2	hook.within	hook.within.879WKG.G-2	879WKG.G-2	hook879WKG
+106	9	7	A	HK	2017-02-14	29.162	2019-05-07	NA	1017	341	WK	2E- 1	hook	3587WP	14	kaal	hybrid	HK	899-2E- 1 x 3587-14	hook.hybrid	hook.hybrid.WK.2E- 1	WK.2E- 1	hookWK
+46	3	12	NA	HH	2017-01-31	9.407	2019-05-07	NA	1018	327	879WKG	N-5	hook	879WKG	2-2	hook	within	HH	879-N-5 x 879-2-2	hook.within	hook.within.879WKG.N-5	879WKG.N-5	hook879WKG
+101	6	7	A	HK	2017-01-31	10.121	2019-05-07	NA	1019	327	WK	2	hook	3587WP	C	kaal	hybrid	HK	866-2 x 3587-C	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+98	13	6	A	HK	2017-02-17	29.466	2019-05-07	No R	1020	344	WK	2	hook	904WPG	5	kaal	hybrid	HK	866-2 x 904-5	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+172	5	9	B	KH	2017-02-17	23.242	2019-05-07	NA	1021	344	904WPG	5	kaal	879WKG	10-1	hook	hybrid	KH	904-5 x 879-10-1	kaal.hybrid	kaal.hybrid.904WPG.5	904WPG.5	kaal904WPG
+78	17	11	NA	HH	2017-01-31	21.815	2019-05-07	NA	1022	327	WK	4	hook	WK	2	hook	within	HH	794-4 x 794-2	hook.within	hook.within.WK.4	WK.4	hookWK
+62	19	1	A	HH	2017-02-17	22.108	2019-05-07	No R	1023	344	WK	2	hook	879WKG	N-5	hook	between	HH	794-2 x 879-N-5	hook.between	hook.between.WK.2	WK.2	hookWK
+28	6	10	A	HK	2017-02-17	8.142	2019-05-07	NA	1024	344	879WKG	10-1	hook	3587WP	7	kaal	hybrid	HK	879-10-1 x 3587-7	hook.hybrid	hook.hybrid.879WKG.10-1	879WKG.10-1	hook879WKG
+183	2	14	NA	KK	2017-02-14	6.815	2019-05-07	No R	1025	341	904WPG	5	kaal	904WPG	2	kaal	within	KK	904-5 x 904-2	kaal.within	kaal.within.904WPG.5	904WPG.5	kaal904WPG
+134	5	8	B	KH	2017-02-14	4.316	2019-05-07	NA	1026	341	892WKG	5	kaal	879WKG	2-2	hook	hybrid	KH	892-5 x 879-2-2	kaal.hybrid	kaal.hybrid.892WKG.5	892WKG.5	kaal892WKG
+190	1	10	B	KH	2017-02-17	10.637	2019-05-07	NA	1027	344	3587WP	7	kaal	879WKG	G-2	hook	hybrid	KH	3587-7 x 879-G-2	kaal.hybrid	kaal.hybrid.3587WP.7	3587WP.7	kaal3587WP
+67	5	5	A	HK	2017-02-14	4.043	2019-05-07	No R	1028	341	WK	2	hook	892WKG	4	kaal	hybrid	HK	794-2 x 892-4	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+155	6	2	B	KK	2017-02-17	8.567	2019-05-07	NA	1029	344	904WPG	2	kaal	892WKG	1	kaal	between	KK	904-2 x 892-1	kaal.between	kaal.between.904WPG.2	904WPG.2	kaal904WPG
+168	6	14	NA	KK	2017-01-31	4.114	2019-05-07	NA	1030	327	904WPG	3	kaal	904WPG	2	kaal	within	KK	904-3 x 904-2	kaal.within	kaal.within.904WPG.3	904WPG.3	kaal904WPG
+24	10	8	A	HK	2017-02-14	17.676	2019-05-07	NA	1031	341	879WKG	10-1	hook	892WKG	4	kaal	hybrid	HK	879-10-1 x 892-4	hook.hybrid	hook.hybrid.879WKG.10-1	879WKG.10-1	hook879WKG
+98	1	6	A	HK	2017-02-17	19.987	2019-05-07	No R	1032	344	WK	2	hook	904WPG	5	kaal	hybrid	HK	866-2 x 904-5	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+59	20	1	A	HH	2017-02-17	14.584	2019-05-07	No Flower	1033	344	WK	2	hook	879WKG	2-2	hook	between	HH	794-2 x 879-2-2	hook.between	hook.between.WK.2	WK.2	hookWK
+92	2	1	A	HH	2017-02-14	12.087	2019-05-07	NA	1034	341	WK	2	hook	879WKG	N-5	hook	between	HH	866-2 x 879-N-5	hook.between	hook.between.WK.2	WK.2	hookWK
+58	7	10	A	HK	2017-02-14	25.841	2019-05-07	NA	1035	341	879WKG	N-5	hook	3587WP	C	kaal	hybrid	HK	879-N-5 x 3587-C	hook.hybrid	hook.hybrid.879WKG.N-5	879WKG.N-5	hook879WKG
+90	16	1	A	HH	2017-01-31	12.869	2019-05-08	NA	1036	327	WK	2	hook	879WKG	10-1	hook	between	HH	866-2 x 879-10-1	hook.between	hook.between.WK.2	WK.2	hookWK
+76	10	1	A	HH	2017-01-31	15.518	2019-05-08	NA	1037	327	WK	4	hook	879WKG	G-2	hook	between	HH	794-4 x 879-G-2	hook.between	hook.between.WK.4	WK.4	hookWK
+159	2	9	B	KH	2017-01-31	13.808	2019-05-08	NA	1038	327	904WPG	3	kaal	879WKG	2-2	hook	hybrid	KH	904-3 x 879-2-2	kaal.hybrid	kaal.hybrid.904WPG.3	904WPG.3	kaal904WPG
+181	13	2	B	KK	2017-01-31	5.051	2019-05-08	NA	1039	327	904WPG	5	kaal	892WKG	4	kaal	between	KK	904-5 x 892-4	kaal.between	kaal.between.904WPG.5	904WPG.5	kaal904WPG
+74	11	1	A	HH	2017-01-31	19.81	2019-05-08	NA	1040	327	WK	4	hook	879WKG	2-2	hook	between	HH	794-4 x 879-2-2	hook.between	hook.between.WK.4	WK.4	hookWK
+90	9	1	A	HH	2017-01-31	10.952	2019-05-08	NA	1041	327	WK	2	hook	879WKG	10-1	hook	between	HH	866-2 x 879-10-1	hook.between	hook.between.WK.2	WK.2	hookWK
+64	6	11	NA	HH	2017-01-31	23.277	2019-05-08	NA	1042	327	WK	2	hook	WK	2	hook	between	HH	794-2 x 866-2	hook.between	hook.between.WK.2	WK.2	hookWK
+12	3	9	A	HK	2017-01-31	27.423	2019-05-08	NA	1043	327	879WKG	2-2	hook	904WPG	5	kaal	hybrid	HK	879-2-2 x 904-5	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+63	11	11	NA	HH	2017-01-31	14.733	2019-05-08	NA	1044	327	WK	2	hook	WK	4	hook	within	HH	794-2 x 794-4	hook.within	hook.within.WK.2	WK.2	hookWK
+98	19	6	A	HK	2017-02-17	35.385	2019-05-08	No R	1045	344	WK	2	hook	904WPG	5	kaal	hybrid	HK	866-2 x 904-5	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+23	5	8	A	HK	2017-02-17	21.066	2019-05-08	R	1046	344	879WKG	10-1	hook	892WKG	1	kaal	hybrid	HK	879-10-1 x 892-1	hook.hybrid	hook.hybrid.879WKG.10-1	879WKG.10-1	hook879WKG
+128	1	8	B	KH	2017-01-31	13.492	2019-05-08	R	1047	327	892WKG	4	kaal	879WKG	2-2	hook	hybrid	KH	892-4 x 879-2-2	kaal.hybrid	kaal.hybrid.892WKG.4	892WKG.4	kaal892WKG
+22	8	1	B	HH	2017-01-31	17.693	2019-05-08	No R	1048	327	879WKG	10-1	hook	WK	2E- 1	hook	between	HH	879-10-1 x 899-2E- 1	hook.between	hook.between.879WKG.10-1	879WKG.10-1	hook879WKG
+92	12	1	A	HH	2017-01-31	8.044	2019-05-08	NA	1049	327	WK	2	hook	879WKG	N-5	hook	between	HH	866-2 x 879-N-5	hook.between	hook.between.WK.2	WK.2	hookWK
+89	17	1	A	HH	2017-01-31	12.256	2019-05-08	NA	1050	327	WK	2	hook	879WKG	2-2	hook	between	HH	866-2 x 879-2-2	hook.between	hook.between.WK.2	WK.2	hookWK
+1	1	12	NA	HH	2017-01-31	13.17	2019-05-08	NA	1051	327	879WKG	2-2	hook	879WKG	G-2	hook	within	HH	879-2-2 x 879-G-2	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
+27	1	9	A	HK	2017-02-14	24.395	2019-05-08	R	1052	341	879WKG	10-1	hook	904WPG	5	kaal	hybrid	HK	879-10-1 x 904-5	hook.hybrid	hook.hybrid.879WKG.10-1	879WKG.10-1	hook879WKG
+89	12	1	A	HH	2017-02-17	14.225	2019-05-09	NA	1053	344	WK	2	hook	879WKG	2-2	hook	between	HH	866-2 x 879-2-2	hook.between	hook.between.WK.2	WK.2	hookWK
+168	1	14	NA	KK	2017-01-31	5.704	2019-05-09	NA	1054	327	904WPG	3	kaal	904WPG	2	kaal	within	KK	904-3 x 904-2	kaal.within	kaal.within.904WPG.3	904WPG.3	kaal904WPG
+36	3	8	A	HK	2017-01-31	10.832	2019-05-09	NA	1055	327	879WKG	G-2	hook	892WKG	3	kaal	hybrid	HK	879-G-2 x 892-3	hook.hybrid	hook.hybrid.879WKG.G-2	879WKG.G-2	hook879WKG
+94	5	5	A	HK	2017-02-14	13.106	2019-05-09	NA	1056	341	WK	2	hook	892WKG	1	kaal	hybrid	HK	866-2 x 892-1	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+5	8	18	NA	HH	2017-02-14	14.596	2019-05-09	NA	1057	341	879WKG	2-2	hook	WK	4	hook	between	HH	879-2-2 x 794-4	hook.between	hook.between.879WKG.2-2	879WKG.2-2	hook879WKG
+95	13	5	A	HK	2017-01-31	16.718	2019-05-09	NA	1058	327	WK	2	hook	892WKG	4	kaal	hybrid	HK	866-2 x 892-4	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+29	3	10	A	HK	2017-01-31	22.503	2019-05-09	NA	1059	327	879WKG	10-1	hook	3587WP	15	kaal	hybrid	HK	879-10-1 x 3587-15	hook.hybrid	hook.hybrid.879WKG.10-1	879WKG.10-1	hook879WKG
+3	1	12	NA	NA	2017-01-31	7.215	2019-05-09	No Cross Type	1060	327	879WKG	2-2	hook	879WKG	N-5	hook	within	HH	879-2-2 x 879-N-5	hook.within	hook.within.879WKG.2-2	879WKG.2-2	hook879WKG
+31	4	12	NA	HH	2017-01-31	16.98	2019-05-09	NA	1061	327	879WKG	G-2	hook	879WKG	2-2	hook	within	HH	879-G-2 x 879-2-2	hook.within	hook.within.879WKG.G-2	879WKG.G-2	hook879WKG
+9	20	8	A	HK	2017-01-31	10.957	2019-05-09	NA	1062	327	879WKG	2-2	hook	892WKG	5	kaal	hybrid	HK	879-2-2 x 892-5	hook.hybrid	hook.hybrid.879WKG.2-2	879WKG.2-2	hook879WKG
+169	11	14	NA	KK	2017-01-31	1.606	2019-05-09	NA	1063	327	904WPG	3	kaal	904WPG	5	kaal	within	KK	904-3 x 904-5	kaal.within	kaal.within.904WPG.3	904WPG.3	kaal904WPG
+95	7	5	A	HK	2017-01-31	5.675	2019-05-09	NA	1064	327	WK	2	hook	892WKG	4	kaal	hybrid	HK	866-2 x 892-4	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+33	20	1	B	HH	2017-01-31	12.146	2019-05-09	NA	1065	327	879WKG	G-2	hook	WK	2	hook	between	HH	879-G-2 x 794-2	hook.between	hook.between.879WKG.G-2	879WKG.G-2	hook879WKG
+91	15	1	A	HH	2017-01-31	12.689	2019-05-09	NA	1066	327	WK	2	hook	879WKG	G-2	hook	between	HH	866-2 x 879-G-2	hook.between	hook.between.WK.2	WK.2	hookWK
+66	20	5	A	HK	2017-01-31	5.241	2019-05-09	NA	1067	327	WK	2	hook	892WKG	1	kaal	hybrid	HK	794-2 x 892-1	hook.hybrid	hook.hybrid.WK.2	WK.2	hookWK
+75	10	1	A	HH	2017-01-31	15.815	2019-05-09	NA	1068	327	WK	4	hook	879WKG	10-1	hook	between	HH	794-4 x 879-10-1	hook.between	hook.between.WK.4	WK.4	hookWK
