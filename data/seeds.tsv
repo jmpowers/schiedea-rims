@@ -1,4 +1,4 @@
-linenum	labelid	momsp	mompop	momid	dadpop	crosstype	dadsp	cross	viable.seeds	yesno	sxc	sxcxm	mompid	smompop
+linenum	labelid	momsp	mompop	momid	dadpop	crosstype	dadsp	cross	viable.seeds	capsule.formed	sxc	sxcxm	mompid	smompop
 45	18	hook	WK	2	WK	within	hook	HHwithin	20	1	hook.within	hook.within.794.2	794.2	hook794
 46	19	hook	WK	2	879WKG	between	hook	HHbetween	18	1	hook.between	hook.between.794.2	794.2	hook794
 49	22	hook	WK	5	WK	within	hook	HHwithin	0	0	hook.within	hook.within.794.5	794.5	hook794

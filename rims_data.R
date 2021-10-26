@@ -99,7 +99,7 @@ crosses <- read_sheet(gsheet, "crosses", col_types="c") %>%
 seeds <- read_sheet(gsheet, "seeds", col_types="c") %>% 
   filter(dadpop != "closed") %>% 
   mutate(viable.seeds = as.integer(viable.seeds), 
-         yesno = as.integer(viable.seeds>0)) %>% # was a capsule formed?
+         capsule.formed = as.integer(viable.seeds>0)) %>% 
   add_combos()
   
 # germination -------------------------------------------------------------
@@ -128,11 +128,13 @@ survflr <- read_sheet(gsheet, "survflr", col_types="c") %>%
   filter(crossid != "107", plantid != "0") %>% # 107 not listed in crosses, plantid=0: seeds did not germinate
   mutate(across(matches("date"), ymd),
          across(all_of(c("delay","firstinflo.biomass.mg")), as.numeric),
+         firstinflo.biomass.g = firstinflo.biomass.mg/1000,
          alive =    ifelse(use.alive.flowered == "yes", alive == "yes", NA), #change usable statuses to boolean
          flowered = ifelse(use.alive.flowered == "yes", na_if(flowered, "?") == "yes", NA), 
-         firstinflo.biomass.mg = ifelse(use.fib == "yes", firstinflo.biomass.mg, NA),
+         firstinflo.biomass.g = ifelse(use.fib == "yes", firstinflo.biomass.g, NA),
+         collect = firstinflo.collect.date - first_planting, 
          firstflower.date = if_else(use.firstflower == "yes", firstflower.date, as.Date(NA)),
-         firstflower = firstflower.date - first_planting) %>% 
+         firstflower = firstflower.date - first_planting) %>% select(-firstinflo.biomass.mg) %>% 
   left_join(crosses) %>% 
   add_combos()
 #for flowering analysis, add filter(alive) %>% drop_na(flowered)
@@ -197,7 +199,8 @@ f2pollen <- read_sheet(gsheet, "f2pollen", col_types="c") %>%
 
 f2seeds <- read_sheet(gsheet, "f2seeds", col_types="c") %>% 
   mutate(across(contains("date"), ymd),
-         across(contains("seeds"), as.integer)) %>% 
+         across(contains("seeds"), as.integer),
+         capsule.formed = viable.seeds > 0) %>% 
   split_full_crosses() %>% 
   pop_to_species() %>% 
   pop_factors()
@@ -205,7 +208,6 @@ f2seeds <- read_sheet(gsheet, "f2seeds", col_types="c") %>%
 # export ------------------------------------------------------------------
 walk(datanames, ~write_tsv(get(.), paste0("data/",., ".tsv")))
 
-remove(F1, F2)
 save.image("data/rims_data.rda")
 
 
