@@ -22,33 +22,70 @@ td, th { padding : 6px }
 
 ```{r setup, message = FALSE}
 library(tidyverse)
+library(RColorBrewer)
+
+library(lme4)
+library(lmerTest)
+library(broom)
+library(emmeans)
 
 library(knitr)
-knitr::opts_chunk$set(comment="", cache=T, warning = F, message = F, fig.path = "figures/")
+knitr::opts_chunk$set(comment="", cache=T, warning = F, message = F, fig.path = "figures/", dev = "svglite")
 options(digits=4, knitr.kable.NA = "") # for kables
 
 load("data/rims_data.rda")
+
+sxc.labels <- set_names(c("K intrapop.", "K interpop.", "K x H", "H x K", "H interpop.", "H intrapop"), sxc.levels)
+F1.col <- set_names(c(brewer.pal(3,"Greens")[2:3],brewer.pal(9,"Oranges")[5], brewer.pal(9,"Set1")[7], brewer.pal(3,"Purples")[3:2]), sxc.levels)
 ```
 
 # Sample sizes
 
 ```{r sampsize}
-F1 <- mget(datanames[1:6])
-F2 <- mget(datanames[7:10])
+F1 <- set_names(datanames[1:6]); F1[[6]] <- "inflobiomass.sum"
+F2 <- set_names(datanames[7:10])
 
-map_dfr(F1, ~ tally(.), .id="dataset") %>% 
+map_dfr(F1, ~ tally(get(.)), .id="dataset") %>% 
   pivot_wider(names_from=dataset, values_from=n) %>% kable(caption="F1 datasets totals")
 
-map_dfr(F1, ~ tally(group_by(., crosstype, momsp, dadsp)), .id="dataset") %>% 
+map_dfr(F1, ~ tally(group_by(get(.), crosstype, momsp, dadsp)), .id="dataset") %>% 
   pivot_wider(names_from=dataset, values_from=n) %>% kable(caption="F1 datasets by crosstype and species")
 
-map_dfr(F1, ~ tally(group_by(., crosstype, momsp, dadsp, mompop, dadpop)), .id="dataset") %>% 
+map_dfr(F1, ~ tally(group_by(get(.), crosstype, momsp, dadsp, mompop, dadpop)), .id="dataset") %>% 
   pivot_wider(names_from=dataset, values_from=n) %>% kable(caption="F1 datasets by crosstype and population")
 
-map_dfr(F2, ~ tally(.), .id="dataset") %>% 
+map_dfr(F2, ~ tally(get(.)), .id="dataset") %>% 
   pivot_wider(names_from=dataset, values_from=n) %>% kable(caption="F2 datasets totals")
 
-map_dfr(F2, ~ tally(group_by(., generation, momdadcross)), .id="dataset") %>% 
+map_dfr(F2, ~ tally(group_by(get(.), generation, momdadcross)), .id="dataset") %>% 
   pivot_wider(names_from=dataset, values_from=n) %>% kable(caption="F2 datasets by cross")
+```
+
+# F1 Generation
+
+## Vegetative and Inflo Biomass
+
+```{r biomass, fig.width=5, fig.height=4}
+plot_f1_continuous <- function(emm, data, yvar, ylab) {
+  ggplot(data, aes_string(y=yvar, x="sxc", fill="sxc")) +
+    geom_violin(draw_quantiles = (1:3)/4) + 
+    geom_pointrange(data=filter(emm, trait==yvar), aes(y=estimate, ymax=conf.high, ymin=conf.low)) + 
+    scale_fill_manual(values=F1.col) + guides(fill="none") +
+    scale_x_discrete("Cross", labels = sxc.labels) + 
+    scale_y_continuous(name = ylab, expand = expansion(mult=c(0, 0.05)), limits=c(0,NA)) +
+    theme_minimal() + theme(panel.grid.major.x = element_blank())
+}
+
+F1.biomass.mod <- list(
+  firstinflo.biomass.g = lmer(firstinflo.biomass.g ~ sxc + collect + (1|mompid) + (1|dadpid), data=survflr),
+  inflo.biomass.g =      lmer(inflo.biomass.g  ~     sxc + collect + (1|mompid) + (1|dadpid), data=inflobiomass.sum),
+  veg.biomass.g =        lmer(veg.biomass.g ~        sxc + collect + (1|mompid) + (1|dadpid), data=vegbiomass))
+
+F1.biomass.test <- map_dfr(F1.biomass.mod, ~tidy(anova(.)), .id="trait")
+F1.biomass.emm <-  map_dfr(F1.biomass.mod, ~tidy(summary(emmeans(., ~sxc))), .id="trait") #average over collect date
+
+plot_f1_continuous(F1.biomass.emm, survflr,     "firstinflo.biomass.g", "First inflorescence biomass (g)")
+plot_f1_continuous(F1.biomass.emm, inflobiomass.sum, "inflo.biomass.g",       "Inflorescence biomass (g)")
+plot_f1_continuous(F1.biomass.emm, vegbiomass,         "veg.biomass.g",          "Vegetative biomass (g)")
 ```
 

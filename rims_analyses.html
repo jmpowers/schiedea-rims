@@ -11,7 +11,7 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2021-10-21" />
+<meta name="date" content="2021-10-26" />
 
 <title>Schiedea hookeri/kaalae RIMs</title>
 
@@ -255,7 +255,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Schiedea hookeri/kaalae RIMs</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John Powers</a></h4>
-<h4 class="date">2021-10-21</h4>
+<h4 class="date">2021-10-26</h4>
 
 </div>
 
@@ -266,18 +266,27 @@ img{ max-width:200%; height: auto; }
 td, th { padding : 6px }
 </style>
 <pre class="r"><code>library(tidyverse)
+library(RColorBrewer)
+
+library(lme4)
+library(lmerTest)
+library(broom)
+library(emmeans)
 
 library(knitr)
-knitr::opts_chunk$set(comment=&quot;&quot;, cache=T, warning = F, message = F, fig.path = &quot;figures/&quot;)
+knitr::opts_chunk$set(comment=&quot;&quot;, cache=T, warning = F, message = F, fig.path = &quot;figures/&quot;, dev = &quot;svglite&quot;)
 options(digits=4, knitr.kable.NA = &quot;&quot;) # for kables
 
-load(&quot;data/rims_data.rda&quot;)</code></pre>
+load(&quot;data/rims_data.rda&quot;)
+
+sxc.labels &lt;- set_names(c(&quot;K intrapop.&quot;, &quot;K interpop.&quot;, &quot;K x H&quot;, &quot;H x K&quot;, &quot;H interpop.&quot;, &quot;H intrapop&quot;), sxc.levels)
+F1.col &lt;- set_names(c(brewer.pal(3,&quot;Greens&quot;)[2:3],brewer.pal(9,&quot;Oranges&quot;)[5], brewer.pal(9,&quot;Set1&quot;)[7], brewer.pal(3,&quot;Purples&quot;)[3:2]), sxc.levels)</code></pre>
 <div id="sample-sizes" class="section level1">
 <h1>Sample sizes</h1>
-<pre class="r"><code>F1 &lt;- mget(datanames[1:6])
-F2 &lt;- mget(datanames[7:10])
+<pre class="r"><code>F1 &lt;- set_names(datanames[1:6]); F1[[6]] &lt;- &quot;inflobiomass.sum&quot;
+F2 &lt;- set_names(datanames[7:10])
 
-map_dfr(F1, ~ tally(.), .id=&quot;dataset&quot;) %&gt;% 
+map_dfr(F1, ~ tally(get(.)), .id=&quot;dataset&quot;) %&gt;% 
   pivot_wider(names_from=dataset, values_from=n) %&gt;% kable(caption=&quot;F1 datasets totals&quot;)</code></pre>
 <table>
 <caption>F1 datasets totals</caption>
@@ -298,11 +307,11 @@ map_dfr(F1, ~ tally(.), .id=&quot;dataset&quot;) %&gt;%
 <td align="right">1067</td>
 <td align="right">1567</td>
 <td align="right">197</td>
-<td align="right">1528</td>
+<td align="right">1019</td>
 </tr>
 </tbody>
 </table>
-<pre class="r"><code>map_dfr(F1, ~ tally(group_by(., crosstype, momsp, dadsp)), .id=&quot;dataset&quot;) %&gt;% 
+<pre class="r"><code>map_dfr(F1, ~ tally(group_by(get(.), crosstype, momsp, dadsp)), .id=&quot;dataset&quot;) %&gt;% 
   pivot_wider(names_from=dataset, values_from=n) %&gt;% kable(caption=&quot;F1 datasets by crosstype and species&quot;)</code></pre>
 <table>
 <caption>F1 datasets by crosstype and species</caption>
@@ -329,7 +338,7 @@ map_dfr(F1, ~ tally(.), .id=&quot;dataset&quot;) %&gt;%
 <td align="right">257</td>
 <td align="right">377</td>
 <td align="right">15</td>
-<td align="right">328</td>
+<td align="right">247</td>
 </tr>
 <tr class="even">
 <td align="left">between</td>
@@ -340,7 +349,7 @@ map_dfr(F1, ~ tally(.), .id=&quot;dataset&quot;) %&gt;%
 <td align="right">193</td>
 <td align="right">254</td>
 <td align="right">37</td>
-<td align="right">304</td>
+<td align="right">194</td>
 </tr>
 <tr class="odd">
 <td align="left">within</td>
@@ -351,7 +360,7 @@ map_dfr(F1, ~ tally(.), .id=&quot;dataset&quot;) %&gt;%
 <td align="right">129</td>
 <td align="right">223</td>
 <td align="right">15</td>
-<td align="right">181</td>
+<td align="right">118</td>
 </tr>
 <tr class="even">
 <td align="left">within</td>
@@ -362,7 +371,7 @@ map_dfr(F1, ~ tally(.), .id=&quot;dataset&quot;) %&gt;%
 <td align="right">85</td>
 <td align="right">125</td>
 <td align="right">20</td>
-<td align="right">128</td>
+<td align="right">89</td>
 </tr>
 <tr class="odd">
 <td align="left">hybrid</td>
@@ -373,7 +382,7 @@ map_dfr(F1, ~ tally(.), .id=&quot;dataset&quot;) %&gt;%
 <td align="right">332</td>
 <td align="right">469</td>
 <td align="right">61</td>
-<td align="right">490</td>
+<td align="right">314</td>
 </tr>
 <tr class="even">
 <td align="left">hybrid</td>
@@ -384,11 +393,11 @@ map_dfr(F1, ~ tally(.), .id=&quot;dataset&quot;) %&gt;%
 <td align="right">71</td>
 <td align="right">119</td>
 <td align="right">49</td>
-<td align="right">97</td>
+<td align="right">57</td>
 </tr>
 </tbody>
 </table>
-<pre class="r"><code>map_dfr(F1, ~ tally(group_by(., crosstype, momsp, dadsp, mompop, dadpop)), .id=&quot;dataset&quot;) %&gt;% 
+<pre class="r"><code>map_dfr(F1, ~ tally(group_by(get(.), crosstype, momsp, dadsp, mompop, dadpop)), .id=&quot;dataset&quot;) %&gt;% 
   pivot_wider(names_from=dataset, values_from=n) %&gt;% kable(caption=&quot;F1 datasets by crosstype and population&quot;)</code></pre>
 <table>
 <caption>F1 datasets by crosstype and population</caption>
@@ -432,7 +441,7 @@ map_dfr(F1, ~ tally(.), .id=&quot;dataset&quot;) %&gt;%
 <td align="right">149</td>
 <td align="right">241</td>
 <td align="right">9</td>
-<td align="right">189</td>
+<td align="right">145</td>
 </tr>
 <tr class="even">
 <td align="left">between</td>
@@ -445,7 +454,7 @@ map_dfr(F1, ~ tally(.), .id=&quot;dataset&quot;) %&gt;%
 <td align="right">108</td>
 <td align="right">136</td>
 <td align="right">6</td>
-<td align="right">139</td>
+<td align="right">102</td>
 </tr>
 <tr class="odd">
 <td align="left">between</td>
@@ -458,7 +467,7 @@ map_dfr(F1, ~ tally(.), .id=&quot;dataset&quot;) %&gt;%
 <td align="right">31</td>
 <td align="right">44</td>
 <td align="right">7</td>
-<td align="right">47</td>
+<td align="right">30</td>
 </tr>
 <tr class="even">
 <td align="left">between</td>
@@ -471,7 +480,7 @@ map_dfr(F1, ~ tally(.), .id=&quot;dataset&quot;) %&gt;%
 <td align="right">3</td>
 <td align="right">12</td>
 <td align="right">9</td>
-<td align="right">5</td>
+<td align="right">3</td>
 </tr>
 <tr class="odd">
 <td align="left">between</td>
@@ -484,7 +493,7 @@ map_dfr(F1, ~ tally(.), .id=&quot;dataset&quot;) %&gt;%
 <td align="right">83</td>
 <td align="right">94</td>
 <td align="right">6</td>
-<td align="right">116</td>
+<td align="right">82</td>
 </tr>
 <tr class="even">
 <td align="left">between</td>
@@ -497,7 +506,7 @@ map_dfr(F1, ~ tally(.), .id=&quot;dataset&quot;) %&gt;%
 <td align="right">23</td>
 <td align="right">30</td>
 <td align="right">5</td>
-<td align="right">42</td>
+<td align="right">24</td>
 </tr>
 <tr class="odd">
 <td align="left">between</td>
@@ -510,7 +519,7 @@ map_dfr(F1, ~ tally(.), .id=&quot;dataset&quot;) %&gt;%
 <td align="right">24</td>
 <td align="right">31</td>
 <td align="right">4</td>
-<td align="right">46</td>
+<td align="right">26</td>
 </tr>
 <tr class="even">
 <td align="left">between</td>
@@ -523,7 +532,7 @@ map_dfr(F1, ~ tally(.), .id=&quot;dataset&quot;) %&gt;%
 <td align="right">29</td>
 <td align="right">43</td>
 <td align="right">6</td>
-<td align="right">48</td>
+<td align="right">29</td>
 </tr>
 <tr class="odd">
 <td align="left">within</td>
@@ -536,7 +545,7 @@ map_dfr(F1, ~ tally(.), .id=&quot;dataset&quot;) %&gt;%
 <td align="right">72</td>
 <td align="right">128</td>
 <td align="right">10</td>
-<td align="right">106</td>
+<td align="right">71</td>
 </tr>
 <tr class="even">
 <td align="left">within</td>
@@ -549,7 +558,7 @@ map_dfr(F1, ~ tally(.), .id=&quot;dataset&quot;) %&gt;%
 <td align="right">57</td>
 <td align="right">95</td>
 <td align="right">5</td>
-<td align="right">75</td>
+<td align="right">47</td>
 </tr>
 <tr class="odd">
 <td align="left">within</td>
@@ -562,7 +571,7 @@ map_dfr(F1, ~ tally(.), .id=&quot;dataset&quot;) %&gt;%
 <td align="right">5</td>
 <td align="right">15</td>
 <td align="right">7</td>
-<td align="right">9</td>
+<td align="right">5</td>
 </tr>
 <tr class="even">
 <td align="left">within</td>
@@ -575,7 +584,7 @@ map_dfr(F1, ~ tally(.), .id=&quot;dataset&quot;) %&gt;%
 <td align="right">63</td>
 <td align="right">83</td>
 <td align="right">6</td>
-<td align="right">95</td>
+<td align="right">68</td>
 </tr>
 <tr class="odd">
 <td align="left">within</td>
@@ -588,7 +597,7 @@ map_dfr(F1, ~ tally(.), .id=&quot;dataset&quot;) %&gt;%
 <td align="right">17</td>
 <td align="right">27</td>
 <td align="right">7</td>
-<td align="right">24</td>
+<td align="right">16</td>
 </tr>
 <tr class="even">
 <td align="left">hybrid</td>
@@ -601,7 +610,7 @@ map_dfr(F1, ~ tally(.), .id=&quot;dataset&quot;) %&gt;%
 <td align="right">81</td>
 <td align="right">118</td>
 <td align="right">9</td>
-<td align="right">110</td>
+<td align="right">75</td>
 </tr>
 <tr class="odd">
 <td align="left">hybrid</td>
@@ -614,7 +623,7 @@ map_dfr(F1, ~ tally(.), .id=&quot;dataset&quot;) %&gt;%
 <td align="right">34</td>
 <td align="right">61</td>
 <td align="right">10</td>
-<td align="right">50</td>
+<td align="right">33</td>
 </tr>
 <tr class="even">
 <td align="left">hybrid</td>
@@ -627,7 +636,7 @@ map_dfr(F1, ~ tally(.), .id=&quot;dataset&quot;) %&gt;%
 <td align="right">27</td>
 <td align="right">47</td>
 <td align="right">7</td>
-<td align="right">47</td>
+<td align="right">27</td>
 </tr>
 <tr class="odd">
 <td align="left">hybrid</td>
@@ -640,7 +649,7 @@ map_dfr(F1, ~ tally(.), .id=&quot;dataset&quot;) %&gt;%
 <td align="right">78</td>
 <td align="right">100</td>
 <td align="right">18</td>
-<td align="right">113</td>
+<td align="right">74</td>
 </tr>
 <tr class="even">
 <td align="left">hybrid</td>
@@ -653,7 +662,7 @@ map_dfr(F1, ~ tally(.), .id=&quot;dataset&quot;) %&gt;%
 <td align="right">64</td>
 <td align="right">84</td>
 <td align="right">17</td>
-<td align="right">100</td>
+<td align="right">65</td>
 </tr>
 <tr class="odd">
 <td align="left">hybrid</td>
@@ -666,7 +675,7 @@ map_dfr(F1, ~ tally(.), .id=&quot;dataset&quot;) %&gt;%
 <td align="right">48</td>
 <td align="right">59</td>
 <td align="right"></td>
-<td align="right">70</td>
+<td align="right">40</td>
 </tr>
 <tr class="even">
 <td align="left">hybrid</td>
@@ -692,7 +701,7 @@ map_dfr(F1, ~ tally(.), .id=&quot;dataset&quot;) %&gt;%
 <td align="right">18</td>
 <td align="right">24</td>
 <td align="right">8</td>
-<td align="right">27</td>
+<td align="right">16</td>
 </tr>
 <tr class="even">
 <td align="left">hybrid</td>
@@ -718,7 +727,7 @@ map_dfr(F1, ~ tally(.), .id=&quot;dataset&quot;) %&gt;%
 <td align="right">34</td>
 <td align="right">53</td>
 <td align="right">25</td>
-<td align="right">44</td>
+<td align="right">27</td>
 </tr>
 <tr class="even">
 <td align="left">hybrid</td>
@@ -744,11 +753,11 @@ map_dfr(F1, ~ tally(.), .id=&quot;dataset&quot;) %&gt;%
 <td align="right">17</td>
 <td align="right">28</td>
 <td align="right">14</td>
-<td align="right">26</td>
+<td align="right">14</td>
 </tr>
 </tbody>
 </table>
-<pre class="r"><code>map_dfr(F2, ~ tally(.), .id=&quot;dataset&quot;) %&gt;% 
+<pre class="r"><code>map_dfr(F2, ~ tally(get(.)), .id=&quot;dataset&quot;) %&gt;% 
   pivot_wider(names_from=dataset, values_from=n) %&gt;% kable(caption=&quot;F2 datasets totals&quot;)</code></pre>
 <table>
 <caption>F2 datasets totals</caption>
@@ -769,7 +778,7 @@ map_dfr(F1, ~ tally(.), .id=&quot;dataset&quot;) %&gt;%
 </tr>
 </tbody>
 </table>
-<pre class="r"><code>map_dfr(F2, ~ tally(group_by(., generation, momdadcross)), .id=&quot;dataset&quot;) %&gt;% 
+<pre class="r"><code>map_dfr(F2, ~ tally(group_by(get(.), generation, momdadcross)), .id=&quot;dataset&quot;) %&gt;% 
   pivot_wider(names_from=dataset, values_from=n) %&gt;% kable(caption=&quot;F2 datasets by cross&quot;)</code></pre>
 <table>
 <caption>F2 datasets by cross</caption>
@@ -938,6 +947,36 @@ map_dfr(F1, ~ tally(.), .id=&quot;dataset&quot;) %&gt;%
 </tr>
 </tbody>
 </table>
+</div>
+<div id="f1-generation" class="section level1">
+<h1>F1 Generation</h1>
+<div id="vegetative-and-inflo-biomass" class="section level2">
+<h2>Vegetative and Inflo Biomass</h2>
+<pre class="r"><code>plot_f1_continuous &lt;- function(emm, data, yvar, ylab) {
+  ggplot(data, aes_string(y=yvar, x=&quot;sxc&quot;, fill=&quot;sxc&quot;)) +
+    geom_violin(draw_quantiles = (1:3)/4) + 
+    geom_pointrange(data=filter(emm, trait==yvar), aes(y=estimate, ymax=conf.high, ymin=conf.low)) + 
+    scale_fill_manual(values=F1.col) + guides(fill=&quot;none&quot;) +
+    scale_x_discrete(&quot;Cross&quot;, labels = sxc.labels) + 
+    scale_y_continuous(name = ylab, expand = expansion(mult=c(0, 0.05)), limits=c(0,NA)) +
+    theme_minimal() + theme(panel.grid.major.x = element_blank())
+}
+
+F1.biomass.mod &lt;- list(
+  firstinflo.biomass.g = lmer(firstinflo.biomass.g ~ sxc + collect + (1|mompid) + (1|dadpid), data=survflr),
+  inflo.biomass.g =      lmer(inflo.biomass.g  ~     sxc + collect + (1|mompid) + (1|dadpid), data=inflobiomass.sum),
+  veg.biomass.g =        lmer(veg.biomass.g ~        sxc + collect + (1|mompid) + (1|dadpid), data=vegbiomass))
+
+F1.biomass.test &lt;- map_dfr(F1.biomass.mod, ~tidy(anova(.)), .id=&quot;trait&quot;)
+F1.biomass.emm &lt;-  map_dfr(F1.biomass.mod, ~tidy(summary(emmeans(., ~sxc))), .id=&quot;trait&quot;) #average over collect date
+
+plot_f1_continuous(F1.biomass.emm, survflr,     &quot;firstinflo.biomass.g&quot;, &quot;First inflorescence biomass (g)&quot;)</code></pre>
+<p><img src="figures/biomass-1.svg" width="480" /></p>
+<pre class="r"><code>plot_f1_continuous(F1.biomass.emm, inflobiomass.sum, &quot;inflo.biomass.g&quot;,       &quot;Inflorescence biomass (g)&quot;)</code></pre>
+<p><img src="figures/biomass-2.svg" width="480" /></p>
+<pre class="r"><code>plot_f1_continuous(F1.biomass.emm, vegbiomass,         &quot;veg.biomass.g&quot;,          &quot;Vegetative biomass (g)&quot;)</code></pre>
+<p><img src="figures/biomass-3.svg" width="480" /></p>
+</div>
 </div>
 
 
