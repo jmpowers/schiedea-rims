@@ -17,10 +17,13 @@ hk.species <- set_names(rep(species.pops$sp, 2), c(species.pops$collection, spec
 
 first_planting <- ymd("2016-03-10") #verified this is the first seed planting date for this set
 
+sxc.levels <- c("kaal.within", "kaal.between", "kaal.hybrid", "hook.hybrid", "hook.between", "hook.within")
+
 pop_factors <- function(data) {
   mutate(data,
          across(where(is.character), as.factor),
-         across(ends_with("pop"), recode_factor, !!!hk.pops))
+         across(ends_with("pop"), recode_factor, !!!hk.pops),
+         across(any_of("sxc"), fct_relevel, sxc.levels))
 }
 
 add_combos <- function(data) {
@@ -28,7 +31,7 @@ add_combos <- function(data) {
          sxc = paste(momsp, crosstype, sep="."),
          sxcxm = paste(momsp, crosstype, mompop, momid, sep="."),
          mompid = paste(mompop, momid, sep="."),
-         across(any_of("dadid"), dadpid= ~paste(dadpop, ., sep=".")),
+         across(any_of("dadid"), ~paste(dadpop, ., sep="."), .names="dadpid"),
          smompop = paste(momsp, mompop, sep="")) %>% 
     pop_factors() %>% 
     mutate(crosstype = fct_relevel(crosstype, "hybrid", after = 2))
@@ -113,7 +116,6 @@ germination <- read_sheet(gsheet, "germination", col_types="c") %>%
 vegbiomass <- read_sheet(gsheet, "vegbiomass", col_types="c") %>% 
   drop_na(crossid) %>% 
   mutate(across(contains("date"), ymd),
-         #TODO from hybridbiomass.Rmd - is this the median planting date?
          collect = collect.date - first_planting, 
          veg.biomass.g=as.numeric(veg.biomass.g)) %>%
   left_join(crosses) %>% 

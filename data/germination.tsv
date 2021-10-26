@@ -1,237 +1,237 @@
-crossid	mompop	momid	momsp	dadpop	dadid	dadsp	crosstype	planted	germinated	prop.germ	sxc	sxcxm	mompid	smompop
-1	879WKG	2-2	hook	879WKG	G-2	hook	within	52	38	0.7307692307692307	hook.within	hook.within.879.2-2	879.2-2	hook879
-10	879WKG	2-2	hook	904WPG	2	kaal	hybrid	24	22	0.9166666666666666	hook.hybrid	hook.hybrid.879.2-2	879.2-2	hook879
-100	WK	10	hook	3587WP	14	kaal	hybrid	2	2	1	hook.hybrid	hook.hybrid.794.10	794.10	hook794
-101	WK	10	hook	3587WP	C	kaal	hybrid	12	10	0.8333333333333334	hook.hybrid	hook.hybrid.794.10	794.10	hook794
-102	WK	11	hook	879WKG	2-2	hook	between	10	10	1	hook.between	hook.between.794.11	794.11	hook794
-103	WK	11	hook	892WKG	1	kaal	hybrid	12	11	0.9166666666666666	hook.hybrid	hook.hybrid.794.11	794.11	hook794
-104	WK	11	hook	904WPG	2	kaal	hybrid	10	2	0.2	hook.hybrid	hook.hybrid.794.11	794.11	hook794
-105	WK	11	hook	904WPG	5	kaal	hybrid	30	26	0.8666666666666667	hook.hybrid	hook.hybrid.794.11	794.11	hook794
-106	WK	11	hook	3587WP	14	kaal	hybrid	10	9	0.9	hook.hybrid	hook.hybrid.794.11	794.11	hook794
-108	892WKG	1	kaal	879WKG	2-2	hook	hybrid	18	8	0.4444444444444444	kaal.hybrid	kaal.hybrid.892.1	892.1	kaal892
-109	892WKG	1	kaal	879WKG	G-2	hook	hybrid	15	3	0.2	kaal.hybrid	kaal.hybrid.892.1	892.1	kaal892
-11	879WKG	2-2	hook	904WPG	3	kaal	hybrid	11	8	0.7272727272727273	hook.hybrid	hook.hybrid.879.2-2	879.2-2	hook879
-110	892WKG	1	kaal	879WKG	H-2	hook	hybrid	9	1	0.1111111111111111	kaal.hybrid	kaal.hybrid.892.1	892.1	kaal892
-111	892WKG	1	kaal	879WKG	N-5	hook	hybrid	2	0	0	kaal.hybrid	kaal.hybrid.892.1	892.1	kaal892
-112	892WKG	1	kaal	WK	4	hook	hybrid	7	0	0	kaal.hybrid	kaal.hybrid.892.1	892.1	kaal892
-113	892WKG	1	kaal	WK	10	hook	hybrid	6	0	0	kaal.hybrid	kaal.hybrid.892.1	892.1	kaal892
-114	892WKG	1	kaal	WK	11	hook	hybrid	5	0	0	kaal.hybrid	kaal.hybrid.892.1	892.1	kaal892
-115	892WKG	1	kaal	892WKG	4	kaal	within	6	2	0.3333333333333333	kaal.within	kaal.within.892.1	892.1	kaal892
-116	892WKG	1	kaal	892WKG	5	kaal	within	10	3	0.3	kaal.within	kaal.within.892.1	892.1	kaal892
-117	892WKG	1	kaal	904WPG	2	kaal	between	17	12	0.7058823529411765	kaal.between	kaal.between.892.1	892.1	kaal892
-118	892WKG	1	kaal	904WPG	3	kaal	between	8	7	0.875	kaal.between	kaal.between.892.1	892.1	kaal892
-119	892WKG	1	kaal	904WPG	5	kaal	between	10	6	0.6	kaal.between	kaal.between.892.1	892.1	kaal892
-12	879WKG	2-2	hook	904WPG	5	kaal	hybrid	24	20	0.8333333333333334	hook.hybrid	hook.hybrid.879.2-2	879.2-2	hook879
-120	892WKG	1	kaal	3587WP	7	kaal	between	5	5	1	kaal.between	kaal.between.892.1	892.1	kaal892
-121	892WKG	2	kaal	904WPG	5	kaal	between	8	7	0.875	kaal.between	kaal.between.892.2	892.2	kaal892
-122	892WKG	3	kaal	879WKG	10-1	hook	hybrid	6	1	0.16666666666666666	kaal.hybrid	kaal.hybrid.892.3	892.3	kaal892
-123	892WKG	3	kaal	879WKG	G-2	hook	hybrid	14	3	0.21428571428571427	kaal.hybrid	kaal.hybrid.892.3	892.3	kaal892
-124	892WKG	3	kaal	879WKG	N-5	hook	hybrid	11	0	0	kaal.hybrid	kaal.hybrid.892.3	892.3	kaal892
-125	892WKG	3	kaal	892WKG	1	kaal	within	10	1	0.1	kaal.within	kaal.within.892.3	892.3	kaal892
-126	892WKG	3	kaal	892WKG	4	kaal	within	1	0	0	kaal.within	kaal.within.892.3	892.3	kaal892
-127	892WKG	3	kaal	3587WP	7	kaal	between	11	4	0.36363636363636365	kaal.between	kaal.between.892.3	892.3	kaal892
-128	892WKG	4	kaal	879WKG	2-2	hook	hybrid	6	1	0.16666666666666666	kaal.hybrid	kaal.hybrid.892.4	892.4	kaal892
-129	892WKG	4	kaal	879WKG	10-1	hook	hybrid	3	0	0	kaal.hybrid	kaal.hybrid.892.4	892.4	kaal892
-13	879WKG	2-2	hook	3587WP	7	kaal	hybrid	5	4	0.8	hook.hybrid	hook.hybrid.879.2-2	879.2-2	hook879
-130	892WKG	4	kaal	879WKG	G-2	hook	hybrid	10	1	0.1	kaal.hybrid	kaal.hybrid.892.4	892.4	kaal892
-131	892WKG	4	kaal	WK	4	hook	hybrid	10	0	0	kaal.hybrid	kaal.hybrid.892.4	892.4	kaal892
-132	892WKG	4	kaal	WK	10	hook	hybrid	2	0	0	kaal.hybrid	kaal.hybrid.892.4	892.4	kaal892
-133	892WKG	4	kaal	904WPG	5	kaal	between	7	2	0.2857142857142857	kaal.between	kaal.between.892.4	892.4	kaal892
-134	892WKG	5	kaal	879WKG	2-2	hook	hybrid	11	5	0.45454545454545453	kaal.hybrid	kaal.hybrid.892.5	892.5	kaal892
-135	892WKG	5	kaal	879WKG	G-2	hook	hybrid	6	0	0	kaal.hybrid	kaal.hybrid.892.5	892.5	kaal892
-136	892WKG	5	kaal	879WKG	H-2	hook	hybrid	8	0	0	kaal.hybrid	kaal.hybrid.892.5	892.5	kaal892
-137	892WKG	5	kaal	879WKG	N-5	hook	hybrid	10	0	0	kaal.hybrid	kaal.hybrid.892.5	892.5	kaal892
-138	892WKG	5	kaal	WK	4	hook	hybrid	5	0	0	kaal.hybrid	kaal.hybrid.892.5	892.5	kaal892
-139	892WKG	5	kaal	892WKG	2	kaal	within	4	1	0.25	kaal.within	kaal.within.892.5	892.5	kaal892
-14	879WKG	2-2	hook	3587WP	C	kaal	hybrid	5	5	1	hook.hybrid	hook.hybrid.879.2-2	879.2-2	hook879
-140	892WKG	5	kaal	892WKG	4	kaal	within	14	7	0.5	kaal.within	kaal.within.892.5	892.5	kaal892
-141	892WKG	5	kaal	904WPG	3	kaal	between	10	5	0.5	kaal.between	kaal.between.892.5	892.5	kaal892
-142	892WKG	5	kaal	904WPG	5	kaal	between	6	6	1	kaal.between	kaal.between.892.5	892.5	kaal892
-143	892WKG	5	kaal	3587WP	14	kaal	between	7	4	0.5714285714285714	kaal.between	kaal.between.892.5	892.5	kaal892
-144	892WKG	10	kaal	879WKG	2-2	hook	hybrid	5	0	0	kaal.hybrid	kaal.hybrid.892.10	892.10	kaal892
-145	892WKG	10	kaal	WK	2	hook	hybrid	1	0	0	kaal.hybrid	kaal.hybrid.892.10	892.10	kaal892
-146	892WKG	10	kaal	904WPG	2	kaal	between	10	1	0.1	kaal.between	kaal.between.892.10	892.10	kaal892
-147	904WPG	2	kaal	879WKG	2-2	hook	hybrid	16	7	0.4375	kaal.hybrid	kaal.hybrid.904.2	904.2	kaal904
-148	904WPG	2	kaal	879WKG	10-1	hook	hybrid	3	3	1	kaal.hybrid	kaal.hybrid.904.2	904.2	kaal904
-149	904WPG	2	kaal	879WKG	G-2	hook	hybrid	20	11	0.55	kaal.hybrid	kaal.hybrid.904.2	904.2	kaal904
-15	879WKG	10-1	hook	879WKG	2-2	hook	within	6	5	0.8333333333333334	hook.within	hook.within.879.10-1	879.10-1	hook879
-150	904WPG	2	kaal	879WKG	H-2	hook	hybrid	4	1	0.25	kaal.hybrid	kaal.hybrid.904.2	904.2	kaal904
-151	904WPG	2	kaal	879WKG	N-5	hook	hybrid	2	0	0	kaal.hybrid	kaal.hybrid.904.2	904.2	kaal904
-152	904WPG	2	kaal	WK	2	hook	hybrid	6	0	0	kaal.hybrid	kaal.hybrid.904.2	904.2	kaal904
-153	904WPG	2	kaal	WK	4	hook	hybrid	3	0	0	kaal.hybrid	kaal.hybrid.904.2	904.2	kaal904
-154	904WPG	2	kaal	WK	10	hook	hybrid	2	0	0	kaal.hybrid	kaal.hybrid.904.2	904.2	kaal904
-155	904WPG	2	kaal	892WKG	1	kaal	between	16	9	0.5625	kaal.between	kaal.between.904.2	904.2	kaal904
-156	904WPG	2	kaal	892WKG	10	kaal	between	11	10	0.9090909090909091	kaal.between	kaal.between.904.2	904.2	kaal904
-157	904WPG	2	kaal	904WPG	3	kaal	within	8	6	0.75	kaal.within	kaal.within.904.2	904.2	kaal904
-158	904WPG	2	kaal	904WPG	5	kaal	within	6	6	1	kaal.within	kaal.within.904.2	904.2	kaal904
-159	904WPG	3	kaal	879WKG	2-2	hook	hybrid	14	3	0.21428571428571427	kaal.hybrid	kaal.hybrid.904.3	904.3	kaal904
-16	879WKG	10-1	hook	879WKG	G-2	hook	within	4	0	0	hook.within	hook.within.879.10-1	879.10-1	hook879
-160	904WPG	3	kaal	879WKG	10-1	hook	hybrid	15	0	0	kaal.hybrid	kaal.hybrid.904.3	904.3	kaal904
-161	904WPG	3	kaal	879WKG	H-2	hook	hybrid	6	0	0	kaal.hybrid	kaal.hybrid.904.3	904.3	kaal904
-162	904WPG	3	kaal	879WKG	N-5	hook	hybrid	10	2	0.2	kaal.hybrid	kaal.hybrid.904.3	904.3	kaal904
-163	904WPG	3	kaal	WK	2	hook	hybrid	18	0	0	kaal.hybrid	kaal.hybrid.904.3	904.3	kaal904
-164	904WPG	3	kaal	WK	4	hook	hybrid	13	0	0	kaal.hybrid	kaal.hybrid.904.3	904.3	kaal904
-165	904WPG	3	kaal	WK	11	hook	hybrid	11	1	0.09090909090909091	kaal.hybrid	kaal.hybrid.904.3	904.3	kaal904
-166	904WPG	3	kaal	892WKG	1	kaal	between	11	10	0.9090909090909091	kaal.between	kaal.between.904.3	904.3	kaal904
-167	904WPG	3	kaal	892WKG	4	kaal	between	9	9	1	kaal.between	kaal.between.904.3	904.3	kaal904
-168	904WPG	3	kaal	904WPG	2	kaal	within	17	16	0.9411764705882353	kaal.within	kaal.within.904.3	904.3	kaal904
-169	904WPG	3	kaal	904WPG	5	kaal	within	24	17	0.7083333333333334	kaal.within	kaal.within.904.3	904.3	kaal904
-17	879WKG	10-1	hook	879WKG	H-2	hook	within	12	3	0.25	hook.within	hook.within.879.10-1	879.10-1	hook879
-170	904WPG	3	kaal	3587WP	14	kaal	between	5	3	0.6	kaal.between	kaal.between.904.3	904.3	kaal904
-171	904WPG	5	kaal	879WKG	2-2	hook	hybrid	22	10	0.45454545454545453	kaal.hybrid	kaal.hybrid.904.5	904.5	kaal904
-172	904WPG	5	kaal	879WKG	10-1	hook	hybrid	45	8	0.17777777777777778	kaal.hybrid	kaal.hybrid.904.5	904.5	kaal904
-173	904WPG	5	kaal	879WKG	G-2	hook	hybrid	48	13	0.2708333333333333	kaal.hybrid	kaal.hybrid.904.5	904.5	kaal904
-174	904WPG	5	kaal	879WKG	N-5	hook	hybrid	18	2	0.1111111111111111	kaal.hybrid	kaal.hybrid.904.5	904.5	kaal904
-175	904WPG	5	kaal	WK	2	hook	hybrid	44	3	0.06818181818181818	kaal.hybrid	kaal.hybrid.904.5	904.5	kaal904
-176	904WPG	5	kaal	WK	4	hook	hybrid	16	1	0.0625	kaal.hybrid	kaal.hybrid.904.5	904.5	kaal904
-177	904WPG	5	kaal	WK	10	hook	hybrid	34	2	0.058823529411764705	kaal.hybrid	kaal.hybrid.904.5	904.5	kaal904
-178	904WPG	5	kaal	WK	11	hook	hybrid	10	0	0	kaal.hybrid	kaal.hybrid.904.5	904.5	kaal904
-179	904WPG	5	kaal	892WKG	1	kaal	between	12	10	0.8333333333333334	kaal.between	kaal.between.904.5	904.5	kaal904
-18	879WKG	10-1	hook	879WKG	N-5	hook	within	8	2	0.25	hook.within	hook.within.879.10-1	879.10-1	hook879
-180	904WPG	5	kaal	892WKG	3	kaal	between	14	13	0.9285714285714286	kaal.between	kaal.between.904.5	904.5	kaal904
-181	904WPG	5	kaal	892WKG	4	kaal	between	25	14	0.56	kaal.between	kaal.between.904.5	904.5	kaal904
-182	904WPG	5	kaal	892WKG	5	kaal	between	32	29	0.90625	kaal.between	kaal.between.904.5	904.5	kaal904
-183	904WPG	5	kaal	904WPG	2	kaal	within	32	18	0.5625	kaal.within	kaal.within.904.5	904.5	kaal904
-184	904WPG	5	kaal	904WPG	3	kaal	within	65	46	0.7076923076923077	kaal.within	kaal.within.904.5	904.5	kaal904
-185	904WPG	5	kaal	3587WP	7	kaal	between	13	12	0.9230769230769231	kaal.between	kaal.between.904.5	904.5	kaal904
-186	904WPG	5	kaal	3587WP	10	kaal	between	6	6	1	kaal.between	kaal.between.904.5	904.5	kaal904
-187	904WPG	5	kaal	3587WP	14	kaal	between	13	8	0.6153846153846154	kaal.between	kaal.between.904.5	904.5	kaal904
-188	3587WP	7	kaal	879WKG	2-2	hook	hybrid	13	3	0.23076923076923078	kaal.hybrid	kaal.hybrid.3587.7	3587.7	kaal3587
-189	3587WP	7	kaal	879WKG	10-1	hook	hybrid	23	4	0.17391304347826086	kaal.hybrid	kaal.hybrid.3587.7	3587.7	kaal3587
-19	879WKG	10-1	hook	WK	2	hook	between	28	19	0.6785714285714286	hook.between	hook.between.879.10-1	879.10-1	hook879
-190	3587WP	7	kaal	879WKG	G-2	hook	hybrid	34	6	0.17647058823529413	kaal.hybrid	kaal.hybrid.3587.7	3587.7	kaal3587
-191	3587WP	7	kaal	879WKG	N-5	hook	hybrid	22	6	0.2727272727272727	kaal.hybrid	kaal.hybrid.3587.7	3587.7	kaal3587
-192	3587WP	7	kaal	WK	4	hook	hybrid	32	2	0.0625	kaal.hybrid	kaal.hybrid.3587.7	3587.7	kaal3587
-193	3587WP	7	kaal	WK	10	hook	hybrid	18	0	0	kaal.hybrid	kaal.hybrid.3587.7	3587.7	kaal3587
-194	3587WP	7	kaal	892WKG	1	kaal	between	3	2	0.6666666666666666	kaal.between	kaal.between.3587.7	3587.7	kaal3587
-195	3587WP	7	kaal	892WKG	4	kaal	between	6	4	0.6666666666666666	kaal.between	kaal.between.3587.7	3587.7	kaal3587
-196	3587WP	7	kaal	892WKG	5	kaal	between	14	13	0.9285714285714286	kaal.between	kaal.between.3587.7	3587.7	kaal3587
-197	3587WP	7	kaal	904WPG	5	kaal	between	9	6	0.6666666666666666	kaal.between	kaal.between.3587.7	3587.7	kaal3587
-198	3587WP	7	kaal	3587WP	14	kaal	within	18	17	0.9444444444444444	kaal.within	kaal.within.3587.7	3587.7	kaal3587
-199	3587WP	10	kaal	879WKG	G-2	hook	hybrid	2	0	0	kaal.hybrid	kaal.hybrid.3587.10	3587.10	kaal3587
-2	879WKG	2-2	hook	879WKG	10-1	hook	within	36	23	0.6388888888888888	hook.within	hook.within.879.2-2	879.2-2	hook879
-20	879WKG	10-1	hook	WK	4	hook	between	25	10	0.4	hook.between	hook.between.879.10-1	879.10-1	hook879
-200	3587WP	10	kaal	WK	2	hook	hybrid	5	0	0	kaal.hybrid	kaal.hybrid.3587.10	3587.10	kaal3587
-201	3587WP	10	kaal	WK	4	hook	hybrid	2	0	0	kaal.hybrid	kaal.hybrid.3587.10	3587.10	kaal3587
-202	3587WP	10	kaal	892WKG	1	kaal	between	2	0	0	kaal.between	kaal.between.3587.10	3587.10	kaal3587
-203	3587WP	10	kaal	3587WP	C	kaal	within	5	2	0.4	kaal.within	kaal.within.3587.10	3587.10	kaal3587
-204	3587WP	14	kaal	879WKG	2-2	hook	hybrid	10	3	0.3	kaal.hybrid	kaal.hybrid.3587.14	3587.14	kaal3587
-205	3587WP	14	kaal	879WKG	10-1	hook	hybrid	6	5	0.8333333333333334	kaal.hybrid	kaal.hybrid.3587.14	3587.14	kaal3587
-206	3587WP	14	kaal	879WKG	G-2	hook	hybrid	11	1	0.09090909090909091	kaal.hybrid	kaal.hybrid.3587.14	3587.14	kaal3587
-207	3587WP	14	kaal	879WKG	H-2	hook	hybrid	5	0	0	kaal.hybrid	kaal.hybrid.3587.14	3587.14	kaal3587
-208	3587WP	14	kaal	879WKG	N-5	hook	hybrid	7	0	0	kaal.hybrid	kaal.hybrid.3587.14	3587.14	kaal3587
-209	3587WP	14	kaal	WK	2	hook	hybrid	7	0	0	kaal.hybrid	kaal.hybrid.3587.14	3587.14	kaal3587
-21	879WKG	10-1	hook	WK	10	hook	between	27	22	0.8148148148148148	hook.between	hook.between.879.10-1	879.10-1	hook879
-210	3587WP	14	kaal	WK	4	hook	hybrid	4	0	0	kaal.hybrid	kaal.hybrid.3587.14	3587.14	kaal3587
-211	3587WP	14	kaal	WK	10	hook	hybrid	15	2	0.13333333333333333	kaal.hybrid	kaal.hybrid.3587.14	3587.14	kaal3587
-212	3587WP	14	kaal	892WKG	1	kaal	between	3	0	0	kaal.between	kaal.between.3587.14	3587.14	kaal3587
-213	3587WP	14	kaal	904WPG	3	kaal	between	19	15	0.7894736842105263	kaal.between	kaal.between.3587.14	3587.14	kaal3587
-214	3587WP	14	kaal	904WPG	5	kaal	between	5	4	0.8	kaal.between	kaal.between.3587.14	3587.14	kaal3587
-215	3587WP	15	kaal	879WKG	G-2	hook	hybrid	2	0	0	kaal.hybrid	kaal.hybrid.3587.15	3587.15	kaal3587
-216	3587WP	15	kaal	WK	4	hook	hybrid	5	0	0	kaal.hybrid	kaal.hybrid.3587.15	3587.15	kaal3587
-217	3587WP	15	kaal	WK	10	hook	hybrid	9	0	0	kaal.hybrid	kaal.hybrid.3587.15	3587.15	kaal3587
-218	3587WP	15	kaal	904WPG	3	kaal	between	6	6	1	kaal.between	kaal.between.3587.15	3587.15	kaal3587
-219	3587WP	15	kaal	904WPG	5	kaal	between	6	6	1	kaal.between	kaal.between.3587.15	3587.15	kaal3587
-22	879WKG	10-1	hook	WK	11	hook	between	13	11	0.8461538461538461	hook.between	hook.between.879.10-1	879.10-1	hook879
-220	3587WP	15	kaal	3587WP	14	kaal	within	2	1	0.5	kaal.within	kaal.within.3587.15	3587.15	kaal3587
-221	3587WP	15	kaal	3587WP	C	kaal	within	3	3	1	kaal.within	kaal.within.3587.15	3587.15	kaal3587
-222	3587WP	A	kaal	879WKG	1-Oct	hook	hybrid	6	2	0.3333333333333333	kaal.hybrid	kaal.hybrid.3587.A	3587.A	kaal3587
-223	3587WP	A	kaal	879WKG	G-2	hook	hybrid	14	0	0	kaal.hybrid	kaal.hybrid.3587.A	3587.A	kaal3587
-224	3587WP	A	kaal	879WKG	N-5	hook	hybrid	7	1	0.14285714285714285	kaal.hybrid	kaal.hybrid.3587.A	3587.A	kaal3587
-225	3587WP	A	kaal	WK	2	hook	hybrid	8	1	0.125	kaal.hybrid	kaal.hybrid.3587.A	3587.A	kaal3587
-226	3587WP	A	kaal	WK	10	hook	hybrid	7	0	0	kaal.hybrid	kaal.hybrid.3587.A	3587.A	kaal3587
-227	3587WP	A	kaal	904WPG	5	kaal	between	10	5	0.5	kaal.between	kaal.between.3587.A	3587.A	kaal3587
-228	3587WP	A	kaal	3587WP	7	kaal	within	1	0	0	kaal.within	kaal.within.3587.A	3587.A	kaal3587
-229	3587WP	A	kaal	3587WP	14	kaal	within	11	3	0.2727272727272727	kaal.within	kaal.within.3587.A	3587.A	kaal3587
-23	879WKG	10-1	hook	892WKG	1	kaal	hybrid	16	6	0.375	hook.hybrid	hook.hybrid.879.10-1	879.10-1	hook879
-230	3587WP	C	kaal	879WKG	10-1	hook	hybrid	3	0	0	kaal.hybrid	kaal.hybrid.3587.C	3587.C	kaal3587
-231	3587WP	C	kaal	879WKG	N-5	hook	hybrid	8	0	0	kaal.hybrid	kaal.hybrid.3587.C	3587.C	kaal3587
-232	3587WP	C	kaal	WK	10	hook	hybrid	7	3	0.42857142857142855	kaal.hybrid	kaal.hybrid.3587.C	3587.C	kaal3587
-233	3587WP	C	kaal	892WKG	3	kaal	between	7	4	0.5714285714285714	kaal.between	kaal.between.3587.C	3587.C	kaal3587
-234	3587WP	C	kaal	892WKG	4	kaal	between	10	7	0.7	kaal.between	kaal.between.3587.C	3587.C	kaal3587
-235	3587WP	C	kaal	904WPG	5	kaal	between	8	5	0.625	kaal.between	kaal.between.3587.C	3587.C	kaal3587
-236	3587WP	C	kaal	3587WP	14	kaal	within	5	1	0.2	kaal.within	kaal.within.3587.C	3587.C	kaal3587
-24	879WKG	10-1	hook	892WKG	4	kaal	hybrid	18	11	0.6111111111111112	hook.hybrid	hook.hybrid.879.10-1	879.10-1	hook879
-25	879WKG	10-1	hook	892WKG	5	kaal	hybrid	3	0	0	hook.hybrid	hook.hybrid.879.10-1	879.10-1	hook879
-26	879WKG	10-1	hook	904WPG	3	kaal	hybrid	3	3	1	hook.hybrid	hook.hybrid.879.10-1	879.10-1	hook879
-27	879WKG	10-1	hook	904WPG	5	kaal	hybrid	3	1	0.3333333333333333	hook.hybrid	hook.hybrid.879.10-1	879.10-1	hook879
-28	879WKG	10-1	hook	3587WP	7	kaal	hybrid	11	8	0.7272727272727273	hook.hybrid	hook.hybrid.879.10-1	879.10-1	hook879
-29	879WKG	10-1	hook	3587WP	15	kaal	hybrid	18	15	0.8333333333333334	hook.hybrid	hook.hybrid.879.10-1	879.10-1	hook879
-3	879WKG	2-2	hook	879WKG	N-5	hook	within	37	34	0.918918918918919	hook.within	hook.within.879.2-2	879.2-2	hook879
-30	879WKG	10-1	hook	3587WP	C	kaal	hybrid	6	3	0.5	hook.hybrid	hook.hybrid.879.10-1	879.10-1	hook879
-31	879WKG	G-2	hook	879WKG	2-2	hook	within	8	8	1	hook.within	hook.within.879.G-2	879.G-2	hook879
-32	879WKG	G-2	hook	879WKG	10-1	hook	within	6	5	0.8333333333333334	hook.within	hook.within.879.G-2	879.G-2	hook879
-33	879WKG	G-2	hook	WK	2	hook	between	5	3	0.6	hook.between	hook.between.879.G-2	879.G-2	hook879
-34	879WKG	G-2	hook	WK	4	hook	between	11	8	0.7272727272727273	hook.between	hook.between.879.G-2	879.G-2	hook879
-35	879WKG	G-2	hook	WK	10	hook	between	14	10	0.7142857142857143	hook.between	hook.between.879.G-2	879.G-2	hook879
-36	879WKG	G-2	hook	892WKG	3	kaal	hybrid	9	8	0.8888888888888888	hook.hybrid	hook.hybrid.879.G-2	879.G-2	hook879
-37	879WKG	G-2	hook	892WKG	5	kaal	hybrid	3	2	0.6666666666666666	hook.hybrid	hook.hybrid.879.G-2	879.G-2	hook879
-38	879WKG	G-2	hook	904WPG	2	kaal	hybrid	4	4	1	hook.hybrid	hook.hybrid.879.G-2	879.G-2	hook879
-39	879WKG	G-2	hook	904WPG	5	kaal	hybrid	14	12	0.8571428571428571	hook.hybrid	hook.hybrid.879.G-2	879.G-2	hook879
-4	879WKG	2-2	hook	WK	2	hook	between	53	48	0.9056603773584906	hook.between	hook.between.879.2-2	879.2-2	hook879
-40	879WKG	G-2	hook	3587WP	7	kaal	hybrid	1	1	1	hook.hybrid	hook.hybrid.879.G-2	879.G-2	hook879
-41	879WKG	G-2	hook	3587WP	14	kaal	hybrid	12	9	0.75	hook.hybrid	hook.hybrid.879.G-2	879.G-2	hook879
-42	879WKG	G-2	hook	3587WP	15	kaal	hybrid	9	6	0.6666666666666666	hook.hybrid	hook.hybrid.879.G-2	879.G-2	hook879
-43	879WKG	H-2	hook	879WKG	G-2	hook	within	14	1	0.07142857142857142	hook.within	hook.within.879.H-2	879.H-2	hook879
-44	879WKG	H-2	hook	904WPG	5	kaal	hybrid	9	9	1	hook.hybrid	hook.hybrid.879.H-2	879.H-2	hook879
-45	879WKG	H-2	hook	3587WP	14	kaal	hybrid	1	0	0	hook.hybrid	hook.hybrid.879.H-2	879.H-2	hook879
-46	879WKG	N-5	hook	879WKG	2-2	hook	within	8	8	1	hook.within	hook.within.879.N-5	879.N-5	hook879
-47	879WKG	N-5	hook	879WKG	G-2	hook	within	3	1	0.3333333333333333	hook.within	hook.within.879.N-5	879.N-5	hook879
-48	879WKG	N-5	hook	879WKG	H-2	hook	within	6	4	0.6666666666666666	hook.within	hook.within.879.N-5	879.N-5	hook879
-49	879WKG	N-5	hook	WK	2	hook	between	8	2	0.25	hook.between	hook.between.879.N-5	879.N-5	hook879
-5	879WKG	2-2	hook	WK	4	hook	between	25	21	0.84	hook.between	hook.between.879.2-2	879.2-2	hook879
-50	879WKG	N-5	hook	WK	4	hook	between	15	11	0.7333333333333333	hook.between	hook.between.879.N-5	879.N-5	hook879
-51	879WKG	N-5	hook	WK	10	hook	between	1	0	0	hook.between	hook.between.879.N-5	879.N-5	hook879
-52	879WKG	N-5	hook	892WKG	1	kaal	hybrid	11	3	0.2727272727272727	hook.hybrid	hook.hybrid.879.N-5	879.N-5	hook879
-53	879WKG	N-5	hook	892WKG	5	kaal	hybrid	9	6	0.6666666666666666	hook.hybrid	hook.hybrid.879.N-5	879.N-5	hook879
-54	879WKG	N-5	hook	904WPG	2	kaal	hybrid	9	4	0.4444444444444444	hook.hybrid	hook.hybrid.879.N-5	879.N-5	hook879
-55	879WKG	N-5	hook	904WPG	5	kaal	hybrid	13	6	0.46153846153846156	hook.hybrid	hook.hybrid.879.N-5	879.N-5	hook879
-56	879WKG	N-5	hook	3587WP	7	kaal	hybrid	10	2	0.2	hook.hybrid	hook.hybrid.879.N-5	879.N-5	hook879
-57	879WKG	N-5	hook	3587WP	A	kaal	hybrid	8	2	0.25	hook.hybrid	hook.hybrid.879.N-5	879.N-5	hook879
-58	879WKG	N-5	hook	3587WP	C	kaal	hybrid	15	8	0.5333333333333333	hook.hybrid	hook.hybrid.879.N-5	879.N-5	hook879
-59	WK	11	hook	879WKG	2-2	hook	between	20	15	0.75	hook.between	hook.between.794.11	794.11	hook794
-59	WK	2	hook	879WKG	2-2	hook	between	56	44	0.7857142857142857	hook.between	hook.between.794.2	794.2	hook794
-6	879WKG	2-2	hook	892WKG	1	kaal	hybrid	40	37	0.925	hook.hybrid	hook.hybrid.879.2-2	879.2-2	hook879
-60	WK	2	hook	879WKG	10-1	hook	between	134	98	0.7313432835820896	hook.between	hook.between.794.2	794.2	hook794
-61	WK	2	hook	879WKG	G-2	hook	between	44	25	0.5681818181818182	hook.between	hook.between.794.2	794.2	hook794
-62	WK	2	hook	879WKG	N-5	hook	between	72	46	0.6388888888888888	hook.between	hook.between.794.2	794.2	hook794
-63	WK	2	hook	WK	4	hook	within	106	81	0.7641509433962265	hook.within	hook.within.794.2	794.2	hook794
-64	WK	2	hook	WK	10	hook	within	47	39	0.8297872340425532	hook.within	hook.within.794.2	794.2	hook794
-65	WK	2	hook	WK	11	hook	within	12	10	0.8333333333333334	hook.within	hook.within.794.2	794.2	hook794
-66	WK	2	hook	892WKG	1	kaal	hybrid	26	22	0.8461538461538461	hook.hybrid	hook.hybrid.794.2	794.2	hook794
-67	WK	2	hook	892WKG	4	kaal	hybrid	60	50	0.8333333333333334	hook.hybrid	hook.hybrid.794.2	794.2	hook794
-68	WK	2	hook	892WKG	5	kaal	hybrid	13	9	0.6923076923076923	hook.hybrid	hook.hybrid.794.2	794.2	hook794
-69	WK	2	hook	904WPG	3	kaal	hybrid	5	2	0.4	hook.hybrid	hook.hybrid.794.2	794.2	hook794
-7	879WKG	2-2	hook	892WKG	3	kaal	hybrid	3	1	0.3333333333333333	hook.hybrid	hook.hybrid.879.2-2	879.2-2	hook879
-70	WK	2	hook	904WPG	5	kaal	hybrid	13	9	0.6923076923076923	hook.hybrid	hook.hybrid.794.2	794.2	hook794
-71	WK	2	hook	3587WP	7	kaal	hybrid	8	5	0.625	hook.hybrid	hook.hybrid.794.2	794.2	hook794
-72	WK	2	hook	3587WP	14	kaal	hybrid	1	1	1	hook.hybrid	hook.hybrid.794.2	794.2	hook794
-73	WK	2	hook	3587WP	C	kaal	hybrid	8	6	0.75	hook.hybrid	hook.hybrid.794.2	794.2	hook794
-74	WK	4	hook	879WKG	2-2	hook	between	46	36	0.782608695652174	hook.between	hook.between.794.4	794.4	hook794
-75	WK	4	hook	879WKG	10-1	hook	between	28	22	0.7857142857142857	hook.between	hook.between.794.4	794.4	hook794
-76	WK	4	hook	879WKG	G-2	hook	between	30	13	0.43333333333333335	hook.between	hook.between.794.4	794.4	hook794
-77	WK	4	hook	879WKG	N-5	hook	between	22	15	0.6818181818181818	hook.between	hook.between.794.4	794.4	hook794
-78	WK	4	hook	WK	2	hook	within	74	60	0.8108108108108109	hook.within	hook.within.794.4	794.4	hook794
-79	WK	4	hook	WK	10	hook	within	60	34	0.5666666666666667	hook.within	hook.within.794.4	794.4	hook794
-8	879WKG	2-2	hook	892WKG	4	kaal	hybrid	44	30	0.6818181818181818	hook.hybrid	hook.hybrid.879.2-2	879.2-2	hook879
-80	WK	4	hook	892WKG	1	kaal	hybrid	6	5	0.8333333333333334	hook.hybrid	hook.hybrid.794.4	794.4	hook794
-81	WK	4	hook	892WKG	3	kaal	hybrid	7	7	1	hook.hybrid	hook.hybrid.794.4	794.4	hook794
-82	WK	4	hook	892WKG	4	kaal	hybrid	11	9	0.8181818181818182	hook.hybrid	hook.hybrid.794.4	794.4	hook794
-83	WK	4	hook	892WKG	5	kaal	hybrid	11	9	0.8181818181818182	hook.hybrid	hook.hybrid.794.4	794.4	hook794
-84	WK	4	hook	904WPG	2	kaal	hybrid	5	2	0.4	hook.hybrid	hook.hybrid.794.4	794.4	hook794
-85	WK	4	hook	904WPG	5	kaal	hybrid	9	5	0.5555555555555556	hook.hybrid	hook.hybrid.794.4	794.4	hook794
-86	WK	4	hook	3587WP	7	kaal	hybrid	5	0	0	hook.hybrid	hook.hybrid.794.4	794.4	hook794
-87	WK	4	hook	3587WP	14	kaal	hybrid	5	3	0.6	hook.hybrid	hook.hybrid.794.4	794.4	hook794
-88	WK	4	hook	3587WP	C	kaal	hybrid	1	1	1	hook.hybrid	hook.hybrid.794.4	794.4	hook794
-89	WK	10	hook	879WKG	2-2	hook	between	43	27	0.627906976744186	hook.between	hook.between.794.10	794.10	hook794
-9	879WKG	2-2	hook	892WKG	5	kaal	hybrid	31	30	0.967741935483871	hook.hybrid	hook.hybrid.879.2-2	879.2-2	hook879
-90	WK	10	hook	879WKG	10-1	hook	between	47	33	0.7021276595744681	hook.between	hook.between.794.10	794.10	hook794
-91	WK	10	hook	879WKG	G-2	hook	between	31	20	0.6451612903225806	hook.between	hook.between.794.10	794.10	hook794
-92	WK	10	hook	879WKG	N-5	hook	between	13	12	0.9230769230769231	hook.between	hook.between.794.10	794.10	hook794
-93	WK	10	hook	WK	4	hook	within	57	36	0.631578947368421	hook.within	hook.within.794.10	794.10	hook794
-94	WK	10	hook	892WKG	1	kaal	hybrid	12	10	0.8333333333333334	hook.hybrid	hook.hybrid.794.10	794.10	hook794
-95	WK	10	hook	892WKG	4	kaal	hybrid	18	15	0.8333333333333334	hook.hybrid	hook.hybrid.794.10	794.10	hook794
-96	WK	10	hook	892WKG	5	kaal	hybrid	2	2	1	hook.hybrid	hook.hybrid.794.10	794.10	hook794
-97	WK	10	hook	904WPG	2	kaal	hybrid	1	1	1	hook.hybrid	hook.hybrid.794.10	794.10	hook794
-98	WK	10	hook	904WPG	5	kaal	hybrid	29	26	0.896551724137931	hook.hybrid	hook.hybrid.794.10	794.10	hook794
-99	WK	10	hook	3587WP	7	kaal	hybrid	11	10	0.9090909090909091	hook.hybrid	hook.hybrid.794.10	794.10	hook794
+crossid	mompop	momid	momsp	dadpop	dadid	dadsp	crosstype	planted	germinated	prop.germ	sxc	sxcxm	mompid	dadpid	smompop
+1	879WKG	2-2	hook	879WKG	G-2	hook	within	52	38	0.7307692307692307	hook.within	hook.within.879.2-2	879.2-2	879.G-2	hook879
+10	879WKG	2-2	hook	904WPG	2	kaal	hybrid	24	22	0.9166666666666666	hook.hybrid	hook.hybrid.879.2-2	879.2-2	904.2	hook879
+100	WK	10	hook	3587WP	14	kaal	hybrid	2	2	1	hook.hybrid	hook.hybrid.794.10	794.10	3587.14	hook794
+101	WK	10	hook	3587WP	C	kaal	hybrid	12	10	0.8333333333333334	hook.hybrid	hook.hybrid.794.10	794.10	3587.C	hook794
+102	WK	11	hook	879WKG	2-2	hook	between	10	10	1	hook.between	hook.between.794.11	794.11	879.2-2	hook794
+103	WK	11	hook	892WKG	1	kaal	hybrid	12	11	0.9166666666666666	hook.hybrid	hook.hybrid.794.11	794.11	892.1	hook794
+104	WK	11	hook	904WPG	2	kaal	hybrid	10	2	0.2	hook.hybrid	hook.hybrid.794.11	794.11	904.2	hook794
+105	WK	11	hook	904WPG	5	kaal	hybrid	30	26	0.8666666666666667	hook.hybrid	hook.hybrid.794.11	794.11	904.5	hook794
+106	WK	11	hook	3587WP	14	kaal	hybrid	10	9	0.9	hook.hybrid	hook.hybrid.794.11	794.11	3587.14	hook794
+108	892WKG	1	kaal	879WKG	2-2	hook	hybrid	18	8	0.4444444444444444	kaal.hybrid	kaal.hybrid.892.1	892.1	879.2-2	kaal892
+109	892WKG	1	kaal	879WKG	G-2	hook	hybrid	15	3	0.2	kaal.hybrid	kaal.hybrid.892.1	892.1	879.G-2	kaal892
+11	879WKG	2-2	hook	904WPG	3	kaal	hybrid	11	8	0.7272727272727273	hook.hybrid	hook.hybrid.879.2-2	879.2-2	904.3	hook879
+110	892WKG	1	kaal	879WKG	H-2	hook	hybrid	9	1	0.1111111111111111	kaal.hybrid	kaal.hybrid.892.1	892.1	879.H-2	kaal892
+111	892WKG	1	kaal	879WKG	N-5	hook	hybrid	2	0	0	kaal.hybrid	kaal.hybrid.892.1	892.1	879.N-5	kaal892
+112	892WKG	1	kaal	WK	4	hook	hybrid	7	0	0	kaal.hybrid	kaal.hybrid.892.1	892.1	794.4	kaal892
+113	892WKG	1	kaal	WK	10	hook	hybrid	6	0	0	kaal.hybrid	kaal.hybrid.892.1	892.1	794.10	kaal892
+114	892WKG	1	kaal	WK	11	hook	hybrid	5	0	0	kaal.hybrid	kaal.hybrid.892.1	892.1	794.11	kaal892
+115	892WKG	1	kaal	892WKG	4	kaal	within	6	2	0.3333333333333333	kaal.within	kaal.within.892.1	892.1	892.4	kaal892
+116	892WKG	1	kaal	892WKG	5	kaal	within	10	3	0.3	kaal.within	kaal.within.892.1	892.1	892.5	kaal892
+117	892WKG	1	kaal	904WPG	2	kaal	between	17	12	0.7058823529411765	kaal.between	kaal.between.892.1	892.1	904.2	kaal892
+118	892WKG	1	kaal	904WPG	3	kaal	between	8	7	0.875	kaal.between	kaal.between.892.1	892.1	904.3	kaal892
+119	892WKG	1	kaal	904WPG	5	kaal	between	10	6	0.6	kaal.between	kaal.between.892.1	892.1	904.5	kaal892
+12	879WKG	2-2	hook	904WPG	5	kaal	hybrid	24	20	0.8333333333333334	hook.hybrid	hook.hybrid.879.2-2	879.2-2	904.5	hook879
+120	892WKG	1	kaal	3587WP	7	kaal	between	5	5	1	kaal.between	kaal.between.892.1	892.1	3587.7	kaal892
+121	892WKG	2	kaal	904WPG	5	kaal	between	8	7	0.875	kaal.between	kaal.between.892.2	892.2	904.5	kaal892
+122	892WKG	3	kaal	879WKG	10-1	hook	hybrid	6	1	0.16666666666666666	kaal.hybrid	kaal.hybrid.892.3	892.3	879.10-1	kaal892
+123	892WKG	3	kaal	879WKG	G-2	hook	hybrid	14	3	0.21428571428571427	kaal.hybrid	kaal.hybrid.892.3	892.3	879.G-2	kaal892
+124	892WKG	3	kaal	879WKG	N-5	hook	hybrid	11	0	0	kaal.hybrid	kaal.hybrid.892.3	892.3	879.N-5	kaal892
+125	892WKG	3	kaal	892WKG	1	kaal	within	10	1	0.1	kaal.within	kaal.within.892.3	892.3	892.1	kaal892
+126	892WKG	3	kaal	892WKG	4	kaal	within	1	0	0	kaal.within	kaal.within.892.3	892.3	892.4	kaal892
+127	892WKG	3	kaal	3587WP	7	kaal	between	11	4	0.36363636363636365	kaal.between	kaal.between.892.3	892.3	3587.7	kaal892
+128	892WKG	4	kaal	879WKG	2-2	hook	hybrid	6	1	0.16666666666666666	kaal.hybrid	kaal.hybrid.892.4	892.4	879.2-2	kaal892
+129	892WKG	4	kaal	879WKG	10-1	hook	hybrid	3	0	0	kaal.hybrid	kaal.hybrid.892.4	892.4	879.10-1	kaal892
+13	879WKG	2-2	hook	3587WP	7	kaal	hybrid	5	4	0.8	hook.hybrid	hook.hybrid.879.2-2	879.2-2	3587.7	hook879
+130	892WKG	4	kaal	879WKG	G-2	hook	hybrid	10	1	0.1	kaal.hybrid	kaal.hybrid.892.4	892.4	879.G-2	kaal892
+131	892WKG	4	kaal	WK	4	hook	hybrid	10	0	0	kaal.hybrid	kaal.hybrid.892.4	892.4	794.4	kaal892
+132	892WKG	4	kaal	WK	10	hook	hybrid	2	0	0	kaal.hybrid	kaal.hybrid.892.4	892.4	794.10	kaal892
+133	892WKG	4	kaal	904WPG	5	kaal	between	7	2	0.2857142857142857	kaal.between	kaal.between.892.4	892.4	904.5	kaal892
+134	892WKG	5	kaal	879WKG	2-2	hook	hybrid	11	5	0.45454545454545453	kaal.hybrid	kaal.hybrid.892.5	892.5	879.2-2	kaal892
+135	892WKG	5	kaal	879WKG	G-2	hook	hybrid	6	0	0	kaal.hybrid	kaal.hybrid.892.5	892.5	879.G-2	kaal892
+136	892WKG	5	kaal	879WKG	H-2	hook	hybrid	8	0	0	kaal.hybrid	kaal.hybrid.892.5	892.5	879.H-2	kaal892
+137	892WKG	5	kaal	879WKG	N-5	hook	hybrid	10	0	0	kaal.hybrid	kaal.hybrid.892.5	892.5	879.N-5	kaal892
+138	892WKG	5	kaal	WK	4	hook	hybrid	5	0	0	kaal.hybrid	kaal.hybrid.892.5	892.5	794.4	kaal892
+139	892WKG	5	kaal	892WKG	2	kaal	within	4	1	0.25	kaal.within	kaal.within.892.5	892.5	892.2	kaal892
+14	879WKG	2-2	hook	3587WP	C	kaal	hybrid	5	5	1	hook.hybrid	hook.hybrid.879.2-2	879.2-2	3587.C	hook879
+140	892WKG	5	kaal	892WKG	4	kaal	within	14	7	0.5	kaal.within	kaal.within.892.5	892.5	892.4	kaal892
+141	892WKG	5	kaal	904WPG	3	kaal	between	10	5	0.5	kaal.between	kaal.between.892.5	892.5	904.3	kaal892
+142	892WKG	5	kaal	904WPG	5	kaal	between	6	6	1	kaal.between	kaal.between.892.5	892.5	904.5	kaal892
+143	892WKG	5	kaal	3587WP	14	kaal	between	7	4	0.5714285714285714	kaal.between	kaal.between.892.5	892.5	3587.14	kaal892
+144	892WKG	10	kaal	879WKG	2-2	hook	hybrid	5	0	0	kaal.hybrid	kaal.hybrid.892.10	892.10	879.2-2	kaal892
+145	892WKG	10	kaal	WK	2	hook	hybrid	1	0	0	kaal.hybrid	kaal.hybrid.892.10	892.10	794.2	kaal892
+146	892WKG	10	kaal	904WPG	2	kaal	between	10	1	0.1	kaal.between	kaal.between.892.10	892.10	904.2	kaal892
+147	904WPG	2	kaal	879WKG	2-2	hook	hybrid	16	7	0.4375	kaal.hybrid	kaal.hybrid.904.2	904.2	879.2-2	kaal904
+148	904WPG	2	kaal	879WKG	10-1	hook	hybrid	3	3	1	kaal.hybrid	kaal.hybrid.904.2	904.2	879.10-1	kaal904
+149	904WPG	2	kaal	879WKG	G-2	hook	hybrid	20	11	0.55	kaal.hybrid	kaal.hybrid.904.2	904.2	879.G-2	kaal904
+15	879WKG	10-1	hook	879WKG	2-2	hook	within	6	5	0.8333333333333334	hook.within	hook.within.879.10-1	879.10-1	879.2-2	hook879
+150	904WPG	2	kaal	879WKG	H-2	hook	hybrid	4	1	0.25	kaal.hybrid	kaal.hybrid.904.2	904.2	879.H-2	kaal904
+151	904WPG	2	kaal	879WKG	N-5	hook	hybrid	2	0	0	kaal.hybrid	kaal.hybrid.904.2	904.2	879.N-5	kaal904
+152	904WPG	2	kaal	WK	2	hook	hybrid	6	0	0	kaal.hybrid	kaal.hybrid.904.2	904.2	794.2	kaal904
+153	904WPG	2	kaal	WK	4	hook	hybrid	3	0	0	kaal.hybrid	kaal.hybrid.904.2	904.2	794.4	kaal904
+154	904WPG	2	kaal	WK	10	hook	hybrid	2	0	0	kaal.hybrid	kaal.hybrid.904.2	904.2	794.10	kaal904
+155	904WPG	2	kaal	892WKG	1	kaal	between	16	9	0.5625	kaal.between	kaal.between.904.2	904.2	892.1	kaal904
+156	904WPG	2	kaal	892WKG	10	kaal	between	11	10	0.9090909090909091	kaal.between	kaal.between.904.2	904.2	892.10	kaal904
+157	904WPG	2	kaal	904WPG	3	kaal	within	8	6	0.75	kaal.within	kaal.within.904.2	904.2	904.3	kaal904
+158	904WPG	2	kaal	904WPG	5	kaal	within	6	6	1	kaal.within	kaal.within.904.2	904.2	904.5	kaal904
+159	904WPG	3	kaal	879WKG	2-2	hook	hybrid	14	3	0.21428571428571427	kaal.hybrid	kaal.hybrid.904.3	904.3	879.2-2	kaal904
+16	879WKG	10-1	hook	879WKG	G-2	hook	within	4	0	0	hook.within	hook.within.879.10-1	879.10-1	879.G-2	hook879
+160	904WPG	3	kaal	879WKG	10-1	hook	hybrid	15	0	0	kaal.hybrid	kaal.hybrid.904.3	904.3	879.10-1	kaal904
+161	904WPG	3	kaal	879WKG	H-2	hook	hybrid	6	0	0	kaal.hybrid	kaal.hybrid.904.3	904.3	879.H-2	kaal904
+162	904WPG	3	kaal	879WKG	N-5	hook	hybrid	10	2	0.2	kaal.hybrid	kaal.hybrid.904.3	904.3	879.N-5	kaal904
+163	904WPG	3	kaal	WK	2	hook	hybrid	18	0	0	kaal.hybrid	kaal.hybrid.904.3	904.3	794.2	kaal904
+164	904WPG	3	kaal	WK	4	hook	hybrid	13	0	0	kaal.hybrid	kaal.hybrid.904.3	904.3	794.4	kaal904
+165	904WPG	3	kaal	WK	11	hook	hybrid	11	1	0.09090909090909091	kaal.hybrid	kaal.hybrid.904.3	904.3	794.11	kaal904
+166	904WPG	3	kaal	892WKG	1	kaal	between	11	10	0.9090909090909091	kaal.between	kaal.between.904.3	904.3	892.1	kaal904
+167	904WPG	3	kaal	892WKG	4	kaal	between	9	9	1	kaal.between	kaal.between.904.3	904.3	892.4	kaal904
+168	904WPG	3	kaal	904WPG	2	kaal	within	17	16	0.9411764705882353	kaal.within	kaal.within.904.3	904.3	904.2	kaal904
+169	904WPG	3	kaal	904WPG	5	kaal	within	24	17	0.7083333333333334	kaal.within	kaal.within.904.3	904.3	904.5	kaal904
+17	879WKG	10-1	hook	879WKG	H-2	hook	within	12	3	0.25	hook.within	hook.within.879.10-1	879.10-1	879.H-2	hook879
+170	904WPG	3	kaal	3587WP	14	kaal	between	5	3	0.6	kaal.between	kaal.between.904.3	904.3	3587.14	kaal904
+171	904WPG	5	kaal	879WKG	2-2	hook	hybrid	22	10	0.45454545454545453	kaal.hybrid	kaal.hybrid.904.5	904.5	879.2-2	kaal904
+172	904WPG	5	kaal	879WKG	10-1	hook	hybrid	45	8	0.17777777777777778	kaal.hybrid	kaal.hybrid.904.5	904.5	879.10-1	kaal904
+173	904WPG	5	kaal	879WKG	G-2	hook	hybrid	48	13	0.2708333333333333	kaal.hybrid	kaal.hybrid.904.5	904.5	879.G-2	kaal904
+174	904WPG	5	kaal	879WKG	N-5	hook	hybrid	18	2	0.1111111111111111	kaal.hybrid	kaal.hybrid.904.5	904.5	879.N-5	kaal904
+175	904WPG	5	kaal	WK	2	hook	hybrid	44	3	0.06818181818181818	kaal.hybrid	kaal.hybrid.904.5	904.5	794.2	kaal904
+176	904WPG	5	kaal	WK	4	hook	hybrid	16	1	0.0625	kaal.hybrid	kaal.hybrid.904.5	904.5	794.4	kaal904
+177	904WPG	5	kaal	WK	10	hook	hybrid	34	2	0.058823529411764705	kaal.hybrid	kaal.hybrid.904.5	904.5	794.10	kaal904
+178	904WPG	5	kaal	WK	11	hook	hybrid	10	0	0	kaal.hybrid	kaal.hybrid.904.5	904.5	794.11	kaal904
+179	904WPG	5	kaal	892WKG	1	kaal	between	12	10	0.8333333333333334	kaal.between	kaal.between.904.5	904.5	892.1	kaal904
+18	879WKG	10-1	hook	879WKG	N-5	hook	within	8	2	0.25	hook.within	hook.within.879.10-1	879.10-1	879.N-5	hook879
+180	904WPG	5	kaal	892WKG	3	kaal	between	14	13	0.9285714285714286	kaal.between	kaal.between.904.5	904.5	892.3	kaal904
+181	904WPG	5	kaal	892WKG	4	kaal	between	25	14	0.56	kaal.between	kaal.between.904.5	904.5	892.4	kaal904
+182	904WPG	5	kaal	892WKG	5	kaal	between	32	29	0.90625	kaal.between	kaal.between.904.5	904.5	892.5	kaal904
+183	904WPG	5	kaal	904WPG	2	kaal	within	32	18	0.5625	kaal.within	kaal.within.904.5	904.5	904.2	kaal904
+184	904WPG	5	kaal	904WPG	3	kaal	within	65	46	0.7076923076923077	kaal.within	kaal.within.904.5	904.5	904.3	kaal904
+185	904WPG	5	kaal	3587WP	7	kaal	between	13	12	0.9230769230769231	kaal.between	kaal.between.904.5	904.5	3587.7	kaal904
+186	904WPG	5	kaal	3587WP	10	kaal	between	6	6	1	kaal.between	kaal.between.904.5	904.5	3587.10	kaal904
+187	904WPG	5	kaal	3587WP	14	kaal	between	13	8	0.6153846153846154	kaal.between	kaal.between.904.5	904.5	3587.14	kaal904
+188	3587WP	7	kaal	879WKG	2-2	hook	hybrid	13	3	0.23076923076923078	kaal.hybrid	kaal.hybrid.3587.7	3587.7	879.2-2	kaal3587
+189	3587WP	7	kaal	879WKG	10-1	hook	hybrid	23	4	0.17391304347826086	kaal.hybrid	kaal.hybrid.3587.7	3587.7	879.10-1	kaal3587
+19	879WKG	10-1	hook	WK	2	hook	between	28	19	0.6785714285714286	hook.between	hook.between.879.10-1	879.10-1	794.2	hook879
+190	3587WP	7	kaal	879WKG	G-2	hook	hybrid	34	6	0.17647058823529413	kaal.hybrid	kaal.hybrid.3587.7	3587.7	879.G-2	kaal3587
+191	3587WP	7	kaal	879WKG	N-5	hook	hybrid	22	6	0.2727272727272727	kaal.hybrid	kaal.hybrid.3587.7	3587.7	879.N-5	kaal3587
+192	3587WP	7	kaal	WK	4	hook	hybrid	32	2	0.0625	kaal.hybrid	kaal.hybrid.3587.7	3587.7	794.4	kaal3587
+193	3587WP	7	kaal	WK	10	hook	hybrid	18	0	0	kaal.hybrid	kaal.hybrid.3587.7	3587.7	794.10	kaal3587
+194	3587WP	7	kaal	892WKG	1	kaal	between	3	2	0.6666666666666666	kaal.between	kaal.between.3587.7	3587.7	892.1	kaal3587
+195	3587WP	7	kaal	892WKG	4	kaal	between	6	4	0.6666666666666666	kaal.between	kaal.between.3587.7	3587.7	892.4	kaal3587
+196	3587WP	7	kaal	892WKG	5	kaal	between	14	13	0.9285714285714286	kaal.between	kaal.between.3587.7	3587.7	892.5	kaal3587
+197	3587WP	7	kaal	904WPG	5	kaal	between	9	6	0.6666666666666666	kaal.between	kaal.between.3587.7	3587.7	904.5	kaal3587
+198	3587WP	7	kaal	3587WP	14	kaal	within	18	17	0.9444444444444444	kaal.within	kaal.within.3587.7	3587.7	3587.14	kaal3587
+199	3587WP	10	kaal	879WKG	G-2	hook	hybrid	2	0	0	kaal.hybrid	kaal.hybrid.3587.10	3587.10	879.G-2	kaal3587
+2	879WKG	2-2	hook	879WKG	10-1	hook	within	36	23	0.6388888888888888	hook.within	hook.within.879.2-2	879.2-2	879.10-1	hook879
+20	879WKG	10-1	hook	WK	4	hook	between	25	10	0.4	hook.between	hook.between.879.10-1	879.10-1	794.4	hook879
+200	3587WP	10	kaal	WK	2	hook	hybrid	5	0	0	kaal.hybrid	kaal.hybrid.3587.10	3587.10	794.2	kaal3587
+201	3587WP	10	kaal	WK	4	hook	hybrid	2	0	0	kaal.hybrid	kaal.hybrid.3587.10	3587.10	794.4	kaal3587
+202	3587WP	10	kaal	892WKG	1	kaal	between	2	0	0	kaal.between	kaal.between.3587.10	3587.10	892.1	kaal3587
+203	3587WP	10	kaal	3587WP	C	kaal	within	5	2	0.4	kaal.within	kaal.within.3587.10	3587.10	3587.C	kaal3587
+204	3587WP	14	kaal	879WKG	2-2	hook	hybrid	10	3	0.3	kaal.hybrid	kaal.hybrid.3587.14	3587.14	879.2-2	kaal3587
+205	3587WP	14	kaal	879WKG	10-1	hook	hybrid	6	5	0.8333333333333334	kaal.hybrid	kaal.hybrid.3587.14	3587.14	879.10-1	kaal3587
+206	3587WP	14	kaal	879WKG	G-2	hook	hybrid	11	1	0.09090909090909091	kaal.hybrid	kaal.hybrid.3587.14	3587.14	879.G-2	kaal3587
+207	3587WP	14	kaal	879WKG	H-2	hook	hybrid	5	0	0	kaal.hybrid	kaal.hybrid.3587.14	3587.14	879.H-2	kaal3587
+208	3587WP	14	kaal	879WKG	N-5	hook	hybrid	7	0	0	kaal.hybrid	kaal.hybrid.3587.14	3587.14	879.N-5	kaal3587
+209	3587WP	14	kaal	WK	2	hook	hybrid	7	0	0	kaal.hybrid	kaal.hybrid.3587.14	3587.14	794.2	kaal3587
+21	879WKG	10-1	hook	WK	10	hook	between	27	22	0.8148148148148148	hook.between	hook.between.879.10-1	879.10-1	794.10	hook879
+210	3587WP	14	kaal	WK	4	hook	hybrid	4	0	0	kaal.hybrid	kaal.hybrid.3587.14	3587.14	794.4	kaal3587
+211	3587WP	14	kaal	WK	10	hook	hybrid	15	2	0.13333333333333333	kaal.hybrid	kaal.hybrid.3587.14	3587.14	794.10	kaal3587
+212	3587WP	14	kaal	892WKG	1	kaal	between	3	0	0	kaal.between	kaal.between.3587.14	3587.14	892.1	kaal3587
+213	3587WP	14	kaal	904WPG	3	kaal	between	19	15	0.7894736842105263	kaal.between	kaal.between.3587.14	3587.14	904.3	kaal3587
+214	3587WP	14	kaal	904WPG	5	kaal	between	5	4	0.8	kaal.between	kaal.between.3587.14	3587.14	904.5	kaal3587
+215	3587WP	15	kaal	879WKG	G-2	hook	hybrid	2	0	0	kaal.hybrid	kaal.hybrid.3587.15	3587.15	879.G-2	kaal3587
+216	3587WP	15	kaal	WK	4	hook	hybrid	5	0	0	kaal.hybrid	kaal.hybrid.3587.15	3587.15	794.4	kaal3587
+217	3587WP	15	kaal	WK	10	hook	hybrid	9	0	0	kaal.hybrid	kaal.hybrid.3587.15	3587.15	794.10	kaal3587
+218	3587WP	15	kaal	904WPG	3	kaal	between	6	6	1	kaal.between	kaal.between.3587.15	3587.15	904.3	kaal3587
+219	3587WP	15	kaal	904WPG	5	kaal	between	6	6	1	kaal.between	kaal.between.3587.15	3587.15	904.5	kaal3587
+22	879WKG	10-1	hook	WK	11	hook	between	13	11	0.8461538461538461	hook.between	hook.between.879.10-1	879.10-1	794.11	hook879
+220	3587WP	15	kaal	3587WP	14	kaal	within	2	1	0.5	kaal.within	kaal.within.3587.15	3587.15	3587.14	kaal3587
+221	3587WP	15	kaal	3587WP	C	kaal	within	3	3	1	kaal.within	kaal.within.3587.15	3587.15	3587.C	kaal3587
+222	3587WP	A	kaal	879WKG	1-Oct	hook	hybrid	6	2	0.3333333333333333	kaal.hybrid	kaal.hybrid.3587.A	3587.A	879.1-Oct	kaal3587
+223	3587WP	A	kaal	879WKG	G-2	hook	hybrid	14	0	0	kaal.hybrid	kaal.hybrid.3587.A	3587.A	879.G-2	kaal3587
+224	3587WP	A	kaal	879WKG	N-5	hook	hybrid	7	1	0.14285714285714285	kaal.hybrid	kaal.hybrid.3587.A	3587.A	879.N-5	kaal3587
+225	3587WP	A	kaal	WK	2	hook	hybrid	8	1	0.125	kaal.hybrid	kaal.hybrid.3587.A	3587.A	794.2	kaal3587
+226	3587WP	A	kaal	WK	10	hook	hybrid	7	0	0	kaal.hybrid	kaal.hybrid.3587.A	3587.A	794.10	kaal3587
+227	3587WP	A	kaal	904WPG	5	kaal	between	10	5	0.5	kaal.between	kaal.between.3587.A	3587.A	904.5	kaal3587
+228	3587WP	A	kaal	3587WP	7	kaal	within	1	0	0	kaal.within	kaal.within.3587.A	3587.A	3587.7	kaal3587
+229	3587WP	A	kaal	3587WP	14	kaal	within	11	3	0.2727272727272727	kaal.within	kaal.within.3587.A	3587.A	3587.14	kaal3587
+23	879WKG	10-1	hook	892WKG	1	kaal	hybrid	16	6	0.375	hook.hybrid	hook.hybrid.879.10-1	879.10-1	892.1	hook879
+230	3587WP	C	kaal	879WKG	10-1	hook	hybrid	3	0	0	kaal.hybrid	kaal.hybrid.3587.C	3587.C	879.10-1	kaal3587
+231	3587WP	C	kaal	879WKG	N-5	hook	hybrid	8	0	0	kaal.hybrid	kaal.hybrid.3587.C	3587.C	879.N-5	kaal3587
+232	3587WP	C	kaal	WK	10	hook	hybrid	7	3	0.42857142857142855	kaal.hybrid	kaal.hybrid.3587.C	3587.C	794.10	kaal3587
+233	3587WP	C	kaal	892WKG	3	kaal	between	7	4	0.5714285714285714	kaal.between	kaal.between.3587.C	3587.C	892.3	kaal3587
+234	3587WP	C	kaal	892WKG	4	kaal	between	10	7	0.7	kaal.between	kaal.between.3587.C	3587.C	892.4	kaal3587
+235	3587WP	C	kaal	904WPG	5	kaal	between	8	5	0.625	kaal.between	kaal.between.3587.C	3587.C	904.5	kaal3587
+236	3587WP	C	kaal	3587WP	14	kaal	within	5	1	0.2	kaal.within	kaal.within.3587.C	3587.C	3587.14	kaal3587
+24	879WKG	10-1	hook	892WKG	4	kaal	hybrid	18	11	0.6111111111111112	hook.hybrid	hook.hybrid.879.10-1	879.10-1	892.4	hook879
+25	879WKG	10-1	hook	892WKG	5	kaal	hybrid	3	0	0	hook.hybrid	hook.hybrid.879.10-1	879.10-1	892.5	hook879
+26	879WKG	10-1	hook	904WPG	3	kaal	hybrid	3	3	1	hook.hybrid	hook.hybrid.879.10-1	879.10-1	904.3	hook879
+27	879WKG	10-1	hook	904WPG	5	kaal	hybrid	3	1	0.3333333333333333	hook.hybrid	hook.hybrid.879.10-1	879.10-1	904.5	hook879
+28	879WKG	10-1	hook	3587WP	7	kaal	hybrid	11	8	0.7272727272727273	hook.hybrid	hook.hybrid.879.10-1	879.10-1	3587.7	hook879
+29	879WKG	10-1	hook	3587WP	15	kaal	hybrid	18	15	0.8333333333333334	hook.hybrid	hook.hybrid.879.10-1	879.10-1	3587.15	hook879
+3	879WKG	2-2	hook	879WKG	N-5	hook	within	37	34	0.918918918918919	hook.within	hook.within.879.2-2	879.2-2	879.N-5	hook879
+30	879WKG	10-1	hook	3587WP	C	kaal	hybrid	6	3	0.5	hook.hybrid	hook.hybrid.879.10-1	879.10-1	3587.C	hook879
+31	879WKG	G-2	hook	879WKG	2-2	hook	within	8	8	1	hook.within	hook.within.879.G-2	879.G-2	879.2-2	hook879
+32	879WKG	G-2	hook	879WKG	10-1	hook	within	6	5	0.8333333333333334	hook.within	hook.within.879.G-2	879.G-2	879.10-1	hook879
+33	879WKG	G-2	hook	WK	2	hook	between	5	3	0.6	hook.between	hook.between.879.G-2	879.G-2	794.2	hook879
+34	879WKG	G-2	hook	WK	4	hook	between	11	8	0.7272727272727273	hook.between	hook.between.879.G-2	879.G-2	794.4	hook879
+35	879WKG	G-2	hook	WK	10	hook	between	14	10	0.7142857142857143	hook.between	hook.between.879.G-2	879.G-2	794.10	hook879
+36	879WKG	G-2	hook	892WKG	3	kaal	hybrid	9	8	0.8888888888888888	hook.hybrid	hook.hybrid.879.G-2	879.G-2	892.3	hook879
+37	879WKG	G-2	hook	892WKG	5	kaal	hybrid	3	2	0.6666666666666666	hook.hybrid	hook.hybrid.879.G-2	879.G-2	892.5	hook879
+38	879WKG	G-2	hook	904WPG	2	kaal	hybrid	4	4	1	hook.hybrid	hook.hybrid.879.G-2	879.G-2	904.2	hook879
+39	879WKG	G-2	hook	904WPG	5	kaal	hybrid	14	12	0.8571428571428571	hook.hybrid	hook.hybrid.879.G-2	879.G-2	904.5	hook879
+4	879WKG	2-2	hook	WK	2	hook	between	53	48	0.9056603773584906	hook.between	hook.between.879.2-2	879.2-2	794.2	hook879
+40	879WKG	G-2	hook	3587WP	7	kaal	hybrid	1	1	1	hook.hybrid	hook.hybrid.879.G-2	879.G-2	3587.7	hook879
+41	879WKG	G-2	hook	3587WP	14	kaal	hybrid	12	9	0.75	hook.hybrid	hook.hybrid.879.G-2	879.G-2	3587.14	hook879
+42	879WKG	G-2	hook	3587WP	15	kaal	hybrid	9	6	0.6666666666666666	hook.hybrid	hook.hybrid.879.G-2	879.G-2	3587.15	hook879
+43	879WKG	H-2	hook	879WKG	G-2	hook	within	14	1	0.07142857142857142	hook.within	hook.within.879.H-2	879.H-2	879.G-2	hook879
+44	879WKG	H-2	hook	904WPG	5	kaal	hybrid	9	9	1	hook.hybrid	hook.hybrid.879.H-2	879.H-2	904.5	hook879
+45	879WKG	H-2	hook	3587WP	14	kaal	hybrid	1	0	0	hook.hybrid	hook.hybrid.879.H-2	879.H-2	3587.14	hook879
+46	879WKG	N-5	hook	879WKG	2-2	hook	within	8	8	1	hook.within	hook.within.879.N-5	879.N-5	879.2-2	hook879
+47	879WKG	N-5	hook	879WKG	G-2	hook	within	3	1	0.3333333333333333	hook.within	hook.within.879.N-5	879.N-5	879.G-2	hook879
+48	879WKG	N-5	hook	879WKG	H-2	hook	within	6	4	0.6666666666666666	hook.within	hook.within.879.N-5	879.N-5	879.H-2	hook879
+49	879WKG	N-5	hook	WK	2	hook	between	8	2	0.25	hook.between	hook.between.879.N-5	879.N-5	794.2	hook879
+5	879WKG	2-2	hook	WK	4	hook	between	25	21	0.84	hook.between	hook.between.879.2-2	879.2-2	794.4	hook879
+50	879WKG	N-5	hook	WK	4	hook	between	15	11	0.7333333333333333	hook.between	hook.between.879.N-5	879.N-5	794.4	hook879
+51	879WKG	N-5	hook	WK	10	hook	between	1	0	0	hook.between	hook.between.879.N-5	879.N-5	794.10	hook879
+52	879WKG	N-5	hook	892WKG	1	kaal	hybrid	11	3	0.2727272727272727	hook.hybrid	hook.hybrid.879.N-5	879.N-5	892.1	hook879
+53	879WKG	N-5	hook	892WKG	5	kaal	hybrid	9	6	0.6666666666666666	hook.hybrid	hook.hybrid.879.N-5	879.N-5	892.5	hook879
+54	879WKG	N-5	hook	904WPG	2	kaal	hybrid	9	4	0.4444444444444444	hook.hybrid	hook.hybrid.879.N-5	879.N-5	904.2	hook879
+55	879WKG	N-5	hook	904WPG	5	kaal	hybrid	13	6	0.46153846153846156	hook.hybrid	hook.hybrid.879.N-5	879.N-5	904.5	hook879
+56	879WKG	N-5	hook	3587WP	7	kaal	hybrid	10	2	0.2	hook.hybrid	hook.hybrid.879.N-5	879.N-5	3587.7	hook879
+57	879WKG	N-5	hook	3587WP	A	kaal	hybrid	8	2	0.25	hook.hybrid	hook.hybrid.879.N-5	879.N-5	3587.A	hook879
+58	879WKG	N-5	hook	3587WP	C	kaal	hybrid	15	8	0.5333333333333333	hook.hybrid	hook.hybrid.879.N-5	879.N-5	3587.C	hook879
+59	WK	11	hook	879WKG	2-2	hook	between	20	15	0.75	hook.between	hook.between.794.11	794.11	879.2-2	hook794
+59	WK	2	hook	879WKG	2-2	hook	between	56	44	0.7857142857142857	hook.between	hook.between.794.2	794.2	879.2-2	hook794
+6	879WKG	2-2	hook	892WKG	1	kaal	hybrid	40	37	0.925	hook.hybrid	hook.hybrid.879.2-2	879.2-2	892.1	hook879
+60	WK	2	hook	879WKG	10-1	hook	between	134	98	0.7313432835820896	hook.between	hook.between.794.2	794.2	879.10-1	hook794
+61	WK	2	hook	879WKG	G-2	hook	between	44	25	0.5681818181818182	hook.between	hook.between.794.2	794.2	879.G-2	hook794
+62	WK	2	hook	879WKG	N-5	hook	between	72	46	0.6388888888888888	hook.between	hook.between.794.2	794.2	879.N-5	hook794
+63	WK	2	hook	WK	4	hook	within	106	81	0.7641509433962265	hook.within	hook.within.794.2	794.2	794.4	hook794
+64	WK	2	hook	WK	10	hook	within	47	39	0.8297872340425532	hook.within	hook.within.794.2	794.2	794.10	hook794
+65	WK	2	hook	WK	11	hook	within	12	10	0.8333333333333334	hook.within	hook.within.794.2	794.2	794.11	hook794
+66	WK	2	hook	892WKG	1	kaal	hybrid	26	22	0.8461538461538461	hook.hybrid	hook.hybrid.794.2	794.2	892.1	hook794
+67	WK	2	hook	892WKG	4	kaal	hybrid	60	50	0.8333333333333334	hook.hybrid	hook.hybrid.794.2	794.2	892.4	hook794
+68	WK	2	hook	892WKG	5	kaal	hybrid	13	9	0.6923076923076923	hook.hybrid	hook.hybrid.794.2	794.2	892.5	hook794
+69	WK	2	hook	904WPG	3	kaal	hybrid	5	2	0.4	hook.hybrid	hook.hybrid.794.2	794.2	904.3	hook794
+7	879WKG	2-2	hook	892WKG	3	kaal	hybrid	3	1	0.3333333333333333	hook.hybrid	hook.hybrid.879.2-2	879.2-2	892.3	hook879
+70	WK	2	hook	904WPG	5	kaal	hybrid	13	9	0.6923076923076923	hook.hybrid	hook.hybrid.794.2	794.2	904.5	hook794
+71	WK	2	hook	3587WP	7	kaal	hybrid	8	5	0.625	hook.hybrid	hook.hybrid.794.2	794.2	3587.7	hook794
+72	WK	2	hook	3587WP	14	kaal	hybrid	1	1	1	hook.hybrid	hook.hybrid.794.2	794.2	3587.14	hook794
+73	WK	2	hook	3587WP	C	kaal	hybrid	8	6	0.75	hook.hybrid	hook.hybrid.794.2	794.2	3587.C	hook794
+74	WK	4	hook	879WKG	2-2	hook	between	46	36	0.782608695652174	hook.between	hook.between.794.4	794.4	879.2-2	hook794
+75	WK	4	hook	879WKG	10-1	hook	between	28	22	0.7857142857142857	hook.between	hook.between.794.4	794.4	879.10-1	hook794
+76	WK	4	hook	879WKG	G-2	hook	between	30	13	0.43333333333333335	hook.between	hook.between.794.4	794.4	879.G-2	hook794
+77	WK	4	hook	879WKG	N-5	hook	between	22	15	0.6818181818181818	hook.between	hook.between.794.4	794.4	879.N-5	hook794
+78	WK	4	hook	WK	2	hook	within	74	60	0.8108108108108109	hook.within	hook.within.794.4	794.4	794.2	hook794
+79	WK	4	hook	WK	10	hook	within	60	34	0.5666666666666667	hook.within	hook.within.794.4	794.4	794.10	hook794
+8	879WKG	2-2	hook	892WKG	4	kaal	hybrid	44	30	0.6818181818181818	hook.hybrid	hook.hybrid.879.2-2	879.2-2	892.4	hook879
+80	WK	4	hook	892WKG	1	kaal	hybrid	6	5	0.8333333333333334	hook.hybrid	hook.hybrid.794.4	794.4	892.1	hook794
+81	WK	4	hook	892WKG	3	kaal	hybrid	7	7	1	hook.hybrid	hook.hybrid.794.4	794.4	892.3	hook794
+82	WK	4	hook	892WKG	4	kaal	hybrid	11	9	0.8181818181818182	hook.hybrid	hook.hybrid.794.4	794.4	892.4	hook794
+83	WK	4	hook	892WKG	5	kaal	hybrid	11	9	0.8181818181818182	hook.hybrid	hook.hybrid.794.4	794.4	892.5	hook794
+84	WK	4	hook	904WPG	2	kaal	hybrid	5	2	0.4	hook.hybrid	hook.hybrid.794.4	794.4	904.2	hook794
+85	WK	4	hook	904WPG	5	kaal	hybrid	9	5	0.5555555555555556	hook.hybrid	hook.hybrid.794.4	794.4	904.5	hook794
+86	WK	4	hook	3587WP	7	kaal	hybrid	5	0	0	hook.hybrid	hook.hybrid.794.4	794.4	3587.7	hook794
+87	WK	4	hook	3587WP	14	kaal	hybrid	5	3	0.6	hook.hybrid	hook.hybrid.794.4	794.4	3587.14	hook794
+88	WK	4	hook	3587WP	C	kaal	hybrid	1	1	1	hook.hybrid	hook.hybrid.794.4	794.4	3587.C	hook794
+89	WK	10	hook	879WKG	2-2	hook	between	43	27	0.627906976744186	hook.between	hook.between.794.10	794.10	879.2-2	hook794
+9	879WKG	2-2	hook	892WKG	5	kaal	hybrid	31	30	0.967741935483871	hook.hybrid	hook.hybrid.879.2-2	879.2-2	892.5	hook879
+90	WK	10	hook	879WKG	10-1	hook	between	47	33	0.7021276595744681	hook.between	hook.between.794.10	794.10	879.10-1	hook794
+91	WK	10	hook	879WKG	G-2	hook	between	31	20	0.6451612903225806	hook.between	hook.between.794.10	794.10	879.G-2	hook794
+92	WK	10	hook	879WKG	N-5	hook	between	13	12	0.9230769230769231	hook.between	hook.between.794.10	794.10	879.N-5	hook794
+93	WK	10	hook	WK	4	hook	within	57	36	0.631578947368421	hook.within	hook.within.794.10	794.10	794.4	hook794
+94	WK	10	hook	892WKG	1	kaal	hybrid	12	10	0.8333333333333334	hook.hybrid	hook.hybrid.794.10	794.10	892.1	hook794
+95	WK	10	hook	892WKG	4	kaal	hybrid	18	15	0.8333333333333334	hook.hybrid	hook.hybrid.794.10	794.10	892.4	hook794
+96	WK	10	hook	892WKG	5	kaal	hybrid	2	2	1	hook.hybrid	hook.hybrid.794.10	794.10	892.5	hook794
+97	WK	10	hook	904WPG	2	kaal	hybrid	1	1	1	hook.hybrid	hook.hybrid.794.10	794.10	904.2	hook794
+98	WK	10	hook	904WPG	5	kaal	hybrid	29	26	0.896551724137931	hook.hybrid	hook.hybrid.794.10	794.10	904.5	hook794
+99	WK	10	hook	3587WP	7	kaal	hybrid	11	10	0.9090909090909091	hook.hybrid	hook.hybrid.794.10	794.10	3587.7	hook794
