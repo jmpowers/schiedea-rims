@@ -167,11 +167,14 @@ inflobiomass <- read_sheet(gsheet, "inflobiomass", col_types="c") %>%
   left_join(crosses) %>% 
   add_combos()
 
+biomass.flrs.lm <- lm(log10(flrs) ~ log10(inflo.biomass.g) * cross, data=inflobiomass)
+
 inflobiomass.sum <- inflobiomass %>% #add together envelopes for regression and the rest
   group_by(across(all_of(c("plantid", colnames(crosses))))) %>% 
   summarize(inflo = sum(inflo, na.rm=T),
             inflo.biomass.g =  sum(inflo.biomass.g,  na.rm=T),
-            collect = suppressWarnings(max(collect, na.rm=T)) %>% na_if(-Inf), .groups="drop") 
+            collect = suppressWarnings(max(collect, na.rm=T)) %>% na_if(-Inf), .groups="drop") %>% 
+  mutate(flower.number = 10 ^ predict(biomass.flrs.lm, newdata = .))
 
 # f1seeds -----------------------------------------------------------------
 

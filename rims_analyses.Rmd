@@ -39,6 +39,12 @@ sxc.labels <- set_names(c("K intrapop", "K interpop", "K x H", "H x K", "H inter
 F1.col <- set_names(c(brewer.pal(3,"Greens")[2:3],brewer.pal(9,"Oranges")[5], brewer.pal(9,"Set1")[7], brewer.pal(3,"Purples")[3:2]), sxc.levels)
 ```
 
+# Datasets
+
+```{r datasets}
+traits %>% filter(generation !="P") %>% select(c(generation,ylab, yvar, data, type)) %>% kable
+```
+
 # Sample sizes
 
 ```{r sampsize}
@@ -70,6 +76,7 @@ F1.mod <- list(
   firstflower =          glmmTMB(firstflower ~          sxc +           (1|mompid) + (1|dadpid), data=survflr),
   firstinflo.biomass.g = glmmTMB(firstinflo.biomass.g ~ sxc + collect + (1|mompid) + (1|dadpid), data=survflr),
   inflo.biomass.g =      glmmTMB(inflo.biomass.g  ~     sxc + collect + (1|mompid) + (1|dadpid), data=inflobiomass.sum),
+  flower.number =        glmmTMB(flower.number  ~       sxc + collect + (1|mompid) + (1|dadpop), data=inflobiomass.sum),#dadpid model prob.
   veg.biomass.g =        glmmTMB(veg.biomass.g ~        sxc + collect + (1|mompid) + (1|dadpid), data=vegbiomass),
   total.per.anther =     glmmTMB(total.per.anther ~     sxc +           (1|mompid) + (1|dadpid), data=pollen),
   viable.seeds =         glmmTMB(viable.seeds ~         sxc +           (1|mompid) + (1|dadpop), data=filter(seeds, viable.seeds>0),
@@ -118,6 +125,46 @@ plot_F1 <- function(emm, data, yvar, ylab, type="continuous") {
   print(p)
 }
 
-traits %>% filter(generation=="F1", yvar!="flower.number") %>% select(data, yvar, ylab, type) %>% 
+traits %>% filter(generation=="F1") %>% select(data, yvar, ylab, type) %>% 
   pwalk(plot_F1, emm=F1.emm)
 ```
+
+## Flower biomass regression
+
+```{r infloreg}
+ggplot(inflobiomass, aes(x=inflo.biomass.g, y=flrs, color=cross)) + 
+  geom_point() +  geom_smooth(method="lm", se=F) +  
+  geom_rug(data=inflobiomass.sum, aes(x=inflo.biomass.g/inflo, y=10), sides="b") + 
+  scale_x_log10() + scale_y_log10() + 
+  scale_color_manual(values=set_names(F1.col, c("KKwithin","KK", "KH", "HK", "HH", "HHwithin"))[-c(1,6)]) +
+  theme_minimal() + labs(y="Flower number", x="Inflorescence biomass (g)", color="Cross")
+
+ggplot(inflobiomass, aes(x=inflo.biomass.g, y=flrs/inflo.biomass.g, color=cross)) + 
+  geom_point() +  geom_smooth(se=F) +  
+  scale_x_log10() + scale_y_continuous() + 
+  scale_color_manual(values=set_names(F1.col, c("KKwithin","KK", "KH", "HK", "HH", "HHwithin"))[-c(1,6)]) +
+  theme_minimal() + labs(y="Flowers per g biomass", x="Inflorescence biomass (g)", color="Cross")
+
+ggplot(inflobiomass.sum, aes(y=inflo, x=sxc, fill=sxc)) +
+  geom_boxplot() + 
+  scale_fill_manual(values=F1.col) + guides(fill="none") +
+  scale_y_continuous("Inflorescences", expand = expansion(mult=c(0, 0.05)), limits=c(0,NA))+
+  scale_x_discrete("Cross", labels = sxc.labels) + 
+  theme_minimal() + theme(panel.grid.major.x = element_blank())
+
+ggplot(inflobiomass.sum, aes(y=inflo.biomass.g/inflo, x=sxc, fill=sxc)) +
+  geom_boxplot() + 
+  scale_fill_manual(values=F1.col) + guides(fill="none") +
+  scale_y_continuous("Biomass per inflorescence (g)", expand = expansion(mult=c(0, 0.05)), limits=c(0,NA))+
+  scale_x_discrete("Cross", labels = sxc.labels) + 
+  theme_minimal() + theme(panel.grid.major.x = element_blank())
+
+ggplot(inflobiomass.sum, aes(y=flower.number/inflo, x=sxc, fill=sxc)) +
+  geom_boxplot() + 
+  scale_fill_manual(values=F1.col) + guides(fill="none") +
+  scale_y_continuous("Flowers per inflorescence", expand = expansion(mult=c(0, 0.05)), limits=c(0,NA))+
+  scale_x_discrete("Cross", labels = sxc.labels) + 
+  theme_minimal() + theme(panel.grid.major.x = element_blank())
+
+```
+

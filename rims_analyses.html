@@ -281,6 +281,156 @@ load(&quot;data/rims_data.rda&quot;)
 
 sxc.labels &lt;- set_names(c(&quot;K intrapop&quot;, &quot;K interpop&quot;, &quot;K x H&quot;, &quot;H x K&quot;, &quot;H interpop&quot;, &quot;H intrapop&quot;), sxc.levels)
 F1.col &lt;- set_names(c(brewer.pal(3,&quot;Greens&quot;)[2:3],brewer.pal(9,&quot;Oranges&quot;)[5], brewer.pal(9,&quot;Set1&quot;)[7], brewer.pal(3,&quot;Purples&quot;)[3:2]), sxc.levels)</code></pre>
+<div id="datasets" class="section level1">
+<h1>Datasets</h1>
+<pre class="r"><code>traits %&gt;% filter(generation !=&quot;P&quot;) %&gt;% select(c(generation,ylab, yvar, data, type)) %&gt;% kable</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">generation</th>
+<th align="left">ylab</th>
+<th align="left">yvar</th>
+<th align="left">data</th>
+<th align="left">type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">F1</td>
+<td align="left">Capsule formation</td>
+<td align="left">capsule.formed</td>
+<td align="left">seeds</td>
+<td align="left">binary</td>
+</tr>
+<tr class="even">
+<td align="left">F1</td>
+<td align="left">Viable seeds if capsule formed</td>
+<td align="left">viable.seeds</td>
+<td align="left">seeds.nonzero</td>
+<td align="left">continuous</td>
+</tr>
+<tr class="odd">
+<td align="left">F1</td>
+<td align="left">Germination</td>
+<td align="left">prop.germ</td>
+<td align="left">germination</td>
+<td align="left">binary</td>
+</tr>
+<tr class="even">
+<td align="left">F1</td>
+<td align="left">Survival</td>
+<td align="left">alive</td>
+<td align="left">survflr</td>
+<td align="left">binary</td>
+</tr>
+<tr class="odd">
+<td align="left">F1</td>
+<td align="left">Vegetative biomass (g)</td>
+<td align="left">veg.biomass.g</td>
+<td align="left">vegbiomass</td>
+<td align="left">continuous</td>
+</tr>
+<tr class="even">
+<td align="left">F1</td>
+<td align="left">Flowering if survived</td>
+<td align="left">flowered</td>
+<td align="left">survflr.alive</td>
+<td align="left">binary</td>
+</tr>
+<tr class="odd">
+<td align="left">F1</td>
+<td align="left">Days to flower</td>
+<td align="left">firstflower</td>
+<td align="left">survflr</td>
+<td align="left">continuous</td>
+</tr>
+<tr class="even">
+<td align="left">F1</td>
+<td align="left">First inflorescence biomass (g)</td>
+<td align="left">firstinflo.biomass.g</td>
+<td align="left">survflr</td>
+<td align="left">continuous</td>
+</tr>
+<tr class="odd">
+<td align="left">F1</td>
+<td align="left">Inflorescence biomass (g)</td>
+<td align="left">inflo.biomass.g</td>
+<td align="left">inflobiomass.sum</td>
+<td align="left">continuous</td>
+</tr>
+<tr class="even">
+<td align="left">F1</td>
+<td align="left">Flower number</td>
+<td align="left">flower.number</td>
+<td align="left">inflobiomass.sum</td>
+<td align="left">continuous</td>
+</tr>
+<tr class="odd">
+<td align="left">F1</td>
+<td align="left">Pollen viability</td>
+<td align="left">prop.viable</td>
+<td align="left">pollen</td>
+<td align="left">binary</td>
+</tr>
+<tr class="even">
+<td align="left">F1</td>
+<td align="left">Pollen grains per anther</td>
+<td align="left">total.per.anther</td>
+<td align="left">pollen</td>
+<td align="left">continuous</td>
+</tr>
+<tr class="odd">
+<td align="left">F2</td>
+<td align="left">Capsule formation</td>
+<td align="left">capsule.formed</td>
+<td align="left">f1seeds</td>
+<td align="left">binary</td>
+</tr>
+<tr class="even">
+<td align="left">F2</td>
+<td align="left">Viable seeds if capsule formed</td>
+<td align="left">viable.seeds</td>
+<td align="left">f1seeds.nonzero</td>
+<td align="left">continuous</td>
+</tr>
+<tr class="odd">
+<td align="left">F2</td>
+<td align="left">Seed mass (mg)</td>
+<td align="left">seed.mass.mg</td>
+<td align="left">f1seedmass</td>
+<td align="left">continuous</td>
+</tr>
+<tr class="even">
+<td align="left">F2</td>
+<td align="left">Pollen viability</td>
+<td align="left">prop.viable</td>
+<td align="left">f2pollen</td>
+<td align="left">binary</td>
+</tr>
+<tr class="odd">
+<td align="left">F2</td>
+<td align="left">Pollen grains per anther</td>
+<td align="left">total.per.anther</td>
+<td align="left">f2pollen</td>
+<td align="left">continuous</td>
+</tr>
+<tr class="even">
+<td align="left">F3</td>
+<td align="left">Capsule formation</td>
+<td align="left">capsule.formed</td>
+<td align="left">f1seeds</td>
+<td align="left">binary</td>
+</tr>
+<tr class="odd">
+<td align="left">F3</td>
+<td align="left">Viable seeds if capsule formed</td>
+<td align="left">viable.seeds</td>
+<td align="left">f1seeds.nonzero</td>
+<td align="left">continuous</td>
+</tr>
+</tbody>
+</table>
+</div>
 <div id="sample-sizes" class="section level1">
 <h1>Sample sizes</h1>
 <pre class="r"><code>F1 &lt;- set_names(datanames[1:6]); F1[[6]] &lt;- &quot;inflobiomass.sum&quot;
@@ -956,6 +1106,7 @@ map_dfr(F1, ~ tally(get(.)), .id=&quot;dataset&quot;) %&gt;%
   firstflower =          glmmTMB(firstflower ~          sxc +           (1|mompid) + (1|dadpid), data=survflr),
   firstinflo.biomass.g = glmmTMB(firstinflo.biomass.g ~ sxc + collect + (1|mompid) + (1|dadpid), data=survflr),
   inflo.biomass.g =      glmmTMB(inflo.biomass.g  ~     sxc + collect + (1|mompid) + (1|dadpid), data=inflobiomass.sum),
+  flower.number =        glmmTMB(flower.number  ~       sxc + collect + (1|mompid) + (1|dadpop), data=inflobiomass.sum),#dadpid model prob.
   veg.biomass.g =        glmmTMB(veg.biomass.g ~        sxc + collect + (1|mompid) + (1|dadpid), data=vegbiomass),
   total.per.anther =     glmmTMB(total.per.anther ~     sxc +           (1|mompid) + (1|dadpid), data=pollen),
   viable.seeds =         glmmTMB(viable.seeds ~         sxc +           (1|mompid) + (1|dadpop), data=filter(seeds, viable.seeds&gt;0),
@@ -1000,9 +1151,46 @@ F1.emm &lt;-  map_dfr(F1.mod, ~emmeans(., ~sxc) %&gt;% summary(type=&quot;respon
   print(p)
 }
 
-traits %&gt;% filter(generation==&quot;F1&quot;, yvar!=&quot;flower.number&quot;) %&gt;% select(data, yvar, ylab, type) %&gt;% 
+traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;% select(data, yvar, ylab, type) %&gt;% 
   pwalk(plot_F1, emm=F1.emm)</code></pre>
-<p><img src="figures/f1plot-1.svg" width="480" /><img src="figures/f1plot-2.svg" width="480" /><img src="figures/f1plot-3.svg" width="480" /><img src="figures/f1plot-4.svg" width="480" /><img src="figures/f1plot-5.svg" width="480" /><img src="figures/f1plot-6.svg" width="480" /><img src="figures/f1plot-7.svg" width="480" /><img src="figures/f1plot-8.svg" width="480" /><img src="figures/f1plot-9.svg" width="480" /><img src="figures/f1plot-10.svg" width="480" /><img src="figures/f1plot-11.svg" width="480" /></p>
+<p><img src="figures/f1plot-1.svg" width="480" /><img src="figures/f1plot-2.svg" width="480" /><img src="figures/f1plot-3.svg" width="480" /><img src="figures/f1plot-4.svg" width="480" /><img src="figures/f1plot-5.svg" width="480" /><img src="figures/f1plot-6.svg" width="480" /><img src="figures/f1plot-7.svg" width="480" /><img src="figures/f1plot-8.svg" width="480" /><img src="figures/f1plot-9.svg" width="480" /><img src="figures/f1plot-10.svg" width="480" /><img src="figures/f1plot-11.svg" width="480" /><img src="figures/f1plot-12.svg" width="480" /></p>
+</div>
+<div id="flower-biomass-regression" class="section level2">
+<h2>Flower biomass regression</h2>
+<pre class="r"><code>ggplot(inflobiomass, aes(x=inflo.biomass.g, y=flrs, color=cross)) + 
+  geom_point() +  geom_smooth(method=&quot;lm&quot;, se=F) +  
+  geom_rug(data=inflobiomass.sum, aes(x=inflo.biomass.g/inflo, y=10), sides=&quot;b&quot;) + 
+  scale_x_log10() + scale_y_log10() + 
+  scale_color_manual(values=set_names(F1.col, c(&quot;KKwithin&quot;,&quot;KK&quot;, &quot;KH&quot;, &quot;HK&quot;, &quot;HH&quot;, &quot;HHwithin&quot;))[-c(1,6)]) +
+  theme_minimal() + labs(y=&quot;Flower number&quot;, x=&quot;Inflorescence biomass (g)&quot;, color=&quot;Cross&quot;)</code></pre>
+<p><img src="figures/infloreg-1.svg" width="480" /></p>
+<pre class="r"><code>ggplot(inflobiomass, aes(x=inflo.biomass.g, y=flrs/inflo.biomass.g, color=cross)) + 
+  geom_point() +  geom_smooth(se=F) +  
+  scale_x_log10() + scale_y_continuous() + 
+  scale_color_manual(values=set_names(F1.col, c(&quot;KKwithin&quot;,&quot;KK&quot;, &quot;KH&quot;, &quot;HK&quot;, &quot;HH&quot;, &quot;HHwithin&quot;))[-c(1,6)]) +
+  theme_minimal() + labs(y=&quot;Flowers per g biomass&quot;, x=&quot;Inflorescence biomass (g)&quot;, color=&quot;Cross&quot;)</code></pre>
+<p><img src="figures/infloreg-2.svg" width="480" /></p>
+<pre class="r"><code>ggplot(inflobiomass.sum, aes(y=inflo, x=sxc, fill=sxc)) +
+  geom_boxplot() + 
+  scale_fill_manual(values=F1.col) + guides(fill=&quot;none&quot;) +
+  scale_y_continuous(&quot;Inflorescences&quot;, expand = expansion(mult=c(0, 0.05)), limits=c(0,NA))+
+  scale_x_discrete(&quot;Cross&quot;, labels = sxc.labels) + 
+  theme_minimal() + theme(panel.grid.major.x = element_blank())</code></pre>
+<p><img src="figures/infloreg-3.svg" width="480" /></p>
+<pre class="r"><code>ggplot(inflobiomass.sum, aes(y=inflo.biomass.g/inflo, x=sxc, fill=sxc)) +
+  geom_boxplot() + 
+  scale_fill_manual(values=F1.col) + guides(fill=&quot;none&quot;) +
+  scale_y_continuous(&quot;Biomass per inflorescence (g)&quot;, expand = expansion(mult=c(0, 0.05)), limits=c(0,NA))+
+  scale_x_discrete(&quot;Cross&quot;, labels = sxc.labels) + 
+  theme_minimal() + theme(panel.grid.major.x = element_blank())</code></pre>
+<p><img src="figures/infloreg-4.svg" width="480" /></p>
+<pre class="r"><code>ggplot(inflobiomass.sum, aes(y=flower.number/inflo, x=sxc, fill=sxc)) +
+  geom_boxplot() + 
+  scale_fill_manual(values=F1.col) + guides(fill=&quot;none&quot;) +
+  scale_y_continuous(&quot;Flowers per inflorescence&quot;, expand = expansion(mult=c(0, 0.05)), limits=c(0,NA))+
+  scale_x_discrete(&quot;Cross&quot;, labels = sxc.labels) + 
+  theme_minimal() + theme(panel.grid.major.x = element_blank())</code></pre>
+<p><img src="figures/infloreg-5.svg" width="480" /></p>
 </div>
 </div>
 
