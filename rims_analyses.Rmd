@@ -24,9 +24,8 @@ td, th { padding : 6px }
 library(tidyverse)
 library(RColorBrewer)
 
-library(lme4)
-library(lmerTest)
 library(glmmTMB)
+library(car)
 library(broom)
 library(emmeans)
 
@@ -36,7 +35,7 @@ options(digits=4, knitr.kable.NA = "") # for kables
 
 load("data/rims_data.rda")
 
-sxc.labels <- set_names(c("K intrapop.", "K interpop.", "K x H", "H x K", "H interpop.", "H intrapop"), sxc.levels)
+sxc.labels <- set_names(c("K intrapop", "K interpop", "K x H", "H x K", "H interpop", "H intrapop"), sxc.levels)
 F1.col <- set_names(c(brewer.pal(3,"Greens")[2:3],brewer.pal(9,"Oranges")[5], brewer.pal(9,"Set1")[7], brewer.pal(3,"Purples")[3:2]), sxc.levels)
 ```
 
@@ -64,9 +63,9 @@ map_dfr(F2, ~ tally(group_by(get(.), generation, momdadcross)), .id="dataset") %
 
 # F1 Generation
 
-## Vegetative and Inflo Biomass
+## First Flower, Vegetative and Inflo Biomass, Seed and Pollen Production
 
-```{r biomass}
+```{r cont}
 plot_f1_continuous <- function(emm, data, yvar, ylab) {
   ggplot(data, aes_string(y=yvar, x="sxc", fill="sxc")) +
     geom_violin(draw_quantiles = (1:3)/4) + 
@@ -77,44 +76,59 @@ plot_f1_continuous <- function(emm, data, yvar, ylab) {
     theme_minimal() + theme(panel.grid.major.x = element_blank())
 }
 
-F1.biomass.mod <- list(
-  firstinflo.biomass.g = lmer(firstinflo.biomass.g ~ sxc + collect + (1|mompid) + (1|dadpid), data=survflr),
-  inflo.biomass.g =      lmer(inflo.biomass.g  ~     sxc + collect + (1|mompid) + (1|dadpid), data=inflobiomass.sum),
-  veg.biomass.g =        lmer(veg.biomass.g ~        sxc + collect + (1|mompid) + (1|dadpid), data=vegbiomass))
+F1.cont.mod <- list(
+  firstflower =          glmmTMB(firstflower ~          sxc +           (1|mompid) + (1|dadpid), data=survflr),
+  firstinflo.biomass.g = glmmTMB(firstinflo.biomass.g ~ sxc + collect + (1|mompid) + (1|dadpid), data=survflr),
+  inflo.biomass.g =      glmmTMB(inflo.biomass.g  ~     sxc + collect + (1|mompid) + (1|dadpid), data=inflobiomass.sum),
+  veg.biomass.g =        glmmTMB(veg.biomass.g ~        sxc + collect + (1|mompid) + (1|dadpid), data=vegbiomass),
+  total.per.anther =     glmmTMB(total.per.anther ~     sxc +           (1|mompid) + (1|dadpid), data=pollen),
+  viable.seeds =         glmmTMB(viable.seeds ~         sxc +           (1|mompid) + (1|dadpop), data=filter(seeds, viable.seeds>0),
+                                 family="truncated_nbinom1"))
 
-F1.biomass.test <- map_dfr(F1.biomass.mod, ~tidy(anova(.)), .id="trait")
-F1.biomass.emm <-  map_dfr(F1.biomass.mod, ~tidy(summary(emmeans(., ~sxc))), .id="trait") #average over collect date
+F1.cont.test <- map_dfr(F1.cont.mod, ~car::Anova(.) %>% tidy(), .id="trait")
+F1.cont.emm <-  map_dfr(F1.cont.mod, ~emmeans(., ~sxc) %>% summary(type="response") %>%  #average over collect date
+                             tidy %>% rename(estimate=any_of("response")), .id="trait") 
 
-plot_f1_continuous(F1.biomass.emm, survflr,     "firstinflo.biomass.g", "First inflorescence biomass (g)")
-plot_f1_continuous(F1.biomass.emm, inflobiomass.sum, "inflo.biomass.g",       "Inflorescence biomass (g)")
-plot_f1_continuous(F1.biomass.emm, vegbiomass,         "veg.biomass.g",          "Vegetative biomass (g)")
+plot_f1_continuous(F1.cont.emm, survflr,              "firstflower",                  "Days to flower")
+plot_f1_continuous(F1.cont.emm, survflr,     "firstinflo.biomass.g", "First inflorescence biomass (g)")
+plot_f1_continuous(F1.cont.emm, inflobiomass.sum, "inflo.biomass.g",       "Inflorescence biomass (g)")
+plot_f1_continuous(F1.cont.emm, vegbiomass,         "veg.biomass.g",          "Vegetative biomass (g)")
+plot_f1_continuous(F1.cont.emm, pollen,         "total.per.anther",         "Pollen grains per anther")
+plot_f1_continuous(F1.cont.emm, filter(seeds, viable.seeds>0), "viable.seeds", "Viable seeds if capsule formed")
 ```
 
-# F1 Survival, Flowering, Capsule Formation
+## Germination, Survival, Flowering, Capsule Formation, Pollen Viability
 
-```{r binary, fig.width=6}
+```{r binary}
 plot_f1_binary <- function(emm, data, yvar, ylab) {
     data %>% drop_na(all_of(yvar)) %>% 
     group_by(sxc, mompop, dadpop) %>% summarize(across(all_of(yvar), ~sum(.)/n()), n=n()) %>% 
   ggplot(aes_string(y=yvar, x="sxc", color="sxc")) +
-    geom_point(aes(size=n))+
-    geom_pointrange(data=filter(emm, trait==yvar), aes(y=prob, ymax=conf.high, ymin=conf.low), color="black") + 
+    geom_point(size=4)+
+    geom_pointrange(data=filter(emm, trait==yvar) %>% 
+                      mutate(conf.low  = ifelse(conf.high-conf.low>0.9,NA,conf.low), 
+                             conf.high = ifelse(conf.high-conf.low>0.9,NA,conf.high)), 
+                    aes(y=estimate, ymax=conf.high, ymin=conf.low), color="black") + 
     scale_color_manual(values=F1.col) + guides(color="none") +
     scale_x_discrete("Cross", labels = sxc.labels) + 
-    scale_y_continuous(name = ylab, limits=c(0.4,1)) +
+    scale_y_continuous(ylab, limits=c(0,1), labels=~scales::percent(.,accuracy=1)) +
     theme_minimal() + theme(panel.grid.major.x = element_blank())
 }
 
 F1.binary.mod <- list(
-  capsule.formed = glmmTMB(capsule.formed ~ sxc + (1|mompid) + (1|dadpop),  family="binomial", data=seeds), #TODO try to find dadpid for seeds
+  prop.germ      = glmmTMB(prop.germ      ~ sxc + (1|mompid) + (1|dadpid),  family="binomial", data=germination, weights = planted),
   alive          = glmmTMB(alive          ~ sxc + (1|mompid) + (1|dadpid),  family="binomial", data=survflr),
-  flowered       = glmmTMB(flowered       ~ sxc + (1|mompid) + (1|dadpid),  family="binomial", data=survflr))
+  flowered       = glmmTMB(flowered       ~ sxc + (1|mompid) + (1|dadpid),  family="binomial", data=filter(survflr, alive)),
+  prop.viable    = glmmTMB(prop.viable    ~ sxc + (1|mompid) + (1|dadpid),  family="binomial", data=pollen, weights = total),
+  capsule.formed = glmmTMB(capsule.formed ~ sxc + (1|mompid) + (1|dadpop),  family="binomial", data=seeds))
+#TODO try to find dadpid for seeds
 
 F1.binary.test <- map_dfr(F1.binary.mod, ~tidy(car::Anova(.)), .id="trait")
-F1.binary.emm <-  map_dfr(F1.binary.mod, ~tidy(summary(emmeans(., ~sxc), type="response")), .id="trait")
+F1.binary.emm <-  map_dfr(F1.binary.mod, ~tidy(rename(summary(emmeans(., ~sxc), type="response"), estimate=prob)), .id="trait")
 
-plot_f1_binary(F1.binary.emm, seeds, "capsule.formed", "Capsule formation")
+plot_f1_binary(F1.binary.emm, germination, "prop.germ", "Germination")
 plot_f1_binary(F1.binary.emm, survflr, "alive", "Survival")
-plot_f1_binary(F1.binary.emm, survflr, "flowered", "Flowering")
+plot_f1_binary(F1.binary.emm, filter(survflr, alive), "flowered", "Flowered if survived")
+plot_f1_binary(F1.binary.emm, pollen, "prop.viable", "Pollen viability")
+plot_f1_binary(F1.binary.emm, seeds, "capsule.formed", "Capsule formation")
 ```
-

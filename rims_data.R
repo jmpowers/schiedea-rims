@@ -80,12 +80,11 @@ pop_to_species <- function(data) {
 
 calc_pollen <- function(data) {
   mutate(data, across(starts_with(c("V","I"), ignore.case=F), as.integer)) %>% rowwise() %>% 
-    mutate(v = sum(c_across(num_range("V", 1:10)))/10, #average counts
-           i = sum(c_across(num_range("I", 1:10)))/10) %>% ungroup() %>% 
-    mutate(vpf = (v * 444.4/20) * 10, #number viable per anther (5 flrs x 4 anthers)
-           ipf = (i * 444.4/20) * 10, #number inviable per anther (5 flrs x 4 anthers)
-           vp = vpf / (vpf+ipf), #proportion viable
-           tpf = vpf + ipf, #total pollen grains per flower
+    mutate(viable = sum(c_across(num_range("V", 1:10))), #total counts
+           inviable = sum(c_across(num_range("I", 1:10)))) %>% ungroup() %>% 
+    mutate(total = viable + inviable,
+           across(c(viable, inviable, total), ~ . * 444.4 / (5 * 4), .names="{col}.per.anther"), #444.4 from hemocytometer, 5 flrs, 4 anthers
+           prop.viable = viable / (viable + inviable), 
            date = ymd(date))
 }
 
@@ -134,7 +133,7 @@ survflr <- read_sheet(gsheet, "survflr", col_types="c") %>%
          firstinflo.biomass.g = ifelse(use.fib == "yes", firstinflo.biomass.g, NA),
          collect = firstinflo.collect.date - first_planting, 
          firstflower.date = if_else(use.firstflower == "yes", firstflower.date, as.Date(NA)),
-         firstflower = firstflower.date - first_planting) %>% select(-firstinflo.biomass.mg) %>% 
+         firstflower = as.integer(firstflower.date - first_planting)) %>% select(-firstinflo.biomass.mg) %>% 
   left_join(crosses) %>% 
   add_combos()
 #for flowering analysis, add filter(alive) %>% drop_na(flowered)
@@ -209,6 +208,3 @@ f2seeds <- read_sheet(gsheet, "f2seeds", col_types="c") %>%
 walk(datanames, ~write_tsv(get(.), paste0("data/",., ".tsv")))
 
 save.image("data/rims_data.rda")
-
-
-
