@@ -950,82 +950,59 @@ map_dfr(F1, ~ tally(get(.)), .id=&quot;dataset&quot;) %&gt;%
 </div>
 <div id="f1-generation" class="section level1">
 <h1>F1 Generation</h1>
-<div id="first-flower-vegetative-and-inflo-biomass-seed-and-pollen-production" class="section level2">
-<h2>First Flower, Vegetative and Inflo Biomass, Seed and Pollen Production</h2>
-<pre class="r"><code>plot_f1_continuous &lt;- function(emm, data, yvar, ylab) {
-  ggplot(data, aes_string(y=yvar, x=&quot;sxc&quot;, fill=&quot;sxc&quot;)) +
-    geom_violin(draw_quantiles = (1:3)/4) + 
-    geom_pointrange(data=filter(emm, trait==yvar), aes(y=estimate, ymax=conf.high, ymin=conf.low)) + 
-    scale_fill_manual(values=F1.col) + guides(fill=&quot;none&quot;) +
-    scale_x_discrete(&quot;Cross&quot;, labels = sxc.labels) + 
-    scale_y_continuous(name = ylab, expand = expansion(mult=c(0, 0.05)), limits=c(0,NA)) +
-    theme_minimal() + theme(panel.grid.major.x = element_blank())
-}
-
-F1.cont.mod &lt;- list(
+<div id="models" class="section level2">
+<h2>Models</h2>
+<pre class="r"><code>F1.mod &lt;- list(
   firstflower =          glmmTMB(firstflower ~          sxc +           (1|mompid) + (1|dadpid), data=survflr),
   firstinflo.biomass.g = glmmTMB(firstinflo.biomass.g ~ sxc + collect + (1|mompid) + (1|dadpid), data=survflr),
   inflo.biomass.g =      glmmTMB(inflo.biomass.g  ~     sxc + collect + (1|mompid) + (1|dadpid), data=inflobiomass.sum),
   veg.biomass.g =        glmmTMB(veg.biomass.g ~        sxc + collect + (1|mompid) + (1|dadpid), data=vegbiomass),
   total.per.anther =     glmmTMB(total.per.anther ~     sxc +           (1|mompid) + (1|dadpid), data=pollen),
   viable.seeds =         glmmTMB(viable.seeds ~         sxc +           (1|mompid) + (1|dadpop), data=filter(seeds, viable.seeds&gt;0),
-                                 family=&quot;truncated_nbinom1&quot;))
-
-F1.cont.test &lt;- map_dfr(F1.cont.mod, ~car::Anova(.) %&gt;% tidy(), .id=&quot;trait&quot;)
-F1.cont.emm &lt;-  map_dfr(F1.cont.mod, ~emmeans(., ~sxc) %&gt;% summary(type=&quot;response&quot;) %&gt;%  #average over collect date
-                             tidy %&gt;% rename(estimate=any_of(&quot;response&quot;)), .id=&quot;trait&quot;) 
-
-plot_f1_continuous(F1.cont.emm, survflr,              &quot;firstflower&quot;,                  &quot;Days to flower&quot;)</code></pre>
-<p><img src="figures/cont-1.svg" width="480" /></p>
-<pre class="r"><code>plot_f1_continuous(F1.cont.emm, survflr,     &quot;firstinflo.biomass.g&quot;, &quot;First inflorescence biomass (g)&quot;)</code></pre>
-<p><img src="figures/cont-2.svg" width="480" /></p>
-<pre class="r"><code>plot_f1_continuous(F1.cont.emm, inflobiomass.sum, &quot;inflo.biomass.g&quot;,       &quot;Inflorescence biomass (g)&quot;)</code></pre>
-<p><img src="figures/cont-3.svg" width="480" /></p>
-<pre class="r"><code>plot_f1_continuous(F1.cont.emm, vegbiomass,         &quot;veg.biomass.g&quot;,          &quot;Vegetative biomass (g)&quot;)</code></pre>
-<p><img src="figures/cont-4.svg" width="480" /></p>
-<pre class="r"><code>plot_f1_continuous(F1.cont.emm, pollen,         &quot;total.per.anther&quot;,         &quot;Pollen grains per anther&quot;)</code></pre>
-<p><img src="figures/cont-5.svg" width="480" /></p>
-<pre class="r"><code>plot_f1_continuous(F1.cont.emm, filter(seeds, viable.seeds&gt;0), &quot;viable.seeds&quot;, &quot;Viable seeds if capsule formed&quot;)</code></pre>
-<p><img src="figures/cont-6.svg" width="480" /></p>
+                                 family=&quot;truncated_nbinom1&quot;),
+  prop.germ =            glmmTMB(prop.germ      ~ sxc + (1|mompid) + (1|dadpid), family=&quot;binomial&quot;, data=germination, weights = planted),
+  alive =                glmmTMB(alive          ~ sxc + (1|mompid) + (1|dadpid), family=&quot;binomial&quot;, data=survflr),
+  flowered =             glmmTMB(flowered       ~ sxc + (1|mompid) + (1|dadpid), family=&quot;binomial&quot;, data=filter(survflr, alive)),
+  prop.viable =          glmmTMB(prop.viable    ~ sxc + (1|mompid) + (1|dadpid), family=&quot;binomial&quot;, data=pollen, weights = total),
+  capsule.formed =       glmmTMB(capsule.formed ~ sxc + (1|mompid) + (1|dadpop), family=&quot;binomial&quot;, data=seeds))
+#TODO try to find dadpid for seeds</code></pre>
 </div>
-<div id="germination-survival-flowering-capsule-formation-pollen-viability" class="section level2">
-<h2>Germination, Survival, Flowering, Capsule Formation, Pollen Viability</h2>
-<pre class="r"><code>plot_f1_binary &lt;- function(emm, data, yvar, ylab) {
-    data %&gt;% drop_na(all_of(yvar)) %&gt;% 
-    group_by(sxc, mompop, dadpop) %&gt;% summarize(across(all_of(yvar), ~sum(.)/n()), n=n()) %&gt;% 
-  ggplot(aes_string(y=yvar, x=&quot;sxc&quot;, color=&quot;sxc&quot;)) +
-    geom_point(size=4)+
-    geom_pointrange(data=filter(emm, trait==yvar) %&gt;% 
-                      mutate(conf.low  = ifelse(conf.high-conf.low&gt;0.9,NA,conf.low), 
-                             conf.high = ifelse(conf.high-conf.low&gt;0.9,NA,conf.high)), 
-                    aes(y=estimate, ymax=conf.high, ymin=conf.low), color=&quot;black&quot;) + 
-    scale_color_manual(values=F1.col) + guides(color=&quot;none&quot;) +
-    scale_x_discrete(&quot;Cross&quot;, labels = sxc.labels) + 
-    scale_y_continuous(ylab, limits=c(0,1), labels=~scales::percent(.,accuracy=1)) +
+<div id="inference" class="section level2">
+<h2>Inference</h2>
+<pre class="r"><code>F1.test &lt;- map_dfr(F1.mod, ~car::Anova(.) %&gt;% tidy(), .id=&quot;trait&quot;)
+F1.emm &lt;-  map_dfr(F1.mod, ~emmeans(., ~sxc) %&gt;% summary(type=&quot;response&quot;) %&gt;%  #average over collect date
+                             tidy %&gt;% rename(estimate=any_of(c(&quot;response&quot;,&quot;prob&quot;))), .id=&quot;trait&quot;) </code></pre>
+</div>
+<div id="plots" class="section level2">
+<h2>Plots</h2>
+<pre class="r"><code>plot_F1 &lt;- function(emm, data, yvar, ylab, type=&quot;continuous&quot;) {
+  data &lt;- get(data)
+  if(type==&quot;continuous&quot;) {
+    p &lt;- ggplot(data, aes_string(y=yvar, x=&quot;sxc&quot;, fill=&quot;sxc&quot;)) +
+      geom_violin(draw_quantiles = (1:3)/4) + 
+      geom_pointrange(data=filter(emm, trait==yvar), aes(y=estimate, ymax=conf.high, ymin=conf.low)) + 
+      scale_fill_manual(values=F1.col) + guides(fill=&quot;none&quot;) +
+      scale_y_continuous(name = ylab, expand = expansion(mult=c(0, 0.05)), limits=c(0,NA))
+  } else if(type==&quot;binary&quot;) {
+    p &lt;- data %&gt;% drop_na(all_of(yvar)) %&gt;% 
+      group_by(sxc, mompop, dadpop) %&gt;% summarize(across(all_of(yvar), ~sum(.)/n()), n=n(), .groups=&quot;drop&quot;) %&gt;% 
+      ggplot(aes_string(y=yvar, x=&quot;sxc&quot;, color=&quot;sxc&quot;)) +
+      geom_point(size=4)+
+      geom_pointrange(data=filter(emm, trait==yvar) %&gt;% 
+                        mutate(conf.low  = ifelse(conf.high-conf.low&gt;0.9,NA,conf.low), 
+                               conf.high = ifelse(conf.high-conf.low&gt;0.9,NA,conf.high)), 
+                      aes(y=estimate, ymax=conf.high, ymin=conf.low), color=&quot;black&quot;) + 
+      scale_color_manual(values=F1.col) + guides(color=&quot;none&quot;) +
+      scale_y_continuous(ylab, limits=c(0,1), labels=~scales::percent(.,accuracy=1))
+  }
+  p &lt;- p + scale_x_discrete(&quot;Cross&quot;, labels = sxc.labels) + 
     theme_minimal() + theme(panel.grid.major.x = element_blank())
+  print(p)
 }
 
-F1.binary.mod &lt;- list(
-  prop.germ      = glmmTMB(prop.germ      ~ sxc + (1|mompid) + (1|dadpid),  family=&quot;binomial&quot;, data=germination, weights = planted),
-  alive          = glmmTMB(alive          ~ sxc + (1|mompid) + (1|dadpid),  family=&quot;binomial&quot;, data=survflr),
-  flowered       = glmmTMB(flowered       ~ sxc + (1|mompid) + (1|dadpid),  family=&quot;binomial&quot;, data=filter(survflr, alive)),
-  prop.viable    = glmmTMB(prop.viable    ~ sxc + (1|mompid) + (1|dadpid),  family=&quot;binomial&quot;, data=pollen, weights = total),
-  capsule.formed = glmmTMB(capsule.formed ~ sxc + (1|mompid) + (1|dadpop),  family=&quot;binomial&quot;, data=seeds))
-#TODO try to find dadpid for seeds
-
-F1.binary.test &lt;- map_dfr(F1.binary.mod, ~tidy(car::Anova(.)), .id=&quot;trait&quot;)
-F1.binary.emm &lt;-  map_dfr(F1.binary.mod, ~tidy(rename(summary(emmeans(., ~sxc), type=&quot;response&quot;), estimate=prob)), .id=&quot;trait&quot;)
-
-plot_f1_binary(F1.binary.emm, germination, &quot;prop.germ&quot;, &quot;Germination&quot;)</code></pre>
-<p><img src="figures/binary-1.svg" width="480" /></p>
-<pre class="r"><code>plot_f1_binary(F1.binary.emm, survflr, &quot;alive&quot;, &quot;Survival&quot;)</code></pre>
-<p><img src="figures/binary-2.svg" width="480" /></p>
-<pre class="r"><code>plot_f1_binary(F1.binary.emm, filter(survflr, alive), &quot;flowered&quot;, &quot;Flowered if survived&quot;)</code></pre>
-<p><img src="figures/binary-3.svg" width="480" /></p>
-<pre class="r"><code>plot_f1_binary(F1.binary.emm, pollen, &quot;prop.viable&quot;, &quot;Pollen viability&quot;)</code></pre>
-<p><img src="figures/binary-4.svg" width="480" /></p>
-<pre class="r"><code>plot_f1_binary(F1.binary.emm, seeds, &quot;capsule.formed&quot;, &quot;Capsule formation&quot;)</code></pre>
-<p><img src="figures/binary-5.svg" width="480" /></p>
+traits %&gt;% filter(generation==&quot;F1&quot;, yvar!=&quot;flower.number&quot;) %&gt;% select(data, yvar, ylab, type) %&gt;% 
+  pwalk(plot_F1, emm=F1.emm)</code></pre>
+<p><img src="figures/f1plot-1.svg" width="480" /><img src="figures/f1plot-2.svg" width="480" /><img src="figures/f1plot-3.svg" width="480" /><img src="figures/f1plot-4.svg" width="480" /><img src="figures/f1plot-5.svg" width="480" /><img src="figures/f1plot-6.svg" width="480" /><img src="figures/f1plot-7.svg" width="480" /><img src="figures/f1plot-8.svg" width="480" /><img src="figures/f1plot-9.svg" width="480" /><img src="figures/f1plot-10.svg" width="480" /><img src="figures/f1plot-11.svg" width="480" /></p>
 </div>
 </div>
 

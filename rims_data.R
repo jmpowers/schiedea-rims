@@ -4,6 +4,8 @@ library(googlesheets4)
 
 # common ------------------------------------------------------------------
 
+traits <- read_sheet("1f487VMTsYzYGn0_daogtTF0nNE7ntoqd0Yh4h9tgyDE", "Traits")
+
 gsheet <- gs4_get("1pYbAnEDw2KfM34l85wlJV6pfAr1DroPj_7GjfApnCq8")
 datanames <- sheet_names(gsheet)[-1]
 
@@ -100,6 +102,8 @@ seeds <- read_sheet(gsheet, "seeds", col_types="c") %>%
   mutate(viable.seeds = as.integer(viable.seeds), 
          capsule.formed = as.integer(viable.seeds>0)) %>% 
   add_combos()
+
+seeds.nonzero <- filter(seeds, viable.seeds > 0)
   
 # germination -------------------------------------------------------------
 
@@ -136,7 +140,8 @@ survflr <- read_sheet(gsheet, "survflr", col_types="c") %>%
          firstflower = as.integer(firstflower.date - first_planting)) %>% select(-firstinflo.biomass.mg) %>% 
   left_join(crosses) %>% 
   add_combos()
-#for flowering analysis, add filter(alive) %>% drop_na(flowered)
+
+survflr.alive <- survflr %>% filter(alive)
 
 # pollen ------------------------------------------------------------------
 
@@ -176,6 +181,8 @@ f1seeds <- read_sheet(gsheet, "f1seeds", col_types="c") %>%
   split_full_crosses() %>% 
   pop_to_species() %>% 
   pop_factors()
+
+f1seeds.nonzero <- filter(f1seeds, viable.seeds > 0)
 
 # f1seedmass --------------------------------------------------------------
 
