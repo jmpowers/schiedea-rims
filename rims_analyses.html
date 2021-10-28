@@ -260,10 +260,14 @@ div.tocify {
 </div>
 
 
-<style type="text/css">
-  .main-container { max-width: 1000px; margin-left: 0; margin-right: auto; }
-img{ max-width:200%; height: auto; }
-td, th { padding : 6px }
+<style>
+pre {
+  overflow-x: auto;
+}
+pre code {
+  word-wrap: normal;
+  white-space: pre;
+}
 </style>
 <pre class="r"><code>library(tidyverse)
 library(RColorBrewer)
@@ -273,7 +277,7 @@ library(broom)
 library(emmeans)
 
 library(knitr)
-knitr::opts_chunk$set(comment=&quot;&quot;, cache=T, warning = F, message = F, fig.path = &quot;figures/&quot;, dev = &quot;svglite&quot;, fig.width=5, fig.height=4)
+knitr::opts_chunk$set(comment=&quot;&quot;, cache=T, warning = F, message = F, fig.path = &quot;figures/&quot;, dev = &quot;svglite&quot;, fig.width=5, fig.height=4, width=999)
 options(digits=4, knitr.kable.NA = &quot;&quot;) # for kables
 
 load(&quot;data/rims_data.rda&quot;)
