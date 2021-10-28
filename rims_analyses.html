@@ -269,7 +269,6 @@ td, th { padding : 6px }
 library(RColorBrewer)
 
 library(glmmTMB)
-library(car)
 library(broom)
 library(emmeans)
 
@@ -1191,6 +1190,285 @@ traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;% select(data, yvar, ylab,
   scale_x_discrete(&quot;Cross&quot;, labels = sxc.labels) + 
   theme_minimal() + theme(panel.grid.major.x = element_blank())</code></pre>
 <p><img src="figures/infloreg-5.svg" width="480" /></p>
+</div>
+<div id="fitness-and-ri" class="section level2">
+<h2>Fitness and RI</h2>
+<pre class="r"><code>F1.emm %&gt;%  left_join(traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;% select(trait=yvar, step)) %&gt;% arrange(step) %&gt;% 
+  mutate(est.se = paste(round(estimate,2.5-log10(estimate)), &quot;\U00B1&quot;, round(std.error,2.5-log10(estimate))),
+                  trait = recode(trait, !!!set_names(traits$ylab[-1], traits$yvar[-1])),
+                  sxc = recode(sxc, !!!sxc.labels)) %&gt;% 
+  select(trait, sxc, est.se) %&gt;% pivot_wider(names_from = sxc, values_from=est.se) %&gt;% 
+  kable(caption=&quot;Absolute fitness components&quot;)</code></pre>
+<table>
+<caption>Absolute fitness components</caption>
+<colgroup>
+<col width="26%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+<col width="13%" />
+<col width="13%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">trait</th>
+<th align="left">K intrapop</th>
+<th align="left">K interpop</th>
+<th align="left">K x H</th>
+<th align="left">H x K</th>
+<th align="left">H interpop</th>
+<th align="left">H intrapop</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Capsule formation</td>
+<td align="left">0.78 ± 0.097</td>
+<td align="left">0.821 ± 0.072</td>
+<td align="left">0.744 ± 0.075</td>
+<td align="left">0.612 ± 0.1</td>
+<td align="left">0.795 ± 0.086</td>
+<td align="left">0.784 ± 0.094</td>
+</tr>
+<tr class="even">
+<td align="left">Viable seeds if capsule formed</td>
+<td align="left">6.05 ± 0.93</td>
+<td align="left">6.43 ± 0.84</td>
+<td align="left">5.04 ± 0.58</td>
+<td align="left">6.26 ± 0.81</td>
+<td align="left">13.1 ± 1.7</td>
+<td align="left">11.6 ± 1.6</td>
+</tr>
+<tr class="odd">
+<td align="left">Germination</td>
+<td align="left">0.547 ± 0.062</td>
+<td align="left">0.668 ± 0.051</td>
+<td align="left">0.106 ± 0.022</td>
+<td align="left">0.724 ± 0.05</td>
+<td align="left">0.661 ± 0.057</td>
+<td align="left">0.68 ± 0.057</td>
+</tr>
+<tr class="even">
+<td align="left">Survival</td>
+<td align="left">0.936 ± 0.026</td>
+<td align="left">0.988 ± 0.007</td>
+<td align="left">0.858 ± 0.043</td>
+<td align="left">0.938 ± 0.016</td>
+<td align="left">0.891 ± 0.026</td>
+<td align="left">0.884 ± 0.032</td>
+</tr>
+<tr class="odd">
+<td align="left">Vegetative biomass (g)</td>
+<td align="left">6.08 ± 0.72</td>
+<td align="left">7.59 ± 0.53</td>
+<td align="left">14 ± 0.8</td>
+<td align="left">15 ± 0.5</td>
+<td align="left">14.3 ± 0.6</td>
+<td align="left">15 ± 0.7</td>
+</tr>
+<tr class="even">
+<td align="left">Flowering if survived</td>
+<td align="left">1 ± 0</td>
+<td align="left">1 ± 0</td>
+<td align="left">0.96 ± 0.021</td>
+<td align="left">0.947 ± 0.013</td>
+<td align="left">0.994 ± 0.004</td>
+<td align="left">0.984 ± 0.01</td>
+</tr>
+<tr class="odd">
+<td align="left">Days to flower</td>
+<td align="left">174 ± 3</td>
+<td align="left">184 ± 3</td>
+<td align="left">191 ± 4</td>
+<td align="left">186 ± 3</td>
+<td align="left">168 ± 3</td>
+<td align="left">174 ± 3</td>
+</tr>
+<tr class="even">
+<td align="left">First inflorescence biomass (g)</td>
+<td align="left">0.586 ± 0.025</td>
+<td align="left">0.583 ± 0.022</td>
+<td align="left">0.282 ± 0.027</td>
+<td align="left">0.204 ± 0.025</td>
+<td align="left">0.0896 ± 0.0258</td>
+<td align="left">0.0891 ± 0.0268</td>
+</tr>
+<tr class="odd">
+<td align="left">Inflorescence biomass (g)</td>
+<td align="left">2.99 ± 0.25</td>
+<td align="left">3.02 ± 0.18</td>
+<td align="left">2.09 ± 0.28</td>
+<td align="left">2.64 ± 0.18</td>
+<td align="left">0.893 ± 0.199</td>
+<td align="left">0.895 ± 0.233</td>
+</tr>
+<tr class="even">
+<td align="left">Flower number</td>
+<td align="left">1120 ± 160</td>
+<td align="left">1030 ± 120</td>
+<td align="left">1410 ± 180</td>
+<td align="left">1840 ± 110</td>
+<td align="left">184 ± 132</td>
+<td align="left">173 ± 151</td>
+</tr>
+<tr class="odd">
+<td align="left">Pollen viability</td>
+<td align="left">0.875 ± 0.03</td>
+<td align="left">0.85 ± 0.036</td>
+<td align="left">0.515 ± 0.077</td>
+<td align="left">0.604 ± 0.073</td>
+<td align="left">0.959 ± 0.013</td>
+<td align="left">0.93 ± 0.022</td>
+</tr>
+<tr class="even">
+<td align="left">Pollen grains per anther</td>
+<td align="left">11500 ± 700</td>
+<td align="left">11900 ± 600</td>
+<td align="left">9690 ± 670</td>
+<td align="left">12200 ± 500</td>
+<td align="left">10900 ± 800</td>
+<td align="left">9870 ± 830</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>F1.RI &lt;- F1.emm %&gt;% separate(sxc, into=c(&quot;momsp&quot;,&quot;crosstype&quot;)) %&gt;% 
+  filter(crosstype !=&quot;within&quot;, trait != &quot;firstflower&quot;) %&gt;% #TODO firstflower is backwards fitness
+  select(trait, momsp, crosstype, estimate) %&gt;% pivot_wider(names_from=crosstype, values_from=estimate) %&gt;% 
+  rowwise() %&gt;% mutate(across(c(between,hybrid), ~ ./max(between,hybrid)),
+                       RI = 1 - 2 *  hybrid/(hybrid + between)) %&gt;% 
+    left_join(traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;% select(trait=yvar, step)) %&gt;% arrange(step) %&gt;% 
+      mutate(trait = recode(trait, !!!set_names(traits$ylab[-1], traits$yvar[-1])) %&gt;% 
+               str_remove(fixed(&quot; (g)&quot;)) %&gt;% factor() %&gt;% fct_reorder(step)) 
+  
+F1.RI %&gt;% select(-step) %&gt;% 
+  pivot_wider(names_from=momsp, values_from=c(between, hybrid, RI)) %&gt;% 
+  select(trait, KK = between_kaal, KH = hybrid_kaal, K_RI=RI_kaal, HH = between_hook, HK = hybrid_hook, H_RI=RI_hook) %&gt;% 
+  kable(caption=&quot;Relative fitness components between hybrids and their maternal parent, and RI from Sobel &amp; Chen 2014&quot;, digits=3)</code></pre>
+<table>
+<caption>Relative fitness components between hybrids and their maternal parent, and RI from Sobel &amp; Chen 2014</caption>
+<thead>
+<tr class="header">
+<th align="left">trait</th>
+<th align="right">KK</th>
+<th align="right">KH</th>
+<th align="right">K_RI</th>
+<th align="right">HH</th>
+<th align="right">HK</th>
+<th align="right">H_RI</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Capsule formation</td>
+<td align="right">1.000</td>
+<td align="right">0.906</td>
+<td align="right">0.049</td>
+<td align="right">1.000</td>
+<td align="right">0.770</td>
+<td align="right">0.130</td>
+</tr>
+<tr class="even">
+<td align="left">Viable seeds if capsule formed</td>
+<td align="right">1.000</td>
+<td align="right">0.785</td>
+<td align="right">0.121</td>
+<td align="right">1.000</td>
+<td align="right">0.476</td>
+<td align="right">0.355</td>
+</tr>
+<tr class="odd">
+<td align="left">Germination</td>
+<td align="right">1.000</td>
+<td align="right">0.159</td>
+<td align="right">0.725</td>
+<td align="right">0.913</td>
+<td align="right">1.000</td>
+<td align="right">-0.046</td>
+</tr>
+<tr class="even">
+<td align="left">Survival</td>
+<td align="right">1.000</td>
+<td align="right">0.869</td>
+<td align="right">0.070</td>
+<td align="right">0.950</td>
+<td align="right">1.000</td>
+<td align="right">-0.025</td>
+</tr>
+<tr class="odd">
+<td align="left">Vegetative biomass</td>
+<td align="right">0.542</td>
+<td align="right">1.000</td>
+<td align="right">-0.297</td>
+<td align="right">0.954</td>
+<td align="right">1.000</td>
+<td align="right">-0.024</td>
+</tr>
+<tr class="even">
+<td align="left">Flowering if survived</td>
+<td align="right">1.000</td>
+<td align="right">0.960</td>
+<td align="right">0.021</td>
+<td align="right">1.000</td>
+<td align="right">0.952</td>
+<td align="right">0.024</td>
+</tr>
+<tr class="odd">
+<td align="left">First inflorescence biomass</td>
+<td align="right">1.000</td>
+<td align="right">0.484</td>
+<td align="right">0.347</td>
+<td align="right">0.438</td>
+<td align="right">1.000</td>
+<td align="right">-0.390</td>
+</tr>
+<tr class="even">
+<td align="left">Inflorescence biomass</td>
+<td align="right">1.000</td>
+<td align="right">0.692</td>
+<td align="right">0.182</td>
+<td align="right">0.338</td>
+<td align="right">1.000</td>
+<td align="right">-0.495</td>
+</tr>
+<tr class="odd">
+<td align="left">Flower number</td>
+<td align="right">0.733</td>
+<td align="right">1.000</td>
+<td align="right">-0.154</td>
+<td align="right">0.100</td>
+<td align="right">1.000</td>
+<td align="right">-0.819</td>
+</tr>
+<tr class="even">
+<td align="left">Pollen viability</td>
+<td align="right">1.000</td>
+<td align="right">0.606</td>
+<td align="right">0.245</td>
+<td align="right">1.000</td>
+<td align="right">0.630</td>
+<td align="right">0.227</td>
+</tr>
+<tr class="odd">
+<td align="left">Pollen grains per anther</td>
+<td align="right">1.000</td>
+<td align="right">0.817</td>
+<td align="right">0.100</td>
+<td align="right">0.894</td>
+<td align="right">1.000</td>
+<td align="right">-0.056</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>ggplot(F1.RI, aes(y=fct_rev(trait), x=RI, color=momsp)) + 
+  geom_vline(xintercept=0, linetype=2) + geom_vline(xintercept=-1)+ geom_vline(xintercept=1)+ 
+  geom_point(shape=17, size=2) +
+  scale_color_manual(values = set_names(F1.col[c(2,5)], c(&quot;kaal&quot;,&quot;hook&quot;)), labels=c(&quot;S. kaalae&quot;,&quot;S. hookeri&quot;)) +
+  scale_x_continuous(limits=c(-1.1,1.1), breaks=c(-1,-0.5,0,0.5,1),
+                     labels=c(&quot;-1\nheterosis&quot;,&quot;-0.5&quot;,&quot;0\nno\nbarrier&quot;,&quot;0.5&quot;,&quot;1\ncomplete\nisolation&quot;)) + 
+  theme_minimal() + theme(legend.position = &quot;top&quot;, legend.text = element_text(face=&quot;italic&quot;))+
+  labs(x=&quot;Reproductive isolation&quot;, y=&quot;Fitness component&quot;, color=&quot;Maternal parent&quot;)</code></pre>
+<p><img src="figures/fitness-1.svg" width="576" /></p>
 </div>
 </div>
 
