@@ -1105,6 +1105,7 @@ map_dfr(F1, ~ tally(get(.)), .id=&quot;dataset&quot;) %&gt;%
 <h1>F1 Generation</h1>
 <div id="models" class="section level2">
 <h2>Models</h2>
+<p>Expand this code to see the model specifications:</p>
 <pre class="r"><code>F1.mod &lt;- list(
   firstflower =          glmmTMB(firstflower ~          sxc +           (1|mompid) + (1|dadpid), data=survflr),
   firstinflo.biomass.g = glmmTMB(firstinflo.biomass.g ~ sxc + collect + (1|mompid) + (1|dadpid), data=survflr),
@@ -1114,17 +1115,150 @@ map_dfr(F1, ~ tally(get(.)), .id=&quot;dataset&quot;) %&gt;%
   total.per.anther =     glmmTMB(total.per.anther ~     sxc +           (1|mompid) + (1|dadpid), data=pollen),
   viable.seeds =         glmmTMB(viable.seeds ~         sxc +           (1|mompid) + (1|dadpop), data=filter(seeds, viable.seeds&gt;0),
                                  family=&quot;truncated_nbinom1&quot;),
-  prop.germ =            glmmTMB(prop.germ      ~ sxc + (1|mompid) + (1|dadpid), family=&quot;binomial&quot;, data=germination, weights = planted),
-  alive =                glmmTMB(alive          ~ sxc + (1|mompid) + (1|dadpid), family=&quot;binomial&quot;, data=survflr),
-  flowered =             glmmTMB(flowered       ~ sxc + (1|mompid) + (1|dadpid), family=&quot;binomial&quot;, data=filter(survflr, alive)),
-  prop.viable =          glmmTMB(prop.viable    ~ sxc + (1|mompid) + (1|dadpid), family=&quot;binomial&quot;, data=pollen, weights = total),
-  capsule.formed =       glmmTMB(capsule.formed ~ sxc + (1|mompid) + (1|dadpop), family=&quot;binomial&quot;, data=seeds))
+  prop.germ =            glmmTMB(prop.germ      ~ sxc + (1|mompid) + (1|dadpid), family=&quot;betabinomial&quot;, data=germination, weights = planted),
+  alive =                glmmTMB(alive          ~ sxc + (1|mompid) + (1|dadpop), family=&quot;betabinomial&quot;, data=survflr),#dadpid model prob.
+  flowered =             glmmTMB(flowered       ~ sxc + (1|mompid) + (1|dadpid), family=&quot;betabinomial&quot;, data=filter(survflr, alive)),
+  prop.viable =          glmmTMB(prop.viable    ~ sxc + (1|mompid) + (1|dadpid), family=&quot;betabinomial&quot;, data=pollen, weights = total),
+  capsule.formed =       glmmTMB(capsule.formed ~ sxc + (1|mompid) + (1|dadpop), family=&quot;betabinomial&quot;, data=seeds))
 #TODO try to find dadpid for seeds</code></pre>
 </div>
 <div id="inference" class="section level2">
 <h2>Inference</h2>
-<pre class="r"><code>F1.test &lt;- map_dfr(F1.mod, ~car::Anova(.) %&gt;% tidy(), .id=&quot;trait&quot;)
-F1.emm &lt;-  map_dfr(F1.mod, ~emmeans(., ~sxc) %&gt;% summary(type=&quot;response&quot;) %&gt;%  #average over collect date
+<pre class="r"><code>F1.test &lt;- map_dfr(F1.mod, ~car::Anova(.) %&gt;% tidy(), .id=&quot;trait&quot;) 
+F1.test %&gt;% left_join(traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;% select(trait=yvar, step)) %&gt;% 
+  arrange(step) %&gt;% select(-step) %&gt;% 
+  mutate(term=recode(term, sxc = &quot;cross&quot;, collect= &quot;collection date&quot;),
+         trait = recode(trait, !!!set_names(traits$ylab[-1], traits$yvar[-1])) %&gt;% 
+               str_remove(fixed(&quot; (g)&quot;)),
+         p.value=format(p.value,digits=2)) %&gt;% 
+  kable(digits=1, caption=&quot;ANOVA of GLMM (Type III Wald chisquare tests)&quot;)</code></pre>
+<table>
+<caption>ANOVA of GLMM (Type III Wald chisquare tests)</caption>
+<thead>
+<tr class="header">
+<th align="left">trait</th>
+<th align="left">term</th>
+<th align="right">statistic</th>
+<th align="right">df</th>
+<th align="left">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Capsule formation</td>
+<td align="left">cross</td>
+<td align="right">8.6</td>
+<td align="right">5</td>
+<td align="left">1.3e-01</td>
+</tr>
+<tr class="even">
+<td align="left">Viable seeds if capsule formed</td>
+<td align="left">cross</td>
+<td align="right">93.6</td>
+<td align="right">5</td>
+<td align="left">1.2e-18</td>
+</tr>
+<tr class="odd">
+<td align="left">Germination</td>
+<td align="left">cross</td>
+<td align="right">147.4</td>
+<td align="right">5</td>
+<td align="left">4.8e-30</td>
+</tr>
+<tr class="even">
+<td align="left">Survival</td>
+<td align="left">cross</td>
+<td align="right">22.7</td>
+<td align="right">5</td>
+<td align="left">3.9e-04</td>
+</tr>
+<tr class="odd">
+<td align="left">Vegetative biomass</td>
+<td align="left">cross</td>
+<td align="right">201.5</td>
+<td align="right">5</td>
+<td align="left">1.4e-41</td>
+</tr>
+<tr class="even">
+<td align="left">Vegetative biomass</td>
+<td align="left">collection date</td>
+<td align="right">70.8</td>
+<td align="right">1</td>
+<td align="left">4.0e-17</td>
+</tr>
+<tr class="odd">
+<td align="left">Flowering if survived</td>
+<td align="left">cross</td>
+<td align="right">10.4</td>
+<td align="right">5</td>
+<td align="left">6.5e-02</td>
+</tr>
+<tr class="even">
+<td align="left">Days to flower</td>
+<td align="left">cross</td>
+<td align="right">67.4</td>
+<td align="right">5</td>
+<td align="left">3.6e-13</td>
+</tr>
+<tr class="odd">
+<td align="left">First inflorescence biomass</td>
+<td align="left">cross</td>
+<td align="right">360.6</td>
+<td align="right">5</td>
+<td align="left">9.1e-76</td>
+</tr>
+<tr class="even">
+<td align="left">First inflorescence biomass</td>
+<td align="left">collection date</td>
+<td align="right">64.7</td>
+<td align="right">1</td>
+<td align="left">8.8e-16</td>
+</tr>
+<tr class="odd">
+<td align="left">Inflorescence biomass</td>
+<td align="left">cross</td>
+<td align="right">117.3</td>
+<td align="right">5</td>
+<td align="left">1.2e-23</td>
+</tr>
+<tr class="even">
+<td align="left">Inflorescence biomass</td>
+<td align="left">collection date</td>
+<td align="right">9.7</td>
+<td align="right">1</td>
+<td align="left">1.8e-03</td>
+</tr>
+<tr class="odd">
+<td align="left">Flower number</td>
+<td align="left">cross</td>
+<td align="right">212.9</td>
+<td align="right">5</td>
+<td align="left">5.0e-44</td>
+</tr>
+<tr class="even">
+<td align="left">Flower number</td>
+<td align="left">collection date</td>
+<td align="right">3.4</td>
+<td align="right">1</td>
+<td align="left">6.7e-02</td>
+</tr>
+<tr class="odd">
+<td align="left">Pollen viability</td>
+<td align="left">cross</td>
+<td align="right">177.4</td>
+<td align="right">5</td>
+<td align="left">1.9e-36</td>
+</tr>
+<tr class="even">
+<td align="left">Pollen grains per anther</td>
+<td align="left">cross</td>
+<td align="right">10.6</td>
+<td align="right">5</td>
+<td align="left">6.0e-02</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>F1.emm &lt;-  map_dfr(F1.mod, ~emmeans(., ~sxc) %&gt;% summary(type=&quot;response&quot;) %&gt;%  #average over collect date
                              tidy %&gt;% rename(estimate=any_of(c(&quot;response&quot;,&quot;prob&quot;))), .id=&quot;trait&quot;) </code></pre>
 </div>
 <div id="plots" class="section level2">
@@ -1246,21 +1380,21 @@ traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;% select(data, yvar, ylab,
 </tr>
 <tr class="odd">
 <td align="left">Germination</td>
-<td align="left">0.547 ± 0.062</td>
-<td align="left">0.668 ± 0.051</td>
-<td align="left">0.106 ± 0.022</td>
-<td align="left">0.724 ± 0.05</td>
-<td align="left">0.661 ± 0.057</td>
-<td align="left">0.68 ± 0.057</td>
+<td align="left">0.536 ± 0.07</td>
+<td align="left">0.682 ± 0.051</td>
+<td align="left">0.11 ± 0.024</td>
+<td align="left">0.706 ± 0.047</td>
+<td align="left">0.684 ± 0.056</td>
+<td align="left">0.665 ± 0.063</td>
 </tr>
 <tr class="even">
 <td align="left">Survival</td>
-<td align="left">0.936 ± 0.026</td>
-<td align="left">0.988 ± 0.007</td>
-<td align="left">0.858 ± 0.043</td>
-<td align="left">0.938 ± 0.016</td>
-<td align="left">0.891 ± 0.026</td>
-<td align="left">0.884 ± 0.032</td>
+<td align="left">0.932 ± 0.025</td>
+<td align="left">0.987 ± 0.008</td>
+<td align="left">0.856 ± 0.038</td>
+<td align="left">0.936 ± 0.014</td>
+<td align="left">0.89 ± 0.022</td>
+<td align="left">0.884 ± 0.028</td>
 </tr>
 <tr class="odd">
 <td align="left">Vegetative biomass (g)</td>
@@ -1318,12 +1452,12 @@ traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;% select(data, yvar, ylab,
 </tr>
 <tr class="odd">
 <td align="left">Pollen viability</td>
-<td align="left">0.875 ± 0.03</td>
-<td align="left">0.85 ± 0.036</td>
-<td align="left">0.515 ± 0.077</td>
-<td align="left">0.604 ± 0.073</td>
-<td align="left">0.959 ± 0.013</td>
-<td align="left">0.93 ± 0.022</td>
+<td align="left">0.84 ± 0.032</td>
+<td align="left">0.85 ± 0.026</td>
+<td align="left">0.428 ± 0.044</td>
+<td align="left">0.51 ± 0.043</td>
+<td align="left">0.891 ± 0.029</td>
+<td align="left">0.873 ± 0.032</td>
 </tr>
 <tr class="even">
 <td align="left">Pollen grains per anther</td>
@@ -1384,18 +1518,18 @@ F1.RI %&gt;% select(-step) %&gt;%
 <tr class="odd">
 <td align="left">Germination</td>
 <td align="right">1.000</td>
-<td align="right">0.159</td>
-<td align="right">0.725</td>
-<td align="right">0.913</td>
+<td align="right">0.162</td>
+<td align="right">0.722</td>
+<td align="right">0.970</td>
 <td align="right">1.000</td>
-<td align="right">-0.046</td>
+<td align="right">-0.015</td>
 </tr>
 <tr class="even">
 <td align="left">Survival</td>
 <td align="right">1.000</td>
-<td align="right">0.869</td>
-<td align="right">0.070</td>
-<td align="right">0.950</td>
+<td align="right">0.868</td>
+<td align="right">0.071</td>
+<td align="right">0.951</td>
 <td align="right">1.000</td>
 <td align="right">-0.025</td>
 </tr>
@@ -1447,11 +1581,11 @@ F1.RI %&gt;% select(-step) %&gt;%
 <tr class="even">
 <td align="left">Pollen viability</td>
 <td align="right">1.000</td>
-<td align="right">0.606</td>
-<td align="right">0.245</td>
+<td align="right">0.503</td>
+<td align="right">0.330</td>
 <td align="right">1.000</td>
-<td align="right">0.630</td>
-<td align="right">0.227</td>
+<td align="right">0.572</td>
+<td align="right">0.272</td>
 </tr>
 <tr class="odd">
 <td align="left">Pollen grains per anther</td>

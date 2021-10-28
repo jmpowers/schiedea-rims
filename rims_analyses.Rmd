@@ -73,6 +73,8 @@ map_dfr(F2, ~ tally(group_by(get(.), generation, momdadcross)), .id="dataset") %
 
 ## Models
 
+Expand this code to see the model specifications:
+
 ```{r models}
 F1.mod <- list(
   firstflower =          glmmTMB(firstflower ~          sxc +           (1|mompid) + (1|dadpid), data=survflr),
@@ -83,18 +85,26 @@ F1.mod <- list(
   total.per.anther =     glmmTMB(total.per.anther ~     sxc +           (1|mompid) + (1|dadpid), data=pollen),
   viable.seeds =         glmmTMB(viable.seeds ~         sxc +           (1|mompid) + (1|dadpop), data=filter(seeds, viable.seeds>0),
                                  family="truncated_nbinom1"),
-  prop.germ =            glmmTMB(prop.germ      ~ sxc + (1|mompid) + (1|dadpid), family="binomial", data=germination, weights = planted),
-  alive =                glmmTMB(alive          ~ sxc + (1|mompid) + (1|dadpid), family="binomial", data=survflr),
-  flowered =             glmmTMB(flowered       ~ sxc + (1|mompid) + (1|dadpid), family="binomial", data=filter(survflr, alive)),
-  prop.viable =          glmmTMB(prop.viable    ~ sxc + (1|mompid) + (1|dadpid), family="binomial", data=pollen, weights = total),
-  capsule.formed =       glmmTMB(capsule.formed ~ sxc + (1|mompid) + (1|dadpop), family="binomial", data=seeds))
+  prop.germ =            glmmTMB(prop.germ      ~ sxc + (1|mompid) + (1|dadpid), family="betabinomial", data=germination, weights = planted),
+  alive =                glmmTMB(alive          ~ sxc + (1|mompid) + (1|dadpop), family="betabinomial", data=survflr),#dadpid model prob.
+  flowered =             glmmTMB(flowered       ~ sxc + (1|mompid) + (1|dadpid), family="betabinomial", data=filter(survflr, alive)),
+  prop.viable =          glmmTMB(prop.viable    ~ sxc + (1|mompid) + (1|dadpid), family="betabinomial", data=pollen, weights = total),
+  capsule.formed =       glmmTMB(capsule.formed ~ sxc + (1|mompid) + (1|dadpop), family="betabinomial", data=seeds))
 #TODO try to find dadpid for seeds
 ```
 
 ## Inference 
 
 ```{r inference}
-F1.test <- map_dfr(F1.mod, ~car::Anova(.) %>% tidy(), .id="trait")
+F1.test <- map_dfr(F1.mod, ~car::Anova(.) %>% tidy(), .id="trait") 
+F1.test %>% left_join(traits %>% filter(generation=="F1") %>% select(trait=yvar, step)) %>% 
+  arrange(step) %>% select(-step) %>% 
+  mutate(term=recode(term, sxc = "cross", collect= "collection date"),
+         trait = recode(trait, !!!set_names(traits$ylab[-1], traits$yvar[-1])) %>% 
+               str_remove(fixed(" (g)")),
+         p.value=format(p.value,digits=2)) %>% 
+  kable(digits=1, caption="ANOVA of GLMM (Type III Wald chisquare tests)")
+  
 F1.emm <-  map_dfr(F1.mod, ~emmeans(., ~sxc) %>% summary(type="response") %>%  #average over collect date
                              tidy %>% rename(estimate=any_of(c("response","prob"))), .id="trait") 
 ```
