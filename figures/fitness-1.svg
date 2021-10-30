@@ -49,11 +49,11 @@
 <line x1='181.64' y1='237.01' x2='181.64' y2='44.68' style='stroke-width: 1.07; stroke-linecap: butt;' />
 <line x1='403.25' y1='237.01' x2='403.25' y2='44.68' style='stroke-width: 1.07; stroke-linecap: butt;' />
 <polygon points='297.90,51.11 301.25,56.92 294.55,56.92 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
-<polygon points='306.86,51.11 310.21,56.92 303.51,56.92 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
-<polygon points='305.81,68.28 309.16,74.09 302.46,74.09 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
-<polygon points='331.76,68.28 335.11,74.09 328.41,74.09 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
-<polygon points='372.42,85.46 375.77,91.26 369.07,91.26 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
-<polygon points='290.75,85.46 294.10,91.26 287.40,91.26 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
+<polygon points='306.85,51.11 310.20,56.92 303.50,56.92 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
+<polygon points='305.66,68.28 309.01,74.09 302.31,74.09 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
+<polygon points='331.78,68.28 335.13,74.09 328.42,74.09 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
+<polygon points='372.58,85.46 375.93,91.26 369.23,91.26 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
+<polygon points='290.61,85.46 293.96,91.26 287.26,91.26 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
 <polygon points='300.31,102.63 303.66,108.43 296.95,108.43 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
 <polygon points='289.68,102.63 293.04,108.43 286.33,108.43 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
 <polygon points='259.49,119.80 262.84,125.60 256.14,125.60 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
@@ -66,10 +66,10 @@
 <polygon points='237.64,171.32 240.99,177.12 234.28,177.12 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
 <polygon points='275.39,188.49 278.74,194.29 272.04,194.29 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
 <polygon points='201.73,188.49 205.08,194.29 198.38,194.29 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
-<polygon points='329.07,205.66 332.42,211.46 325.71,211.46 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
-<polygon points='322.60,205.66 325.96,211.46 319.25,211.46 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
-<polygon points='303.57,222.83 306.92,228.64 300.22,228.64 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
-<polygon points='286.25,222.83 289.60,228.64 282.90,228.64 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
+<polygon points='329.24,205.66 332.59,211.46 325.89,211.46 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
+<polygon points='322.86,205.66 326.21,211.46 319.51,211.46 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
+<polygon points='303.87,222.83 307.22,228.64 300.52,228.64 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
+<polygon points='285.89,222.83 289.24,228.64 282.54,228.64 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
 </g>
 <g clip-path='url(#cpMC4wMHw0MzIuMDB8MC4wMHwyODguMDA=)'>
 <text x='153.44' y='229.91' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='105.47px' lengthAdjust='spacingAndGlyphs'>Pollen grains per anther</text>

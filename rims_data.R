@@ -98,7 +98,7 @@ crosses <- read_sheet(gsheet, "crosses", col_types="c") %>%
 # seeds -------------------------------------------------------------------
 
 seeds <- read_sheet(gsheet, "seeds", col_types="c") %>% 
-  filter(dadpop != "closed") %>% 
+  filter(dadpop != "closed") %>% #not sure what closed means
   mutate(viable.seeds = as.integer(viable.seeds), 
          capsule.formed = as.integer(viable.seeds>0)) %>% 
   add_combos()
