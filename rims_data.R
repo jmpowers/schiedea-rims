@@ -4,6 +4,7 @@ library(googlesheets4)
 
 # common ------------------------------------------------------------------
 
+gs4_auth(email = T)
 traits <- read_sheet("1f487VMTsYzYGn0_daogtTF0nNE7ntoqd0Yh4h9tgyDE", "Traits")
 
 gsheet <- gs4_get("1pYbAnEDw2KfM34l85wlJV6pfAr1DroPj_7GjfApnCq8")
@@ -117,12 +118,11 @@ germination <- read_sheet(gsheet, "germination", col_types="c") %>%
 # vegbiomass --------------------------------------------------------------
 
 vegbiomass <- read_sheet(gsheet, "vegbiomass", col_types="c") %>% 
-  drop_na(crossid) %>% 
+  filter(is.na(use.veg)) %>%  
   mutate(across(contains("date"), ymd),
          collect = collect.date - first_planting, 
          veg.biomass.g=as.numeric(veg.biomass.g)) %>%
   left_join(crosses) %>% 
-  drop_na(crosstype) %>% 
   add_combos()
 
 # survflr -------------------------------------------------------------
@@ -160,7 +160,8 @@ pollen <- read_sheet(gsheet, "pollen", col_types="c") %>%
 
 # inflobiomass ------------------------------------------------------------
 
-inflobiomass <- read_sheet(gsheet, "inflobiomass", col_types="c") %>% 
+inflobiomass <- read_sheet(gsheet, "inflobiomass", col_types="c") %>%
+  filter(is.na(use.inflo)) %>% 
   mutate(across(matches("date"), ymd),
          across(c(flrs, inflo.e, inflo, inflo.biomass.g), as.numeric),
          collect = collect.date - first_planting) %>% 
