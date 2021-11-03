@@ -47,11 +47,12 @@ F1.col <- set_names(c(brewer.pal(3,"Greens")[2:3],brewer.pal(9,"Oranges")[5], br
 traits %>% filter(generation !="P") %>% select(c(generation,ylab, yvar, data, type)) %>% kable
 ```
 
-# Sample sizes
+# F1 Generation
+
+## Sample sizes
 
 ```{r sampsize}
 F1 <- set_names(datanames[1:6]); F1[[6]] <- "inflobiomass.sum"
-F2 <- set_names(datanames[7:10])
 
 map_dfr(F1, ~ tally(get(.)), .id="dataset") %>% 
   pivot_wider(names_from=dataset, values_from=n) %>% kable(caption="F1 datasets totals")
@@ -61,15 +62,7 @@ map_dfr(F1, ~ tally(group_by(get(.), crosstype, momsp, dadsp)), .id="dataset") %
 
 map_dfr(F1, ~ tally(group_by(get(.), crosstype, momsp, dadsp, mompop, dadpop)), .id="dataset") %>% 
   pivot_wider(names_from=dataset, values_from=n) %>% kable(caption="F1 datasets by crosstype and population")
-
-map_dfr(F2, ~ tally(get(.)), .id="dataset") %>% 
-  pivot_wider(names_from=dataset, values_from=n) %>% kable(caption="F2 datasets totals")
-
-map_dfr(F2, ~ tally(group_by(get(.), generation, momdadcross)), .id="dataset") %>% 
-  pivot_wider(names_from=dataset, values_from=n) %>% kable(caption="F2 datasets by cross")
 ```
-
-# F1 Generation
 
 ## Models
 
@@ -213,4 +206,85 @@ ggplot(F1.RI, aes(y=fct_rev(trait), x=RI, color=momsp)) +
   theme_minimal() + theme(legend.position = "top", legend.text = element_text(face="italic"))+
   labs(x="Reproductive isolation", y="Fitness component", color="Maternal parent")
 ```
+
+# F2 Generation
+
+## Sample sizes
+
+```{r f2sampsize}
+F2 <- set_names(datanames[7:10])
+
+map_dfr(F2, ~ tally(get(.)), .id="dataset") %>% 
+  pivot_wider(names_from=dataset, values_from=n) %>% kable(caption="F2 datasets totals")
+
+map_dfr(F2, ~ tally(group_by(get(.), generation, momdadcross)), .id="dataset") %>% 
+  pivot_wider(names_from=dataset, values_from=n) %>% kable(caption="F2 datasets by cross")
+```
+
+## Models
+
+```{r f2models}
+F2.mod <- list(
+  seed.mass.mg =         glmmTMB(seed.mass.mg ~     momdadcross, data=f1seedmass),
+  total.per.anther =     glmmTMB(total.per.anther ~ momdadcross, data=f2pollen),
+  viable.seeds =         glmmTMB(viable.seeds ~     momdadcross, data=filter(f1seeds, viable.seeds>0), family="truncated_nbinom1"),
+  prop.viable =          glmmTMB(prop.viable    ~   momdadcross, family="betabinomial", data=f2pollen, weights = total),
+  capsule.formed =       glmmTMB(capsule.formed ~   momdadcross, family="betabinomial", data=f1seeds))
+```
+
+
+## Inference
+
+```{r f2inference}
+F2.test <- map_dfr(F2.mod, ~car::Anova(.) %>% tidy(), .id="trait") 
+F2.test %>% left_join(traits %>% filter(generation=="F2") %>% select(trait=yvar, step)) %>% 
+  arrange(step) %>% select(-step) %>% 
+  mutate(trait = recode(trait, !!!set_names(traits$ylab[-1], traits$yvar[-1])),
+         p.value=format(p.value,digits=2)) %>% 
+  kable(digits=1, caption="ANOVA of GLMM (Type III Wald chisquare tests)")
+  
+F2.emm <-  map_dfr(F2.mod, ~emmeans(., ~momdadcross) %>% summary(type="response") %>%  
+                             tidy %>% rename(estimate=any_of(c("response","prob"))), .id="trait") 
+```
+
+
+## Plots
+
+```{r f2plot}
+momdadcross.levels <- c("H x H","H x HK","H x KH","H x K","HK x H","HK x HK","HK x KH","HK x K","KH x H","KH x HK","KH x KH","KH x K","K x H","K x HK","K x KH","K x K")
+momdadcross.labels <- momdadcross.levels %>% str_replace_all("\\s","\n")
+
+plot_F2 <- function(emm, data, yvar, ylab, type="continuous") {
+  data <- get(data) %>% mutate(momdadcross = factor(as.character(momdadcross), levels=momdadcross.levels))
+  if(type=="continuous") {
+    p <- ggplot(data, aes_string(y=yvar, x="momdadcross", fill="momcross")) + 
+      geom_violin(draw_quantiles = (1:3)/4) + 
+      geom_pointrange(data=filter(emm, trait==yvar) %>% 
+                        separate(momdadcross, into=c("momcross","dadcross"), sep=" x ", remove=F) %>% 
+                        mutate(momdadcross = factor(as.character(momdadcross), levels=momdadcross.levels)),
+                      aes(y=estimate, ymax=conf.high, ymin=conf.low),color="black") + 
+      scale_fill_manual(values=set_names(F1.col[2:5],c("K","KH","HK","H")))+
+      guides(fill="none") +
+      scale_y_continuous(name = ylab, expand = expansion(mult=c(0, 0.05)), limits=c(0,NA))
+  } else if(type=="binary") {
+    p <- ggplot(data, aes_string(y=yvar, x="momdadcross", color="momcross")) + 
+      geom_pointrange(data=filter(emm, trait==yvar) %>% 
+                        separate(momdadcross, into=c("momcross","dadcross"), sep=" x ", remove=F) %>% 
+                        mutate(momdadcross = factor(as.character(momdadcross), levels=momdadcross.levels)) %>% 
+                        mutate(conf.low  = ifelse(conf.high-conf.low>0.9,NA,conf.low), 
+                               conf.high = ifelse(conf.high-conf.low>0.9,NA,conf.high)), 
+                      aes(y=estimate, ymax=conf.high, ymin=conf.low)) + 
+      scale_color_manual(values=set_names(F1.col[2:5],c("K","KH","HK","H")))+
+      guides(color="none") +
+      scale_y_continuous(ylab, limits=c(0,1), labels=~scales::percent(.,accuracy=1))
+  }
+  p <- p + scale_x_discrete("Cross", labels = momdadcross.labels, drop=F) +
+    theme_minimal()
+  print(p)
+}
+
+traits %>% filter(generation=="F2") %>% select(data, yvar, ylab, type) %>% 
+  pwalk(plot_F2, emm=F2.emm)
+```
+
 

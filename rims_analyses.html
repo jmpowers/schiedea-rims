@@ -11,7 +11,7 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2021-11-02" />
+<meta name="date" content="2021-11-03" />
 
 <title>Schiedea hookeri/kaalae RIMs</title>
 
@@ -255,7 +255,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Schiedea hookeri/kaalae RIMs</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John Powers</a></h4>
-<h4 class="date">2021-11-02</h4>
+<h4 class="date">2021-11-03</h4>
 
 </div>
 
@@ -434,10 +434,11 @@ F1.col &lt;- set_names(c(brewer.pal(3,&quot;Greens&quot;)[2:3],brewer.pal(9,&quo
 </tbody>
 </table>
 </div>
-<div id="sample-sizes" class="section level1">
-<h1>Sample sizes</h1>
+<div id="f1-generation" class="section level1">
+<h1>F1 Generation</h1>
+<div id="sample-sizes" class="section level2">
+<h2>Sample sizes</h2>
 <pre class="r"><code>F1 &lt;- set_names(datanames[1:6]); F1[[6]] &lt;- &quot;inflobiomass.sum&quot;
-F2 &lt;- set_names(datanames[7:10])
 
 map_dfr(F1, ~ tally(get(.)), .id=&quot;dataset&quot;) %&gt;% 
   pivot_wider(names_from=dataset, values_from=n) %&gt;% kable(caption=&quot;F1 datasets totals&quot;)</code></pre>
@@ -910,199 +911,7 @@ map_dfr(F1, ~ tally(get(.)), .id=&quot;dataset&quot;) %&gt;%
 </tr>
 </tbody>
 </table>
-<pre class="r"><code>map_dfr(F2, ~ tally(get(.)), .id=&quot;dataset&quot;) %&gt;% 
-  pivot_wider(names_from=dataset, values_from=n) %&gt;% kable(caption=&quot;F2 datasets totals&quot;)</code></pre>
-<table>
-<caption>F2 datasets totals</caption>
-<thead>
-<tr class="header">
-<th align="right">f1seeds</th>
-<th align="right">f1seedmass</th>
-<th align="right">f2pollen</th>
-<th align="right">f2seeds</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="right">1900</td>
-<td align="right">230</td>
-<td align="right">134</td>
-<td align="right">222</td>
-</tr>
-</tbody>
-</table>
-<pre class="r"><code>map_dfr(F2, ~ tally(group_by(get(.), generation, momdadcross)), .id=&quot;dataset&quot;) %&gt;% 
-  pivot_wider(names_from=dataset, values_from=n) %&gt;% kable(caption=&quot;F2 datasets by cross&quot;)</code></pre>
-<table>
-<caption>F2 datasets by cross</caption>
-<thead>
-<tr class="header">
-<th align="left">generation</th>
-<th align="left">momdadcross</th>
-<th align="right">f1seeds</th>
-<th align="right">f1seedmass</th>
-<th align="right">f2pollen</th>
-<th align="right">f2seeds</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Fcontrol</td>
-<td align="left">HK x control</td>
-<td align="right">38</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">Fcontrol</td>
-<td align="left">KH x control</td>
-<td align="right">74</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">FF</td>
-<td align="left">HK x HK</td>
-<td align="right">97</td>
-<td align="right">15</td>
-<td align="right">11</td>
-<td align="right">38</td>
-</tr>
-<tr class="even">
-<td align="left">FF</td>
-<td align="left">KH x HK</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">FF</td>
-<td align="left">KH x KH</td>
-<td align="right">195</td>
-<td align="right">45</td>
-<td align="right">16</td>
-<td align="right">35</td>
-</tr>
-<tr class="even">
-<td align="left">FP</td>
-<td align="left">HK x H</td>
-<td align="right">109</td>
-<td align="right">18</td>
-<td align="right">10</td>
-<td align="right">28</td>
-</tr>
-<tr class="odd">
-<td align="left">FP</td>
-<td align="left">HK x K</td>
-<td align="right">75</td>
-<td align="right">7</td>
-<td align="right">6</td>
-<td align="right">7</td>
-</tr>
-<tr class="even">
-<td align="left">FP</td>
-<td align="left">KH x H</td>
-<td align="right">191</td>
-<td align="right">28</td>
-<td align="right">17</td>
-<td align="right">25</td>
-</tr>
-<tr class="odd">
-<td align="left">FP</td>
-<td align="left">KH x K</td>
-<td align="right">177</td>
-<td align="right">29</td>
-<td align="right">16</td>
-<td align="right">22</td>
-</tr>
-<tr class="even">
-<td align="left">Pcontrol</td>
-<td align="left">H x control</td>
-<td align="right">37</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">Pcontrol</td>
-<td align="left">K x control</td>
-<td align="right">101</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">PF</td>
-<td align="left">H x HK</td>
-<td align="right">57</td>
-<td align="right">23</td>
-<td align="right">17</td>
-<td align="right">26</td>
-</tr>
-<tr class="odd">
-<td align="left">PF</td>
-<td align="left">H x KH</td>
-<td align="right">91</td>
-<td align="right">56</td>
-<td align="right">22</td>
-<td align="right">11</td>
-</tr>
-<tr class="even">
-<td align="left">PF</td>
-<td align="left">K x HK</td>
-<td align="right">41</td>
-<td align="right">3</td>
-<td align="right">8</td>
-<td align="right">12</td>
-</tr>
-<tr class="odd">
-<td align="left">PF</td>
-<td align="left">K x KH</td>
-<td align="right">83</td>
-<td align="right">6</td>
-<td align="right">11</td>
-<td align="right">18</td>
-</tr>
-<tr class="even">
-<td align="left">PP</td>
-<td align="left">H x H</td>
-<td align="right">111</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">PP</td>
-<td align="left">H x K</td>
-<td align="right">156</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">PP</td>
-<td align="left">K x H</td>
-<td align="right">177</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">PP</td>
-<td align="left">K x K</td>
-<td align="right">89</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-</tbody>
-</table>
 </div>
-<div id="f1-generation" class="section level1">
-<h1>F1 Generation</h1>
 <div id="models" class="section level2">
 <h2>Models</h2>
 <p>Expand this code to see the model specifications:</p>
@@ -1607,6 +1416,271 @@ F1.RI %&gt;% select(-step) %&gt;%
   theme_minimal() + theme(legend.position = &quot;top&quot;, legend.text = element_text(face=&quot;italic&quot;))+
   labs(x=&quot;Reproductive isolation&quot;, y=&quot;Fitness component&quot;, color=&quot;Maternal parent&quot;)</code></pre>
 <p><img src="figures/fitness-1.svg" width="576" /></p>
+</div>
+</div>
+<div id="f2-generation" class="section level1">
+<h1>F2 Generation</h1>
+<div id="sample-sizes-1" class="section level2">
+<h2>Sample sizes</h2>
+<pre class="r"><code>F2 &lt;- set_names(datanames[7:10])
+
+map_dfr(F2, ~ tally(get(.)), .id=&quot;dataset&quot;) %&gt;% 
+  pivot_wider(names_from=dataset, values_from=n) %&gt;% kable(caption=&quot;F2 datasets totals&quot;)</code></pre>
+<table>
+<caption>F2 datasets totals</caption>
+<thead>
+<tr class="header">
+<th align="right">f1seeds</th>
+<th align="right">f1seedmass</th>
+<th align="right">f2pollen</th>
+<th align="right">f2seeds</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1649</td>
+<td align="right">230</td>
+<td align="right">134</td>
+<td align="right">222</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>map_dfr(F2, ~ tally(group_by(get(.), generation, momdadcross)), .id=&quot;dataset&quot;) %&gt;% 
+  pivot_wider(names_from=dataset, values_from=n) %&gt;% kable(caption=&quot;F2 datasets by cross&quot;)</code></pre>
+<table>
+<caption>F2 datasets by cross</caption>
+<thead>
+<tr class="header">
+<th align="left">generation</th>
+<th align="left">momdadcross</th>
+<th align="right">f1seeds</th>
+<th align="right">f1seedmass</th>
+<th align="right">f2pollen</th>
+<th align="right">f2seeds</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">FF</td>
+<td align="left">HK x HK</td>
+<td align="right">97</td>
+<td align="right">15</td>
+<td align="right">11</td>
+<td align="right">38</td>
+</tr>
+<tr class="even">
+<td align="left">FF</td>
+<td align="left">KH x KH</td>
+<td align="right">195</td>
+<td align="right">45</td>
+<td align="right">16</td>
+<td align="right">35</td>
+</tr>
+<tr class="odd">
+<td align="left">FP</td>
+<td align="left">HK x H</td>
+<td align="right">109</td>
+<td align="right">18</td>
+<td align="right">10</td>
+<td align="right">28</td>
+</tr>
+<tr class="even">
+<td align="left">FP</td>
+<td align="left">HK x K</td>
+<td align="right">75</td>
+<td align="right">7</td>
+<td align="right">6</td>
+<td align="right">7</td>
+</tr>
+<tr class="odd">
+<td align="left">FP</td>
+<td align="left">KH x H</td>
+<td align="right">191</td>
+<td align="right">28</td>
+<td align="right">17</td>
+<td align="right">25</td>
+</tr>
+<tr class="even">
+<td align="left">FP</td>
+<td align="left">KH x K</td>
+<td align="right">177</td>
+<td align="right">29</td>
+<td align="right">16</td>
+<td align="right">22</td>
+</tr>
+<tr class="odd">
+<td align="left">PF</td>
+<td align="left">H x HK</td>
+<td align="right">57</td>
+<td align="right">23</td>
+<td align="right">17</td>
+<td align="right">26</td>
+</tr>
+<tr class="even">
+<td align="left">PF</td>
+<td align="left">H x KH</td>
+<td align="right">91</td>
+<td align="right">56</td>
+<td align="right">22</td>
+<td align="right">11</td>
+</tr>
+<tr class="odd">
+<td align="left">PF</td>
+<td align="left">K x HK</td>
+<td align="right">41</td>
+<td align="right">3</td>
+<td align="right">8</td>
+<td align="right">12</td>
+</tr>
+<tr class="even">
+<td align="left">PF</td>
+<td align="left">K x KH</td>
+<td align="right">83</td>
+<td align="right">6</td>
+<td align="right">11</td>
+<td align="right">18</td>
+</tr>
+<tr class="odd">
+<td align="left">PP</td>
+<td align="left">H x H</td>
+<td align="right">111</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">PP</td>
+<td align="left">H x K</td>
+<td align="right">156</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">PP</td>
+<td align="left">K x H</td>
+<td align="right">177</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">PP</td>
+<td align="left">K x K</td>
+<td align="right">89</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="models-1" class="section level2">
+<h2>Models</h2>
+<pre class="r"><code>F2.mod &lt;- list(
+  seed.mass.mg =         glmmTMB(seed.mass.mg ~     momdadcross, data=f1seedmass),
+  total.per.anther =     glmmTMB(total.per.anther ~ momdadcross, data=f2pollen),
+  viable.seeds =         glmmTMB(viable.seeds ~     momdadcross, data=filter(f1seeds, viable.seeds&gt;0), family=&quot;truncated_nbinom1&quot;),
+  prop.viable =          glmmTMB(prop.viable    ~   momdadcross, family=&quot;betabinomial&quot;, data=f2pollen, weights = total),
+  capsule.formed =       glmmTMB(capsule.formed ~   momdadcross, family=&quot;betabinomial&quot;, data=f1seeds))</code></pre>
+</div>
+<div id="inference-1" class="section level2">
+<h2>Inference</h2>
+<pre class="r"><code>F2.test &lt;- map_dfr(F2.mod, ~car::Anova(.) %&gt;% tidy(), .id=&quot;trait&quot;) 
+F2.test %&gt;% left_join(traits %&gt;% filter(generation==&quot;F2&quot;) %&gt;% select(trait=yvar, step)) %&gt;% 
+  arrange(step) %&gt;% select(-step) %&gt;% 
+  mutate(trait = recode(trait, !!!set_names(traits$ylab[-1], traits$yvar[-1])),
+         p.value=format(p.value,digits=2)) %&gt;% 
+  kable(digits=1, caption=&quot;ANOVA of GLMM (Type III Wald chisquare tests)&quot;)</code></pre>
+<table>
+<caption>ANOVA of GLMM (Type III Wald chisquare tests)</caption>
+<thead>
+<tr class="header">
+<th align="left">trait</th>
+<th align="left">term</th>
+<th align="right">statistic</th>
+<th align="right">df</th>
+<th align="left">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Capsule formation</td>
+<td align="left">momdadcross</td>
+<td align="right">94.5</td>
+<td align="right">13</td>
+<td align="left">1.9e-14</td>
+</tr>
+<tr class="even">
+<td align="left">Viable seeds if capsule formed</td>
+<td align="left">momdadcross</td>
+<td align="right">359.8</td>
+<td align="right">13</td>
+<td align="left">6.9e-69</td>
+</tr>
+<tr class="odd">
+<td align="left">Seed mass (mg)</td>
+<td align="left">momdadcross</td>
+<td align="right">1108.8</td>
+<td align="right">9</td>
+<td align="left">6.0e-233</td>
+</tr>
+<tr class="even">
+<td align="left">Pollen viability</td>
+<td align="left">momdadcross</td>
+<td align="right">26.2</td>
+<td align="right">9</td>
+<td align="left">1.9e-03</td>
+</tr>
+<tr class="odd">
+<td align="left">Pollen grains per anther</td>
+<td align="left">momdadcross</td>
+<td align="right">30.2</td>
+<td align="right">9</td>
+<td align="left">4.1e-04</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>F2.emm &lt;-  map_dfr(F2.mod, ~emmeans(., ~momdadcross) %&gt;% summary(type=&quot;response&quot;) %&gt;%  
+                             tidy %&gt;% rename(estimate=any_of(c(&quot;response&quot;,&quot;prob&quot;))), .id=&quot;trait&quot;) </code></pre>
+</div>
+<div id="plots-1" class="section level2">
+<h2>Plots</h2>
+<pre class="r"><code>momdadcross.levels &lt;- c(&quot;H x H&quot;,&quot;H x HK&quot;,&quot;H x KH&quot;,&quot;H x K&quot;,&quot;HK x H&quot;,&quot;HK x HK&quot;,&quot;HK x KH&quot;,&quot;HK x K&quot;,&quot;KH x H&quot;,&quot;KH x HK&quot;,&quot;KH x KH&quot;,&quot;KH x K&quot;,&quot;K x H&quot;,&quot;K x HK&quot;,&quot;K x KH&quot;,&quot;K x K&quot;)
+momdadcross.labels &lt;- momdadcross.levels %&gt;% str_replace_all(&quot;\\s&quot;,&quot;\n&quot;)
+
+plot_F2 &lt;- function(emm, data, yvar, ylab, type=&quot;continuous&quot;) {
+  data &lt;- get(data) %&gt;% mutate(momdadcross = factor(as.character(momdadcross), levels=momdadcross.levels))
+  if(type==&quot;continuous&quot;) {
+    p &lt;- ggplot(data, aes_string(y=yvar, x=&quot;momdadcross&quot;, fill=&quot;momcross&quot;)) + 
+      geom_violin(draw_quantiles = (1:3)/4) + 
+      geom_pointrange(data=filter(emm, trait==yvar) %&gt;% 
+                        separate(momdadcross, into=c(&quot;momcross&quot;,&quot;dadcross&quot;), sep=&quot; x &quot;, remove=F) %&gt;% 
+                        mutate(momdadcross = factor(as.character(momdadcross), levels=momdadcross.levels)),
+                      aes(y=estimate, ymax=conf.high, ymin=conf.low),color=&quot;black&quot;) + 
+      scale_fill_manual(values=set_names(F1.col[2:5],c(&quot;K&quot;,&quot;KH&quot;,&quot;HK&quot;,&quot;H&quot;)))+
+      guides(fill=&quot;none&quot;) +
+      scale_y_continuous(name = ylab, expand = expansion(mult=c(0, 0.05)), limits=c(0,NA))
+  } else if(type==&quot;binary&quot;) {
+    p &lt;- ggplot(data, aes_string(y=yvar, x=&quot;momdadcross&quot;, color=&quot;momcross&quot;)) + 
+      geom_pointrange(data=filter(emm, trait==yvar) %&gt;% 
+                        separate(momdadcross, into=c(&quot;momcross&quot;,&quot;dadcross&quot;), sep=&quot; x &quot;, remove=F) %&gt;% 
+                        mutate(momdadcross = factor(as.character(momdadcross), levels=momdadcross.levels)) %&gt;% 
+                        mutate(conf.low  = ifelse(conf.high-conf.low&gt;0.9,NA,conf.low), 
+                               conf.high = ifelse(conf.high-conf.low&gt;0.9,NA,conf.high)), 
+                      aes(y=estimate, ymax=conf.high, ymin=conf.low)) + 
+      scale_color_manual(values=set_names(F1.col[2:5],c(&quot;K&quot;,&quot;KH&quot;,&quot;HK&quot;,&quot;H&quot;)))+
+      guides(color=&quot;none&quot;) +
+      scale_y_continuous(ylab, limits=c(0,1), labels=~scales::percent(.,accuracy=1))
+  }
+  p &lt;- p + scale_x_discrete(&quot;Cross&quot;, labels = momdadcross.labels, drop=F) +
+    theme_minimal()
+  print(p)
+}
+
+traits %&gt;% filter(generation==&quot;F2&quot;) %&gt;% select(data, yvar, ylab, type) %&gt;% 
+  pwalk(plot_F2, emm=F2.emm)</code></pre>
+<p><img src="figures/f2plot-1.svg" width="480" /><img src="figures/f2plot-2.svg" width="480" /><img src="figures/f2plot-3.svg" width="480" /><img src="figures/f2plot-4.svg" width="480" /><img src="figures/f2plot-5.svg" width="480" /></p>
 </div>
 </div>
 

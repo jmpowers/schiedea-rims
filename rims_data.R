@@ -181,9 +181,11 @@ inflobiomass.sum <- inflobiomass %>% #add together envelopes for regression and 
 
 f1seeds <- read_sheet(gsheet, "f1seeds", col_types="c") %>% 
   filter(dadfullcross != "closed") %>% #not sure what closed means
-  mutate(viable.seeds=as.integer(viable.seeds)) %>% 
+  mutate(viable.seeds = as.integer(viable.seeds), 
+         capsule.formed = viable.seeds > 0) %>% 
   split_full_crosses() %>% 
   pop_to_species() %>% 
+  filter(dadcross != "control", momdadcross!="KH x HK") %>% #single cross of that type
   pop_factors()
 
 f1seeds.nonzero <- filter(f1seeds, viable.seeds > 0)
