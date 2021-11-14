@@ -76,6 +76,7 @@ F1.mod <- list(
   flower.number =        glmmTMB(flower.number  ~       sxc + collect + (1|mompid) + (1|dadpop), data=inflobiomass.sum),#dadpid model prob.
   veg.biomass.g =        glmmTMB(veg.biomass.g ~        sxc + collect + (1|mompid) + (1|dadpid), data=vegbiomass),
   total.per.anther =     glmmTMB(total.per.anther ~     sxc +           (1|mompid) + (1|dadpid), data=pollen),
+  viable.per.anther =    glmmTMB(viable.per.anther ~    sxc +           (1|mompid) + (1|dadpid), data=pollen),
   viable.seeds =         glmmTMB(viable.seeds ~         sxc +           (1|mompid) + (1|dadpop), data=filter(seeds, viable.seeds>0),
                                  family="truncated_nbinom1"),
   prop.germ =            glmmTMB(prop.germ      ~ sxc + (1|mompid) + (1|dadpid), family="betabinomial", data=germination, weights = planted),
@@ -225,11 +226,12 @@ map_dfr(F2, ~ tally(group_by(get(.), generation, momdadcross)), .id="dataset") %
 
 ```{r f2models}
 F2.mod <- list(
-  seed.mass.mg =         glmmTMB(seed.mass.mg ~     momdadcross, data=f1seedmass),
-  total.per.anther =     glmmTMB(total.per.anther ~ momdadcross, data=f2pollen),
-  viable.seeds =         glmmTMB(viable.seeds ~     momdadcross, data=filter(f1seeds, viable.seeds>0), family="truncated_nbinom1"),
-  prop.viable =          glmmTMB(prop.viable    ~   momdadcross, family="betabinomial", data=f2pollen, weights = total),
-  capsule.formed =       glmmTMB(capsule.formed ~   momdadcross, family="betabinomial", data=f1seeds))
+  seed.mass.mg =         glmmTMB(seed.mass.mg ~      momdadcross, data=f1seedmass),
+  total.per.anther =     glmmTMB(total.per.anther ~  momdadcross, data=f2pollen),
+  viable.per.anther =    glmmTMB(viable.per.anther ~ momdadcross, data=f2pollen),
+  viable.seeds =         glmmTMB(viable.seeds ~      momdadcross, data=filter(f1seeds, viable.seeds>0), family="truncated_nbinom1"),
+  prop.viable =          glmmTMB(prop.viable ~       momdadcross, family="betabinomial", data=f2pollen, weights = total),
+  capsule.formed =       glmmTMB(capsule.formed ~    momdadcross, family="betabinomial", data=f1seeds))
 ```
 
 
@@ -250,9 +252,11 @@ F2.emm <-  map_dfr(F2.mod, ~emmeans(., ~momdadcross) %>% summary(type="response"
 
 ## Plots
 
+### All crosses
+
 ```{r f2plot}
 momdadcross.levels <- c("H x H","H x HK","H x KH","H x K","HK x H","HK x HK","HK x KH","HK x K","KH x H","KH x HK","KH x KH","KH x K","K x H","K x HK","K x KH","K x K")
-momdadcross.labels <- momdadcross.levels %>% str_replace_all("\\s","\n")
+momdadcross.labels <- momdadcross.levels %>% str_replace_all("\\s","\n") %>% set_names(momdadcross.levels)
 
 plot_F2 <- function(emm, data, yvar, ylab, type="continuous") {
   data <- get(data) %>% mutate(momdadcross = factor(as.character(momdadcross), levels=momdadcross.levels))
@@ -287,4 +291,50 @@ traits %>% filter(generation=="F2") %>% select(data, yvar, ylab, type) %>%
   pwalk(plot_F2, emm=F2.emm)
 ```
 
+### Cytonuclear incompatibility
+
+```{r f2plot_contrasts}
+F2.contrasts <- tibble(momdadcross = c("H x HK","HK x H","H x KH","KH x H","K x KH","KH x K","K x HK","HK x K"),
+                       pair = rep(1:4, each=2),
+                       reciprocal.difference = rep(c("not expected", "expected"), times = 2, each = 2))
+
+reorder_momdadcross <- function(df) {
+  df %>% filter(momdadcross %in% F2.contrasts$momdadcross) %>% 
+    left_join(F2.contrasts, by="momdadcross") %>% 
+    mutate(momdadcross = fct_relevel(momdadcross, F2.contrasts$momdadcross)) 
+}
+
+plot_F2_contrasts <- function(emm, data, yvar, ylab, type="continuous") {
+  data <- get(data) %>% reorder_momdadcross()
+  emm <- emm %>% filter(trait==yvar) %>% reorder_momdadcross()
+  sig <- F2.mod[[yvar]] %>% 
+    multcomp::glht(linfct = multcomp::mcp(momdadcross = F2.contrasts %>% group_by(pair) %>% 
+                                            summarize(contrast = paste0("`", paste(momdadcross[1:2], collapse="` - `"),"` == 0")) %>% 
+                                            pull(contrast))) %>% summary(test=multcomp::adjusted("none")) %>% tidy() %>% mutate(pair=1:4)
+  if(type=="continuous") {
+    p <- ggplot(data, aes_string(y=yvar, x="momdadcross")) + 
+      geom_violin(aes(fill=reciprocal.difference),draw_quantiles = (1:3)/4) + 
+      geom_pointrange(data=emm, aes(y=estimate, ymax=conf.high, ymin=conf.low),color="black", show.legend = F) + 
+      scale_fill_manual("Reciprocal difference     :::", values=brewer.pal(10,"Paired")[c(2,8)]) +
+      scale_y_continuous(name = ylab, expand = expansion(mult=c(0, 0.05)), limits=c(0,NA))
+  } else if(type=="binary") {
+    p <- ggplot(data, aes_string(y=yvar, x="momdadcross")) + 
+      geom_pointrange(data=emm %>% 
+                        mutate(conf.low  = ifelse(conf.high-conf.low>0.9,NA,conf.low), 
+                               conf.high = ifelse(conf.high-conf.low>0.9,NA,conf.high)), 
+                      aes(y=estimate, ymax=conf.high, ymin=conf.low, color=reciprocal.difference)) + 
+      scale_color_manual("Reciprocal difference  :", values=brewer.pal(10,"Paired")[c(2,8)])+
+      scale_y_continuous(ylab, limits=c(0,1), labels=~scales::percent(.,accuracy=1))
+  }
+  ytop = 1.02*max(pull(data, yvar))
+  p <- p + scale_x_discrete("Cross", labels = momdadcross.labels) +
+    theme_minimal() + theme(legend.position = "top") +
+    geom_text(data=sig, aes(x = 2*pair-0.5, y=ytop*1.04, label=ifelse(p.value < 0.01, "< 0.01",round(p.value,2)))) +
+    geom_segment(aes(x=2*pair-1, xend=2*pair, y=ytop, yend=ytop))
+  print(p)
+}
+
+traits %>% filter(generation=="F2", data != "f1seedmass") %>% select(data, yvar, ylab, type) %>% 
+  pwalk(plot_F2_contrasts, emm=F2.emm)
+```
 

@@ -20,85 +20,89 @@
 <g clip-path='url(#cpMC4wMHw0MzIuMDB8MC4wMHwyODguMDA=)'>
 </g>
 <defs>
-  <clipPath id='cpMTU4LjM3fDQyNi41Mnw0NC42OHwyMzcuMDE='>
-    <rect x='158.37' y='44.68' width='268.15' height='192.33' />
+  <clipPath id='cpMTU5LjU3fDQyNi41Mnw0NC42OHwyMzcuMDE='>
+    <rect x='159.57' y='44.68' width='266.95' height='192.33' />
   </clipPath>
 </defs>
-<g clip-path='url(#cpMTU4LjM3fDQyNi41Mnw0NC42OHwyMzcuMDE=)'>
-<polyline points='209.34,237.01 209.34,44.68 ' style='stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='264.74,237.01 264.74,44.68 ' style='stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='320.15,237.01 320.15,44.68 ' style='stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='375.55,237.01 375.55,44.68 ' style='stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='158.37,226.70 426.52,226.70 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='158.37,209.53 426.52,209.53 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='158.37,192.36 426.52,192.36 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='158.37,175.19 426.52,175.19 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='158.37,158.01 426.52,158.01 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='158.37,140.84 426.52,140.84 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='158.37,123.67 426.52,123.67 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='158.37,106.50 426.52,106.50 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='158.37,89.32 426.52,89.32 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='158.37,72.15 426.52,72.15 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='158.37,54.98 426.52,54.98 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='181.64,237.01 181.64,44.68 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='237.04,237.01 237.04,44.68 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='292.44,237.01 292.44,44.68 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='347.85,237.01 347.85,44.68 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='403.25,237.01 403.25,44.68 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<line x1='292.44' y1='237.01' x2='292.44' y2='44.68' style='stroke-width: 1.07; stroke-dasharray: 5.69,5.69; stroke-linecap: butt;' />
-<line x1='181.64' y1='237.01' x2='181.64' y2='44.68' style='stroke-width: 1.07; stroke-linecap: butt;' />
-<line x1='403.25' y1='237.01' x2='403.25' y2='44.68' style='stroke-width: 1.07; stroke-linecap: butt;' />
-<polygon points='297.90,51.11 301.25,56.92 294.55,56.92 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
-<polygon points='306.85,51.11 310.20,56.92 303.50,56.92 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
-<polygon points='305.66,68.28 309.01,74.09 302.31,74.09 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
-<polygon points='331.78,68.28 335.13,74.09 328.42,74.09 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
-<polygon points='372.75,85.46 376.11,91.26 369.40,91.26 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
-<polygon points='290.99,85.46 294.34,91.26 287.64,91.26 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
-<polygon points='300.31,102.63 303.66,108.43 296.95,108.43 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
-<polygon points='289.68,102.63 293.04,108.43 286.33,108.43 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
-<polygon points='258.65,119.80 262.00,125.60 255.30,125.60 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
-<polygon points='289.73,119.80 293.08,125.60 286.38,125.60 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
-<polygon points='294.73,136.97 298.08,142.78 291.38,142.78 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
-<polygon points='295.15,136.97 298.50,142.78 291.79,142.78 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
-<polygon points='330.96,154.14 334.31,159.95 327.60,159.95 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
-<polygon points='249.18,154.14 252.53,159.95 245.83,159.95 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
-<polygon points='311.67,171.32 315.02,177.12 308.32,177.12 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
-<polygon points='237.72,171.32 241.07,177.12 234.37,177.12 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
-<polygon points='274.68,188.49 278.03,194.29 271.33,194.29 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
-<polygon points='201.68,188.49 205.03,194.29 198.32,194.29 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
-<polygon points='330.12,205.66 333.47,211.46 326.77,211.46 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
-<polygon points='322.53,205.66 325.88,211.46 319.18,211.46 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
-<polygon points='304.34,222.83 307.69,228.64 300.99,228.64 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
-<polygon points='285.19,222.83 288.54,228.64 281.83,228.64 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
+<g clip-path='url(#cpMTU5LjU3fDQyNi41Mnw0NC42OHwyMzcuMDE=)'>
+<polyline points='210.31,237.01 210.31,44.68 ' style='stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='265.47,237.01 265.47,44.68 ' style='stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='320.62,237.01 320.62,44.68 ' style='stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='375.78,237.01 375.78,44.68 ' style='stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='159.57,227.55 426.52,227.55 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='159.57,211.78 426.52,211.78 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='159.57,196.02 426.52,196.02 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='159.57,180.25 426.52,180.25 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='159.57,164.49 426.52,164.49 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='159.57,148.72 426.52,148.72 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='159.57,132.96 426.52,132.96 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='159.57,117.19 426.52,117.19 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='159.57,101.43 426.52,101.43 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='159.57,85.67 426.52,85.67 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='159.57,69.90 426.52,69.90 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='159.57,54.14 426.52,54.14 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='182.74,237.01 182.74,44.68 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='237.89,237.01 237.89,44.68 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='293.05,237.01 293.05,44.68 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='348.20,237.01 348.20,44.68 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='403.36,237.01 403.36,44.68 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<line x1='293.05' y1='237.01' x2='293.05' y2='44.68' style='stroke-width: 1.07; stroke-dasharray: 5.69,5.69; stroke-linecap: butt;' />
+<line x1='182.74' y1='237.01' x2='182.74' y2='44.68' style='stroke-width: 1.07; stroke-linecap: butt;' />
+<line x1='403.36' y1='237.01' x2='403.36' y2='44.68' style='stroke-width: 1.07; stroke-linecap: butt;' />
+<polygon points='298.48,50.27 301.83,56.07 295.12,56.07 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
+<polygon points='307.39,50.27 310.74,56.07 304.03,56.07 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
+<polygon points='306.20,66.03 309.56,71.84 302.85,71.84 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
+<polygon points='332.20,66.03 335.55,71.84 328.85,71.84 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
+<polygon points='373.00,81.80 376.35,87.60 369.64,87.60 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
+<polygon points='291.60,81.80 294.95,87.60 288.24,87.60 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
+<polygon points='300.87,97.56 304.22,103.36 297.52,103.36 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
+<polygon points='290.30,97.56 293.65,103.36 286.95,103.36 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
+<polygon points='259.40,113.32 262.75,119.13 256.05,119.13 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
+<polygon points='290.34,113.32 293.69,119.13 286.99,119.13 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
+<polygon points='295.32,129.09 298.67,134.89 291.97,134.89 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
+<polygon points='295.73,129.09 299.09,134.89 292.38,134.89 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
+<polygon points='331.38,144.85 334.74,150.66 328.03,150.66 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
+<polygon points='249.97,144.85 253.33,150.66 246.62,150.66 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
+<polygon points='312.19,160.62 315.54,166.42 308.84,166.42 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
+<polygon points='238.57,160.62 241.92,166.42 235.22,166.42 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
+<polygon points='275.36,176.38 278.71,182.19 272.01,182.19 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
+<polygon points='202.68,176.38 206.04,182.19 199.33,182.19 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
+<polygon points='330.55,192.15 333.90,197.95 327.20,197.95 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
+<polygon points='322.99,192.15 326.34,197.95 319.64,197.95 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
+<polygon points='304.89,207.91 308.24,213.72 301.54,213.72 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
+<polygon points='285.82,207.91 289.17,213.72 282.47,213.72 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
+<polygon points='333.89,223.68 337.24,229.48 330.54,229.48 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
+<polygon points='318.62,223.68 321.97,229.48 315.27,229.48 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
 </g>
 <g clip-path='url(#cpMC4wMHw0MzIuMDB8MC4wMHwyODguMDA=)'>
-<text x='153.44' y='229.91' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='105.47px' lengthAdjust='spacingAndGlyphs'>Pollen grains per anther</text>
-<text x='153.44' y='212.74' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='63.68px' lengthAdjust='spacingAndGlyphs'>Pollen viability</text>
-<text x='153.44' y='195.57' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='66.24px' lengthAdjust='spacingAndGlyphs'>Flower number</text>
-<text x='153.44' y='178.39' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='97.94px' lengthAdjust='spacingAndGlyphs'>Inflorescence biomass</text>
-<text x='153.44' y='161.22' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='119.11px' lengthAdjust='spacingAndGlyphs'>First inflorescence biomass</text>
-<text x='153.44' y='144.05' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='91.49px' lengthAdjust='spacingAndGlyphs'>Flowering if survived</text>
-<text x='153.44' y='126.88' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='86.46px' lengthAdjust='spacingAndGlyphs'>Vegetative biomass</text>
-<text x='153.44' y='109.70' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='35.47px' lengthAdjust='spacingAndGlyphs'>Survival</text>
-<text x='153.44' y='92.53' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='54.53px' lengthAdjust='spacingAndGlyphs'>Germination</text>
-<text x='153.44' y='75.36' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='134.78px' lengthAdjust='spacingAndGlyphs'>Viable seeds if capsule formed</text>
-<text x='153.44' y='58.19' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='80.70px' lengthAdjust='spacingAndGlyphs'>Capsule formation</text>
-<text x='181.64' y='248.35' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='8.77px' lengthAdjust='spacingAndGlyphs'>-1</text>
-<text x='181.64' y='257.86' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='40.28px' lengthAdjust='spacingAndGlyphs'>heterosis</text>
-<text x='237.04' y='248.35' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='17.16px' lengthAdjust='spacingAndGlyphs'>-0.5</text>
-<text x='292.44' y='248.35' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='5.59px' lengthAdjust='spacingAndGlyphs'>0</text>
-<text x='292.44' y='257.86' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='10.96px' lengthAdjust='spacingAndGlyphs'>no</text>
-<text x='292.44' y='267.36' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='29.53px' lengthAdjust='spacingAndGlyphs'>barrier</text>
-<text x='347.85' y='248.35' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='13.98px' lengthAdjust='spacingAndGlyphs'>0.5</text>
-<text x='403.25' y='248.35' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='5.59px' lengthAdjust='spacingAndGlyphs'>1</text>
-<text x='403.25' y='257.86' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='41.10px' lengthAdjust='spacingAndGlyphs'>complete</text>
-<text x='403.25' y='267.36' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='37.12px' lengthAdjust='spacingAndGlyphs'>isolation</text>
-<text x='292.44' y='280.10' text-anchor='middle' style='font-size: 11.00px; font-family: Arial;' textLength='122.46px' lengthAdjust='spacingAndGlyphs'>Reproductive isolation</text>
+<text x='154.64' y='230.75' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='135.98px' lengthAdjust='spacingAndGlyphs'>Viable pollen grains per anther</text>
+<text x='154.64' y='214.99' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='105.47px' lengthAdjust='spacingAndGlyphs'>Pollen grains per anther</text>
+<text x='154.64' y='199.22' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='63.68px' lengthAdjust='spacingAndGlyphs'>Pollen viability</text>
+<text x='154.64' y='183.46' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='66.24px' lengthAdjust='spacingAndGlyphs'>Flower number</text>
+<text x='154.64' y='167.70' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='97.94px' lengthAdjust='spacingAndGlyphs'>Inflorescence biomass</text>
+<text x='154.64' y='151.93' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='119.11px' lengthAdjust='spacingAndGlyphs'>First inflorescence biomass</text>
+<text x='154.64' y='136.17' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='91.49px' lengthAdjust='spacingAndGlyphs'>Flowering if survived</text>
+<text x='154.64' y='120.40' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='86.46px' lengthAdjust='spacingAndGlyphs'>Vegetative biomass</text>
+<text x='154.64' y='104.64' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='35.47px' lengthAdjust='spacingAndGlyphs'>Survival</text>
+<text x='154.64' y='88.87' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='54.53px' lengthAdjust='spacingAndGlyphs'>Germination</text>
+<text x='154.64' y='73.11' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='134.78px' lengthAdjust='spacingAndGlyphs'>Viable seeds if capsule formed</text>
+<text x='154.64' y='57.34' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='80.70px' lengthAdjust='spacingAndGlyphs'>Capsule formation</text>
+<text x='182.74' y='248.35' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='8.77px' lengthAdjust='spacingAndGlyphs'>-1</text>
+<text x='182.74' y='257.86' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='40.28px' lengthAdjust='spacingAndGlyphs'>heterosis</text>
+<text x='237.89' y='248.35' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='17.16px' lengthAdjust='spacingAndGlyphs'>-0.5</text>
+<text x='293.05' y='248.35' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='5.59px' lengthAdjust='spacingAndGlyphs'>0</text>
+<text x='293.05' y='257.86' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='10.96px' lengthAdjust='spacingAndGlyphs'>no</text>
+<text x='293.05' y='267.36' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='29.53px' lengthAdjust='spacingAndGlyphs'>barrier</text>
+<text x='348.20' y='248.35' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='13.98px' lengthAdjust='spacingAndGlyphs'>0.5</text>
+<text x='403.36' y='248.35' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='5.59px' lengthAdjust='spacingAndGlyphs'>1</text>
+<text x='403.36' y='257.86' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='41.10px' lengthAdjust='spacingAndGlyphs'>complete</text>
+<text x='403.36' y='267.36' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='37.12px' lengthAdjust='spacingAndGlyphs'>isolation</text>
+<text x='293.05' y='280.10' text-anchor='middle' style='font-size: 11.00px; font-family: Arial;' textLength='122.46px' lengthAdjust='spacingAndGlyphs'>Reproductive isolation</text>
 <text transform='translate(13.50,140.84) rotate(-90)' text-anchor='middle' style='font-size: 11.00px; font-family: Arial;' textLength='103.83px' lengthAdjust='spacingAndGlyphs'>Fitness component</text>
-<text x='186.55' y='23.61' style='font-size: 11.00px; font-family: Arial;' textLength='87.96px' lengthAdjust='spacingAndGlyphs'>Maternal parent</text>
-<polygon points='277.98,15.73 281.33,21.53 274.63,21.53 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
-<polygon points='343.74,15.73 347.09,21.53 340.39,21.53 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
-<text x='292.10' y='22.81' style='font-size: 8.80px; font-style: italic; font-family: Arial;' textLength='40.31px' lengthAdjust='spacingAndGlyphs'>S. kaalae</text>
-<text x='357.86' y='22.81' style='font-size: 8.80px; font-style: italic; font-family: Arial;' textLength='44.09px' lengthAdjust='spacingAndGlyphs'>S. hookeri</text>
+<text x='187.16' y='23.61' style='font-size: 11.00px; font-family: Arial;' textLength='87.96px' lengthAdjust='spacingAndGlyphs'>Maternal parent</text>
+<polygon points='278.58,15.73 281.93,21.53 275.23,21.53 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
+<polygon points='344.34,15.73 347.69,21.53 340.99,21.53 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
+<text x='292.70' y='22.81' style='font-size: 8.80px; font-style: italic; font-family: Arial;' textLength='40.31px' lengthAdjust='spacingAndGlyphs'>S. kaalae</text>
+<text x='358.46' y='22.81' style='font-size: 8.80px; font-style: italic; font-family: Arial;' textLength='44.09px' lengthAdjust='spacingAndGlyphs'>S. hookeri</text>
 </g>
 </svg>
