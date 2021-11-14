@@ -208,6 +208,32 @@ ggplot(F1.RI, aes(y=fct_rev(trait), x=RI, color=momsp)) +
   labs(x="Reproductive isolation", y="Fitness component", color="Maternal parent")
 ```
 
+## Inbreeding depression
+
+```{r inbred}
+F1.inbred <- F1.emm %>% separate(sxc, into=c("momsp","crosstype")) %>% 
+  filter(crosstype !="hybrid", trait != "firstflower") %>% #TODO firstflower is backwards fitness
+  select(trait, momsp, crosstype, estimate) %>% pivot_wider(names_from=crosstype, values_from=estimate) %>% 
+  rowwise() %>% mutate(across(c(between,within), ~ ./max(between,within)),
+                       ID = 1 - within/between) %>% 
+    left_join(traits %>% filter(generation=="F1") %>% select(trait=yvar, step)) %>% arrange(step) %>% 
+      mutate(trait = recode(trait, !!!set_names(traits$ylab[-1], traits$yvar[-1])) %>% 
+               str_remove(fixed(" (g)")) %>% factor() %>% fct_reorder(step)) 
+
+F1.inbred %>% select(-step) %>% 
+  pivot_wider(names_from=momsp, values_from=c(between, within, ID)) %>% 
+  select(trait, between_kaal, within_kaal, ID_kaal, between_hook, within_hook, ID_hook) %>% 
+  kable(caption="Inbreeding depression \u03B4 = 1 - (within pop / between pop)", digits=3)
+
+ggplot(F1.inbred, aes(y=fct_rev(trait), x=ID, color=momsp)) + 
+  geom_vline(xintercept=0, linetype=2) +  
+  geom_point(shape=17, size=2) +
+  scale_color_manual(values = set_names(F1.col[c(2,5)], c("kaal","hook")), labels=c("S. kaalae","S. hookeri")) +
+  theme_minimal() + theme(legend.position = "top", legend.text = element_text(face="italic"))+
+  labs(x="Inbreeding depression \u03B4", y="Fitness component", color="Species")
+```
+
+
 # F2 Generation
 
 ## Sample sizes
