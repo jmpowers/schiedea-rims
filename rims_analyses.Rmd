@@ -43,6 +43,8 @@ F1.col <- set_names(c(brewer.pal(3,"Greens")[2:3],brewer.pal(9,"Oranges")[5], br
 
 # Datasets
 
+For seed production (capsule formation and viable seeds), the generation refers to the zygote generation (e.g. F2 seed grown from an F1 plant), otherwise the plant that produced the trait (e.g. F2 pollen is from F2 plants). This convention isn't always carried over to the name of the dataset for historical reasons.
+
 ```{r datasets}
 traits %>% filter(generation !="P") %>% select(c(generation,ylab, yvar, data, type)) %>% kable
 ```
@@ -50,6 +52,15 @@ traits %>% filter(generation !="P") %>% select(c(generation,ylab, yvar, data, ty
 # F1 Generation
 
 ## Sample sizes
+
+These sample sizes are the number of rows in the dataset. The rows mean different things in each dataset:
+
+* seeds = seeds from one pollination
+* germination = seeds from one pollination (multiple pots are pooled)
+* vegbiomass = one offspring plant, if it survived
+* survflr = one offspring plant
+* pollen = one pollen collection
+* inflobiomass = one offspring plant, if it flowered
 
 ```{r sampsize}
 F1 <- set_names(datanames[1:6]); F1[[6]] <- "inflobiomass.sum"
@@ -66,7 +77,15 @@ map_dfr(F1, ~ tally(group_by(get(.), crosstype, momsp, dadsp, mompop, dadpop)), 
 
 ## Models
 
-Expand this code to see the model specifications:
+Expand this code to see the model specifications. The models have the following settings:
+
+* response variable: for details see the [metadata](https://docs.google.com/spreadsheets/d/1f487VMTsYzYGn0_daogtTF0nNE7ntoqd0Yh4h9tgyDE/edit#gid=2002881351)
+* sxc: the combined maternal plant species and crosstype (within population, between population, hybrid)
+* collect: the number of days from planting to harvest, to account for growth during harvest period
+* mompid, dadpid: random effects of the maternal and paternal plant ID. dadpop, the paternal population, is substituded dadpid led to convergence problems.
+* data: for details and sample sizes see tables above
+* family: gaussian (the default, for continuous variables), truncated_nbinom1 (quasi-Poisson truncated at zero for nonzero seed counts), betabinomial (for binary variables)
+
 
 ```{r models}
 F1.mod <- list(
@@ -89,11 +108,13 @@ F1.mod <- list(
 
 ## Inference 
 
+P-values for the overall effect of species and crosstype, or collection date, on the trait.
+
 ```{r inference}
 F1.test <- map_dfr(F1.mod, ~car::Anova(.) %>% tidy(), .id="trait") 
 F1.test %>% left_join(traits %>% filter(generation=="F1") %>% select(trait=yvar, step)) %>% 
   arrange(step) %>% select(-step) %>% 
-  mutate(term=recode(term, sxc = "cross", collect= "collection date"),
+  mutate(term=recode(term, sxc = "species and crosstype", collect= "collection date"),
          trait = recode(trait, !!!set_names(traits$ylab[-1], traits$yvar[-1])) %>% 
                str_remove(fixed(" (g)")),
          p.value=format(p.value,digits=2)) %>% 
@@ -104,6 +125,8 @@ F1.emm <-  map_dfr(F1.mod, ~emmeans(., ~sxc) %>% summary(type="response") %>%  #
 ```
 
 ## Plots
+
+Estimated marginal means with 95% CI are shown as dots. For the continuous variables, these show violin plots of the raw data with median and first and third quartiles. For binary variables, colored dots show the proportions of each population x population combination.
 
 ```{r f1plot}
 plot_F1 <- function(emm, data, yvar, ylab, type="continuous") {
@@ -136,6 +159,8 @@ traits %>% filter(generation=="F1") %>% select(data, yvar, ylab, type) %>%
 ```
 
 ## Flower biomass regression
+
+Appears linear after log-log transformation at first glance, but actually not! 
 
 ```{r infloreg}
 ggplot(inflobiomass, aes(x=inflo.biomass.g, y=flrs, color=cross)) + 
@@ -182,13 +207,15 @@ F1.emm %>%  left_join(traits %>% filter(generation=="F1") %>% select(trait=yvar,
                   trait = recode(trait, !!!set_names(traits$ylab[-1], traits$yvar[-1])),
                   sxc = recode(sxc, !!!sxc.labels)) %>% 
   select(trait, sxc, est.se) %>% pivot_wider(names_from = sxc, values_from=est.se) %>% 
-  kable(caption="Absolute fitness components")
+  kable(caption="Absolute fitness components with estimated marginal mean and standard error")
 
+#TODO to get confidence intervals of RI ratio, may need mratios or alt method here:
+# https://stats.stackexchange.com/questions/16349/how-to-compute-the-confidence-interval-of-the-ratio-of-two-normal-means
 F1.RI <- F1.emm %>% separate(sxc, into=c("momsp","crosstype")) %>% 
   filter(crosstype !="within", trait != "firstflower") %>% #TODO firstflower is backwards fitness
   select(trait, momsp, crosstype, estimate) %>% pivot_wider(names_from=crosstype, values_from=estimate) %>% 
   rowwise() %>% mutate(across(c(between,hybrid), ~ ./max(between,hybrid)),
-                       RI = 1 - 2 *  hybrid/(hybrid + between)) %>% 
+                       RI = 1 - 2 *  hybrid/(hybrid + between)) %>% #method of Sobel and Chen 2014
     left_join(traits %>% filter(generation=="F1") %>% select(trait=yvar, step, sex)) %>% arrange(step) %>% 
       mutate(trait = recode(trait, !!!set_names(traits$ylab[-1], traits$yvar[-1])) %>% 
                str_remove(fixed(" (g)")) %>% factor() %>% fct_reorder(step)) 
@@ -267,6 +294,13 @@ ggplot(F1.inbred, aes(y=fct_rev(trait), x=ID, color=momsp)) +
 
 ## Sample sizes
 
+These sample sizes are the number of rows in the dataset. The rows mean different things in each dataset:
+
+* f1seeds = seeds from one pollination
+* f1seeds = the mass of ten seeds
+* f2pollen = one pollen collection
+* f2seeds = seeds from one pollination
+
 ```{r f2sampsize}
 F2 <- set_names(datanames[7:10])
 
@@ -306,6 +340,8 @@ F2.emm <-  map_dfr(F2.mod, ~emmeans(., ~momdadcross) %>% summary(type="response"
 
 
 ## Plots
+
+Estimated marginal means with 95% CI are shown as dots. For the continuous variables, these show violin plots of the raw data with median and first and third quartiles.
 
 ### All crosses
 

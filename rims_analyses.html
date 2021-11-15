@@ -11,7 +11,7 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2021-11-14" />
+<meta name="date" content="2021-11-15" />
 
 <title>Schiedea hookeri/kaalae RIMs</title>
 
@@ -255,7 +255,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Schiedea hookeri/kaalae RIMs</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John Powers</a></h4>
-<h4 class="date">2021-11-14</h4>
+<h4 class="date">2021-11-15</h4>
 
 </div>
 
@@ -286,6 +286,7 @@ sxc.labels &lt;- set_names(c(&quot;K intrapop&quot;, &quot;K interpop&quot;, &qu
 F1.col &lt;- set_names(c(brewer.pal(3,&quot;Greens&quot;)[2:3],brewer.pal(9,&quot;Oranges&quot;)[5], brewer.pal(9,&quot;Set1&quot;)[7], brewer.pal(3,&quot;Purples&quot;)[3:2]), sxc.levels)</code></pre>
 <div id="datasets" class="section level1">
 <h1>Datasets</h1>
+<p>For seed production (capsule formation and viable seeds), the generation refers to the zygote generation (e.g. F2 seed grown from an F1 plant), otherwise the plant that produced the trait (e.g. F2 pollen is from F2 plants). This convention isn’t always carried over to the name of the dataset for historical reasons.</p>
 <pre class="r"><code>traits %&gt;% filter(generation !=&quot;P&quot;) %&gt;% select(c(generation,ylab, yvar, data, type)) %&gt;% kable</code></pre>
 <table>
 <thead>
@@ -452,6 +453,15 @@ F1.col &lt;- set_names(c(brewer.pal(3,&quot;Greens&quot;)[2:3],brewer.pal(9,&quo
 <h1>F1 Generation</h1>
 <div id="sample-sizes" class="section level2">
 <h2>Sample sizes</h2>
+<p>These sample sizes are the number of rows in the dataset. The rows mean different things in each dataset:</p>
+<ul>
+<li>seeds = seeds from one pollination</li>
+<li>germination = seeds from one pollination (multiple pots are pooled)</li>
+<li>vegbiomass = one offspring plant, if it survived</li>
+<li>survflr = one offspring plant</li>
+<li>pollen = one pollen collection</li>
+<li>inflobiomass = one offspring plant, if it flowered</li>
+</ul>
 <pre class="r"><code>F1 &lt;- set_names(datanames[1:6]); F1[[6]] &lt;- &quot;inflobiomass.sum&quot;
 
 map_dfr(F1, ~ tally(get(.)), .id=&quot;dataset&quot;) %&gt;% 
@@ -928,7 +938,15 @@ map_dfr(F1, ~ tally(get(.)), .id=&quot;dataset&quot;) %&gt;%
 </div>
 <div id="models" class="section level2">
 <h2>Models</h2>
-<p>Expand this code to see the model specifications:</p>
+<p>Expand this code to see the model specifications. The models have the following settings:</p>
+<ul>
+<li>response variable: for details see the <a href="https://docs.google.com/spreadsheets/d/1f487VMTsYzYGn0_daogtTF0nNE7ntoqd0Yh4h9tgyDE/edit#gid=2002881351">metadata</a></li>
+<li>sxc: the combined maternal plant species and crosstype (within population, between population, hybrid)</li>
+<li>collect: the number of days from planting to harvest, to account for growth during harvest period</li>
+<li>mompid, dadpid: random effects of the maternal and paternal plant ID. dadpop, the paternal population, is substituded dadpid led to convergence problems.</li>
+<li>data: for details and sample sizes see tables above</li>
+<li>family: gaussian (the default, for continuous variables), truncated_nbinom1 (quasi-Poisson truncated at zero for nonzero seed counts), betabinomial (for binary variables)</li>
+</ul>
 <pre class="r"><code>F1.mod &lt;- list(
   firstflower =          glmmTMB(firstflower ~          sxc +           (1|mompid) + (1|dadpid), data=survflr),
   firstinflo.biomass.g = glmmTMB(firstinflo.biomass.g ~ sxc + collect + (1|mompid) + (1|dadpid), data=survflr),
@@ -948,10 +966,11 @@ map_dfr(F1, ~ tally(get(.)), .id=&quot;dataset&quot;) %&gt;%
 </div>
 <div id="inference" class="section level2">
 <h2>Inference</h2>
+<p>P-values for the overall effect of species and crosstype, or collection date, on the trait.</p>
 <pre class="r"><code>F1.test &lt;- map_dfr(F1.mod, ~car::Anova(.) %&gt;% tidy(), .id=&quot;trait&quot;) 
 F1.test %&gt;% left_join(traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;% select(trait=yvar, step)) %&gt;% 
   arrange(step) %&gt;% select(-step) %&gt;% 
-  mutate(term=recode(term, sxc = &quot;cross&quot;, collect= &quot;collection date&quot;),
+  mutate(term=recode(term, sxc = &quot;species and crosstype&quot;, collect= &quot;collection date&quot;),
          trait = recode(trait, !!!set_names(traits$ylab[-1], traits$yvar[-1])) %&gt;% 
                str_remove(fixed(&quot; (g)&quot;)),
          p.value=format(p.value,digits=2)) %&gt;% 
@@ -970,35 +989,35 @@ F1.test %&gt;% left_join(traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;%
 <tbody>
 <tr class="odd">
 <td align="left">Capsule formation</td>
-<td align="left">cross</td>
+<td align="left">species and crosstype</td>
 <td align="right">8.5</td>
 <td align="right">5</td>
 <td align="left">1.3e-01</td>
 </tr>
 <tr class="even">
 <td align="left">Viable seeds if capsule formed</td>
-<td align="left">cross</td>
+<td align="left">species and crosstype</td>
 <td align="right">93.3</td>
 <td align="right">5</td>
 <td align="left">1.4e-18</td>
 </tr>
 <tr class="odd">
 <td align="left">Germination</td>
-<td align="left">cross</td>
+<td align="left">species and crosstype</td>
 <td align="right">147.8</td>
 <td align="right">5</td>
 <td align="left">4.0e-30</td>
 </tr>
 <tr class="even">
 <td align="left">Survival</td>
-<td align="left">cross</td>
+<td align="left">species and crosstype</td>
 <td align="right">22.7</td>
 <td align="right">5</td>
 <td align="left">3.9e-04</td>
 </tr>
 <tr class="odd">
 <td align="left">Vegetative biomass</td>
-<td align="left">cross</td>
+<td align="left">species and crosstype</td>
 <td align="right">199.5</td>
 <td align="right">5</td>
 <td align="left">3.7e-41</td>
@@ -1012,21 +1031,21 @@ F1.test %&gt;% left_join(traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;%
 </tr>
 <tr class="odd">
 <td align="left">Flowering if survived</td>
-<td align="left">cross</td>
+<td align="left">species and crosstype</td>
 <td align="right">10.3</td>
 <td align="right">5</td>
 <td align="left">6.6e-02</td>
 </tr>
 <tr class="even">
 <td align="left">Days to flower</td>
-<td align="left">cross</td>
+<td align="left">species and crosstype</td>
 <td align="right">66.1</td>
 <td align="right">5</td>
 <td align="left">6.6e-13</td>
 </tr>
 <tr class="odd">
 <td align="left">First inflorescence biomass</td>
-<td align="left">cross</td>
+<td align="left">species and crosstype</td>
 <td align="right">360.1</td>
 <td align="right">5</td>
 <td align="left">1.2e-75</td>
@@ -1040,7 +1059,7 @@ F1.test %&gt;% left_join(traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;%
 </tr>
 <tr class="odd">
 <td align="left">Inflorescence biomass</td>
-<td align="left">cross</td>
+<td align="left">species and crosstype</td>
 <td align="right">117.8</td>
 <td align="right">5</td>
 <td align="left">9.2e-24</td>
@@ -1054,7 +1073,7 @@ F1.test %&gt;% left_join(traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;%
 </tr>
 <tr class="odd">
 <td align="left">Flower number</td>
-<td align="left">cross</td>
+<td align="left">species and crosstype</td>
 <td align="right">212.9</td>
 <td align="right">5</td>
 <td align="left">5.0e-44</td>
@@ -1067,22 +1086,22 @@ F1.test %&gt;% left_join(traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;%
 <td align="left">5.8e-02</td>
 </tr>
 <tr class="odd">
-<td align="left">Pollen viability</td>
-<td align="left">cross</td>
-<td align="right">177.8</td>
-<td align="right">5</td>
-<td align="left">1.6e-36</td>
-</tr>
-<tr class="even">
 <td align="left">Pollen grains per anther</td>
-<td align="left">cross</td>
+<td align="left">species and crosstype</td>
 <td align="right">13.1</td>
 <td align="right">5</td>
 <td align="left">2.2e-02</td>
 </tr>
+<tr class="even">
+<td align="left">Pollen viability</td>
+<td align="left">species and crosstype</td>
+<td align="right">177.8</td>
+<td align="right">5</td>
+<td align="left">1.6e-36</td>
+</tr>
 <tr class="odd">
 <td align="left">Viable pollen grains per anther</td>
-<td align="left">cross</td>
+<td align="left">species and crosstype</td>
 <td align="right">66.2</td>
 <td align="right">5</td>
 <td align="left">6.4e-13</td>
@@ -1094,6 +1113,7 @@ F1.test %&gt;% left_join(traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;%
 </div>
 <div id="plots" class="section level2">
 <h2>Plots</h2>
+<p>Estimated marginal means with 95% CI are shown as dots. For the continuous variables, these show violin plots of the raw data with median and first and third quartiles. For binary variables, colored dots show the proportions of each population x population combination.</p>
 <pre class="r"><code>plot_F1 &lt;- function(emm, data, yvar, ylab, type=&quot;continuous&quot;) {
   data &lt;- get(data)
   if(type==&quot;continuous&quot;) {
@@ -1125,6 +1145,7 @@ traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;% select(data, yvar, ylab,
 </div>
 <div id="flower-biomass-regression" class="section level2">
 <h2>Flower biomass regression</h2>
+<p>Appears linear after log-log transformation at first glance, but actually not!</p>
 <pre class="r"><code>ggplot(inflobiomass, aes(x=inflo.biomass.g, y=flrs, color=cross)) + 
   geom_point() +  geom_smooth(method=&quot;lm&quot;, se=F) +  
   geom_rug(data=inflobiomass.sum, aes(x=inflo.biomass.g/inflo, y=10), sides=&quot;b&quot;) + 
@@ -1167,9 +1188,9 @@ traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;% select(data, yvar, ylab,
                   trait = recode(trait, !!!set_names(traits$ylab[-1], traits$yvar[-1])),
                   sxc = recode(sxc, !!!sxc.labels)) %&gt;% 
   select(trait, sxc, est.se) %&gt;% pivot_wider(names_from = sxc, values_from=est.se) %&gt;% 
-  kable(caption=&quot;Absolute fitness components&quot;)</code></pre>
+  kable(caption=&quot;Absolute fitness components with estimated marginal mean and standard error&quot;)</code></pre>
 <table>
-<caption>Absolute fitness components</caption>
+<caption>Absolute fitness components with estimated marginal mean and standard error</caption>
 <colgroup>
 <col width="26%" />
 <col width="11%" />
@@ -1310,11 +1331,13 @@ traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;% select(data, yvar, ylab,
 </tr>
 </tbody>
 </table>
-<pre class="r"><code>F1.RI &lt;- F1.emm %&gt;% separate(sxc, into=c(&quot;momsp&quot;,&quot;crosstype&quot;)) %&gt;% 
+<pre class="r"><code>#TODO to get confidence intervals of RI ratio, may need mratios or alt method here:
+# https://stats.stackexchange.com/questions/16349/how-to-compute-the-confidence-interval-of-the-ratio-of-two-normal-means
+F1.RI &lt;- F1.emm %&gt;% separate(sxc, into=c(&quot;momsp&quot;,&quot;crosstype&quot;)) %&gt;% 
   filter(crosstype !=&quot;within&quot;, trait != &quot;firstflower&quot;) %&gt;% #TODO firstflower is backwards fitness
   select(trait, momsp, crosstype, estimate) %&gt;% pivot_wider(names_from=crosstype, values_from=estimate) %&gt;% 
   rowwise() %&gt;% mutate(across(c(between,hybrid), ~ ./max(between,hybrid)),
-                       RI = 1 - 2 *  hybrid/(hybrid + between)) %&gt;% 
+                       RI = 1 - 2 *  hybrid/(hybrid + between)) %&gt;% #method of Sobel and Chen 2014
     left_join(traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;% select(trait=yvar, step, sex)) %&gt;% arrange(step) %&gt;% 
       mutate(trait = recode(trait, !!!set_names(traits$ylab[-1], traits$yvar[-1])) %&gt;% 
                str_remove(fixed(&quot; (g)&quot;)) %&gt;% factor() %&gt;% fct_reorder(step)) 
@@ -1717,6 +1740,13 @@ F1.inbred %&gt;% select(-step) %&gt;%
 <h1>F2 Generation</h1>
 <div id="sample-sizes-1" class="section level2">
 <h2>Sample sizes</h2>
+<p>These sample sizes are the number of rows in the dataset. The rows mean different things in each dataset:</p>
+<ul>
+<li>f1seeds = seeds from one pollination</li>
+<li>f1seeds = the mass of ten seeds</li>
+<li>f2pollen = one pollen collection</li>
+<li>f2seeds = seeds from one pollination</li>
+</ul>
 <pre class="r"><code>F2 &lt;- set_names(datanames[7:10])
 
 map_dfr(F2, ~ tally(get(.)), .id=&quot;dataset&quot;) %&gt;% 
@@ -1949,6 +1979,7 @@ F2.test %&gt;% left_join(traits %&gt;% filter(generation==&quot;F2&quot;) %&gt;%
 </div>
 <div id="plots-1" class="section level2">
 <h2>Plots</h2>
+<p>Estimated marginal means with 95% CI are shown as dots. For the continuous variables, these show violin plots of the raw data with median and first and third quartiles.</p>
 <div id="all-crosses" class="section level3">
 <h3>All crosses</h3>
 <pre class="r"><code>momdadcross.levels &lt;- c(&quot;H x H&quot;,&quot;H x HK&quot;,&quot;H x KH&quot;,&quot;H x K&quot;,&quot;HK x H&quot;,&quot;HK x HK&quot;,&quot;HK x KH&quot;,&quot;HK x K&quot;,&quot;KH x H&quot;,&quot;KH x HK&quot;,&quot;KH x KH&quot;,&quot;KH x K&quot;,&quot;K x H&quot;,&quot;K x HK&quot;,&quot;K x KH&quot;,&quot;K x K&quot;)
