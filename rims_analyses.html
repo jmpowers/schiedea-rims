@@ -1282,15 +1282,6 @@ traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;% select(data, yvar, ylab,
 <td align="left">172 ± 152</td>
 </tr>
 <tr class="odd">
-<td align="left">Pollen viability</td>
-<td align="left">0.837 ± 0.033</td>
-<td align="left">0.846 ± 0.027</td>
-<td align="left">0.417 ± 0.045</td>
-<td align="left">0.511 ± 0.046</td>
-<td align="left">0.891 ± 0.029</td>
-<td align="left">0.872 ± 0.034</td>
-</tr>
-<tr class="even">
 <td align="left">Pollen grains per anther</td>
 <td align="left">11400 ± 700</td>
 <td align="left">11900 ± 600</td>
@@ -1298,6 +1289,15 @@ traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;% select(data, yvar, ylab,
 <td align="left">12300 ± 500</td>
 <td align="left">10800 ± 800</td>
 <td align="left">9910 ± 820</td>
+</tr>
+<tr class="even">
+<td align="left">Pollen viability</td>
+<td align="left">0.837 ± 0.033</td>
+<td align="left">0.846 ± 0.027</td>
+<td align="left">0.417 ± 0.045</td>
+<td align="left">0.511 ± 0.046</td>
+<td align="left">0.891 ± 0.029</td>
+<td align="left">0.872 ± 0.034</td>
 </tr>
 <tr class="odd">
 <td align="left">Viable pollen grains per anther</td>
@@ -1315,25 +1315,57 @@ traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;% select(data, yvar, ylab,
   select(trait, momsp, crosstype, estimate) %&gt;% pivot_wider(names_from=crosstype, values_from=estimate) %&gt;% 
   rowwise() %&gt;% mutate(across(c(between,hybrid), ~ ./max(between,hybrid)),
                        RI = 1 - 2 *  hybrid/(hybrid + between)) %&gt;% 
-    left_join(traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;% select(trait=yvar, step)) %&gt;% arrange(step) %&gt;% 
+    left_join(traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;% select(trait=yvar, step, sex)) %&gt;% arrange(step) %&gt;% 
       mutate(trait = recode(trait, !!!set_names(traits$ylab[-1], traits$yvar[-1])) %&gt;% 
                str_remove(fixed(&quot; (g)&quot;)) %&gt;% factor() %&gt;% fct_reorder(step)) 
   
-F1.RI %&gt;% select(-step) %&gt;% 
-  pivot_wider(names_from=momsp, values_from=c(between, hybrid, RI)) %&gt;% 
-  select(trait, KK = between_kaal, KH = hybrid_kaal, K_RI=RI_kaal, HH = between_hook, HK = hybrid_hook, H_RI=RI_hook) %&gt;% 
-  kable(caption=&quot;Relative fitness components between hybrids and their maternal parent, and RI from Sobel &amp; Chen 2014&quot;, digits=3)</code></pre>
-<table>
-<caption>Relative fitness components between hybrids and their maternal parent, and RI from Sobel &amp; Chen 2014</caption>
+abs_contribution &lt;- function(RI) { #method of Ramsey et al. 2003 for absolute contribution to RI
+  AC &lt;- RI
+  for(n in 1:length(RI)) {
+    AC[[n]] &lt;- RI[[n]] * (1 - sum(AC[1:n-1]))
+  }
+  return(AC)
+}
+F1.CRI.m &lt;- F1.RI %&gt;% filter(str_detect(sex,&quot;m&quot;)) %&gt;%  select(-c(step,between,hybrid,sex)) %&gt;% 
+              pivot_wider(names_prefix=&quot;RI_&quot;, names_from=momsp, values_from=RI) %&gt;% 
+              mutate(across(starts_with(&quot;RI&quot;), abs_contribution, .names=&quot;AC{.col}&quot;), 
+                     across(starts_with(&quot;AC&quot;), ~ . /sum(.),  .names=&quot;R{.col}&quot;),
+                     across(starts_with(&quot;AC&quot;), cumsum, .names=&quot;T{.col}&quot;),
+                     .keep = &quot;unused&quot;)
+
+F1.RI %&gt;% select(-step) %&gt;% pivot_wider(names_from=momsp, values_from=c(between, hybrid, RI)) %&gt;% 
+  left_join(F1.CRI.m) %&gt;% 
+  select(trait, KK = between_kaal, KH = hybrid_kaal, K_RI = RI_kaal, K_AC = ACRI_kaal, K_RC = RACRI_kaal, 
+                HH = between_hook, HK = hybrid_hook, H_RI = RI_hook, H_AC = ACRI_hook, H_RC = RACRI_hook) %&gt;% 
+  kable(caption=&quot;Relative fitness components of hybrids vs. maternal parent. RI, AC, RC follow Sobel &amp; Chen 2014, Ramsey et al. 2003&quot;, digits=3)</code></pre>
+<table style="width:100%;">
+<caption>Relative fitness components of hybrids vs. maternal parent. RI, AC, RC follow Sobel &amp; Chen 2014, Ramsey et al. 2003</caption>
+<colgroup>
+<col width="32%" />
+<col width="6%" />
+<col width="6%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="6%" />
+<col width="6%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">trait</th>
 <th align="right">KK</th>
 <th align="right">KH</th>
 <th align="right">K_RI</th>
+<th align="right">K_AC</th>
+<th align="right">K_RC</th>
 <th align="right">HH</th>
 <th align="right">HK</th>
 <th align="right">H_RI</th>
+<th align="right">H_AC</th>
+<th align="right">H_RC</th>
 </tr>
 </thead>
 <tbody>
@@ -1342,108 +1374,156 @@ F1.RI %&gt;% select(-step) %&gt;%
 <td align="right">1.000</td>
 <td align="right">0.906</td>
 <td align="right">0.049</td>
+<td align="right">0.049</td>
+<td align="right">0.057</td>
 <td align="right">1.000</td>
 <td align="right">0.770</td>
 <td align="right">0.130</td>
+<td align="right">0.130</td>
+<td align="right">0.659</td>
 </tr>
 <tr class="even">
 <td align="left">Viable seeds if capsule formed</td>
 <td align="right">1.000</td>
 <td align="right">0.787</td>
 <td align="right">0.119</td>
+<td align="right">0.113</td>
+<td align="right">0.132</td>
 <td align="right">1.000</td>
 <td align="right">0.476</td>
 <td align="right">0.355</td>
+<td align="right">0.309</td>
+<td align="right">1.566</td>
 </tr>
 <tr class="odd">
 <td align="left">Germination</td>
 <td align="right">1.000</td>
 <td align="right">0.160</td>
 <td align="right">0.725</td>
+<td align="right">0.607</td>
+<td align="right">0.708</td>
 <td align="right">0.974</td>
 <td align="right">1.000</td>
 <td align="right">-0.013</td>
+<td align="right">-0.007</td>
+<td align="right">-0.037</td>
 </tr>
 <tr class="even">
 <td align="left">Survival</td>
 <td align="right">1.000</td>
 <td align="right">0.868</td>
 <td align="right">0.071</td>
+<td align="right">0.016</td>
+<td align="right">0.019</td>
 <td align="right">0.951</td>
 <td align="right">1.000</td>
 <td align="right">-0.025</td>
+<td align="right">-0.014</td>
+<td align="right">-0.072</td>
 </tr>
 <tr class="odd">
 <td align="left">Vegetative biomass</td>
 <td align="right">0.533</td>
 <td align="right">1.000</td>
 <td align="right">-0.305</td>
+<td align="right"></td>
+<td align="right"></td>
 <td align="right">0.952</td>
 <td align="right">1.000</td>
 <td align="right">-0.025</td>
+<td align="right"></td>
+<td align="right"></td>
 </tr>
 <tr class="even">
 <td align="left">Flowering if survived</td>
 <td align="right">1.000</td>
 <td align="right">0.960</td>
 <td align="right">0.021</td>
+<td align="right">0.004</td>
+<td align="right">0.005</td>
 <td align="right">1.000</td>
 <td align="right">0.952</td>
 <td align="right">0.024</td>
+<td align="right">0.014</td>
+<td align="right">0.072</td>
 </tr>
 <tr class="odd">
 <td align="left">First inflorescence biomass</td>
 <td align="right">1.000</td>
 <td align="right">0.484</td>
 <td align="right">0.348</td>
+<td align="right"></td>
+<td align="right"></td>
 <td align="right">0.438</td>
 <td align="right">1.000</td>
 <td align="right">-0.390</td>
+<td align="right"></td>
+<td align="right"></td>
 </tr>
 <tr class="even">
 <td align="left">Inflorescence biomass</td>
 <td align="right">1.000</td>
 <td align="right">0.704</td>
 <td align="right">0.174</td>
+<td align="right"></td>
+<td align="right"></td>
 <td align="right">0.339</td>
 <td align="right">1.000</td>
 <td align="right">-0.494</td>
+<td align="right"></td>
+<td align="right"></td>
 </tr>
 <tr class="odd">
 <td align="left">Flower number</td>
 <td align="right">0.724</td>
 <td align="right">1.000</td>
 <td align="right">-0.160</td>
+<td align="right">-0.034</td>
+<td align="right">-0.039</td>
 <td align="right">0.099</td>
 <td align="right">1.000</td>
 <td align="right">-0.819</td>
+<td align="right">-0.466</td>
+<td align="right">-2.362</td>
 </tr>
 <tr class="even">
-<td align="left">Pollen viability</td>
-<td align="right">1.000</td>
-<td align="right">0.493</td>
-<td align="right">0.340</td>
-<td align="right">1.000</td>
-<td align="right">0.573</td>
-<td align="right">0.271</td>
-</tr>
-<tr class="odd">
 <td align="left">Pollen grains per anther</td>
 <td align="right">1.000</td>
 <td align="right">0.806</td>
 <td align="right">0.107</td>
+<td align="right">0.026</td>
+<td align="right">0.030</td>
 <td align="right">0.877</td>
 <td align="right">1.000</td>
 <td align="right">-0.066</td>
+<td align="right">-0.068</td>
+<td align="right">-0.344</td>
+</tr>
+<tr class="odd">
+<td align="left">Pollen viability</td>
+<td align="right">1.000</td>
+<td align="right">0.493</td>
+<td align="right">0.340</td>
+<td align="right">0.074</td>
+<td align="right">0.086</td>
+<td align="right">1.000</td>
+<td align="right">0.573</td>
+<td align="right">0.271</td>
+<td align="right">0.299</td>
+<td align="right">1.517</td>
 </tr>
 <tr class="even">
 <td align="left">Viable pollen grains per anther</td>
 <td align="right">1.000</td>
 <td align="right">0.460</td>
 <td align="right">0.370</td>
+<td align="right"></td>
+<td align="right"></td>
 <td align="right">1.000</td>
 <td align="right">0.624</td>
 <td align="right">0.232</td>
+<td align="right"></td>
+<td align="right"></td>
 </tr>
 </tbody>
 </table>
@@ -1456,6 +1536,34 @@ F1.RI %&gt;% select(-step) %&gt;%
   theme_minimal() + theme(legend.position = &quot;top&quot;, legend.text = element_text(face=&quot;italic&quot;))+
   labs(x=&quot;Reproductive isolation&quot;, y=&quot;Fitness component&quot;, color=&quot;Maternal parent&quot;)</code></pre>
 <p><img src="figures/fitness-1.svg" width="576" /></p>
+<pre class="r"><code>F1.CRI.m %&gt;% summarize(across(starts_with(&quot;AC&quot;), sum)) %&gt;% rename_with(~str_remove(.,&quot;ACRI_&quot;)) %&gt;% 
+  kable(caption=&quot;Total male reproductive isolation = sum of absolute contributions (AC) to RI&quot;, digits=3)</code></pre>
+<table>
+<caption>Total male reproductive isolation = sum of absolute contributions (AC) to RI</caption>
+<thead>
+<tr class="header">
+<th align="right">kaal</th>
+<th align="right">hook</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.857</td>
+<td align="right">0.197</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>F1.CRI.m %&gt;% pivot_longer(starts_with(&quot;TAC&quot;), names_prefix=&quot;TACRI_&quot;, names_to=&quot;momsp&quot;, values_to=&quot;TAC&quot;) %&gt;% 
+  ggplot(aes(y=fct_rev(trait), x=TAC, color=momsp)) + 
+  geom_vline(xintercept=0, linetype=2) + geom_vline(xintercept=1)+ 
+  geom_path(aes(group=momsp))+
+  geom_point(shape=17, size=2) +
+  scale_color_manual(values = set_names(F1.col[c(2,5)], c(&quot;kaal&quot;,&quot;hook&quot;)), labels=c(&quot;S. kaalae&quot;,&quot;S. hookeri&quot;)) +
+  scale_x_continuous(limits=c(NA, 1.1), breaks=c(0,0.5,1),
+                     labels=c(&quot;0\nno\nbarrier&quot;,&quot;0.5&quot;,&quot;1\ncomplete\nisolation&quot;)) +
+  theme_minimal() + theme(legend.position = &quot;top&quot;, legend.text = element_text(face=&quot;italic&quot;))+
+  labs(x=&quot;Cumulative reproductive isolation&quot;, y=&quot;Fitness component&quot;, color=&quot;Maternal parent&quot;)</code></pre>
+<p><img src="figures/fitness-2.svg" width="576" /></p>
 </div>
 <div id="inbreeding-depression" class="section level2">
 <h2>Inbreeding depression</h2>

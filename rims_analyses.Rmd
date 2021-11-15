@@ -189,14 +189,29 @@ F1.RI <- F1.emm %>% separate(sxc, into=c("momsp","crosstype")) %>%
   select(trait, momsp, crosstype, estimate) %>% pivot_wider(names_from=crosstype, values_from=estimate) %>% 
   rowwise() %>% mutate(across(c(between,hybrid), ~ ./max(between,hybrid)),
                        RI = 1 - 2 *  hybrid/(hybrid + between)) %>% 
-    left_join(traits %>% filter(generation=="F1") %>% select(trait=yvar, step)) %>% arrange(step) %>% 
+    left_join(traits %>% filter(generation=="F1") %>% select(trait=yvar, step, sex)) %>% arrange(step) %>% 
       mutate(trait = recode(trait, !!!set_names(traits$ylab[-1], traits$yvar[-1])) %>% 
                str_remove(fixed(" (g)")) %>% factor() %>% fct_reorder(step)) 
   
-F1.RI %>% select(-step) %>% 
-  pivot_wider(names_from=momsp, values_from=c(between, hybrid, RI)) %>% 
-  select(trait, KK = between_kaal, KH = hybrid_kaal, K_RI=RI_kaal, HH = between_hook, HK = hybrid_hook, H_RI=RI_hook) %>% 
-  kable(caption="Relative fitness components between hybrids and their maternal parent, and RI from Sobel & Chen 2014", digits=3)
+abs_contribution <- function(RI) { #method of Ramsey et al. 2003 for absolute contribution to RI
+  AC <- RI
+  for(n in 1:length(RI)) {
+    AC[[n]] <- RI[[n]] * (1 - sum(AC[1:n-1]))
+  }
+  return(AC)
+}
+F1.CRI.m <- F1.RI %>% filter(str_detect(sex,"m")) %>%  select(-c(step,between,hybrid,sex)) %>% 
+              pivot_wider(names_prefix="RI_", names_from=momsp, values_from=RI) %>% 
+              mutate(across(starts_with("RI"), abs_contribution, .names="AC{.col}"), 
+                     across(starts_with("AC"), ~ . /sum(.),  .names="R{.col}"),
+                     across(starts_with("AC"), cumsum, .names="T{.col}"),
+                     .keep = "unused")
+
+F1.RI %>% select(-step) %>% pivot_wider(names_from=momsp, values_from=c(between, hybrid, RI)) %>% 
+  left_join(F1.CRI.m) %>% 
+  select(trait, KK = between_kaal, KH = hybrid_kaal, K_RI = RI_kaal, K_AC = ACRI_kaal, K_RC = RACRI_kaal, 
+                HH = between_hook, HK = hybrid_hook, H_RI = RI_hook, H_AC = ACRI_hook, H_RC = RACRI_hook) %>% 
+  kable(caption="Relative fitness components of hybrids vs. maternal parent. RI, AC, RC follow Sobel & Chen 2014, Ramsey et al. 2003", digits=3)
 
 ggplot(F1.RI, aes(y=fct_rev(trait), x=RI, color=momsp)) + 
   geom_vline(xintercept=0, linetype=2) + geom_vline(xintercept=-1)+ geom_vline(xintercept=1)+ 
@@ -206,6 +221,20 @@ ggplot(F1.RI, aes(y=fct_rev(trait), x=RI, color=momsp)) +
                      labels=c("-1\nheterosis","-0.5","0\nno\nbarrier","0.5","1\ncomplete\nisolation")) + 
   theme_minimal() + theme(legend.position = "top", legend.text = element_text(face="italic"))+
   labs(x="Reproductive isolation", y="Fitness component", color="Maternal parent")
+
+F1.CRI.m %>% summarize(across(starts_with("AC"), sum)) %>% rename_with(~str_remove(.,"ACRI_")) %>% 
+  kable(caption="Total male reproductive isolation = sum of absolute contributions (AC) to RI", digits=3)
+
+F1.CRI.m %>% pivot_longer(starts_with("TAC"), names_prefix="TACRI_", names_to="momsp", values_to="TAC") %>% 
+  ggplot(aes(y=fct_rev(trait), x=TAC, color=momsp)) + 
+  geom_vline(xintercept=0, linetype=2) + geom_vline(xintercept=1)+ 
+  geom_path(aes(group=momsp))+
+  geom_point(shape=17, size=2) +
+  scale_color_manual(values = set_names(F1.col[c(2,5)], c("kaal","hook")), labels=c("S. kaalae","S. hookeri")) +
+  scale_x_continuous(limits=c(NA, 1.1), breaks=c(0,0.5,1),
+                     labels=c("0\nno\nbarrier","0.5","1\ncomplete\nisolation")) +
+  theme_minimal() + theme(legend.position = "top", legend.text = element_text(face="italic"))+
+  labs(x="Cumulative reproductive isolation", y="Fitness component", color="Maternal parent")
 ```
 
 ## Inbreeding depression

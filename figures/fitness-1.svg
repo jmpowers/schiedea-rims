@@ -67,17 +67,17 @@
 <polygon points='238.57,160.62 241.92,166.42 235.22,166.42 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
 <polygon points='275.36,176.38 278.71,182.19 272.01,182.19 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
 <polygon points='202.68,176.38 206.04,182.19 199.33,182.19 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
-<polygon points='330.55,192.15 333.90,197.95 327.20,197.95 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
-<polygon points='322.99,192.15 326.34,197.95 319.64,197.95 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
-<polygon points='304.89,207.91 308.24,213.72 301.54,213.72 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
-<polygon points='285.82,207.91 289.17,213.72 282.47,213.72 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
+<polygon points='304.89,192.15 308.24,197.95 301.54,197.95 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
+<polygon points='285.82,192.15 289.17,197.95 282.47,197.95 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
+<polygon points='330.55,207.91 333.90,213.72 327.20,213.72 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
+<polygon points='322.99,207.91 326.34,213.72 319.64,213.72 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
 <polygon points='333.89,223.68 337.24,229.48 330.54,229.48 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
 <polygon points='318.62,223.68 321.97,229.48 315.27,229.48 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
 </g>
 <g clip-path='url(#cpMC4wMHw0MzIuMDB8MC4wMHwyODguMDA=)'>
 <text x='154.64' y='230.75' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='135.98px' lengthAdjust='spacingAndGlyphs'>Viable pollen grains per anther</text>
-<text x='154.64' y='214.99' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='105.47px' lengthAdjust='spacingAndGlyphs'>Pollen grains per anther</text>
-<text x='154.64' y='199.22' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='63.68px' lengthAdjust='spacingAndGlyphs'>Pollen viability</text>
+<text x='154.64' y='214.99' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='63.68px' lengthAdjust='spacingAndGlyphs'>Pollen viability</text>
+<text x='154.64' y='199.22' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='105.47px' lengthAdjust='spacingAndGlyphs'>Pollen grains per anther</text>
 <text x='154.64' y='183.46' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='66.24px' lengthAdjust='spacingAndGlyphs'>Flower number</text>
 <text x='154.64' y='167.70' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='97.94px' lengthAdjust='spacingAndGlyphs'>Inflorescence biomass</text>
 <text x='154.64' y='151.93' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='119.11px' lengthAdjust='spacingAndGlyphs'>First inflorescence biomass</text>
