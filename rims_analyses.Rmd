@@ -263,6 +263,29 @@ F1.CRI.m %>% pivot_longer(starts_with("TAC"), names_prefix="TACRI_", names_to="m
   labs(x="Cumulative reproductive isolation", y="Fitness component", color="Maternal parent")
 ```
 
+### Distribution of total isolation
+
+```{r totalRI_simulation, fig.height=10, fig.width=6}
+sample_trait <- function(dataname, yvar, N = 1000) {
+  get(dataname) %>% select(sxc, y=!!yvar) %>% nest(dfchunk=c(y)) %>% 
+    mutate(sampled = map(dfchunk, slice_sample, n=N, replace=T)) %>% 
+    select(-dfchunk) %>% unnest(sampled) %>% arrange(sxc) %>% mutate(trial=row_number())
+}
+
+set.seed(1)
+F1.TRI.m <- traits %>% filter(generation=="F1", str_detect(sex,"m")) %>% select(data, yvar) %>% 
+  mutate(samp = pmap(., sample_trait)) %>% select(-data) %>% unnest(samp) %>% 
+  pivot_wider(id_cols=c(sxc, trial), names_from=yvar, values_from=y) %>% 
+  mutate(total = capsule.formed * viable.seeds * prop.germ * alive * 
+           flowered * flower.number * total.per.anther * prop.viable)
+
+ggplot(F1.TRI.m, aes(x=total, fill=sxc)) + facet_wrap(vars(sxc), ncol=1, labeller = as_labeller(sxc.labels)) +
+  geom_histogram() + scale_fill_manual(values=F1.col, guide="none") + theme_minimal() +
+  labs(y="Incidence out of 1000 trials", x="Viable F1 pollen grains produced by one P x P pollination",
+       title = "Distribution of total male reproductive isolation")
+```
+
+
 ## Inbreeding depression
 
 ```{r inbred}
