@@ -11,7 +11,7 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2021-11-15" />
+<meta name="date" content="2021-12-07" />
 
 <title>Schiedea hookeri/kaalae RIMs</title>
 
@@ -255,7 +255,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Schiedea hookeri/kaalae RIMs</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John Powers</a></h4>
-<h4 class="date">2021-11-15</h4>
+<h4 class="date">2021-12-07</h4>
 
 </div>
 
@@ -371,17 +371,17 @@ F1.col &lt;- set_names(c(brewer.pal(3,&quot;Greens&quot;)[2:3],brewer.pal(9,&quo
 </tr>
 <tr class="odd">
 <td align="left">F1</td>
-<td align="left">Pollen viability</td>
-<td align="left">prop.viable</td>
-<td align="left">pollen</td>
-<td align="left">binary</td>
-</tr>
-<tr class="even">
-<td align="left">F1</td>
 <td align="left">Pollen grains per anther</td>
 <td align="left">total.per.anther</td>
 <td align="left">pollen</td>
 <td align="left">continuous</td>
+</tr>
+<tr class="even">
+<td align="left">F1</td>
+<td align="left">Pollen viability</td>
+<td align="left">prop.viable</td>
+<td align="left">pollen</td>
+<td align="left">binary</td>
 </tr>
 <tr class="odd">
 <td align="left">F1</td>
@@ -413,17 +413,17 @@ F1.col &lt;- set_names(c(brewer.pal(3,&quot;Greens&quot;)[2:3],brewer.pal(9,&quo
 </tr>
 <tr class="odd">
 <td align="left">F2</td>
-<td align="left">Pollen viability</td>
-<td align="left">prop.viable</td>
-<td align="left">f2pollen</td>
-<td align="left">binary</td>
-</tr>
-<tr class="even">
-<td align="left">F2</td>
 <td align="left">Pollen grains per anther</td>
 <td align="left">total.per.anther</td>
 <td align="left">f2pollen</td>
 <td align="left">continuous</td>
+</tr>
+<tr class="even">
+<td align="left">F2</td>
+<td align="left">Pollen viability</td>
+<td align="left">prop.viable</td>
+<td align="left">f2pollen</td>
+<td align="left">binary</td>
 </tr>
 <tr class="odd">
 <td align="left">F2</td>
@@ -943,7 +943,7 @@ map_dfr(F1, ~ tally(get(.)), .id=&quot;dataset&quot;) %&gt;%
 <li>response variable: for details see the <a href="https://docs.google.com/spreadsheets/d/1f487VMTsYzYGn0_daogtTF0nNE7ntoqd0Yh4h9tgyDE/edit#gid=2002881351">metadata</a></li>
 <li>sxc: the combined maternal plant species and crosstype (within population, between population, hybrid)</li>
 <li>collect: the number of days from planting to harvest, to account for growth during harvest period</li>
-<li>mompid, dadpid: random effects of the maternal and paternal plant ID. dadpop, the paternal population, is substituded dadpid led to convergence problems.</li>
+<li>mompid, dadpid: random effects of the maternal and paternal plant genotypes (clones are treated as the same genotype)</li>
 <li>data: for details and sample sizes see tables above</li>
 <li>family: gaussian (the default, for continuous variables), truncated_nbinom1 (quasi-Poisson truncated at zero for nonzero seed counts), betabinomial (for binary variables)</li>
 </ul>
@@ -951,18 +951,17 @@ map_dfr(F1, ~ tally(get(.)), .id=&quot;dataset&quot;) %&gt;%
   firstflower =          glmmTMB(firstflower ~          sxc +           (1|mompid) + (1|dadpid), data=survflr),
   firstinflo.biomass.g = glmmTMB(firstinflo.biomass.g ~ sxc + collect + (1|mompid) + (1|dadpid), data=survflr),
   inflo.biomass.g =      glmmTMB(inflo.biomass.g  ~     sxc + collect + (1|mompid) + (1|dadpid), data=inflobiomass.sum),
-  flower.number =        glmmTMB(flower.number  ~       sxc + collect + (1|mompid) + (1|dadpop), data=inflobiomass.sum),#dadpid model prob.
+  flower.number =        glmmTMB(flower.number  ~       sxc + collect + (1|mompid) + (1|dadpid), data=inflobiomass.sum),
   veg.biomass.g =        glmmTMB(veg.biomass.g ~        sxc + collect + (1|mompid) + (1|dadpid), data=vegbiomass),
   total.per.anther =     glmmTMB(total.per.anther ~     sxc +           (1|mompid) + (1|dadpid), data=pollen),
   viable.per.anther =    glmmTMB(viable.per.anther ~    sxc +           (1|mompid) + (1|dadpid), data=pollen),
-  viable.seeds =         glmmTMB(viable.seeds ~         sxc +           (1|mompid) + (1|dadpop), data=filter(seeds, viable.seeds&gt;0),
+  viable.seeds =         glmmTMB(viable.seeds ~         sxc +           (1|mompid) + (1|dadpid), data=filter(seeds, viable.seeds&gt;0),
                                  family=&quot;truncated_nbinom1&quot;),
   prop.germ =            glmmTMB(prop.germ      ~ sxc + (1|mompid) + (1|dadpid), family=&quot;betabinomial&quot;, data=germination, weights = planted),
-  alive =                glmmTMB(alive          ~ sxc + (1|mompid) + (1|dadpop), family=&quot;betabinomial&quot;, data=survflr),#dadpid model prob.
+  alive =                glmmTMB(alive          ~ sxc + (1|mompid) + (1|dadpid), family=&quot;betabinomial&quot;, data=survflr),
   flowered =             glmmTMB(flowered       ~ sxc + (1|mompid) + (1|dadpid), family=&quot;betabinomial&quot;, data=filter(survflr, alive)),
   prop.viable =          glmmTMB(prop.viable    ~ sxc + (1|mompid) + (1|dadpid), family=&quot;betabinomial&quot;, data=pollen, weights = total),
-  capsule.formed =       glmmTMB(capsule.formed ~ sxc + (1|mompid) + (1|dadpop), family=&quot;betabinomial&quot;, data=seeds))
-#TODO try to find dadpid for seeds</code></pre>
+  capsule.formed =       glmmTMB(capsule.formed ~ sxc + (1|mompid) + (1|dadpid), family=&quot;betabinomial&quot;, data=seeds))</code></pre>
 </div>
 <div id="inference" class="section level2">
 <h2>Inference</h2>
@@ -990,9 +989,9 @@ F1.test %&gt;% left_join(traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;%
 <tr class="odd">
 <td align="left">Capsule formation</td>
 <td align="left">species and crosstype</td>
-<td align="right">8.5</td>
+<td align="right">8.1</td>
 <td align="right">5</td>
-<td align="left">1.3e-01</td>
+<td align="left">1.5e-01</td>
 </tr>
 <tr class="even">
 <td align="left">Viable seeds if capsule formed</td>
@@ -1011,9 +1010,9 @@ F1.test %&gt;% left_join(traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;%
 <tr class="even">
 <td align="left">Survival</td>
 <td align="left">species and crosstype</td>
-<td align="right">22.7</td>
+<td align="right">17.4</td>
 <td align="right">5</td>
-<td align="left">3.9e-04</td>
+<td align="left">3.9e-03</td>
 </tr>
 <tr class="odd">
 <td align="left">Vegetative biomass</td>
@@ -1034,28 +1033,28 @@ F1.test %&gt;% left_join(traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;%
 <td align="left">species and crosstype</td>
 <td align="right">10.3</td>
 <td align="right">5</td>
-<td align="left">6.6e-02</td>
+<td align="left">6.7e-02</td>
 </tr>
 <tr class="even">
 <td align="left">Days to flower</td>
 <td align="left">species and crosstype</td>
-<td align="right">66.1</td>
+<td align="right">66.7</td>
 <td align="right">5</td>
-<td align="left">6.6e-13</td>
+<td align="left">5.0e-13</td>
 </tr>
 <tr class="odd">
 <td align="left">First inflorescence biomass</td>
 <td align="left">species and crosstype</td>
-<td align="right">360.1</td>
+<td align="right">358.6</td>
 <td align="right">5</td>
-<td align="left">1.2e-75</td>
+<td align="left">2.5e-75</td>
 </tr>
 <tr class="even">
 <td align="left">First inflorescence biomass</td>
 <td align="left">collection date</td>
-<td align="right">64.6</td>
+<td align="right">64.7</td>
 <td align="right">1</td>
-<td align="left">9.3e-16</td>
+<td align="left">8.5e-16</td>
 </tr>
 <tr class="odd">
 <td align="left">Inflorescence biomass</td>
@@ -1074,16 +1073,16 @@ F1.test %&gt;% left_join(traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;%
 <tr class="odd">
 <td align="left">Flower number</td>
 <td align="left">species and crosstype</td>
-<td align="right">212.9</td>
+<td align="right">262.2</td>
 <td align="right">5</td>
-<td align="left">5.0e-44</td>
+<td align="left">1.3e-54</td>
 </tr>
 <tr class="even">
 <td align="left">Flower number</td>
 <td align="left">collection date</td>
-<td align="right">3.6</td>
+<td align="right">3.8</td>
 <td align="right">1</td>
-<td align="left">5.8e-02</td>
+<td align="left">5.1e-02</td>
 </tr>
 <tr class="odd">
 <td align="left">Pollen grains per anther</td>
@@ -1214,12 +1213,12 @@ traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;% select(data, yvar, ylab,
 <tbody>
 <tr class="odd">
 <td align="left">Capsule formation</td>
-<td align="left">0.776 ± 0.098</td>
-<td align="left">0.817 ± 0.073</td>
-<td align="left">0.74 ± 0.076</td>
-<td align="left">0.612 ± 0.1</td>
-<td align="left">0.795 ± 0.086</td>
-<td align="left">0.784 ± 0.094</td>
+<td align="left">0.793 ± 0.099</td>
+<td align="left">0.841 ± 0.07</td>
+<td align="left">0.727 ± 0.083</td>
+<td align="left">0.634 ± 0.106</td>
+<td align="left">0.797 ± 0.091</td>
+<td align="left">0.762 ± 0.106</td>
 </tr>
 <tr class="even">
 <td align="left">Viable seeds if capsule formed</td>
@@ -1241,12 +1240,12 @@ traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;% select(data, yvar, ylab,
 </tr>
 <tr class="even">
 <td align="left">Survival</td>
-<td align="left">0.932 ± 0.025</td>
-<td align="left">0.987 ± 0.008</td>
-<td align="left">0.856 ± 0.038</td>
-<td align="left">0.936 ± 0.014</td>
-<td align="left">0.89 ± 0.022</td>
-<td align="left">0.884 ± 0.028</td>
+<td align="left">0.936 ± 0.026</td>
+<td align="left">0.988 ± 0.007</td>
+<td align="left">0.862 ± 0.042</td>
+<td align="left">0.938 ± 0.016</td>
+<td align="left">0.895 ± 0.026</td>
+<td align="left">0.887 ± 0.032</td>
 </tr>
 <tr class="odd">
 <td align="left">Vegetative biomass (g)</td>
@@ -1281,8 +1280,8 @@ traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;% select(data, yvar, ylab,
 <td align="left">0.583 ± 0.022</td>
 <td align="left">0.282 ± 0.027</td>
 <td align="left">0.204 ± 0.025</td>
-<td align="left">0.0896 ± 0.0258</td>
-<td align="left">0.0887 ± 0.0268</td>
+<td align="left">0.0903 ± 0.0258</td>
+<td align="left">0.0896 ± 0.0268</td>
 </tr>
 <tr class="odd">
 <td align="left">Inflorescence biomass (g)</td>
@@ -1295,12 +1294,12 @@ traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;% select(data, yvar, ylab,
 </tr>
 <tr class="even">
 <td align="left">Flower number</td>
-<td align="left">1120 ± 160</td>
-<td align="left">1030 ± 120</td>
-<td align="left">1430 ± 180</td>
-<td align="left">1840 ± 110</td>
-<td align="left">183 ± 133</td>
-<td align="left">172 ± 152</td>
+<td align="left">1050 ± 130</td>
+<td align="left">1010 ± 90</td>
+<td align="left">1400 ± 160</td>
+<td align="left">1910 ± 80</td>
+<td align="left">281 ± 87</td>
+<td align="left">282 ± 112</td>
 </tr>
 <tr class="odd">
 <td align="left">Pollen grains per anther</td>
@@ -1395,54 +1394,54 @@ F1.RI %&gt;% select(-step) %&gt;% pivot_wider(names_from=momsp, values_from=c(be
 <tr class="odd">
 <td align="left">Capsule formation</td>
 <td align="right">1.000</td>
-<td align="right">0.906</td>
-<td align="right">0.049</td>
-<td align="right">0.049</td>
-<td align="right">0.057</td>
+<td align="right">0.864</td>
+<td align="right">0.073</td>
+<td align="right">0.073</td>
+<td align="right">0.085</td>
 <td align="right">1.000</td>
-<td align="right">0.770</td>
-<td align="right">0.130</td>
-<td align="right">0.130</td>
-<td align="right">0.659</td>
+<td align="right">0.795</td>
+<td align="right">0.114</td>
+<td align="right">0.114</td>
+<td align="right">0.524</td>
 </tr>
 <tr class="even">
 <td align="left">Viable seeds if capsule formed</td>
 <td align="right">1.000</td>
 <td align="right">0.787</td>
 <td align="right">0.119</td>
-<td align="right">0.113</td>
-<td align="right">0.132</td>
+<td align="right">0.111</td>
+<td align="right">0.129</td>
 <td align="right">1.000</td>
 <td align="right">0.476</td>
 <td align="right">0.355</td>
-<td align="right">0.309</td>
-<td align="right">1.566</td>
+<td align="right">0.315</td>
+<td align="right">1.447</td>
 </tr>
 <tr class="odd">
 <td align="left">Germination</td>
 <td align="right">1.000</td>
 <td align="right">0.160</td>
 <td align="right">0.725</td>
-<td align="right">0.607</td>
-<td align="right">0.708</td>
+<td align="right">0.592</td>
+<td align="right">0.688</td>
 <td align="right">0.974</td>
 <td align="right">1.000</td>
 <td align="right">-0.013</td>
-<td align="right">-0.007</td>
-<td align="right">-0.037</td>
+<td align="right">-0.008</td>
+<td align="right">-0.035</td>
 </tr>
 <tr class="even">
 <td align="left">Survival</td>
 <td align="right">1.000</td>
-<td align="right">0.868</td>
-<td align="right">0.071</td>
-<td align="right">0.016</td>
-<td align="right">0.019</td>
-<td align="right">0.951</td>
+<td align="right">0.872</td>
+<td align="right">0.068</td>
+<td align="right">0.015</td>
+<td align="right">0.018</td>
+<td align="right">0.954</td>
 <td align="right">1.000</td>
-<td align="right">-0.025</td>
+<td align="right">-0.024</td>
 <td align="right">-0.014</td>
-<td align="right">-0.072</td>
+<td align="right">-0.063</td>
 </tr>
 <tr class="odd">
 <td align="left">Vegetative biomass</td>
@@ -1468,18 +1467,18 @@ F1.RI %&gt;% select(-step) %&gt;% pivot_wider(names_from=momsp, values_from=c(be
 <td align="right">0.952</td>
 <td align="right">0.024</td>
 <td align="right">0.014</td>
-<td align="right">0.072</td>
+<td align="right">0.066</td>
 </tr>
 <tr class="odd">
 <td align="left">First inflorescence biomass</td>
 <td align="right">1.000</td>
-<td align="right">0.484</td>
-<td align="right">0.348</td>
+<td align="right">0.485</td>
+<td align="right">0.347</td>
 <td align="right"></td>
 <td align="right"></td>
-<td align="right">0.438</td>
+<td align="right">0.442</td>
 <td align="right">1.000</td>
-<td align="right">-0.390</td>
+<td align="right">-0.387</td>
 <td align="right"></td>
 <td align="right"></td>
 </tr>
@@ -1498,16 +1497,16 @@ F1.RI %&gt;% select(-step) %&gt;% pivot_wider(names_from=momsp, values_from=c(be
 </tr>
 <tr class="odd">
 <td align="left">Flower number</td>
-<td align="right">0.724</td>
+<td align="right">0.722</td>
 <td align="right">1.000</td>
-<td align="right">-0.160</td>
-<td align="right">-0.034</td>
+<td align="right">-0.162</td>
+<td align="right">-0.033</td>
 <td align="right">-0.039</td>
-<td align="right">0.099</td>
+<td align="right">0.147</td>
 <td align="right">1.000</td>
-<td align="right">-0.819</td>
-<td align="right">-0.466</td>
-<td align="right">-2.362</td>
+<td align="right">-0.743</td>
+<td align="right">-0.430</td>
+<td align="right">-1.977</td>
 </tr>
 <tr class="even">
 <td align="left">Pollen grains per anther</td>
@@ -1519,21 +1518,21 @@ F1.RI %&gt;% select(-step) %&gt;% pivot_wider(names_from=momsp, values_from=c(be
 <td align="right">0.877</td>
 <td align="right">1.000</td>
 <td align="right">-0.066</td>
-<td align="right">-0.068</td>
-<td align="right">-0.344</td>
+<td align="right">-0.066</td>
+<td align="right">-0.304</td>
 </tr>
 <tr class="odd">
 <td align="left">Pollen viability</td>
 <td align="right">1.000</td>
 <td align="right">0.493</td>
 <td align="right">0.340</td>
-<td align="right">0.074</td>
-<td align="right">0.086</td>
+<td align="right">0.072</td>
+<td align="right">0.084</td>
 <td align="right">1.000</td>
 <td align="right">0.573</td>
 <td align="right">0.271</td>
-<td align="right">0.299</td>
-<td align="right">1.517</td>
+<td align="right">0.292</td>
+<td align="right">1.341</td>
 </tr>
 <tr class="even">
 <td align="left">Viable pollen grains per anther</td>
@@ -1571,8 +1570,8 @@ F1.RI %&gt;% select(-step) %&gt;% pivot_wider(names_from=momsp, values_from=c(be
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">0.857</td>
-<td align="right">0.197</td>
+<td align="right">0.86</td>
+<td align="right">0.217</td>
 </tr>
 </tbody>
 </table>
@@ -1620,11 +1619,11 @@ F1.inbred %&gt;% select(-step) %&gt;%
 <tr class="odd">
 <td align="left">Capsule formation</td>
 <td align="right">1.000</td>
-<td align="right">0.950</td>
-<td align="right">0.050</td>
+<td align="right">0.943</td>
+<td align="right">0.057</td>
 <td align="right">1.000</td>
-<td align="right">0.987</td>
-<td align="right">0.013</td>
+<td align="right">0.956</td>
+<td align="right">0.044</td>
 </tr>
 <tr class="even">
 <td align="left">Viable seeds if capsule formed</td>
@@ -1647,11 +1646,11 @@ F1.inbred %&gt;% select(-step) %&gt;%
 <tr class="even">
 <td align="left">Survival</td>
 <td align="right">1.000</td>
-<td align="right">0.944</td>
-<td align="right">0.056</td>
+<td align="right">0.947</td>
+<td align="right">0.053</td>
 <td align="right">1.000</td>
-<td align="right">0.993</td>
-<td align="right">0.007</td>
+<td align="right">0.991</td>
+<td align="right">0.009</td>
 </tr>
 <tr class="odd">
 <td align="left">Vegetative biomass</td>
@@ -1677,8 +1676,8 @@ F1.inbred %&gt;% select(-step) %&gt;%
 <td align="right">1.000</td>
 <td align="right">-0.005</td>
 <td align="right">1.000</td>
-<td align="right">0.991</td>
-<td align="right">0.009</td>
+<td align="right">0.992</td>
+<td align="right">0.008</td>
 </tr>
 <tr class="even">
 <td align="left">Inflorescence biomass</td>
@@ -1691,23 +1690,14 @@ F1.inbred %&gt;% select(-step) %&gt;%
 </tr>
 <tr class="odd">
 <td align="left">Flower number</td>
-<td align="right">0.922</td>
+<td align="right">0.957</td>
 <td align="right">1.000</td>
-<td align="right">-0.085</td>
+<td align="right">-0.045</td>
+<td align="right">0.999</td>
 <td align="right">1.000</td>
-<td align="right">0.942</td>
-<td align="right">0.058</td>
+<td align="right">-0.001</td>
 </tr>
 <tr class="even">
-<td align="left">Pollen viability</td>
-<td align="right">1.000</td>
-<td align="right">0.990</td>
-<td align="right">0.010</td>
-<td align="right">1.000</td>
-<td align="right">0.979</td>
-<td align="right">0.021</td>
-</tr>
-<tr class="odd">
 <td align="left">Pollen grains per anther</td>
 <td align="right">1.000</td>
 <td align="right">0.959</td>
@@ -1715,6 +1705,15 @@ F1.inbred %&gt;% select(-step) %&gt;%
 <td align="right">1.000</td>
 <td align="right">0.920</td>
 <td align="right">0.080</td>
+</tr>
+<tr class="odd">
+<td align="left">Pollen viability</td>
+<td align="right">1.000</td>
+<td align="right">0.990</td>
+<td align="right">0.010</td>
+<td align="right">1.000</td>
+<td align="right">0.979</td>
+<td align="right">0.021</td>
 </tr>
 <tr class="even">
 <td align="left">Viable pollen grains per anther</td>
@@ -1952,18 +1951,18 @@ F2.test %&gt;% left_join(traits %&gt;% filter(generation==&quot;F2&quot;) %&gt;%
 <td align="left">6.0e-233</td>
 </tr>
 <tr class="even">
-<td align="left">Pollen viability</td>
-<td align="left">momdadcross</td>
-<td align="right">26.2</td>
-<td align="right">9</td>
-<td align="left">1.9e-03</td>
-</tr>
-<tr class="odd">
 <td align="left">Pollen grains per anther</td>
 <td align="left">momdadcross</td>
 <td align="right">30.2</td>
 <td align="right">9</td>
 <td align="left">4.1e-04</td>
+</tr>
+<tr class="odd">
+<td align="left">Pollen viability</td>
+<td align="left">momdadcross</td>
+<td align="right">26.2</td>
+<td align="right">9</td>
+<td align="left">1.9e-03</td>
 </tr>
 <tr class="even">
 <td align="left">Viable pollen grains per anther</td>

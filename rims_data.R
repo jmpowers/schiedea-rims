@@ -8,7 +8,7 @@ gs4_auth(email = T)
 traits <- read_sheet("1f487VMTsYzYGn0_daogtTF0nNE7ntoqd0Yh4h9tgyDE", "Traits")
 
 gsheet <- gs4_get("1pYbAnEDw2KfM34l85wlJV6pfAr1DroPj_7GjfApnCq8")
-datanames <- sheet_names(gsheet)[-1]
+datanames <- sheet_names(gsheet)[-c(1,2,4)]#all except crosses, seeds_full, germination_full
 
 species.pops <- tibble(
   collection = c("794","866","899","879","892","904","3587"),
@@ -98,10 +98,16 @@ crosses <- read_sheet(gsheet, "crosses", col_types="c") %>%
 
 # seeds -------------------------------------------------------------------
 
+seeds_full <- read_sheet(gsheet, "seeds_full", col_types="c", na=c("NA","")) %>% 
+  mutate(across(ends_with("date"), ymd)) %>% 
+  separate(mompop.type, c("momsp","momlocality"), sep=" ") %>% 
+  separate(dadpop.type, c("dadsp","dadlocality"), sep=" ")
+  
 seeds <- read_sheet(gsheet, "seeds", col_types="c") %>% 
   filter(dadpop != "closed") %>% #not sure what closed means
   mutate(viable.seeds = as.integer(viable.seeds), 
          capsule.formed = as.integer(viable.seeds>0)) %>% 
+  left_join(select(seeds_full, labelid, dadid)) %>% 
   add_combos()
 
 seeds.nonzero <- filter(seeds, viable.seeds > 0)

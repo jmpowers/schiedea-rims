@@ -82,7 +82,7 @@ Expand this code to see the model specifications. The models have the following 
 * response variable: for details see the [metadata](https://docs.google.com/spreadsheets/d/1f487VMTsYzYGn0_daogtTF0nNE7ntoqd0Yh4h9tgyDE/edit#gid=2002881351)
 * sxc: the combined maternal plant species and crosstype (within population, between population, hybrid)
 * collect: the number of days from planting to harvest, to account for growth during harvest period
-* mompid, dadpid: random effects of the maternal and paternal plant ID. dadpop, the paternal population, is substituded dadpid led to convergence problems.
+* mompid, dadpid: random effects of the maternal and paternal plant genotypes (clones are treated as the same genotype)
 * data: for details and sample sizes see tables above
 * family: gaussian (the default, for continuous variables), truncated_nbinom1 (quasi-Poisson truncated at zero for nonzero seed counts), betabinomial (for binary variables)
 
@@ -92,18 +92,17 @@ F1.mod <- list(
   firstflower =          glmmTMB(firstflower ~          sxc +           (1|mompid) + (1|dadpid), data=survflr),
   firstinflo.biomass.g = glmmTMB(firstinflo.biomass.g ~ sxc + collect + (1|mompid) + (1|dadpid), data=survflr),
   inflo.biomass.g =      glmmTMB(inflo.biomass.g  ~     sxc + collect + (1|mompid) + (1|dadpid), data=inflobiomass.sum),
-  flower.number =        glmmTMB(flower.number  ~       sxc + collect + (1|mompid) + (1|dadpop), data=inflobiomass.sum),#dadpid model prob.
+  flower.number =        glmmTMB(flower.number  ~       sxc + collect + (1|mompid) + (1|dadpid), data=inflobiomass.sum),
   veg.biomass.g =        glmmTMB(veg.biomass.g ~        sxc + collect + (1|mompid) + (1|dadpid), data=vegbiomass),
   total.per.anther =     glmmTMB(total.per.anther ~     sxc +           (1|mompid) + (1|dadpid), data=pollen),
   viable.per.anther =    glmmTMB(viable.per.anther ~    sxc +           (1|mompid) + (1|dadpid), data=pollen),
-  viable.seeds =         glmmTMB(viable.seeds ~         sxc +           (1|mompid) + (1|dadpop), data=filter(seeds, viable.seeds>0),
+  viable.seeds =         glmmTMB(viable.seeds ~         sxc +           (1|mompid) + (1|dadpid), data=filter(seeds, viable.seeds>0),
                                  family="truncated_nbinom1"),
   prop.germ =            glmmTMB(prop.germ      ~ sxc + (1|mompid) + (1|dadpid), family="betabinomial", data=germination, weights = planted),
-  alive =                glmmTMB(alive          ~ sxc + (1|mompid) + (1|dadpop), family="betabinomial", data=survflr),#dadpid model prob.
+  alive =                glmmTMB(alive          ~ sxc + (1|mompid) + (1|dadpid), family="betabinomial", data=survflr),
   flowered =             glmmTMB(flowered       ~ sxc + (1|mompid) + (1|dadpid), family="betabinomial", data=filter(survflr, alive)),
   prop.viable =          glmmTMB(prop.viable    ~ sxc + (1|mompid) + (1|dadpid), family="betabinomial", data=pollen, weights = total),
-  capsule.formed =       glmmTMB(capsule.formed ~ sxc + (1|mompid) + (1|dadpop), family="betabinomial", data=seeds))
-#TODO try to find dadpid for seeds
+  capsule.formed =       glmmTMB(capsule.formed ~ sxc + (1|mompid) + (1|dadpid), family="betabinomial", data=seeds))
 ```
 
 ## Inference 

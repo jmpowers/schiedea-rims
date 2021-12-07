@@ -58,16 +58,16 @@
 <circle cx='275.61' cy='18.69' r='4.62' style='stroke-width: 0.71; stroke: #756BB1; fill: #756BB1;' />
 <circle cx='324.93' cy='16.87' r='4.62' style='stroke-width: 0.71; stroke: #BCBDDC; fill: #BCBDDC;' />
 <circle cx='324.93' cy='25.20' r='4.62' style='stroke-width: 0.71; stroke: #BCBDDC; fill: #BCBDDC;' />
-<line x1='176.97' y1='42.05' x2='176.97' y2='20.06' style='stroke-width: 1.07; stroke-linecap: butt;' />
+<line x1='176.97' y1='42.07' x2='176.97' y2='20.07' style='stroke-width: 1.07; stroke-linecap: butt;' />
 <line x1='226.29' y1='36.62' x2='226.29' y2='24.25' style='stroke-width: 1.07; stroke-linecap: butt;' />
-<line x1='275.61' y1='22.55' x2='275.61' y2='17.20' style='stroke-width: 1.07; stroke-linecap: butt;' />
-<line x1='324.93' y1='28.80' x2='324.93' y2='18.01' style='stroke-width: 1.07; stroke-linecap: butt;' />
+<line x1='275.61' y1='22.56' x2='275.61' y2='17.20' style='stroke-width: 1.07; stroke-linecap: butt;' />
+<line x1='324.93' y1='28.81' x2='324.93' y2='18.02' style='stroke-width: 1.07; stroke-linecap: butt;' />
 <circle cx='78.33' cy='16.87' r='2.84' style='stroke-width: 1.42; fill: #000000;' />
 <circle cx='127.65' cy='16.87' r='2.84' style='stroke-width: 1.42; fill: #000000;' />
-<circle cx='176.97' cy='26.06' r='2.84' style='stroke-width: 1.42; fill: #000000;' />
+<circle cx='176.97' cy='26.07' r='2.84' style='stroke-width: 1.42; fill: #000000;' />
 <circle cx='226.29' cy='29.03' r='2.84' style='stroke-width: 1.42; fill: #000000;' />
 <circle cx='275.61' cy='18.26' r='2.84' style='stroke-width: 1.42; fill: #000000;' />
-<circle cx='324.93' cy='20.61' r='2.84' style='stroke-width: 1.42; fill: #000000;' />
+<circle cx='324.93' cy='20.62' r='2.84' style='stroke-width: 1.42; fill: #000000;' />
 </g>
 <g clip-path='url(#cpMC4wMHwzNjAuMDB8MC4wMHwyODguMDA=)'>
 <text x='43.80' y='247.83' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='13.95px' lengthAdjust='spacingAndGlyphs'>0%</text>
