@@ -11,7 +11,7 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2021-12-07" />
+<meta name="date" content="2021-12-08" />
 
 <title>Schiedea hookeri/kaalae RIMs</title>
 
@@ -255,7 +255,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Schiedea hookeri/kaalae RIMs</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John Powers</a></h4>
-<h4 class="date">2021-12-07</h4>
+<h4 class="date">2021-12-08</h4>
 
 </div>
 
@@ -1348,6 +1348,7 @@ abs_contribution &lt;- function(RI) { #method of Ramsey et al. 2003 for absolute
   }
   return(AC)
 }
+#cumulative reproductive isolation 
 F1.CRI.m &lt;- F1.RI %&gt;% filter(str_detect(sex,&quot;m&quot;)) %&gt;%  select(-c(step,between,hybrid,sex)) %&gt;% 
               pivot_wider(names_prefix=&quot;RI_&quot;, names_from=momsp, values_from=RI) %&gt;% 
               mutate(across(starts_with(&quot;RI&quot;), abs_contribution, .names=&quot;AC{.col}&quot;), 
@@ -1586,26 +1587,43 @@ F1.RI %&gt;% select(-step) %&gt;% pivot_wider(names_from=momsp, values_from=c(be
   theme_minimal() + theme(legend.position = &quot;top&quot;, legend.text = element_text(face=&quot;italic&quot;))+
   labs(x=&quot;Cumulative reproductive isolation&quot;, y=&quot;Fitness component&quot;, color=&quot;Maternal parent&quot;)</code></pre>
 <p><img src="figures/fitness-2.svg" width="576" /></p>
-<div id="distribution-of-total-isolation" class="section level3">
-<h3>Distribution of total isolation</h3>
-<pre class="r"><code>sample_trait &lt;- function(dataname, yvar, N = 1000) {
-  get(dataname) %&gt;% select(sxc, y=!!yvar) %&gt;% nest(dfchunk=c(y)) %&gt;% 
-    mutate(sampled = map(dfchunk, slice_sample, n=N, replace=T)) %&gt;% 
+<div id="distribution-of-cumulative-fitness" class="section level3">
+<h3>Distribution of cumulative fitness</h3>
+<pre class="r"><code>ntrials &lt;- 10000
+
+sample_trait &lt;- function(dataname, yvar, N) {
+  get(dataname) %&gt;% select(sxc, y=!!yvar) %&gt;% drop_na(y) %&gt;% #drop missing trait values!
+    nest(dfchunk=c(y)) %&gt;%  mutate(sampled = map(dfchunk, slice_sample, n=N, replace=T)) %&gt;% 
     select(-dfchunk) %&gt;% unnest(sampled) %&gt;% arrange(sxc) %&gt;% mutate(trial=row_number())
 }
 
 set.seed(1)
-F1.TRI.m &lt;- traits %&gt;% filter(generation==&quot;F1&quot;, str_detect(sex,&quot;m&quot;)) %&gt;% select(data, yvar) %&gt;% 
-  mutate(samp = pmap(., sample_trait)) %&gt;% select(-data) %&gt;% unnest(samp) %&gt;% 
+F1.cumul.fitness &lt;- traits %&gt;% filter(generation==&quot;F1&quot;, str_detect(sex,&quot;m&quot;)) %&gt;% select(data, yvar) %&gt;% 
+  mutate(samp = pmap(., sample_trait, N = ntrials)) %&gt;% select(-data) %&gt;% unnest(samp) %&gt;% 
   pivot_wider(id_cols=c(sxc, trial), names_from=yvar, values_from=y) %&gt;% 
-  mutate(total = capsule.formed * viable.seeds * prop.germ * alive * 
+  mutate(fitness_female = capsule.formed * viable.seeds * prop.germ * alive * 
+           flowered * flower.number,
+         fitness_male = capsule.formed * viable.seeds * prop.germ * alive * 
            flowered * flower.number * total.per.anther * prop.viable)
 
-ggplot(F1.TRI.m, aes(x=total, fill=sxc)) + facet_wrap(vars(sxc), ncol=1, labeller = as_labeller(sxc.labels)) +
-  geom_histogram() + scale_fill_manual(values=F1.col, guide=&quot;none&quot;) + theme_minimal() +
-  labs(y=&quot;Incidence out of 1000 trials&quot;, x=&quot;Viable F1 pollen grains produced by one P x P pollination&quot;,
-       title = &quot;Distribution of total male reproductive isolation&quot;)</code></pre>
-<p><img src="figures/totalRI_simulation-1.svg" width="576" /></p>
+F1.cumul.fitness %&gt;% select(sxc, starts_with(&quot;fitness&quot;)) %&gt;% 
+  pivot_longer(starts_with(&quot;fitness&quot;), names_to=&quot;sex&quot;, names_prefix = &quot;fitness_&quot;) %&gt;% 
+  ggplot(aes(x=value, color=sxc)) + facet_wrap(vars(sex), scales=&quot;free_x&quot;)+
+  geom_freqpoly(bins=200, boundary=1, position=position_identity(), size=1) +
+  scale_color_manual(&quot;Crosstype&quot;, values=F1.col, labels=sxc.labels) + 
+  scale_y_continuous(labels = ~scales::percent(./ntrials)) + scale_x_continuous(limits=c(1,NA)) + theme_minimal() + 
+  labs(y=paste0(&quot;Frequency of outcome (&quot;,ntrials,&quot; trials)&quot;), 
+       x=&quot;FF1 flowers or F1 viable pollen grains resulting from one P x P pollination&quot;,
+       title = &quot;Distribution of female and male cumulative F1 fitness (if nonzero)&quot;) </code></pre>
+<p><img src="figures/totalRI_simulation-1.svg" width="768" /></p>
+<pre class="r"><code>F1.cumul.fitness %&gt;% group_by(sxc) %&gt;% summarize(prop.zero=mean(fitness_female&gt;0)) %&gt;% 
+ggplot(aes(y=prop.zero, x=sxc, color=sxc)) + 
+  geom_point(size=2)+ 
+  scale_color_manual(values=F1.col, guide=&quot;none&quot;) + 
+  scale_y_continuous(limits=c(0,1), labels=scales::percent) + scale_x_discrete(labels=sxc.labels) + theme_minimal() + 
+  labs(y=paste0(&quot;Frequency of nonzero F1 flowers resulting from one P x P pollination (&quot;,ntrials,&quot; trials)&quot;), x=&quot;Crosstype&quot;,
+       title = &quot;Frequency of female cumulative F1 fitness greater than zero&quot;) </code></pre>
+<p><img src="figures/totalRI_simulation-2.svg" width="768" /></p>
 </div>
 </div>
 <div id="inbreeding-depression" class="section level2">
@@ -1615,7 +1633,7 @@ ggplot(F1.TRI.m, aes(x=total, fill=sxc)) + facet_wrap(vars(sxc), ncol=1, labelle
   select(trait, momsp, crosstype, estimate) %&gt;% pivot_wider(names_from=crosstype, values_from=estimate) %&gt;% 
   rowwise() %&gt;% mutate(across(c(between,within), ~ ./max(between,within)),
                        ID = 1 - within/between) %&gt;% 
-    left_join(traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;% select(trait=yvar, step)) %&gt;% arrange(step) %&gt;% 
+    left_join(traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;% select(trait=yvar, step, sex)) %&gt;% arrange(step) %&gt;% 
       mutate(trait = recode(trait, !!!set_names(traits$ylab[-1], traits$yvar[-1])) %&gt;% 
                str_remove(fixed(&quot; (g)&quot;)) %&gt;% factor() %&gt;% fct_reorder(step)) 
 
@@ -1754,6 +1772,245 @@ F1.inbred %&gt;% select(-step) %&gt;%
   theme_minimal() + theme(legend.position = &quot;top&quot;, legend.text = element_text(face=&quot;italic&quot;))+
   labs(x=&quot;Inbreeding depression \u03B4&quot;, y=&quot;Fitness component&quot;, color=&quot;Species&quot;)</code></pre>
 <p><img src="figures/inbred-1.svg" width="480" /></p>
+<pre class="r"><code># Cumulative inbreeding depression
+F1.CID.m &lt;- F1.inbred %&gt;% filter(str_detect(sex,&quot;m&quot;)) %&gt;%  select(-c(step,between,within,sex)) %&gt;% 
+              pivot_wider(names_prefix=&quot;ID_&quot;, names_from=momsp, values_from=ID) %&gt;% 
+              mutate(across(starts_with(&quot;ID&quot;), abs_contribution, .names=&quot;AC{.col}&quot;), 
+                     across(starts_with(&quot;AC&quot;), ~ . /sum(.),  .names=&quot;R{.col}&quot;),
+                     across(starts_with(&quot;AC&quot;), cumsum, .names=&quot;T{.col}&quot;),
+                     .keep = &quot;unused&quot;)
+
+F1.inbred %&gt;% select(-step) %&gt;% pivot_wider(names_from=momsp, values_from=c(between, within, ID)) %&gt;% 
+  left_join(F1.CID.m) %&gt;% 
+  select(trait, Kb = between_kaal, Kw = within_kaal, K_ID = ID_kaal, K_AC = ACID_kaal, K_RC = RACID_kaal, 
+                Hb = between_hook, Hw = within_hook, H_ID = ID_hook, H_AC = ACID_hook, H_RC = RACID_hook) %&gt;% 
+  kable(caption=&quot;Relative fitness components of within vs. between population crosses&quot;, digits=3)</code></pre>
+<table style="width:100%;">
+<caption>Relative fitness components of within vs. between population crosses</caption>
+<colgroup>
+<col width="32%" />
+<col width="6%" />
+<col width="6%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="6%" />
+<col width="6%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">trait</th>
+<th align="right">Kb</th>
+<th align="right">Kw</th>
+<th align="right">K_ID</th>
+<th align="right">K_AC</th>
+<th align="right">K_RC</th>
+<th align="right">Hb</th>
+<th align="right">Hw</th>
+<th align="right">H_ID</th>
+<th align="right">H_AC</th>
+<th align="right">H_RC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Capsule formation</td>
+<td align="right">1.000</td>
+<td align="right">0.943</td>
+<td align="right">0.057</td>
+<td align="right">0.057</td>
+<td align="right">0.167</td>
+<td align="right">1.000</td>
+<td align="right">0.956</td>
+<td align="right">0.044</td>
+<td align="right">0.044</td>
+<td align="right">0.156</td>
+</tr>
+<tr class="even">
+<td align="left">Viable seeds if capsule formed</td>
+<td align="right">1.000</td>
+<td align="right">0.943</td>
+<td align="right">0.057</td>
+<td align="right">0.054</td>
+<td align="right">0.157</td>
+<td align="right">1.000</td>
+<td align="right">0.881</td>
+<td align="right">0.119</td>
+<td align="right">0.113</td>
+<td align="right">0.406</td>
+</tr>
+<tr class="odd">
+<td align="left">Germination</td>
+<td align="right">1.000</td>
+<td align="right">0.786</td>
+<td align="right">0.214</td>
+<td align="right">0.190</td>
+<td align="right">0.554</td>
+<td align="right">1.000</td>
+<td align="right">0.967</td>
+<td align="right">0.033</td>
+<td align="right">0.028</td>
+<td align="right">0.101</td>
+</tr>
+<tr class="even">
+<td align="left">Survival</td>
+<td align="right">1.000</td>
+<td align="right">0.947</td>
+<td align="right">0.053</td>
+<td align="right">0.037</td>
+<td align="right">0.107</td>
+<td align="right">1.000</td>
+<td align="right">0.991</td>
+<td align="right">0.009</td>
+<td align="right">0.007</td>
+<td align="right">0.025</td>
+</tr>
+<tr class="odd">
+<td align="left">Vegetative biomass</td>
+<td align="right">1.000</td>
+<td align="right">0.807</td>
+<td align="right">0.193</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right">0.951</td>
+<td align="right">1.000</td>
+<td align="right">-0.051</td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">Flowering if survived</td>
+<td align="right">1.000</td>
+<td align="right">1.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">1.000</td>
+<td align="right">0.990</td>
+<td align="right">0.010</td>
+<td align="right">0.008</td>
+<td align="right">0.030</td>
+</tr>
+<tr class="odd">
+<td align="left">First inflorescence biomass</td>
+<td align="right">0.995</td>
+<td align="right">1.000</td>
+<td align="right">-0.005</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right">1.000</td>
+<td align="right">0.992</td>
+<td align="right">0.008</td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">Inflorescence biomass</td>
+<td align="right">1.000</td>
+<td align="right">0.989</td>
+<td align="right">0.011</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right">1.000</td>
+<td align="right">0.997</td>
+<td align="right">0.003</td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">Flower number</td>
+<td align="right">0.957</td>
+<td align="right">1.000</td>
+<td align="right">-0.045</td>
+<td align="right">-0.030</td>
+<td align="right">-0.086</td>
+<td align="right">0.999</td>
+<td align="right">1.000</td>
+<td align="right">-0.001</td>
+<td align="right">-0.001</td>
+<td align="right">-0.004</td>
+</tr>
+<tr class="even">
+<td align="left">Pollen grains per anther</td>
+<td align="right">1.000</td>
+<td align="right">0.959</td>
+<td align="right">0.041</td>
+<td align="right">0.028</td>
+<td align="right">0.082</td>
+<td align="right">1.000</td>
+<td align="right">0.920</td>
+<td align="right">0.080</td>
+<td align="right">0.064</td>
+<td align="right">0.230</td>
+</tr>
+<tr class="odd">
+<td align="left">Pollen viability</td>
+<td align="right">1.000</td>
+<td align="right">0.990</td>
+<td align="right">0.010</td>
+<td align="right">0.007</td>
+<td align="right">0.020</td>
+<td align="right">1.000</td>
+<td align="right">0.979</td>
+<td align="right">0.021</td>
+<td align="right">0.015</td>
+<td align="right">0.055</td>
+</tr>
+<tr class="even">
+<td align="left">Viable pollen grains per anther</td>
+<td align="right">1.000</td>
+<td align="right">0.967</td>
+<td align="right">0.033</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right">1.000</td>
+<td align="right">0.861</td>
+<td align="right">0.139</td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>ggplot(F1.inbred, aes(y=fct_rev(trait), x=ID, color=momsp)) + 
+  geom_vline(xintercept=0, linetype=2) + geom_vline(xintercept=-1)+ geom_vline(xintercept=1)+ 
+  geom_point(shape=17, size=2) +
+  scale_color_manual(values = set_names(F1.col[c(2,5)], c(&quot;kaal&quot;,&quot;hook&quot;)), labels=c(&quot;S. kaalae&quot;,&quot;S. hookeri&quot;)) +
+  scale_x_continuous(limits=c(-1.1,1.1), breaks=c(-1,-0.5,0,0.5,1),
+                     labels=c(&quot;-1\noutcrossing\ndepression&quot;,&quot;-0.5&quot;,&quot;0\nneutral&quot;,&quot;0.5&quot;,&quot;1\ninbreeding\ndepression&quot;)) + 
+  theme_minimal() + theme(legend.position = &quot;top&quot;, legend.text = element_text(face=&quot;italic&quot;))+
+  labs(x=&quot;Inbreeding depression&quot;, y=&quot;Fitness component&quot;, color=&quot;Species&quot;)</code></pre>
+<p><img src="figures/inbred-2.svg" width="480" /></p>
+<pre class="r"><code>F1.CID.m %&gt;% summarize(across(starts_with(&quot;AC&quot;), sum)) %&gt;% rename_with(~str_remove(.,&quot;ACID_&quot;)) %&gt;% 
+  kable(caption=&quot;Total male inbreeding depression = sum of absolute contributions (AC) to ID&quot;, digits=3)</code></pre>
+<table>
+<caption>Total male inbreeding depression = sum of absolute contributions (AC) to ID</caption>
+<thead>
+<tr class="header">
+<th align="right">kaal</th>
+<th align="right">hook</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.343</td>
+<td align="right">0.279</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>F1.CID.m %&gt;% pivot_longer(starts_with(&quot;TAC&quot;), names_prefix=&quot;TACID_&quot;, names_to=&quot;momsp&quot;, values_to=&quot;TAC&quot;) %&gt;% 
+  ggplot(aes(y=fct_rev(trait), x=TAC, color=momsp)) + 
+  geom_vline(xintercept=0, linetype=2) + geom_vline(xintercept=1)+ 
+  geom_path(aes(group=momsp))+
+  geom_point(shape=17, size=2) +
+  scale_color_manual(values = set_names(F1.col[c(2,5)], c(&quot;kaal&quot;,&quot;hook&quot;)), labels=c(&quot;S. kaalae&quot;,&quot;S. hookeri&quot;)) +
+  scale_x_continuous(limits=c(NA, 1.1), breaks=c(0,0.5,1),
+                     labels=c(&quot;0\nneutral&quot;,&quot;0.5&quot;,&quot;1\ninbreeding\ndepression&quot;)) +
+  theme_minimal() + theme(legend.position = &quot;top&quot;, legend.text = element_text(face=&quot;italic&quot;))+
+  labs(x=&quot;Cumulative inbreeding depression&quot;, y=&quot;Fitness component&quot;, color=&quot;Species&quot;)</code></pre>
+<p><img src="figures/inbred-3.svg" width="480" /></p>
 </div>
 </div>
 <div id="f2-generation" class="section level1">

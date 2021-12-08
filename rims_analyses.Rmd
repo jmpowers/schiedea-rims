@@ -226,6 +226,7 @@ abs_contribution <- function(RI) { #method of Ramsey et al. 2003 for absolute co
   }
   return(AC)
 }
+#cumulative reproductive isolation 
 F1.CRI.m <- F1.RI %>% filter(str_detect(sex,"m")) %>%  select(-c(step,between,hybrid,sex)) %>% 
               pivot_wider(names_prefix="RI_", names_from=momsp, values_from=RI) %>% 
               mutate(across(starts_with("RI"), abs_contribution, .names="AC{.col}"), 
@@ -263,26 +264,43 @@ F1.CRI.m %>% pivot_longer(starts_with("TAC"), names_prefix="TACRI_", names_to="m
   labs(x="Cumulative reproductive isolation", y="Fitness component", color="Maternal parent")
 ```
 
-### Distribution of total isolation
+### Distribution of cumulative fitness
 
-```{r totalRI_simulation, fig.height=10, fig.width=6}
-sample_trait <- function(dataname, yvar, N = 1000) {
-  get(dataname) %>% select(sxc, y=!!yvar) %>% nest(dfchunk=c(y)) %>% 
-    mutate(sampled = map(dfchunk, slice_sample, n=N, replace=T)) %>% 
+```{r totalRI_simulation, fig.height=8, fig.width=8}
+ntrials <- 10000
+
+sample_trait <- function(dataname, yvar, N) {
+  get(dataname) %>% select(sxc, y=!!yvar) %>% drop_na(y) %>% #drop missing trait values!
+    nest(dfchunk=c(y)) %>%  mutate(sampled = map(dfchunk, slice_sample, n=N, replace=T)) %>% 
     select(-dfchunk) %>% unnest(sampled) %>% arrange(sxc) %>% mutate(trial=row_number())
 }
 
 set.seed(1)
-F1.TRI.m <- traits %>% filter(generation=="F1", str_detect(sex,"m")) %>% select(data, yvar) %>% 
-  mutate(samp = pmap(., sample_trait)) %>% select(-data) %>% unnest(samp) %>% 
+F1.cumul.fitness <- traits %>% filter(generation=="F1", str_detect(sex,"m")) %>% select(data, yvar) %>% 
+  mutate(samp = pmap(., sample_trait, N = ntrials)) %>% select(-data) %>% unnest(samp) %>% 
   pivot_wider(id_cols=c(sxc, trial), names_from=yvar, values_from=y) %>% 
-  mutate(total = capsule.formed * viable.seeds * prop.germ * alive * 
+  mutate(fitness_female = capsule.formed * viable.seeds * prop.germ * alive * 
+           flowered * flower.number,
+         fitness_male = capsule.formed * viable.seeds * prop.germ * alive * 
            flowered * flower.number * total.per.anther * prop.viable)
 
-ggplot(F1.TRI.m, aes(x=total, fill=sxc)) + facet_wrap(vars(sxc), ncol=1, labeller = as_labeller(sxc.labels)) +
-  geom_histogram() + scale_fill_manual(values=F1.col, guide="none") + theme_minimal() +
-  labs(y="Incidence out of 1000 trials", x="Viable F1 pollen grains produced by one P x P pollination",
-       title = "Distribution of total male reproductive isolation")
+F1.cumul.fitness %>% select(sxc, starts_with("fitness")) %>% 
+  pivot_longer(starts_with("fitness"), names_to="sex", names_prefix = "fitness_") %>% 
+  ggplot(aes(x=value, color=sxc)) + facet_wrap(vars(sex), scales="free_x")+
+  geom_freqpoly(bins=200, boundary=1, position=position_identity(), size=1) +
+  scale_color_manual("Crosstype", values=F1.col, labels=sxc.labels) + 
+  scale_y_continuous(labels = ~scales::percent(./ntrials)) + scale_x_continuous(limits=c(1,NA)) + theme_minimal() + 
+  labs(y=paste0("Frequency of outcome (",ntrials," trials)"), 
+       x="FF1 flowers or F1 viable pollen grains resulting from one P x P pollination",
+       title = "Distribution of female and male cumulative F1 fitness (if nonzero)") 
+
+F1.cumul.fitness %>% group_by(sxc) %>% summarize(prop.zero=mean(fitness_female>0)) %>% 
+ggplot(aes(y=prop.zero, x=sxc, color=sxc)) + 
+  geom_point(size=2)+ 
+  scale_color_manual(values=F1.col, guide="none") + 
+  scale_y_continuous(limits=c(0,1), labels=scales::percent) + scale_x_discrete(labels=sxc.labels) + theme_minimal() + 
+  labs(y=paste0("Frequency of nonzero F1 flowers resulting from one P x P pollination (",ntrials," trials)"), x="Crosstype",
+       title = "Frequency of female cumulative F1 fitness greater than zero") 
 ```
 
 
@@ -294,7 +312,7 @@ F1.inbred <- F1.emm %>% separate(sxc, into=c("momsp","crosstype")) %>%
   select(trait, momsp, crosstype, estimate) %>% pivot_wider(names_from=crosstype, values_from=estimate) %>% 
   rowwise() %>% mutate(across(c(between,within), ~ ./max(between,within)),
                        ID = 1 - within/between) %>% 
-    left_join(traits %>% filter(generation=="F1") %>% select(trait=yvar, step)) %>% arrange(step) %>% 
+    left_join(traits %>% filter(generation=="F1") %>% select(trait=yvar, step, sex)) %>% arrange(step) %>% 
       mutate(trait = recode(trait, !!!set_names(traits$ylab[-1], traits$yvar[-1])) %>% 
                str_remove(fixed(" (g)")) %>% factor() %>% fct_reorder(step)) 
 
@@ -309,6 +327,43 @@ ggplot(F1.inbred, aes(y=fct_rev(trait), x=ID, color=momsp)) +
   scale_color_manual(values = set_names(F1.col[c(2,5)], c("kaal","hook")), labels=c("S. kaalae","S. hookeri")) +
   theme_minimal() + theme(legend.position = "top", legend.text = element_text(face="italic"))+
   labs(x="Inbreeding depression \u03B4", y="Fitness component", color="Species")
+
+# Cumulative inbreeding depression
+F1.CID.m <- F1.inbred %>% filter(str_detect(sex,"m")) %>%  select(-c(step,between,within,sex)) %>% 
+              pivot_wider(names_prefix="ID_", names_from=momsp, values_from=ID) %>% 
+              mutate(across(starts_with("ID"), abs_contribution, .names="AC{.col}"), 
+                     across(starts_with("AC"), ~ . /sum(.),  .names="R{.col}"),
+                     across(starts_with("AC"), cumsum, .names="T{.col}"),
+                     .keep = "unused")
+
+F1.inbred %>% select(-step) %>% pivot_wider(names_from=momsp, values_from=c(between, within, ID)) %>% 
+  left_join(F1.CID.m) %>% 
+  select(trait, Kb = between_kaal, Kw = within_kaal, K_ID = ID_kaal, K_AC = ACID_kaal, K_RC = RACID_kaal, 
+                Hb = between_hook, Hw = within_hook, H_ID = ID_hook, H_AC = ACID_hook, H_RC = RACID_hook) %>% 
+  kable(caption="Relative fitness components of within vs. between population crosses", digits=3)
+
+ggplot(F1.inbred, aes(y=fct_rev(trait), x=ID, color=momsp)) + 
+  geom_vline(xintercept=0, linetype=2) + geom_vline(xintercept=-1)+ geom_vline(xintercept=1)+ 
+  geom_point(shape=17, size=2) +
+  scale_color_manual(values = set_names(F1.col[c(2,5)], c("kaal","hook")), labels=c("S. kaalae","S. hookeri")) +
+  scale_x_continuous(limits=c(-1.1,1.1), breaks=c(-1,-0.5,0,0.5,1),
+                     labels=c("-1\noutcrossing\ndepression","-0.5","0\nneutral","0.5","1\ninbreeding\ndepression")) + 
+  theme_minimal() + theme(legend.position = "top", legend.text = element_text(face="italic"))+
+  labs(x="Inbreeding depression", y="Fitness component", color="Species")
+
+F1.CID.m %>% summarize(across(starts_with("AC"), sum)) %>% rename_with(~str_remove(.,"ACID_")) %>% 
+  kable(caption="Total male inbreeding depression = sum of absolute contributions (AC) to ID", digits=3)
+
+F1.CID.m %>% pivot_longer(starts_with("TAC"), names_prefix="TACID_", names_to="momsp", values_to="TAC") %>% 
+  ggplot(aes(y=fct_rev(trait), x=TAC, color=momsp)) + 
+  geom_vline(xintercept=0, linetype=2) + geom_vline(xintercept=1)+ 
+  geom_path(aes(group=momsp))+
+  geom_point(shape=17, size=2) +
+  scale_color_manual(values = set_names(F1.col[c(2,5)], c("kaal","hook")), labels=c("S. kaalae","S. hookeri")) +
+  scale_x_continuous(limits=c(NA, 1.1), breaks=c(0,0.5,1),
+                     labels=c("0\nneutral","0.5","1\ninbreeding\ndepression")) +
+  theme_minimal() + theme(legend.position = "top", legend.text = element_text(face="italic"))+
+  labs(x="Cumulative inbreeding depression", y="Fitness component", color="Species")
 ```
 
 
