@@ -11,7 +11,7 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2021-12-08" />
+<meta name="date" content="2021-12-09" />
 
 <title>Schiedea hookeri/kaalae RIMs</title>
 
@@ -255,7 +255,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Schiedea hookeri/kaalae RIMs</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John Powers</a></h4>
-<h4 class="date">2021-12-08</h4>
+<h4 class="date">2021-12-09</h4>
 
 </div>
 
@@ -1589,22 +1589,26 @@ F1.RI %&gt;% select(-step) %&gt;% pivot_wider(names_from=momsp, values_from=c(be
 <p><img src="figures/fitness-2.svg" width="576" /></p>
 <div id="distribution-of-cumulative-fitness" class="section level3">
 <h3>Distribution of cumulative fitness</h3>
-<pre class="r"><code>ntrials &lt;- 10000
-
+<pre class="r"><code>#dataname = name of the dataset, yvar = the fitness trait, N = number of trials for each species and crosstype
 sample_trait &lt;- function(dataname, yvar, N) {
-  get(dataname) %&gt;% select(sxc, y=!!yvar) %&gt;% drop_na(y) %&gt;% #drop missing trait values!
-    nest(dfchunk=c(y)) %&gt;%  mutate(sampled = map(dfchunk, slice_sample, n=N, replace=T)) %&gt;% 
-    select(-dfchunk) %&gt;% unnest(sampled) %&gt;% arrange(sxc) %&gt;% mutate(trial=row_number())
+  get(dataname) %&gt;% select(sxc, y=!!yvar) %&gt;% 
+    drop_na(y) %&gt;% #drop missing trait values (various reasons for these)
+    group_by(sxc) %&gt;% nest() %&gt;% #subset data by the species and crosstype (between/within/hybrid)
+    mutate(sampled = map(data, slice_sample, n=N, replace=T)) %&gt;% #sample each subset N times with replacement
+    select(-data) %&gt;% unnest(sampled) %&gt;% arrange(sxc) %&gt;% mutate(trial=row_number()) #give each trial an index
 }
 
 set.seed(1)
-F1.cumul.fitness &lt;- traits %&gt;% filter(generation==&quot;F1&quot;, str_detect(sex,&quot;m&quot;)) %&gt;% select(data, yvar) %&gt;% 
-  mutate(samp = pmap(., sample_trait, N = ntrials)) %&gt;% select(-data) %&gt;% unnest(samp) %&gt;% 
-  pivot_wider(id_cols=c(sxc, trial), names_from=yvar, values_from=y) %&gt;% 
+ntrials &lt;- 10000
+F1.cumul.fitness &lt;- traits %&gt;% 
+  filter(generation==&quot;F1&quot;, str_detect(sex,&quot;m&quot;)) %&gt;% select(data, yvar) %&gt;% # independent multiplicative traits
+  mutate(samp = pmap(., sample_trait, N = ntrials)) %&gt;% # sample each trait N times per species and crosstype
+  select(-data) %&gt;% unnest(samp) %&gt;% # expand sampled dataset to full size
+  pivot_wider(id_cols=c(sxc, trial), names_from=yvar, values_from=y) %&gt;% # line up the trials for each variable
   mutate(fitness_female = capsule.formed * viable.seeds * prop.germ * alive * 
            flowered * flower.number,
          fitness_male = capsule.formed * viable.seeds * prop.germ * alive * 
-           flowered * flower.number * total.per.anther * prop.viable)
+           flowered * flower.number * total.per.anther * prop.viable) # multiply all the traits across a row
 
 F1.cumul.fitness %&gt;% select(sxc, starts_with(&quot;fitness&quot;)) %&gt;% 
   pivot_longer(starts_with(&quot;fitness&quot;), names_to=&quot;sex&quot;, names_prefix = &quot;fitness_&quot;) %&gt;% 
