@@ -161,19 +161,19 @@ traits %>% filter(generation=="F1") %>% select(data, yvar, ylab, type) %>%
 
 ## Flower biomass regression
 
-Appears linear after log-log transformation at first glance, but actually not! 
-
 ```{r infloreg}
+summary(biomass.flrs.lm)
+
 ggplot(inflobiomass, aes(x=inflo.biomass.g, y=flrs, color=cross)) + 
-  geom_point() +  geom_smooth(method="lm", se=F) +  
+  geom_point() +  geom_smooth(method="lm", formula = y ~ poly(x,2), se=F)+
   geom_rug(data=inflobiomass.sum, aes(x=inflo.biomass.g/inflo, y=10), sides="b") + 
   scale_x_log10() + scale_y_log10() + 
   scale_color_manual(values=set_names(F1.col, c("KKwithin","KK", "KH", "HK", "HH", "HHwithin"))[-c(1,6)]) +
   theme_minimal() + labs(y="Flower number", x="Inflorescence biomass (g)", color="Cross")
 
 ggplot(inflobiomass, aes(x=inflo.biomass.g, y=flrs/inflo.biomass.g, color=cross)) + 
-  geom_point() +  geom_smooth(se=F) +  
-  scale_x_log10() + scale_y_continuous() + 
+  geom_point() +  geom_smooth(se=F, span=0.8) +
+  scale_x_log10() + scale_y_log10() + 
   scale_color_manual(values=set_names(F1.col, c("KKwithin","KK", "KH", "HK", "HH", "HHwithin"))[-c(1,6)]) +
   theme_minimal() + labs(y="Flowers per g biomass", x="Inflorescence biomass (g)", color="Cross")
 

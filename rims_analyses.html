@@ -272,12 +272,8 @@ pre code {
 <pre class="r"><code>library(tidyverse)
 library(RColorBrewer)
 
-library(glmmTMB)</code></pre>
-<pre><code>## Warning in checkMatrixPackageVersion(): Package version inconsistency detected.
-## TMB was built with Matrix version 1.3.4
-## Current Matrix version is 1.4.0
-## Please re-install &#39;TMB&#39; from source using install.packages(&#39;TMB&#39;, type = &#39;source&#39;) or ask CRAN for a binary version of &#39;TMB&#39; matching CRAN&#39;s &#39;Matrix&#39; package</code></pre>
-<pre class="r"><code>library(broom)
+library(glmmTMB)
+library(broom)
 library(emmeans)
 
 library(knitr)
@@ -1079,16 +1075,16 @@ F1.test %&gt;% left_join(traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;%
 <tr class="odd">
 <td align="left">Flower number</td>
 <td align="left">species and crosstype</td>
-<td align="right">262.2</td>
+<td align="right">126.3</td>
 <td align="right">5</td>
-<td align="left">1.3e-54</td>
+<td align="left">1.5e-25</td>
 </tr>
 <tr class="even">
 <td align="left">Flower number</td>
 <td align="left">collection date</td>
-<td align="right">3.8</td>
+<td align="right">5.6</td>
 <td align="right">1</td>
-<td align="left">5.1e-02</td>
+<td align="left">1.8e-02</td>
 </tr>
 <tr class="odd">
 <td align="left">Pollen grains per anther</td>
@@ -1150,17 +1146,60 @@ traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;% select(data, yvar, ylab,
 </div>
 <div id="flower-biomass-regression" class="section level2">
 <h2>Flower biomass regression</h2>
-<p>Appears linear after log-log transformation at first glance, but actually not!</p>
+<pre class="r"><code>summary(biomass.flrs.lm)</code></pre>
+<pre><code>
+Call:
+lm(formula = log10(flrs) ~ poly(log10(inflo.biomass.g), 2) * 
+    cross, data = inflobiomass)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.5064 -0.0684  0.0152  0.0852  0.3093 
+
+Coefficients:
+                                         Estimate Std. Error t value Pr(&gt;|t|)
+(Intercept)                                2.6104     0.1090   23.96  &lt; 2e-16
+poly(log10(inflo.biomass.g), 2)1          27.1968     3.4410    7.90  1.8e-14
+poly(log10(inflo.biomass.g), 2)2           3.9869     1.5234    2.62   0.0091
+crossHK                                    0.0234     0.1131    0.21   0.8363
+crossKH                                    0.0590     0.1243    0.47   0.6353
+crossKK                                   -0.2267     0.1099   -2.06   0.0395
+poly(log10(inflo.biomass.g), 2)1:crossHK  -0.7326     3.5995   -0.20   0.8388
+poly(log10(inflo.biomass.g), 2)2:crossHK  -2.5828     1.9214   -1.34   0.1795
+poly(log10(inflo.biomass.g), 2)1:crossKH  -1.0470     4.0231   -0.26   0.7948
+poly(log10(inflo.biomass.g), 2)2:crossKH  -2.2318     2.6458   -0.84   0.3993
+poly(log10(inflo.biomass.g), 2)1:crossKK  -3.5707     3.5058   -1.02   0.3089
+poly(log10(inflo.biomass.g), 2)2:crossKK  -0.4190     1.7004   -0.25   0.8055
+                                            
+(Intercept)                              ***
+poly(log10(inflo.biomass.g), 2)1         ***
+poly(log10(inflo.biomass.g), 2)2         ** 
+crossHK                                     
+crossKH                                     
+crossKK                                  *  
+poly(log10(inflo.biomass.g), 2)1:crossHK    
+poly(log10(inflo.biomass.g), 2)2:crossHK    
+poly(log10(inflo.biomass.g), 2)1:crossKH    
+poly(log10(inflo.biomass.g), 2)2:crossKH    
+poly(log10(inflo.biomass.g), 2)1:crossKK    
+poly(log10(inflo.biomass.g), 2)2:crossKK    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 0.125 on 488 degrees of freedom
+  (1024 observations deleted due to missingness)
+Multiple R-squared:  0.931, Adjusted R-squared:  0.929 
+F-statistic:  595 on 11 and 488 DF,  p-value: &lt;2e-16</code></pre>
 <pre class="r"><code>ggplot(inflobiomass, aes(x=inflo.biomass.g, y=flrs, color=cross)) + 
-  geom_point() +  geom_smooth(method=&quot;lm&quot;, se=F) +  
+  geom_point() +  geom_smooth(method=&quot;lm&quot;, formula = y ~ poly(x,2), se=F)+
   geom_rug(data=inflobiomass.sum, aes(x=inflo.biomass.g/inflo, y=10), sides=&quot;b&quot;) + 
   scale_x_log10() + scale_y_log10() + 
   scale_color_manual(values=set_names(F1.col, c(&quot;KKwithin&quot;,&quot;KK&quot;, &quot;KH&quot;, &quot;HK&quot;, &quot;HH&quot;, &quot;HHwithin&quot;))[-c(1,6)]) +
   theme_minimal() + labs(y=&quot;Flower number&quot;, x=&quot;Inflorescence biomass (g)&quot;, color=&quot;Cross&quot;)</code></pre>
 <p><img src="figures/infloreg-1.svg" width="480" /></p>
 <pre class="r"><code>ggplot(inflobiomass, aes(x=inflo.biomass.g, y=flrs/inflo.biomass.g, color=cross)) + 
-  geom_point() +  geom_smooth(se=F) +  
-  scale_x_log10() + scale_y_continuous() + 
+  geom_point() +  geom_smooth(se=F, span=0.8) +
+  scale_x_log10() + scale_y_log10() + 
   scale_color_manual(values=set_names(F1.col, c(&quot;KKwithin&quot;,&quot;KK&quot;, &quot;KH&quot;, &quot;HK&quot;, &quot;HH&quot;, &quot;HHwithin&quot;))[-c(1,6)]) +
   theme_minimal() + labs(y=&quot;Flowers per g biomass&quot;, x=&quot;Inflorescence biomass (g)&quot;, color=&quot;Cross&quot;)</code></pre>
 <p><img src="figures/infloreg-2.svg" width="480" /></p>
@@ -1300,12 +1339,12 @@ traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;% select(data, yvar, ylab,
 </tr>
 <tr class="even">
 <td align="left">Flower number</td>
-<td align="left">1050 ± 130</td>
-<td align="left">1010 ± 90</td>
-<td align="left">1400 ± 160</td>
-<td align="left">1910 ± 80</td>
-<td align="left">281 ± 87</td>
-<td align="left">282 ± 112</td>
+<td align="left">1480 ± 210</td>
+<td align="left">1340 ± 140</td>
+<td align="left">1850 ± 250</td>
+<td align="left">2460 ± 120</td>
+<td align="left">712 ± 138</td>
+<td align="left">728 ± 177</td>
 </tr>
 <tr class="odd">
 <td align="left">Pollen grains per anther</td>
@@ -1409,7 +1448,7 @@ F1.RI %&gt;% select(-step) %&gt;% pivot_wider(names_from=momsp, values_from=c(be
 <td align="right">0.795</td>
 <td align="right">0.114</td>
 <td align="right">0.114</td>
-<td align="right">0.524</td>
+<td align="right">0.375</td>
 </tr>
 <tr class="even">
 <td align="left">Viable seeds if capsule formed</td>
@@ -1422,7 +1461,7 @@ F1.RI %&gt;% select(-step) %&gt;% pivot_wider(names_from=momsp, values_from=c(be
 <td align="right">0.476</td>
 <td align="right">0.355</td>
 <td align="right">0.315</td>
-<td align="right">1.447</td>
+<td align="right">1.035</td>
 </tr>
 <tr class="odd">
 <td align="left">Germination</td>
@@ -1435,7 +1474,7 @@ F1.RI %&gt;% select(-step) %&gt;% pivot_wider(names_from=momsp, values_from=c(be
 <td align="right">1.000</td>
 <td align="right">-0.013</td>
 <td align="right">-0.008</td>
-<td align="right">-0.035</td>
+<td align="right">-0.025</td>
 </tr>
 <tr class="even">
 <td align="left">Survival</td>
@@ -1448,7 +1487,7 @@ F1.RI %&gt;% select(-step) %&gt;% pivot_wider(names_from=momsp, values_from=c(be
 <td align="right">1.000</td>
 <td align="right">-0.024</td>
 <td align="right">-0.014</td>
-<td align="right">-0.063</td>
+<td align="right">-0.045</td>
 </tr>
 <tr class="odd">
 <td align="left">Vegetative biomass</td>
@@ -1474,7 +1513,7 @@ F1.RI %&gt;% select(-step) %&gt;% pivot_wider(names_from=momsp, values_from=c(be
 <td align="right">0.952</td>
 <td align="right">0.024</td>
 <td align="right">0.014</td>
-<td align="right">0.066</td>
+<td align="right">0.048</td>
 </tr>
 <tr class="odd">
 <td align="left">First inflorescence biomass</td>
@@ -1504,16 +1543,16 @@ F1.RI %&gt;% select(-step) %&gt;% pivot_wider(names_from=momsp, values_from=c(be
 </tr>
 <tr class="odd">
 <td align="left">Flower number</td>
-<td align="right">0.722</td>
+<td align="right">0.727</td>
 <td align="right">1.000</td>
-<td align="right">-0.162</td>
-<td align="right">-0.033</td>
-<td align="right">-0.039</td>
-<td align="right">0.147</td>
+<td align="right">-0.158</td>
+<td align="right">-0.032</td>
+<td align="right">-0.038</td>
+<td align="right">0.290</td>
 <td align="right">1.000</td>
-<td align="right">-0.743</td>
-<td align="right">-0.430</td>
-<td align="right">-1.977</td>
+<td align="right">-0.551</td>
+<td align="right">-0.319</td>
+<td align="right">-1.049</td>
 </tr>
 <tr class="even">
 <td align="left">Pollen grains per anther</td>
@@ -1525,8 +1564,8 @@ F1.RI %&gt;% select(-step) %&gt;% pivot_wider(names_from=momsp, values_from=c(be
 <td align="right">0.877</td>
 <td align="right">1.000</td>
 <td align="right">-0.066</td>
-<td align="right">-0.066</td>
-<td align="right">-0.304</td>
+<td align="right">-0.059</td>
+<td align="right">-0.193</td>
 </tr>
 <tr class="odd">
 <td align="left">Pollen viability</td>
@@ -1538,8 +1577,8 @@ F1.RI %&gt;% select(-step) %&gt;% pivot_wider(names_from=momsp, values_from=c(be
 <td align="right">1.000</td>
 <td align="right">0.573</td>
 <td align="right">0.271</td>
-<td align="right">0.292</td>
-<td align="right">1.341</td>
+<td align="right">0.259</td>
+<td align="right">0.854</td>
 </tr>
 <tr class="even">
 <td align="left">Viable pollen grains per anther</td>
@@ -1578,7 +1617,7 @@ F1.RI %&gt;% select(-step) %&gt;% pivot_wider(names_from=momsp, values_from=c(be
 <tbody>
 <tr class="odd">
 <td align="right">0.86</td>
-<td align="right">0.217</td>
+<td align="right">0.304</td>
 </tr>
 </tbody>
 </table>
@@ -1767,12 +1806,12 @@ F1.inbred %&gt;% select(-step) %&gt;%
 </tr>
 <tr class="odd">
 <td align="left">Flower number</td>
-<td align="right">0.957</td>
+<td align="right">0.909</td>
 <td align="right">1.000</td>
-<td align="right">-0.045</td>
-<td align="right">0.999</td>
+<td align="right">-0.100</td>
+<td align="right">0.978</td>
 <td align="right">1.000</td>
-<td align="right">-0.001</td>
+<td align="right">-0.023</td>
 </tr>
 <tr class="even">
 <td align="left">Pollen grains per anther</td>
@@ -1860,12 +1899,12 @@ F1.inbred %&gt;% select(-step) %&gt;% pivot_wider(names_from=momsp, values_from=
 <td align="right">0.943</td>
 <td align="right">0.057</td>
 <td align="right">0.057</td>
-<td align="right">0.167</td>
+<td align="right">0.185</td>
 <td align="right">1.000</td>
 <td align="right">0.956</td>
 <td align="right">0.044</td>
 <td align="right">0.044</td>
-<td align="right">0.156</td>
+<td align="right">0.165</td>
 </tr>
 <tr class="even">
 <td align="left">Viable seeds if capsule formed</td>
@@ -1873,12 +1912,12 @@ F1.inbred %&gt;% select(-step) %&gt;% pivot_wider(names_from=momsp, values_from=
 <td align="right">0.943</td>
 <td align="right">0.057</td>
 <td align="right">0.054</td>
-<td align="right">0.157</td>
+<td align="right">0.174</td>
 <td align="right">1.000</td>
 <td align="right">0.881</td>
 <td align="right">0.119</td>
 <td align="right">0.113</td>
-<td align="right">0.406</td>
+<td align="right">0.430</td>
 </tr>
 <tr class="odd">
 <td align="left">Germination</td>
@@ -1886,12 +1925,12 @@ F1.inbred %&gt;% select(-step) %&gt;% pivot_wider(names_from=momsp, values_from=
 <td align="right">0.786</td>
 <td align="right">0.214</td>
 <td align="right">0.190</td>
-<td align="right">0.554</td>
+<td align="right">0.616</td>
 <td align="right">1.000</td>
 <td align="right">0.967</td>
 <td align="right">0.033</td>
 <td align="right">0.028</td>
-<td align="right">0.101</td>
+<td align="right">0.107</td>
 </tr>
 <tr class="even">
 <td align="left">Survival</td>
@@ -1899,12 +1938,12 @@ F1.inbred %&gt;% select(-step) %&gt;% pivot_wider(names_from=momsp, values_from=
 <td align="right">0.947</td>
 <td align="right">0.053</td>
 <td align="right">0.037</td>
-<td align="right">0.107</td>
+<td align="right">0.119</td>
 <td align="right">1.000</td>
 <td align="right">0.991</td>
 <td align="right">0.009</td>
 <td align="right">0.007</td>
-<td align="right">0.025</td>
+<td align="right">0.026</td>
 </tr>
 <tr class="odd">
 <td align="left">Vegetative biomass</td>
@@ -1930,7 +1969,7 @@ F1.inbred %&gt;% select(-step) %&gt;% pivot_wider(names_from=momsp, values_from=
 <td align="right">0.990</td>
 <td align="right">0.010</td>
 <td align="right">0.008</td>
-<td align="right">0.030</td>
+<td align="right">0.032</td>
 </tr>
 <tr class="odd">
 <td align="left">First inflorescence biomass</td>
@@ -1960,29 +1999,29 @@ F1.inbred %&gt;% select(-step) %&gt;% pivot_wider(names_from=momsp, values_from=
 </tr>
 <tr class="odd">
 <td align="left">Flower number</td>
-<td align="right">0.957</td>
+<td align="right">0.909</td>
 <td align="right">1.000</td>
-<td align="right">-0.045</td>
-<td align="right">-0.030</td>
-<td align="right">-0.086</td>
-<td align="right">0.999</td>
+<td align="right">-0.100</td>
+<td align="right">-0.066</td>
+<td align="right">-0.214</td>
+<td align="right">0.978</td>
 <td align="right">1.000</td>
-<td align="right">-0.001</td>
-<td align="right">-0.001</td>
-<td align="right">-0.004</td>
+<td align="right">-0.023</td>
+<td align="right">-0.018</td>
+<td align="right">-0.069</td>
 </tr>
 <tr class="even">
 <td align="left">Pollen grains per anther</td>
 <td align="right">1.000</td>
 <td align="right">0.959</td>
 <td align="right">0.041</td>
-<td align="right">0.028</td>
-<td align="right">0.082</td>
+<td align="right">0.030</td>
+<td align="right">0.096</td>
 <td align="right">1.000</td>
 <td align="right">0.920</td>
 <td align="right">0.080</td>
-<td align="right">0.064</td>
-<td align="right">0.230</td>
+<td align="right">0.066</td>
+<td align="right">0.249</td>
 </tr>
 <tr class="odd">
 <td align="left">Pollen viability</td>
@@ -1990,12 +2029,12 @@ F1.inbred %&gt;% select(-step) %&gt;% pivot_wider(names_from=momsp, values_from=
 <td align="right">0.990</td>
 <td align="right">0.010</td>
 <td align="right">0.007</td>
-<td align="right">0.020</td>
+<td align="right">0.023</td>
 <td align="right">1.000</td>
 <td align="right">0.979</td>
 <td align="right">0.021</td>
-<td align="right">0.015</td>
-<td align="right">0.055</td>
+<td align="right">0.016</td>
+<td align="right">0.059</td>
 </tr>
 <tr class="even">
 <td align="left">Viable pollen grains per anther</td>
@@ -2033,8 +2072,8 @@ F1.inbred %&gt;% select(-step) %&gt;% pivot_wider(names_from=momsp, values_from=
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">0.343</td>
-<td align="right">0.279</td>
+<td align="right">0.309</td>
+<td align="right">0.264</td>
 </tr>
 </tbody>
 </table>

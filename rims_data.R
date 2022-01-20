@@ -174,7 +174,7 @@ inflobiomass <- read_sheet(gsheet, "inflobiomass", col_types="c") %>%
   left_join(crosses) %>% 
   add_combos()
 
-biomass.flrs.lm <- lm(log10(flrs) ~ log10(inflo.biomass.g) * cross, data=inflobiomass)
+biomass.flrs.lm <- lm(log10(flrs) ~ poly(log10(inflo.biomass.g),2) * cross, data=inflobiomass)
 
 inflobiomass.sum <- inflobiomass %>% #add together envelopes for regression and the rest
   group_by(across(all_of(c("plantid", colnames(crosses))))) %>% 

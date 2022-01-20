@@ -40,8 +40,8 @@
 <polyline points='329.39,237.01 329.39,44.68 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
 <line x1='167.28' y1='237.01' x2='167.28' y2='44.68' style='stroke-width: 1.07; stroke-dasharray: 5.69,5.69; stroke-linecap: butt;' />
 <line x1='329.39' y1='237.01' x2='329.39' y2='44.68' style='stroke-width: 1.07; stroke-linecap: butt;' />
-<polyline points='174.36,58.75 192.76,82.20 197.32,105.66 198.45,129.11 199.82,152.57 199.66,176.02 210.09,199.48 212.59,222.93 ' style='stroke-width: 1.07; stroke: #756BB1; stroke-linecap: butt;' />
-<polyline points='176.55,58.75 185.27,82.20 216.10,105.66 222.06,129.11 222.06,152.57 217.24,176.02 221.83,199.48 222.92,222.93 ' style='stroke-width: 1.07; stroke: #31A354; stroke-linecap: butt;' />
+<polyline points='174.36,58.75 192.76,82.20 197.32,105.66 198.45,129.11 199.82,152.57 196.88,176.02 207.54,199.48 210.08,222.93 ' style='stroke-width: 1.07; stroke: #756BB1; stroke-linecap: butt;' />
+<polyline points='176.55,58.75 185.27,82.20 216.10,105.66 222.06,129.11 222.06,152.57 211.36,176.02 216.18,199.48 217.34,222.93 ' style='stroke-width: 1.07; stroke: #31A354; stroke-linecap: butt;' />
 <polygon points='176.55,54.88 179.90,60.68 173.20,60.68 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
 <polygon points='174.36,54.88 177.71,60.68 171.01,60.68 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
 <polygon points='185.27,78.34 188.62,84.14 181.92,84.14 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
@@ -52,12 +52,12 @@
 <polygon points='198.45,125.24 201.80,131.05 195.10,131.05 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
 <polygon points='222.06,148.70 225.41,154.50 218.71,154.50 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
 <polygon points='199.82,148.70 203.17,154.50 196.47,154.50 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
-<polygon points='217.24,172.15 220.60,177.96 213.89,177.96 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
-<polygon points='199.66,172.15 203.01,177.96 196.31,177.96 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
-<polygon points='221.83,195.61 225.18,201.41 218.47,201.41 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
-<polygon points='210.09,195.61 213.45,201.41 206.74,201.41 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
-<polygon points='222.92,219.06 226.28,224.87 219.57,224.87 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
-<polygon points='212.59,219.06 215.94,224.87 209.24,224.87 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
+<polygon points='211.36,172.15 214.71,177.96 208.01,177.96 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
+<polygon points='196.88,172.15 200.23,177.96 193.53,177.96 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
+<polygon points='216.18,195.61 219.53,201.41 212.83,201.41 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
+<polygon points='207.54,195.61 210.89,201.41 204.19,201.41 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
+<polygon points='217.34,219.06 220.69,224.87 213.98,224.87 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
+<polygon points='210.08,219.06 213.43,224.87 206.73,224.87 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
 </g>
 <g clip-path='url(#cpMC4wMHwzNjAuMDB8MC4wMHwyODguMDA=)'>
 <text x='153.44' y='226.14' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='63.68px' lengthAdjust='spacingAndGlyphs'>Pollen viability</text>
