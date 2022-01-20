@@ -11,7 +11,7 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2021-12-09" />
+<meta name="date" content="2022-01-19" />
 
 <title>Schiedea hookeri/kaalae RIMs</title>
 
@@ -255,7 +255,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Schiedea hookeri/kaalae RIMs</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John Powers</a></h4>
-<h4 class="date">2021-12-09</h4>
+<h4 class="date">2022-01-19</h4>
 
 </div>
 
@@ -272,8 +272,12 @@ pre code {
 <pre class="r"><code>library(tidyverse)
 library(RColorBrewer)
 
-library(glmmTMB)
-library(broom)
+library(glmmTMB)</code></pre>
+<pre><code>## Warning in checkMatrixPackageVersion(): Package version inconsistency detected.
+## TMB was built with Matrix version 1.3.4
+## Current Matrix version is 1.4.0
+## Please re-install &#39;TMB&#39; from source using install.packages(&#39;TMB&#39;, type = &#39;source&#39;) or ask CRAN for a binary version of &#39;TMB&#39; matching CRAN&#39;s &#39;Matrix&#39; package</code></pre>
+<pre class="r"><code>library(broom)
 library(emmeans)
 
 library(knitr)
@@ -961,7 +965,9 @@ map_dfr(F1, ~ tally(get(.)), .id=&quot;dataset&quot;) %&gt;%
   alive =                glmmTMB(alive          ~ sxc + (1|mompid) + (1|dadpid), family=&quot;betabinomial&quot;, data=survflr),
   flowered =             glmmTMB(flowered       ~ sxc + (1|mompid) + (1|dadpid), family=&quot;betabinomial&quot;, data=filter(survflr, alive)),
   prop.viable =          glmmTMB(prop.viable    ~ sxc + (1|mompid) + (1|dadpid), family=&quot;betabinomial&quot;, data=pollen, weights = total),
-  capsule.formed =       glmmTMB(capsule.formed ~ sxc + (1|mompid) + (1|dadpid), family=&quot;betabinomial&quot;, data=seeds))</code></pre>
+  capsule.formed =       glmmTMB(capsule.formed ~ sxc + (1|mompid) + (1|dadpid), family=&quot;betabinomial&quot;, data=seeds))
+save(F1.mod, file=&quot;data/F1mod.rda&quot;)
+#load(&quot;data/F1mod.rda&quot;)</code></pre>
 </div>
 <div id="inference" class="section level2">
 <h2>Inference</h2>
@@ -1605,29 +1611,57 @@ F1.cumul.fitness &lt;- traits %&gt;%
   mutate(samp = pmap(., sample_trait, N = ntrials)) %&gt;% # sample each trait N times per species and crosstype
   select(-data) %&gt;% unnest(samp) %&gt;% # expand sampled dataset to full size
   pivot_wider(id_cols=c(sxc, trial), names_from=yvar, values_from=y) %&gt;% # line up the trials for each variable
-  mutate(fitness_female = capsule.formed * viable.seeds * prop.germ * alive * 
-           flowered * flower.number,
-         fitness_male = capsule.formed * viable.seeds * prop.germ * alive * 
-           flowered * flower.number * total.per.anther * prop.viable) # multiply all the traits across a row
+  mutate(fitness_viable.seeds = capsule.formed * viable.seeds,
+         fitness_flowered     = capsule.formed * viable.seeds * prop.germ * alive * flowered,
+         fitness_flower.number= capsule.formed * viable.seeds * prop.germ * alive * flowered * flower.number,
+         fitness_prop.viable  = capsule.formed * viable.seeds * prop.germ * alive * flowered * flower.number * total.per.anther * prop.viable) 
 
 F1.cumul.fitness %&gt;% select(sxc, starts_with(&quot;fitness&quot;)) %&gt;% 
-  pivot_longer(starts_with(&quot;fitness&quot;), names_to=&quot;sex&quot;, names_prefix = &quot;fitness_&quot;) %&gt;% 
-  ggplot(aes(x=value, color=sxc)) + facet_wrap(vars(sex), scales=&quot;free_x&quot;)+
-  geom_freqpoly(bins=200, boundary=1, position=position_identity(), size=1) +
+  pivot_longer(starts_with(&quot;fitness&quot;), names_to=&quot;stage&quot;, names_prefix = &quot;fitness_&quot;) %&gt;% 
+  ggplot(aes(x=value, color=sxc)) + facet_wrap(vars(stage), scales=&quot;free_x&quot;, labeller=as_labeller(deframe(select(traits, yvar, ylab))))+
+  geom_freqpoly(bins=30, boundary=1, position=position_identity(), size=1) +
   scale_color_manual(&quot;Crosstype&quot;, values=F1.col, labels=sxc.labels) + 
   scale_y_continuous(labels = ~scales::percent(./ntrials)) + scale_x_continuous(limits=c(1,NA)) + theme_minimal() + 
   labs(y=paste0(&quot;Frequency of outcome (&quot;,ntrials,&quot; trials)&quot;), 
-       x=&quot;FF1 flowers or F1 viable pollen grains resulting from one P x P pollination&quot;,
+       x=&quot;F1 flowers or F1 viable pollen grains resulting from one P x P pollination&quot;,
        title = &quot;Distribution of female and male cumulative F1 fitness (if nonzero)&quot;) </code></pre>
 <p><img src="figures/totalRI_simulation-1.svg" width="768" /></p>
-<pre class="r"><code>F1.cumul.fitness %&gt;% group_by(sxc) %&gt;% summarize(prop.zero=mean(fitness_female&gt;0)) %&gt;% 
+<pre class="r"><code>F1.cumul.fitness %&gt;% group_by(sxc) %&gt;% summarize(prop.zero=mean(fitness_flower.number&gt;0)) %&gt;% 
 ggplot(aes(y=prop.zero, x=sxc, color=sxc)) + 
   geom_point(size=2)+ 
   scale_color_manual(values=F1.col, guide=&quot;none&quot;) + 
   scale_y_continuous(limits=c(0,1), labels=scales::percent) + scale_x_discrete(labels=sxc.labels) + theme_minimal() + 
-  labs(y=paste0(&quot;Frequency of nonzero F1 flowers resulting from one P x P pollination (&quot;,ntrials,&quot; trials)&quot;), x=&quot;Crosstype&quot;,
+  labs(y=paste0(&quot;Nonzero F1 flowers resulting from one P x P pollination (&quot;,ntrials,&quot; trials)&quot;), x=&quot;Crosstype&quot;,
        title = &quot;Frequency of female cumulative F1 fitness greater than zero&quot;) </code></pre>
 <p><img src="figures/totalRI_simulation-2.svg" width="768" /></p>
+<pre class="r"><code>trials_to_average &lt;- 50
+F1.cumul.isolation &lt;- F1.cumul.fitness %&gt;% 
+  group_by(sxc, meanblock = ceiling(trial / trials_to_average)) %&gt;% #group into blocks of trials_to_average trials
+  summarize(across(starts_with(&quot;fitness&quot;), mean)) %&gt;% #take the mean fitness for each block and crosstype
+  pivot_longer(starts_with(&quot;fitness&quot;), names_prefix = &quot;fitness_&quot;, names_to=&quot;stage&quot;, values_to=&quot;fitness&quot;) %&gt;% 
+  separate(sxc, into=c(&quot;momsp&quot;,&quot;crosstype&quot;)) %&gt;% 
+  pivot_wider(names_from=crosstype, values_from=fitness) %&gt;% 
+  mutate(stage = factor(stage, levels=unique(traits$yvar)),
+         RI = 1 - 2 *  hybrid/(hybrid + between),
+         ID = 1 - within/between) 
+
+F1.CRI.TACmf &lt;- F1.CRI.m %&gt;% 
+  pivot_longer(starts_with(&quot;TAC&quot;), names_prefix=&quot;TACRI_&quot;, names_to=&quot;momsp&quot;, values_to=&quot;TAC&quot;) %&gt;% 
+  mutate(stage = recode(trait, !!!set_names(traits$yvar[-1], traits$ylab[-1]))) %&gt;% 
+  filter(stage %in% unique(F1.cumul.isolation$stage)) %&gt;% 
+  rename(RI=TAC)
+
+ggplot(F1.cumul.isolation, aes(y=fct_rev(stage), color=momsp, x=RI)) + 
+  geom_vline(xintercept=0) + geom_violin(draw_quantiles=(1:3)/4, position=position_dodge(width=0.5)) + 
+  geom_path(aes(group=momsp), data=F1.CRI.TACmf, position=position_dodge(width=0.5)) +
+  geom_point(data=F1.CRI.TACmf, position=position_dodge(width=0.5), size=2, shape=17) +
+  scale_y_discrete(labels=deframe(select(traits, yvar, ylab))) +
+  scale_color_manual(values = set_names(F1.col[c(2,5)], c(&quot;kaal&quot;,&quot;hook&quot;)), labels=c(&quot;S. kaalae&quot;,&quot;S. hookeri&quot;)) +
+  scale_x_continuous(limits=c(-1.1,1.1), breaks=c(-1,-0.5,0,0.5,1),
+                     labels=c(&quot;-1\nheterosis&quot;,&quot;-0.5&quot;,&quot;0\nno\nbarrier&quot;,&quot;0.5&quot;,&quot;1\ncomplete\nisolation&quot;)) + 
+  theme_minimal() + theme(legend.position = &quot;top&quot;, legend.text = element_text(face=&quot;italic&quot;)) +
+  labs(x=&quot;Cumulative reproductive isolation&quot;, y=&quot;Fitness component&quot;, color=&quot;Species&quot;)</code></pre>
+<p><img src="figures/totalRI_means-1.svg" width="480" /></p>
 </div>
 </div>
 <div id="inbreeding-depression" class="section level2">
@@ -2015,6 +2049,25 @@ F1.inbred %&gt;% select(-step) %&gt;% pivot_wider(names_from=momsp, values_from=
   theme_minimal() + theme(legend.position = &quot;top&quot;, legend.text = element_text(face=&quot;italic&quot;))+
   labs(x=&quot;Cumulative inbreeding depression&quot;, y=&quot;Fitness component&quot;, color=&quot;Species&quot;)</code></pre>
 <p><img src="figures/inbred-3.svg" width="480" /></p>
+<pre class="r"><code># Distribution of ID
+F1.CID.TACmf &lt;- F1.CID.m %&gt;% 
+  pivot_longer(starts_with(&quot;TAC&quot;), names_prefix=&quot;TACID_&quot;, names_to=&quot;momsp&quot;, values_to=&quot;TAC&quot;) %&gt;% 
+  mutate(stage = recode(trait, !!!set_names(traits$yvar[-1], traits$ylab[-1]))) %&gt;% 
+  filter(stage %in% unique(F1.cumul.isolation$stage)) %&gt;% 
+  rename(ID=TAC)
+
+ggplot(F1.cumul.isolation, aes(y=fct_rev(stage), color=momsp, x=ID)) + 
+    geom_vline(xintercept=0, linetype=2) + geom_vline(xintercept=-1)+ geom_vline(xintercept=1)+ 
+    geom_violin(draw_quantiles=(1:3)/4, position=position_dodge(width=0.9)) +
+    geom_path(aes(group=momsp), data=F1.CID.TACmf, position=position_dodge(width=0.9)) +
+    geom_point(data=F1.CID.TACmf, position=position_dodge(width=0.9), size=2, shape=17) +
+    scale_y_discrete(labels=deframe(select(traits, yvar, ylab))) +
+    scale_color_manual(values = set_names(F1.col[c(2,5)], c(&quot;kaal&quot;,&quot;hook&quot;)), labels=c(&quot;S. kaalae&quot;,&quot;S. hookeri&quot;)) +
+    scale_x_continuous(limits=c(-1.1,1.1), breaks=c(-1,-0.5,0,0.5,1),
+                     labels=c(&quot;-1\noutcrossing\ndepression&quot;,&quot;-0.5&quot;,&quot;0\nneutral&quot;,&quot;0.5&quot;,&quot;1\ninbreeding\ndepression&quot;)) + 
+    theme_minimal() + theme(legend.position = &quot;top&quot;, legend.text = element_text(face=&quot;italic&quot;)) +
+    labs(x=&quot;Cumulative inbreeding depression&quot;, y=&quot;Fitness component&quot;, color=&quot;Species&quot;)</code></pre>
+<p><img src="figures/inbred-4.svg" width="480" /></p>
 </div>
 </div>
 <div id="f2-generation" class="section level1">
