@@ -328,7 +328,8 @@ F1.CRI.TACmf <- F1.CRI.m %>%
   rename(RI=TAC)
 
 ggplot(F1.cumul.isolation, aes(y=fct_rev(stage), color=momsp, x=RI)) + 
-  geom_vline(xintercept=0) + geom_violin(draw_quantiles=(1:3)/4, position=position_dodge(width=0.5)) + 
+  geom_vline(xintercept=0, linetype=2) + geom_vline(xintercept=-1)+ geom_vline(xintercept=1)+ 
+  geom_violin(draw_quantiles=(1:3)/4, position=position_dodge(width=0.5)) + 
   geom_path(aes(group=momsp), data=F1.CRI.TACmf, position=position_dodge(width=0.5)) +
   geom_point(data=F1.CRI.TACmf, position=position_dodge(width=0.5), size=2, shape=17) +
   scale_y_discrete(labels=deframe(select(traits, yvar, ylab))) +
@@ -336,7 +337,7 @@ ggplot(F1.cumul.isolation, aes(y=fct_rev(stage), color=momsp, x=RI)) +
   scale_x_continuous(limits=c(-1.1,1.1), breaks=c(-1,-0.5,0,0.5,1),
                      labels=c("-1\nheterosis","-0.5","0\nno\nbarrier","0.5","1\ncomplete\nisolation")) + 
   theme_minimal() + theme(legend.position = "top", legend.text = element_text(face="italic")) +
-  labs(x="Cumulative reproductive isolation", y="Fitness component", color="Species")
+  labs(x="Cumulative reproductive isolation", y="Fitness component", color="Maternal parent")
 ```
 
 
@@ -377,15 +378,6 @@ F1.inbred %>% select(-step) %>% pivot_wider(names_from=momsp, values_from=c(betw
   select(trait, Kb = between_kaal, Kw = within_kaal, K_ID = ID_kaal, K_AC = ACID_kaal, K_RC = RACID_kaal, 
                 Hb = between_hook, Hw = within_hook, H_ID = ID_hook, H_AC = ACID_hook, H_RC = RACID_hook) %>% 
   kable(caption="Relative fitness components of within vs. between population crosses", digits=3)
-
-ggplot(F1.inbred, aes(y=fct_rev(trait), x=ID, color=momsp)) + 
-  geom_vline(xintercept=0, linetype=2) + geom_vline(xintercept=-1)+ geom_vline(xintercept=1)+ 
-  geom_point(shape=17, size=2) +
-  scale_color_manual(values = set_names(F1.col[c(2,5)], c("kaal","hook")), labels=c("S. kaalae","S. hookeri")) +
-  scale_x_continuous(limits=c(-1.1,1.1), breaks=c(-1,-0.5,0,0.5,1),
-                     labels=c("-1\noutcrossing\ndepression","-0.5","0\nneutral","0.5","1\ninbreeding\ndepression")) + 
-  theme_minimal() + theme(legend.position = "top", legend.text = element_text(face="italic"))+
-  labs(x="Inbreeding depression", y="Fitness component", color="Species")
 
 F1.CID.m %>% summarize(across(starts_with("AC"), sum)) %>% rename_with(~str_remove(.,"ACID_")) %>% 
   kable(caption="Total male inbreeding depression = sum of absolute contributions (AC) to ID", digits=3)
@@ -549,7 +541,7 @@ plot_F2_contrasts <- function(emm, data, yvar, ylab, type="continuous") {
       scale_color_manual("Reciprocal difference  :", values=brewer.pal(10,"Paired")[c(2,8)])+
       scale_y_continuous(ylab, limits=c(0,1), labels=~scales::percent(.,accuracy=1))
   }
-  ytop = 1.02*max(pull(data, yvar))
+  ytop = ifelse(type=="binary", 0.95, 1.02*max(pull(data, yvar), na.rm=T))
   p <- p + scale_x_discrete("Cross", labels = momdadcross.labels) +
     theme_minimal() + theme(legend.position = "top") +
     geom_text(data=sig, aes(x = 2*pair-0.5, y=ytop*1.04, label=ifelse(p.value < 0.01, "< 0.01",round(p.value,2)))) +
