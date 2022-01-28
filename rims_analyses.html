@@ -11,7 +11,7 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2022-01-20" />
+<meta name="date" content="2022-01-28" />
 
 <title>Schiedea hookeri/kaalae RIMs</title>
 
@@ -255,7 +255,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Schiedea hookeri/kaalae RIMs</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John Powers</a></h4>
-<h4 class="date">2022-01-20</h4>
+<h4 class="date">2022-01-28</h4>
 
 </div>
 
@@ -1204,21 +1204,21 @@ F-statistic:  595 on 11 and 488 DF,  p-value: &lt;2e-16</code></pre>
   theme_minimal() + labs(y=&quot;Flowers per g biomass&quot;, x=&quot;Inflorescence biomass (g)&quot;, color=&quot;Cross&quot;)</code></pre>
 <p><img src="figures/infloreg-2.svg" width="480" /></p>
 <pre class="r"><code>ggplot(inflobiomass.sum, aes(y=inflo, x=sxc, fill=sxc)) +
-  geom_boxplot() + 
+  geom_boxplot() + geom_violin(fill=NA) + 
   scale_fill_manual(values=F1.col) + guides(fill=&quot;none&quot;) +
   scale_y_continuous(&quot;Inflorescences&quot;, expand = expansion(mult=c(0, 0.05)), limits=c(0,NA))+
   scale_x_discrete(&quot;Cross&quot;, labels = sxc.labels) + 
   theme_minimal() + theme(panel.grid.major.x = element_blank())</code></pre>
 <p><img src="figures/infloreg-3.svg" width="480" /></p>
 <pre class="r"><code>ggplot(inflobiomass.sum, aes(y=inflo.biomass.g/inflo, x=sxc, fill=sxc)) +
-  geom_boxplot() + 
+  geom_boxplot() + geom_violin(fill=NA) +  
   scale_fill_manual(values=F1.col) + guides(fill=&quot;none&quot;) +
   scale_y_continuous(&quot;Biomass per inflorescence (g)&quot;, expand = expansion(mult=c(0, 0.05)), limits=c(0,NA))+
   scale_x_discrete(&quot;Cross&quot;, labels = sxc.labels) + 
   theme_minimal() + theme(panel.grid.major.x = element_blank())</code></pre>
 <p><img src="figures/infloreg-4.svg" width="480" /></p>
 <pre class="r"><code>ggplot(inflobiomass.sum, aes(y=flower.number/inflo, x=sxc, fill=sxc)) +
-  geom_boxplot() + 
+  geom_boxplot() + geom_violin(fill=NA) + 
   scale_fill_manual(values=F1.col) + guides(fill=&quot;none&quot;) +
   scale_y_continuous(&quot;Flowers per inflorescence&quot;, expand = expansion(mult=c(0, 0.05)), limits=c(0,NA))+
   scale_x_discrete(&quot;Cross&quot;, labels = sxc.labels) + 

@@ -178,21 +178,21 @@ ggplot(inflobiomass, aes(x=inflo.biomass.g, y=flrs/inflo.biomass.g, color=cross)
   theme_minimal() + labs(y="Flowers per g biomass", x="Inflorescence biomass (g)", color="Cross")
 
 ggplot(inflobiomass.sum, aes(y=inflo, x=sxc, fill=sxc)) +
-  geom_boxplot() + 
+  geom_boxplot() + geom_violin(fill=NA) + 
   scale_fill_manual(values=F1.col) + guides(fill="none") +
   scale_y_continuous("Inflorescences", expand = expansion(mult=c(0, 0.05)), limits=c(0,NA))+
   scale_x_discrete("Cross", labels = sxc.labels) + 
   theme_minimal() + theme(panel.grid.major.x = element_blank())
 
 ggplot(inflobiomass.sum, aes(y=inflo.biomass.g/inflo, x=sxc, fill=sxc)) +
-  geom_boxplot() + 
+  geom_boxplot() + geom_violin(fill=NA) +  
   scale_fill_manual(values=F1.col) + guides(fill="none") +
   scale_y_continuous("Biomass per inflorescence (g)", expand = expansion(mult=c(0, 0.05)), limits=c(0,NA))+
   scale_x_discrete("Cross", labels = sxc.labels) + 
   theme_minimal() + theme(panel.grid.major.x = element_blank())
 
 ggplot(inflobiomass.sum, aes(y=flower.number/inflo, x=sxc, fill=sxc)) +
-  geom_boxplot() + 
+  geom_boxplot() + geom_violin(fill=NA) + 
   scale_fill_manual(values=F1.col) + guides(fill="none") +
   scale_y_continuous("Flowers per inflorescence", expand = expansion(mult=c(0, 0.05)), limits=c(0,NA))+
   scale_x_discrete("Cross", labels = sxc.labels) + 
