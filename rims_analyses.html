@@ -11,7 +11,7 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2022-01-28" />
+<meta name="date" content="2022-01-29" />
 
 <title>Schiedea hookeri/kaalae RIMs</title>
 
@@ -255,7 +255,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Schiedea hookeri/kaalae RIMs</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John Powers</a></h4>
-<h4 class="date">2022-01-28</h4>
+<h4 class="date">2022-01-29</h4>
 
 </div>
 
@@ -1377,14 +1377,25 @@ F-statistic:  595 on 11 and 488 DF,  p-value: &lt;2e-16</code></pre>
 </table>
 <pre class="r"><code>#TODO to get confidence intervals of RI ratio, may need mratios or alt method here:
 # https://stats.stackexchange.com/questions/16349/how-to-compute-the-confidence-interval-of-the-ratio-of-two-normal-means
+calc_RI &lt;- function(h, b) 1 - 2 *  h/(h + b) #method of Sobel and Chen 2014 for hybrids vs. between-population intraspecific fitness
+calc_ID &lt;- function(w, b) 1 - w/b
+highlow &lt;- function(fn, a, b) { #method of Sobel and Streisfeld 2015 Fig. S1
+  combos &lt;- c(fn(a[1], b[1]), fn(a[1],b[2]), fn(a[2],b[1]), fn(a[2], b[2]))
+  set_names(c(min(combos), max(combos)), c(&quot;low&quot;,&quot;high&quot;))
+}
+
 F1.RI &lt;- F1.emm %&gt;% separate(sxc, into=c(&quot;momsp&quot;,&quot;crosstype&quot;)) %&gt;% 
   filter(crosstype !=&quot;within&quot;, trait != &quot;firstflower&quot;) %&gt;% #TODO firstflower is backwards fitness
-  select(trait, momsp, crosstype, estimate) %&gt;% pivot_wider(names_from=crosstype, values_from=estimate) %&gt;% 
-  rowwise() %&gt;% mutate(across(c(between,hybrid), ~ ./max(between,hybrid)),
-                       RI = 1 - 2 *  hybrid/(hybrid + between)) %&gt;% #method of Sobel and Chen 2014
-    left_join(traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;% select(trait=yvar, step, sex)) %&gt;% arrange(step) %&gt;% 
-      mutate(trait = recode(trait, !!!set_names(traits$ylab[-1], traits$yvar[-1])) %&gt;% 
-               str_remove(fixed(&quot; (g)&quot;)) %&gt;% factor() %&gt;% fct_reorder(step)) 
+  select(trait, momsp, crosstype, estimate, conf.low, conf.high) %&gt;% 
+  pivot_wider(names_from=crosstype, values_from=c(estimate, conf.low, conf.high)) %&gt;% 
+  rename_with(~ str_remove(.,&quot;estimate_|conf.&quot;)) %&gt;% rowwise() %&gt;% 
+  mutate(across(c(between,hybrid), ~ ./max(between,hybrid)),
+         RI = calc_RI(h=hybrid, b=between)) %&gt;%
+  mutate(RI.range = list(highlow(fn=calc_RI, a=c(low_hybrid, high_hybrid), b=c(low_between, high_between))), 
+         .keep=&quot;unused&quot;) %&gt;% unnest_wider(RI.range) %&gt;% 
+  left_join(traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;% select(trait=yvar, step, sex)) %&gt;% arrange(step) %&gt;% 
+  mutate(trait = recode(trait, !!!set_names(traits$ylab[-1], traits$yvar[-1])) %&gt;% 
+           str_remove(fixed(&quot; (g)&quot;)) %&gt;% factor() %&gt;% fct_reorder(step)) 
   
 abs_contribution &lt;- function(RI) { #method of Ramsey et al. 2003 for absolute contribution to RI
   AC &lt;- RI
@@ -1394,14 +1405,15 @@ abs_contribution &lt;- function(RI) { #method of Ramsey et al. 2003 for absolute
   return(AC)
 }
 #cumulative reproductive isolation 
-F1.CRI.m &lt;- F1.RI %&gt;% filter(str_detect(sex,&quot;m&quot;)) %&gt;%  select(-c(step,between,hybrid,sex)) %&gt;% 
+F1.CRI.m &lt;- F1.RI %&gt;% filter(str_detect(sex,&quot;m&quot;)) %&gt;% select(trait, momsp, RI) %&gt;% 
               pivot_wider(names_prefix=&quot;RI_&quot;, names_from=momsp, values_from=RI) %&gt;% 
               mutate(across(starts_with(&quot;RI&quot;), abs_contribution, .names=&quot;AC{.col}&quot;), 
                      across(starts_with(&quot;AC&quot;), ~ . /sum(.),  .names=&quot;R{.col}&quot;),
                      across(starts_with(&quot;AC&quot;), cumsum, .names=&quot;T{.col}&quot;),
                      .keep = &quot;unused&quot;)
 
-F1.RI %&gt;% select(-step) %&gt;% pivot_wider(names_from=momsp, values_from=c(between, hybrid, RI)) %&gt;% 
+F1.RI %&gt;% select(trait, momsp, between, hybrid, RI) %&gt;% 
+  pivot_wider(names_from=momsp, values_from=c(between, hybrid, RI)) %&gt;% 
   left_join(F1.CRI.m) %&gt;% 
   select(trait, KK = between_kaal, KH = hybrid_kaal, K_RI = RI_kaal, K_AC = ACRI_kaal, K_RC = RACRI_kaal, 
                 HH = between_hook, HK = hybrid_hook, H_RI = RI_hook, H_AC = ACRI_hook, H_RC = RACRI_hook) %&gt;% 
@@ -1597,7 +1609,8 @@ F1.RI %&gt;% select(-step) %&gt;% pivot_wider(names_from=momsp, values_from=c(be
 </table>
 <pre class="r"><code>ggplot(F1.RI, aes(y=fct_rev(trait), x=RI, color=momsp)) + 
   geom_vline(xintercept=0, linetype=2) + geom_vline(xintercept=-1)+ geom_vline(xintercept=1)+ 
-  geom_point(shape=17, size=2) +
+  geom_linerange(aes(xmin=low, xmax=high), position=position_dodge(width=0.2)) + 
+  geom_point(shape=17, size=2, position=position_dodge(width=0.2)) +
   scale_color_manual(values = set_names(F1.col[c(2,5)], c(&quot;kaal&quot;,&quot;hook&quot;)), labels=c(&quot;S. kaalae&quot;,&quot;S. hookeri&quot;)) +
   scale_x_continuous(limits=c(-1.1,1.1), breaks=c(-1,-0.5,0,0.5,1),
                      labels=c(&quot;-1\nheterosis&quot;,&quot;-0.5&quot;,&quot;0\nno\nbarrier&quot;,&quot;0.5&quot;,&quot;1\ncomplete\nisolation&quot;)) + 
@@ -1708,14 +1721,18 @@ ggplot(F1.cumul.isolation, aes(y=fct_rev(stage), color=momsp, x=RI)) +
 <h2>Inbreeding depression</h2>
 <pre class="r"><code>F1.inbred &lt;- F1.emm %&gt;% separate(sxc, into=c(&quot;momsp&quot;,&quot;crosstype&quot;)) %&gt;% 
   filter(crosstype !=&quot;hybrid&quot;, trait != &quot;firstflower&quot;) %&gt;% #TODO firstflower is backwards fitness
-  select(trait, momsp, crosstype, estimate) %&gt;% pivot_wider(names_from=crosstype, values_from=estimate) %&gt;% 
-  rowwise() %&gt;% mutate(across(c(between,within), ~ ./max(between,within)),
-                       ID = 1 - within/between) %&gt;% 
-    left_join(traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;% select(trait=yvar, step, sex)) %&gt;% arrange(step) %&gt;% 
-      mutate(trait = recode(trait, !!!set_names(traits$ylab[-1], traits$yvar[-1])) %&gt;% 
-               str_remove(fixed(&quot; (g)&quot;)) %&gt;% factor() %&gt;% fct_reorder(step)) 
+  select(trait, momsp, crosstype, estimate, conf.low, conf.high) %&gt;% 
+  pivot_wider(names_from=crosstype, values_from=c(estimate, conf.low, conf.high)) %&gt;% 
+  rename_with(~ str_remove(.,&quot;estimate_|conf.&quot;)) %&gt;% rowwise() %&gt;% 
+  mutate(across(c(between,within), ~ ./max(between,within)),
+         ID = calc_ID(w=within, b=between)) %&gt;%
+  mutate(ID.range = list(highlow(fn=calc_ID, a=c(low_within, high_within), b=c(low_between, high_between))), 
+         .keep=&quot;unused&quot;) %&gt;% unnest_wider(ID.range) %&gt;% 
+  left_join(traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;% select(trait=yvar, step, sex)) %&gt;% arrange(step) %&gt;% 
+  mutate(trait = recode(trait, !!!set_names(traits$ylab[-1], traits$yvar[-1])) %&gt;% 
+           str_remove(fixed(&quot; (g)&quot;)) %&gt;% factor() %&gt;% fct_reorder(step)) 
 
-F1.inbred %&gt;% select(-step) %&gt;% 
+F1.inbred %&gt;% select(trait, momsp, between, within, ID) %&gt;% 
   pivot_wider(names_from=momsp, values_from=c(between, within, ID)) %&gt;% 
   select(trait, between_kaal, within_kaal, ID_kaal, between_hook, within_hook, ID_hook) %&gt;% 
   kable(caption=&quot;Inbreeding depression \u03B4 = 1 - (within pop / between pop)&quot;, digits=3)</code></pre>
@@ -1845,20 +1862,24 @@ F1.inbred %&gt;% select(-step) %&gt;%
 </table>
 <pre class="r"><code>ggplot(F1.inbred, aes(y=fct_rev(trait), x=ID, color=momsp)) + 
   geom_vline(xintercept=0, linetype=2) +  
-  geom_point(shape=17, size=2) +
+  geom_linerange(aes(xmin=low, xmax=high), position=position_dodge(width=0.2)) + 
+  geom_point(shape=17, size=2, position=position_dodge(width=0.2)) +
   scale_color_manual(values = set_names(F1.col[c(2,5)], c(&quot;kaal&quot;,&quot;hook&quot;)), labels=c(&quot;S. kaalae&quot;,&quot;S. hookeri&quot;)) +
+  scale_x_continuous(limits=c(-1.1,1.1), breaks=c(-1,-0.5,0,0.5,1),
+                     labels=c(&quot;-1\noutcrossing\ndepression&quot;,&quot;-0.5&quot;,&quot;0\nneutral&quot;,&quot;0.5&quot;,&quot;1\ninbreeding\ndepression&quot;)) +
   theme_minimal() + theme(legend.position = &quot;top&quot;, legend.text = element_text(face=&quot;italic&quot;))+
   labs(x=&quot;Inbreeding depression \u03B4&quot;, y=&quot;Fitness component&quot;, color=&quot;Species&quot;)</code></pre>
 <p><img src="figures/inbred-1.svg" width="480" /></p>
 <pre class="r"><code># Cumulative inbreeding depression
-F1.CID.m &lt;- F1.inbred %&gt;% filter(str_detect(sex,&quot;m&quot;)) %&gt;%  select(-c(step,between,within,sex)) %&gt;% 
+F1.CID.m &lt;- F1.inbred %&gt;% filter(str_detect(sex,&quot;m&quot;)) %&gt;%  select(trait, momsp, ID) %&gt;% 
               pivot_wider(names_prefix=&quot;ID_&quot;, names_from=momsp, values_from=ID) %&gt;% 
               mutate(across(starts_with(&quot;ID&quot;), abs_contribution, .names=&quot;AC{.col}&quot;), 
                      across(starts_with(&quot;AC&quot;), ~ . /sum(.),  .names=&quot;R{.col}&quot;),
                      across(starts_with(&quot;AC&quot;), cumsum, .names=&quot;T{.col}&quot;),
                      .keep = &quot;unused&quot;)
 
-F1.inbred %&gt;% select(-step) %&gt;% pivot_wider(names_from=momsp, values_from=c(between, within, ID)) %&gt;% 
+F1.inbred %&gt;% select(trait, momsp, between, within, ID) %&gt;% 
+  pivot_wider(names_from=momsp, values_from=c(between, within, ID)) %&gt;% 
   left_join(F1.CID.m) %&gt;% 
   select(trait, Kb = between_kaal, Kw = within_kaal, K_ID = ID_kaal, K_AC = ACID_kaal, K_RC = RACID_kaal, 
                 Hb = between_hook, Hw = within_hook, H_ID = ID_hook, H_AC = ACID_hook, H_RC = RACID_hook) %&gt;% 
