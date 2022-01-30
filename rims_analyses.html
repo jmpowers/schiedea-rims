@@ -1609,8 +1609,8 @@ F1.RI %&gt;% select(trait, momsp, between, hybrid, RI) %&gt;%
 </table>
 <pre class="r"><code>ggplot(F1.RI, aes(y=fct_rev(trait), x=RI, color=momsp)) + 
   geom_vline(xintercept=0, linetype=2) + geom_vline(xintercept=-1)+ geom_vline(xintercept=1)+ 
-  geom_linerange(aes(xmin=low, xmax=high), position=position_dodge(width=0.2)) + 
-  geom_point(shape=17, size=2, position=position_dodge(width=0.2)) +
+  geom_linerange(aes(xmin=low, xmax=high), position=position_dodge(width=0.5)) + 
+  geom_point(shape=17, size=2, position=position_dodge(width=0.5)) +
   scale_color_manual(values = set_names(F1.col[c(2,5)], c(&quot;kaal&quot;,&quot;hook&quot;)), labels=c(&quot;S. kaalae&quot;,&quot;S. hookeri&quot;)) +
   scale_x_continuous(limits=c(-1.1,1.1), breaks=c(-1,-0.5,0,0.5,1),
                      labels=c(&quot;-1\nheterosis&quot;,&quot;-0.5&quot;,&quot;0\nno\nbarrier&quot;,&quot;0.5&quot;,&quot;1\ncomplete\nisolation&quot;)) + 
@@ -1663,10 +1663,14 @@ F1.cumul.fitness &lt;- traits %&gt;%
   mutate(samp = pmap(., sample_trait, N = ntrials)) %&gt;% # sample each trait N times per species and crosstype
   select(-data) %&gt;% unnest(samp) %&gt;% # expand sampled dataset to full size
   pivot_wider(id_cols=c(sxc, trial), names_from=yvar, values_from=y) %&gt;% # line up the trials for each variable
-  mutate(fitness_viable.seeds = capsule.formed * viable.seeds,
-         fitness_flowered     = capsule.formed * viable.seeds * prop.germ * alive * flowered,
-         fitness_flower.number= capsule.formed * viable.seeds * prop.germ * alive * flowered * flower.number,
-         fitness_prop.viable  = capsule.formed * viable.seeds * prop.germ * alive * flowered * flower.number * total.per.anther * prop.viable) 
+  mutate(fitness_capsule.formed   = capsule.formed,
+         fitness_viable.seeds     = capsule.formed * viable.seeds,
+         fitness_prop.germ        = capsule.formed * viable.seeds * prop.germ,
+         fitness_alive            = capsule.formed * viable.seeds * prop.germ * alive,
+         fitness_flowered         = capsule.formed * viable.seeds * prop.germ * alive * flowered,
+         fitness_flower.number    = capsule.formed * viable.seeds * prop.germ * alive * flowered * flower.number,
+         fitness_total.per.anther = capsule.formed * viable.seeds * prop.germ * alive * flowered * flower.number * total.per.anther,
+         fitness_prop.viable      = capsule.formed * viable.seeds * prop.germ * alive * flowered * flower.number * total.per.anther * prop.viable) 
 
 F1.cumul.fitness %&gt;% select(sxc, starts_with(&quot;fitness&quot;)) %&gt;% 
   pivot_longer(starts_with(&quot;fitness&quot;), names_to=&quot;stage&quot;, names_prefix = &quot;fitness_&quot;) %&gt;% 
@@ -1694,8 +1698,8 @@ F1.cumul.isolation &lt;- F1.cumul.fitness %&gt;%
   separate(sxc, into=c(&quot;momsp&quot;,&quot;crosstype&quot;)) %&gt;% 
   pivot_wider(names_from=crosstype, values_from=fitness) %&gt;% 
   mutate(stage = factor(stage, levels=unique(traits$yvar)),
-         RI = 1 - 2 *  hybrid/(hybrid + between),
-         ID = 1 - within/between) 
+         RI = calc_RI(h=hybrid, b=between),
+         ID = calc_ID(w=within, b=between)) 
 
 F1.CRI.TACmf &lt;- F1.CRI.m %&gt;% 
   pivot_longer(starts_with(&quot;TAC&quot;), names_prefix=&quot;TACRI_&quot;, names_to=&quot;momsp&quot;, values_to=&quot;TAC&quot;) %&gt;% 
@@ -1714,7 +1718,7 @@ ggplot(F1.cumul.isolation, aes(y=fct_rev(stage), color=momsp, x=RI)) +
                      labels=c(&quot;-1\nheterosis&quot;,&quot;-0.5&quot;,&quot;0\nno\nbarrier&quot;,&quot;0.5&quot;,&quot;1\ncomplete\nisolation&quot;)) + 
   theme_minimal() + theme(legend.position = &quot;top&quot;, legend.text = element_text(face=&quot;italic&quot;)) +
   labs(x=&quot;Cumulative reproductive isolation&quot;, y=&quot;Fitness component&quot;, color=&quot;Maternal parent&quot;)</code></pre>
-<p><img src="figures/totalRI_means-1.svg" width="480" /></p>
+<p><img src="figures/totalRI_means-1.svg" width="624" /></p>
 </div>
 </div>
 <div id="inbreeding-depression" class="section level2">
@@ -1862,8 +1866,8 @@ F1.inbred %&gt;% select(trait, momsp, between, within, ID) %&gt;%
 </table>
 <pre class="r"><code>ggplot(F1.inbred, aes(y=fct_rev(trait), x=ID, color=momsp)) + 
   geom_vline(xintercept=0, linetype=2) +  
-  geom_linerange(aes(xmin=low, xmax=high), position=position_dodge(width=0.2)) + 
-  geom_point(shape=17, size=2, position=position_dodge(width=0.2)) +
+  geom_linerange(aes(xmin=low, xmax=high), position=position_dodge(width=0.5)) + 
+  geom_point(shape=17, size=2, position=position_dodge(width=0.5)) +
   scale_color_manual(values = set_names(F1.col[c(2,5)], c(&quot;kaal&quot;,&quot;hook&quot;)), labels=c(&quot;S. kaalae&quot;,&quot;S. hookeri&quot;)) +
   scale_x_continuous(limits=c(-1.1,1.1), breaks=c(-1,-0.5,0,0.5,1),
                      labels=c(&quot;-1\noutcrossing\ndepression&quot;,&quot;-0.5&quot;,&quot;0\nneutral&quot;,&quot;0.5&quot;,&quot;1\ninbreeding\ndepression&quot;)) +
@@ -2119,7 +2123,7 @@ ggplot(F1.cumul.isolation, aes(y=fct_rev(stage), color=momsp, x=ID)) +
                      labels=c(&quot;-1\noutcrossing\ndepression&quot;,&quot;-0.5&quot;,&quot;0\nneutral&quot;,&quot;0.5&quot;,&quot;1\ninbreeding\ndepression&quot;)) + 
     theme_minimal() + theme(legend.position = &quot;top&quot;, legend.text = element_text(face=&quot;italic&quot;)) +
     labs(x=&quot;Cumulative inbreeding depression&quot;, y=&quot;Fitness component&quot;, color=&quot;Species&quot;)</code></pre>
-<p><img src="figures/inbred-3.svg" width="480" /></p>
+<p><img src="figures/totalID_means-1.svg" width="624" /></p>
 </div>
 </div>
 <div id="f2-generation" class="section level1">
