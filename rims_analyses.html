@@ -1117,21 +1117,29 @@ F1.test %&gt;% left_join(traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;%
 <div id="plots" class="section level2">
 <h2>Plots</h2>
 <p>Estimated marginal means with 95% CI are shown as dots. For the continuous variables, these show violin plots of the raw data with median and first and third quartiles. For binary variables, colored dots show the proportions of each population x population combination.</p>
-<pre class="r"><code>F1.contrasts &lt;- tibble(sxc = c(&quot;kaal.between&quot;,&quot;kaal.hybrid&quot;,&quot;hook.between&quot;,&quot;hook.hybrid&quot;,
+<pre class="r"><code>F1.traits &lt;- traits %&gt;% filter(generation==&quot;F1&quot;,yvar!=&quot;viable.per.anther&quot;) %&gt;% select(data, yvar, ylab, type)
+
+F1.contrasts &lt;- tibble(sxc = c(&quot;kaal.between&quot;,&quot;kaal.hybrid&quot;,&quot;hook.between&quot;,&quot;hook.hybrid&quot;,
                                &quot;kaal.between&quot;,&quot;kaal.within&quot;,&quot;hook.between&quot;,&quot;hook.within&quot;),
                        pair = rep(1:4, each=2),
                        comparison = rep(c(&quot;RI&quot;, &quot;ID&quot;), each = 4))
 
-plot_F1 &lt;- function(emm, data, yvar, ylab, type=&quot;continuous&quot;) {
-  data &lt;- get(data)
-  sig &lt;- F1.mod[[yvar]] %&gt;% 
+test_contrasts &lt;- function(yvar) {
+  F1.mod[[yvar]] %&gt;% 
     multcomp::glht(linfct = multcomp::mcp(sxc = F1.contrasts %&gt;% group_by(pair) %&gt;% 
                                             summarize(contrast=paste(paste(sxc[1:2], collapse=&quot; - &quot;),&quot;== 0&quot;)) %&gt;% 
                                             pull(contrast))) %&gt;% 
     summary(test=multcomp::adjusted(&quot;none&quot;)) %&gt;% tidy() %&gt;% mutate(mid=c(2,4,1,5)+0.5, trait=yvar) %&gt;% 
     separate(contrast, into=c(&quot;start&quot;,&quot;end&quot;), sep=&quot; - &quot;) %&gt;% 
     left_join(select(F1.emm, trait, start=sxc, emm=estimate))
-  #TODO get this to work with binary models by back-transforming
+}
+F1.test.contrasts &lt;- map_dfr(pull(F1.traits, yvar), test_contrasts) %&gt;% 
+  separate(end, into=c(&quot;momsp&quot;,&quot;comp&quot;), remove=F) %&gt;% 
+  rename(yvar=trait) %&gt;% left_join(filter(traits, generation==&quot;F1&quot;))
+
+plot_F1 &lt;- function(emm, data, yvar, ylab, type=&quot;continuous&quot;) {
+  data &lt;- get(data)
+  sig &lt;- F1.test.contrasts %&gt;% filter(.data$yvar==.env$yvar)
   if(type==&quot;continuous&quot;) {
     sig &lt;- sig %&gt;% mutate(prop = -estimate/emm, prop.se = std.error/emm)
     p &lt;- ggplot(data, aes_string(y=yvar, x=&quot;sxc&quot;)) +
@@ -1166,10 +1174,7 @@ plot_F1 &lt;- function(emm, data, yvar, ylab, type=&quot;continuous&quot;) {
   return(p)
 }
 
-F1.plots &lt;- traits %&gt;% filter(generation==&quot;F1&quot;,yvar!=&quot;viable.per.anther&quot;) %&gt;% select(data, yvar, ylab, type) %&gt;% 
-  pmap(plot_F1, emm=F1.emm)
-
-gridExtra::grid.arrange(grobs=F1.plots, nrow=4, heights=c(1,1,1,1.22), ncol=3, as.table=F)</code></pre>
+grid.arrange(grobs=pmap(F1.traits, plot_F1, emm=F1.emm), nrow=4, heights=c(1,1,1,1.22), ncol=3, as.table=F)</code></pre>
 <p><img src="figures/f1plot-1.svg" width="816" /></p>
 </div>
 <div id="flower-biomass-regression" class="section level2">
@@ -1231,27 +1236,22 @@ F-statistic:  595 on 11 and 488 DF,  p-value: &lt;2e-16</code></pre>
   scale_color_manual(values=set_names(F1.col, c(&quot;KKwithin&quot;,&quot;KK&quot;, &quot;KH&quot;, &quot;HK&quot;, &quot;HH&quot;, &quot;HHwithin&quot;))[-c(1,6)]) +
   theme_minimal() + labs(y=&quot;Flowers per g biomass&quot;, x=&quot;Inflorescence biomass (g)&quot;, color=&quot;Cross&quot;)</code></pre>
 <p><img src="figures/infloreg-2.svg" width="480" /></p>
-<pre class="r"><code>ggplot(inflobiomass.sum, aes(y=inflo, x=sxc, fill=sxc)) +
-  geom_boxplot() + geom_violin(fill=NA) + 
+<pre class="r"><code>inflotraits &lt;- c(&quot;inflo&quot;, &quot;inflo.biomass.g.inflo&quot;, &quot;flower.number.inflo&quot;)
+inflobiomass.sum %&gt;% 
+  mutate(inflo.biomass.g.inflo = inflo.biomass.g/inflo, flower.number.inflo = flower.number/inflo) %&gt;% 
+  select(sxc, all_of(inflotraits)) %&gt;% 
+  pivot_longer(all_of(inflotraits)) %&gt;% mutate(name = factor(name, levels=inflotraits)) %&gt;% 
+  ggplot(aes(y=value, x=sxc, fill=sxc)) + geom_hline(yintercept=0)+
+  facet_wrap(vars(name), ncol=1, scales=&quot;free_y&quot;, strip.position=&quot;left&quot;,
+             labeller = as_labeller(c(inflo=&quot;Inflorescences&quot;, 
+                                      inflo.biomass.g.inflo=&quot;Biomass per inflorescence (g)&quot;, 
+                                      flower.number.inflo=&quot;Flowers per inflorescence&quot;)))+
+  geom_boxplot(outlier.size=0.2, size=0.3, fatten=1) +# geom_violin(fill=NA) + 
   scale_fill_manual(values=F1.col) + guides(fill=&quot;none&quot;) +
-  scale_y_continuous(&quot;Inflorescences&quot;, expand = expansion(mult=c(0, 0.05)), limits=c(0,NA))+
+  scale_y_continuous(expand = expansion(mult=c(0, 0.05)), limits=c(0,NA))+
   scale_x_discrete(&quot;Cross&quot;, labels = sxc.labels) + 
-  theme_minimal() + theme(panel.grid.major.x = element_blank())</code></pre>
-<p><img src="figures/infloreg-3.svg" width="480" /></p>
-<pre class="r"><code>ggplot(inflobiomass.sum, aes(y=inflo.biomass.g/inflo, x=sxc, fill=sxc)) +
-  geom_boxplot() + geom_violin(fill=NA) +  
-  scale_fill_manual(values=F1.col) + guides(fill=&quot;none&quot;) +
-  scale_y_continuous(&quot;Biomass per inflorescence (g)&quot;, expand = expansion(mult=c(0, 0.05)), limits=c(0,NA))+
-  scale_x_discrete(&quot;Cross&quot;, labels = sxc.labels) + 
-  theme_minimal() + theme(panel.grid.major.x = element_blank())</code></pre>
-<p><img src="figures/infloreg-4.svg" width="480" /></p>
-<pre class="r"><code>ggplot(inflobiomass.sum, aes(y=flower.number/inflo, x=sxc, fill=sxc)) +
-  geom_boxplot() + geom_violin(fill=NA) + 
-  scale_fill_manual(values=F1.col) + guides(fill=&quot;none&quot;) +
-  scale_y_continuous(&quot;Flowers per inflorescence&quot;, expand = expansion(mult=c(0, 0.05)), limits=c(0,NA))+
-  scale_x_discrete(&quot;Cross&quot;, labels = sxc.labels) + 
-  theme_minimal() + theme(panel.grid.major.x = element_blank())</code></pre>
-<p><img src="figures/infloreg-5.svg" width="480" /></p>
+  theme_minimal() + theme(panel.grid.major.x = element_blank(), axis.title=element_blank(), strip.placement = &quot;outside&quot;)</code></pre>
+<p><img src="figures/inflotraits-1.svg" width="432" /></p>
 </div>
 <div id="fitness-and-ri" class="section level2">
 <h2>Fitness and RI</h2>
@@ -1423,7 +1423,8 @@ F1.RI &lt;- F1.emm %&gt;% separate(sxc, into=c(&quot;momsp&quot;,&quot;crosstype
          .keep=&quot;unused&quot;) %&gt;% unnest_wider(RI.range) %&gt;% 
   left_join(traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;% select(trait=yvar, step, sex)) %&gt;% arrange(step) %&gt;% 
   mutate(trait = recode(trait, !!!set_names(traits$ylab[-1], traits$yvar[-1])) %&gt;% 
-           str_remove(fixed(&quot; (g)&quot;)) %&gt;% factor() %&gt;% fct_reorder(step)) 
+           str_remove(fixed(&quot; (g)&quot;)) %&gt;% factor() %&gt;% fct_reorder(step)) %&gt;% 
+  left_join(filter(F1.test.contrasts, comp==&quot;hybrid&quot;)) 
   
 abs_contribution &lt;- function(RI) { #method of Ramsey et al. 2003 for absolute contribution to RI
   AC &lt;- RI
@@ -1635,10 +1636,12 @@ F1.RI %&gt;% select(trait, momsp, between, hybrid, RI) %&gt;%
 </tr>
 </tbody>
 </table>
-<pre class="r"><code>ggplot(F1.RI %&gt;% filter(trait!=&quot;Viable pollen grains per anther&quot;), aes(y=fct_rev(trait), x=RI, color=momsp)) + 
+<pre class="r"><code>ggplot(F1.RI %&gt;% filter(trait!=&quot;Viable pollen grains per anther&quot;), 
+       aes(y=fct_rev(trait), x=RI, color=momsp, alpha=p.value&lt;0.05)) + 
   geom_vline(xintercept=0, linetype=2) + geom_vline(xintercept=-1)+ geom_vline(xintercept=1)+ 
-  geom_linerange(aes(xmin=low, xmax=high), position=position_dodge(width=0.5)) + 
-  geom_point(shape=17, size=2, position=position_dodge(width=0.5)) +
+  geom_linerange(aes(xmin=low, xmax=high), position=position_dodge(width=0.5), size=1) + 
+  geom_point(shape=16, size=2, position=position_dodge(width=0.5)) +
+  scale_alpha_manual(values=c(0.5, 1), guide=&quot;none&quot;)+
   scale_color_manual(values = set_names(F1.col[c(2,5)], c(&quot;kaal&quot;,&quot;hook&quot;)), labels=c(&quot;S. kaalae&quot;,&quot;S. hookeri&quot;)) +
   scale_x_continuous(limits=c(-1.1,1.1), breaks=c(-1,-0.5,0,0.5,1),
                      labels=c(&quot;-1\nheterosis&quot;,&quot;-0.5&quot;,&quot;0\nno\nbarrier&quot;,&quot;0.5&quot;,&quot;1\ncomplete\nisolation&quot;)) + 
@@ -1666,7 +1669,7 @@ F1.RI %&gt;% select(trait, momsp, between, hybrid, RI) %&gt;%
   ggplot(aes(y=fct_rev(trait), x=TAC, color=momsp)) + 
   geom_vline(xintercept=0, linetype=2) + geom_vline(xintercept=1)+ 
   geom_path(aes(group=momsp))+
-  geom_point(shape=17, size=2) +
+  geom_point(shape=16, size=2) +
   scale_color_manual(values = set_names(F1.col[c(2,5)], c(&quot;kaal&quot;,&quot;hook&quot;)), labels=c(&quot;S. kaalae&quot;,&quot;S. hookeri&quot;)) +
   scale_x_continuous(limits=c(NA, 1.1), breaks=c(0,0.5,1),
                      labels=c(&quot;0\nno\nbarrier&quot;,&quot;0.5&quot;,&quot;1\ncomplete\nisolation&quot;)) +
@@ -1739,7 +1742,7 @@ ggplot(F1.cumul.isolation, aes(y=fct_rev(stage), color=momsp, x=RI)) +
   geom_vline(xintercept=0, linetype=2) + geom_vline(xintercept=-1)+ geom_vline(xintercept=1)+ 
   geom_violin(draw_quantiles=(1:3)/4, position=position_dodge(width=0.5)) + 
   geom_path(aes(group=momsp), data=F1.CRI.TACmf, position=position_dodge(width=0.5)) +
-  geom_point(data=F1.CRI.TACmf, position=position_dodge(width=0.5), size=2, shape=17) +
+  geom_point(data=F1.CRI.TACmf, position=position_dodge(width=0.5), size=2, shape=16) +
   scale_y_discrete(labels=deframe(select(traits, yvar, ylab))) +
   scale_color_manual(values = set_names(F1.col[c(2,5)], c(&quot;kaal&quot;,&quot;hook&quot;)), labels=c(&quot;S. kaalae&quot;,&quot;S. hookeri&quot;)) +
   scale_x_continuous(limits=c(-1.1,1.1), breaks=c(-1,-0.5,0,0.5,1),
@@ -1762,7 +1765,8 @@ ggplot(F1.cumul.isolation, aes(y=fct_rev(stage), color=momsp, x=RI)) +
          .keep=&quot;unused&quot;) %&gt;% unnest_wider(ID.range) %&gt;% 
   left_join(traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;% select(trait=yvar, step, sex)) %&gt;% arrange(step) %&gt;% 
   mutate(trait = recode(trait, !!!set_names(traits$ylab[-1], traits$yvar[-1])) %&gt;% 
-           str_remove(fixed(&quot; (g)&quot;)) %&gt;% factor() %&gt;% fct_reorder(step)) 
+           str_remove(fixed(&quot; (g)&quot;)) %&gt;% factor() %&gt;% fct_reorder(step)) %&gt;% 
+  left_join(filter(F1.test.contrasts, comp==&quot;within&quot;)) 
 
 F1.inbred %&gt;% select(trait, momsp, between, within, ID) %&gt;% 
   pivot_wider(names_from=momsp, values_from=c(between, within, ID)) %&gt;% 
@@ -1892,10 +1896,12 @@ F1.inbred %&gt;% select(trait, momsp, between, within, ID) %&gt;%
 </tr>
 </tbody>
 </table>
-<pre class="r"><code>ggplot(F1.inbred, aes(y=fct_rev(trait), x=ID, color=momsp)) + 
+<pre class="r"><code>ggplot(F1.inbred %&gt;% filter(trait!=&quot;Viable pollen grains per anther&quot;), 
+       aes(y=fct_rev(trait), x=ID, color=momsp, alpha=p.value&lt;0.05)) + 
   geom_vline(xintercept=0, linetype=2) +  
-  geom_linerange(aes(xmin=low, xmax=high), position=position_dodge(width=0.5)) + 
-  geom_point(shape=17, size=2, position=position_dodge(width=0.5)) +
+  geom_linerange(aes(xmin=low, xmax=high), position=position_dodge(width=0.5), size=1) + 
+  geom_point(shape=16, size=2, position=position_dodge(width=0.5)) +
+    scale_alpha_manual(values=c(0.5, 1), guide=&quot;none&quot;)+
   scale_color_manual(values = set_names(F1.col[c(2,5)], c(&quot;kaal&quot;,&quot;hook&quot;)), labels=c(&quot;S. kaalae&quot;,&quot;S. hookeri&quot;)) +
   scale_x_continuous(limits=c(-1.1,1.1), breaks=c(-1,-0.5,0,0.5,1),
                      labels=c(&quot;-1\noutcrossing\ndepression&quot;,&quot;-0.5&quot;,&quot;0\nneutral&quot;,&quot;0.5&quot;,&quot;1\ninbreeding\ndepression&quot;)) +
@@ -2126,7 +2132,7 @@ F1.inbred %&gt;% select(trait, momsp, between, within, ID) %&gt;%
   ggplot(aes(y=fct_rev(trait), x=TAC, color=momsp)) + 
   geom_vline(xintercept=0, linetype=2) + geom_vline(xintercept=1)+ 
   geom_path(aes(group=momsp))+
-  geom_point(shape=17, size=2) +
+  geom_point(shape=16, size=2) +
   scale_color_manual(values = set_names(F1.col[c(2,5)], c(&quot;kaal&quot;,&quot;hook&quot;)), labels=c(&quot;S. kaalae&quot;,&quot;S. hookeri&quot;)) +
   scale_x_continuous(limits=c(NA, 1.1), breaks=c(0,0.5,1),
                      labels=c(&quot;0\nneutral&quot;,&quot;0.5&quot;,&quot;1\ninbreeding\ndepression&quot;)) +
@@ -2144,7 +2150,7 @@ ggplot(F1.cumul.isolation, aes(y=fct_rev(stage), color=momsp, x=ID)) +
     geom_vline(xintercept=0, linetype=2) + geom_vline(xintercept=-1)+ geom_vline(xintercept=1)+ 
     geom_violin(draw_quantiles=(1:3)/4, position=position_dodge(width=0.9)) +
     geom_path(aes(group=momsp), data=F1.CID.TACmf, position=position_dodge(width=0.9)) +
-    geom_point(data=F1.CID.TACmf, position=position_dodge(width=0.9), size=2, shape=17) +
+    geom_point(data=F1.CID.TACmf, position=position_dodge(width=0.9), size=2, shape=16) +
     scale_y_discrete(labels=deframe(select(traits, yvar, ylab))) +
     scale_color_manual(values = set_names(F1.col[c(2,5)], c(&quot;kaal&quot;,&quot;hook&quot;)), labels=c(&quot;S. kaalae&quot;,&quot;S. hookeri&quot;)) +
     scale_x_continuous(limits=c(-1.1,1.1), breaks=c(-1,-0.5,0,0.5,1),

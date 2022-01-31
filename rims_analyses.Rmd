@@ -132,21 +132,29 @@ F1.emm <-  map_dfr(F1.mod, ~emmeans(., ~sxc) %>% summary(type="response") %>%  #
 Estimated marginal means with 95% CI are shown as dots. For the continuous variables, these show violin plots of the raw data with median and first and third quartiles. For binary variables, colored dots show the proportions of each population x population combination.
 
 ```{r f1plot, fig.width=8.5, fig.height=11}
+F1.traits <- traits %>% filter(generation=="F1",yvar!="viable.per.anther") %>% select(data, yvar, ylab, type)
+
 F1.contrasts <- tibble(sxc = c("kaal.between","kaal.hybrid","hook.between","hook.hybrid",
                                "kaal.between","kaal.within","hook.between","hook.within"),
                        pair = rep(1:4, each=2),
                        comparison = rep(c("RI", "ID"), each = 4))
 
-plot_F1 <- function(emm, data, yvar, ylab, type="continuous") {
-  data <- get(data)
-  sig <- F1.mod[[yvar]] %>% 
+test_contrasts <- function(yvar) {
+  F1.mod[[yvar]] %>% 
     multcomp::glht(linfct = multcomp::mcp(sxc = F1.contrasts %>% group_by(pair) %>% 
                                             summarize(contrast=paste(paste(sxc[1:2], collapse=" - "),"== 0")) %>% 
                                             pull(contrast))) %>% 
     summary(test=multcomp::adjusted("none")) %>% tidy() %>% mutate(mid=c(2,4,1,5)+0.5, trait=yvar) %>% 
     separate(contrast, into=c("start","end"), sep=" - ") %>% 
     left_join(select(F1.emm, trait, start=sxc, emm=estimate))
-  #TODO get this to work with binary models by back-transforming
+}
+F1.test.contrasts <- map_dfr(pull(F1.traits, yvar), test_contrasts) %>% 
+  separate(end, into=c("momsp","comp"), remove=F) %>% 
+  rename(yvar=trait) %>% left_join(filter(traits, generation=="F1"))
+
+plot_F1 <- function(emm, data, yvar, ylab, type="continuous") {
+  data <- get(data)
+  sig <- F1.test.contrasts %>% filter(.data$yvar==.env$yvar)
   if(type=="continuous") {
     sig <- sig %>% mutate(prop = -estimate/emm, prop.se = std.error/emm)
     p <- ggplot(data, aes_string(y=yvar, x="sxc")) +
@@ -181,10 +189,7 @@ plot_F1 <- function(emm, data, yvar, ylab, type="continuous") {
   return(p)
 }
 
-F1.plots <- traits %>% filter(generation=="F1",yvar!="viable.per.anther") %>% select(data, yvar, ylab, type) %>% 
-  pmap(plot_F1, emm=F1.emm)
-
-gridExtra::grid.arrange(grobs=F1.plots, nrow=4, heights=c(1,1,1,1.22), ncol=3, as.table=F)
+grid.arrange(grobs=pmap(F1.traits, plot_F1, emm=F1.emm), nrow=4, heights=c(1,1,1,1.22), ncol=3, as.table=F)
 ```
 
 ## Flower biomass regression
@@ -204,28 +209,24 @@ ggplot(inflobiomass, aes(x=inflo.biomass.g, y=flrs/inflo.biomass.g, color=cross)
   scale_x_log10() + scale_y_log10() + 
   scale_color_manual(values=set_names(F1.col, c("KKwithin","KK", "KH", "HK", "HH", "HHwithin"))[-c(1,6)]) +
   theme_minimal() + labs(y="Flowers per g biomass", x="Inflorescence biomass (g)", color="Cross")
+```
 
-ggplot(inflobiomass.sum, aes(y=inflo, x=sxc, fill=sxc)) +
-  geom_boxplot() + geom_violin(fill=NA) + 
+```{r inflotraits, fig.width=4.5, fig.height=8}
+inflotraits <- c("inflo", "inflo.biomass.g.inflo", "flower.number.inflo")
+inflobiomass.sum %>% 
+  mutate(inflo.biomass.g.inflo = inflo.biomass.g/inflo, flower.number.inflo = flower.number/inflo) %>% 
+  select(sxc, all_of(inflotraits)) %>% 
+  pivot_longer(all_of(inflotraits)) %>% mutate(name = factor(name, levels=inflotraits)) %>% 
+  ggplot(aes(y=value, x=sxc, fill=sxc)) + geom_hline(yintercept=0)+
+  facet_wrap(vars(name), ncol=1, scales="free_y", strip.position="left",
+             labeller = as_labeller(c(inflo="Inflorescences", 
+                                      inflo.biomass.g.inflo="Biomass per inflorescence (g)", 
+                                      flower.number.inflo="Flowers per inflorescence")))+
+  geom_boxplot(outlier.size=0.2, size=0.3, fatten=1) +# geom_violin(fill=NA) + 
   scale_fill_manual(values=F1.col) + guides(fill="none") +
-  scale_y_continuous("Inflorescences", expand = expansion(mult=c(0, 0.05)), limits=c(0,NA))+
+  scale_y_continuous(expand = expansion(mult=c(0, 0.05)), limits=c(0,NA))+
   scale_x_discrete("Cross", labels = sxc.labels) + 
-  theme_minimal() + theme(panel.grid.major.x = element_blank())
-
-ggplot(inflobiomass.sum, aes(y=inflo.biomass.g/inflo, x=sxc, fill=sxc)) +
-  geom_boxplot() + geom_violin(fill=NA) +  
-  scale_fill_manual(values=F1.col) + guides(fill="none") +
-  scale_y_continuous("Biomass per inflorescence (g)", expand = expansion(mult=c(0, 0.05)), limits=c(0,NA))+
-  scale_x_discrete("Cross", labels = sxc.labels) + 
-  theme_minimal() + theme(panel.grid.major.x = element_blank())
-
-ggplot(inflobiomass.sum, aes(y=flower.number/inflo, x=sxc, fill=sxc)) +
-  geom_boxplot() + geom_violin(fill=NA) + 
-  scale_fill_manual(values=F1.col) + guides(fill="none") +
-  scale_y_continuous("Flowers per inflorescence", expand = expansion(mult=c(0, 0.05)), limits=c(0,NA))+
-  scale_x_discrete("Cross", labels = sxc.labels) + 
-  theme_minimal() + theme(panel.grid.major.x = element_blank())
-
+  theme_minimal() + theme(panel.grid.major.x = element_blank(), axis.title=element_blank(), strip.placement = "outside")
 ```
 
 ## Fitness and RI
@@ -258,7 +259,8 @@ F1.RI <- F1.emm %>% separate(sxc, into=c("momsp","crosstype")) %>%
          .keep="unused") %>% unnest_wider(RI.range) %>% 
   left_join(traits %>% filter(generation=="F1") %>% select(trait=yvar, step, sex)) %>% arrange(step) %>% 
   mutate(trait = recode(trait, !!!set_names(traits$ylab[-1], traits$yvar[-1])) %>% 
-           str_remove(fixed(" (g)")) %>% factor() %>% fct_reorder(step)) 
+           str_remove(fixed(" (g)")) %>% factor() %>% fct_reorder(step)) %>% 
+  left_join(filter(F1.test.contrasts, comp=="hybrid")) 
   
 abs_contribution <- function(RI) { #method of Ramsey et al. 2003 for absolute contribution to RI
   AC <- RI
@@ -282,10 +284,12 @@ F1.RI %>% select(trait, momsp, between, hybrid, RI) %>%
                 HH = between_hook, HK = hybrid_hook, H_RI = RI_hook, H_AC = ACRI_hook, H_RC = RACRI_hook) %>% 
   kable(caption="Relative fitness components of hybrids vs. maternal parent. RI, AC, RC follow Sobel & Chen 2014, Ramsey et al. 2003", digits=3)
 
-ggplot(F1.RI %>% filter(trait!="Viable pollen grains per anther"), aes(y=fct_rev(trait), x=RI, color=momsp)) + 
+ggplot(F1.RI %>% filter(trait!="Viable pollen grains per anther"), 
+       aes(y=fct_rev(trait), x=RI, color=momsp, alpha=p.value<0.05)) + 
   geom_vline(xintercept=0, linetype=2) + geom_vline(xintercept=-1)+ geom_vline(xintercept=1)+ 
-  geom_linerange(aes(xmin=low, xmax=high), position=position_dodge(width=0.5)) + 
-  geom_point(shape=17, size=2, position=position_dodge(width=0.5)) +
+  geom_linerange(aes(xmin=low, xmax=high), position=position_dodge(width=0.5), size=1) + 
+  geom_point(shape=16, size=2, position=position_dodge(width=0.5)) +
+  scale_alpha_manual(values=c(0.5, 1), guide="none")+
   scale_color_manual(values = set_names(F1.col[c(2,5)], c("kaal","hook")), labels=c("S. kaalae","S. hookeri")) +
   scale_x_continuous(limits=c(-1.1,1.1), breaks=c(-1,-0.5,0,0.5,1),
                      labels=c("-1\nheterosis","-0.5","0\nno\nbarrier","0.5","1\ncomplete\nisolation")) + 
@@ -299,7 +303,7 @@ F1.CRI.m %>% pivot_longer(starts_with("TAC"), names_prefix="TACRI_", names_to="m
   ggplot(aes(y=fct_rev(trait), x=TAC, color=momsp)) + 
   geom_vline(xintercept=0, linetype=2) + geom_vline(xintercept=1)+ 
   geom_path(aes(group=momsp))+
-  geom_point(shape=17, size=2) +
+  geom_point(shape=16, size=2) +
   scale_color_manual(values = set_names(F1.col[c(2,5)], c("kaal","hook")), labels=c("S. kaalae","S. hookeri")) +
   scale_x_continuous(limits=c(NA, 1.1), breaks=c(0,0.5,1),
                      labels=c("0\nno\nbarrier","0.5","1\ncomplete\nisolation")) +
@@ -376,7 +380,7 @@ ggplot(F1.cumul.isolation, aes(y=fct_rev(stage), color=momsp, x=RI)) +
   geom_vline(xintercept=0, linetype=2) + geom_vline(xintercept=-1)+ geom_vline(xintercept=1)+ 
   geom_violin(draw_quantiles=(1:3)/4, position=position_dodge(width=0.5)) + 
   geom_path(aes(group=momsp), data=F1.CRI.TACmf, position=position_dodge(width=0.5)) +
-  geom_point(data=F1.CRI.TACmf, position=position_dodge(width=0.5), size=2, shape=17) +
+  geom_point(data=F1.CRI.TACmf, position=position_dodge(width=0.5), size=2, shape=16) +
   scale_y_discrete(labels=deframe(select(traits, yvar, ylab))) +
   scale_color_manual(values = set_names(F1.col[c(2,5)], c("kaal","hook")), labels=c("S. kaalae","S. hookeri")) +
   scale_x_continuous(limits=c(-1.1,1.1), breaks=c(-1,-0.5,0,0.5,1),
@@ -400,17 +404,20 @@ F1.inbred <- F1.emm %>% separate(sxc, into=c("momsp","crosstype")) %>%
          .keep="unused") %>% unnest_wider(ID.range) %>% 
   left_join(traits %>% filter(generation=="F1") %>% select(trait=yvar, step, sex)) %>% arrange(step) %>% 
   mutate(trait = recode(trait, !!!set_names(traits$ylab[-1], traits$yvar[-1])) %>% 
-           str_remove(fixed(" (g)")) %>% factor() %>% fct_reorder(step)) 
+           str_remove(fixed(" (g)")) %>% factor() %>% fct_reorder(step)) %>% 
+  left_join(filter(F1.test.contrasts, comp=="within")) 
 
 F1.inbred %>% select(trait, momsp, between, within, ID) %>% 
   pivot_wider(names_from=momsp, values_from=c(between, within, ID)) %>% 
   select(trait, between_kaal, within_kaal, ID_kaal, between_hook, within_hook, ID_hook) %>% 
   kable(caption="Inbreeding depression \u03B4 = 1 - (within pop / between pop)", digits=3)
 
-ggplot(F1.inbred, aes(y=fct_rev(trait), x=ID, color=momsp)) + 
+ggplot(F1.inbred %>% filter(trait!="Viable pollen grains per anther"), 
+       aes(y=fct_rev(trait), x=ID, color=momsp, alpha=p.value<0.05)) + 
   geom_vline(xintercept=0, linetype=2) +  
-  geom_linerange(aes(xmin=low, xmax=high), position=position_dodge(width=0.5)) + 
-  geom_point(shape=17, size=2, position=position_dodge(width=0.5)) +
+  geom_linerange(aes(xmin=low, xmax=high), position=position_dodge(width=0.5), size=1) + 
+  geom_point(shape=16, size=2, position=position_dodge(width=0.5)) +
+    scale_alpha_manual(values=c(0.5, 1), guide="none")+
   scale_color_manual(values = set_names(F1.col[c(2,5)], c("kaal","hook")), labels=c("S. kaalae","S. hookeri")) +
   scale_x_continuous(limits=c(-1.1,1.1), breaks=c(-1,-0.5,0,0.5,1),
                      labels=c("-1\noutcrossing\ndepression","-0.5","0\nneutral","0.5","1\ninbreeding\ndepression")) +
@@ -439,7 +446,7 @@ F1.CID.m %>% pivot_longer(starts_with("TAC"), names_prefix="TACID_", names_to="m
   ggplot(aes(y=fct_rev(trait), x=TAC, color=momsp)) + 
   geom_vline(xintercept=0, linetype=2) + geom_vline(xintercept=1)+ 
   geom_path(aes(group=momsp))+
-  geom_point(shape=17, size=2) +
+  geom_point(shape=16, size=2) +
   scale_color_manual(values = set_names(F1.col[c(2,5)], c("kaal","hook")), labels=c("S. kaalae","S. hookeri")) +
   scale_x_continuous(limits=c(NA, 1.1), breaks=c(0,0.5,1),
                      labels=c("0\nneutral","0.5","1\ninbreeding\ndepression")) +
@@ -459,7 +466,7 @@ ggplot(F1.cumul.isolation, aes(y=fct_rev(stage), color=momsp, x=ID)) +
     geom_vline(xintercept=0, linetype=2) + geom_vline(xintercept=-1)+ geom_vline(xintercept=1)+ 
     geom_violin(draw_quantiles=(1:3)/4, position=position_dodge(width=0.9)) +
     geom_path(aes(group=momsp), data=F1.CID.TACmf, position=position_dodge(width=0.9)) +
-    geom_point(data=F1.CID.TACmf, position=position_dodge(width=0.9), size=2, shape=17) +
+    geom_point(data=F1.CID.TACmf, position=position_dodge(width=0.9), size=2, shape=16) +
     scale_y_discrete(labels=deframe(select(traits, yvar, ylab))) +
     scale_color_manual(values = set_names(F1.col[c(2,5)], c("kaal","hook")), labels=c("S. kaalae","S. hookeri")) +
     scale_x_continuous(limits=c(-1.1,1.1), breaks=c(-1,-0.5,0,0.5,1),
