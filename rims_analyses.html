@@ -11,7 +11,7 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2022-01-29" />
+<meta name="date" content="2022-01-31" />
 
 <title>Schiedea hookeri/kaalae RIMs</title>
 
@@ -255,7 +255,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Schiedea hookeri/kaalae RIMs</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John Powers</a></h4>
-<h4 class="date">2022-01-29</h4>
+<h4 class="date">2022-01-31</h4>
 
 </div>
 
@@ -271,13 +271,15 @@ pre code {
 </style>
 <pre class="r"><code>library(tidyverse)
 library(RColorBrewer)
-
+library(scales)
+library(gridExtra)
 library(glmmTMB)
 library(broom)
 library(emmeans)
 
 library(knitr)
-knitr::opts_chunk$set(comment=&quot;&quot;, cache=T, warning = F, message = F, fig.path = &quot;figures/&quot;, dev = &quot;svglite&quot;, fig.width=5, fig.height=4, width=999)
+knitr::opts_chunk$set(comment=&quot;&quot;, cache=T, warning = F, message = F, width=999,
+                      fig.path = &quot;figures/&quot;, dev = &quot;svglite&quot;, dev.args=list(fix_text_size=FALSE), fig.width=5, fig.height=4)
 options(digits=4, knitr.kable.NA = &quot;&quot;) # for kables
 
 load(&quot;data/rims_data.rda&quot;)
@@ -1115,34 +1117,60 @@ F1.test %&gt;% left_join(traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;%
 <div id="plots" class="section level2">
 <h2>Plots</h2>
 <p>Estimated marginal means with 95% CI are shown as dots. For the continuous variables, these show violin plots of the raw data with median and first and third quartiles. For binary variables, colored dots show the proportions of each population x population combination.</p>
-<pre class="r"><code>plot_F1 &lt;- function(emm, data, yvar, ylab, type=&quot;continuous&quot;) {
+<pre class="r"><code>F1.contrasts &lt;- tibble(sxc = c(&quot;kaal.between&quot;,&quot;kaal.hybrid&quot;,&quot;hook.between&quot;,&quot;hook.hybrid&quot;,
+                               &quot;kaal.between&quot;,&quot;kaal.within&quot;,&quot;hook.between&quot;,&quot;hook.within&quot;),
+                       pair = rep(1:4, each=2),
+                       comparison = rep(c(&quot;RI&quot;, &quot;ID&quot;), each = 4))
+
+plot_F1 &lt;- function(emm, data, yvar, ylab, type=&quot;continuous&quot;) {
   data &lt;- get(data)
+  sig &lt;- F1.mod[[yvar]] %&gt;% 
+    multcomp::glht(linfct = multcomp::mcp(sxc = F1.contrasts %&gt;% group_by(pair) %&gt;% 
+                                            summarize(contrast=paste(paste(sxc[1:2], collapse=&quot; - &quot;),&quot;== 0&quot;)) %&gt;% 
+                                            pull(contrast))) %&gt;% 
+    summary(test=multcomp::adjusted(&quot;none&quot;)) %&gt;% tidy() %&gt;% mutate(mid=c(2,4,1,5)+0.5, trait=yvar) %&gt;% 
+    separate(contrast, into=c(&quot;start&quot;,&quot;end&quot;), sep=&quot; - &quot;) %&gt;% 
+    left_join(select(F1.emm, trait, start=sxc, emm=estimate))
+  #TODO get this to work with binary models by back-transforming
   if(type==&quot;continuous&quot;) {
-    p &lt;- ggplot(data, aes_string(y=yvar, x=&quot;sxc&quot;, fill=&quot;sxc&quot;)) +
-      geom_violin(draw_quantiles = (1:3)/4) + 
+    sig &lt;- sig %&gt;% mutate(prop = -estimate/emm, prop.se = std.error/emm)
+    p &lt;- ggplot(data, aes_string(y=yvar, x=&quot;sxc&quot;)) +
+      geom_violin(aes(fill=sxc), draw_quantiles = (1:3)/4) + 
       geom_pointrange(data=filter(emm, trait==yvar), aes(y=estimate, ymax=conf.high, ymin=conf.low)) + 
       scale_fill_manual(values=F1.col) + guides(fill=&quot;none&quot;) +
       scale_y_continuous(name = ylab, expand = expansion(mult=c(0, 0.05)), limits=c(0,NA))
   } else if(type==&quot;binary&quot;) {
+    sig &lt;- sig %&gt;% mutate(prop = (plogis(qlogis(emm)-estimate)-emm)/emm)
     p &lt;- data %&gt;% drop_na(all_of(yvar)) %&gt;% 
       group_by(sxc, mompop, dadpop) %&gt;% summarize(across(all_of(yvar), ~sum(.)/n()), n=n(), .groups=&quot;drop&quot;) %&gt;% 
-      ggplot(aes_string(y=yvar, x=&quot;sxc&quot;, color=&quot;sxc&quot;)) +
-      geom_point(size=4)+
+      ggplot(aes_string(y=yvar, x=&quot;sxc&quot;)) +
+      geom_point(aes(color=sxc), size=3)+
       geom_pointrange(data=filter(emm, trait==yvar) %&gt;% 
                         mutate(conf.low  = ifelse(conf.high-conf.low&gt;0.9,NA,conf.low), 
                                conf.high = ifelse(conf.high-conf.low&gt;0.9,NA,conf.high)), 
                       aes(y=estimate, ymax=conf.high, ymin=conf.low), color=&quot;black&quot;) + 
       scale_color_manual(values=F1.col) + guides(color=&quot;none&quot;) +
-      scale_y_continuous(ylab, limits=c(0,1), labels=~scales::percent(.,accuracy=1))
+      scale_y_continuous(ylab, limits=c(0,NA), labels=~scales::percent(.,accuracy=1),
+                         breaks=(0:5)/5, minor_breaks=0.1+(0:4)/5)
   }
-  p &lt;- p + scale_x_discrete(&quot;Cross&quot;, labels = sxc.labels) + 
-    theme_minimal() + theme(panel.grid.major.x = element_blank())
-  print(p)
+    ytop &lt;- ifelse(type==&quot;binary&quot;, 1.04, 1.02*max(pull(data, yvar), na.rm=T))
+    bottomrow &lt;- as.integer(yvar %in% deframe(select(traits, step, yvar))[c(5,9,13)])+1
+    p &lt;- p + scale_x_discrete(&quot;Cross&quot;, labels = sxc.labels) +
+      theme_minimal() + theme(panel.grid.major.x = element_blank(), axis.title.x=element_blank(), 
+                              axis.text.x=list(element_blank(),element_text(angle=30,vjust=0.5))[[bottomrow]]) +
+      geom_text(data=sig, aes(x = mid, y=ytop*1.09, label=sprintf(&quot;%+.0f%%&quot;,prop*100)), size=3)+
+      geom_text(data=sig, aes(x = mid, y=ytop*1.04, 
+                               label=ifelse(p.value &lt; 0.01, &quot;&lt; 0.01&quot;,paste(&quot;&quot;,sprintf(&quot;%.2f&quot;,p.value)))), size=3) +
+       geom_segment(data=sig, aes(x=start, xend=end, y=ytop, yend=ytop), arrow=arrow(length=unit(0.25,&quot;lines&quot;)))+
+      geom_point(data=sig, aes(x=start, y=ytop), shape=&quot;|&quot;, size=2)
+  return(p)
 }
 
-traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;% select(data, yvar, ylab, type) %&gt;% 
-  pwalk(plot_F1, emm=F1.emm)</code></pre>
-<p><img src="figures/f1plot-1.svg" width="480" /><img src="figures/f1plot-2.svg" width="480" /><img src="figures/f1plot-3.svg" width="480" /><img src="figures/f1plot-4.svg" width="480" /><img src="figures/f1plot-5.svg" width="480" /><img src="figures/f1plot-6.svg" width="480" /><img src="figures/f1plot-7.svg" width="480" /><img src="figures/f1plot-8.svg" width="480" /><img src="figures/f1plot-9.svg" width="480" /><img src="figures/f1plot-10.svg" width="480" /><img src="figures/f1plot-11.svg" width="480" /><img src="figures/f1plot-12.svg" width="480" /><img src="figures/f1plot-13.svg" width="480" /></p>
+F1.plots &lt;- traits %&gt;% filter(generation==&quot;F1&quot;,yvar!=&quot;viable.per.anther&quot;) %&gt;% select(data, yvar, ylab, type) %&gt;% 
+  pmap(plot_F1, emm=F1.emm)
+
+gridExtra::grid.arrange(grobs=F1.plots, nrow=4, heights=c(1,1,1,1.22), ncol=3, as.table=F)</code></pre>
+<p><img src="figures/f1plot-1.svg" width="816" /></p>
 </div>
 <div id="flower-biomass-regression" class="section level2">
 <h2>Flower biomass regression</h2>
@@ -1607,7 +1635,7 @@ F1.RI %&gt;% select(trait, momsp, between, hybrid, RI) %&gt;%
 </tr>
 </tbody>
 </table>
-<pre class="r"><code>ggplot(F1.RI, aes(y=fct_rev(trait), x=RI, color=momsp)) + 
+<pre class="r"><code>ggplot(F1.RI %&gt;% filter(trait!=&quot;Viable pollen grains per anther&quot;), aes(y=fct_rev(trait), x=RI, color=momsp)) + 
   geom_vline(xintercept=0, linetype=2) + geom_vline(xintercept=-1)+ geom_vline(xintercept=1)+ 
   geom_linerange(aes(xmin=low, xmax=high), position=position_dodge(width=0.5)) + 
   geom_point(shape=17, size=2, position=position_dodge(width=0.5)) +
@@ -2397,22 +2425,25 @@ plot_F2 &lt;- function(emm, data, yvar, ylab, type=&quot;continuous&quot;) {
                       aes(y=estimate, ymax=conf.high, ymin=conf.low)) + 
       scale_color_manual(values=set_names(F1.col[2:5],c(&quot;K&quot;,&quot;KH&quot;,&quot;HK&quot;,&quot;H&quot;)))+
       guides(color=&quot;none&quot;) +
-      scale_y_continuous(ylab, limits=c(0,1), labels=~scales::percent(.,accuracy=1))
+      scale_y_continuous(ylab, limits=c(0,NA), labels=~scales::percent(.,accuracy=1),
+                         breaks=(0:5)/5, minor_breaks=0.1+(0:4)/5)
   }
   p &lt;- p + scale_x_discrete(&quot;Cross&quot;, labels = momdadcross.labels, drop=F) +
-    theme_minimal()
-  print(p)
+    theme_minimal() + theme(axis.title.x=element_blank())
+  return(p)
 }
 
-traits %&gt;% filter(generation==&quot;F2&quot;) %&gt;% select(data, yvar, ylab, type) %&gt;% 
-  pwalk(plot_F2, emm=F2.emm)</code></pre>
-<p><img src="figures/f2plot-1.svg" width="480" /><img src="figures/f2plot-2.svg" width="480" /><img src="figures/f2plot-3.svg" width="480" /><img src="figures/f2plot-4.svg" width="480" /><img src="figures/f2plot-5.svg" width="480" /><img src="figures/f2plot-6.svg" width="480" /></p>
+F2.plots &lt;- traits %&gt;% filter(generation==&quot;F2&quot;) %&gt;% select(data, yvar, ylab, type) %&gt;% 
+  pmap(plot_F2, emm=F2.emm)
+
+gridExtra::grid.arrange(grobs=F2.plots, nrow=3, ncol=2, as.table=F)</code></pre>
+<p><img src="figures/f2plot-1.svg" width="816" /></p>
 </div>
 <div id="cytonuclear-incompatibility" class="section level3">
 <h3>Cytonuclear incompatibility</h3>
 <pre class="r"><code>F2.contrasts &lt;- tibble(momdadcross = c(&quot;H x HK&quot;,&quot;HK x H&quot;,&quot;H x KH&quot;,&quot;KH x H&quot;,&quot;K x KH&quot;,&quot;KH x K&quot;,&quot;K x HK&quot;,&quot;HK x K&quot;),
                        pair = rep(1:4, each=2),
-                       reciprocal.difference = rep(c(&quot;not expected&quot;, &quot;expected&quot;), times = 2, each = 2))
+                       reciprocal.difference = rep(c(&quot;not\nexpected&quot;, &quot;expected&quot;), times = 2, each = 2))
 
 reorder_momdadcross &lt;- function(df) {
   df %&gt;% filter(momdadcross %in% F2.contrasts$momdadcross) %&gt;% 
@@ -2431,7 +2462,7 @@ plot_F2_contrasts &lt;- function(emm, data, yvar, ylab, type=&quot;continuous&qu
     p &lt;- ggplot(data, aes_string(y=yvar, x=&quot;momdadcross&quot;)) + 
       geom_violin(aes(fill=reciprocal.difference),draw_quantiles = (1:3)/4) + 
       geom_pointrange(data=emm, aes(y=estimate, ymax=conf.high, ymin=conf.low),color=&quot;black&quot;, show.legend = F) + 
-      scale_fill_manual(&quot;Reciprocal difference     :::&quot;, values=brewer.pal(10,&quot;Paired&quot;)[c(2,8)]) +
+      scale_fill_manual(&quot;Reciprocal difference&quot;, values=brewer.pal(10,&quot;Paired&quot;)[c(2,8)]) +
       scale_y_continuous(name = ylab, expand = expansion(mult=c(0, 0.05)), limits=c(0,NA))
   } else if(type==&quot;binary&quot;) {
     p &lt;- ggplot(data, aes_string(y=yvar, x=&quot;momdadcross&quot;)) + 
@@ -2439,20 +2470,25 @@ plot_F2_contrasts &lt;- function(emm, data, yvar, ylab, type=&quot;continuous&qu
                         mutate(conf.low  = ifelse(conf.high-conf.low&gt;0.9,NA,conf.low), 
                                conf.high = ifelse(conf.high-conf.low&gt;0.9,NA,conf.high)), 
                       aes(y=estimate, ymax=conf.high, ymin=conf.low, color=reciprocal.difference)) + 
-      scale_color_manual(&quot;Reciprocal difference  :&quot;, values=brewer.pal(10,&quot;Paired&quot;)[c(2,8)])+
-      scale_y_continuous(ylab, limits=c(0,1), labels=~scales::percent(.,accuracy=1))
+      scale_color_manual(&quot;Reciprocal difference&quot;, values=brewer.pal(10,&quot;Paired&quot;)[c(2,8)])+
+      scale_y_continuous(ylab, limits=c(0,NA), labels=~scales::percent(.,accuracy=1),
+                         breaks=(0:5)/5, minor_breaks=0.1+(0:4)/5)
   }
-  ytop = ifelse(type==&quot;binary&quot;, 0.95, 1.02*max(pull(data, yvar), na.rm=T))
+  ytop &lt;- ifelse(type==&quot;binary&quot;, 1.04, 1.02*max(pull(data, yvar), na.rm=T))
+  bottomrow &lt;- as.integer(yvar==&quot;viable.per.anther&quot;)+1
   p &lt;- p + scale_x_discrete(&quot;Cross&quot;, labels = momdadcross.labels) +
-    theme_minimal() + theme(legend.position = &quot;top&quot;) +
-    geom_text(data=sig, aes(x = 2*pair-0.5, y=ytop*1.04, label=ifelse(p.value &lt; 0.01, &quot;&lt; 0.01&quot;,round(p.value,2)))) +
+    theme_minimal() + theme(legend.position = c(&quot;none&quot;,&quot;bottom&quot;)[bottomrow], axis.title.x=element_blank())+
+    geom_text(data=sig, aes(x = 2*pair-0.5, y=ytop*1.05,
+                            label=ifelse(p.value &lt; 0.01, &quot;&lt; 0.01&quot;,round(p.value,2))), size=3.5) +
     geom_segment(aes(x=2*pair-1, xend=2*pair, y=ytop, yend=ytop))
-  print(p)
+  return(p)
 }
 
-traits %&gt;% filter(generation==&quot;F2&quot;, data != &quot;f1seedmass&quot;) %&gt;% select(data, yvar, ylab, type) %&gt;% 
-  pwalk(plot_F2_contrasts, emm=F2.emm)</code></pre>
-<p><img src="figures/f2plot_contrasts-1.svg" width="480" /><img src="figures/f2plot_contrasts-2.svg" width="480" /><img src="figures/f2plot_contrasts-3.svg" width="480" /><img src="figures/f2plot_contrasts-4.svg" width="480" /><img src="figures/f2plot_contrasts-5.svg" width="480" /></p>
+F2.contrasts.plots &lt;- traits %&gt;% filter(generation==&quot;F2&quot;, data != &quot;f1seedmass&quot;) %&gt;% select(data, yvar, ylab, type) %&gt;% 
+  pmap(plot_F2_contrasts, emm=F2.emm)
+F2.contrasts.plots[[6]] &lt;- grid::rectGrob(gp=grid::gpar(col=NA))
+gridExtra::grid.arrange(grobs=F2.contrasts.plots[c(1,2,6,3,4,5)], row=3, heights=c(1,1,1.22), ncol=2, as.table=F)</code></pre>
+<p><img src="figures/f2plot_contrasts-1.svg" width="768" /></p>
 </div>
 </div>
 </div>

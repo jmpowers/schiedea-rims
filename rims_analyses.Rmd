@@ -26,13 +26,15 @@ pre code {
 ```{r setup, message = FALSE}
 library(tidyverse)
 library(RColorBrewer)
-
+library(scales)
+library(gridExtra)
 library(glmmTMB)
 library(broom)
 library(emmeans)
 
 library(knitr)
-knitr::opts_chunk$set(comment="", cache=T, warning = F, message = F, fig.path = "figures/", dev = "svglite", fig.width=5, fig.height=4, width=999)
+knitr::opts_chunk$set(comment="", cache=T, warning = F, message = F, width=999,
+                      fig.path = "figures/", dev = "svglite", dev.args=list(fix_text_size=FALSE), fig.width=5, fig.height=4)
 options(digits=4, knitr.kable.NA = "") # for kables
 
 load("data/rims_data.rda")
@@ -129,34 +131,60 @@ F1.emm <-  map_dfr(F1.mod, ~emmeans(., ~sxc) %>% summary(type="response") %>%  #
 
 Estimated marginal means with 95% CI are shown as dots. For the continuous variables, these show violin plots of the raw data with median and first and third quartiles. For binary variables, colored dots show the proportions of each population x population combination.
 
-```{r f1plot}
+```{r f1plot, fig.width=8.5, fig.height=11}
+F1.contrasts <- tibble(sxc = c("kaal.between","kaal.hybrid","hook.between","hook.hybrid",
+                               "kaal.between","kaal.within","hook.between","hook.within"),
+                       pair = rep(1:4, each=2),
+                       comparison = rep(c("RI", "ID"), each = 4))
+
 plot_F1 <- function(emm, data, yvar, ylab, type="continuous") {
   data <- get(data)
+  sig <- F1.mod[[yvar]] %>% 
+    multcomp::glht(linfct = multcomp::mcp(sxc = F1.contrasts %>% group_by(pair) %>% 
+                                            summarize(contrast=paste(paste(sxc[1:2], collapse=" - "),"== 0")) %>% 
+                                            pull(contrast))) %>% 
+    summary(test=multcomp::adjusted("none")) %>% tidy() %>% mutate(mid=c(2,4,1,5)+0.5, trait=yvar) %>% 
+    separate(contrast, into=c("start","end"), sep=" - ") %>% 
+    left_join(select(F1.emm, trait, start=sxc, emm=estimate))
+  #TODO get this to work with binary models by back-transforming
   if(type=="continuous") {
-    p <- ggplot(data, aes_string(y=yvar, x="sxc", fill="sxc")) +
-      geom_violin(draw_quantiles = (1:3)/4) + 
+    sig <- sig %>% mutate(prop = -estimate/emm, prop.se = std.error/emm)
+    p <- ggplot(data, aes_string(y=yvar, x="sxc")) +
+      geom_violin(aes(fill=sxc), draw_quantiles = (1:3)/4) + 
       geom_pointrange(data=filter(emm, trait==yvar), aes(y=estimate, ymax=conf.high, ymin=conf.low)) + 
       scale_fill_manual(values=F1.col) + guides(fill="none") +
       scale_y_continuous(name = ylab, expand = expansion(mult=c(0, 0.05)), limits=c(0,NA))
   } else if(type=="binary") {
+    sig <- sig %>% mutate(prop = (plogis(qlogis(emm)-estimate)-emm)/emm)
     p <- data %>% drop_na(all_of(yvar)) %>% 
       group_by(sxc, mompop, dadpop) %>% summarize(across(all_of(yvar), ~sum(.)/n()), n=n(), .groups="drop") %>% 
-      ggplot(aes_string(y=yvar, x="sxc", color="sxc")) +
-      geom_point(size=4)+
+      ggplot(aes_string(y=yvar, x="sxc")) +
+      geom_point(aes(color=sxc), size=3)+
       geom_pointrange(data=filter(emm, trait==yvar) %>% 
                         mutate(conf.low  = ifelse(conf.high-conf.low>0.9,NA,conf.low), 
                                conf.high = ifelse(conf.high-conf.low>0.9,NA,conf.high)), 
                       aes(y=estimate, ymax=conf.high, ymin=conf.low), color="black") + 
       scale_color_manual(values=F1.col) + guides(color="none") +
-      scale_y_continuous(ylab, limits=c(0,1), labels=~scales::percent(.,accuracy=1))
+      scale_y_continuous(ylab, limits=c(0,NA), labels=~scales::percent(.,accuracy=1),
+                         breaks=(0:5)/5, minor_breaks=0.1+(0:4)/5)
   }
-  p <- p + scale_x_discrete("Cross", labels = sxc.labels) + 
-    theme_minimal() + theme(panel.grid.major.x = element_blank())
-  print(p)
+    ytop <- ifelse(type=="binary", 1.04, 1.02*max(pull(data, yvar), na.rm=T))
+    bottomrow <- as.integer(yvar %in% deframe(select(traits, step, yvar))[c(5,9,13)])+1
+    p <- p + scale_x_discrete("Cross", labels = sxc.labels) +
+      theme_minimal() + theme(panel.grid.major.x = element_blank(), axis.title.x=element_blank(), 
+                              axis.text.x=list(element_blank(),element_text(angle=30,vjust=0.5))[[bottomrow]]) +
+      geom_text(data=sig, aes(x = mid, y=ytop*1.09, label=sprintf("%+.0f%%",prop*100)), size=3)+
+      geom_text(data=sig, aes(x = mid, y=ytop*1.04, 
+                               label=ifelse(p.value < 0.01, "< 0.01",paste("",sprintf("%.2f",p.value)))), size=3) +
+       geom_segment(data=sig, aes(x=start, xend=end, y=ytop, yend=ytop), arrow=arrow(length=unit(0.25,"lines")))+
+      geom_point(data=sig, aes(x=start, y=ytop), shape="|", size=2)
+  return(p)
 }
 
-traits %>% filter(generation=="F1") %>% select(data, yvar, ylab, type) %>% 
-  pwalk(plot_F1, emm=F1.emm)
+F1.plots <- traits %>% filter(generation=="F1",yvar!="viable.per.anther") %>% select(data, yvar, ylab, type) %>% 
+  pmap(plot_F1, emm=F1.emm)
+
+gridExtra::grid.arrange(grobs=F1.plots, nrow=4, heights=c(1,1,1,1.22), ncol=3, as.table=F)
 ```
 
 ## Flower biomass regression
@@ -254,7 +282,7 @@ F1.RI %>% select(trait, momsp, between, hybrid, RI) %>%
                 HH = between_hook, HK = hybrid_hook, H_RI = RI_hook, H_AC = ACRI_hook, H_RC = RACRI_hook) %>% 
   kable(caption="Relative fitness components of hybrids vs. maternal parent. RI, AC, RC follow Sobel & Chen 2014, Ramsey et al. 2003", digits=3)
 
-ggplot(F1.RI, aes(y=fct_rev(trait), x=RI, color=momsp)) + 
+ggplot(F1.RI %>% filter(trait!="Viable pollen grains per anther"), aes(y=fct_rev(trait), x=RI, color=momsp)) + 
   geom_vline(xintercept=0, linetype=2) + geom_vline(xintercept=-1)+ geom_vline(xintercept=1)+ 
   geom_linerange(aes(xmin=low, xmax=high), position=position_dodge(width=0.5)) + 
   geom_point(shape=17, size=2, position=position_dodge(width=0.5)) +
@@ -496,7 +524,7 @@ Estimated marginal means with 95% CI are shown as dots. For the continuous varia
 
 ### All crosses
 
-```{r f2plot}
+```{r f2plot, fig.width=8.5, fig.height=11}
 momdadcross.levels <- c("H x H","H x HK","H x KH","H x K","HK x H","HK x HK","HK x KH","HK x K","KH x H","KH x HK","KH x KH","KH x K","K x H","K x HK","K x KH","K x K")
 momdadcross.labels <- momdadcross.levels %>% str_replace_all("\\s","\n") %>% set_names(momdadcross.levels)
 
@@ -522,23 +550,26 @@ plot_F2 <- function(emm, data, yvar, ylab, type="continuous") {
                       aes(y=estimate, ymax=conf.high, ymin=conf.low)) + 
       scale_color_manual(values=set_names(F1.col[2:5],c("K","KH","HK","H")))+
       guides(color="none") +
-      scale_y_continuous(ylab, limits=c(0,1), labels=~scales::percent(.,accuracy=1))
+      scale_y_continuous(ylab, limits=c(0,NA), labels=~scales::percent(.,accuracy=1),
+                         breaks=(0:5)/5, minor_breaks=0.1+(0:4)/5)
   }
   p <- p + scale_x_discrete("Cross", labels = momdadcross.labels, drop=F) +
-    theme_minimal()
-  print(p)
+    theme_minimal() + theme(axis.title.x=element_blank())
+  return(p)
 }
 
-traits %>% filter(generation=="F2") %>% select(data, yvar, ylab, type) %>% 
-  pwalk(plot_F2, emm=F2.emm)
+F2.plots <- traits %>% filter(generation=="F2") %>% select(data, yvar, ylab, type) %>% 
+  pmap(plot_F2, emm=F2.emm)
+
+gridExtra::grid.arrange(grobs=F2.plots, nrow=3, ncol=2, as.table=F)
 ```
 
 ### Cytonuclear incompatibility
 
-```{r f2plot_contrasts}
+```{r f2plot_contrasts, fig.width=8, fig.height=9}
 F2.contrasts <- tibble(momdadcross = c("H x HK","HK x H","H x KH","KH x H","K x KH","KH x K","K x HK","HK x K"),
                        pair = rep(1:4, each=2),
-                       reciprocal.difference = rep(c("not expected", "expected"), times = 2, each = 2))
+                       reciprocal.difference = rep(c("not\nexpected", "expected"), times = 2, each = 2))
 
 reorder_momdadcross <- function(df) {
   df %>% filter(momdadcross %in% F2.contrasts$momdadcross) %>% 
@@ -557,7 +588,7 @@ plot_F2_contrasts <- function(emm, data, yvar, ylab, type="continuous") {
     p <- ggplot(data, aes_string(y=yvar, x="momdadcross")) + 
       geom_violin(aes(fill=reciprocal.difference),draw_quantiles = (1:3)/4) + 
       geom_pointrange(data=emm, aes(y=estimate, ymax=conf.high, ymin=conf.low),color="black", show.legend = F) + 
-      scale_fill_manual("Reciprocal difference     :::", values=brewer.pal(10,"Paired")[c(2,8)]) +
+      scale_fill_manual("Reciprocal difference", values=brewer.pal(10,"Paired")[c(2,8)]) +
       scale_y_continuous(name = ylab, expand = expansion(mult=c(0, 0.05)), limits=c(0,NA))
   } else if(type=="binary") {
     p <- ggplot(data, aes_string(y=yvar, x="momdadcross")) + 
@@ -565,18 +596,23 @@ plot_F2_contrasts <- function(emm, data, yvar, ylab, type="continuous") {
                         mutate(conf.low  = ifelse(conf.high-conf.low>0.9,NA,conf.low), 
                                conf.high = ifelse(conf.high-conf.low>0.9,NA,conf.high)), 
                       aes(y=estimate, ymax=conf.high, ymin=conf.low, color=reciprocal.difference)) + 
-      scale_color_manual("Reciprocal difference  :", values=brewer.pal(10,"Paired")[c(2,8)])+
-      scale_y_continuous(ylab, limits=c(0,1), labels=~scales::percent(.,accuracy=1))
+      scale_color_manual("Reciprocal difference", values=brewer.pal(10,"Paired")[c(2,8)])+
+      scale_y_continuous(ylab, limits=c(0,NA), labels=~scales::percent(.,accuracy=1),
+                         breaks=(0:5)/5, minor_breaks=0.1+(0:4)/5)
   }
-  ytop = ifelse(type=="binary", 0.95, 1.02*max(pull(data, yvar), na.rm=T))
+  ytop <- ifelse(type=="binary", 1.04, 1.02*max(pull(data, yvar), na.rm=T))
+  bottomrow <- as.integer(yvar=="viable.per.anther")+1
   p <- p + scale_x_discrete("Cross", labels = momdadcross.labels) +
-    theme_minimal() + theme(legend.position = "top") +
-    geom_text(data=sig, aes(x = 2*pair-0.5, y=ytop*1.04, label=ifelse(p.value < 0.01, "< 0.01",round(p.value,2)))) +
+    theme_minimal() + theme(legend.position = c("none","bottom")[bottomrow], axis.title.x=element_blank())+
+    geom_text(data=sig, aes(x = 2*pair-0.5, y=ytop*1.05,
+                            label=ifelse(p.value < 0.01, "< 0.01",round(p.value,2))), size=3.5) +
     geom_segment(aes(x=2*pair-1, xend=2*pair, y=ytop, yend=ytop))
-  print(p)
+  return(p)
 }
 
-traits %>% filter(generation=="F2", data != "f1seedmass") %>% select(data, yvar, ylab, type) %>% 
-  pwalk(plot_F2_contrasts, emm=F2.emm)
+F2.contrasts.plots <- traits %>% filter(generation=="F2", data != "f1seedmass") %>% select(data, yvar, ylab, type) %>% 
+  pmap(plot_F2_contrasts, emm=F2.emm)
+F2.contrasts.plots[[6]] <- grid::rectGrob(gp=grid::gpar(col=NA))
+gridExtra::grid.arrange(grobs=F2.contrasts.plots[c(1,2,6,3,4,5)], row=3, heights=c(1,1,1.22), ncol=2, as.table=F)
 ```
 

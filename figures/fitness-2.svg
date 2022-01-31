@@ -60,29 +60,29 @@
 <polygon points='237.87,219.06 241.22,224.87 234.52,224.87 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
 </g>
 <g clip-path='url(#cpMC4wMHw0MzIuMDB8MC4wMHwyODguMDA=)'>
-<text x='153.44' y='226.14' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='63.68px' lengthAdjust='spacingAndGlyphs'>Pollen viability</text>
-<text x='153.44' y='202.69' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='105.47px' lengthAdjust='spacingAndGlyphs'>Pollen grains per anther</text>
-<text x='153.44' y='179.23' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='66.24px' lengthAdjust='spacingAndGlyphs'>Flower number</text>
-<text x='153.44' y='155.78' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='91.49px' lengthAdjust='spacingAndGlyphs'>Flowering if survived</text>
-<text x='153.44' y='132.32' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='35.47px' lengthAdjust='spacingAndGlyphs'>Survival</text>
-<text x='153.44' y='108.87' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='54.53px' lengthAdjust='spacingAndGlyphs'>Germination</text>
-<text x='153.44' y='85.41' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='134.78px' lengthAdjust='spacingAndGlyphs'>Viable seeds if capsule formed</text>
-<text x='153.44' y='61.96' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='80.70px' lengthAdjust='spacingAndGlyphs'>Capsule formation</text>
-<text x='170.56' y='248.35' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='5.59px' lengthAdjust='spacingAndGlyphs'>0</text>
-<text x='170.56' y='257.86' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='10.96px' lengthAdjust='spacingAndGlyphs'>no</text>
-<text x='170.56' y='267.36' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='29.53px' lengthAdjust='spacingAndGlyphs'>barrier</text>
-<text x='281.36' y='248.35' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='13.98px' lengthAdjust='spacingAndGlyphs'>0.5</text>
-<text x='392.17' y='248.35' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='5.59px' lengthAdjust='spacingAndGlyphs'>1</text>
-<text x='392.17' y='257.86' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='41.10px' lengthAdjust='spacingAndGlyphs'>complete</text>
-<text x='392.17' y='267.36' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;' textLength='37.12px' lengthAdjust='spacingAndGlyphs'>isolation</text>
-<text x='292.44' y='280.10' text-anchor='middle' style='font-size: 11.00px; font-family: Arial;' textLength='185.87px' lengthAdjust='spacingAndGlyphs'>Cumulative reproductive isolation</text>
-<text transform='translate(13.50,140.84) rotate(-90)' text-anchor='middle' style='font-size: 11.00px; font-family: Arial;' textLength='103.83px' lengthAdjust='spacingAndGlyphs'>Fitness component</text>
-<text x='186.55' y='23.61' style='font-size: 11.00px; font-family: Arial;' textLength='87.96px' lengthAdjust='spacingAndGlyphs'>Maternal parent</text>
+<text x='153.44' y='226.14' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;'>Pollen viability</text>
+<text x='153.44' y='202.69' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;'>Pollen grains per anther</text>
+<text x='153.44' y='179.23' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;'>Flower number</text>
+<text x='153.44' y='155.78' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;'>Flowering if survived</text>
+<text x='153.44' y='132.32' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;'>Survival</text>
+<text x='153.44' y='108.87' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;'>Germination</text>
+<text x='153.44' y='85.41' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;'>Viable seeds if capsule formed</text>
+<text x='153.44' y='61.96' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;'>Capsule formation</text>
+<text x='170.56' y='248.35' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;'>0</text>
+<text x='170.56' y='257.86' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;'>no</text>
+<text x='170.56' y='267.36' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;'>barrier</text>
+<text x='281.36' y='248.35' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;'>0.5</text>
+<text x='392.17' y='248.35' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;'>1</text>
+<text x='392.17' y='257.86' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;'>complete</text>
+<text x='392.17' y='267.36' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;'>isolation</text>
+<text x='292.44' y='280.10' text-anchor='middle' style='font-size: 11.00px; font-family: Arial;'>Cumulative reproductive isolation</text>
+<text transform='translate(13.50,140.84) rotate(-90)' text-anchor='middle' style='font-size: 11.00px; font-family: Arial;'>Fitness component</text>
+<text x='186.55' y='23.61' style='font-size: 11.00px; font-family: Arial;'>Maternal parent</text>
 <line x1='271.07' y1='19.60' x2='284.89' y2='19.60' style='stroke-width: 1.07; stroke: #31A354; stroke-linecap: butt;' />
 <polygon points='277.98,15.73 281.33,21.53 274.63,21.53 ' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
 <line x1='336.83' y1='19.60' x2='350.65' y2='19.60' style='stroke-width: 1.07; stroke: #756BB1; stroke-linecap: butt;' />
 <polygon points='343.74,15.73 347.09,21.53 340.39,21.53 ' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
-<text x='292.10' y='22.81' style='font-size: 8.80px; font-style: italic; font-family: Arial;' textLength='40.31px' lengthAdjust='spacingAndGlyphs'>S. kaalae</text>
-<text x='357.86' y='22.81' style='font-size: 8.80px; font-style: italic; font-family: Arial;' textLength='44.09px' lengthAdjust='spacingAndGlyphs'>S. hookeri</text>
+<text x='292.10' y='22.81' style='font-size: 8.80px; font-style: italic; font-family: Arial;'>S. kaalae</text>
+<text x='357.86' y='22.81' style='font-size: 8.80px; font-style: italic; font-family: Arial;'>S. hookeri</text>
 </g>
 </svg>
