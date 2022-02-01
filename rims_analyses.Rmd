@@ -156,7 +156,8 @@ plot_F1 <- function(emm, data, yvar, ylab, type="continuous") {
   data <- get(data)
   sig <- F1.test.contrasts %>% filter(.data$yvar==.env$yvar)
   if(type=="continuous") {
-    sig <- sig %>% mutate(prop = -estimate/emm, prop.se = std.error/emm)
+    if(yvar=="viable.seeds") {sig <- sig %>% mutate(prop = exp(-estimate)-1)}
+    else {sig <- sig %>% mutate(prop = -estimate/emm, prop.se = std.error/emm)}
     p <- ggplot(data, aes_string(y=yvar, x="sxc")) +
       geom_violin(aes(fill=sxc), draw_quantiles = (1:3)/4) + 
       geom_pointrange(data=filter(emm, trait==yvar), aes(y=estimate, ymax=conf.high, ymin=conf.low)) + 
