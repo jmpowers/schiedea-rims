@@ -180,12 +180,15 @@ biomass.flrs.lm <- lm(log10(flrs) ~ poly(log10(inflo.biomass.g),2) * cross, data
 inflobiomass.sum <- inflobiomass %>% #add together envelopes for regression and the rest
   group_by(across(all_of(c("plantid", colnames(crosses))))) %>% 
   summarize(inflo = sum(inflo, na.rm=T),
-            inflo.biomass.g =  sum(inflo.biomass.g,  na.rm=T),
+            tot.inflo.biomass.g =  sum(inflo.biomass.g,  na.rm=T),
+            inflo.biomass.g = tot.inflo.biomass.g / inflo, #need to feed the average biomass per inflo into the model
             collect = suppressWarnings(max(collect, na.rm=T)) %>% na_if(-Inf),
             flrs = median(flrs, na.rm=T),
             flrs.per.inflo.biomass.g = median(flrs.per.inflo.biomass.g, na.rm=T),
             .groups="drop") %>% 
-  mutate(flower.number = 10 ^ predict(biomass.flrs.lm, newdata = .))
+  mutate(flower.number = inflo * 10 ^ predict(biomass.flrs.lm, newdata = .), #multiply by inflo count *after* prediction
+         avg.inflo.biomass.g = inflo.biomass.g,
+         inflo.biomass.g = tot.inflo.biomass.g) #the name used in analysis for total inflo biomass
 
 # f1seeds -----------------------------------------------------------------
 

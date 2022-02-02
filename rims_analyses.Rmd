@@ -209,7 +209,8 @@ ggplot(inflobiomass, aes(x=inflo.biomass.g, y=flrs, color=cross)) +
 
 ggplot(inflobiomass, aes(x=inflo.biomass.g, y=flrs/inflo.biomass.g, color=cross)) + 
   geom_point(size=0.5) +  geom_smooth(se=F, span=0.8) +
-  geom_smooth(data=inflobiomass.sum %>% filter(inflo>0, flrs>0), aes(x=inflo.biomass.g, y=flower.number/inflo.biomass.g), se=F)+ 
+  geom_smooth(data=inflobiomass.sum %>% filter(inflo>0, flrs>0), #the regression used
+              aes(x=avg.inflo.biomass.g, y=flower.number/inflo/avg.inflo.biomass.g), se=F)+ 
   scale_x_log10() + scale_y_log10() + 
   scale_color_manual(values=set_names(F1.col, c("KKwithin","KK", "KH", "HK", "HH", "HHwithin"))[-c(1,6)]) +
   theme_minimal() + labs(y="Flowers per g biomass", x="Inflorescence biomass (g)", color="Cross")

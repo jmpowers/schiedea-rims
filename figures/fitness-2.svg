@@ -40,8 +40,8 @@
 <polyline points='392.17,237.01 392.17,44.68 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
 <line x1='170.56' y1='237.01' x2='170.56' y2='44.68' style='stroke-width: 1.07; stroke-dasharray: 5.69,5.69; stroke-linecap: butt;' />
 <line x1='392.17' y1='237.01' x2='392.17' y2='44.68' style='stroke-width: 1.07; stroke-linecap: butt;' />
-<polyline points='195.80,58.75 265.50,82.20 263.84,105.66 260.80,129.11 264.01,152.57 193.39,176.02 180.37,199.48 237.87,222.93 ' style='stroke-width: 1.07; stroke: #756BB1; stroke-linecap: butt;' />
-<polyline points='186.70,58.75 211.21,82.20 342.36,105.66 345.76,129.11 346.72,152.57 339.53,176.02 345.18,199.48 361.16,222.93 ' style='stroke-width: 1.07; stroke: #31A354; stroke-linecap: butt;' />
+<polyline points='195.80,58.75 265.50,82.20 263.84,105.66 260.80,129.11 264.01,152.57 199.03,176.02 186.38,199.48 242.25,222.93 ' style='stroke-width: 1.07; stroke: #756BB1; stroke-linecap: butt;' />
+<polyline points='186.70,58.75 211.21,82.20 342.36,105.66 345.76,129.11 346.72,152.57 341.55,176.02 346.98,199.48 362.35,222.93 ' style='stroke-width: 1.07; stroke: #31A354; stroke-linecap: butt;' />
 <circle cx='186.70' cy='58.75' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
 <circle cx='195.80' cy='58.75' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
 <circle cx='211.21' cy='82.20' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
@@ -52,12 +52,12 @@
 <circle cx='260.80' cy='129.11' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
 <circle cx='346.72' cy='152.57' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
 <circle cx='264.01' cy='152.57' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
-<circle cx='339.53' cy='176.02' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
-<circle cx='193.39' cy='176.02' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
-<circle cx='345.18' cy='199.48' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
-<circle cx='180.37' cy='199.48' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
-<circle cx='361.16' cy='222.93' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
-<circle cx='237.87' cy='222.93' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
+<circle cx='341.55' cy='176.02' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
+<circle cx='199.03' cy='176.02' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
+<circle cx='346.98' cy='199.48' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
+<circle cx='186.38' cy='199.48' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
+<circle cx='362.35' cy='222.93' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
+<circle cx='242.25' cy='222.93' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
 </g>
 <g clip-path='url(#cpMC4wMHw0MzIuMDB8MC4wMHwyODguMDA=)'>
 <text x='153.44' y='226.14' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;'>Pollen viability</text>
