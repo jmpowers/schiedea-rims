@@ -195,25 +195,31 @@ grid.arrange(grobs=pmap(F1.traits, plot_F1, emm=F1.emm), nrow=4, heights=c(1,1,1
 
 ## Flower biomass regression
 
+### Flowers vs. mass of one inflorescence
+
 ```{r infloreg}
 summary(biomass.flrs.lm)
 
 ggplot(inflobiomass, aes(x=inflo.biomass.g, y=flrs, color=cross)) + 
-  geom_point() +  geom_smooth(method="lm", formula = y ~ poly(x,2), se=F)+
-  geom_rug(data=inflobiomass.sum, aes(x=inflo.biomass.g/inflo, y=10), sides="b") + 
+  geom_point(size=0.5) +  geom_smooth(method="lm", formula = y ~ poly(x,2), se=F)+
+  #geom_rug(data=inflobiomass.sum, aes(x=inflo.biomass.g/inflo, y=10), sides="b") + 
   scale_x_log10() + scale_y_log10() + 
   scale_color_manual(values=set_names(F1.col, c("KKwithin","KK", "KH", "HK", "HH", "HHwithin"))[-c(1,6)]) +
   theme_minimal() + labs(y="Flower number", x="Inflorescence biomass (g)", color="Cross")
 
 ggplot(inflobiomass, aes(x=inflo.biomass.g, y=flrs/inflo.biomass.g, color=cross)) + 
-  geom_point() +  geom_smooth(se=F, span=0.8) +
+  geom_point(size=0.5) +  geom_smooth(se=F, span=0.8) +
+  geom_smooth(data=inflobiomass.sum %>% filter(inflo>0, flrs>0), aes(x=inflo.biomass.g, y=flower.number/inflo.biomass.g), se=F)+ 
   scale_x_log10() + scale_y_log10() + 
   scale_color_manual(values=set_names(F1.col, c("KKwithin","KK", "KH", "HK", "HH", "HHwithin"))[-c(1,6)]) +
   theme_minimal() + labs(y="Flowers per g biomass", x="Inflorescence biomass (g)", color="Cross")
 ```
 
-```{r inflotraits, fig.width=4.5, fig.height=8}
-inflotraits <- c("inflo", "inflo.biomass.g.inflo", "flower.number.inflo")
+### Traits of the entire plant
+
+```{r inflotraits, fig.width=4.5, fig.height=5}
+#TODO flower.number/inflo is the predicted flower number, don't present as a measurement
+inflotraits <- c("inflo", "inflo.biomass.g.inflo", "flower.number.inflo")[-3]
 inflobiomass.sum %>% 
   mutate(inflo.biomass.g.inflo = inflo.biomass.g/inflo, flower.number.inflo = flower.number/inflo) %>% 
   select(sxc, all_of(inflotraits)) %>% 
@@ -221,13 +227,32 @@ inflobiomass.sum %>%
   ggplot(aes(y=value, x=sxc, fill=sxc)) + geom_hline(yintercept=0)+
   facet_wrap(vars(name), ncol=1, scales="free_y", strip.position="left",
              labeller = as_labeller(c(inflo="Inflorescences", 
-                                      inflo.biomass.g.inflo="Biomass per inflorescence (g)", 
+                                      inflo.biomass.g.inflo="Average biomass per inflorescence (g)", 
                                       flower.number.inflo="Flowers per inflorescence")))+
   geom_boxplot(outlier.size=0.2, size=0.3, fatten=1) +# geom_violin(fill=NA) + 
   scale_fill_manual(values=F1.col) + guides(fill="none") +
   scale_y_continuous(expand = expansion(mult=c(0, 0.05)), limits=c(0,NA))+
   scale_x_discrete("Cross", labels = sxc.labels) + 
   theme_minimal() + theme(panel.grid.major.x = element_blank(), axis.title=element_blank(), strip.placement = "outside")
+
+#flower.number is estimated, instead do with y=flrs per 1 inflor vs. number on inflos on whole plant
+ggplot(inflobiomass.sum %>% filter(inflo>0, flrs>0), aes(x=inflo, y=flrs, color=cross)) + 
+  geom_point(size=0.5) +  geom_smooth(se=F, span=0.8) +
+  scale_x_log10() + scale_y_log10() + 
+  scale_color_manual(values=set_names(F1.col, c("KKwithin","KK", "KH", "HK", "HH", "HHwithin"))[-c(1,6)]) +
+  theme_minimal() + labs(y="Flowers on one inflorescence", x="Total inflorescences", color="Cross")
+
+ggplot(inflobiomass.sum %>% filter(inflo>0, flrs>0), aes(x=inflo, y=inflo.biomass.g/inflo, color=cross)) + 
+  geom_point(size=0.5) +  geom_smooth(se=F, span=0.8) +
+  scale_x_log10() + scale_y_log10() + 
+  scale_color_manual(values=set_names(F1.col, c("KKwithin","KK", "KH", "HK", "HH", "HHwithin"))[-c(1,6)]) +
+  theme_minimal() + labs(y="Average biomass per inflorescence (g)", x="Total inflorescences", color="Cross")
+
+ggplot(inflobiomass.sum %>% filter(inflo>0, flrs>0), aes(x=inflo.biomass.g, y=flrs.per.inflo.biomass.g, color=cross)) + 
+  geom_point(size=0.5) +  geom_smooth(se=F, span=0.8) +
+  scale_x_log10() + scale_y_log10() + 
+  scale_color_manual(values=set_names(F1.col, c("KKwithin","KK", "KH", "HK", "HH", "HHwithin"))[-c(1,6)]) +
+  theme_minimal() + labs(y="Flowers per g biomass, one infloresence", x="Total inflorescence biomass (g)", color="Cross")
 ```
 
 ## Fitness and RI

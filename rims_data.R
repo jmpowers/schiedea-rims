@@ -170,7 +170,8 @@ inflobiomass <- read_sheet(gsheet, "inflobiomass", col_types="c") %>%
   filter(is.na(use.inflo)) %>% 
   mutate(across(matches("date"), ymd),
          across(c(flrs, inflo.e, inflo, inflo.biomass.g), as.numeric),
-         collect = collect.date - first_planting) %>% 
+         collect = collect.date - first_planting,
+         flrs.per.inflo.biomass.g = flrs/inflo.biomass.g) %>% 
   left_join(crosses) %>% 
   add_combos()
 
@@ -180,7 +181,10 @@ inflobiomass.sum <- inflobiomass %>% #add together envelopes for regression and 
   group_by(across(all_of(c("plantid", colnames(crosses))))) %>% 
   summarize(inflo = sum(inflo, na.rm=T),
             inflo.biomass.g =  sum(inflo.biomass.g,  na.rm=T),
-            collect = suppressWarnings(max(collect, na.rm=T)) %>% na_if(-Inf), .groups="drop") %>% 
+            collect = suppressWarnings(max(collect, na.rm=T)) %>% na_if(-Inf),
+            flrs = median(flrs, na.rm=T),
+            flrs.per.inflo.biomass.g = median(flrs.per.inflo.biomass.g, na.rm=T),
+            .groups="drop") %>% 
   mutate(flower.number = 10 ^ predict(biomass.flrs.lm, newdata = .))
 
 # f1seeds -----------------------------------------------------------------

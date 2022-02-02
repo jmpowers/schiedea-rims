@@ -11,7 +11,7 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2022-01-31" />
+<meta name="date" content="2022-02-01" />
 
 <title>Schiedea hookeri/kaalae RIMs</title>
 
@@ -255,7 +255,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Schiedea hookeri/kaalae RIMs</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John Powers</a></h4>
-<h4 class="date">2022-01-31</h4>
+<h4 class="date">2022-02-01</h4>
 
 </div>
 
@@ -1180,6 +1180,8 @@ grid.arrange(grobs=pmap(F1.traits, plot_F1, emm=F1.emm), nrow=4, heights=c(1,1,1
 </div>
 <div id="flower-biomass-regression" class="section level2">
 <h2>Flower biomass regression</h2>
+<div id="flowers-vs.-mass-of-one-inflorescence" class="section level3">
+<h3>Flowers vs. mass of one inflorescence</h3>
 <pre class="r"><code>summary(biomass.flrs.lm)</code></pre>
 <pre><code>
 Call:
@@ -1225,19 +1227,23 @@ Residual standard error: 0.125 on 488 degrees of freedom
 Multiple R-squared:  0.931, Adjusted R-squared:  0.929 
 F-statistic:  595 on 11 and 488 DF,  p-value: &lt;2e-16</code></pre>
 <pre class="r"><code>ggplot(inflobiomass, aes(x=inflo.biomass.g, y=flrs, color=cross)) + 
-  geom_point() +  geom_smooth(method=&quot;lm&quot;, formula = y ~ poly(x,2), se=F)+
-  geom_rug(data=inflobiomass.sum, aes(x=inflo.biomass.g/inflo, y=10), sides=&quot;b&quot;) + 
+  geom_point(size=0.5) +  geom_smooth(method=&quot;lm&quot;, formula = y ~ poly(x,2), se=F)+
+  #geom_rug(data=inflobiomass.sum, aes(x=inflo.biomass.g/inflo, y=10), sides=&quot;b&quot;) + 
   scale_x_log10() + scale_y_log10() + 
   scale_color_manual(values=set_names(F1.col, c(&quot;KKwithin&quot;,&quot;KK&quot;, &quot;KH&quot;, &quot;HK&quot;, &quot;HH&quot;, &quot;HHwithin&quot;))[-c(1,6)]) +
   theme_minimal() + labs(y=&quot;Flower number&quot;, x=&quot;Inflorescence biomass (g)&quot;, color=&quot;Cross&quot;)</code></pre>
 <p><img src="figures/infloreg-1.svg" width="480" /></p>
 <pre class="r"><code>ggplot(inflobiomass, aes(x=inflo.biomass.g, y=flrs/inflo.biomass.g, color=cross)) + 
-  geom_point() +  geom_smooth(se=F, span=0.8) +
+  geom_point(size=0.5) +  geom_smooth(se=F, span=0.8) +
   scale_x_log10() + scale_y_log10() + 
   scale_color_manual(values=set_names(F1.col, c(&quot;KKwithin&quot;,&quot;KK&quot;, &quot;KH&quot;, &quot;HK&quot;, &quot;HH&quot;, &quot;HHwithin&quot;))[-c(1,6)]) +
   theme_minimal() + labs(y=&quot;Flowers per g biomass&quot;, x=&quot;Inflorescence biomass (g)&quot;, color=&quot;Cross&quot;)</code></pre>
 <p><img src="figures/infloreg-2.svg" width="480" /></p>
-<pre class="r"><code>inflotraits &lt;- c(&quot;inflo&quot;, &quot;inflo.biomass.g.inflo&quot;, &quot;flower.number.inflo&quot;)
+</div>
+<div id="traits-of-the-entire-plant" class="section level3">
+<h3>Traits of the entire plant</h3>
+<pre class="r"><code>#TODO flower.number/inflo is the predicted flower number, don&#39;t present as a measurement
+inflotraits &lt;- c(&quot;inflo&quot;, &quot;inflo.biomass.g.inflo&quot;, &quot;flower.number.inflo&quot;)[-3]
 inflobiomass.sum %&gt;% 
   mutate(inflo.biomass.g.inflo = inflo.biomass.g/inflo, flower.number.inflo = flower.number/inflo) %&gt;% 
   select(sxc, all_of(inflotraits)) %&gt;% 
@@ -1245,7 +1251,7 @@ inflobiomass.sum %&gt;%
   ggplot(aes(y=value, x=sxc, fill=sxc)) + geom_hline(yintercept=0)+
   facet_wrap(vars(name), ncol=1, scales=&quot;free_y&quot;, strip.position=&quot;left&quot;,
              labeller = as_labeller(c(inflo=&quot;Inflorescences&quot;, 
-                                      inflo.biomass.g.inflo=&quot;Biomass per inflorescence (g)&quot;, 
+                                      inflo.biomass.g.inflo=&quot;Average biomass per inflorescence (g)&quot;, 
                                       flower.number.inflo=&quot;Flowers per inflorescence&quot;)))+
   geom_boxplot(outlier.size=0.2, size=0.3, fatten=1) +# geom_violin(fill=NA) + 
   scale_fill_manual(values=F1.col) + guides(fill=&quot;none&quot;) +
@@ -1253,6 +1259,26 @@ inflobiomass.sum %&gt;%
   scale_x_discrete(&quot;Cross&quot;, labels = sxc.labels) + 
   theme_minimal() + theme(panel.grid.major.x = element_blank(), axis.title=element_blank(), strip.placement = &quot;outside&quot;)</code></pre>
 <p><img src="figures/inflotraits-1.svg" width="432" /></p>
+<pre class="r"><code>#flower.number is estimated, instead do with y=flrs per 1 inflor vs. number on inflos on whole plant
+ggplot(inflobiomass.sum %&gt;% filter(inflo&gt;0, flrs&gt;0), aes(x=inflo, y=flrs, color=cross)) + 
+  geom_point(size=0.5) +  geom_smooth(se=F, span=0.8) +
+  scale_x_log10() + scale_y_log10() + 
+  scale_color_manual(values=set_names(F1.col, c(&quot;KKwithin&quot;,&quot;KK&quot;, &quot;KH&quot;, &quot;HK&quot;, &quot;HH&quot;, &quot;HHwithin&quot;))[-c(1,6)]) +
+  theme_minimal() + labs(y=&quot;Flowers on one inflorescence&quot;, x=&quot;Total inflorescences&quot;, color=&quot;Cross&quot;)</code></pre>
+<p><img src="figures/inflotraits-2.svg" width="432" /></p>
+<pre class="r"><code>ggplot(inflobiomass.sum %&gt;% filter(inflo&gt;0, flrs&gt;0), aes(x=inflo, y=inflo.biomass.g/inflo, color=cross)) + 
+  geom_point(size=0.5) +  geom_smooth(se=F, span=0.8) +
+  scale_x_log10() + scale_y_log10() + 
+  scale_color_manual(values=set_names(F1.col, c(&quot;KKwithin&quot;,&quot;KK&quot;, &quot;KH&quot;, &quot;HK&quot;, &quot;HH&quot;, &quot;HHwithin&quot;))[-c(1,6)]) +
+  theme_minimal() + labs(y=&quot;Average biomass per inflorescence (g)&quot;, x=&quot;Total inflorescences&quot;, color=&quot;Cross&quot;)</code></pre>
+<p><img src="figures/inflotraits-3.svg" width="432" /></p>
+<pre class="r"><code>ggplot(inflobiomass.sum %&gt;% filter(inflo&gt;0, flrs&gt;0), aes(x=inflo.biomass.g, y=flrs.per.inflo.biomass.g, color=cross)) + 
+  geom_point(size=0.5) +  geom_smooth(se=F, span=0.8) +
+  scale_x_log10() + scale_y_log10() + 
+  scale_color_manual(values=set_names(F1.col, c(&quot;KKwithin&quot;,&quot;KK&quot;, &quot;KH&quot;, &quot;HK&quot;, &quot;HH&quot;, &quot;HHwithin&quot;))[-c(1,6)]) +
+  theme_minimal() + labs(y=&quot;Flowers per g biomass, one infloresence&quot;, x=&quot;Total inflorescence biomass (g)&quot;, color=&quot;Cross&quot;)</code></pre>
+<p><img src="figures/inflotraits-4.svg" width="432" /></p>
+</div>
 </div>
 <div id="fitness-and-ri" class="section level2">
 <h2>Fitness and RI</h2>
