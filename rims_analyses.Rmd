@@ -75,6 +75,17 @@ map_dfr(F1, ~ tally(group_by(get(.), crosstype, momsp, dadsp)), .id="dataset") %
 
 map_dfr(F1, ~ tally(group_by(get(.), crosstype, momsp, dadsp, mompop, dadpop)), .id="dataset") %>% 
   pivot_wider(names_from=dataset, values_from=n) %>% kable(caption="F1 datasets by crosstype and population")
+
+tally.parents <- map_dfr(F1, ~ tally(group_by(get(.), crosstype, momsp, mompop, momid, dadsp, dadpop, dadid)),
+                         .id="dataset") %>% 
+  mutate(mompid = paste(mompop, momid, sep="."), dadpid = paste(dadpop, dadid, sep="."))
+tally.parents %>% group_by(dataset, momsp, mompid) %>% count() %>% 
+  pivot_wider(names_from=dataset, values_from=n) %>% kable(caption="F1 datasets by maternal plant")
+tally.parents %>% group_by(dataset, dadsp, dadpid) %>% count() %>% 
+  pivot_wider(names_from=dataset, values_from=n) %>% kable(caption="F1 datasets by paternal plant")
+
+seeds %>% count(mompid, crosstype) %>% 
+  pivot_wider(names_from=crosstype, values_from=n) %>% kable(caption="Seeds by maternal plant and crosstype")
 ```
 
 ## Models
@@ -211,9 +222,15 @@ ggplot(inflobiomass, aes(x=inflo.biomass.g, y=flrs/inflo.biomass.g, color=cross)
   geom_point(size=0.5) +  geom_smooth(se=F, span=0.8) +
   geom_smooth(data=inflobiomass.sum %>% filter(inflo>0, flrs>0), #the regression used
               aes(x=avg.inflo.biomass.g, y=flower.number/inflo/avg.inflo.biomass.g), se=F)+ 
-  scale_x_log10() + scale_y_log10() + 
+  scale_x_log10() + #scale_y_log10() + 
   scale_color_manual(values=set_names(F1.col, c("KKwithin","KK", "KH", "HK", "HH", "HHwithin"))[-c(1,6)]) +
   theme_minimal() + labs(y="Flowers per g biomass", x="Inflorescence biomass (g)", color="Cross")
+
+ggplot(inflobiomass.sum %>% filter(inflo>0, flrs>0), aes(x=inflo.biomass.g, y=flrs.per.inflo.biomass.g, color=cross)) + 
+  geom_point(size=1) +  geom_smooth(se=F, span=0.8) +
+  #scale_x_log10() + scale_y_log10() + 
+  scale_color_manual(values=set_names(F1.col, c("KKwithin","KK", "KH", "HK", "HH", "HHwithin"))[-c(1,6)]) +
+  theme_minimal() + labs(y="Flowers per g biomass", x="Total inflorescence biomass (g)", color="Cross")
 ```
 
 ### Traits of the entire plant
@@ -238,22 +255,16 @@ inflobiomass.sum %>%
 
 #flower.number is estimated, instead do with y=flrs per 1 inflor vs. number on inflos on whole plant
 ggplot(inflobiomass.sum %>% filter(inflo>0, flrs>0), aes(x=inflo, y=flrs, color=cross)) + 
-  geom_point(size=0.5) +  geom_smooth(se=F, span=0.8) +
-  scale_x_log10() + scale_y_log10() + 
+  geom_point(size=1) +  #geom_smooth(se=F, span=0.8) +
+  #scale_x_log10() + scale_y_log10() + 
   scale_color_manual(values=set_names(F1.col, c("KKwithin","KK", "KH", "HK", "HH", "HHwithin"))[-c(1,6)]) +
-  theme_minimal() + labs(y="Flowers on one inflorescence", x="Total inflorescences", color="Cross")
+  theme_minimal() + labs(y="Flowers on one inflorescence", x="Inflorescences", color="Cross")
 
 ggplot(inflobiomass.sum %>% filter(inflo>0, flrs>0), aes(x=inflo, y=inflo.biomass.g/inflo, color=cross)) + 
-  geom_point(size=0.5) +  geom_smooth(se=F, span=0.8) +
-  scale_x_log10() + scale_y_log10() + 
+  geom_point(size=1) + #geom_smooth(se=F, span=0.8) +#geom_density2d()+#  
+  #scale_x_sqrt() + scale_y_sqrt() + 
   scale_color_manual(values=set_names(F1.col, c("KKwithin","KK", "KH", "HK", "HH", "HHwithin"))[-c(1,6)]) +
-  theme_minimal() + labs(y="Average biomass per inflorescence (g)", x="Total inflorescences", color="Cross")
-
-ggplot(inflobiomass.sum %>% filter(inflo>0, flrs>0), aes(x=inflo.biomass.g, y=flrs.per.inflo.biomass.g, color=cross)) + 
-  geom_point(size=0.5) +  geom_smooth(se=F, span=0.8) +
-  scale_x_log10() + scale_y_log10() + 
-  scale_color_manual(values=set_names(F1.col, c("KKwithin","KK", "KH", "HK", "HH", "HHwithin"))[-c(1,6)]) +
-  theme_minimal() + labs(y="Flowers per g biomass, one infloresence", x="Total inflorescence biomass (g)", color="Cross")
+  theme_minimal() + labs(y="Average biomass per inflorescence (g)", x="Inflorescences", color="Cross")
 ```
 
 ## Fitness and RI
@@ -559,7 +570,7 @@ Estimated marginal means with 95% CI are shown as dots. For the continuous varia
 ### All crosses
 
 ```{r f2plot, fig.width=8.5, fig.height=11}
-momdadcross.levels <- c("H x H","H x HK","H x KH","H x K","HK x H","HK x HK","HK x KH","HK x K","KH x H","KH x HK","KH x KH","KH x K","K x H","K x HK","K x KH","K x K")
+momdadcross.levels <- rev(c("H x H","H x HK","H x KH","H x K","HK x H","HK x HK","HK x KH","HK x K","KH x H","KH x HK","KH x KH","KH x K","K x H","K x HK","K x KH","K x K"))
 momdadcross.labels <- momdadcross.levels %>% str_replace_all("\\s","\n") %>% set_names(momdadcross.levels)
 
 plot_F2 <- function(emm, data, yvar, ylab, type="continuous") {
@@ -601,9 +612,9 @@ gridExtra::grid.arrange(grobs=F2.plots, nrow=3, ncol=2, as.table=F)
 ### Cytonuclear incompatibility
 
 ```{r f2plot_contrasts, fig.width=8, fig.height=9}
-F2.contrasts <- tibble(momdadcross = c("H x HK","HK x H","H x KH","KH x H","K x KH","KH x K","K x HK","HK x K"),
+F2.contrasts <- tibble(momdadcross = rev(c("H x HK","HK x H","H x KH","KH x H","K x KH","KH x K","K x HK","HK x K")),
                        pair = rep(1:4, each=2),
-                       reciprocal.difference = rep(c("not\nexpected", "expected"), times = 2, each = 2))
+                       reciprocal.difference = rev(rep(c("not\nexpected", "expected"), times = 2, each = 2)))
 
 reorder_momdadcross <- function(df) {
   df %>% filter(momdadcross %in% F2.contrasts$momdadcross) %>% 

@@ -11,7 +11,7 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2022-02-01" />
+<meta name="date" content="2022-02-08" />
 
 <title>Schiedea hookeri/kaalae RIMs</title>
 
@@ -255,7 +255,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Schiedea hookeri/kaalae RIMs</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John Powers</a></h4>
-<h4 class="date">2022-02-01</h4>
+<h4 class="date">2022-02-08</h4>
 
 </div>
 
@@ -937,6 +937,782 @@ map_dfr(F1, ~ tally(get(.)), .id=&quot;dataset&quot;) %&gt;%
 </tr>
 </tbody>
 </table>
+<pre class="r"><code>tally.parents &lt;- map_dfr(F1, ~ tally(group_by(get(.), crosstype, momsp, mompop, momid, dadsp, dadpop, dadid)),
+                         .id=&quot;dataset&quot;) %&gt;% 
+  mutate(mompid = paste(mompop, momid, sep=&quot;.&quot;), dadpid = paste(dadpop, dadid, sep=&quot;.&quot;))
+tally.parents %&gt;% group_by(dataset, momsp, mompid) %&gt;% count() %&gt;% 
+  pivot_wider(names_from=dataset, values_from=n) %&gt;% kable(caption=&quot;F1 datasets by maternal plant&quot;)</code></pre>
+<table>
+<caption>F1 datasets by maternal plant</caption>
+<thead>
+<tr class="header">
+<th align="left">momsp</th>
+<th align="left">mompid</th>
+<th align="right">germination</th>
+<th align="right">inflobiomass</th>
+<th align="right">pollen</th>
+<th align="right">seeds</th>
+<th align="right">survflr</th>
+<th align="right">vegbiomass</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">hook</td>
+<td align="left">879WKG.10-1</td>
+<td align="right">15</td>
+<td align="right">11</td>
+<td align="right">7</td>
+<td align="right">17</td>
+<td align="right">13</td>
+<td align="right">11</td>
+</tr>
+<tr class="even">
+<td align="left">hook</td>
+<td align="left">879WKG.2-2</td>
+<td align="right">14</td>
+<td align="right">14</td>
+<td align="right">6</td>
+<td align="right">15</td>
+<td align="right">14</td>
+<td align="right">14</td>
+</tr>
+<tr class="odd">
+<td align="left">hook</td>
+<td align="left">879WKG.G-2</td>
+<td align="right">11</td>
+<td align="right">9</td>
+<td align="right">2</td>
+<td align="right">13</td>
+<td align="right">11</td>
+<td align="right">9</td>
+</tr>
+<tr class="even">
+<td align="left">hook</td>
+<td align="left">879WKG.H-2</td>
+<td align="right">3</td>
+<td align="right">1</td>
+<td align="right"></td>
+<td align="right">5</td>
+<td align="right">2</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">hook</td>
+<td align="left">879WKG.N-5</td>
+<td align="right">12</td>
+<td align="right">10</td>
+<td align="right">2</td>
+<td align="right">14</td>
+<td align="right">11</td>
+<td align="right">10</td>
+</tr>
+<tr class="even">
+<td align="left">hook</td>
+<td align="left">WK.2</td>
+<td align="right">16</td>
+<td align="right">14</td>
+<td align="right">9</td>
+<td align="right">17</td>
+<td align="right">16</td>
+<td align="right">15</td>
+</tr>
+<tr class="odd">
+<td align="left">hook</td>
+<td align="left">WK.2E- 1</td>
+<td align="right">5</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">3</td>
+</tr>
+<tr class="even">
+<td align="left">hook</td>
+<td align="left">WK.4</td>
+<td align="right">14</td>
+<td align="right">12</td>
+<td align="right">5</td>
+<td align="right">15</td>
+<td align="right">14</td>
+<td align="right">11</td>
+</tr>
+<tr class="odd">
+<td align="left">kaal</td>
+<td align="left">3587WP.10</td>
+<td align="right">5</td>
+<td align="right">1</td>
+<td align="right"></td>
+<td align="right">10</td>
+<td align="right">1</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">kaal</td>
+<td align="left">3587WP.14</td>
+<td align="right">11</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">14</td>
+<td align="right">5</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">kaal</td>
+<td align="left">3587WP.15</td>
+<td align="right">7</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">6</td>
+<td align="right">4</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">kaal</td>
+<td align="left">3587WP.7</td>
+<td align="right">11</td>
+<td align="right">7</td>
+<td align="right">6</td>
+<td align="right">11</td>
+<td align="right">10</td>
+<td align="right">7</td>
+</tr>
+<tr class="odd">
+<td align="left">kaal</td>
+<td align="left">3587WP.A</td>
+<td align="right">8</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">8</td>
+<td align="right">4</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">kaal</td>
+<td align="left">3587WP.C</td>
+<td align="right">7</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">15</td>
+<td align="right">5</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">kaal</td>
+<td align="left">892WKG.1</td>
+<td align="right">13</td>
+<td align="right">6</td>
+<td align="right">5</td>
+<td align="right">12</td>
+<td align="right">9</td>
+<td align="right">7</td>
+</tr>
+<tr class="even">
+<td align="left">kaal</td>
+<td align="left">892WKG.10</td>
+<td align="right">3</td>
+<td align="right"></td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">1</td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">kaal</td>
+<td align="left">892WKG.2</td>
+<td align="right">1</td>
+<td align="right"></td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">kaal</td>
+<td align="left">892WKG.3</td>
+<td align="right">6</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">8</td>
+<td align="right">4</td>
+<td align="right">3</td>
+</tr>
+<tr class="odd">
+<td align="left">kaal</td>
+<td align="left">892WKG.4</td>
+<td align="right">6</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">10</td>
+<td align="right">3</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">kaal</td>
+<td align="left">892WKG.5</td>
+<td align="right">10</td>
+<td align="right">5</td>
+<td align="right">3</td>
+<td align="right">11</td>
+<td align="right">6</td>
+<td align="right">5</td>
+</tr>
+<tr class="odd">
+<td align="left">kaal</td>
+<td align="left">904WPG.2</td>
+<td align="right">11</td>
+<td align="right">7</td>
+<td align="right">5</td>
+<td align="right">14</td>
+<td align="right">8</td>
+<td align="right">7</td>
+</tr>
+<tr class="even">
+<td align="left">kaal</td>
+<td align="left">904WPG.3</td>
+<td align="right">12</td>
+<td align="right">6</td>
+<td align="right">6</td>
+<td align="right">10</td>
+<td align="right">8</td>
+<td align="right">6</td>
+</tr>
+<tr class="odd">
+<td align="left">kaal</td>
+<td align="left">904WPG.5</td>
+<td align="right">16</td>
+<td align="right">13</td>
+<td align="right">6</td>
+<td align="right">17</td>
+<td align="right">15</td>
+<td align="right">13</td>
+</tr>
+<tr class="even">
+<td align="left">hook</td>
+<td align="left">879WKG.3-8</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right">7</td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>tally.parents %&gt;% group_by(dataset, dadsp, dadpid) %&gt;% count() %&gt;% 
+  pivot_wider(names_from=dataset, values_from=n) %&gt;% kable(caption=&quot;F1 datasets by paternal plant&quot;)</code></pre>
+<table>
+<caption>F1 datasets by paternal plant</caption>
+<thead>
+<tr class="header">
+<th align="left">dadsp</th>
+<th align="left">dadpid</th>
+<th align="right">germination</th>
+<th align="right">inflobiomass</th>
+<th align="right">pollen</th>
+<th align="right">seeds</th>
+<th align="right">survflr</th>
+<th align="right">vegbiomass</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">hook</td>
+<td align="left">879WKG.10-1</td>
+<td align="right">12</td>
+<td align="right">7</td>
+<td align="right">9</td>
+<td align="right">14</td>
+<td align="right">10</td>
+<td align="right">7</td>
+</tr>
+<tr class="even">
+<td align="left">hook</td>
+<td align="left">879WKG.10-1 c1</td>
+<td align="right">1</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">hook</td>
+<td align="left">879WKG.2-2</td>
+<td align="right">15</td>
+<td align="right">12</td>
+<td align="right">6</td>
+<td align="right">15</td>
+<td align="right">14</td>
+<td align="right">12</td>
+</tr>
+<tr class="even">
+<td align="left">hook</td>
+<td align="left">879WKG.G-2</td>
+<td align="right">15</td>
+<td align="right">8</td>
+<td align="right">9</td>
+<td align="right">18</td>
+<td align="right">11</td>
+<td align="right">9</td>
+</tr>
+<tr class="odd">
+<td align="left">hook</td>
+<td align="left">879WKG.G-2 c1</td>
+<td align="right">2</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">hook</td>
+<td align="left">879WKG.H-2</td>
+<td align="right">7</td>
+<td align="right">2</td>
+<td align="right">4</td>
+<td align="right">9</td>
+<td align="right">4</td>
+<td align="right">3</td>
+</tr>
+<tr class="odd">
+<td align="left">hook</td>
+<td align="left">879WKG.N-5</td>
+<td align="right">12</td>
+<td align="right">6</td>
+<td align="right"></td>
+<td align="right">17</td>
+<td align="right">7</td>
+<td align="right">6</td>
+</tr>
+<tr class="even">
+<td align="left">hook</td>
+<td align="left">879WKG.N-5 c2</td>
+<td align="right">2</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">hook</td>
+<td align="left">WK.2</td>
+<td align="right">16</td>
+<td align="right">5</td>
+<td align="right">4</td>
+<td align="right">21</td>
+<td align="right">9</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="left">hook</td>
+<td align="left">WK.2 c1</td>
+<td align="right">3</td>
+<td align="right"></td>
+<td align="right">1</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">hook</td>
+<td align="left">WK.2 c2</td>
+<td align="right">1</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">hook</td>
+<td align="left">WK.2E- 1</td>
+<td align="right">5</td>
+<td align="right">2</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right">3</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">hook</td>
+<td align="left">WK.4</td>
+<td align="right">15</td>
+<td align="right">5</td>
+<td align="right">3</td>
+<td align="right">17</td>
+<td align="right">7</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="left">kaal</td>
+<td align="left">3587WP.10</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right"></td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">kaal</td>
+<td align="left">3587WP.14</td>
+<td align="right">12</td>
+<td align="right">8</td>
+<td align="right">6</td>
+<td align="right">14</td>
+<td align="right">11</td>
+<td align="right">7</td>
+</tr>
+<tr class="even">
+<td align="left">kaal</td>
+<td align="left">3587WP.15</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right"></td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">kaal</td>
+<td align="left">3587WP.7</td>
+<td align="right">10</td>
+<td align="right">7</td>
+<td align="right">4</td>
+<td align="right">12</td>
+<td align="right">9</td>
+<td align="right">7</td>
+</tr>
+<tr class="even">
+<td align="left">kaal</td>
+<td align="left">3587WP.A</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right"></td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">kaal</td>
+<td align="left">3587WP.C</td>
+<td align="right">7</td>
+<td align="right">6</td>
+<td align="right">1</td>
+<td align="right">9</td>
+<td align="right">7</td>
+<td align="right">6</td>
+</tr>
+<tr class="even">
+<td align="left">kaal</td>
+<td align="left">892WKG.1</td>
+<td align="right">13</td>
+<td align="right">9</td>
+<td align="right">6</td>
+<td align="right">18</td>
+<td align="right">11</td>
+<td align="right">9</td>
+</tr>
+<tr class="odd">
+<td align="left">kaal</td>
+<td align="left">892WKG.10</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">kaal</td>
+<td align="left">892WKG.2</td>
+<td align="right">1</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">kaal</td>
+<td align="left">892WKG.3</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">2</td>
+<td align="right">7</td>
+<td align="right">5</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="left">kaal</td>
+<td align="left">892WKG.4</td>
+<td align="right">11</td>
+<td align="right">9</td>
+<td align="right">7</td>
+<td align="right">9</td>
+<td align="right">10</td>
+<td align="right">9</td>
+</tr>
+<tr class="odd">
+<td align="left">kaal</td>
+<td align="left">892WKG.5</td>
+<td align="right">9</td>
+<td align="right">7</td>
+<td align="right">1</td>
+<td align="right">12</td>
+<td align="right">8</td>
+<td align="right">7</td>
+</tr>
+<tr class="even">
+<td align="left">kaal</td>
+<td align="left">904WPG.2</td>
+<td align="right">10</td>
+<td align="right">6</td>
+<td align="right">3</td>
+<td align="right">13</td>
+<td align="right">10</td>
+<td align="right">6</td>
+</tr>
+<tr class="odd">
+<td align="left">kaal</td>
+<td align="left">904WPG.3</td>
+<td align="right">9</td>
+<td align="right">8</td>
+<td align="right">7</td>
+<td align="right">10</td>
+<td align="right">9</td>
+<td align="right">9</td>
+</tr>
+<tr class="even">
+<td align="left">kaal</td>
+<td align="left">904WPG.5</td>
+<td align="right">19</td>
+<td align="right">18</td>
+<td align="right">10</td>
+<td align="right">19</td>
+<td align="right">19</td>
+<td align="right">18</td>
+</tr>
+<tr class="odd">
+<td align="left">hook</td>
+<td align="left">879WKG.10</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right">1</td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">hook</td>
+<td align="left">879WKG.3-8</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right">4</td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">hook</td>
+<td align="left">WK.2-2</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right">2</td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">hook</td>
+<td align="left">WK.2E-1</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right">8</td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">kaal</td>
+<td align="left">3587WP.c</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right">1</td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>seeds %&gt;% count(mompid, crosstype) %&gt;% 
+  pivot_wider(names_from=crosstype, values_from=n) %&gt;% kable(caption=&quot;Seeds by maternal plant and crosstype&quot;)</code></pre>
+<table>
+<caption>Seeds by maternal plant and crosstype</caption>
+<thead>
+<tr class="header">
+<th align="left">mompid</th>
+<th align="right">between</th>
+<th align="right">within</th>
+<th align="right">hybrid</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">3587.10</td>
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="right">8</td>
+</tr>
+<tr class="even">
+<td align="left">3587.14</td>
+<td align="right">5</td>
+<td align="right">2</td>
+<td align="right">18</td>
+</tr>
+<tr class="odd">
+<td align="left">3587.15</td>
+<td align="right">3</td>
+<td align="right"></td>
+<td align="right">7</td>
+</tr>
+<tr class="even">
+<td align="left">3587.7</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">20</td>
+</tr>
+<tr class="odd">
+<td align="left">3587.A</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">6</td>
+</tr>
+<tr class="even">
+<td align="left">3587.C</td>
+<td align="right">6</td>
+<td align="right">3</td>
+<td align="right">11</td>
+</tr>
+<tr class="odd">
+<td align="left">794.2</td>
+<td align="right">18</td>
+<td align="right">13</td>
+<td align="right">33</td>
+</tr>
+<tr class="even">
+<td align="left">794.4</td>
+<td align="right">7</td>
+<td align="right">6</td>
+<td align="right">14</td>
+</tr>
+<tr class="odd">
+<td align="left">866.2</td>
+<td align="right">10</td>
+<td align="right">5</td>
+<td align="right">20</td>
+</tr>
+<tr class="even">
+<td align="left">879.10-1</td>
+<td align="right">15</td>
+<td align="right">6</td>
+<td align="right">29</td>
+</tr>
+<tr class="odd">
+<td align="left">879.2-2</td>
+<td align="right">3</td>
+<td align="right">6</td>
+<td align="right">18</td>
+</tr>
+<tr class="even">
+<td align="left">879.3-8</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">6</td>
+</tr>
+<tr class="odd">
+<td align="left">879.G-2</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">9</td>
+</tr>
+<tr class="even">
+<td align="left">879.H-2</td>
+<td align="right"></td>
+<td align="right">2</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">879.N-5</td>
+<td align="right">6</td>
+<td align="right">4</td>
+<td align="right">16</td>
+</tr>
+<tr class="even">
+<td align="left">892.1</td>
+<td align="right">6</td>
+<td align="right">3</td>
+<td align="right">12</td>
+</tr>
+<tr class="odd">
+<td align="left">892.10</td>
+<td align="right">1</td>
+<td align="right"></td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">892.2</td>
+<td align="right">1</td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">892.3</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">9</td>
+</tr>
+<tr class="even">
+<td align="left">892.4</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">11</td>
+</tr>
+<tr class="odd">
+<td align="left">892.5</td>
+<td align="right">5</td>
+<td align="right">4</td>
+<td align="right">12</td>
+</tr>
+<tr class="even">
+<td align="left">899.2E- 1</td>
+<td align="right"></td>
+<td align="right">1</td>
+<td align="right">7</td>
+</tr>
+<tr class="odd">
+<td align="left">904.2</td>
+<td align="right">6</td>
+<td align="right">3</td>
+<td align="right">17</td>
+</tr>
+<tr class="even">
+<td align="left">904.3</td>
+<td align="right">1</td>
+<td align="right">5</td>
+<td align="right">12</td>
+</tr>
+<tr class="odd">
+<td align="left">904.5</td>
+<td align="right">10</td>
+<td align="right">6</td>
+<td align="right">32</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="models" class="section level2">
 <h2>Models</h2>
@@ -1237,10 +2013,16 @@ F-statistic:  595 on 11 and 488 DF,  p-value: &lt;2e-16</code></pre>
   geom_point(size=0.5) +  geom_smooth(se=F, span=0.8) +
   geom_smooth(data=inflobiomass.sum %&gt;% filter(inflo&gt;0, flrs&gt;0), #the regression used
               aes(x=avg.inflo.biomass.g, y=flower.number/inflo/avg.inflo.biomass.g), se=F)+ 
-  scale_x_log10() + scale_y_log10() + 
+  scale_x_log10() + #scale_y_log10() + 
   scale_color_manual(values=set_names(F1.col, c(&quot;KKwithin&quot;,&quot;KK&quot;, &quot;KH&quot;, &quot;HK&quot;, &quot;HH&quot;, &quot;HHwithin&quot;))[-c(1,6)]) +
   theme_minimal() + labs(y=&quot;Flowers per g biomass&quot;, x=&quot;Inflorescence biomass (g)&quot;, color=&quot;Cross&quot;)</code></pre>
 <p><img src="figures/infloreg-2.svg" width="480" /></p>
+<pre class="r"><code>ggplot(inflobiomass.sum %&gt;% filter(inflo&gt;0, flrs&gt;0), aes(x=inflo.biomass.g, y=flrs.per.inflo.biomass.g, color=cross)) + 
+  geom_point(size=1) +  geom_smooth(se=F, span=0.8) +
+  #scale_x_log10() + scale_y_log10() + 
+  scale_color_manual(values=set_names(F1.col, c(&quot;KKwithin&quot;,&quot;KK&quot;, &quot;KH&quot;, &quot;HK&quot;, &quot;HH&quot;, &quot;HHwithin&quot;))[-c(1,6)]) +
+  theme_minimal() + labs(y=&quot;Flowers per g biomass&quot;, x=&quot;Total inflorescence biomass (g)&quot;, color=&quot;Cross&quot;)</code></pre>
+<p><img src="figures/infloreg-3.svg" width="480" /></p>
 </div>
 <div id="traits-of-the-entire-plant" class="section level3">
 <h3>Traits of the entire plant</h3>
@@ -1263,23 +2045,17 @@ inflobiomass.sum %&gt;%
 <p><img src="figures/inflotraits-1.svg" width="432" /></p>
 <pre class="r"><code>#flower.number is estimated, instead do with y=flrs per 1 inflor vs. number on inflos on whole plant
 ggplot(inflobiomass.sum %&gt;% filter(inflo&gt;0, flrs&gt;0), aes(x=inflo, y=flrs, color=cross)) + 
-  geom_point(size=0.5) +  geom_smooth(se=F, span=0.8) +
-  scale_x_log10() + scale_y_log10() + 
+  geom_point(size=1) +  #geom_smooth(se=F, span=0.8) +
+  #scale_x_log10() + scale_y_log10() + 
   scale_color_manual(values=set_names(F1.col, c(&quot;KKwithin&quot;,&quot;KK&quot;, &quot;KH&quot;, &quot;HK&quot;, &quot;HH&quot;, &quot;HHwithin&quot;))[-c(1,6)]) +
-  theme_minimal() + labs(y=&quot;Flowers on one inflorescence&quot;, x=&quot;Total inflorescences&quot;, color=&quot;Cross&quot;)</code></pre>
+  theme_minimal() + labs(y=&quot;Flowers on one inflorescence&quot;, x=&quot;Inflorescences&quot;, color=&quot;Cross&quot;)</code></pre>
 <p><img src="figures/inflotraits-2.svg" width="432" /></p>
 <pre class="r"><code>ggplot(inflobiomass.sum %&gt;% filter(inflo&gt;0, flrs&gt;0), aes(x=inflo, y=inflo.biomass.g/inflo, color=cross)) + 
-  geom_point(size=0.5) +  geom_smooth(se=F, span=0.8) +
-  scale_x_log10() + scale_y_log10() + 
+  geom_point(size=1) + #geom_smooth(se=F, span=0.8) +#geom_density2d()+#  
+  #scale_x_sqrt() + scale_y_sqrt() + 
   scale_color_manual(values=set_names(F1.col, c(&quot;KKwithin&quot;,&quot;KK&quot;, &quot;KH&quot;, &quot;HK&quot;, &quot;HH&quot;, &quot;HHwithin&quot;))[-c(1,6)]) +
-  theme_minimal() + labs(y=&quot;Average biomass per inflorescence (g)&quot;, x=&quot;Total inflorescences&quot;, color=&quot;Cross&quot;)</code></pre>
+  theme_minimal() + labs(y=&quot;Average biomass per inflorescence (g)&quot;, x=&quot;Inflorescences&quot;, color=&quot;Cross&quot;)</code></pre>
 <p><img src="figures/inflotraits-3.svg" width="432" /></p>
-<pre class="r"><code>ggplot(inflobiomass.sum %&gt;% filter(inflo&gt;0, flrs&gt;0), aes(x=inflo.biomass.g, y=flrs.per.inflo.biomass.g, color=cross)) + 
-  geom_point(size=0.5) +  geom_smooth(se=F, span=0.8) +
-  scale_x_log10() + scale_y_log10() + 
-  scale_color_manual(values=set_names(F1.col, c(&quot;KKwithin&quot;,&quot;KK&quot;, &quot;KH&quot;, &quot;HK&quot;, &quot;HH&quot;, &quot;HHwithin&quot;))[-c(1,6)]) +
-  theme_minimal() + labs(y=&quot;Flowers per g biomass, one infloresence&quot;, x=&quot;Total inflorescence biomass (g)&quot;, color=&quot;Cross&quot;)</code></pre>
-<p><img src="figures/inflotraits-4.svg" width="432" /></p>
 </div>
 </div>
 <div id="fitness-and-ri" class="section level2">
@@ -2435,7 +3211,7 @@ F2.test %&gt;% left_join(traits %&gt;% filter(generation==&quot;F2&quot;) %&gt;%
 <p>Estimated marginal means with 95% CI are shown as dots. For the continuous variables, these show violin plots of the raw data with median and first and third quartiles.</p>
 <div id="all-crosses" class="section level3">
 <h3>All crosses</h3>
-<pre class="r"><code>momdadcross.levels &lt;- c(&quot;H x H&quot;,&quot;H x HK&quot;,&quot;H x KH&quot;,&quot;H x K&quot;,&quot;HK x H&quot;,&quot;HK x HK&quot;,&quot;HK x KH&quot;,&quot;HK x K&quot;,&quot;KH x H&quot;,&quot;KH x HK&quot;,&quot;KH x KH&quot;,&quot;KH x K&quot;,&quot;K x H&quot;,&quot;K x HK&quot;,&quot;K x KH&quot;,&quot;K x K&quot;)
+<pre class="r"><code>momdadcross.levels &lt;- rev(c(&quot;H x H&quot;,&quot;H x HK&quot;,&quot;H x KH&quot;,&quot;H x K&quot;,&quot;HK x H&quot;,&quot;HK x HK&quot;,&quot;HK x KH&quot;,&quot;HK x K&quot;,&quot;KH x H&quot;,&quot;KH x HK&quot;,&quot;KH x KH&quot;,&quot;KH x K&quot;,&quot;K x H&quot;,&quot;K x HK&quot;,&quot;K x KH&quot;,&quot;K x K&quot;))
 momdadcross.labels &lt;- momdadcross.levels %&gt;% str_replace_all(&quot;\\s&quot;,&quot;\n&quot;) %&gt;% set_names(momdadcross.levels)
 
 plot_F2 &lt;- function(emm, data, yvar, ylab, type=&quot;continuous&quot;) {
@@ -2476,9 +3252,9 @@ gridExtra::grid.arrange(grobs=F2.plots, nrow=3, ncol=2, as.table=F)</code></pre>
 </div>
 <div id="cytonuclear-incompatibility" class="section level3">
 <h3>Cytonuclear incompatibility</h3>
-<pre class="r"><code>F2.contrasts &lt;- tibble(momdadcross = c(&quot;H x HK&quot;,&quot;HK x H&quot;,&quot;H x KH&quot;,&quot;KH x H&quot;,&quot;K x KH&quot;,&quot;KH x K&quot;,&quot;K x HK&quot;,&quot;HK x K&quot;),
+<pre class="r"><code>F2.contrasts &lt;- tibble(momdadcross = rev(c(&quot;H x HK&quot;,&quot;HK x H&quot;,&quot;H x KH&quot;,&quot;KH x H&quot;,&quot;K x KH&quot;,&quot;KH x K&quot;,&quot;K x HK&quot;,&quot;HK x K&quot;)),
                        pair = rep(1:4, each=2),
-                       reciprocal.difference = rep(c(&quot;not\nexpected&quot;, &quot;expected&quot;), times = 2, each = 2))
+                       reciprocal.difference = rev(rep(c(&quot;not\nexpected&quot;, &quot;expected&quot;), times = 2, each = 2)))
 
 reorder_momdadcross &lt;- function(df) {
   df %&gt;% filter(momdadcross %in% F2.contrasts$momdadcross) %&gt;% 
