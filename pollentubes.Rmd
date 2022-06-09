@@ -19,13 +19,12 @@ Test for post-pollination, pre-zygotic reproductive barriers between five specie
 Response variables:
 
 * Counts - assume a Poisson distribution for count data 
-    - **grains** - the number of pollen grains on the stigma
+    - **grains** - the number of pollen grains on the stigma (only measured for some kaahoo crosses)
     - **mid** - the number of pollen tubes counted at the middle of the style
     - **bottom** - the number of pollen tubes counted at the bottom of the style
 
 * Proportions - assume a binomial distribution for binomial data
     - **ratio** - the ratio of pollen tubes at the **bottom** / **middle** of the style, capped at 1 because having more pollen grains at the bottom than the middle of the style is impossible (must result from counting error). For the binomial model, the input is the number of successes (pollen tubes at **bottom**) and failures (min(**bottom**/**mid**) - **bottom**).
-
 
 Fixed effects:
 
@@ -36,6 +35,7 @@ Random effects:
 
 * **momid** - maternal genotype, specified by its cross and plant number
 * **dadid** - paternal genotype, specified by its cross and plant number
+* **vial** - vial that holds the stigmas from one pollination
 
 ```{r setup, message=FALSE}
 library(knitr)
@@ -67,8 +67,8 @@ signif.num <- function(x) {
 # Read data
 
 ```{r read}
-#long format: salmen, lydsar, kaahoo
-#wide format: memkau, speste, kaahoo_extra
+#long format: salmen (1 stigma/vial), lydsar (2 stigmas/vial), kaahoo (3 stigmas/vial without letter)
+#wide format: memkau (3-5 stigmas/vial), speste (6 stigmas/vial), kaahoo_extra(3-5 stigmas/vial)
 pops <- list(kaal = c("892", "3587"), hook = c("794", "866", "879","899"), 
              lydg="6682", sarm="896", 
              sali="842", menz = c("849", "950"), 
@@ -94,12 +94,12 @@ tubesl[["kaahoo"]] <- read_csv("data/pollentubes_kaahoo_extra.csv") %>%
   pivot_longer(starts_with(c("mid","bottom")), names_to=c("location","stigma"), names_sep="_", values_to="n_tubes") %>% 
   pivot_wider(names_from="location", values_from="n_tubes") %>% 
   drop_na(mid, bottom) %>% #one entry has mid but no bottom count
-  mutate(vial = as.character(vial),
-         momcross = toupper(str_sub(momsp,1,1)), dadcross = toupper(str_sub(dadsp,1,1)),
+  mutate(momcross = toupper(str_sub(momsp,1,1)), dadcross = toupper(str_sub(dadsp,1,1)),
          observer="SGW") %>% 
   bind_rows(read_csv("data/pollentubes_kaahoo.csv") %>% #edited from pollentubes.csv
               separate(cross, into=c("momcross","dadcross"), sep="x") %>% 
-              mutate(observer="SZ")) %>% 
+              mutate(observer="SZ",
+                     vial = as.numeric(str_remove(vial, "[ABCD]")))) %>% 
   mutate(momid = paste(momcross, momid), dadid = paste(dadcross, dadid))
 
 # lydgatei- - sarmentosa
@@ -133,13 +133,13 @@ tubesl[["speste"]] <- read_csv("data/pollentubes_speste.csv") %>% mutate(across(
   mutate(momid = paste(mompop, momplant), dadid = paste(dadpop, dadplant),
          momcross = ifelse(mompop %in% pops[["sper"]], "Sp", "St"), dadcross = ifelse(dadpop %in% pops[["sper"]], "Sp", "St"))
 
-tubes <- map(tubesl, ~mutate(.x, across(any_of("vial"), as.character))) %>% 
-  bind_rows(.id = "pair") %>% 
+tubes <- bind_rows(tubesl, .id = "pair") %>% 
   mutate(hr = factor(paste0(hr,"hr"), levels=c("4hr","24hr")),
          ratioraw = bottom/mid,
          adjmid = ifelse(bottom > mid, bottom, mid),
          ratio = bottom/adjmid,
          justmid = mid - bottom,
+         vial = as.character(vial), #for random effect of pollination
          momcross = map2_chr(pair, momcross, ~ abbrev[[.x]][[.y]]),
          dadcross = map2_chr(pair, dadcross, ~ abbrev[[.x]][[.y]]),
          cross = factor(paste0(momcross,"x",dadcross), levels=unlist(cross_levels)),
@@ -149,8 +149,10 @@ str(tubes)
 
 # Inventory of crosses
 
-```{r inventory}
-kable(with(tubes, table(cross, hr)), caption="Number of stigmas of each cross type")
+```{r pollentube_inventory}
+kable(with(tubes, table(cross, hr)), caption="Number of styles of each cross type")
+kable(with(tubes, table(pair, hr)), caption="Number of styles of each species pair")
+kable(tubes %>% count(pair, cross, vial) %>% with(table(pair, n)), caption = "Number of styles counted per vial")
 ```
 
 # Models
@@ -183,18 +185,19 @@ pair_emm <- function(mod) {
   }
 }
 
-#TODO add random effect of pollination number
 tubes.mod <- tubes %>% group_by(pair) %>% nest() %>% 
-  mutate(mid_mod    = map(data, ~ glmmTMB(mid~cross*hr + (1|momid) + (1|dadid), data=.x, family="poisson")),
-         mid_mod2   = map(data, ~ glmmTMB(mid~crosshr +  (1|momid) + (1|dadid), data=.x, family="poisson")),
+  mutate(mid_mod    = map(data, ~ glmmTMB(mid~cross*hr + (1|momid) + (1|dadid) + (1|vial), data=.x, family="poisson")),
+         mid_mod2   = map(data, ~ glmmTMB(mid~crosshr +  (1|momid) + (1|dadid) + (1|vial), data=.x, family="poisson")),
          mid_emm    = map(mid_mod, pair_emm),
          mid_cont   = map(mid_mod2, pair_contrasts),
-         bottom_mod = map(data, ~ glmmTMB(bottom~cross*hr + (1|momid) + (1|dadid), data=.x, family="poisson")),
-         bottom_mod2= map(data, ~ glmmTMB(bottom~crosshr  + (1|momid) + (1|dadid), data=.x, family="poisson")),
+         bottom_mod = map(data, ~ glmmTMB(bottom~cross*hr + (1|momid) + (1|dadid) + (1|vial), data=.x, family="poisson")),
+         bottom_mod2= map(data, ~ glmmTMB(bottom~crosshr  + (1|momid) + (1|dadid) + (1|vial), data=.x, family="poisson")),
          bottom_emm = map(bottom_mod, pair_emm),
          bottom_cont= map(bottom_mod2, pair_contrasts),
-         ratio_mod  = map(data, ~ glmmTMB(cbind(bottom, adjmid-bottom)~cross*hr + (1|momid) + (1|dadid), data=.x, family="binomial")),
-         ratio_mod2 = map(data, ~ glmmTMB(cbind(bottom, adjmid-bottom)~crosshr  + (1|momid) + (1|dadid), data=.x, family="binomial")),
+         ratio_mod  = map(data, ~ glmmTMB(cbind(bottom, adjmid-bottom)~cross*hr + (1|momid) + (1|dadid) + (1|vial), 
+                                          data=.x, family="binomial")),
+         ratio_mod2 = map(data, ~ glmmTMB(cbind(bottom, adjmid-bottom)~crosshr  + (1|momid) + (1|dadid) + (1|vial), 
+                                          data=.x, family="binomial")),
          ratio_emm  = map(ratio_mod, pair_emm),
          ratio_cont = map(ratio_mod2, pair_contrasts))
 ```

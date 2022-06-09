@@ -275,8 +275,8 @@ crosses at two time points.</p>
 <ul>
 <li>Counts - assume a Poisson distribution for count data
 <ul>
-<li><strong>grains</strong> - the number of pollen grains on the
-stigma</li>
+<li><strong>grains</strong> - the number of pollen grains on the stigma
+(only measured for some kaahoo crosses)</li>
 <li><strong>mid</strong> - the number of pollen tubes counted at the
 middle of the style</li>
 <li><strong>bottom</strong> - the number of pollen tubes counted at the
@@ -307,6 +307,8 @@ hr</li>
 and plant number</li>
 <li><strong>dadid</strong> - paternal genotype, specified by its cross
 and plant number</li>
+<li><strong>vial</strong> - vial that holds the stigmas from one
+pollination</li>
 </ul>
 <pre class="r"><code>library(knitr)
 knitr::opts_chunk$set(comment=&quot;&quot;, cache=T, warning = F, message = F, width=999,
@@ -335,8 +337,8 @@ signif.num &lt;- function(x) {
 </div>
 <div id="read-data" class="section level1">
 <h1>Read data</h1>
-<pre class="r"><code>#long format: salmen, lydsar, kaahoo
-#wide format: memkau, speste, kaahoo_extra
+<pre class="r"><code>#long format: salmen (1 stigma/vial), lydsar (2 stigmas/vial), kaahoo (3 stigmas/vial without letter)
+#wide format: memkau (3-5 stigmas/vial), speste (6 stigmas/vial), kaahoo_extra(3-5 stigmas/vial)
 pops &lt;- list(kaal = c(&quot;892&quot;, &quot;3587&quot;), hook = c(&quot;794&quot;, &quot;866&quot;, &quot;879&quot;,&quot;899&quot;), 
              lydg=&quot;6682&quot;, sarm=&quot;896&quot;, 
              sali=&quot;842&quot;, menz = c(&quot;849&quot;, &quot;950&quot;), 
@@ -362,12 +364,12 @@ tubesl[[&quot;kaahoo&quot;]] &lt;- read_csv(&quot;data/pollentubes_kaahoo_extra.
   pivot_longer(starts_with(c(&quot;mid&quot;,&quot;bottom&quot;)), names_to=c(&quot;location&quot;,&quot;stigma&quot;), names_sep=&quot;_&quot;, values_to=&quot;n_tubes&quot;) %&gt;% 
   pivot_wider(names_from=&quot;location&quot;, values_from=&quot;n_tubes&quot;) %&gt;% 
   drop_na(mid, bottom) %&gt;% #one entry has mid but no bottom count
-  mutate(vial = as.character(vial),
-         momcross = toupper(str_sub(momsp,1,1)), dadcross = toupper(str_sub(dadsp,1,1)),
+  mutate(momcross = toupper(str_sub(momsp,1,1)), dadcross = toupper(str_sub(dadsp,1,1)),
          observer=&quot;SGW&quot;) %&gt;% 
   bind_rows(read_csv(&quot;data/pollentubes_kaahoo.csv&quot;) %&gt;% #edited from pollentubes.csv
               separate(cross, into=c(&quot;momcross&quot;,&quot;dadcross&quot;), sep=&quot;x&quot;) %&gt;% 
-              mutate(observer=&quot;SZ&quot;)) %&gt;% 
+              mutate(observer=&quot;SZ&quot;,
+                     vial = as.numeric(str_remove(vial, &quot;[ABCD]&quot;)))) %&gt;% 
   mutate(momid = paste(momcross, momid), dadid = paste(dadcross, dadid))
 
 # lydgatei- - sarmentosa
@@ -401,13 +403,13 @@ tubesl[[&quot;speste&quot;]] &lt;- read_csv(&quot;data/pollentubes_speste.csv&qu
   mutate(momid = paste(mompop, momplant), dadid = paste(dadpop, dadplant),
          momcross = ifelse(mompop %in% pops[[&quot;sper&quot;]], &quot;Sp&quot;, &quot;St&quot;), dadcross = ifelse(dadpop %in% pops[[&quot;sper&quot;]], &quot;Sp&quot;, &quot;St&quot;))
 
-tubes &lt;- map(tubesl, ~mutate(.x, across(any_of(&quot;vial&quot;), as.character))) %&gt;% 
-  bind_rows(.id = &quot;pair&quot;) %&gt;% 
+tubes &lt;- bind_rows(tubesl, .id = &quot;pair&quot;) %&gt;% 
   mutate(hr = factor(paste0(hr,&quot;hr&quot;), levels=c(&quot;4hr&quot;,&quot;24hr&quot;)),
          ratioraw = bottom/mid,
          adjmid = ifelse(bottom &gt; mid, bottom, mid),
          ratio = bottom/adjmid,
          justmid = mid - bottom,
+         vial = as.character(vial), #for random effect of pollination
          momcross = map2_chr(pair, momcross, ~ abbrev[[.x]][[.y]]),
          dadcross = map2_chr(pair, dadcross, ~ abbrev[[.x]][[.y]]),
          cross = factor(paste0(momcross,&quot;x&quot;,dadcross), levels=unlist(cross_levels)),
@@ -448,9 +450,9 @@ str(tubes)</code></pre>
 </div>
 <div id="inventory-of-crosses" class="section level1">
 <h1>Inventory of crosses</h1>
-<pre class="r"><code>kable(with(tubes, table(cross, hr)), caption=&quot;Number of stigmas of each cross type&quot;)</code></pre>
+<pre class="r"><code>kable(with(tubes, table(cross, hr)), caption=&quot;Number of styles of each cross type&quot;)</code></pre>
 <table>
-<caption>Number of stigmas of each cross type</caption>
+<caption>Number of styles of each cross type</caption>
 <thead>
 <tr class="header">
 <th align="left"></th>
@@ -561,6 +563,124 @@ str(tubes)</code></pre>
 </tr>
 </tbody>
 </table>
+<pre class="r"><code>kable(with(tubes, table(pair, hr)), caption=&quot;Number of styles of each species pair&quot;)</code></pre>
+<table>
+<caption>Number of styles of each species pair</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">4hr</th>
+<th align="right">24hr</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">kaahoo</td>
+<td align="right">288</td>
+<td align="right">227</td>
+</tr>
+<tr class="even">
+<td align="left">lydsar</td>
+<td align="right">90</td>
+<td align="right">90</td>
+</tr>
+<tr class="odd">
+<td align="left">memkau</td>
+<td align="right">302</td>
+<td align="right">319</td>
+</tr>
+<tr class="even">
+<td align="left">salmen</td>
+<td align="right">77</td>
+<td align="right">76</td>
+</tr>
+<tr class="odd">
+<td align="left">speste</td>
+<td align="right">238</td>
+<td align="right">236</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>kable(tubes %&gt;% count(pair, cross, vial) %&gt;% with(table(pair, n)), caption = &quot;Number of styles counted per vial&quot;)</code></pre>
+<table>
+<caption>Number of styles counted per vial</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">1</th>
+<th align="right">2</th>
+<th align="right">3</th>
+<th align="right">4</th>
+<th align="right">5</th>
+<th align="right">6</th>
+<th align="right">8</th>
+<th align="right">9</th>
+<th align="right">10</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">kaahoo</td>
+<td align="right">5</td>
+<td align="right">19</td>
+<td align="right">121</td>
+<td align="right">19</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">lydsar</td>
+<td align="right">0</td>
+<td align="right">90</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">memkau</td>
+<td align="right">5</td>
+<td align="right">11</td>
+<td align="right">91</td>
+<td align="right">37</td>
+<td align="right">24</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">salmen</td>
+<td align="right">153</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">speste</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">74</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="models" class="section level1">
 <h1>Models</h1>
@@ -591,18 +711,19 @@ pair_emm &lt;- function(mod) {
   }
 }
 
-#TODO add random effect of pollination number
 tubes.mod &lt;- tubes %&gt;% group_by(pair) %&gt;% nest() %&gt;% 
-  mutate(mid_mod    = map(data, ~ glmmTMB(mid~cross*hr + (1|momid) + (1|dadid), data=.x, family=&quot;poisson&quot;)),
-         mid_mod2   = map(data, ~ glmmTMB(mid~crosshr +  (1|momid) + (1|dadid), data=.x, family=&quot;poisson&quot;)),
+  mutate(mid_mod    = map(data, ~ glmmTMB(mid~cross*hr + (1|momid) + (1|dadid) + (1|vial), data=.x, family=&quot;poisson&quot;)),
+         mid_mod2   = map(data, ~ glmmTMB(mid~crosshr +  (1|momid) + (1|dadid) + (1|vial), data=.x, family=&quot;poisson&quot;)),
          mid_emm    = map(mid_mod, pair_emm),
          mid_cont   = map(mid_mod2, pair_contrasts),
-         bottom_mod = map(data, ~ glmmTMB(bottom~cross*hr + (1|momid) + (1|dadid), data=.x, family=&quot;poisson&quot;)),
-         bottom_mod2= map(data, ~ glmmTMB(bottom~crosshr  + (1|momid) + (1|dadid), data=.x, family=&quot;poisson&quot;)),
+         bottom_mod = map(data, ~ glmmTMB(bottom~cross*hr + (1|momid) + (1|dadid) + (1|vial), data=.x, family=&quot;poisson&quot;)),
+         bottom_mod2= map(data, ~ glmmTMB(bottom~crosshr  + (1|momid) + (1|dadid) + (1|vial), data=.x, family=&quot;poisson&quot;)),
          bottom_emm = map(bottom_mod, pair_emm),
          bottom_cont= map(bottom_mod2, pair_contrasts),
-         ratio_mod  = map(data, ~ glmmTMB(cbind(bottom, adjmid-bottom)~cross*hr + (1|momid) + (1|dadid), data=.x, family=&quot;binomial&quot;)),
-         ratio_mod2 = map(data, ~ glmmTMB(cbind(bottom, adjmid-bottom)~crosshr  + (1|momid) + (1|dadid), data=.x, family=&quot;binomial&quot;)),
+         ratio_mod  = map(data, ~ glmmTMB(cbind(bottom, adjmid-bottom)~cross*hr + (1|momid) + (1|dadid) + (1|vial), 
+                                          data=.x, family=&quot;binomial&quot;)),
+         ratio_mod2 = map(data, ~ glmmTMB(cbind(bottom, adjmid-bottom)~crosshr  + (1|momid) + (1|dadid) + (1|vial), 
+                                          data=.x, family=&quot;binomial&quot;)),
          ratio_emm  = map(ratio_mod, pair_emm),
          ratio_cont = map(ratio_mod2, pair_contrasts))</code></pre>
 <pre class="r"><code>mytheme &lt;- theme(legend.text=element_text(size=rel(1)), legend.position=&quot;right&quot;, 
