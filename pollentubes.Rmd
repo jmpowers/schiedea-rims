@@ -1,18 +1,20 @@
 ---
-title: '*Schiedea kaalae* and *S. hookeri* pollen tube growth'
-author: "John Powers"
-date: '2022-05-11'
+title: '*Schiedea* pollen tube growth'
+author: "[John Powers](http://sites.uci.edu/powers/)"
+date: "`r Sys.Date()`"
 output:
   html_document:
+    self_contained: no
+    lib_dir: libs
     code_folding: hide
     toc: yes
-    toc_float: yes
+    toc_float: TRUE
 editor_options:
   chunk_output_type: console
 ---
 
 # Purpose
-Test for post-pollination, pre-zygotic reproductive barriers between two plant species, *Schiedea kaalae* and *S. hookeri* by measuring pollen tube growth from parental and hybrid crosses at two time points.
+Test for post-pollination, pre-zygotic reproductive barriers between five species pairs of *Schiedea* that have hybridization potential, by measuring pollen tube growth from parental and hybrid crosses at two time points.
 
 Response variables:
 
@@ -22,7 +24,7 @@ Response variables:
     - **bottom** - the number of pollen tubes counted at the bottom of the style
 
 * Proportions - assume a binomial distribution for binomial data
-    - **ratio** - the ratio of pollen tubes at the **bottom** / **middle** of the style, capped at 1 because having more pollen grains at the bottom than the middle of the style is impossible (must result from counting error). For the binomial model, the input is the number of sucesses (pollen tubes at **bottom**) and failures (min(**bottom**/**mid**) - **bottom**).
+    - **ratio** - the ratio of pollen tubes at the **bottom** / **middle** of the style, capped at 1 because having more pollen grains at the bottom than the middle of the style is impossible (must result from counting error). For the binomial model, the input is the number of successes (pollen tubes at **bottom**) and failures (min(**bottom**/**mid**) - **bottom**).
 
 
 Fixed effects:
@@ -48,7 +50,7 @@ library(ggsignif)
 library(ggforce)
 
 library(broom)
-library(multcomp) #Multiple comparisons package - for general linear hypothesis testing
+#library(multcomp) #Multiple comparisons package - for general linear hypothesis testing
 library(emmeans) #Estimated marginal means aka least square means. use old version for glmmADMB: install_version("emmeans", version = "1.3.1", repos = "http://cran.us.r-project.org")
 library(glmmTMB) #generalized linear mixed models with Template Model Builder
 
@@ -62,8 +64,8 @@ modelparm.glmmTMB <- function (model, coef. = function(x) fixef(x)[[component]],
 
 signif.num <- function(x) {
     symnum(x, corr = FALSE, na = FALSE, legend = FALSE,
-           cutpoints = c(0, 0.001, 0.01, 0.05, 0.1, 1), 
-           symbols = c("***", "**", "*", ".", " "))
+           cutpoints = c(0, 0.001, 0.01, 0.05, 1), 
+           symbols = c("***", "**", "*", " "))
 }
 ```
 
@@ -71,228 +73,210 @@ signif.num <- function(x) {
 ## Read data
 
 ```{r read, message = FALSE}
-setwd("~/MyDocs/MEGA/UCI/Schiedea/Analysis/HybridSeeds")
-tubes <- read_csv("pollentubes_kaahoo_extra.csv") %>% mutate(across(ends_with("sp"), as.factor)) %>% 
+#long format: salmen, lydsar, kaahoo
+#wide format: memkau, speste, kaahoo_extra
+pops <- list(kaal = c("892", "3587"), hook = c("794", "866", "879","899"), 
+             lydg="6682", sarm="896", 
+             sali="842", menz = c("849", "950"), 
+             sper= c("120289","120294","120296"), stel = c("14651","14765"),
+             memb = c("mem","864"), kaua = "kaua")
+
+pair_labels <- c(kaahoo = "S. kaalae, S. hookeri",
+                 lydsar = "S. lydgatei, S. sarmentosa",
+                 salmen = "S. salicaria, S. menziesii",
+                 speste = "S. spergulina, S. stellariodes",
+                 memkau = "S. membranacea, S. kauaiensis")
+
+abbrev <- list(kaahoo = c(K="Kl",H="Ho"), 
+               lydsar = c(L="Ly",S="Sr"), 
+               salmen = c(S="Sl",M="Mn"), 
+               speste = c(Sp="Sp",St="St"), 
+               memkau = c(M="Mb",K="Ki"))
+cross_levels <- map(abbrev, ~ c(paste0(.x[1],"x",.x[1]), paste0(.x[1],"x",.x[2]), paste0(.x[2],"x",.x[2]), paste0(.x[2],"x",.x[1])))
+
+tubesl <- list()             
+# kaalae - hookeri
+tubesl[["kaahoo"]] <- read_csv("data/pollentubes_kaahoo_extra.csv") %>% 
   pivot_longer(starts_with(c("mid","bottom")), names_to=c("location","stigma"), names_sep="_", values_to="n_tubes") %>% 
   pivot_wider(names_from="location", values_from="n_tubes") %>% 
   drop_na(mid, bottom) %>% #one entry has mid but no bottom count
-  mutate(vial=as.character(vial),
-         momcross = toupper(str_sub(momsp,1,1)),
-         dadcross = toupper(str_sub(dadsp,1,1)),
+  mutate(vial = as.character(vial),
+         momcross = toupper(str_sub(momsp,1,1)), dadcross = toupper(str_sub(dadsp,1,1)),
          observer="SGW") %>% 
-  bind_rows(read_csv("pollentubes_kaahoo.csv") %>% #edited from pollentubes.csv
+  bind_rows(read_csv("data/pollentubes_kaahoo.csv") %>% #edited from pollentubes.csv
               separate(cross, into=c("momcross","dadcross"), sep="x") %>% 
               mutate(observer="SZ")) %>% 
-  mutate(
-    hr = factor(paste0(hr,"hr"), levels=c("4hr","24hr")),
-    ratioraw = bottom/mid,
-    adjmid = ifelse(bottom > mid, bottom, mid),
-    ratio = bottom/adjmid,
-    justmid = mid - bottom,
-    momid = paste(momcross, momid),
-    dadid = paste(dadcross, dadid),
-    cross = factor(paste0(momcross,"x",dadcross), levels=c("KxK","KxH","HxH","HxK")),
-    crosshr = factor(paste0(cross, hr), levels = paste(rep(levels(cross),each=2), levels(hr), sep=""))) %>% 
-  mutate_if(is.character, as.factor)
+  mutate(momid = paste(momcross, momid), dadid = paste(dadcross, dadid))
+
+# lydgatei- - sarmentosa
+tubesl[["lydsar"]] <- read_csv("data/pollentubes_lydsar.csv") %>% 
+  filter(keep == 1, hr != 2) %>% select(-keep) %>%  #exclude the resamples of pollinations that gave no tubes, and counts at 2 hrs
+  mutate(mompop = as.character(mompop), dadpop=as.character(dadpop),
+         momid = paste(mompop, momplant), dadid = paste(dadpop, dadplant),
+         momcross = ifelse(mompop %in% pops[["sarm"]], "S", "L"), dadcross = ifelse(dadpop %in% pops[["sarm"]], "S", "L"))
+
+#salicaria - menziesii
+tubesl[["salmen"]] <- read_csv("data/pollentubes_salmen.csv") %>% 
+  select(-cross) %>% 
+  mutate(mompop = str_sub(momid, 1, 3), dadpop = str_sub(dadid, 1, 3),
+         momcross = ifelse(mompop %in% pops[["sali"]], "S", "M"), dadcross = ifelse(dadpop %in% pops[["sali"]], "S", "M"))
+
+# membranacea - kauaiensis
+tubesl[["memkau"]] <- read_csv("data/pollentubes_memkau.csv") %>% mutate(across(ends_with("sp"), as.factor)) %>% 
+  pivot_longer(starts_with(c("mid","bottom")), names_to=c("location","stigma"), names_sep="_", values_to="n_tubes") %>% 
+  pivot_wider(names_from="location", values_from="n_tubes") %>% 
+  mutate(status = fct_explicit_na(status, "OK"),
+         mid =    ifelse(status=="no pollen on stigmas", NA, mid), #set to NA to drop, 0 to keep
+         bottom = ifelse(status=="no pollen on stigmas", NA, bottom)) %>% #see SGW email 2022-05-09, NOTES tab
+  drop_na(mid) %>% 
+  mutate(momcross = ifelse(momsp %in% pops[["memb"]], "M", "K"),  dadcross = ifelse(dadsp %in% pops[["memb"]], "M", "K"),
+         momid = paste(momcross, momplant), dadid = paste(dadcross, dadplant),)
+
+#spergulina - stellarioides
+tubesl[["speste"]] <- read_csv("data/pollentubes_speste.csv") %>% mutate(across(ends_with("pop"), as.factor)) %>% 
+  pivot_longer(starts_with(c("mid","bottom")), names_to=c("location","stigma"), names_sep="_", values_to="n_tubes") %>% 
+  pivot_wider(names_from="location", values_from="n_tubes") %>% drop_na(mid) %>% 
+  mutate(momid = paste(mompop, momplant), dadid = paste(dadpop, dadplant),
+         momcross = ifelse(mompop %in% pops[["sper"]], "Sp", "St"), dadcross = ifelse(dadpop %in% pops[["sper"]], "Sp", "St"))
+
+tubes <- map(tubesl, ~mutate(.x, across(any_of("vial"), as.character))) %>% 
+  bind_rows(.id = "pair") %>% 
+  mutate(hr = factor(paste0(hr,"hr"), levels=c("4hr","24hr")),
+         ratioraw = bottom/mid,
+         adjmid = ifelse(bottom > mid, bottom, mid),
+         ratio = bottom/adjmid,
+         justmid = mid - bottom,
+         momcross = map2_chr(pair, momcross, ~ abbrev[[.x]][[.y]]),
+         dadcross = map2_chr(pair, dadcross, ~ abbrev[[.x]][[.y]]),
+         cross = factor(paste0(momcross,"x",dadcross), levels=unlist(cross_levels)),
+         crosshr = factor(paste0(cross, hr), levels = paste(rep(levels(cross),each=2), levels(hr), sep="")))
 str(tubes)
 
-tube.contrasts <- c("HxH4hr  - HxH24hr == 0",
-                              "HxK4hr  - HxK24hr == 0",
-                              "HxH4hr  - HxK4hr  == 0",
-                              "HxH24hr - HxK24hr == 0",
-                              "KxH4hr  - KxH24hr == 0",
-                              "KxK4hr  - KxK24hr == 0",
-                              "KxH4hr  - KxK4hr  == 0",
-                              "KxH24hr - KxK24hr == 0",
-                              "HxH4hr  - KxK4hr  == 0",
-                              "HxH24hr - KxK24hr == 0",
-                              "HxH4hr+HxK4hr   - KxK4hr-KxH4hr   == 0",
-                              "HxH24hr+HxK24hr - KxK24hr-KxH24hr == 0")
+        
+
 ```
 
 ## Inventory of crosses
 
 ```{r inventory}
-with(tubes, table(cross, hr, observer))
-with(tubes, table(cross, momid, observer))
-with(tubes, table(dadid, momid))
-
-tubes %>% pivot_longer(c(momid, dadid), values_to = "genotype", values_ptypes = character()) %>% 
-  count(genotype, name) %>% pivot_wider(values_from="n") %>% arrange(genotype) %>% 
-  kable(caption="Number of stigmas split by paternal or maternal genotype")
+kable(with(tubes, table(cross, hr)))
 ```
 
 ## Plot raw data
 
 ### Pollen tubes
 ```{r rawplots, warning = FALSE}
-mytheme <- theme(legend.text=element_text(size=rel(1)), legend.position="right", axis.text = element_text(colour="black", size=rel(1)), text=element_text(size=14), axis.ticks.x = element_blank())
+mytheme <- theme(legend.text=element_text(size=rel(1)), legend.position="right", 
+                 axis.text = element_text(colour="black", size=rel(1)), text=element_text(size=14), axis.ticks.x = element_blank())
 timecolors <- scale_color_brewer(palette=3, type="qual", labels=c("4 hr","24 hr"))
-crosslabs <- gsub("x", " x ",levels(tubes$cross), fixed=T)
+timefills <-   scale_fill_brewer(palette=3, type="qual", labels=c("4 hr","24 hr"))
 
-(tubeplot.mid <- 
-    ggplot(tubes, aes(x=cross, y=mid, color=hr)) + 
-    labs(x="", y="Pollen tubes at middle of style", color="Time") +
-    geom_violin(position=position_dodge(), draw_quantiles=c(0.25,0.5,0.75), size=0.5, bw=1) +
-    geom_sina(bw=0.1) + 
-    scale_x_discrete(labels=crosslabs) + 
-    theme_classic() + mytheme + timecolors)
+var_labels <- c(mid = "Pollen tubes at middle of style",
+                bottom = "Pollen tubes at bottom of style",
+                ratio = "Ratio of pollen tubes at bottom : middle of style",
+                justmid = "Difference of pollen tubes at middle and bottom of style")
 
-(tubeplot.bottom <- 
-    ggplot(tubes, aes(x=cross, y=bottom, color=hr)) + 
-    labs(x="", y="Pollen tubes at bottom of style", color="Time") +
-    geom_violin(position=position_dodge(), draw_quantiles=c(0.25,0.5,0.75), size=0.5, bw=1) +
-    geom_sina(bw=0.1)+
-    scale_x_discrete(labels=crosslabs) + 
-    theme_classic() + mytheme + timecolors)
-
-(tubeplot.ratio <- 
-    ggplot(tubes, aes(x=cross, y=ratio, color=hr)) +
-    labs(x="", y="Ratio of pollen tubes at bottom : middle of style",color="Time") +
-    geom_violin(position=position_dodge(), draw_quantiles=c(0.25,0.5,0.75), size=0.5, bw=0.1) + 
-    geom_sina(bw=0.1)+
-    scale_y_continuous(expand = expansion(add=c(0,0.01)), breaks = scales::pretty_breaks(n = 5)) +
-  scale_x_discrete(labels=crosslabs) + 
-  theme_classic() + mytheme + timecolors)
-
-(tubeplot.justmid <- 
-    ggplot(tubes, aes(x=cross, y=justmid, color=hr)) +
-    labs(x="", y="Difference of pollen tubes at middle and bottom of style",color="Time") +
-    geom_violin(position=position_dodge(), draw_quantiles=c(0.25,0.5,0.75), size=0.5, bw=1) + 
-    geom_sina(bw=1) + 
-      scale_x_discrete(labels=crosslabs) + 
-  theme_classic() + mytheme + timecolors)
+map(names(var_labels), 
+    ~ ggplot(tubes, aes_string(y=.x, x="cross", color="hr")) +
+      facet_wrap(vars(pair), scales="free_x", labeller=as_labeller(pair_labels))+
+      labs(x="", y=var_labels[[.x]], color="Time") +
+      geom_violin(position=position_dodge(), draw_quantiles=c(0.25,0.5,0.75), size=0.5, bw=ifelse(.x=="ratio",0.1,1)) +
+      geom_sina(bw=0.1, size=0.5) + 
+      scale_x_discrete(labels=~str_replace(.x, "x"," x ")) + 
+      scale_y_continuous(expand = expansion(add=c(0,0.01)), breaks = scales::pretty_breaks(n = 5)) +
+      theme_classic() + mytheme + timecolors)
 
 (tubeplot.mid.bottom <- 
     ggplot(tubes, aes(x=bottom, y=mid)) + 
+    facet_wrap(vars(pair), labeller=as_labeller(pair_labels))+
     labs(x="Pollen tubes at bottom of style", y="Pollen tubes at middle of style", color="Cross", linetype="Time") +
     geom_abline(slope=1, size=1) +
-    geom_point(color="grey") + 
-    stat_ellipse(aes(linetype=hr, color=cross), size=1) + 
+    geom_point(alpha=0.1) + 
     coord_fixed(xlim=c(0,NA),ylim=c(0,NA))+
     scale_color_discrete(labels=crosslabs)+ scale_linetype_discrete(labels=c("4 hr","24 hr"))+
     theme_classic()+theme(legend.text=element_text(size=rel(1)), legend.position="right", axis.text = element_text(colour="black", size=rel(1)), text=element_text(size=14)))
-
 ```
 
 # Models
 
 ## Pollen tubes at middle of style
 
-```{r model.mid, warning=FALSE}
-#Quasi-Poisson (NB1), log link, zero inflation
-mod <- glmmTMB(mid~cross*hr + (1|momid) + (1|dadid), data=tubes, family="poisson")
-summary(mod)
-```
-
-```{r contrasts.mid}
-crosshr.x <- data.frame(crosshr=levels(tubes$crosshr), x=rep(1:4, each=2)+rep(c(-0.25, 0.25), 4))
-cont <- glmmTMB(mid~crosshr + (1|momid) + (1|dadid), data=tubes, family="poisson") %>%
-  glht(linfct = mcp(crosshr=tube.contrasts)) %>%
-  summary(test=adjusted(type="fdr")) %>% tidy %>% 
+```{r models}
+pair_contrasts <- function(mod) {
+  lv <- levels(mod$frame$crosshr)
+  crosshr.x <- set_names(rep(1:4, each=2) + rep(c(-0.25, 0.25), 4), lv)
+  tube.contrasts <- list(c(5,6), c(7,8), c(5,7), c(6,8),
+                         c(3,4), c(1,2), c(3,1), c(4,2), 
+                         c(5,1), c(6,2)) %>% 
+    map_chr(~paste(lv[.x[1]], "-", lv[.x[2]], "== 0"))
+  
+  multcomp::glht(mod, linfct = multcomp::mcp(crosshr=tube.contrasts)) %>%
+  multcomp:::summary.glht(test=multcomp::adjusted(type="fdr")) %>% tidy() %>% 
   separate(contrast, c("lvl1", "lvl2"), sep = " - ", extra="merge") %>%
   mutate(signif = adj.p.value < 0.05, 
          stars = signif.num(adj.p.value), 
-         height =  c(rep(c(1,1,2,3),2),4,5,NA,NA), 
-         x1 = crosshr.x[match(lvl1, crosshr.x$crosshr),"x"], 
-         x2 = crosshr.x[match(lvl2, crosshr.x$crosshr),"x"])
-kable(cont[,-c(1,4, 7, 9,11:13)], digits=c(0,0,3,3,3,8), caption="Contrasts")
+         height =  c(rep(c(1,1,2,3),2),4,5), 
+         x1 = crosshr.x[lvl1], 
+         x2 = crosshr.x[lvl2])
+}
+
+pair_emm <- function(mod) {
+  emm <- ref_grid(mod) %>% emmeans(~ cross*hr) %>% summary()
+  if(mod$modelInfo$family$link == "logit") {
+    emm %>% mutate(response = plogis(emmean), uSE = plogis(emmean+SE), lSE = plogis(emmean-SE))
+  } else if(mod$modelInfo$family$link == "log") {
+    emm %>% mutate(response = exp(emmean), uSE = exp(emmean+SE), lSE = exp(emmean-SE))
+  }
+}
+
+#TODO add random effect of pollination number
+tubes.mod <- tubes %>% group_by(pair) %>% nest() %>% 
+  mutate(mid_mod    = map(data, ~ glmmTMB(mid~cross*hr + (1|momid) + (1|dadid), data=.x, family="poisson")),
+         mid_mod2   = map(data, ~ glmmTMB(mid~crosshr +  (1|momid) + (1|dadid), data=.x, family="poisson")),
+         mid_emm    = map(mid_mod, pair_emm),
+         mid_cont   = map(mid_mod2, pair_contrasts),
+         bottom_mod = map(data, ~ glmmTMB(bottom~cross*hr + (1|momid) + (1|dadid), data=.x, family="poisson")),
+         bottom_mod2= map(data, ~ glmmTMB(bottom~crosshr  + (1|momid) + (1|dadid), data=.x, family="poisson")),
+         bottom_emm = map(bottom_mod, pair_emm),
+         bottom_cont= map(bottom_mod2, pair_contrasts),
+         ratio_mod  = map(data, ~ glmmTMB(cbind(bottom, adjmid-bottom)~cross*hr + (1|momid) + (1|dadid), data=.x, family="binomial")),
+         ratio_mod2 = map(data, ~ glmmTMB(cbind(bottom, adjmid-bottom)~crosshr  + (1|momid) + (1|dadid), data=.x, family="binomial")),
+         ratio_emm  = map(ratio_mod, pair_emm),
+         ratio_cont = map(ratio_mod2, pair_contrasts))
 ```
 
-```{r emmeans.mid}
-timefills <- scale_fill_brewer(palette=3, type="qual", labels=c("24 hr","4 hr"), direction=-1)
+```{r modplots}
+#map(tubes.mod$mid_cont, ~kable(.x[,-c(1,4, 7, 9,11:13)], digits=c(0,0,3,3,3,8), caption="Contrasts: Middle of style"))
+#map(tubes.mod$mid_emm, ~ kable(.x[, -c(3:7)], digits=1, caption = "Estimated marginal means: Middle of style"))
 
-cld.mod <- ref_grid(mod) %>% 
-  emmeans(~ cross*hr) %>% 
-  summary %>%
-  mutate(response = exp(emmean), uSE = exp(emmean+SE), lSE = exp(emmean-SE))
-kable(cld.mod[, -c(3:7)], digits=1, caption = "Estimated marginal means")
-
-(mid.emplot <- ggplot(cld.mod, aes(y=response, x=cross, fill=hr)) +
-  geom_signif(y_position=cont$height+max(cld.mod$uSE), xmin = cont$x1, xmax = cont$x2, annotations=cont$stars, vjust=0.5) +
+plot_emm <- function(emm, cont, ylab) {
+  ggplot(emm, aes(y=response, x=cross, fill=hr)) +
+  facet_wrap(vars(pair), scales="free_x", labeller=as_labeller(pair_labels))+
+  geom_signif(data=emm, y_position=cont$height/c(mid=1, bottom=1, ratio=15)[ylab]+c(mid=12, bottom=12, ratio=1)[ylab], 
+              xmin = cont$x1, xmax = cont$x2, annotations=cont$stars, vjust=0.5) + #y_position=cont$height+max(emm$uSE)
   geom_col(position=position_dodge2()) +
   geom_linerange(aes(ymin=lSE, ymax=uSE), position=position_dodge2(0.9)) +
-  labs(x="", y="Pollen tubes at middle of style",fill="Time") +
-  scale_y_continuous(limits=c(0,NA), expand = expansion(add=c(0,0.5)), breaks = scales::pretty_breaks(n = 8)) +
-  scale_x_discrete(labels=crosslabs) + 
-  theme_classic() + mytheme + timefills)
-```
+  labs(x="", y=var_labels[ylab],fill="Time") +
+  scale_y_continuous(limits=c(0,NA), expand = expansion(add=c(0,c(mid=0.5, bottom=0.5, ratio=0.05)[ylab])), 
+                     breaks = list(mid = scales::pretty_breaks(n = 8),
+                                   bottom = scales::pretty_breaks(n = 8),
+                                   ratio = seq(0,1, by=0.2))[[ylab]])+
+  theme_classic() + mytheme + timefills + guides(fill="none")
+}
 
+#facet_wrap and geom_signif don't work together  
+#plot_emm(tubes.mod %>% select(pair, mid_emm) %>% unnest(mid_emm),
+#         tubes.mod %>% select(pair, mid_cont) %>% unnest(mid_cont))
 
-## Pollen tubes at bottom of style
-```{r model.bottom, warning=FALSE}
-#Quasi-Poisson (NB1), log link, zero inflation
-mod <- glmmTMB(bottom~cross*hr + (1|momid) + (1|dadid), data=tubes, family="poisson")
-summary(mod)
-```
-
-```{r contrasts.bottom}
-cont <- glmmTMB(bottom~crosshr + (1|momid) + (1|dadid), data=tubes, family="poisson") %>%
-  glht(linfct = mcp(crosshr=tube.contrasts)) %>%
-  summary(test=adjusted(type="fdr")) %>% tidy %>% 
-  separate(contrast, c("lvl1", "lvl2"), sep = " - ", extra="merge") %>%
-  mutate(signif = adj.p.value < 0.05, 
-         stars = signif.num(adj.p.value), 
-         height =  c(rep(c(1,1,2,3),2),4,5,NA,NA), 
-         x1 = crosshr.x[match(lvl1, crosshr.x$crosshr),"x"], 
-         x2 = crosshr.x[match(lvl2, crosshr.x$crosshr),"x"])
-kable(cont[,-c(1,4, 7, 9,11:13)], digits=c(0,0,3,3,3,8), caption="Contrasts")
-```
-
-
-```{r emmeans.bottom}
-cld.mod <- ref_grid(mod) %>% 
-  emmeans(~ cross*hr) %>% 
-  summary %>%
-  mutate(response = exp(emmean), uSE = exp(emmean+SE), lSE = exp(emmean-SE))
-kable(cld.mod[, -c(3:7)], digits=1, caption = "Estimated marginal means")
-
-(bottom.emplot <- ggplot(cld.mod, aes(y=response, x=cross, fill=hr)) +
-  geom_signif(y_position=cont$height+max(cld.mod$uSE), xmin = cont$x1, xmax = cont$x2, annotations=cont$stars, vjust=0.5) +
-  geom_col(position=position_dodge2()) +
-  geom_linerange(aes(ymin=lSE, ymax=uSE), position=position_dodge2(0.9)) +
-  labs(x="", y="Pollen tubes at bottom of style",fill="Time") +
-  scale_y_continuous(limits=c(0,NA), expand = expansion(add=c(0,0.5)), breaks = scales::pretty_breaks(n = 8)) +
-  scale_x_discrete(labels=crosslabs) + 
-  theme_classic() + mytheme + timefills)
-```
-
-## Pollen tubes at bottom : middle of style
-```{r model.ratio, warning=FALSE}
-#Beta binomial - for overdispersed binomial data. Input is the number of successes and failures.
-mod <- glmmTMB(cbind(bottom, adjmid-bottom)~cross*hr + (1|momid) + (1|dadid), data=tubes, family="binomial")
-summary(mod)
-```
-
-```{r contrasts.ratio}
-cont <- glmmTMB(cbind(bottom, adjmid-bottom)~crosshr + (1|momid) + (1|dadid), data=tubes, family="binomial") %>%
-  glht(linfct = mcp(crosshr=tube.contrasts)) %>%
-  summary(test=adjusted(type="fdr")) %>% tidy %>% 
-    separate(contrast, c("lvl1", "lvl2"), sep = " - ", extra="merge") %>%
-  mutate(signif = adj.p.value < 0.05, 
-         stars = signif.num(adj.p.value), 
-         height =  c(rep(c(1,1,2,3),2),4,5,NA,NA), 
-         x1 = crosshr.x[match(lvl1, crosshr.x$crosshr),"x"], 
-         x2 = crosshr.x[match(lvl2, crosshr.x$crosshr),"x"])
-kable(cont[,-c(1,4, 7, 9,11:13)], digits=c(0,0,3,3,3,8), caption="Contrasts")
-```
-
-
-```{r emmeans.ratio}
-cld.mod <- ref_grid(mod) %>% 
-  emmeans(~ cross*hr) %>% 
-  summary %>%
-  mutate(response = plogis(emmean), uSE = plogis(emmean+SE), lSE = plogis(emmean-SE))
-kable(cld.mod[, -c(3:7)], digits=2, caption = "Estimated marginal means")
-
-(ratio.emplot <- ggplot(cld.mod, aes(y=response, x=cross, fill=hr)) +
-  geom_signif(y_position=cont$height/15+1, xmin = cont$x1, xmax = cont$x2, annotations=cont$stars, vjust=0.5) +
-  geom_col(position=position_dodge2()) +
-  geom_linerange(aes(ymin=lSE, ymax=uSE), position=position_dodge2(0.9)) +
-  labs(x="", y="Ratio of pollen tubes at bottom : middle of style",fill="Time") +
-  scale_y_continuous(expand = expansion(add=c(0,0.05)), breaks = seq(0,1, by=0.2)) +
-  scale_x_discrete(labels=crosslabs) + 
-  theme_classic() + mytheme + timefills)
+#awkward workaround
+library(gridExtra)
+tubes.mod.list <- tubes.mod %>% select(-contains("mod")) %>% group_split()
+grid.arrange(grobs=map2(map(tubes.mod.list, unnest, mid_emm),
+                        map(tubes.mod.list, unnest, mid_cont), plot_emm, ylab="mid"), nrow=2)
+grid.arrange(grobs=map2(map(tubes.mod.list, unnest, bottom_emm),
+                        map(tubes.mod.list, unnest, bottom_cont), plot_emm, ylab="bottom"), nrow=2)
+grid.arrange(grobs=map2(map(tubes.mod.list, unnest, ratio_emm),
+                        map(tubes.mod.list, unnest, ratio_cont), plot_emm, ylab="ratio"), nrow=2)
 ```
 
 # Package citations
