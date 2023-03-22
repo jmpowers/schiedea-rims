@@ -1,0 +1,260 @@
+code	type	date_planted	momsp	momid	dadsp1	dadid1	dadsp2	dadid2	sameasmom	hybrid	dead	date_scored	contaminated	comments
+HK1	mixed	2020-01-15	hookeri	879 H-2	hookeri	879 2-2	kaalae	115-2	69	51	63	2022-07-18		
+HK4	mixed	2020-01-15	hookeri	879 N-5	hookeri	879 10-1	kaalae	115-2	10	20	22	2022-07-18		
+HK5	mixed	2020-01-15	hookeri	879 10-1	hookeri	879 N-5	kaalae	892-5	3	54	17	2022-07-18	1 (salicaria)	
+HK6	mixed	2020-01-15	hookeri	879 G-2	hookeri	879 N-5	kaalae	892-5	5	1	13			do not use
+HK8	mixed	2020-09-08	hookeri	794-4	hookeri	794-2	kaalae	892-1	85	3	69	2022-07-21		
+HK9	mixed	2020-10-11	hookeri	899 2E-1	hookeri	866-2	kaalae	116-3	120	7	20	2022-07-21		
+HK10	mixed	2020-10-14	hookeri	879 G2	hookeri	879 10-1	kaalae	892-5	75	38	17	2022-07-21		
+HK11	mixed	2020-10-25	hookeri	794-2	hookeri	866-2	kaalae	115-2	98	24	22	2022-07-21		
+HK12	mixed	2020-10-17	hookeri	866-2	hookeri	794-2	kaalae	892-4	124	22	8	2022-07-21		
+HK13	mixed	2020-10-28	hookeri	879 N-5	hookeri	879 10-1	kaalae	115-2	51	66	39	2022-07-21		
+HK14	mixed	2020-11-08	hookeri	879 10-1	hookeri	879 N-5	kaalae	892-5	26	35	34	2022-07-21	1 contaminant	
+SZ4	mixed	2019-05-16	hookeri	879 2-2	hookeri	879 N-5	kaalae	116-3	83	2	6	2022-07-22		
+SZ1	mixed	2019-05-16	kaalae	116-3	kaalae	116-1	hookeri	879 2-2	49	11	1	2022-07-25		
+SZ2	mixed	2019-05-16	kaalae	140-6	kaalae	116-3	hookeri	879 2-2	38	1	0	2022-07-26		
+SZ3	mixed	2019-05-16	kaalae	892-5	kaalae	116-3	hookeri	879 2-2	40	0	0	2022-07-27		
+KH15	mixed	2020-10-27	kaalae	892-3	kaalae	115-2	hookeri	879 H2	69	0	9	2022-07-21		
+KH2	mixed	2020-01-15	kaalae	892-3	kaalae	115-2	hookeri	879 H2	34	4	9	2022-07-18		
+KH3	mixed	2020-01-15	kaalae	115-2	kaalae	892-4	hookeri	879 H2	21	2	6	2022-07-18		
+KH50	mixed	2021-08-17	kaalae	125-1	kaalae	892-1	hookeri	879 N-5	22	11	4	2022-07-21		
+KH51	mixed	2021-08-17	kaalae	116-2	kaalae	116-3	hookeri	879 N-5	39	55	12	2022-07-21		
+KH52	mixed	2021-08-17	kaalae	892-4	kaalae	116-3	hookeri	879 2-2	45	0	19	2022-07-21		
+KH53	mixed	2021-08-17	kaalae	892-4	kaalae	116-3	hookeri	879 N-5	31	9	14	2022-07-21		
+MS10	mixed	2019-12-03	menziesii	849 93C	menziesii	849 4-17	salicaria	842 162-21	61	52	64	2022-07-15		
+MS11	mixed	2019-12-03	menziesii	849 4-17	menziesii	849 122-3	salicaria	842 108-5	37	53	80	2022-06-09		
+MS12	mixed	2019-12-03	menziesii	950 410-2	menziesii	849 89E	salicaria	842 239	21	5	39	2022-07-15		
+MS14 	mixed	2019-12-03	menziesii	849 89E	menziesii	849 122-3	salicaria	842 108-5	29	12	20	2022-05-26		apparently transplanted x2
+MS14	mixed	2020-08-31	menziesii	849 89E	menziesii	849 122-3	salicaria	842 108-5	99	12	64	2022-07-18		
+MS15	mixed	2019-12-03	menziesii	849 89E	menziesii	849 122-3	salicaria	842 151-6	6	12	7	2022-06-09		
+MS17	mixed	2019-12-05	menziesii	849 4-17	menziesii	849 61A	salicaria	842 108-5	26	15	43	2022-06-15	M17	
+MS3	mixed	2019-12-05	menziesii	849 93C	menziesii	849 89E	salicaria	842 162-21	55	62	20	2022-07-15		
+MS4	mixed	2019-12-05	menziesii	849 57-39	menziesii	950 427-30	salicaria	842 201-46	70	26	24	2022-06-09		
+MS8	mixed	2019-12-05	menziesii	950 429-1	menziesii	849 87-37	salicaria	842 22-3	72	50	78	2022-07-15		
+MS9	mixed	2019-10-23	menziesii	849 122-3	menziesii	849 61A	salicaria	842 139-56	22	54	94	2022-07-15		
+SM1	mixed	2019-12-05	salicaria	842 167-23	salicaria	842 139-56	menziesii	849 89E	65	59	46	2022-07-17		
+SM13 	mixed	2020-08-28	salicaria	842 221-27	salicaria	842 86-38	menziesii	950 429-1	50	60	81	2022-07-18		
+SM16	mixed	2019-12-05	salicaria	842 22-3	salicaria	842 201	menziesii	849 122-3	4	5	8	2022-07-17		
+SM18	mixed	2019-12-05	salicaria	842 80-19	salicaria	842 86-38	menziesii	849 57-39	27	15	67	2022-07-17		
+SM19	mixed	2019-10-23	salicaria	842 139-56	salicaria	842 172-37	menziesii	849 122-3	55	57	57	2022-07-17		
+SM2	mixed	2019-12-05	salicaria	842 86-38	salicaria	842 80-19	menziesii	849 4-17	69	48	54	2022-07-17		
+SM20	mixed	2020-02-17	salicaria	842 201-46	salicaria	842 151-6	menziesii	950 427-30	25	32	8	2022-07-17		
+SM21	mixed	2019-11-20	salicaria	842 172-37	salicaria	842 22-3	menziesii	950 427-30	42	56	17	2022-07-17		
+SM22	mixed	2019-11-20	salicaria	842 108-5	salicaria	842 167-23	menziesii	950 429-1	14	26	21	2022-07-17		
+SM5	mixed	2019-12-03	salicaria	842 143-3	salicaria	842 22-3	menziesii	849 57-39	49	53	11	2022-07-17		
+SM6	mixed	2019-12-03	salicaria	842 195-1	salicaria	842 108-5	menziesii	849 122-3	45	46	107	2022-07-17		
+SM7	mixed	2019-12-03	salicaria	842 143-3	salicaria	842 201-46	menziesii	950 501	13	45	23	2022-07-17		
+SM7	mixed	2020-08-28	salicaria	842 143-3	salicaria	842 201-46	menziesii	950 501	29	84	22	2022-07-18		
+SM23	mixed	2019-11-20	salicaria	842 37-15	salicaria	842 162-21	menziesii	849 89E	10	11	5	2022-07-17		
+SL1	mixed	2020-09-10	sarmentosa	896 12-3	sarmentosa	896 107 1-6	lydgatei 	6682 204-1	28	58	80	2022-08-03		
+SL2	mixed	2020-09-11	sarmentosa	896 122-2	sarmentosa	896 107 1-6	lydgatei 	6682 223-1	35	67	64	2022-08-04		
+SL3	mixed	2020-09-15	sarmentosa	896 123-16	sarmentosa	896 11-6	lydgatei 	6682 229-2	42	38	80	2022-08-04	2 contaminant	
+SL7	mixed	2020-09-28	sarmentosa	896 8-2	sarmentosa	896 17-5	lydgatei 	6682 209-2	71	34	39	2022-08-05	1 contaminant	
+SL8	mixed	2020-09-28	sarmentosa	896 122-2	sarmentosa	896 107 1-6	lydgatei 	6682 222-1	31	45	36	2022-08-05		
+LS4	mixed	2020-09-13	lydgatei 	6682 222-1	lydgatei 	6682 234-1	sarmentosa	896 17-5	76	23	43	2022-08-04		
+LS5	mixed	2020-09-19	lydgatei 	6682 233-2	lydgatei 	6682 223-1	sarmentosa	896-11	100	7	23	2022-08-04		
+LS6	mixed	2020-09-21	lydgatei 	6682 235-2	lydgatei 	6682 229-2	sarmentosa	896 9 2-1	91	5	46	2022-08-05		
+LS9	mixed	2020-09-28	lydgatei 	6682 217-1	lydgatei 	6682 204-1	sarmentosa	896 107 1-6	52	11	46	2022-08-05		
+LS10	mixed	2020-10-23	lydgatei 	6682 212-1	lydgatei 	6682 209-2	sarmentosa	896 107 1-6	75	0	24	2022-08-05		
+StSp1	mixed	2020-11-04	stellarioides	14765 14B-2	stellarioides	14765 6G C2	spergulina	120289 P5	47	0	13	2022-08-10		
+StSp2	mixed	2020-10-23	stellarioides	14765 4E	stellarioides	14765 18E	spergulina	120289-8	80	3	3	2022-08-10		
+StSp3	mixed	2020-10-30	stellarioides	14765 10C	stellarioides	14765 14B-1	spergulina	120294-8	71	6	9	2022-08-10		
+StSp9	mixed	2020-11-04	stellarioides	14765 20J-6	stellarioides	14765 14B-2	spergulina	120296-11	25	0	4	2022-08-10	1 contaminant	
+StSp10	mixed	2020-10-31	stellarioides	14651 10C C2	stellarioides	14765 6G C1	spergulina	120289-12	49	2	18	2022-08-10		
+StSp11	mixed	2020-10-30	stellarioides	14765 14B-1	stellarioides	14765 9A-3	spergulina	120296-11	27	1	5			
+SpSt4	mixed	2020-10-31	spergulina	120289-11	spergulina	120289-13	stellarioides	14651 10C C2	25	120	19	2022-08-10	17 contaminants	
+SpSt5	mixed	2020-10-24	spergulina	120296-9	spergulina	120289-18	stellarioides	14765 14B-2	96	24	10	2022-08-10		
+SpSt6	mixed	2020-10-30	spergulina	120294-7	spergulina	120289-12	stellarioides	14765 14B-2	76	54	42	2022-08-10	3 contaminants	
+SpSt7	mixed	2020-10-30	spergulina	120298-4	spergulina	120294-8	stellarioides	14765 20J-6	29	4	24	2022-08-10	3 contaminants	
+SpSt8	mixed	2020-10-31	spergulina	120294-1	spergulina	120289-12	stellarioides	14765 6G C1	44	72	48	2022-08-10		
+KM1	mixed	2021-08-18	kauaiensis	1ax234-1#7	kauaiensis	Prog2x525-1#9	membranacea	864 Cross6	67	0	35	2022-08-13		
+KM2	mixed	2021-08-18	kauaiensis	2a	kauaiensis	1ax525-1#14	membranacea	864 Cross6	63	3	23	2022-08-14		
+KM3	mixed	2021-08-18	kauaiensis	Prog2x525-1#9	kauaiensis	1ax234-1#7	membranacea	864 Cross6	59	0	6	2022-08-15		
+KM4	mixed	2021-08-19	kauaiensis	1ax234-1#14	kauaiensis	Prog2x525-1#9	membranacea	864 5x9c-7	19	0	23	2022-08-16		
+KM5	mixed	2021-08-19	kauaiensis	525-1x6a#2	kauaiensis	1ax234-1#7	membranacea	2021-1	39	0	22	2022-08-17	1 contaminant	
+KM6	mixed	2021-08-19	kauaiensis	1ax525-1#20	kauaiensis	525-1x6a#2	membranacea	864 5x9c-7	71	9	23	2022-08-18	1 contaminant (S. hookeri)	
+KM7	mixed	2021-08-19	kauaiensis	1a	kauaiensis	1ax234-1#14	membranacea	memb#2	32	0	16	2022-08-19		
+MK1	mixed	2021-08-19	membranacea	864 5x9c-7	membranacea	864 Cross6	kauaiensis	1ax234-1#14	47	2	19	2022-08-22		
+MK2	mixed	2021-08-19	membranacea	2021-1	membranacea	864 Cross6	kauaiensis	Prog2x525-1#9	92	1	19	2022-08-23		
+MK3	mixed	2021-08-19	membranacea	864 Cross6	membranacea	2021-1	kauaiensis	1a	106	0	7	2022-08-24		
+MK4	mixed	2021-08-23	membranacea	memb#2	membranacea	864 5x9c-7	kauaiensis	1ax234-1#7	50	2	23	2022-08-25		
+MK6	mixed	2022-09-03	membranacea	864 192-30	membranacea	2021-1	kauaiensis	Prog2x525-1#9	87	0	26	2022-12-04		
+KK1	intra	2021-08-26	kauaiensis	Prog2x525-1#9	kauaiensis	1ax463-3#3			33		8			
+	intra	2019-10-23	kauaiensis	12074-8X12074-7 3a	kauaiensis 	24525-1			8		0			
+MM1	intra	2021-08-23	membranacea	864 #2	membranacea	864 5x9c-7			39		11			
+MM2	intra	2021-08-23	membranacea	864 5x9c-7	membranacea	2021-1			33		16			
+MM3	intra	2021-08-23	membranacea	2021-1	membranacea	864 5x9c-7			39		11			
+MM4	intra	2021-08-23	membranacea	Cross6	membranacea	864 5x9c-7			28		9			
+SS1intra	intra	2021-08-24	stellarioides	SS2-12	stellarioides	SS10-43			54		4			
+SS2intra	intra	2021-08-24	stellarioides	SS10-29	stellarioides	SS11-3			46		4			
+SS3intra	intra	2021-08-24	stellarioides	SS10-43	stellarioides	SS11-3			45		5			
+SS4intra	intra	2021-08-24	stellarioides	10C	stellarioides	6G			34		16			
+SS6intra	intra	2021-08-24	stellarioides	6G C-1	stellarioides	10C			22		21			
+Sal1	intra	2021-08-25	salicaria	842 151E	salicaria	842 37-4			32		18			
+Sal2	intra	2021-08-25	salicaria	842 51-20	salicaria	842 86-38			19		30			
+Sal3	intra	2021-08-25	salicaria	842 241-31	salicaria	842 81-75			11		26			
+Sal4	intra	2021-08-25	salicaria	842 221F	salicaria	842 51-20			15		31			
+Sal5	intra	2021-08-25	salicaria	842 162-21	salicaria	842 37-4			17		33			
+Sal6	intra	2021-08-27	salicaria	842 169-23	salicaria	842 162-21			6		49			
+Sal1	intra	2022-10-21	salicaria	842 151E	salicaria	842 37-4			33		16			
+Sal2	intra	2022-10-21	salicaria	842 51-20	salicaria	842 86-38			26		24			
+Sal3	intra	2022-10-21	salicaria	842 241-31	salicaria	842 81-75			20		30			
+Sal4	intra	2022-10-21	salicaria	842 221F	salicaria	842 51-20			23		27			
+Sal6	intra	2022-10-21	salicaria	842 169-23	salicaria	842 162-21			31		19			
+Menz1	intra	2021-08-26	menziesii	849 93C	menziesii	849 57-39			22		29			
+Menz2	intra	2021-08-26	menziesii	849 17-13	menziesii	849 93C			4		28			
+Menz4	intra	2021-08-26	menziesii	950 406-2	menziesii	849 61A			13		21			
+Menz5	intra	2021-08-26	menziesii	950 429-1	menziesii	950 77-5			2		47			
+Menz1	intra	2021-10-23	menziesii	849 93C	menziesii	849 57-39			12		36			
+Menz4	intra	2021-10-23	menziesii	950 406-2	menziesii	849 61A			8		42			
+Menz5	intra	2021-10-23	menziesii	950 429-1	menziesii	950 77-5			11		39			
+Lydg1	intra	2021-10-23	lydgatei	6682 204-1	lydgatei	6682 212-1			17		18			
+Lydg2	intra	2021-10-23	lydgatei	6682 217-1	lydgatei	6682 209-2			45		6			
+Lydg3	intra	2021-10-23	lydgatei	6682 222-1	lydgatei	6682 234-1			16		34			
+Lydg4	intra	2021-10-23	lydgatei	6682 233-2	lydgatei	6682 223-1			30		31			
+Lydg5	intra	2021-10-23	lydgatei	6682 235-2	lydgatei	6682 229-2			9		25			
+Sperg1	intra	2021-10-23	spergulina	120296-9	spergulina	120289-12			23		27			
+Sperg2	intra	2021-10-23	spergulina	120294-7	spergulina	120289-13			10		37			
+Sperg3	intra	2021-10-23	spergulina	120292-8	spergulina	120294-2			13		31			
+Sperg4	intra	2021-10-23	spergulina	120294-4	spergulina	120294-2			6		43			
+Sperg5	intra	2021-10-23	spergulina	120289-9	spergulina	120294-8			14		32			
+Sarm1	intra	2021-10-23	sarmentosa	896 123-16	sarmentosa	896 107-1-6			12		38			
+Sarm2	intra	2021-10-23	sarmentosa	896 12-3	sarmentosa	896 107-1-6			11		39			
+	intra	2016-01-01	hookeri	794-2	hookeri	794-4			20		0			
+	intra	2016-01-01	hookeri	794-2	hookeri	866-2			20		0			
+	intra	2016-01-01	hookeri	794-2	hookeri	892-4			18		2			
+	intra	2016-01-01	hookeri	794-2	hookeri	899-2E- 1			10		1			
+	intra	2016-01-01	hookeri	794-4	hookeri	794-2			16		4			
+	intra	2016-01-01	hookeri	794-4	hookeri	866-2			12		8			
+	intra	2016-01-01	hookeri	866-2	hookeri	794-4			17		4			
+	intra	2016-01-01	hookeri	879-2-2	hookeri	879-10-1			19		1			
+	intra	2016-01-01	hookeri	879-2-2	hookeri	879-G-2			18		2			
+	intra	2016-01-01	hookeri	879-2-2	hookeri	879-N-5			19		1			
+	intra	2016-01-01	hookeri	879-G-2	hookeri	879-2-2			8		0			
+	intra	2016-01-01	hookeri	879-N-5	hookeri	879-2-2			5		1			
+	intra	2016-01-01	kaalae	3587-7	kaalae	3587-14			16		1			
+	intra	2016-01-01	kaalae	892-5	kaalae	892-4			7		0			
+	intra	2016-01-01	kaalae	904-2	kaalae	904-3			6		0			
+	intra	2016-01-01	kaalae	904-2	kaalae	904-5			5		0			
+	intra	2016-01-01	kaalae	904-3	kaalae	904-2			15		1			
+	intra	2016-01-01	kaalae	904-3	kaalae	904-5			17		1			
+	intra	2016-01-01	kaalae	904-5	kaalae	904-3			19		0			
+	inter	2019-09-26	kauaiensis	24525-1x6a#6	membranacea 	No tag #2			8		2			
+	inter	2019-07-24	membranacea	No tag #2	kauaiensis	12074-8 x 12074-7 1a			5		5		10 contaminant S. membranacea (I death probably this species)	
+	inter	2019-06-20	lydgatei	6682 204-1	sarmentosa	896 12-2			19		0		1 contaminant	
+	inter	2019-06-20	lydgatei	6682 204-1	sarmentosa	896 14-3			19		7			
+	inter	2019-06-20	lydgatei	6682 209-2	sarmentosa	896 107-1-6			20		1			
+	inter	2019-06-20	lydgatei	6682 209-2	sarmentosa	896 12-2			20		1			
+	inter	2019-06-20	lydgatei	6682 212-1	sarmentosa	896 11-6			20		1			
+	inter	2019-06-20	lydgatei	6682 212-1	sarmentosa	896 212-1			20		5			
+	inter	2019-06-20	lydgatei	6682 217-1	sarmentosa	896 11-6			20		4			
+	inter	2019-06-20	lydgatei	6682 223-1	sarmentosa	896 107-1-6			20		2			
+	inter	2019-06-20	lydgatei	6682 223-1	sarmentosa	896 12-2			20		3			
+	inter	2019-06-20	lydgatei	6682 223-1	sarmentosa	896 9-2-1			20		5			
+	inter	2019-06-20	lydgatei	6682 229-2	sarmentosa	896 12-2			20		1			
+	inter	2019-06-20	lydgatei	6682 229-2	sarmentosa	896 17-5			20		3			
+	inter	2019-06-20	lydgatei	896 123-16	sarmentosa	896 9-2-1			20		7			
+	inter	2019-06-20	lydgatei	6683 233-2	sarmentosa	896 107-1-6			38		5		2 contaminants (both S. lydgatei)	
+	inter	2019-06-20	lydgatei	6683 233-2	sarmentosa	896 12-2			8		1		1 contaminant	
+	inter	2019-06-20	lydgatei	6682 234-1	sarmentosa	896 107-1-6			20		2			
+	inter	2019-06-20	lydgatei	6682 234-1	sarmentosa	896 17-5			45		11			
+	inter	2019-06-20	lydgatei	6682 235-2	sarmentosa	896 14-3			20		5			
+	inter	2019-06-20	lydgatei	6682 235-2	sarmentosa	896 17-5			24		3			
+	inter	2019-07-24	sarmentosa	896 122-2	lydgatei	6683 233-2			20		5			
+	inter	2019-07-19	sarmentosa	896 8-2	lydgatei	6682 204-1			20		5			
+	inter	2019-06-20	sarmentosa	896 8-2	lydgatei	6682 209-2			20		2			
+	inter	2019-06-20	sarmentosa	896 12-3	lydgatei	6682 204-1			44		18			
+	inter	2019-07-24	sarmentosa	896 12-3	lydgatei	6682 212-1			20		6			
+	inter	2019-07-24	sarmentosa	896 123-16	lydgatei	6682 204-1			20		4			
+	inter	2019-07-19	sarmentosa	896 123-16	lydgatei	6682 229-2			20		1			
+	inter	2019-11-10	spergulina	120289-7	stellarioides	6G			20		2			
+	inter	2019-08-28	spergulina	120289-6	stellarioides	14765 20J-1			20		1			
+	inter	2019-08-28	spergulina	120290-8	stellarioides	14765 10C			20		4			
+	inter	2019-09-20	spergulina	120294-4	stellarioides	20J-6			20		5			
+	inter	2019-09-13	stellarioides	10C	spergulina	120289-12			18		4		2 contaminants	
+	inter	2019-06-20	stellarioides	6G	spergulina	120296-4			14		1			
+	inter	2019-09-20	stellarioides	10C	spergulina	120296-4			19		1		1 contaminant	
+	inter	2019-08-28	stellarioides	14B	spergulina	120294-8			8		2			
+	inter	2019-08-28	stellarioides	14765 20J1	spergulina	120295-5			20		4			
+	inter	2019-09-20	stellarioides	14765 20J1	spergulina	120289-12			10		2			
+	inter	2019-09-25	stellarioides	6G	spergulina	120294-5			20		0			
+	inter	2019-09-25	stellarioides	6G	spergulina	120294-8			21		2			
+	inter	2019-09-12	stellarioides	3B	spergulina	120294-8			17		1			
+	inter	2019-07-24	stellarioides	3B C2	spergulina	120289-12			14		4			
+	inter	2019-10-16	salicaria	842 37-15	menziesii	849 93C			20		0			
+	inter	2019-10-16	salicaria	842 37-15	menziesii	849 57-39			19		1		1 contaminant	
+	inter	2019-10-23	salicaria	842 43a-41	menziesii	849 57C			11		0		1 contaminant	1 female 
+	inter	2019-10-01	salicaria	842 69-1F	menziesii	849 122-3			20		0			9 females
+	inter	2019-09-28	salicaria	842 95-8	menziesii	950 442-2			15		0		5 contaminants	
+	inter	2019-10-17	salicaria	842 143-3	menziesii	950 406-2			20		0			
+	inter	2019-09-28	salicaria	842 167-54	menziesii	849 4-17			20		12			
+	inter	2019-09-28	salicaria	842 195-1	menziesii	950 429-1			20		2			
+	inter	2019-10-17	salicaria	842 201-45	menziesii	849 89E			20		3			
+	inter	2019-10-16	salicaria	842 201-45	menziesii	849 61A			20		5			
+	inter	2019-10-17	salicaria	842 212-3	menziesii	950 406-2			20		0			
+	inter	2019-10-17	salicaria	842 212-3	menziesii	950 501			20		0			
+	inter	2019-10-17	salicaria	842 215-2	menziesii	849 77-2			20		1			
+	inter	2019-10-17	menziesii	849 4-17	salicaria	842 22-4			20		3			
+	inter	2019-10-01	menziesii	849 4-17	salicaria	842 81-62			20		2			
+	inter	2019-10-23	menziesii	849 4-17	salicaria	842 172-37			20		1			
+	inter	2019-09-28	menziesii	849 57C	salicaria	842 22-4			18		1		2 contaminants, both S. menziesii	
+	inter	2019-10-23	menziesii	849 57-39	salicaria	842 172-37			20		3			
+	inter	2019-10-16	menziesii	849 57-39	salicaria	842 251-6			20		2			
+	inter	2019-10-17	menziesii	849 61A	salicaria	842 211-55			20		0			
+	inter	2019-10-16	menziesii	849 77-2	salicaria	842 107-3			20		3			
+	inter	2019-10-23	menziesii	849 77-2	salicaria	842 211-55			12		2			
+	inter	2019-10-23	menziesii	849 83A	salicaria	842 9-5			20		4			
+	inter	2019-10-17	menziesii	849 83A	salicaria	842 108-5			19		2		1 contaminant	
+	inter	2019-10-23	menziesii	849 89E	salicaria	842 80-19			20		4			
+	inter	2019-09-28	menziesii	849 93C	salicaria	842 212-18			19		0		1 contaminant	1 female
+	inter	2019-10-17	menziesii	849 122-3	salicaria	842 86-38			20		3			4 females
+	inter	2019-10-23	menziesii	849 122-3	salicaria	842 201-46			20		1			6 females
+	inter	2019-10-17	menziesii	950 406-2	salicaria	842 43a-41			20		0			
+	inter	2019-10-17	menziesii	950 406-2	salicaria	842 172-37			20		1			
+	inter	2019-09-26	menziesii	950 429-1	salicaria	842 9-5			20		2			
+	inter	2019-09-28	menziesii	950 429-1	salicaria	842 139-56			20		4			
+	inter	2016-01-01	hookeri	794-2	kaalae	3587-C			5		0			
+	inter	2016-01-01	hookeri	794-2	kaalae	892-1			20		0			
+	inter	2016-01-01	hookeri	794-2	kaalae	892-5			7		0			
+	inter	2016-01-01	hookeri	794-4	kaalae	892-1			5		0			
+	inter	2016-01-01	hookeri	794-4	kaalae	892-3			7		0			
+	inter	2016-01-01	hookeri	794-4	kaalae	892-4			7		2			
+	inter	2016-01-01	hookeri	794-4	kaalae	892-5			9		0			
+	inter	2016-01-01	hookeri	794-4	kaalae	904-5			6		6			
+	inter	2016-01-01	hookeri	866-2	kaalae	3587-7			9		0			
+	inter	2016-01-01	hookeri	866-2	kaalae	3587-C			9		1			
+	inter	2016-01-01	hookeri	866-2	kaalae	892-1			9		0			
+	inter	2016-01-01	hookeri	866-2	kaalae	892-4	 		12		1			
+	inter	2016-01-01	hookeri	866-2	kaalae	904-5			20		0			
+	inter	2016-01-01	hookeri	879-10-1	kaalae	3587-15			13		1			
+	inter	2016-01-01	hookeri	879-10-1	kaalae	3587-7			6		2			
+	inter	2016-01-01	hookeri	879-10-1	kaalae	892-1			6		0			
+	inter	2016-01-01	hookeri	879-10-1	kaalae	892-4			11		0			
+	inter	2016-01-01	hookeri	879-2-2	kaalae	892-1			20		0			
+	inter	2016-01-01	hookeri	879-2-2	kaalae	892-4			18		3			
+	inter	2016-01-01	hookeri	879-2-3	kaalae	892-5			18		3			
+	inter	2016-01-01	hookeri	879-2-4	kaalae	904-2			20		0			
+	inter	2016-01-01	hookeri	879-2-5	kaalae	904-3			8		0			
+	inter	2016-01-01	hookeri	879-2-6	kaalae	904-5			16		2			
+	inter	2016-01-01	hookeri	879-2-7	kaalae	3587-C			5		0			
+	inter	2016-01-01	hookeri	879-G-2	kaalae	3587-14			8		1			
+	inter	2016-01-01	hookeri	879-G-2	kaalae	892-3			7		0			
+	inter	2016-01-01	hookeri	879-G-2	kaalae	904-5			11		1			
+	inter	2016-01-01	hookeri	879-H-2	kaalae	904-5			8		0			
+	inter	2016-01-01	hookeri	879-N-5	kaalae	3587-C			6		1			
+	inter	2016-01-01	hookeri	879-N-5	kaalae	892-5			6		0			
+	inter	2016-01-01	hookeri	879-N-5	kaalae	904-5			3		3			
+	inter	2016-01-01	hookeri	899-2E- 1	kaalae	3587-14			9		0			
+	inter	2016-01-01	hookeri	899-2E- 1	kaalae	892-1			10		1			
+	inter	2016-01-01	hookeri	899-2E- 1	kaalae	904-5			14		6			
+	inter	2016-01-01	kaalae	3587-14	hookeri	879-10-1			4		1			
+	inter	2016-01-01	kaalae	3587-7	hookeri	879-G-2			5		1			
+	inter	2016-01-01	kaalae	3587-7	hookeri	879-N-5			5		1			
+	inter	2016-01-01	kaalae	892-1	hookeri	879-2-2			5		0			
+	inter	2016-01-01	kaalae	892-5	hookeri	879-2-2			6		0			
+	inter	2016-01-01	kaalae	904-2	hookeri	879-2-2			6		6			
+	inter	2016-01-01	kaalae	904-2	hookeri	879-G-2			7		1			
+	inter	2016-01-01	kaalae	904-5	hookeri	879-10-1			7		0			
+	inter	2016-01-01	kaalae	904-5	hookeri	879-2-2			6		2			
+	inter	2016-01-01	kaalae	904-5	hookeri	879-G-2			9		1			
+	inter	2016-01-01	kaalae	904-5	hookeri	899-2E- 1			18		0			

@@ -1,0 +1,81 @@
+---
+title: "*Schiedea* pollen competition"
+author: "[John Powers](http://sites.uci.edu/powers/)"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    self_contained: no
+    lib_dir: libs
+    code_folding: hide
+    toc: yes
+    toc_float: TRUE
+---
+
+```{r setup, message = FALSE}
+library(tidyverse)
+library(glmmTMB)
+library(broom)
+library(emmeans)
+library(knitr)
+knitr::opts_chunk$set(comment="", cache=T, warning = F, message = F, fig.height=8, fig.width=8,
+                      fig.path = "figures-comp/", dev = "svglite", dev.args=list(fix_text_size=FALSE))
+options(digits=4, knitr.kable.NA = "")
+ggplot2::theme_set(theme_minimal())
+```
+
+# Inventory
+
+```{r load_data}
+sp_pairs <- c("hookeri", "kaalae",
+             "kauaiensis", "membranacea",
+             "lydgatei", "sarmentosa",
+             "menziesii", "salicaria",
+             "spergulina","stellarioides")
+
+germ.pot <- read_tsv("data/Pollen competition - germination.tsv") %>%  
+  mutate(dadspm = if_else(type=="mixed" & dadsp1==momsp, dadsp1, dadsp2), #rearrange dad1/dad2 to have dadsp match momsp
+         dadidm = if_else(type=="mixed" & dadsp1==momsp, dadid1, dadid2),
+         dadsp  = if_else(type=="mixed" & dadsp1==momsp, dadsp2, dadsp1),
+         dadid  = if_else(type=="mixed" & dadsp1==momsp, dadid2, dadid1), .after=momid) %>% 
+  select(-starts_with("germinated_n"), -transplanted_n, -matches("dad(sp|id)[12]")) %>% 
+  mutate(across(where(is.character), factor), type = fct_relevel(type, "intra"), 
+         across(matches("sp"), ~ factor(.x, levels = sp_pairs)),
+         germinated = ifelse(germinated > planted, planted, germinated)) #TODO see if these are data entry errors
+
+germ <- germ.pot %>% group_by(date_planted, type, momsp, momid, dadspm, dadidm, dadsp, dadid) %>% 
+  summarize(planted = sum(planted), germinated = sum(germinated), .groups="drop") %>% # add together all the pots of one cross
+  mutate(prop.germ = germinated/planted) # proportion of planted seeds that germinated 
+
+surv <- read_tsv("data/Pollen competition - survival.tsv") %>% 
+  mutate(dadspm = if_else(type=="mixed" & dadsp1==momsp, dadsp1, dadsp2), #rearrange dad1/dad2 to have dadsp match momsp
+         dadidm = if_else(type=="mixed" & dadsp1==momsp, dadid1, dadid2),
+         dadsp  = if_else(type=="mixed" & dadsp1==momsp, dadsp2, dadsp1),
+         dadid  = if_else(type=="mixed" & dadsp1==momsp, dadid2, dadid1), .after=momid) %>% 
+  select(-matches("dad(sp|id)[12]")) %>% 
+  mutate(across(where(is.character), factor), type=fct_relevel(type, "intra"),
+         across(matches("sp"), ~ factor(.x, levels = sp_pairs)),
+         alive = sameasmom + hybrid,
+         total = alive + dead, 
+         prop.hybrid = hybrid / alive,
+         prop.dead = dead / total)
+
+surv %>% count(momsp, type, dadsp, name="crosses_surv") %>% 
+  full_join(germ %>% count(momsp, type, dadsp, name="crosses_germ")) %>% 
+  full_join(germ.pot %>% count(momsp, type, dadsp, name = "pots_germ")) %>%
+  mutate(pots_per_cross = pots_germ/crosses_germ) %>% kable()
+```
+
+# Scoring dates
+
+```{r dates}
+germ.pot %>% ggplot(aes(x=date_planted, y=date_scored, color=momsp)) + geom_point() + geom_rug() + geom_abline(slope=1, intercept=0) + 
+  scale_color_brewer(palette="Paired") + labs(title="Germination scoring") #TODO check mis-entered dates
+
+germ.pot %>% filter(abs(date_scored-date_planted)<=90) %>% ggplot(aes(x=date_scored - date_planted, fill=type)) + facet_wrap(vars(momsp)) +
+  geom_histogram(binwidth=1) + scale_x_continuous(limits=c(0,NA)) + labs(title="Germination scoring", subtitle = "plot restricted to 90 days")
+
+surv %>% ggplot(aes(x=date_planted, y=date_scored, color=momsp)) + geom_point() + geom_rug() + 
+   scale_color_brewer(palette="Paired") + labs(title="Survival scoring")
+```
+
+

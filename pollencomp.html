@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="John Powers" />
+
+<meta name="date" content="2023-03-22" />
+
+<title>Schiedea pollen competition</title>
+
+<script src="libs/header-attrs-2.20/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<script src="libs/navigation-1.1/codefolding.js"></script>
+<link href="libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore"><em>Schiedea</em> pollen competition</h1>
+<h4 class="author"><a href="http://sites.uci.edu/powers/">John
+Powers</a></h4>
+<h4 class="date">2023-03-22</h4>
+
+</div>
+
+
+<pre class="r"><code>library(tidyverse)
+library(glmmTMB)
+library(broom)
+library(emmeans)
+library(knitr)
+knitr::opts_chunk$set(comment=&quot;&quot;, cache=T, warning = F, message = F, fig.height=8, fig.width=8,
+                      fig.path = &quot;figures-comp/&quot;, dev = &quot;svglite&quot;, dev.args=list(fix_text_size=FALSE))
+options(digits=4, knitr.kable.NA = &quot;&quot;)
+ggplot2::theme_set(theme_minimal())</code></pre>
+<div id="inventory" class="section level1">
+<h1>Inventory</h1>
+<pre class="r"><code>sp_pairs &lt;- c(&quot;hookeri&quot;, &quot;kaalae&quot;,
+             &quot;kauaiensis&quot;, &quot;membranacea&quot;,
+             &quot;lydgatei&quot;, &quot;sarmentosa&quot;,
+             &quot;menziesii&quot;, &quot;salicaria&quot;,
+             &quot;spergulina&quot;,&quot;stellarioides&quot;)
+
+germ.pot &lt;- read_tsv(&quot;data/Pollen competition - germination.tsv&quot;) %&gt;%  
+  mutate(dadspm = if_else(type==&quot;mixed&quot; &amp; dadsp1==momsp, dadsp1, dadsp2), #rearrange dad1/dad2 to have dadsp match momsp
+         dadidm = if_else(type==&quot;mixed&quot; &amp; dadsp1==momsp, dadid1, dadid2),
+         dadsp  = if_else(type==&quot;mixed&quot; &amp; dadsp1==momsp, dadsp2, dadsp1),
+         dadid  = if_else(type==&quot;mixed&quot; &amp; dadsp1==momsp, dadid2, dadid1), .after=momid) %&gt;% 
+  select(-starts_with(&quot;germinated_n&quot;), -transplanted_n, -matches(&quot;dad(sp|id)[12]&quot;)) %&gt;% 
+  mutate(across(where(is.character), factor), type = fct_relevel(type, &quot;intra&quot;), 
+         across(matches(&quot;sp&quot;), ~ factor(.x, levels = sp_pairs)),
+         germinated = ifelse(germinated &gt; planted, planted, germinated)) #TODO see if these are data entry errors
+
+germ &lt;- germ.pot %&gt;% group_by(date_planted, type, momsp, momid, dadspm, dadidm, dadsp, dadid) %&gt;% 
+  summarize(planted = sum(planted), germinated = sum(germinated), .groups=&quot;drop&quot;) %&gt;% # add together all the pots of one cross
+  mutate(prop.germ = germinated/planted) # proportion of planted seeds that germinated 
+
+surv &lt;- read_tsv(&quot;data/Pollen competition - survival.tsv&quot;) %&gt;% 
+  mutate(dadspm = if_else(type==&quot;mixed&quot; &amp; dadsp1==momsp, dadsp1, dadsp2), #rearrange dad1/dad2 to have dadsp match momsp
+         dadidm = if_else(type==&quot;mixed&quot; &amp; dadsp1==momsp, dadid1, dadid2),
+         dadsp  = if_else(type==&quot;mixed&quot; &amp; dadsp1==momsp, dadsp2, dadsp1),
+         dadid  = if_else(type==&quot;mixed&quot; &amp; dadsp1==momsp, dadid2, dadid1), .after=momid) %&gt;% 
+  select(-matches(&quot;dad(sp|id)[12]&quot;)) %&gt;% 
+  mutate(across(where(is.character), factor), type=fct_relevel(type, &quot;intra&quot;),
+         across(matches(&quot;sp&quot;), ~ factor(.x, levels = sp_pairs)),
+         alive = sameasmom + hybrid,
+         total = alive + dead, 
+         prop.hybrid = hybrid / alive,
+         prop.dead = dead / total)
+
+surv %&gt;% count(momsp, type, dadsp, name=&quot;crosses_surv&quot;) %&gt;% 
+  full_join(germ %&gt;% count(momsp, type, dadsp, name=&quot;crosses_germ&quot;)) %&gt;% 
+  full_join(germ.pot %&gt;% count(momsp, type, dadsp, name = &quot;pots_germ&quot;)) %&gt;%
+  mutate(pots_per_cross = pots_germ/crosses_germ) %&gt;% kable()</code></pre>
+<table>
+<colgroup>
+<col width="16%" />
+<col width="7%" />
+<col width="16%" />
+<col width="15%" />
+<col width="15%" />
+<col width="11%" />
+<col width="17%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">momsp</th>
+<th align="left">type</th>
+<th align="left">dadsp</th>
+<th align="right">crosses_surv</th>
+<th align="right">crosses_germ</th>
+<th align="right">pots_germ</th>
+<th align="right">pots_per_cross</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">hookeri</td>
+<td align="left">intra</td>
+<td align="left">hookeri</td>
+<td align="right">12</td>
+<td align="right">19</td>
+<td align="right">64</td>
+<td align="right">3.368</td>
+</tr>
+<tr class="even">
+<td align="left">hookeri</td>
+<td align="left">inter</td>
+<td align="left">kaalae</td>
+<td align="right">34</td>
+<td align="right">62</td>
+<td align="right">108</td>
+<td align="right">1.742</td>
+</tr>
+<tr class="odd">
+<td align="left">hookeri</td>
+<td align="left">mixed</td>
+<td align="left">kaalae</td>
+<td align="right">12</td>
+<td align="right">8</td>
+<td align="right">70</td>
+<td align="right">8.750</td>
+</tr>
+<tr class="even">
+<td align="left">kaalae</td>
+<td align="left">intra</td>
+<td align="left">kaalae</td>
+<td align="right">7</td>
+<td align="right">19</td>
+<td align="right">34</td>
+<td align="right">1.790</td>
+</tr>
+<tr class="odd">
+<td align="left">kaalae</td>
+<td align="left">inter</td>
+<td align="left">hookeri</td>
+<td align="right">11</td>
+<td align="right">68</td>
+<td align="right">119</td>
+<td align="right">1.750</td>
+</tr>
+<tr class="even">
+<td align="left">kaalae</td>
+<td align="left">mixed</td>
+<td align="left">hookeri</td>
+<td align="right">10</td>
+<td align="right">6</td>
+<td align="right">34</td>
+<td align="right">5.667</td>
+</tr>
+<tr class="odd">
+<td align="left">kauaiensis</td>
+<td align="left">intra</td>
+<td align="left">kauaiensis</td>
+<td align="right">2</td>
+<td align="right">9</td>
+<td align="right">19</td>
+<td align="right">2.111</td>
+</tr>
+<tr class="even">
+<td align="left">kauaiensis</td>
+<td align="left">inter</td>
+<td align="left">membranacea</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">3.000</td>
+</tr>
+<tr class="odd">
+<td align="left">kauaiensis</td>
+<td align="left">mixed</td>
+<td align="left">membranacea</td>
+<td align="right">7</td>
+<td align="right">8</td>
+<td align="right">63</td>
+<td align="right">7.875</td>
+</tr>
+<tr class="even">
+<td align="left">membranacea</td>
+<td align="left">intra</td>
+<td align="left">membranacea</td>
+<td align="right">4</td>
+<td align="right">6</td>
+<td align="right">30</td>
+<td align="right">5.000</td>
+</tr>
+<tr class="odd">
+<td align="left">membranacea</td>
+<td align="left">inter</td>
+<td align="left">kauaiensis</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">18</td>
+<td align="right">4.500</td>
+</tr>
+<tr class="even">
+<td align="left">membranacea</td>
+<td align="left">mixed</td>
+<td align="left">kauaiensis</td>
+<td align="right">5</td>
+<td align="right">15</td>
+<td align="right">60</td>
+<td align="right">4.000</td>
+</tr>
+<tr class="odd">
+<td align="left">lydgatei</td>
+<td align="left">intra</td>
+<td align="left">lydgatei</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">42</td>
+<td align="right">8.400</td>
+</tr>
+<tr class="even">
+<td align="left">lydgatei</td>
+<td align="left">inter</td>
+<td align="left">sarmentosa</td>
+<td align="right">19</td>
+<td align="right">20</td>
+<td align="right">90</td>
+<td align="right">4.500</td>
+</tr>
+<tr class="odd">
+<td align="left">lydgatei</td>
+<td align="left">mixed</td>
+<td align="left">sarmentosa</td>
+<td align="right">5</td>
+<td align="right">14</td>
+<td align="right">61</td>
+<td align="right">4.357</td>
+</tr>
+<tr class="even">
+<td align="left">sarmentosa</td>
+<td align="left">intra</td>
+<td align="left">sarmentosa</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">20</td>
+<td align="right">10.000</td>
+</tr>
+<tr class="odd">
+<td align="left">sarmentosa</td>
+<td align="left">inter</td>
+<td align="left">lydgatei</td>
+<td align="right">7</td>
+<td align="right">9</td>
+<td align="right">42</td>
+<td align="right">4.667</td>
+</tr>
+<tr class="even">
+<td align="left">sarmentosa</td>
+<td align="left">mixed</td>
+<td align="left">lydgatei</td>
+<td align="right">5</td>
+<td align="right">9</td>
+<td align="right">58</td>
+<td align="right">6.444</td>
+</tr>
+<tr class="odd">
+<td align="left">menziesii</td>
+<td align="left">intra</td>
+<td align="left">menziesii</td>
+<td align="right">7</td>
+<td align="right">8</td>
+<td align="right">76</td>
+<td align="right">9.500</td>
+</tr>
+<tr class="even">
+<td align="left">menziesii</td>
+<td align="left">inter</td>
+<td align="left">salicaria</td>
+<td align="right">19</td>
+<td align="right">21</td>
+<td align="right">87</td>
+<td align="right">4.143</td>
+</tr>
+<tr class="odd">
+<td align="left">menziesii</td>
+<td align="left">mixed</td>
+<td align="left">salicaria</td>
+<td align="right">11</td>
+<td align="right">16</td>
+<td align="right">82</td>
+<td align="right">5.125</td>
+</tr>
+<tr class="even">
+<td align="left">salicaria</td>
+<td align="left">intra</td>
+<td align="left">salicaria</td>
+<td align="right">11</td>
+<td align="right">12</td>
+<td align="right">98</td>
+<td align="right">8.167</td>
+</tr>
+<tr class="odd">
+<td align="left">salicaria</td>
+<td align="left">inter</td>
+<td align="left">menziesii</td>
+<td align="right">13</td>
+<td align="right">12</td>
+<td align="right">53</td>
+<td align="right">4.417</td>
+</tr>
+<tr class="even">
+<td align="left">salicaria</td>
+<td align="left">mixed</td>
+<td align="left">menziesii</td>
+<td align="right">14</td>
+<td align="right">24</td>
+<td align="right">76</td>
+<td align="right">3.167</td>
+</tr>
+<tr class="odd">
+<td align="left">spergulina</td>
+<td align="left">intra</td>
+<td align="left">spergulina</td>
+<td align="right">5</td>
+<td align="right">8</td>
+<td align="right">67</td>
+<td align="right">8.375</td>
+</tr>
+<tr class="even">
+<td align="left">spergulina</td>
+<td align="left">inter</td>
+<td align="left">stellarioides</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">14</td>
+<td align="right">4.667</td>
+</tr>
+<tr class="odd">
+<td align="left">spergulina</td>
+<td align="left">mixed</td>
+<td align="left">stellarioides</td>
+<td align="right">5</td>
+<td align="right">10</td>
+<td align="right">60</td>
+<td align="right">6.000</td>
+</tr>
+<tr class="even">
+<td align="left">stellarioides</td>
+<td align="left">intra</td>
+<td align="left">stellarioides</td>
+<td align="right">5</td>
+<td align="right">6</td>
+<td align="right">26</td>
+<td align="right">4.333</td>
+</tr>
+<tr class="odd">
+<td align="left">stellarioides</td>
+<td align="left">inter</td>
+<td align="left">spergulina</td>
+<td align="right">10</td>
+<td align="right">7</td>
+<td align="right">13</td>
+<td align="right">1.857</td>
+</tr>
+<tr class="even">
+<td align="left">stellarioides</td>
+<td align="left">mixed</td>
+<td align="left">spergulina</td>
+<td align="right">6</td>
+<td align="right">6</td>
+<td align="right">28</td>
+<td align="right">4.667</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="scoring-dates" class="section level1">
+<h1>Scoring dates</h1>
+<pre class="r"><code>germ.pot %&gt;% ggplot(aes(x=date_planted, y=date_scored, color=momsp)) + geom_point() + geom_rug() + geom_abline(slope=1, intercept=0) + 
+  scale_color_brewer(palette=&quot;Paired&quot;) + labs(title=&quot;Germination scoring&quot;) #TODO check mis-entered dates</code></pre>
+<p><img src="figures-comp/dates-1.svg" width="768" /></p>
+<pre class="r"><code>germ.pot %&gt;% filter(abs(date_scored-date_planted)&lt;=90) %&gt;% ggplot(aes(x=date_scored - date_planted, fill=type)) + facet_wrap(vars(momsp)) +
+  geom_histogram(binwidth=1) + scale_x_continuous(limits=c(0,NA)) + labs(title=&quot;Germination scoring&quot;, subtitle = &quot;plot restricted to 90 days&quot;)</code></pre>
+<p><img src="figures-comp/dates-2.svg" width="768" /></p>
+<pre class="r"><code>surv %&gt;% ggplot(aes(x=date_planted, y=date_scored, color=momsp)) + geom_point() + geom_rug() + 
+   scale_color_brewer(palette=&quot;Paired&quot;) + labs(title=&quot;Survival scoring&quot;)</code></pre>
+<p><img src="figures-comp/dates-3.svg" width="768" /></p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
