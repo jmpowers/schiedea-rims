@@ -26,12 +26,15 @@ ggplot2::theme_set(theme_minimal())
 # Inventory
 
 ```{r load_data}
+#in order of phylogenetic distance
 sp_pairs <- c("menz"="menziesii", "sal"="salicaria",
               "lydg"="lydgatei", "sarm" ="sarmentosa",
               "stell"="stellarioides","sperg"="spergulina",
-              "hook"="hookeri", "kaal"="kaalae",
-              "memb"="membranacea","kaua"="kauaiensis")
-type_pal <- c(intra="#DC0060", inter="#F56E00", mixed="#86D400")
+              "memb"="membranacea","kaua"="kauaiensis",
+              "hook"="hookeri", "kaal"="kaalae")
+typenames <- set_names(c("Intraspecific","Competitive","Interspecific"),c("intra","mixed","inter"))
+type_pal <- set_names(c("#DC0060", "#86D400", "#F56E00"), names(typenames))
+propnames <- set_names(c("Germinated","Survived","Hybrid"), c("prop.germ", "prop.alive", "prop.hybrid"))
 
 germ.pot <- read_tsv("data/Pollen competition - germination.tsv") %>%  
   mutate(dadspm = if_else(type=="mixed" & dadsp1==momsp, dadsp1, dadsp2), #rearrange dad1/dad2 to have dadsp match momsp
@@ -41,7 +44,8 @@ germ.pot <- read_tsv("data/Pollen competition - germination.tsv") %>%
   select(-starts_with("germinated_n"), -transplanted_n, -matches("dad(sp|id)[12]")) %>% 
   mutate(across(matches("sp"), ~ recode(.x, !!!sp_pairs)),
          sxc = paste(momsp, type, sep="."),
-         across(where(is.character), factor), type = fct_relevel(type, "intra"), 
+         across(where(is.character), factor), 
+         type=factor(type, levels= names(typenames)), 
          across(matches("sp"), ~ factor(.x, levels = sp_pairs)),
          germinated = ifelse(germinated > planted, planted, germinated))
 
@@ -56,7 +60,8 @@ surv <- read_tsv("data/Pollen competition - survival.tsv") %>%
          dadid  = if_else(type=="mixed" & dadsp1==momsp, dadid2, dadid1), .after=momid) %>% 
   select(-matches("dad(sp|id)[12]")) %>% 
   mutate(sxc = paste(momsp, type, sep="."),
-         across(where(is.character), factor), type=fct_relevel(type, "intra"),
+         across(where(is.character), factor), 
+         type=factor(type, levels= names(typenames)),
          across(matches("sp"), ~ factor(.x, levels = sp_pairs)),
          across(all_of(c("sameasmom", "hybrid", "dead")), ~replace_na(.x,0)), #TODO investigate blanks vs. zeros
          alive = sameasmom + hybrid,
@@ -67,10 +72,14 @@ surv <- read_tsv("data/Pollen competition - survival.tsv") %>%
 surv %>% count(momsp, type, dadsp, name="crosses_surv") %>% 
   full_join(germ %>% count(momsp, type, dadsp, name="crosses_germ")) %>% 
   full_join(germ.pot %>% count(momsp, type, dadsp, name = "pots_germ")) %>%
-  mutate(pots_per_cross = pots_germ/crosses_germ) %>% kable()
+  mutate(pots_per_cross = pots_germ/crosses_germ) %>% 
+  kable(caption="Number of crosses between individual plants used for germination and survival,
+        and how many pots the seeds filled")
 ```
 
 # Scoring dates
+
+The date scored is not always available or accurate, do not use for analysis.
 
 ```{r dates}
 germ.pot %>%  ggplot(aes(x=date_planted, y=date_scored, color=momsp)) + 
@@ -115,13 +124,15 @@ comp.test %>%  mutate(term=recode(term, sxc = "species and crosstype"),
 comp.emm <-  map_dfr(comp.mod, ~emmeans(., ~sxc) %>% summary(type="response") %>%  #average over collect date
                              tidy %>% rename(estimate=prob), .id="trait") %>% 
   separate(sxc, into = c("momsp","type")) %>% 
-  mutate(momsp=factor(momsp, levels=sp_pairs), type=fct_relevel(type, "intra"))
+  mutate(momsp=factor(momsp, levels=sp_pairs), 
+         type=factor(type, levels= names(typenames)),
+         trait=factor(trait, levels=names(propnames)))
 
 #doesn't work, compares all to the first level (hookeri)
 #hybrid.half <- multcomp::glht(comp.mod$prop.hybrid, multcomp::mcp(sxc = paste0(sp_pairs[-7],".mixed = 0")))
 #compare to null of 50% hybrids, since pollen mixtures were 50-50
 hybrid.test <- surv %>% filter(type=="mixed") %>% 
-  group_by(momsp) %>% summarize(hybrid=sum(hybrid), alive=sum(alive)) %>% 
+  group_by(momsp, dadsp) %>% summarize(hybrid=sum(hybrid), alive=sum(alive)) %>% 
   mutate(prop.hybrid = hybrid/alive,
          p = map2_dbl(hybrid, alive, ~prop.test(x=.x, n=.y, p = 0.5)$p.value),
          p.adj = p.adjust(p, "bonferroni"),
@@ -131,6 +142,8 @@ hybrid.test <- surv %>% filter(type=="mixed") %>%
 
 # Plots
 
+Boxplots of the germination and survival proportions in each plant x plant cross. Germination proportions are calculated across all pots of a given plant x plant cross. Points show estimated marginal mean and 95% CI.
+
 ```{r rawdata}
 sp_theme <- theme(legend.position = "top", panel.grid.major.x=element_blank(), 
                   axis.text.x = element_text(angle=20), axis.text = element_text(color="black"))
@@ -139,14 +152,16 @@ alternate <- geom_tile(data=tibble(momsp=sp_pairs[seq(1,10,by=2)]), aes(x=momsp,
 ggplot(germ, aes(x=momsp, fill=type, y=prop.germ))  + 
   geom_boxplot(position = position_dodge(width=0.9), color="grey50", outlier.size=0.5) + alternate+ 
   geom_pointrange(data=filter(comp.emm, trait=="prop.germ"), aes(y=estimate, ymax=conf.high, ymin=conf.low),
-                  position = position_dodge(width=0.9), size=0.3) + 
-  scale_fill_manual(values=type_pal) +  labs(x="Maternal species", y="Germination", fill="Cross") + sp_theme
+                  position = position_dodge(width=0.9), size=0.3, show.legend=F) + 
+  scale_fill_manual(values=type_pal, labels=typenames) +  
+  labs(x="Maternal species", y="Germination", fill="Pollination") + sp_theme
 
 ggplot(surv, aes(x=momsp, fill=type, y=prop.alive))  + 
   geom_boxplot(position = position_dodge(width=0.9), color="grey50", outlier.size=0.5) + alternate+ 
   geom_pointrange(data=filter(comp.emm, trait=="prop.alive"), aes(y=estimate, ymax=conf.high, ymin=conf.low),
-                  position = position_dodge(width=0.9), size=0.3) + 
-  scale_fill_manual(values=type_pal) +  labs(x="Maternal species", y="Survival", fill="Cross") + sp_theme
+                  position = position_dodge(width=0.9), size=0.3, show.legend=F) + 
+  scale_fill_manual(values=type_pal, labels=typenames) +  
+  labs(x="Maternal species", y="Survival", fill="Pollination") + sp_theme
 
 ggplot(filter(surv, type=="mixed"), aes(x=momsp, y=prop.hybrid, fill=momsp)) + 
   geom_hline(yintercept=0.5)+ geom_violin(scale="width", draw_quantiles = c(0.25,0.5,0.75))+ 
@@ -156,8 +171,47 @@ ggplot(filter(surv, type=="mixed"), aes(x=momsp, y=prop.hybrid, fill=momsp)) +
   geom_text(data=hybrid.test, aes(y=1.1, label=alive))+
   scale_fill_brewer(palette="Paired", guide="none") + 
   scale_y_continuous(breaks=(0:4)/4, labels=~scales::percent(.,accuracy=1))+ 
-  labs(x="Maternal species", y="Hybrids from mixed pollinations") + sp_theme
+  labs(x="Maternal species", y="Hybrids from competitive pollinations") + sp_theme
 ```
 
+Tested whether the proportion of hybrids significantly differed from 50%, accounting for multiple comparisons. Violin plots show proportions for each plant x plant cross. The number of surviving seedlings that could be scored is indicated above the plot.
 
+# Phylogenetic distance
 
+Load *Schiedea* tree inferred with RAxML from Willyard et al. nuclear dataset (no chloroplast data, 1 accession per species).
+
+```{r phylodist}
+library(ape)
+library(RColorBrewer)
+#devtools::install_github('gastonstat/arcdiagram')
+library(igraph)
+library(arcdiagram)
+
+sp_pal <- set_names(brewer.pal(length(sp_pairs), "Paired"), sp_pairs)
+tree <- read.nexus("data/RAxML_1ps_nocp_bipartitionsBranchLabels.sch.short.nobs.nex")
+plot(tree, tip.color = sp_pal[tree$tip.label])
+
+par(mfrow=c(1,2))
+par(mar=c(1.5,0,1.5,0))
+tree_pairs <- tree %>% keep.tip(sp_pairs)
+plot(tree_pairs, tip.color = sp_pal[tree_pairs$tip.label])
+par(mar=c(0,0,0,0))
+sp_pairs %>% matrix(ncol=2, byrow=T) %>% 
+  arcplot(show.labels=F, horizontal=F, ordering=tree_pairs$tip.label, 
+          col.arcs=sp_pal[(1:5)*2], col.nodes = sp_pal)
+par(mfrow=c(1,1))
+
+hybrid.phylodist <- comp.emm %>% left_join(select(hybrid.test, momsp, dadsp)) %>% 
+  mutate(pd = map2_dbl(as.character(momsp), as.character(dadsp), ~cophenetic(tree_pairs)[.x,.y]))
+
+ggplot(hybrid.phylodist, aes(x=pd, y=estimate)) + 
+  facet_grid(trait~type, labeller=as_labeller(c(propnames, typenames)))+
+  geom_smooth(method="lm", se=F, color="grey") +
+  geom_pointrange(aes(ymax=conf.high, ymin=conf.low, color=momsp)) + scale_color_brewer(palette="Paired") + 
+  scale_y_continuous(limits = c(0,1), breaks=(0:4)/4, labels=~scales::percent(.,accuracy=1), expand=c(0,0))+ 
+  labs(x="Phylogenetic distance (mutations/site)", color="Maternal species") + theme_bw() +
+  theme(axis.title.y=element_blank(), axis.text=element_text(color="black"), legend.position="top",
+        panel.grid.minor = element_blank(), panel.grid.major.x=element_blank(), panel.spacing = unit(1, "lines"))
+```
+
+Note that for reference, data for intraspecific crosses is plotted with the phylogenetic distance to its paired species, which doesn't make great sense.

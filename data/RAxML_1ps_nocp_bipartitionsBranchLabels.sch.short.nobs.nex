@@ -1,0 +1,137 @@
+#NEXUS
+begin taxa;
+	dimensions ntax=35;
+	taxlabels
+	Honckenya_peploides
+	Triplateia_moehringiodes
+	Wilhelmsia_physodes
+	adamantis
+	apokremnos
+	attenuata
+	diffusa
+	globosa
+	haleakalensis
+	hawaiiensis
+	helleri
+	hookeri
+	jacobii
+	kaalae
+	kauaiensis
+	kealiae
+	laui
+	ligustrina
+	lychnoides
+	lydgatei
+	mannii
+	membranacea
+	menziesii
+	nuttallii
+	obovata
+	pentandra
+	perlmanii
+	pubescens
+	salicaria
+	sarmentosa
+	spergulina
+	stellarioides
+	trinervis
+	verticillata
+	viscosa
+;
+end;
+
+begin trees;
+	tree tree_1 = [&R] (((((helleri:0.004009,membranacea:0.003282)[&label=100]:0.009145,(((((((hawaiiensis:0.004134,(pubescens:0.002512,pentandra:5.93E-4)[&label=79]:0.001356)[&label=19]:3.83E-4,((laui:0.003785,nuttallii:0.002926)[&label=55]:8.18E-4,(kaalae:0.003831,jacobii:0.001919)[&label=20]:0.001246)[&label=37]:0.001461)[&label=34]:4.36E-4,diffusa:0.004749)[&label=98]:0.00149,(stellarioides:0.004993,(perlmanii:0.003203,kauaiensis:0.004201)[&label=97]:0.001375)[&label=88]:7.59E-4)[&label=96]:0.00321,((((((adamantis:0.003898,ligustrina:0.001737)[&label=100]:0.002854,(lydgatei:0.00289,salicaria:0.002843)[&label=62]:0.001162)[&label=64]:7.38E-4,(globosa:0.005515,((kealiae:0.003775,hookeri:0.003607)[&label=100]:0.001155,sarmentosa:0.003914)[&label=88]:0.001509)[&label=67]:5.65E-4)[&label=96]:0.001625,(mannii:0.006551,menziesii:0.003465)[&label=33]:7.14E-4)[&label=26]:3.31E-4,haleakalensis:0.005293)[&label=95]:9.78E-4,spergulina:0.002979)[&label=97]:0.003873)[&label=64]:0.001276,apokremnos:0.007456)[&label=56]:0.001202,(verticillata:0.010205,(attenuata:0.005501,((obovata:0.001135,trinervis:0.001259)[&label=100]:0.003198,(viscosa:0.001474,lychnoides:0.001673)[&label=100]:0.002723)[&label=97]:0.001454)[&label=100]:0.00269)[&label=92]:0.003368)[&label=24]:5.95E-4)[&label=100]:0.115133,Honckenya_peploides:0.017385)[&label=99]:0.00865,Wilhelmsia_physodes:0.004167):0.016219,Triplateia_moehringiodes:0.016219);
+end;
+
+begin figtree;
+	set appearance.backgroundColorAttribute="Default";
+	set appearance.backgroundColour=#ffffff;
+	set appearance.branchColorAttribute="User selection";
+	set appearance.branchColorGradient=false;
+	set appearance.branchLineWidth=1.0;
+	set appearance.branchMinLineWidth=0.0;
+	set appearance.branchWidthAttribute="Fixed";
+	set appearance.foregroundColour=#000000;
+	set appearance.hilightingGradient=false;
+	set appearance.selectionColour=#2d3680;
+	set branchLabels.colorAttribute="User selection";
+	set branchLabels.displayAttribute="Branch times";
+	set branchLabels.fontName="Andale Mono";
+	set branchLabels.fontSize=8;
+	set branchLabels.fontStyle=0;
+	set branchLabels.isShown=false;
+	set branchLabels.significantDigits=4;
+	set layout.expansion=0;
+	set layout.layoutType="RECTILINEAR";
+	set layout.zoom=0;
+	set legend.attribute=null;
+	set legend.fontSize=10.0;
+	set legend.isShown=false;
+	set legend.significantDigits=4;
+	set nodeBars.barWidth=4.0;
+	set nodeBars.displayAttribute=null;
+	set nodeBars.isShown=false;
+	set nodeLabels.colorAttribute="User selection";
+	set nodeLabels.displayAttribute="Node ages";
+	set nodeLabels.fontName="Andale Mono";
+	set nodeLabels.fontSize=8;
+	set nodeLabels.fontStyle=0;
+	set nodeLabels.isShown=false;
+	set nodeLabels.significantDigits=4;
+	set nodeShapeExternal.colourAttribute=null;
+	set nodeShapeExternal.isShown=false;
+	set nodeShapeExternal.minSize=10.0;
+	set nodeShapeExternal.scaleType=Width;
+	set nodeShapeExternal.shapeType=Circle;
+	set nodeShapeExternal.size=4.0;
+	set nodeShapeExternal.sizeAttribute=null;
+	set nodeShapeInternal.colourAttribute=null;
+	set nodeShapeInternal.isShown=false;
+	set nodeShapeInternal.minSize=10.0;
+	set nodeShapeInternal.scaleType=Width;
+	set nodeShapeInternal.shapeType=Circle;
+	set nodeShapeInternal.size=4.0;
+	set nodeShapeInternal.sizeAttribute=null;
+	set polarLayout.alignTipLabels=false;
+	set polarLayout.angularRange=0;
+	set polarLayout.rootAngle=0;
+	set polarLayout.rootLength=100;
+	set polarLayout.showRoot=true;
+	set radialLayout.spread=0.0;
+	set rectilinearLayout.alignTipLabels=false;
+	set rectilinearLayout.curvature=0;
+	set rectilinearLayout.rootLength=100;
+	set scale.offsetAge=0.0;
+	set scale.rootAge=1.0;
+	set scale.scaleFactor=1.0;
+	set scale.scaleRoot=false;
+	set scaleAxis.automaticScale=true;
+	set scaleAxis.fontSize=8.0;
+	set scaleAxis.isShown=false;
+	set scaleAxis.lineWidth=1.0;
+	set scaleAxis.majorTicks=1.0;
+	set scaleAxis.minorTicks=0.5;
+	set scaleAxis.origin=0.0;
+	set scaleAxis.reverseAxis=false;
+	set scaleAxis.showGrid=true;
+	set scaleBar.automaticScale=true;
+	set scaleBar.fontSize=10.0;
+	set scaleBar.isShown=true;
+	set scaleBar.lineWidth=1.0;
+	set scaleBar.scaleRange=0.0;
+	set tipLabels.colorAttribute="User selection";
+	set tipLabels.displayAttribute="Names";
+	set tipLabels.fontName="Andale Mono";
+	set tipLabels.fontSize=8;
+	set tipLabels.fontStyle=0;
+	set tipLabels.isShown=true;
+	set tipLabels.significantDigits=4;
+	set trees.order=false;
+	set trees.orderType="increasing";
+	set trees.rooting=false;
+	set trees.rootingType="User Selection";
+	set trees.transform=false;
+	set trees.transformType="cladogram";
+end;
+

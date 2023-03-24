@@ -11,7 +11,7 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2023-03-23" />
+<meta name="date" content="2023-03-24" />
 
 <title>Schiedea pollen competition</title>
 
@@ -253,7 +253,7 @@ div.tocify {
 <h1 class="title toc-ignore"><em>Schiedea</em> pollen competition</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John
 Powers</a></h4>
-<h4 class="date">2023-03-23</h4>
+<h4 class="date">2023-03-24</h4>
 
 </div>
 
@@ -269,12 +269,15 @@ options(digits=4, knitr.kable.NA = &quot;&quot;)
 ggplot2::theme_set(theme_minimal())</code></pre>
 <div id="inventory" class="section level1">
 <h1>Inventory</h1>
-<pre class="r"><code>sp_pairs &lt;- c(&quot;menz&quot;=&quot;menziesii&quot;, &quot;sal&quot;=&quot;salicaria&quot;,
+<pre class="r"><code>#in order of phylogenetic distance
+sp_pairs &lt;- c(&quot;menz&quot;=&quot;menziesii&quot;, &quot;sal&quot;=&quot;salicaria&quot;,
               &quot;lydg&quot;=&quot;lydgatei&quot;, &quot;sarm&quot; =&quot;sarmentosa&quot;,
               &quot;stell&quot;=&quot;stellarioides&quot;,&quot;sperg&quot;=&quot;spergulina&quot;,
-              &quot;hook&quot;=&quot;hookeri&quot;, &quot;kaal&quot;=&quot;kaalae&quot;,
-              &quot;memb&quot;=&quot;membranacea&quot;,&quot;kaua&quot;=&quot;kauaiensis&quot;)
-type_pal &lt;- c(intra=&quot;#DC0060&quot;, inter=&quot;#F56E00&quot;, mixed=&quot;#86D400&quot;)
+              &quot;memb&quot;=&quot;membranacea&quot;,&quot;kaua&quot;=&quot;kauaiensis&quot;,
+              &quot;hook&quot;=&quot;hookeri&quot;, &quot;kaal&quot;=&quot;kaalae&quot;)
+typenames &lt;- set_names(c(&quot;Intraspecific&quot;,&quot;Competitive&quot;,&quot;Interspecific&quot;),c(&quot;intra&quot;,&quot;mixed&quot;,&quot;inter&quot;))
+type_pal &lt;- set_names(c(&quot;#DC0060&quot;, &quot;#86D400&quot;, &quot;#F56E00&quot;), names(typenames))
+propnames &lt;- set_names(c(&quot;Germinated&quot;,&quot;Survived&quot;,&quot;Hybrid&quot;), c(&quot;prop.germ&quot;, &quot;prop.alive&quot;, &quot;prop.hybrid&quot;))
 
 germ.pot &lt;- read_tsv(&quot;data/Pollen competition - germination.tsv&quot;) %&gt;%  
   mutate(dadspm = if_else(type==&quot;mixed&quot; &amp; dadsp1==momsp, dadsp1, dadsp2), #rearrange dad1/dad2 to have dadsp match momsp
@@ -284,7 +287,8 @@ germ.pot &lt;- read_tsv(&quot;data/Pollen competition - germination.tsv&quot;) %
   select(-starts_with(&quot;germinated_n&quot;), -transplanted_n, -matches(&quot;dad(sp|id)[12]&quot;)) %&gt;% 
   mutate(across(matches(&quot;sp&quot;), ~ recode(.x, !!!sp_pairs)),
          sxc = paste(momsp, type, sep=&quot;.&quot;),
-         across(where(is.character), factor), type = fct_relevel(type, &quot;intra&quot;), 
+         across(where(is.character), factor), 
+         type=factor(type, levels= names(typenames)), 
          across(matches(&quot;sp&quot;), ~ factor(.x, levels = sp_pairs)),
          germinated = ifelse(germinated &gt; planted, planted, germinated))
 
@@ -299,7 +303,8 @@ surv &lt;- read_tsv(&quot;data/Pollen competition - survival.tsv&quot;) %&gt;%
          dadid  = if_else(type==&quot;mixed&quot; &amp; dadsp1==momsp, dadid2, dadid1), .after=momid) %&gt;% 
   select(-matches(&quot;dad(sp|id)[12]&quot;)) %&gt;% 
   mutate(sxc = paste(momsp, type, sep=&quot;.&quot;),
-         across(where(is.character), factor), type=fct_relevel(type, &quot;intra&quot;),
+         across(where(is.character), factor), 
+         type=factor(type, levels= names(typenames)),
          across(matches(&quot;sp&quot;), ~ factor(.x, levels = sp_pairs)),
          across(all_of(c(&quot;sameasmom&quot;, &quot;hybrid&quot;, &quot;dead&quot;)), ~replace_na(.x,0)), #TODO investigate blanks vs. zeros
          alive = sameasmom + hybrid,
@@ -310,8 +315,12 @@ surv &lt;- read_tsv(&quot;data/Pollen competition - survival.tsv&quot;) %&gt;%
 surv %&gt;% count(momsp, type, dadsp, name=&quot;crosses_surv&quot;) %&gt;% 
   full_join(germ %&gt;% count(momsp, type, dadsp, name=&quot;crosses_germ&quot;)) %&gt;% 
   full_join(germ.pot %&gt;% count(momsp, type, dadsp, name = &quot;pots_germ&quot;)) %&gt;%
-  mutate(pots_per_cross = pots_germ/crosses_germ) %&gt;% kable()</code></pre>
+  mutate(pots_per_cross = pots_germ/crosses_germ) %&gt;% 
+  kable(caption=&quot;Number of crosses between individual plants used for germination and survival,
+        and how many pots the seeds filled&quot;)</code></pre>
 <table>
+<caption>Number of crosses between individual plants used for
+germination and survival, and how many pots the seeds filled</caption>
 <colgroup>
 <col width="16%" />
 <col width="7%" />
@@ -344,21 +353,21 @@ surv %&gt;% count(momsp, type, dadsp, name=&quot;crosses_surv&quot;) %&gt;%
 </tr>
 <tr class="even">
 <td align="left">menziesii</td>
-<td align="left">inter</td>
-<td align="left">salicaria</td>
-<td align="right">19</td>
-<td align="right">18</td>
-<td align="right">87</td>
-<td align="right">4.833</td>
-</tr>
-<tr class="odd">
-<td align="left">menziesii</td>
 <td align="left">mixed</td>
 <td align="left">salicaria</td>
 <td align="right">11</td>
 <td align="right">16</td>
 <td align="right">80</td>
 <td align="right">5.000</td>
+</tr>
+<tr class="odd">
+<td align="left">menziesii</td>
+<td align="left">inter</td>
+<td align="left">salicaria</td>
+<td align="right">19</td>
+<td align="right">18</td>
+<td align="right">87</td>
+<td align="right">4.833</td>
 </tr>
 <tr class="even">
 <td align="left">salicaria</td>
@@ -371,21 +380,21 @@ surv %&gt;% count(momsp, type, dadsp, name=&quot;crosses_surv&quot;) %&gt;%
 </tr>
 <tr class="odd">
 <td align="left">salicaria</td>
-<td align="left">inter</td>
-<td align="left">menziesii</td>
-<td align="right">13</td>
-<td align="right">12</td>
-<td align="right">53</td>
-<td align="right">4.417</td>
-</tr>
-<tr class="even">
-<td align="left">salicaria</td>
 <td align="left">mixed</td>
 <td align="left">menziesii</td>
 <td align="right">14</td>
 <td align="right">12</td>
 <td align="right">76</td>
 <td align="right">6.333</td>
+</tr>
+<tr class="even">
+<td align="left">salicaria</td>
+<td align="left">inter</td>
+<td align="left">menziesii</td>
+<td align="right">13</td>
+<td align="right">12</td>
+<td align="right">53</td>
+<td align="right">4.417</td>
 </tr>
 <tr class="odd">
 <td align="left">lydgatei</td>
@@ -398,21 +407,21 @@ surv %&gt;% count(momsp, type, dadsp, name=&quot;crosses_surv&quot;) %&gt;%
 </tr>
 <tr class="even">
 <td align="left">lydgatei</td>
-<td align="left">inter</td>
-<td align="left">sarmentosa</td>
-<td align="right">19</td>
-<td align="right">20</td>
-<td align="right">90</td>
-<td align="right">4.500</td>
-</tr>
-<tr class="odd">
-<td align="left">lydgatei</td>
 <td align="left">mixed</td>
 <td align="left">sarmentosa</td>
 <td align="right">5</td>
 <td align="right">14</td>
 <td align="right">61</td>
 <td align="right">4.357</td>
+</tr>
+<tr class="odd">
+<td align="left">lydgatei</td>
+<td align="left">inter</td>
+<td align="left">sarmentosa</td>
+<td align="right">19</td>
+<td align="right">20</td>
+<td align="right">90</td>
+<td align="right">4.500</td>
 </tr>
 <tr class="even">
 <td align="left">sarmentosa</td>
@@ -425,21 +434,21 @@ surv %&gt;% count(momsp, type, dadsp, name=&quot;crosses_surv&quot;) %&gt;%
 </tr>
 <tr class="odd">
 <td align="left">sarmentosa</td>
-<td align="left">inter</td>
-<td align="left">lydgatei</td>
-<td align="right">7</td>
-<td align="right">9</td>
-<td align="right">41</td>
-<td align="right">4.556</td>
-</tr>
-<tr class="even">
-<td align="left">sarmentosa</td>
 <td align="left">mixed</td>
 <td align="left">lydgatei</td>
 <td align="right">5</td>
 <td align="right">9</td>
 <td align="right">58</td>
 <td align="right">6.444</td>
+</tr>
+<tr class="even">
+<td align="left">sarmentosa</td>
+<td align="left">inter</td>
+<td align="left">lydgatei</td>
+<td align="right">7</td>
+<td align="right">9</td>
+<td align="right">41</td>
+<td align="right">4.556</td>
 </tr>
 <tr class="odd">
 <td align="left">stellarioides</td>
@@ -452,21 +461,21 @@ surv %&gt;% count(momsp, type, dadsp, name=&quot;crosses_surv&quot;) %&gt;%
 </tr>
 <tr class="even">
 <td align="left">stellarioides</td>
-<td align="left">inter</td>
-<td align="left">spergulina</td>
-<td align="right">10</td>
-<td align="right">7</td>
-<td align="right">13</td>
-<td align="right">1.857</td>
-</tr>
-<tr class="odd">
-<td align="left">stellarioides</td>
 <td align="left">mixed</td>
 <td align="left">spergulina</td>
 <td align="right">6</td>
 <td align="right">6</td>
 <td align="right">27</td>
 <td align="right">4.500</td>
+</tr>
+<tr class="odd">
+<td align="left">stellarioides</td>
+<td align="left">inter</td>
+<td align="left">spergulina</td>
+<td align="right">10</td>
+<td align="right">7</td>
+<td align="right">13</td>
+<td align="right">1.857</td>
 </tr>
 <tr class="even">
 <td align="left">spergulina</td>
@@ -479,15 +488,6 @@ surv %&gt;% count(momsp, type, dadsp, name=&quot;crosses_surv&quot;) %&gt;%
 </tr>
 <tr class="odd">
 <td align="left">spergulina</td>
-<td align="left">inter</td>
-<td align="left">stellarioides</td>
-<td align="right">4</td>
-<td align="right">3</td>
-<td align="right">14</td>
-<td align="right">4.667</td>
-</tr>
-<tr class="even">
-<td align="left">spergulina</td>
 <td align="left">mixed</td>
 <td align="left">stellarioides</td>
 <td align="right">5</td>
@@ -495,59 +495,14 @@ surv %&gt;% count(momsp, type, dadsp, name=&quot;crosses_surv&quot;) %&gt;%
 <td align="right">60</td>
 <td align="right">6.000</td>
 </tr>
-<tr class="odd">
-<td align="left">hookeri</td>
-<td align="left">intra</td>
-<td align="left">hookeri</td>
-<td align="right">12</td>
-<td align="right">19</td>
-<td align="right">64</td>
-<td align="right">3.368</td>
-</tr>
 <tr class="even">
-<td align="left">hookeri</td>
+<td align="left">spergulina</td>
 <td align="left">inter</td>
-<td align="left">kaalae</td>
-<td align="right">34</td>
-<td align="right">61</td>
-<td align="right">107</td>
-<td align="right">1.754</td>
-</tr>
-<tr class="odd">
-<td align="left">hookeri</td>
-<td align="left">mixed</td>
-<td align="left">kaalae</td>
-<td align="right">12</td>
-<td align="right">8</td>
-<td align="right">70</td>
-<td align="right">8.750</td>
-</tr>
-<tr class="even">
-<td align="left">kaalae</td>
-<td align="left">intra</td>
-<td align="left">kaalae</td>
-<td align="right">7</td>
-<td align="right">20</td>
-<td align="right">35</td>
-<td align="right">1.750</td>
-</tr>
-<tr class="odd">
-<td align="left">kaalae</td>
-<td align="left">inter</td>
-<td align="left">hookeri</td>
-<td align="right">11</td>
-<td align="right">90</td>
-<td align="right">182</td>
-<td align="right">2.022</td>
-</tr>
-<tr class="even">
-<td align="left">kaalae</td>
-<td align="left">mixed</td>
-<td align="left">hookeri</td>
-<td align="right">10</td>
-<td align="right">6</td>
-<td align="right">34</td>
-<td align="right">5.667</td>
+<td align="left">stellarioides</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">14</td>
+<td align="right">4.667</td>
 </tr>
 <tr class="odd">
 <td align="left">membranacea</td>
@@ -560,21 +515,21 @@ surv %&gt;% count(momsp, type, dadsp, name=&quot;crosses_surv&quot;) %&gt;%
 </tr>
 <tr class="even">
 <td align="left">membranacea</td>
-<td align="left">inter</td>
-<td align="left">kauaiensis</td>
-<td align="right">1</td>
-<td align="right">4</td>
-<td align="right">18</td>
-<td align="right">4.500</td>
-</tr>
-<tr class="odd">
-<td align="left">membranacea</td>
 <td align="left">mixed</td>
 <td align="left">kauaiensis</td>
 <td align="right">5</td>
 <td align="right">7</td>
 <td align="right">60</td>
 <td align="right">8.571</td>
+</tr>
+<tr class="odd">
+<td align="left">membranacea</td>
+<td align="left">inter</td>
+<td align="left">kauaiensis</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">18</td>
+<td align="right">4.500</td>
 </tr>
 <tr class="even">
 <td align="left">kauaiensis</td>
@@ -587,15 +542,6 @@ surv %&gt;% count(momsp, type, dadsp, name=&quot;crosses_surv&quot;) %&gt;%
 </tr>
 <tr class="odd">
 <td align="left">kauaiensis</td>
-<td align="left">inter</td>
-<td align="left">membranacea</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">3</td>
-<td align="right">3.000</td>
-</tr>
-<tr class="even">
-<td align="left">kauaiensis</td>
 <td align="left">mixed</td>
 <td align="left">membranacea</td>
 <td align="right">7</td>
@@ -603,11 +549,76 @@ surv %&gt;% count(momsp, type, dadsp, name=&quot;crosses_surv&quot;) %&gt;%
 <td align="right">63</td>
 <td align="right">7.875</td>
 </tr>
+<tr class="even">
+<td align="left">kauaiensis</td>
+<td align="left">inter</td>
+<td align="left">membranacea</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">3.000</td>
+</tr>
+<tr class="odd">
+<td align="left">hookeri</td>
+<td align="left">intra</td>
+<td align="left">hookeri</td>
+<td align="right">12</td>
+<td align="right">19</td>
+<td align="right">64</td>
+<td align="right">3.368</td>
+</tr>
+<tr class="even">
+<td align="left">hookeri</td>
+<td align="left">mixed</td>
+<td align="left">kaalae</td>
+<td align="right">12</td>
+<td align="right">8</td>
+<td align="right">70</td>
+<td align="right">8.750</td>
+</tr>
+<tr class="odd">
+<td align="left">hookeri</td>
+<td align="left">inter</td>
+<td align="left">kaalae</td>
+<td align="right">34</td>
+<td align="right">61</td>
+<td align="right">107</td>
+<td align="right">1.754</td>
+</tr>
+<tr class="even">
+<td align="left">kaalae</td>
+<td align="left">intra</td>
+<td align="left">kaalae</td>
+<td align="right">7</td>
+<td align="right">20</td>
+<td align="right">35</td>
+<td align="right">1.750</td>
+</tr>
+<tr class="odd">
+<td align="left">kaalae</td>
+<td align="left">mixed</td>
+<td align="left">hookeri</td>
+<td align="right">10</td>
+<td align="right">6</td>
+<td align="right">34</td>
+<td align="right">5.667</td>
+</tr>
+<tr class="even">
+<td align="left">kaalae</td>
+<td align="left">inter</td>
+<td align="left">hookeri</td>
+<td align="right">11</td>
+<td align="right">90</td>
+<td align="right">182</td>
+<td align="right">2.022</td>
+</tr>
 </tbody>
 </table>
 </div>
 <div id="scoring-dates" class="section level1">
 <h1>Scoring dates</h1>
+<p>The date scored is not always available or accurate, do not use for
+analysis.</p>
 <pre class="r"><code>germ.pot %&gt;%  ggplot(aes(x=date_planted, y=date_scored, color=momsp)) + 
   geom_abline(slope=1, intercept=0) + geom_abline(slope=1, intercept=90) + geom_point() + geom_rug() +
   scale_color_brewer(palette=&quot;Paired&quot;) + labs(title=&quot;Germination scoring&quot;) #TODO check mis-entered dates</code></pre>
@@ -684,13 +695,15 @@ comp.test %&gt;%  mutate(term=recode(term, sxc = &quot;species and crosstype&quo
 <pre class="r"><code>comp.emm &lt;-  map_dfr(comp.mod, ~emmeans(., ~sxc) %&gt;% summary(type=&quot;response&quot;) %&gt;%  #average over collect date
                              tidy %&gt;% rename(estimate=prob), .id=&quot;trait&quot;) %&gt;% 
   separate(sxc, into = c(&quot;momsp&quot;,&quot;type&quot;)) %&gt;% 
-  mutate(momsp=factor(momsp, levels=sp_pairs), type=fct_relevel(type, &quot;intra&quot;))
+  mutate(momsp=factor(momsp, levels=sp_pairs), 
+         type=factor(type, levels= names(typenames)),
+         trait=factor(trait, levels=names(propnames)))
 
 #doesn&#39;t work, compares all to the first level (hookeri)
 #hybrid.half &lt;- multcomp::glht(comp.mod$prop.hybrid, multcomp::mcp(sxc = paste0(sp_pairs[-7],&quot;.mixed = 0&quot;)))
 #compare to null of 50% hybrids, since pollen mixtures were 50-50
 hybrid.test &lt;- surv %&gt;% filter(type==&quot;mixed&quot;) %&gt;% 
-  group_by(momsp) %&gt;% summarize(hybrid=sum(hybrid), alive=sum(alive)) %&gt;% 
+  group_by(momsp, dadsp) %&gt;% summarize(hybrid=sum(hybrid), alive=sum(alive)) %&gt;% 
   mutate(prop.hybrid = hybrid/alive,
          p = map2_dbl(hybrid, alive, ~prop.test(x=.x, n=.y, p = 0.5)$p.value),
          p.adj = p.adjust(p, &quot;bonferroni&quot;),
@@ -700,6 +713,10 @@ hybrid.test &lt;- surv %&gt;% filter(type==&quot;mixed&quot;) %&gt;%
 </div>
 <div id="plots" class="section level1">
 <h1>Plots</h1>
+<p>Boxplots of the germination and survival proportions in each plant x
+plant cross. Germination proportions are calculated across all pots of a
+given plant x plant cross. Points show estimated marginal mean and 95%
+CI.</p>
 <pre class="r"><code>sp_theme &lt;- theme(legend.position = &quot;top&quot;, panel.grid.major.x=element_blank(), 
                   axis.text.x = element_text(angle=20), axis.text = element_text(color=&quot;black&quot;))
 alternate &lt;- geom_tile(data=tibble(momsp=sp_pairs[seq(1,10,by=2)]), aes(x=momsp, y=0.5, height=1, width=1),  alpha=0.15, fill=&quot;grey&quot;, inherit.aes = F) 
@@ -707,14 +724,16 @@ alternate &lt;- geom_tile(data=tibble(momsp=sp_pairs[seq(1,10,by=2)]), aes(x=mom
 ggplot(germ, aes(x=momsp, fill=type, y=prop.germ))  + 
   geom_boxplot(position = position_dodge(width=0.9), color=&quot;grey50&quot;, outlier.size=0.5) + alternate+ 
   geom_pointrange(data=filter(comp.emm, trait==&quot;prop.germ&quot;), aes(y=estimate, ymax=conf.high, ymin=conf.low),
-                  position = position_dodge(width=0.9), size=0.3) + 
-  scale_fill_manual(values=type_pal) +  labs(x=&quot;Maternal species&quot;, y=&quot;Germination&quot;, fill=&quot;Cross&quot;) + sp_theme</code></pre>
+                  position = position_dodge(width=0.9), size=0.3, show.legend=F) + 
+  scale_fill_manual(values=type_pal, labels=typenames) +  
+  labs(x=&quot;Maternal species&quot;, y=&quot;Germination&quot;, fill=&quot;Pollination&quot;) + sp_theme</code></pre>
 <p><img src="figures-comp/rawdata-1.svg" width="672" /></p>
 <pre class="r"><code>ggplot(surv, aes(x=momsp, fill=type, y=prop.alive))  + 
   geom_boxplot(position = position_dodge(width=0.9), color=&quot;grey50&quot;, outlier.size=0.5) + alternate+ 
   geom_pointrange(data=filter(comp.emm, trait==&quot;prop.alive&quot;), aes(y=estimate, ymax=conf.high, ymin=conf.low),
-                  position = position_dodge(width=0.9), size=0.3) + 
-  scale_fill_manual(values=type_pal) +  labs(x=&quot;Maternal species&quot;, y=&quot;Survival&quot;, fill=&quot;Cross&quot;) + sp_theme</code></pre>
+                  position = position_dodge(width=0.9), size=0.3, show.legend=F) + 
+  scale_fill_manual(values=type_pal, labels=typenames) +  
+  labs(x=&quot;Maternal species&quot;, y=&quot;Survival&quot;, fill=&quot;Pollination&quot;) + sp_theme</code></pre>
 <p><img src="figures-comp/rawdata-2.svg" width="672" /></p>
 <pre class="r"><code>ggplot(filter(surv, type==&quot;mixed&quot;), aes(x=momsp, y=prop.hybrid, fill=momsp)) + 
   geom_hline(yintercept=0.5)+ geom_violin(scale=&quot;width&quot;, draw_quantiles = c(0.25,0.5,0.75))+ 
@@ -724,8 +743,53 @@ ggplot(germ, aes(x=momsp, fill=type, y=prop.germ))  +
   geom_text(data=hybrid.test, aes(y=1.1, label=alive))+
   scale_fill_brewer(palette=&quot;Paired&quot;, guide=&quot;none&quot;) + 
   scale_y_continuous(breaks=(0:4)/4, labels=~scales::percent(.,accuracy=1))+ 
-  labs(x=&quot;Maternal species&quot;, y=&quot;Hybrids from mixed pollinations&quot;) + sp_theme</code></pre>
+  labs(x=&quot;Maternal species&quot;, y=&quot;Hybrids from competitive pollinations&quot;) + sp_theme</code></pre>
 <p><img src="figures-comp/rawdata-3.svg" width="672" /></p>
+<p>Tested whether the proportion of hybrids significantly differed from
+50%, accounting for multiple comparisons. Violin plots show proportions
+for each plant x plant cross. The number of surviving seedlings that
+could be scored is indicated above the plot.</p>
+</div>
+<div id="phylogenetic-distance" class="section level1">
+<h1>Phylogenetic distance</h1>
+<p>Load <em>Schiedea</em> tree inferred with RAxML from Willyard et
+al. nuclear dataset (no chloroplast data, 1 accession per species).</p>
+<pre class="r"><code>library(ape)
+library(RColorBrewer)
+#devtools::install_github(&#39;gastonstat/arcdiagram&#39;)
+library(igraph)
+library(arcdiagram)
+
+sp_pal &lt;- set_names(brewer.pal(length(sp_pairs), &quot;Paired&quot;), sp_pairs)
+tree &lt;- read.nexus(&quot;data/RAxML_1ps_nocp_bipartitionsBranchLabels.sch.short.nobs.nex&quot;)
+plot(tree, tip.color = sp_pal[tree$tip.label])</code></pre>
+<p><img src="figures-comp/phylodist-1.svg" width="672" /></p>
+<pre class="r"><code>par(mfrow=c(1,2))
+par(mar=c(1.5,0,1.5,0))
+tree_pairs &lt;- tree %&gt;% keep.tip(sp_pairs)
+plot(tree_pairs, tip.color = sp_pal[tree_pairs$tip.label])
+par(mar=c(0,0,0,0))
+sp_pairs %&gt;% matrix(ncol=2, byrow=T) %&gt;% 
+  arcplot(show.labels=F, horizontal=F, ordering=tree_pairs$tip.label, 
+          col.arcs=sp_pal[(1:5)*2], col.nodes = sp_pal)</code></pre>
+<p><img src="figures-comp/phylodist-2.svg" width="672" /></p>
+<pre class="r"><code>par(mfrow=c(1,1))
+
+hybrid.phylodist &lt;- comp.emm %&gt;% left_join(select(hybrid.test, momsp, dadsp)) %&gt;% 
+  mutate(pd = map2_dbl(as.character(momsp), as.character(dadsp), ~cophenetic(tree_pairs)[.x,.y]))
+
+ggplot(hybrid.phylodist, aes(x=pd, y=estimate)) + 
+  facet_grid(trait~type, labeller=as_labeller(c(propnames, typenames)))+
+  geom_smooth(method=&quot;lm&quot;, se=F, color=&quot;grey&quot;) +
+  geom_pointrange(aes(ymax=conf.high, ymin=conf.low, color=momsp)) + scale_color_brewer(palette=&quot;Paired&quot;) + 
+  scale_y_continuous(limits = c(0,1), breaks=(0:4)/4, labels=~scales::percent(.,accuracy=1), expand=c(0,0))+ 
+  labs(x=&quot;Phylogenetic distance (mutations/site)&quot;, color=&quot;Maternal species&quot;) + theme_bw() +
+  theme(axis.title.y=element_blank(), axis.text=element_text(color=&quot;black&quot;), legend.position=&quot;top&quot;,
+        panel.grid.minor = element_blank(), panel.grid.major.x=element_blank(), panel.spacing = unit(1, &quot;lines&quot;))</code></pre>
+<p><img src="figures-comp/phylodist-3.svg" width="672" /></p>
+<p>Note that for reference, data for intraspecific crosses is plotted
+with the phylogenetic distance to its paired species, which doesn’t make
+great sense.</p>
 </div>
 
 
