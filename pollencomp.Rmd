@@ -17,7 +17,7 @@ library(glmmTMB)
 library(broom)
 library(emmeans)
 library(knitr)
-knitr::opts_chunk$set(comment="", cache=T, warning = F, message = F, fig.height=8, fig.width=8,
+knitr::opts_chunk$set(comment="", cache=T, warning = F, message = F, fig.height=7, fig.width=7,
                       fig.path = "figures-comp/", dev = "svglite", dev.args=list(fix_text_size=FALSE))
 options(digits=4, knitr.kable.NA = "")
 ggplot2::theme_set(theme_minimal())
@@ -26,11 +26,12 @@ ggplot2::theme_set(theme_minimal())
 # Inventory
 
 ```{r load_data}
-sp_pairs <- c("hookeri", "kaalae",
-             "kauaiensis", "membranacea",
-             "lydgatei", "sarmentosa",
-             "menziesii", "salicaria",
-             "spergulina","stellarioides")
+sp_pairs <- c("menz"="menziesii", "sal"="salicaria",
+              "lydg"="lydgatei", "sarm" ="sarmentosa",
+              "stell"="stellarioides","sperg"="spergulina",
+              "hook"="hookeri", "kaal"="kaalae",
+              "memb"="membranacea","kaua"="kauaiensis")
+type_pal <- c(intra="#DC0060", inter="#F56E00", mixed="#86D400")
 
 germ.pot <- read_tsv("data/Pollen competition - germination.tsv") %>%  
   mutate(dadspm = if_else(type=="mixed" & dadsp1==momsp, dadsp1, dadsp2), #rearrange dad1/dad2 to have dadsp match momsp
@@ -38,11 +39,13 @@ germ.pot <- read_tsv("data/Pollen competition - germination.tsv") %>%
          dadsp  = if_else(type=="mixed" & dadsp1==momsp, dadsp2, dadsp1),
          dadid  = if_else(type=="mixed" & dadsp1==momsp, dadid2, dadid1), .after=momid) %>% 
   select(-starts_with("germinated_n"), -transplanted_n, -matches("dad(sp|id)[12]")) %>% 
-  mutate(across(where(is.character), factor), type = fct_relevel(type, "intra"), 
+  mutate(across(matches("sp"), ~ recode(.x, !!!sp_pairs)),
+         sxc = paste(momsp, type, sep="."),
+         across(where(is.character), factor), type = fct_relevel(type, "intra"), 
          across(matches("sp"), ~ factor(.x, levels = sp_pairs)),
-         germinated = ifelse(germinated > planted, planted, germinated)) #TODO see if these are data entry errors
+         germinated = ifelse(germinated > planted, planted, germinated))
 
-germ <- germ.pot %>% group_by(date_planted, type, momsp, momid, dadspm, dadidm, dadsp, dadid) %>% 
+germ <- germ.pot %>% group_by(date_planted, type, momsp, sxc, momid, dadspm, dadidm, dadsp, dadid) %>% 
   summarize(planted = sum(planted), germinated = sum(germinated), .groups="drop") %>% # add together all the pots of one cross
   mutate(prop.germ = germinated/planted) # proportion of planted seeds that germinated 
 
@@ -52,12 +55,14 @@ surv <- read_tsv("data/Pollen competition - survival.tsv") %>%
          dadsp  = if_else(type=="mixed" & dadsp1==momsp, dadsp2, dadsp1),
          dadid  = if_else(type=="mixed" & dadsp1==momsp, dadid2, dadid1), .after=momid) %>% 
   select(-matches("dad(sp|id)[12]")) %>% 
-  mutate(across(where(is.character), factor), type=fct_relevel(type, "intra"),
+  mutate(sxc = paste(momsp, type, sep="."),
+         across(where(is.character), factor), type=fct_relevel(type, "intra"),
          across(matches("sp"), ~ factor(.x, levels = sp_pairs)),
+         across(all_of(c("sameasmom", "hybrid", "dead")), ~replace_na(.x,0)), #TODO investigate blanks vs. zeros
          alive = sameasmom + hybrid,
          total = alive + dead, 
          prop.hybrid = hybrid / alive,
-         prop.dead = dead / total)
+         prop.alive = alive / total)
 
 surv %>% count(momsp, type, dadsp, name="crosses_surv") %>% 
   full_join(germ %>% count(momsp, type, dadsp, name="crosses_germ")) %>% 
@@ -68,14 +73,91 @@ surv %>% count(momsp, type, dadsp, name="crosses_surv") %>%
 # Scoring dates
 
 ```{r dates}
-germ.pot %>% ggplot(aes(x=date_planted, y=date_scored, color=momsp)) + geom_point() + geom_rug() + geom_abline(slope=1, intercept=0) + 
+germ.pot %>%  ggplot(aes(x=date_planted, y=date_scored, color=momsp)) + 
+  geom_abline(slope=1, intercept=0) + geom_abline(slope=1, intercept=90) + geom_point() + geom_rug() +
   scale_color_brewer(palette="Paired") + labs(title="Germination scoring") #TODO check mis-entered dates
 
-germ.pot %>% filter(abs(date_scored-date_planted)<=90) %>% ggplot(aes(x=date_scored - date_planted, fill=type)) + facet_wrap(vars(momsp)) +
-  geom_histogram(binwidth=1) + scale_x_continuous(limits=c(0,NA)) + labs(title="Germination scoring", subtitle = "plot restricted to 90 days")
+germ.pot %>% filter(abs(date_scored-date_planted)<=90) %>% ggplot(aes(x=date_scored - date_planted, fill=type)) +
+  facet_wrap(vars(momsp)) +
+  geom_histogram(binwidth=1) + scale_x_continuous(limits=c(0,NA)) + 
+  labs(title="Germination scoring", subtitle = "plot restricted to 90 days")
 
 surv %>% ggplot(aes(x=date_planted, y=date_scored, color=momsp)) + geom_point() + geom_rug() + 
    scale_color_brewer(palette="Paired") + labs(title="Survival scoring")
 ```
+
+# Models
+
+Expand this code to see the model specifications. The models have the following settings:
+
+* response variable: proportion seeds that germinated, proportion seedlings that survived, proportion of live seedlings that are hybrids
+* sxc: the combined maternal plant species and crosstype (within species, between species, mixed pollen)
+* momid: random effects of the maternal plant genotype 
+* family: betabinomial (for binary variables)
+
+```{r models}
+comp.mod <- list(
+  prop.germ =    glmmTMB(prop.germ   ~ sxc + (1|momid), family="betabinomial", data=germ, weights = planted),
+  prop.alive =   glmmTMB(prop.alive  ~ sxc + (1|momid), family="betabinomial", data=surv, weights = total),
+  prop.hybrid =  glmmTMB(prop.hybrid ~ sxc + (1|momid), family="betabinomial", data=filter(surv, type=="mixed"), weights = alive))
+```
+
+## Inference 
+
+P-values for the overall effect of species and crosstype, or collection date, on the trait.
+
+```{r inference}
+comp.test <- map_dfr(comp.mod, ~car::Anova(.) %>% tidy(), .id="trait") 
+comp.test %>%  mutate(term=recode(term, sxc = "species and crosstype"),
+         p.value=format(p.value,digits=2)) %>% 
+  kable(digits=1, caption="ANOVA of GLMM (Type III Wald chisquare tests)")
+  
+comp.emm <-  map_dfr(comp.mod, ~emmeans(., ~sxc) %>% summary(type="response") %>%  #average over collect date
+                             tidy %>% rename(estimate=prob), .id="trait") %>% 
+  separate(sxc, into = c("momsp","type")) %>% 
+  mutate(momsp=factor(momsp, levels=sp_pairs), type=fct_relevel(type, "intra"))
+
+#doesn't work, compares all to the first level (hookeri)
+#hybrid.half <- multcomp::glht(comp.mod$prop.hybrid, multcomp::mcp(sxc = paste0(sp_pairs[-7],".mixed = 0")))
+#compare to null of 50% hybrids, since pollen mixtures were 50-50
+hybrid.test <- surv %>% filter(type=="mixed") %>% 
+  group_by(momsp) %>% summarize(hybrid=sum(hybrid), alive=sum(alive)) %>% 
+  mutate(prop.hybrid = hybrid/alive,
+         p = map2_dbl(hybrid, alive, ~prop.test(x=.x, n=.y, p = 0.5)$p.value),
+         p.adj = p.adjust(p, "bonferroni"),
+         stars = cut(p.adj, breaks = c(-Inf, 0.01, 0.05, 0.10, Inf), 
+                labels = c("***", "**", "*", "n.s."), right = FALSE))
+```
+
+# Plots
+
+```{r rawdata}
+sp_theme <- theme(legend.position = "top", panel.grid.major.x=element_blank(), 
+                  axis.text.x = element_text(angle=20), axis.text = element_text(color="black"))
+alternate <- geom_tile(data=tibble(momsp=sp_pairs[seq(1,10,by=2)]), aes(x=momsp, y=0.5, height=1, width=1),  alpha=0.15, fill="grey", inherit.aes = F) 
+
+ggplot(germ, aes(x=momsp, fill=type, y=prop.germ))  + 
+  geom_boxplot(position = position_dodge(width=0.9), color="grey50", outlier.size=0.5) + alternate+ 
+  geom_pointrange(data=filter(comp.emm, trait=="prop.germ"), aes(y=estimate, ymax=conf.high, ymin=conf.low),
+                  position = position_dodge(width=0.9), size=0.3) + 
+  scale_fill_manual(values=type_pal) +  labs(x="Maternal species", y="Germination", fill="Cross") + sp_theme
+
+ggplot(surv, aes(x=momsp, fill=type, y=prop.alive))  + 
+  geom_boxplot(position = position_dodge(width=0.9), color="grey50", outlier.size=0.5) + alternate+ 
+  geom_pointrange(data=filter(comp.emm, trait=="prop.alive"), aes(y=estimate, ymax=conf.high, ymin=conf.low),
+                  position = position_dodge(width=0.9), size=0.3) + 
+  scale_fill_manual(values=type_pal) +  labs(x="Maternal species", y="Survival", fill="Cross") + sp_theme
+
+ggplot(filter(surv, type=="mixed"), aes(x=momsp, y=prop.hybrid, fill=momsp)) + 
+  geom_hline(yintercept=0.5)+ geom_violin(scale="width", draw_quantiles = c(0.25,0.5,0.75))+ 
+  geom_pointrange(data=left_join(filter(comp.emm, trait=="prop.hybrid"), hybrid.test),
+                  aes(y=estimate, ymax=conf.high, ymin=conf.low, shape=p.adj < 0.05)) + 
+  scale_shape_manual("Different from 50%", values=c(1, 19), labels=c("no","yes"))+
+  geom_text(data=hybrid.test, aes(y=1.1, label=alive))+
+  scale_fill_brewer(palette="Paired", guide="none") + 
+  scale_y_continuous(breaks=(0:4)/4, labels=~scales::percent(.,accuracy=1))+ 
+  labs(x="Maternal species", y="Hybrids from mixed pollinations") + sp_theme
+```
+
 
 
