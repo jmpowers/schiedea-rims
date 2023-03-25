@@ -11,11 +11,11 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2022-06-09" />
+<meta name="date" content="2023-03-24" />
 
 <title>Schiedea pollen tube growth</title>
 
-<script src="libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="libs/header-attrs-2.20/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -110,8 +110,8 @@ pre code {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -119,16 +119,9 @@ pre code {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -260,7 +253,7 @@ div.tocify {
 <h1 class="title toc-ignore"><em>Schiedea</em> pollen tube growth</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John
 Powers</a></h4>
-<h4 class="date">2022-06-09</h4>
+<h4 class="date">2023-03-24</h4>
 
 </div>
 
@@ -356,6 +349,13 @@ abbrev &lt;- list(kaahoo = c(K=&quot;Kl&quot;,H=&quot;Ho&quot;),
                salmen = c(S=&quot;Sl&quot;,M=&quot;Mn&quot;), 
                speste = c(Sp=&quot;Sp&quot;,St=&quot;St&quot;), 
                memkau = c(M=&quot;Mb&quot;,K=&quot;Ki&quot;))
+
+species_names &lt;- c(&quot;Mn&quot;=&quot;menziesii&quot;, &quot;Sl&quot;=&quot;salicaria&quot;,
+              &quot;Ly&quot;=&quot;lydgatei&quot;, &quot;Sr&quot; =&quot;sarmentosa&quot;,
+              &quot;St&quot;=&quot;stellarioides&quot;,&quot;Sp&quot;=&quot;spergulina&quot;,
+              &quot;Mb&quot;=&quot;membranacea&quot;,&quot;Ki&quot;=&quot;kauaiensis&quot;,
+              &quot;Kl&quot;=&quot;kaalae&quot;, &quot;Ho&quot;=&quot;hookeri&quot;)
+
 cross_levels &lt;- map(abbrev, ~ c(paste0(.x[1],&quot;x&quot;,.x[1]), paste0(.x[1],&quot;x&quot;,.x[2]), paste0(.x[2],&quot;x&quot;,.x[2]), paste0(.x[2],&quot;x&quot;,.x[1])))
 
 tubesl &lt;- list()             
@@ -772,6 +772,25 @@ grid.arrange(grobs=pmap(select(tubes.mod, pair, emm=mid_emm, cont=mid_cont, data
   coord_fixed(xlim=c(0,NA),ylim=c(0,NA))+
   theme_classic()+mytheme+theme(strip.text=element_text(face=&quot;italic&quot;))</code></pre>
 <p><img src="figures/pollentubes_diff-1.svg" width="864" /></p>
+</div>
+<div id="phylogenetic-distance" class="section level1">
+<h1>Phylogenetic distance</h1>
+<pre class="r"><code>library(ape)
+tree &lt;- read.nexus(&quot;data/RAxML_1ps_nocp_bipartitionsBranchLabels.sch.short.nobs.nex&quot;)
+
+ratio.phylodist &lt;- tubes.mod %&gt;% select(pair, emm=ratio_emm) %&gt;% unnest(emm) %&gt;% 
+  mutate(momsp = factor(species_names[str_sub(cross, 1,2)], levels=species_names)) %&gt;% group_by(pair, momsp, hr) %&gt;% 
+  summarize(ratio_diff = response[1]-response[2], 
+            dadsp = species_names[str_sub(cross[2], 4,5)], .groups = &quot;drop&quot;) %&gt;% 
+  mutate(pd = map2_dbl(as.character(momsp), as.character(dadsp), ~cophenetic(tree)[.x,.y]))
+
+ggplot(ratio.phylodist, aes(x=pd, y=ratio_diff)) + facet_wrap(vars(hr)) +
+  geom_point(aes(color=momsp), size=2) + geom_smooth(method=&quot;lm&quot;, se=F, color=&quot;grey&quot;) + 
+  scale_color_brewer(palette=&quot;Paired&quot;)+
+  labs(x=&quot;Phylogenetic distance (mutations/site)&quot;, color=&quot;Maternal species&quot;,
+       y=&quot;Difference between intra and interspecies cross in bottom:mid ratio&quot;) + theme_bw() + 
+  theme(legend.position = &quot;top&quot;)</code></pre>
+<p><img src="figures/phylo_tubes-1.svg" width="672" /></p>
 </div>
 <div id="package-citations" class="section level1">
 <h1>Package citations</h1>

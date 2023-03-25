@@ -86,6 +86,13 @@ abbrev <- list(kaahoo = c(K="Kl",H="Ho"),
                salmen = c(S="Sl",M="Mn"), 
                speste = c(Sp="Sp",St="St"), 
                memkau = c(M="Mb",K="Ki"))
+
+species_names <- c("Mn"="menziesii", "Sl"="salicaria",
+              "Ly"="lydgatei", "Sr" ="sarmentosa",
+              "St"="stellarioides","Sp"="spergulina",
+              "Mb"="membranacea","Ki"="kauaiensis",
+              "Kl"="kaalae", "Ho"="hookeri")
+
 cross_levels <- map(abbrev, ~ c(paste0(.x[1],"x",.x[1]), paste0(.x[1],"x",.x[2]), paste0(.x[2],"x",.x[2]), paste0(.x[2],"x",.x[1])))
 
 tubesl <- list()             
@@ -247,6 +254,26 @@ ggplot(tubes, aes(x=bottom, y=mid)) +
   geom_point(alpha=0.1) + 
   coord_fixed(xlim=c(0,NA),ylim=c(0,NA))+
   theme_classic()+mytheme+theme(strip.text=element_text(face="italic"))
+```
+
+# Phylogenetic distance
+
+```{r phylo_tubes, fig.height=8}
+library(ape)
+tree <- read.nexus("data/RAxML_1ps_nocp_bipartitionsBranchLabels.sch.short.nobs.nex")
+
+ratio.phylodist <- tubes.mod %>% select(pair, emm=ratio_emm) %>% unnest(emm) %>% 
+  mutate(momsp = factor(species_names[str_sub(cross, 1,2)], levels=species_names)) %>% group_by(pair, momsp, hr) %>% 
+  summarize(ratio_diff = response[1]-response[2], 
+            dadsp = species_names[str_sub(cross[2], 4,5)], .groups = "drop") %>% 
+  mutate(pd = map2_dbl(as.character(momsp), as.character(dadsp), ~cophenetic(tree)[.x,.y]))
+
+ggplot(ratio.phylodist, aes(x=pd, y=ratio_diff)) + facet_wrap(vars(hr)) +
+  geom_point(aes(color=momsp), size=2) + geom_smooth(method="lm", se=F, color="grey") + 
+  scale_color_brewer(palette="Paired")+
+  labs(x="Phylogenetic distance (mutations/site)", color="Maternal species",
+       y="Difference between intra and interspecies cross in bottom:mid ratio") + theme_bw() + 
+  theme(legend.position = "top")
 ```
 
 # Package citations
