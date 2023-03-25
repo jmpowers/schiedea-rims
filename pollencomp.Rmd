@@ -26,12 +26,12 @@ ggplot2::theme_set(theme_minimal())
 # Inventory
 
 ```{r load_data}
-#in order of phylogenetic distance
+#in order of phylogenetic distance, pair order is by style length
 sp_pairs <- c("menz"="menziesii", "sal"="salicaria",
               "lydg"="lydgatei", "sarm" ="sarmentosa",
               "stell"="stellarioides","sperg"="spergulina",
               "memb"="membranacea","kaua"="kauaiensis",
-              "hook"="hookeri", "kaal"="kaalae")
+              "kaal"="kaalae", "hook"="hookeri")
 typenames <- set_names(c("Intraspecific","Competitive","Interspecific"),c("intra","mixed","inter"))
 type_pal <- set_names(c("#DC0060", "#86D400", "#F56E00"), names(typenames))
 propnames <- set_names(c("Germinated","Survived","Hybrid"), c("prop.germ", "prop.alive", "prop.hybrid"))
@@ -75,7 +75,14 @@ surv %>% count(momsp, type, dadsp, name="crosses_surv") %>%
   mutate(pots_per_cross = pots_germ/crosses_germ) %>% 
   kable(caption="Number of crosses between individual plants used for germination and survival,
         and how many pots the seeds filled")
+
+styles <- read_tsv("data/Pollen competition - style_length.tsv") %>% select(-starts_with("px")) %>%
+  left_join(tibble(momsp=sp_pairs, pair = factor(rep(1:5, each=2)))) %>% 
+  mutate(momsp = factor(momsp, level=sp_pairs)) %>% 
+  group_by(pair) %>% mutate(style_diff_mm = style_length_mm-min(style_length_mm))
 ```
+
+Note that the crosses_surv disagrees with slide 10 for stellarioides and spergulina. 
 
 # Scoring dates
 
@@ -132,8 +139,10 @@ comp.emm <-  map_dfr(comp.mod, ~emmeans(., ~sxc) %>% summary(type="response") %>
 #hybrid.half <- multcomp::glht(comp.mod$prop.hybrid, multcomp::mcp(sxc = paste0(sp_pairs[-7],".mixed = 0")))
 #compare to null of 50% hybrids, since pollen mixtures were 50-50
 hybrid.test <- surv %>% filter(type=="mixed") %>% 
-  group_by(momsp, dadsp) %>% summarize(hybrid=sum(hybrid), alive=sum(alive)) %>% 
-  mutate(prop.hybrid = hybrid/alive,
+  group_by(momsp, type, dadsp) %>% 
+  summarize(total=sum(total), alive=sum(alive), hybrid=sum(hybrid), crosses=n(), .groups="drop") %>% 
+  mutate(total_per_c = total/crosses, alive_per_c = alive / crosses,
+         prop.hybrid = hybrid/alive,
          p = map2_dbl(hybrid, alive, ~prop.test(x=.x, n=.y, p = 0.5)$p.value),
          p.adj = p.adjust(p, "bonferroni"),
          stars = cut(p.adj, breaks = c(-Inf, 0.01, 0.05, 0.10, Inf), 
@@ -145,7 +154,8 @@ hybrid.test <- surv %>% filter(type=="mixed") %>%
 Boxplots of the germination and survival proportions in each plant x plant cross. Germination proportions are calculated across all pots of a given plant x plant cross. Points show estimated marginal mean and 95% CI.
 
 ```{r rawdata}
-sp_theme <- theme(legend.position = "top", panel.grid.major.x=element_blank(), 
+sp_theme <- theme(legend.position = "top", 
+                  panel.grid.major.x=element_blank(), panel.grid.minor.y=element_blank(), 
                   axis.text.x = element_text(angle=20), axis.text = element_text(color="black"))
 alternate <- geom_tile(data=tibble(momsp=sp_pairs[seq(1,10,by=2)]), aes(x=momsp, y=0.5, height=1, width=1),  alpha=0.15, fill="grey", inherit.aes = F) 
 
@@ -168,13 +178,14 @@ ggplot(filter(surv, type=="mixed"), aes(x=momsp, y=prop.hybrid, fill=momsp)) +
   geom_pointrange(data=left_join(filter(comp.emm, trait=="prop.hybrid"), hybrid.test),
                   aes(y=estimate, ymax=conf.high, ymin=conf.low, shape=p.adj < 0.05)) + 
   scale_shape_manual("Different from 50%", values=c(1, 19), labels=c("no","yes"))+
-  geom_text(data=hybrid.test, aes(y=1.1, label=alive))+
+  geom_text(data=hybrid.test, aes(y=1.1, label=crosses))+
+  #geom_text(data=hybrid.test, aes(y=1.1, label=alive))+
   scale_fill_brewer(palette="Paired", guide="none") + 
   scale_y_continuous(breaks=(0:4)/4, labels=~scales::percent(.,accuracy=1))+ 
   labs(x="Maternal species", y="Hybrids from competitive pollinations") + sp_theme
 ```
 
-Tested whether the proportion of hybrids significantly differed from 50%, accounting for multiple comparisons. Violin plots show proportions for each plant x plant cross. The number of surviving seedlings that could be scored is indicated above the plot.
+Tested whether the proportion of hybrids significantly differed from 50%, accounting for multiple comparisons. Violin plots show proportions for each plant x plant cross. The number of plant x plant crosses indicated above the plot.
 
 # Phylogenetic distance
 
@@ -201,17 +212,49 @@ sp_pairs %>% matrix(ncol=2, byrow=T) %>%
           col.arcs=sp_pal[(1:5)*2], col.nodes = sp_pal)
 par(mfrow=c(1,1))
 
-hybrid.phylodist <- comp.emm %>% left_join(select(hybrid.test, momsp, dadsp)) %>% 
-  mutate(pd = map2_dbl(as.character(momsp), as.character(dadsp), ~cophenetic(tree_pairs)[.x,.y]))
+hybrid.phylodist <- comp.emm %>% left_join(select(hybrid.test, momsp, dadsp, -type)) %>% 
+  mutate(pd = map2_dbl(as.character(momsp), as.character(dadsp), ~cophenetic(tree_pairs)[.x,.y])) %>% 
+  select(-df)
 
-ggplot(hybrid.phylodist, aes(x=pd, y=estimate)) + 
+hybrid.phylodist.test <- hybrid.phylodist %>% group_by(trait, type) %>% nest() %>% 
+  mutate(model = map(data, ~lm(estimate ~ pd, data=.x)),
+         anova = map(model, ~tidy(car::Anova(.x)))) %>% 
+  select(-data, -model) %>% unnest(anova) %>% filter(term !="Residuals") 
+
+ggplot(left_join(hybrid.phylodist, hybrid.phylodist.test), aes(x=pd, y=estimate)) + 
   facet_grid(trait~type, labeller=as_labeller(c(propnames, typenames)))+
-  geom_smooth(method="lm", se=F, color="grey") +
+  geom_smooth(aes(linetype=paste(p.value < 0.05, type=="intra")), method="lm", se=F, color="grey") +
   geom_pointrange(aes(ymax=conf.high, ymin=conf.low, color=momsp)) + scale_color_brewer(palette="Paired") + 
   scale_y_continuous(limits = c(0,1), breaks=(0:4)/4, labels=~scales::percent(.,accuracy=1), expand=c(0,0))+ 
+  scale_linetype_manual(values=c(2,0,1,0), guide="none") + scale_alpha_manual(breaks=c(T,F), values=c(0.5, 1))+
   labs(x="Phylogenetic distance (mutations/site)", color="Maternal species") + theme_bw() +
   theme(axis.title.y=element_blank(), axis.text=element_text(color="black"), legend.position="top",
         panel.grid.minor = element_blank(), panel.grid.major.x=element_blank(), panel.spacing = unit(1, "lines"))
 ```
 
-Note that for reference, data for intraspecific crosses is plotted with the phylogenetic distance to its paired species, which doesn't make great sense.
+Regressions against the phylogenetic distance of each species pair. The solid regression line is statistically significant (P = 0.001). Note that for reference, data for intraspecific crosses is plotted with the phylogenetic distance to its paired species, which doesn't make great sense.
+
+# Style length
+
+The range of phylogenetic distances and style lengths in the study. The species in each pair with a longer style is given a lighter color.
+
+```{r styles}
+hybrid.phylodist %>% filter(trait=="prop.hybrid",  type=="mixed") %>% left_join(styles) %>% 
+  ggplot(aes(x=pd, y=style_length_mm, color=momsp, shape=mating)) + 
+  geom_pointrange(aes(ymin=style_length_mm-se, ymax=style_length_mm+se)) + 
+  scale_color_brewer(palette="Paired") + coord_cartesian(xlim=c(0, NA), ylim=c(0,NA)) +
+  labs(x="Phylogenetic distance (mutations/site)", y="Style length (mm)", color="Species", shape="Mating") + 
+  theme(legend.position = "top")
+
+ggplot(left_join(comp.emm, styles), aes(x=style_length_mm, y=estimate)) + 
+  facet_grid(trait~type, labeller=as_labeller(c(propnames, typenames)))+
+  geom_line(aes(group=pair, color=momsp))+
+  geom_pointrange(aes(ymax=conf.high, ymin=conf.low, color=momsp, shape=mating)) + scale_color_brewer(palette="Paired") + 
+  scale_y_continuous(limits = c(0,1), breaks=(0:4)/4, labels=~scales::percent(.,accuracy=1), expand=c(0,0))+ 
+  labs(x="Style length (mm)", color="Maternal species", shape="Mating") + theme_bw() +
+  theme(axis.title.y=element_blank(), axis.text=element_text(color="black"), legend.position="top",
+        panel.grid.minor = element_blank(), panel.grid.major.x=element_blank(), panel.spacing = unit(1, "lines"))
+```
+
+Lines show the effect of style length within each pair. Style length was not a significant predictor of any variable for any cross category in models that also included phylogenetic distance.
+
