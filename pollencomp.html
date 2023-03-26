@@ -11,7 +11,7 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2023-03-24" />
+<meta name="date" content="2023-03-25" />
 
 <title>Schiedea pollen competition</title>
 
@@ -253,7 +253,7 @@ div.tocify {
 <h1 class="title toc-ignore"><em>Schiedea</em> pollen competition</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John
 Powers</a></h4>
-<h4 class="date">2023-03-24</h4>
+<h4 class="date">2023-03-25</h4>
 
 </div>
 
@@ -263,7 +263,7 @@ library(glmmTMB)
 library(broom)
 library(emmeans)
 library(knitr)
-knitr::opts_chunk$set(comment=&quot;&quot;, cache=T, warning = F, message = F, fig.height=7, fig.width=7,
+knitr::opts_chunk$set(comment=&quot;&quot;, cache=T, warning = F, message = F, fig.height=8, fig.width=8,
                       fig.path = &quot;figures-comp/&quot;, dev = &quot;svglite&quot;, dev.args=list(fix_text_size=FALSE))
 options(digits=4, knitr.kable.NA = &quot;&quot;)
 ggplot2::theme_set(theme_minimal())</code></pre>
@@ -301,12 +301,12 @@ surv &lt;- read_tsv(&quot;data/Pollen competition - survival.tsv&quot;) %&gt;%
          dadidm = if_else(type==&quot;mixed&quot; &amp; dadsp1==momsp, dadid1, dadid2),
          dadsp  = if_else(type==&quot;mixed&quot; &amp; dadsp1==momsp, dadsp2, dadsp1),
          dadid  = if_else(type==&quot;mixed&quot; &amp; dadsp1==momsp, dadid2, dadid1), .after=momid) %&gt;% 
-  select(-matches(&quot;dad(sp|id)[12]&quot;)) %&gt;% 
+  select(-matches(&quot;dad(sp|id)[12]&quot;)) %&gt;% drop_na(dead) %&gt;% #one row excluded
   mutate(sxc = paste(momsp, type, sep=&quot;.&quot;),
          across(where(is.character), factor), 
          type=factor(type, levels= names(typenames)),
          across(matches(&quot;sp&quot;), ~ factor(.x, levels = sp_pairs)),
-         across(all_of(c(&quot;sameasmom&quot;, &quot;hybrid&quot;, &quot;dead&quot;)), ~replace_na(.x,0)), #TODO investigate blanks vs. zeros
+         across(all_of(c(&quot;sameasmom&quot;, &quot;hybrid&quot;)), ~replace_na(.x,0)), 
          alive = sameasmom + hybrid,
          total = alive + dead, 
          prop.hybrid = hybrid / alive,
@@ -598,7 +598,7 @@ germination and survival, and how many pots the seeds filled</caption>
 <td align="left">hookeri</td>
 <td align="left">mixed</td>
 <td align="left">kaalae</td>
-<td align="right">12</td>
+<td align="right">11</td>
 <td align="right">8</td>
 <td align="right">70</td>
 <td align="right">8.750</td>
@@ -628,15 +628,15 @@ analysis.</p>
 <pre class="r"><code>germ.pot %&gt;%  ggplot(aes(x=date_planted, y=date_scored, color=momsp)) + 
   geom_abline(slope=1, intercept=0) + geom_abline(slope=1, intercept=90) + geom_point() + geom_rug() +
   scale_color_brewer(palette=&quot;Paired&quot;) + labs(title=&quot;Germination scoring&quot;) #TODO check mis-entered dates</code></pre>
-<p><img src="figures-comp/dates-1.svg" width="672" /></p>
+<p><img src="figures-comp/dates-1.svg" width="768" /></p>
 <pre class="r"><code>germ.pot %&gt;% filter(abs(date_scored-date_planted)&lt;=90) %&gt;% ggplot(aes(x=date_scored - date_planted, fill=type)) +
   facet_wrap(vars(momsp)) +
   geom_histogram(binwidth=1) + scale_x_continuous(limits=c(0,NA)) + 
   labs(title=&quot;Germination scoring&quot;, subtitle = &quot;plot restricted to 90 days&quot;)</code></pre>
-<p><img src="figures-comp/dates-2.svg" width="672" /></p>
+<p><img src="figures-comp/dates-2.svg" width="768" /></p>
 <pre class="r"><code>surv %&gt;% ggplot(aes(x=date_planted, y=date_scored, color=momsp)) + geom_point() + geom_rug() + 
    scale_color_brewer(palette=&quot;Paired&quot;) + labs(title=&quot;Survival scoring&quot;)</code></pre>
-<p><img src="figures-comp/dates-3.svg" width="672" /></p>
+<p><img src="figures-comp/dates-3.svg" width="768" /></p>
 </div>
 <div id="models" class="section level1">
 <h1>Models</h1>
@@ -685,16 +685,16 @@ comp.test %&gt;%  mutate(term=recode(term, sxc = &quot;species and crosstype&quo
 <tr class="even">
 <td align="left">prop.alive</td>
 <td align="left">species and crosstype</td>
-<td align="right">339.4</td>
+<td align="right">360.9</td>
 <td align="right">29</td>
-<td align="left">1.2e-54</td>
+<td align="left">5.8e-59</td>
 </tr>
 <tr class="odd">
 <td align="left">prop.hybrid</td>
 <td align="left">species and crosstype</td>
-<td align="right">42.6</td>
+<td align="right">66.8</td>
 <td align="right">9</td>
-<td align="left">2.5e-06</td>
+<td align="left">6.5e-11</td>
 </tr>
 </tbody>
 </table>
@@ -736,14 +736,14 @@ ggplot(germ, aes(x=momsp, fill=type, y=prop.germ))  +
                   position = position_dodge(width=0.9), size=0.3, show.legend=F) + 
   scale_fill_manual(values=type_pal, labels=typenames) +  
   labs(x=&quot;Maternal species&quot;, y=&quot;Germination&quot;, fill=&quot;Pollination&quot;) + sp_theme</code></pre>
-<p><img src="figures-comp/rawdata-1.svg" width="672" /></p>
+<p><img src="figures-comp/rawdata-1.svg" width="768" /></p>
 <pre class="r"><code>ggplot(surv, aes(x=momsp, fill=type, y=prop.alive))  + 
   geom_boxplot(position = position_dodge(width=0.9), color=&quot;grey50&quot;, outlier.size=0.5) + alternate+ 
   geom_pointrange(data=filter(comp.emm, trait==&quot;prop.alive&quot;), aes(y=estimate, ymax=conf.high, ymin=conf.low),
                   position = position_dodge(width=0.9), size=0.3, show.legend=F) + 
   scale_fill_manual(values=type_pal, labels=typenames) +  
   labs(x=&quot;Maternal species&quot;, y=&quot;Survival&quot;, fill=&quot;Pollination&quot;) + sp_theme</code></pre>
-<p><img src="figures-comp/rawdata-2.svg" width="672" /></p>
+<p><img src="figures-comp/rawdata-2.svg" width="768" /></p>
 <pre class="r"><code>ggplot(filter(surv, type==&quot;mixed&quot;), aes(x=momsp, y=prop.hybrid, fill=momsp)) + 
   geom_hline(yintercept=0.5)+ geom_violin(scale=&quot;width&quot;, draw_quantiles = c(0.25,0.5,0.75))+ 
   geom_pointrange(data=left_join(filter(comp.emm, trait==&quot;prop.hybrid&quot;), hybrid.test),
@@ -754,7 +754,7 @@ ggplot(germ, aes(x=momsp, fill=type, y=prop.germ))  +
   scale_fill_brewer(palette=&quot;Paired&quot;, guide=&quot;none&quot;) + 
   scale_y_continuous(breaks=(0:4)/4, labels=~scales::percent(.,accuracy=1))+ 
   labs(x=&quot;Maternal species&quot;, y=&quot;Hybrids from competitive pollinations&quot;) + sp_theme</code></pre>
-<p><img src="figures-comp/rawdata-3.svg" width="672" /></p>
+<p><img src="figures-comp/rawdata-3.svg" width="768" /></p>
 <p>Tested whether the proportion of hybrids significantly differed from
 50%, accounting for multiple comparisons. Violin plots show proportions
 for each plant x plant cross. The number of plant x plant crosses
@@ -773,7 +773,7 @@ library(arcdiagram)
 sp_pal &lt;- set_names(brewer.pal(length(sp_pairs), &quot;Paired&quot;), sp_pairs)
 tree &lt;- read.nexus(&quot;data/RAxML_1ps_nocp_bipartitionsBranchLabels.sch.short.nobs.nex&quot;)
 plot(tree, tip.color = sp_pal[tree$tip.label])</code></pre>
-<p><img src="figures-comp/phylodist-1.svg" width="672" /></p>
+<p><img src="figures-comp/phylodist-1.svg" width="768" /></p>
 <pre class="r"><code>par(mfrow=c(1,2))
 par(mar=c(1.5,0,1.5,0))
 tree_pairs &lt;- tree %&gt;% keep.tip(sp_pairs)
@@ -782,7 +782,7 @@ par(mar=c(0,0,0,0))
 sp_pairs %&gt;% matrix(ncol=2, byrow=T) %&gt;% 
   arcplot(show.labels=F, horizontal=F, ordering=tree_pairs$tip.label, 
           col.arcs=sp_pal[(1:5)*2], col.nodes = sp_pal)</code></pre>
-<p><img src="figures-comp/phylodist-2.svg" width="672" /></p>
+<p><img src="figures-comp/phylodist-2.svg" width="768" /></p>
 <pre class="r"><code>par(mfrow=c(1,1))
 
 hybrid.phylodist &lt;- comp.emm %&gt;% left_join(select(hybrid.test, momsp, dadsp, -type)) %&gt;% 
@@ -803,7 +803,7 @@ ggplot(left_join(hybrid.phylodist, hybrid.phylodist.test), aes(x=pd, y=estimate)
   labs(x=&quot;Phylogenetic distance (mutations/site)&quot;, color=&quot;Maternal species&quot;) + theme_bw() +
   theme(axis.title.y=element_blank(), axis.text=element_text(color=&quot;black&quot;), legend.position=&quot;top&quot;,
         panel.grid.minor = element_blank(), panel.grid.major.x=element_blank(), panel.spacing = unit(1, &quot;lines&quot;))</code></pre>
-<p><img src="figures-comp/phylodist-3.svg" width="672" /></p>
+<p><img src="figures-comp/phylodist-3.svg" width="768" /></p>
 <p>Regressions against the phylogenetic distance of each species pair.
 The solid regression line is statistically significant (P = 0.001). Note
 that for reference, data for intraspecific crosses is plotted with the
@@ -821,7 +821,7 @@ color.</p>
   scale_color_brewer(palette=&quot;Paired&quot;) + coord_cartesian(xlim=c(0, NA), ylim=c(0,NA)) +
   labs(x=&quot;Phylogenetic distance (mutations/site)&quot;, y=&quot;Style length (mm)&quot;, color=&quot;Species&quot;, shape=&quot;Mating&quot;) + 
   theme(legend.position = &quot;top&quot;)</code></pre>
-<p><img src="figures-comp/styles-1.svg" width="672" /></p>
+<p><img src="figures-comp/styles-1.svg" width="768" /></p>
 <pre class="r"><code>ggplot(left_join(comp.emm, styles), aes(x=style_length_mm, y=estimate)) + 
   facet_grid(trait~type, labeller=as_labeller(c(propnames, typenames)))+
   geom_line(aes(group=pair, color=momsp))+
@@ -830,7 +830,7 @@ color.</p>
   labs(x=&quot;Style length (mm)&quot;, color=&quot;Maternal species&quot;, shape=&quot;Mating&quot;) + theme_bw() +
   theme(axis.title.y=element_blank(), axis.text=element_text(color=&quot;black&quot;), legend.position=&quot;top&quot;,
         panel.grid.minor = element_blank(), panel.grid.major.x=element_blank(), panel.spacing = unit(1, &quot;lines&quot;))</code></pre>
-<p><img src="figures-comp/styles-2.svg" width="672" /></p>
+<p><img src="figures-comp/styles-2.svg" width="768" /></p>
 <p>Lines show the effect of style length within each pair. Style length
 was not a significant predictor of any variable for any cross category
 in models that also included phylogenetic distance.</p>

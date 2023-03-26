@@ -17,7 +17,7 @@ library(glmmTMB)
 library(broom)
 library(emmeans)
 library(knitr)
-knitr::opts_chunk$set(comment="", cache=T, warning = F, message = F, fig.height=7, fig.width=7,
+knitr::opts_chunk$set(comment="", cache=T, warning = F, message = F, fig.height=8, fig.width=8,
                       fig.path = "figures-comp/", dev = "svglite", dev.args=list(fix_text_size=FALSE))
 options(digits=4, knitr.kable.NA = "")
 ggplot2::theme_set(theme_minimal())
@@ -58,12 +58,12 @@ surv <- read_tsv("data/Pollen competition - survival.tsv") %>%
          dadidm = if_else(type=="mixed" & dadsp1==momsp, dadid1, dadid2),
          dadsp  = if_else(type=="mixed" & dadsp1==momsp, dadsp2, dadsp1),
          dadid  = if_else(type=="mixed" & dadsp1==momsp, dadid2, dadid1), .after=momid) %>% 
-  select(-matches("dad(sp|id)[12]")) %>% 
+  select(-matches("dad(sp|id)[12]")) %>% drop_na(dead) %>% #one row excluded
   mutate(sxc = paste(momsp, type, sep="."),
          across(where(is.character), factor), 
          type=factor(type, levels= names(typenames)),
          across(matches("sp"), ~ factor(.x, levels = sp_pairs)),
-         across(all_of(c("sameasmom", "hybrid", "dead")), ~replace_na(.x,0)), #TODO investigate blanks vs. zeros
+         across(all_of(c("sameasmom", "hybrid")), ~replace_na(.x,0)), 
          alive = sameasmom + hybrid,
          total = alive + dead, 
          prop.hybrid = hybrid / alive,

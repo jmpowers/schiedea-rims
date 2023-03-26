@@ -2,7 +2,7 @@ code	type	date_planted	momsp	momid	dadsp1	dadid1	dadsp2	dadid2	sameasmom	hybrid	
 HK1	mixed	2020-01-15	hookeri	879 H-2	hookeri	879 2-2	kaalae	115-2	69	51	63	2022-07-18		
 HK4	mixed	2020-01-15	hookeri	879 N-5	hookeri	879 10-1	kaalae	115-2	10	20	22	2022-07-18		
 HK5	mixed	2020-01-15	hookeri	879 10-1	hookeri	879 N-5	kaalae	892-5	3	54	17	2022-07-18	1 (salicaria)	
-HK6	mixed	2020-01-15	hookeri	879 G-2	hookeri	879 N-5	kaalae	892-5	5	1	13			do not use
+HK6	mixed	2020-01-15	hookeri	879 G-2	hookeri	879 N-5	kaalae	892-5						do not use JP: removed data to exclude it (sameasmom=5, hybrid=1, dead=13)
 HK8	mixed	2020-09-08	hookeri	794-4	hookeri	794-2	kaalae	892-1	85	3	69	2022-07-21		
 HK9	mixed	2020-10-11	hookeri	899 2E-1	hookeri	866-2	kaalae	116-3	120	7	20	2022-07-21		
 HK10	mixed	2020-10-14	hookeri	879 G2	hookeri	879 10-1	kaalae	892-5	75	38	17	2022-07-21		
@@ -10,10 +10,10 @@ HK11	mixed	2020-10-25	hookeri	794-2	hookeri	866-2	kaalae	115-2	98	24	22	2022-07-
 HK12	mixed	2020-10-17	hookeri	866-2	hookeri	794-2	kaalae	892-4	124	22	8	2022-07-21		
 HK13	mixed	2020-10-28	hookeri	879 N-5	hookeri	879 10-1	kaalae	115-2	51	66	39	2022-07-21		
 HK14	mixed	2020-11-08	hookeri	879 10-1	hookeri	879 N-5	kaalae	892-5	26	35	34	2022-07-21	1 contaminant	
-SZ4	mixed	2019-05-16	hookeri	879 2-2	hookeri	879 N-5	kaalae	116-3		83	6	2022-07-22		
-SZ1	mixed	2019-05-16	kaalae	116-3	kaalae	116-1	hookeri	879 2-2		49	1	2022-07-25		
-SZ2	mixed	2019-05-16	kaalae	140-6	kaalae	116-3	hookeri	879 2-2		38	0	2022-07-26		
-SZ3	mixed	2019-05-16	kaalae	892-5	kaalae	116-3	hookeri	879 2-2		40	0	2022-07-27		
+SZ4	mixed	2019-05-16	hookeri	879 2-2	hookeri	879 N-5	kaalae	116-3	83	2	6	2022-07-22		
+SZ1	mixed	2019-05-16	kaalae	116-3	kaalae	116-1	hookeri	879 2-2	49	11	1	2022-07-25		
+SZ2	mixed	2019-05-16	kaalae	140-6	kaalae	116-3	hookeri	879 2-2	38	1	0	2022-07-26		
+SZ3	mixed	2019-05-16	kaalae	892-5	kaalae	116-3	hookeri	879 2-2	40	0	0	2022-07-27		
 KH15	mixed	2020-10-27	kaalae	892-3	kaalae	115-2	hookeri	879 H2	69	0	9	2022-07-21		
 KH2	mixed	2020-01-15	kaalae	892-3	kaalae	115-2	hookeri	879 H2	34	4	9	2022-07-18		
 KH3	mixed	2020-01-15	kaalae	115-2	kaalae	892-4	hookeri	879 H2	21	2	6	2022-07-18		
@@ -31,12 +31,12 @@ MS17	mixed	2019-12-05	menziesii	849 4-17	menziesii	849 61A	salicaria	842 108-5	2
 MS3	mixed	2019-12-05	menziesii	849 93C	menziesii	849 89E	salicaria	842 162-21	55	62	20	2022-07-15		
 MS4	mixed	2019-12-05	menziesii	849 57-39	menziesii	950 427-30	salicaria	842 201-46	70	26	24	2022-06-09		
 MS8	mixed	2019-12-05	menziesii	950 429-1	menziesii	849 87-37	salicaria	842 22-3	72	50	78	2022-07-15		
-MS9	mixed	2019-10-23	menziesii	849 122-3	menziesii	849 61A	salicaria	842 139-56		22	94	2022-07-15		
+MS9	mixed	2019-10-23	menziesii	849 122-3	menziesii	849 61A	salicaria	842 139-56	22	54	94	2022-07-15		
 SM1	mixed	2019-12-05	salicaria	842 167-23	salicaria	842 139-56	menziesii	849 89E	65	59	46	2022-07-17		
 SM13 	mixed	2020-08-28	salicaria	842 221-27	salicaria	842 86-38	menziesii	950 429-1	50	60	81	2022-07-18		
 SM16	mixed	2019-12-05	salicaria	842 22-3	salicaria	842 201	menziesii	849 122-3	4	5	8	2022-07-17		
 SM18	mixed	2019-12-05	salicaria	842 80-19	salicaria	842 86-38	menziesii	849 57-39	27	15	67	2022-07-17		
-SM19	mixed	2019-10-23	salicaria	842 139-56	salicaria	842 172-37	menziesii	849 122-3		55	57	2022-07-17		
+SM19	mixed	2019-10-23	salicaria	842 139-56	salicaria	842 172-37	menziesii	849 122-3	55	57	57	2022-07-17		
 SM2	mixed	2019-12-05	salicaria	842 86-38	salicaria	842 80-19	menziesii	849 4-17	69	48	54	2022-07-17		
 SM20	mixed	2020-02-17	salicaria	842 201-46	salicaria	842 151-6	menziesii	950 427-30	25	32	8	2022-07-17		
 SM21	mixed	2019-11-20	salicaria	842 172-37	salicaria	842 22-3	menziesii	950 427-30	42	56	17	2022-07-17		
