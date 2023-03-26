@@ -187,7 +187,7 @@ ggplot(filter(surv, type=="mixed"), aes(x=momsp, y=prop.hybrid, fill=momsp)) +
 
 Tested whether the proportion of hybrids significantly differed from 50%, accounting for multiple comparisons. Violin plots show proportions for each plant x plant cross. The number of plant x plant crosses indicated above the plot.
 
-# Phylogenetic distance
+# Phylogenetic distance and style length
 
 Load *Schiedea* tree inferred with RAxML from Willyard et al. nuclear dataset (no chloroplast data, 1 accession per species).
 
@@ -216,12 +216,19 @@ hybrid.phylodist <- comp.emm %>% left_join(select(hybrid.test, momsp, dadsp, -ty
   mutate(pd = map2_dbl(as.character(momsp), as.character(dadsp), ~cophenetic(tree_pairs)[.x,.y])) %>% 
   select(-df)
 
-hybrid.phylodist.test <- hybrid.phylodist %>% group_by(trait, type) %>% nest() %>% 
-  mutate(model = map(data, ~lm(estimate ~ pd, data=.x)),
+#TODO use a binomial GLM here, with the raw data?
+hybrid.phylodist.test <- hybrid.phylodist %>% left_join(styles) %>% group_by(trait, type) %>% nest() %>% 
+  mutate(model = map(data, ~lm(estimate ~ pd + style_diff_mm, data=.x)),
          anova = map(model, ~tidy(car::Anova(.x)))) %>% 
   select(-data, -model) %>% unnest(anova) %>% filter(term !="Residuals") 
 
-ggplot(left_join(hybrid.phylodist, hybrid.phylodist.test), aes(x=pd, y=estimate)) + 
+hybrid.phylodist.test %>% select(trait, type, term, p.value) %>% filter(type !="intra") %>%
+  mutate(trait = propnames[trait], type= typenames[type], 
+         term=recode(term, pd="Phylogenetic distance", style_diff_mm="Style length difference")) %>% 
+  pivot_wider(names_from=term, values_from=p.value) %>% 
+  kable(caption = "p-values from models of each proportion", digits=3)
+
+ggplot(left_join(hybrid.phylodist, filter(hybrid.phylodist.test, term=="pd")), aes(x=pd, y=estimate)) + 
   facet_grid(trait~type, labeller=as_labeller(c(propnames, typenames)))+
   geom_smooth(aes(linetype=paste(p.value < 0.05, type=="intra")), method="lm", se=F, color="grey") +
   geom_pointrange(aes(ymax=conf.high, ymin=conf.low, color=momsp)) + scale_color_brewer(palette="Paired") + 
@@ -232,20 +239,11 @@ ggplot(left_join(hybrid.phylodist, hybrid.phylodist.test), aes(x=pd, y=estimate)
         panel.grid.minor = element_blank(), panel.grid.major.x=element_blank(), panel.spacing = unit(1, "lines"))
 ```
 
-Regressions against the phylogenetic distance of each species pair. The solid regression line is statistically significant (P = 0.001). Note that for reference, data for intraspecific crosses is plotted with the phylogenetic distance to its paired species, which doesn't make great sense.
+Regressions against the phylogenetic distance of each species pair. Solid regression lines are statistically significant in a model that also included the difference in style length within pairs. Note that for reference, data for intraspecific crosses is plotted with the phylogenetic distance to its paired species, which doesn't make great sense.
 
-# Style length
-
-The range of phylogenetic distances and style lengths in the study. The species in each pair with a longer style is given a lighter color.
+Below, lines show the effect of style length within each pair. 
 
 ```{r styles}
-hybrid.phylodist %>% filter(trait=="prop.hybrid",  type=="mixed") %>% left_join(styles) %>% 
-  ggplot(aes(x=pd, y=style_length_mm, color=momsp, shape=mating)) + 
-  geom_pointrange(aes(ymin=style_length_mm-se, ymax=style_length_mm+se)) + 
-  scale_color_brewer(palette="Paired") + coord_cartesian(xlim=c(0, NA), ylim=c(0,NA)) +
-  labs(x="Phylogenetic distance (mutations/site)", y="Style length (mm)", color="Species", shape="Mating") + 
-  theme(legend.position = "top")
-
 ggplot(left_join(comp.emm, styles), aes(x=style_length_mm, y=estimate)) + 
   facet_grid(trait~type, labeller=as_labeller(c(propnames, typenames)))+
   geom_line(aes(group=pair, color=momsp))+
@@ -254,7 +252,16 @@ ggplot(left_join(comp.emm, styles), aes(x=style_length_mm, y=estimate)) +
   labs(x="Style length (mm)", color="Maternal species", shape="Mating") + theme_bw() +
   theme(axis.title.y=element_blank(), axis.text=element_text(color="black"), legend.position="top",
         panel.grid.minor = element_blank(), panel.grid.major.x=element_blank(), panel.spacing = unit(1, "lines"))
+
+hybrid.phylodist %>% filter(trait=="prop.hybrid",  type=="mixed") %>% left_join(styles) %>% 
+  ggplot(aes(x=pd, y=style_length_mm, color=momsp, shape=mating)) + 
+  geom_pointrange(aes(ymin=style_length_mm-se, ymax=style_length_mm+se)) + 
+  scale_color_brewer(palette="Paired") + coord_cartesian(xlim=c(0, NA), ylim=c(0,NA)) +
+  labs(x="Phylogenetic distance (mutations/site)", y="Style length (mm)", color="Species", shape="Mating") + 
+  theme(legend.position = "top")
 ```
 
-Lines show the effect of style length within each pair. Style length was not a significant predictor of any variable for any cross category in models that also included phylogenetic distance.
+The range of phylogenetic distances and style lengths in the study. The species in each pair with a longer style is given a lighter color.
+
+
 
