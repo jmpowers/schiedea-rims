@@ -42,6 +42,7 @@ germ.pot <- read_tsv("data/Pollen competition - germination.tsv") %>%
          dadsp  = if_else(type=="mixed" & dadsp1==momsp, dadsp2, dadsp1),
          dadid  = if_else(type=="mixed" & dadsp1==momsp, dadid2, dadid1), .after=momid) %>% 
   select(-starts_with("germinated_n"), -transplanted_n, -matches("dad(sp|id)[12]")) %>% 
+  drop_na(germinated) %>% #exclude one contaminated cross and "intra inv" inviability tests
   mutate(across(matches("sp"), ~ recode(.x, !!!sp_pairs)),
          sxc = paste(momsp, type, sep="."),
          across(where(is.character), factor), 
@@ -76,13 +77,13 @@ surv %>% count(momsp, type, dadsp, name="crosses_surv") %>%
   kable(caption="Number of crosses between individual plants used for germination and survival,
         and how many pots the seeds filled")
 
-styles <- read_tsv("data/Pollen competition - style_length.tsv") %>% select(-starts_with("px")) %>%
+mating <- read_tsv("data/Pollen competition - mating.tsv") %>% 
   left_join(tibble(momsp=sp_pairs, pair = factor(rep(1:5, each=2)))) %>% 
-  mutate(momsp = factor(momsp, level=sp_pairs)) %>% 
-  group_by(pair) %>% mutate(style_diff_mm = style_length_mm-min(style_length_mm))
-```
+  mutate(momsp = factor(momsp, level=sp_pairs)) 
 
-Note that the crosses_surv disagrees with slide 10 for stellarioides and spergulina. 
+styles <- read_tsv("data/Pollen competition - style_length.tsv") %>% 
+  mutate(momsp = factor(sp_pairs[momsp], levels=sp_pairs))
+```
 
 # Scoring dates
 
@@ -187,6 +188,22 @@ ggplot(filter(surv, type=="mixed"), aes(x=momsp, y=prop.hybrid, fill=momsp)) +
 
 Tested whether the proportion of hybrids significantly differed from 50%, accounting for multiple comparisons. Violin plots show proportions for each plant x plant cross. The number of plant x plant crosses indicated above the plot.
 
+# Style length
+
+```{r style_length}
+count(styles, momsp, plantid) %>% count(momsp) %>% kable(caption = "Number of plants for style length")
+
+styles.emm <- glmmTMB(style_length_mm ~ momsp + (1|plantid), data=styles) %>% 
+  emmeans(~momsp) %>% summary(type="response") %>% tidy %>% rename(style_length_mm = estimate) %>% 
+  left_join(mating) %>% group_by(pair) %>% mutate(style_diff_mm = style_length_mm-min(style_length_mm))
+
+ggplot(styles, aes(x=momsp, y=style_length_mm, fill=momsp)) + 
+  geom_violin(scale="width", draw_quantiles = c(0.25,0.5,0.75))+ 
+  geom_pointrange(data=styles.emm, aes(ymax=conf.high, ymin=conf.low)) + 
+  scale_fill_brewer(palette="Paired", guide="none") + scale_y_continuous(limits=c(0,NA))+
+  labs(x="Maternal species", y="Style length (mm)") + sp_theme
+```
+
 # Phylogenetic distance and style length
 
 Load *Schiedea* tree inferred with RAxML from Willyard et al. nuclear dataset (no chloroplast data, 1 accession per species).
@@ -217,7 +234,7 @@ hybrid.phylodist <- comp.emm %>% left_join(select(hybrid.test, momsp, dadsp, -ty
   select(-df)
 
 #TODO use a binomial GLM here, with the raw data?
-hybrid.phylodist.test <- hybrid.phylodist %>% left_join(styles) %>% group_by(trait, type) %>% nest() %>% 
+hybrid.phylodist.test <- hybrid.phylodist %>% left_join(styles.emm, by="momsp") %>% group_by(trait, type) %>% nest() %>% 
   mutate(model = map(data, ~lm(estimate ~ pd + style_diff_mm, data=.x)),
          anova = map(model, ~tidy(car::Anova(.x)))) %>% 
   select(-data, -model) %>% unnest(anova) %>% filter(term !="Residuals") 
@@ -244,7 +261,7 @@ Regressions against the phylogenetic distance of each species pair. Solid regres
 Below, lines show the effect of style length within each pair. 
 
 ```{r styles}
-ggplot(left_join(comp.emm, styles), aes(x=style_length_mm, y=estimate)) + 
+ggplot(left_join(comp.emm, select(styles.emm, momsp, style_length_mm, mating)), aes(x=style_length_mm, y=estimate)) + 
   facet_grid(trait~type, labeller=as_labeller(c(propnames, typenames)))+
   geom_line(aes(group=pair, color=momsp))+
   geom_pointrange(aes(ymax=conf.high, ymin=conf.low, color=momsp, shape=mating)) + scale_color_brewer(palette="Paired") + 
@@ -253,7 +270,8 @@ ggplot(left_join(comp.emm, styles), aes(x=style_length_mm, y=estimate)) +
   theme(axis.title.y=element_blank(), axis.text=element_text(color="black"), legend.position="top",
         panel.grid.minor = element_blank(), panel.grid.major.x=element_blank(), panel.spacing = unit(1, "lines"))
 
-hybrid.phylodist %>% filter(trait=="prop.hybrid",  type=="mixed") %>% left_join(styles) %>% 
+hybrid.phylodist %>% filter(trait=="prop.hybrid",  type=="mixed") %>% 
+  left_join(select(styles.emm, momsp, style_length_mm, mating, se=std.error)) %>% 
   ggplot(aes(x=pd, y=style_length_mm, color=momsp, shape=mating)) + 
   geom_pointrange(aes(ymin=style_length_mm-se, ymax=style_length_mm+se)) + 
   scale_color_brewer(palette="Paired") + coord_cartesian(xlim=c(0, NA), ylim=c(0,NA)) +

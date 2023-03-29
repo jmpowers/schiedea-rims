@@ -11,7 +11,7 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2023-03-26" />
+<meta name="date" content="2023-03-29" />
 
 <title>Schiedea pollen competition</title>
 
@@ -253,7 +253,7 @@ div.tocify {
 <h1 class="title toc-ignore"><em>Schiedea</em> pollen competition</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John
 Powers</a></h4>
-<h4 class="date">2023-03-26</h4>
+<h4 class="date">2023-03-29</h4>
 
 </div>
 
@@ -285,6 +285,7 @@ germ.pot &lt;- read_tsv(&quot;data/Pollen competition - germination.tsv&quot;) %
          dadsp  = if_else(type==&quot;mixed&quot; &amp; dadsp1==momsp, dadsp2, dadsp1),
          dadid  = if_else(type==&quot;mixed&quot; &amp; dadsp1==momsp, dadid2, dadid1), .after=momid) %&gt;% 
   select(-starts_with(&quot;germinated_n&quot;), -transplanted_n, -matches(&quot;dad(sp|id)[12]&quot;)) %&gt;% 
+  drop_na(germinated) %&gt;% #exclude one contaminated cross and &quot;intra inv&quot; inviability tests
   mutate(across(matches(&quot;sp&quot;), ~ recode(.x, !!!sp_pairs)),
          sxc = paste(momsp, type, sep=&quot;.&quot;),
          across(where(is.character), factor), 
@@ -347,9 +348,9 @@ germination and survival, and how many pots the seeds filled</caption>
 <td align="left">intra</td>
 <td align="left">menziesii</td>
 <td align="right">7</td>
-<td align="right">10</td>
-<td align="right">80</td>
-<td align="right">8.000</td>
+<td align="right">8</td>
+<td align="right">74</td>
+<td align="right">9.250</td>
 </tr>
 <tr class="even">
 <td align="left">menziesii</td>
@@ -490,10 +491,10 @@ germination and survival, and how many pots the seeds filled</caption>
 <td align="left">spergulina</td>
 <td align="left">mixed</td>
 <td align="left">stellarioides</td>
-<td align="right">5</td>
-<td align="right">10</td>
-<td align="right">60</td>
-<td align="right">6.000</td>
+<td align="right">4</td>
+<td align="right">8</td>
+<td align="right">50</td>
+<td align="right">6.250</td>
 </tr>
 <tr class="even">
 <td align="left">spergulina</td>
@@ -614,12 +615,12 @@ germination and survival, and how many pots the seeds filled</caption>
 </tr>
 </tbody>
 </table>
-<pre class="r"><code>styles &lt;- read_tsv(&quot;data/Pollen competition - style_length.tsv&quot;) %&gt;% select(-starts_with(&quot;px&quot;)) %&gt;%
+<pre class="r"><code>mating &lt;- read_tsv(&quot;data/Pollen competition - mating.tsv&quot;) %&gt;% 
   left_join(tibble(momsp=sp_pairs, pair = factor(rep(1:5, each=2)))) %&gt;% 
-  mutate(momsp = factor(momsp, level=sp_pairs)) %&gt;% 
-  group_by(pair) %&gt;% mutate(style_diff_mm = style_length_mm-min(style_length_mm))</code></pre>
-<p>Note that the crosses_surv disagrees with slide 10 for stellarioides
-and spergulina.</p>
+  mutate(momsp = factor(momsp, level=sp_pairs)) 
+
+styles &lt;- read_tsv(&quot;data/Pollen competition - style_length.tsv&quot;) %&gt;% 
+  mutate(momsp = factor(sp_pairs[momsp], levels=sp_pairs))</code></pre>
 </div>
 <div id="scoring-dates" class="section level1">
 <h1>Scoring dates</h1>
@@ -678,23 +679,23 @@ comp.test %&gt;%  mutate(term=recode(term, sxc = &quot;species and crosstype&quo
 <tr class="odd">
 <td align="left">prop.germ</td>
 <td align="left">species and crosstype</td>
-<td align="right">222.6</td>
+<td align="right">217.0</td>
 <td align="right">29</td>
-<td align="left">9.4e-32</td>
+<td align="left">1.1e-30</td>
 </tr>
 <tr class="even">
 <td align="left">prop.alive</td>
 <td align="left">species and crosstype</td>
-<td align="right">360.9</td>
+<td align="right">359.6</td>
 <td align="right">29</td>
-<td align="left">5.8e-59</td>
+<td align="left">1.0e-58</td>
 </tr>
 <tr class="odd">
 <td align="left">prop.hybrid</td>
 <td align="left">species and crosstype</td>
-<td align="right">66.8</td>
+<td align="right">70.7</td>
 <td align="right">9</td>
-<td align="left">6.5e-11</td>
+<td align="left">1.1e-11</td>
 </tr>
 </tbody>
 </table>
@@ -760,6 +761,71 @@ ggplot(germ, aes(x=momsp, fill=type, y=prop.germ))  +
 for each plant x plant cross. The number of plant x plant crosses
 indicated above the plot.</p>
 </div>
+<div id="style-length" class="section level1">
+<h1>Style length</h1>
+<pre class="r"><code>count(styles, momsp, plantid) %&gt;% count(momsp) %&gt;% kable(caption = &quot;Number of plants for style length&quot;)</code></pre>
+<table>
+<caption>Number of plants for style length</caption>
+<thead>
+<tr class="header">
+<th align="left">momsp</th>
+<th align="right">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">menziesii</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="left">salicaria</td>
+<td align="right">5</td>
+</tr>
+<tr class="odd">
+<td align="left">lydgatei</td>
+<td align="right">7</td>
+</tr>
+<tr class="even">
+<td align="left">sarmentosa</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">stellarioides</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="left">spergulina</td>
+<td align="right">5</td>
+</tr>
+<tr class="odd">
+<td align="left">membranacea</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">kauaiensis</td>
+<td align="right">8</td>
+</tr>
+<tr class="odd">
+<td align="left">kaalae</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="left">hookeri</td>
+<td align="right">9</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>styles.emm &lt;- glmmTMB(style_length_mm ~ momsp + (1|plantid), data=styles) %&gt;% 
+  emmeans(~momsp) %&gt;% summary(type=&quot;response&quot;) %&gt;% tidy %&gt;% rename(style_length_mm = estimate) %&gt;% 
+  left_join(mating) %&gt;% group_by(pair) %&gt;% mutate(style_diff_mm = style_length_mm-min(style_length_mm))
+
+ggplot(styles, aes(x=momsp, y=style_length_mm, fill=momsp)) + 
+  geom_violin(scale=&quot;width&quot;, draw_quantiles = c(0.25,0.5,0.75))+ 
+  geom_pointrange(data=styles.emm, aes(ymax=conf.high, ymin=conf.low)) + 
+  scale_fill_brewer(palette=&quot;Paired&quot;, guide=&quot;none&quot;) + scale_y_continuous(limits=c(0,NA))+
+  labs(x=&quot;Maternal species&quot;, y=&quot;Style length (mm)&quot;) + sp_theme</code></pre>
+<p><img src="figures-comp/style_length-1.svg" width="768" /></p>
+</div>
 <div id="phylogenetic-distance-and-style-length" class="section level1">
 <h1>Phylogenetic distance and style length</h1>
 <p>Load <em>Schiedea</em> tree inferred with RAxML from Willyard et
@@ -790,7 +856,7 @@ hybrid.phylodist &lt;- comp.emm %&gt;% left_join(select(hybrid.test, momsp, dads
   select(-df)
 
 #TODO use a binomial GLM here, with the raw data?
-hybrid.phylodist.test &lt;- hybrid.phylodist %&gt;% left_join(styles) %&gt;% group_by(trait, type) %&gt;% nest() %&gt;% 
+hybrid.phylodist.test &lt;- hybrid.phylodist %&gt;% left_join(styles.emm, by=&quot;momsp&quot;) %&gt;% group_by(trait, type) %&gt;% nest() %&gt;% 
   mutate(model = map(data, ~lm(estimate ~ pd + style_diff_mm, data=.x)),
          anova = map(model, ~tidy(car::Anova(.x)))) %&gt;% 
   select(-data, -model) %&gt;% unnest(anova) %&gt;% filter(term !=&quot;Residuals&quot;) 
@@ -820,32 +886,32 @@ hybrid.phylodist.test %&gt;% select(trait, type, term, p.value) %&gt;% filter(ty
 <tr class="odd">
 <td align="left">Germinated</td>
 <td align="left">Interspecific</td>
-<td align="right">0.003</td>
-<td align="right">0.435</td>
+<td align="right">0.002</td>
+<td align="right">0.473</td>
 </tr>
 <tr class="even">
 <td align="left">Germinated</td>
 <td align="left">Competitive</td>
-<td align="right">0.033</td>
-<td align="right">0.219</td>
+<td align="right">0.030</td>
+<td align="right">0.295</td>
 </tr>
 <tr class="odd">
 <td align="left">Survived</td>
 <td align="left">Interspecific</td>
-<td align="right">0.308</td>
-<td align="right">0.802</td>
+<td align="right">0.300</td>
+<td align="right">0.835</td>
 </tr>
 <tr class="even">
 <td align="left">Survived</td>
 <td align="left">Competitive</td>
-<td align="right">0.052</td>
-<td align="right">0.576</td>
+<td align="right">0.041</td>
+<td align="right">0.497</td>
 </tr>
 <tr class="odd">
 <td align="left">Hybrid</td>
 <td align="left">Competitive</td>
-<td align="right">0.021</td>
-<td align="right">0.114</td>
+<td align="right">0.023</td>
+<td align="right">0.141</td>
 </tr>
 </tbody>
 </table>
@@ -866,7 +932,7 @@ reference, data for intraspecific crosses is plotted with the
 phylogenetic distance to its paired species, which doesn’t make great
 sense.</p>
 <p>Below, lines show the effect of style length within each pair.</p>
-<pre class="r"><code>ggplot(left_join(comp.emm, styles), aes(x=style_length_mm, y=estimate)) + 
+<pre class="r"><code>ggplot(left_join(comp.emm, select(styles.emm, momsp, style_length_mm, mating)), aes(x=style_length_mm, y=estimate)) + 
   facet_grid(trait~type, labeller=as_labeller(c(propnames, typenames)))+
   geom_line(aes(group=pair, color=momsp))+
   geom_pointrange(aes(ymax=conf.high, ymin=conf.low, color=momsp, shape=mating)) + scale_color_brewer(palette=&quot;Paired&quot;) + 
@@ -875,7 +941,8 @@ sense.</p>
   theme(axis.title.y=element_blank(), axis.text=element_text(color=&quot;black&quot;), legend.position=&quot;top&quot;,
         panel.grid.minor = element_blank(), panel.grid.major.x=element_blank(), panel.spacing = unit(1, &quot;lines&quot;))</code></pre>
 <p><img src="figures-comp/styles-1.svg" width="768" /></p>
-<pre class="r"><code>hybrid.phylodist %&gt;% filter(trait==&quot;prop.hybrid&quot;,  type==&quot;mixed&quot;) %&gt;% left_join(styles) %&gt;% 
+<pre class="r"><code>hybrid.phylodist %&gt;% filter(trait==&quot;prop.hybrid&quot;,  type==&quot;mixed&quot;) %&gt;% 
+  left_join(select(styles.emm, momsp, style_length_mm, mating, se=std.error)) %&gt;% 
   ggplot(aes(x=pd, y=style_length_mm, color=momsp, shape=mating)) + 
   geom_pointrange(aes(ymin=style_length_mm-se, ymax=style_length_mm+se)) + 
   scale_color_brewer(palette=&quot;Paired&quot;) + coord_cartesian(xlim=c(0, NA), ylim=c(0,NA)) +

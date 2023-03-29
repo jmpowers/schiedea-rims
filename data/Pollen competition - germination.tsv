@@ -213,16 +213,16 @@ line	date_planted	code	type	momsp	momid	dadsp1	dadid1	dadsp2	dadid2	plate	plante
 253	2020-10-06	KH15	mixed	kaal	892-3	kaal	115-2	hook	879H-2	6	10	3	2020-11-04	1	1	2 (11/16)	1 (11/16)	0 (12/7)	1 (12/7)	Discard		
 254	2020-01-30	KH3	mixed	kaal	115-2	kaal	892-4	hook	879H-2	1	20	13	2020-02-26	13								
 	2020-01-30	KH3	mixed	kaal	115-2	kaal	892-4	hook	879H-2	2	20	15	2020-02-26	15								
-255	2020-10-10	SpSt4	mixed	sperg	120289-11	stell	10C-C2	sperg	120289-13	1	20	18	2020-10-31	17	13	1 (11/6)	5 (11/6)	0 (11/11)	Discard			
-256	2020-10-10	SpSt4	mixed	sperg	120289-11	stell	10C-C2	sperg	120289-13	2	20	18	2020-10-31	13	8	5 (11/6)	10 (11/6)	0 (11/11)	Discard			
-257	2020-10-10	SpSt4	mixed	sperg	120289-11	stell	10C-C2	sperg	120289-13	3	20	18	2020-10-31	14	8	4 (11/6)	10 (11/6)	0 (11/11)	Discard			
-258	2020-10-10	SpSt4	mixed	sperg	120289-11	stell	10C-C2	sperg	120289-13	4	20	20	2020-10-31	15	8	4 (11/6)	10 (11/6)	1 (11/11)	Discard			
-259	2020-10-10	SpSt4	mixed	sperg	120289-11	stell	10C-C2	sperg	120289-13	5	20	18	2020-10-31	10	7	8 (11/6)	11 (11/6)	0 (11/11)	Discard			
-303	2020-11-14	SpSt4	mixed	sperg	120289-11	stell	10C-C2	sperg	120289-13	6	20	18	2020-11-29	7	6	11 (12/4)	12 (12/4)	Discard				
-304	2020-11-14	SpSt4	mixed	sperg	120289-11	stell	10C-C2	sperg	120289-13	7	20	17	2020-11-29	12	6	5 (12/4)	11 (12/4)	Discard				
-305	2020-11-14	SpSt4	mixed	sperg	120289-11	stell	10C-C2	sperg	120289-13	8	20	18	2020-11-29	15	14	3 (12/4)	4 (12/4)	Discard				
-306	2020-11-14	SpSt4	mixed	sperg	120289-11	stell	10C-C2	sperg	120289-13	9	20	20	2020-11-29	20	20	0 (12/4)	0 (12/4)	Discard				
-307	2020-11-14	SpSt4	mixed	sperg	120289-11	stell	10C-C2	sperg	120289-13	10	20	18	2020-11-29	13	12	5 (12/4)	6 (12/4)	Discard				
+255	2020-10-10	SpSt4	mixed	sperg	120289-11	stell	10C-C2	sperg	120289-13	1	20		2020-10-31	17	13	1 (11/6)	5 (11/6)	0 (11/11)	Discard			JP: removed due to contamination, was germinated=18
+256	2020-10-10	SpSt4	mixed	sperg	120289-11	stell	10C-C2	sperg	120289-13	2	20		2020-10-31	13	8	5 (11/6)	10 (11/6)	0 (11/11)	Discard			JP: removed due to contamination, was germinated=18
+257	2020-10-10	SpSt4	mixed	sperg	120289-11	stell	10C-C2	sperg	120289-13	3	20		2020-10-31	14	8	4 (11/6)	10 (11/6)	0 (11/11)	Discard			JP: removed due to contamination, was germinated=18
+258	2020-10-10	SpSt4	mixed	sperg	120289-11	stell	10C-C2	sperg	120289-13	4	20		2020-10-31	15	8	4 (11/6)	10 (11/6)	1 (11/11)	Discard			JP: removed due to contamination, was germinated=20
+259	2020-10-10	SpSt4	mixed	sperg	120289-11	stell	10C-C2	sperg	120289-13	5	20		2020-10-31	10	7	8 (11/6)	11 (11/6)	0 (11/11)	Discard			JP: removed due to contamination, was germinated=18
+303	2020-11-14	SpSt4	mixed	sperg	120289-11	stell	10C-C2	sperg	120289-13	6	20		2020-11-29	7	6	11 (12/4)	12 (12/4)	Discard				JP: removed due to contamination, was germinated=18
+304	2020-11-14	SpSt4	mixed	sperg	120289-11	stell	10C-C2	sperg	120289-13	7	20		2020-11-29	12	6	5 (12/4)	11 (12/4)	Discard				JP: removed due to contamination, was germinated=17
+305	2020-11-14	SpSt4	mixed	sperg	120289-11	stell	10C-C2	sperg	120289-13	8	20		2020-11-29	15	14	3 (12/4)	4 (12/4)	Discard				JP: removed due to contamination, was germinated=18
+306	2020-11-14	SpSt4	mixed	sperg	120289-11	stell	10C-C2	sperg	120289-13	9	20		2020-11-29	20	20	0 (12/4)	0 (12/4)	Discard				JP: removed due to contamination, was germinated=20
+307	2020-11-14	SpSt4	mixed	sperg	120289-11	stell	10C-C2	sperg	120289-13	10	20		2020-11-29	13	12	5 (12/4)	6 (12/4)	Discard				JP: removed due to contamination, was germinated=18
 260	2020-10-10	SpSt5	mixed	sperg	120296-9	stell	1476514B2	sperg	120289-13	1	20	15	2020-10-24	7	7	8 (10/28)	6 (10/28)	0 (11/11)	Discard			
 261	2020-10-10	SpSt5	mixed	sperg	120296-9	stell	1476514B2	sperg	120289-13	2	20	17	2020-10-24	14	13	3 (10/28)	2 (10/28)	0 (11/11)	Discard			
 262	2020-10-10	SpSt5	mixed	sperg	120296-9	stell	1476514B2	sperg	120289-13	3	20	12	2020-10-24	8	6	6 (10/28)	5 (10/28)	0 (11/11)	1 (11/11)	Discard		
@@ -663,12 +663,12 @@ line	date_planted	code	type	momsp	momid	dadsp1	dadid1	dadsp2	dadid2	plate	plante
 706	2021-10-23	Menz5	intra	menz	950429-1	menz	95077-5			6	20	19	2021-11-09									
 707	2021-10-23	Menz5	intra	menz	950429-1	menz	95077-5			7	20	12	2021-11-09									
 708	2021-10-23	Menz5	intra	menz	950429-1	menz	95077-5			8	20	13	2021-11-09									
-709	2021-10-21	MK4	intra	menz	864#2	menz	5x9C-7			1	20	0	2021-11-04									JP: type said intra inv
-710	2021-10-21	MK4	intra	menz	864#2	menz	5x9C-7			2	20	0	2021-11-04									JP: type said intra inv
-711	2021-10-21	MK4	intra	menz	864#2	menz	5x9C-7			3	20	0	2021-11-04									JP: type said intra inv
-712	2021-10-21	Sal 4	intra	menz	84251-20	menz	84251-20			1	20	0	2021-11-05									JP: type said intra inv
-713	2021-10-23	Menz1	intra	menz	84993C	menz	84957-39			1	20	0	2021-11-11									JP: type said intra inv
-714	2021-10-23	Menz5	intra	menz	950429-1	menz	95077-5			1	10	0	2021-11-09									JP: type said intra inv
+709	2021-10-21	MK4	intra	menz	864#2	menz	5x9C-7			1	20		2021-11-04									JP: type said intra inv (test on seed inviability), removed germinated=0
+710	2021-10-21	MK4	intra	menz	864#2	menz	5x9C-7			2	20		2021-11-04									JP: type said intra inv (test on seed inviability), removed germinated=0
+711	2021-10-21	MK4	intra	menz	864#2	menz	5x9C-7			3	20		2021-11-04									JP: type said intra inv (test on seed inviability), removed germinated=0
+712	2021-10-21	Sal 4	intra	menz	84251-20	menz	84251-20			1	20		2021-11-05									JP: type said intra inv (test on seed inviability), removed germinated=0
+713	2021-10-23	Menz1	intra	menz	84993C	menz	84957-39			1	20		2021-11-11									JP: type said intra inv (test on seed inviability), removed germinated=0
+714	2021-10-23	Menz5	intra	menz	950429-1	menz	95077-5			1	10		2021-11-09									JP: type said intra inv (test on seed inviability), removed germinated=0
 	2019-10-23	MS9	mixed	menz	849122-3	menz	84961A	sal	842139-56	1	21	11	2019-11-07									
 	2019-10-23	MS9	mixed	menz	849122-3	menz	84961A	sal	842139-56	2	21	14	2019-11-07									
 	2019-10-23	MS9	mixed	menz	849122-3	menz	84961A	sal	842139-56	3	20	8	2019-11-07									

@@ -101,7 +101,6 @@
 <circle cx='335.57' cy='333.02' r='1.95' style='stroke-width: 0.71; stroke: #FB9A99; fill: #FB9A99;' />
 <circle cx='336.36' cy='333.02' r='1.95' style='stroke-width: 0.71; stroke: #FB9A99; fill: #FB9A99;' />
 <circle cx='335.73' cy='333.02' r='1.95' style='stroke-width: 0.71; stroke: #FB9A99; fill: #FB9A99;' />
-<circle cx='335.73' cy='333.02' r='1.95' style='stroke-width: 0.71; stroke: #E31A1C; fill: #E31A1C;' />
 <circle cx='334.63' cy='333.02' r='1.95' style='stroke-width: 0.71; stroke: #E31A1C; fill: #E31A1C;' />
 <circle cx='335.57' cy='333.02' r='1.95' style='stroke-width: 0.71; stroke: #E31A1C; fill: #E31A1C;' />
 <circle cx='335.57' cy='333.02' r='1.95' style='stroke-width: 0.71; stroke: #E31A1C; fill: #E31A1C;' />
@@ -180,7 +179,6 @@
 <line x1='336.36' y1='544.01' x2='336.36' y2='528.40' style='stroke-width: 1.07; stroke: #FB9A99; stroke-linecap: butt;' />
 <line x1='335.73' y1='544.01' x2='335.73' y2='528.40' style='stroke-width: 1.07; stroke: #FB9A99; stroke-linecap: butt;' />
 <line x1='335.57' y1='544.01' x2='335.57' y2='528.40' style='stroke-width: 1.07; stroke: #FB9A99; stroke-linecap: butt;' />
-<line x1='335.73' y1='544.01' x2='335.73' y2='528.40' style='stroke-width: 1.07; stroke: #E31A1C; stroke-linecap: butt;' />
 <line x1='334.63' y1='544.01' x2='334.63' y2='528.40' style='stroke-width: 1.07; stroke: #E31A1C; stroke-linecap: butt;' />
 <line x1='335.57' y1='544.01' x2='335.57' y2='528.40' style='stroke-width: 1.07; stroke: #E31A1C; stroke-linecap: butt;' />
 <line x1='335.57' y1='544.01' x2='335.57' y2='528.40' style='stroke-width: 1.07; stroke: #E31A1C; stroke-linecap: butt;' />
@@ -437,7 +435,6 @@
 <line x1='38.81' y1='333.02' x2='51.69' y2='333.02' style='stroke-width: 1.07; stroke: #FB9A99; stroke-linecap: butt;' />
 <line x1='38.81' y1='333.02' x2='51.69' y2='333.02' style='stroke-width: 1.07; stroke: #FB9A99; stroke-linecap: butt;' />
 <line x1='38.81' y1='333.02' x2='51.69' y2='333.02' style='stroke-width: 1.07; stroke: #FB9A99; stroke-linecap: butt;' />
-<line x1='38.81' y1='333.02' x2='51.69' y2='333.02' style='stroke-width: 1.07; stroke: #E31A1C; stroke-linecap: butt;' />
 <line x1='38.81' y1='333.02' x2='51.69' y2='333.02' style='stroke-width: 1.07; stroke: #E31A1C; stroke-linecap: butt;' />
 <line x1='38.81' y1='333.02' x2='51.69' y2='333.02' style='stroke-width: 1.07; stroke: #E31A1C; stroke-linecap: butt;' />
 <line x1='38.81' y1='333.02' x2='51.69' y2='333.02' style='stroke-width: 1.07; stroke: #E31A1C; stroke-linecap: butt;' />
