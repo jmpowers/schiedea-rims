@@ -19,8 +19,8 @@ line	date_planted	code	type	momsp	momid	dadsp1	dadid1	dadsp2	dadid2	plate	plante
 48	2020-08-27	SL1	mixed	sarm	89612-3	lydg	6682204-1	sarm	8961071-6	8	20	20	2020-09-11	17	16 (1c)	2 (9/22)	1 (9/22)	1 (10/9)	3 (10/13)	Discard		
 49	2020-08-27	SL1	mixed	sarm	89612-3	lydg	6682204-1	sarm	8961071-6	9	20	15	2020-09-11	8	7 (1c)	6 (9/22)	7 (9/22)	2 plants in pot		0 (10/8)	Discard	
 50	2020-08-27	SL1	mixed	sarm	89612-3	lydg	6682204-1	sarm	8961071-6	10	20	15	2020-09-11	14	12 (2k)	1 (10/9)	1 (10/9)	Discard				
-185	2020-09-25	SL1	mixed	lydg	89612-3	lydg	6682204-1	sarm	8961071-6	11	20	19	2020-10-16	19	19	0 (10/29)	Discard					
-186	2020-09-25	SL1	mixed	lydg	89612-3	lydg	6682204-1	sarm	8961071-6	12	20	18	2020-12-12	18	Discard							
+185	2020-09-25	SL1	mixed	sarm	89612-3	lydg	6682204-1	sarm	8961071-6	11	20	19	2020-10-16	19	19	0 (10/29)	Discard					JP: changed momsp lydg > sarm
+186	2020-09-25	SL1	mixed	sarm	89612-3	lydg	6682204-1	sarm	8961071-6	12	20	18	2020-12-12	18	Discard							JP: changed momsp lydg > sarm
 291	2020-10-23	SL1	mixed	sarm	89612-3	lydg	6682204-1	sarm	8961071-6	13	20	20	2021-01-30	20	Discard							
 51	2020-08-27	SL2	mixed	sarm	896122-2	lydg	6682223-1	sarm	8961071-6	1	20	17	2020-09-11	16	(15 (1c)	2 plants in pot		1 (10/9)	Discard			
 52	2020-08-27	SL2	mixed	sarm	896122-2	lydg	6682223-1	sarm	8961071-6	2	20	16	2020-09-11	13 (mold)	11 (2c)	3 (9/22)	4 (9/22)	0 (10/8)	Discard			
@@ -45,9 +45,9 @@ line	date_planted	code	type	momsp	momid	dadsp1	dadid1	dadsp2	dadid2	plate	plante
 68	2020-08-27	SL3	mixed	sarm	896123-16	lydg	6682229-2	sarm	89611-6	8	20	19	2020-09-16	14	12 (2c)	5 (10/9)	6 (10/9)	Discard				
 69	2020-08-27	SL3	mixed	sarm	896123-16	lydg	6682229-2	sarm	89611-6	9	20	18	2020-09-16	15	15	3 (10/13)	3 (10/13)	Discard				
 70	2020-08-27	SL3	mixed	sarm	896123-16	lydg	6682229-2	sarm	89611-6	10	20	17	2020-09-17	17	14	0 (10/16)	Discard					
-189	2020-09-25	SL3	mixed	lydg	896123-16	sarm	6682229-2	lydg	89611-6	11	20	18	2020-11-03	15	14	3 (12/12)	Discard					
-190	2020-09-25	SL3	mixed	lydg	896123-16	sarm	6682229-2	lydg	89611-6	12	20	16	2020-12-12	16	Discard							
-293	2020-10-23	SL 3	mixed	lydg	896123-16	sarm	6682229-2	lydg	89611-6	13	20	19	2021-01-30	19	Discard							
+189	2020-09-25	SL3	mixed	sarm	896123-16	lydg	6682229-2	sarm	89611-6	11	20	18	2020-11-03	15	14	3 (12/12)	Discard					JP: changed momsp lydg>sarm, dadsp1 sarm>lydg, dadsp2 lydg>sarm
+190	2020-09-25	SL3	mixed	sarm	896123-16	lydg	6682229-2	sarm	89611-6	12	20	16	2020-12-12	16	Discard							JP: changed momsp lydg>sarm, dadsp1 sarm>lydg, dadsp2 lydg>sarm
+293	2020-10-23	SL 3	mixed	sarm	896123-16	lydg	6682229-2	sarm	89611-6	13	20	19	2021-01-30	19	Discard							JP: changed momsp lydg>sarm, dadsp1 sarm>lydg, dadsp2 lydg>sarm
 71	2020-09-02	LS4	mixed	lydg	6682222-1	lydg	6682234-1	sarm	89617-5	1	20	17	2020-09-17	5	5	9 (9/26)	9 (9/26)	3 (10/20)	Discard			
 72	2020-09-02	LS4	mixed	lydg	6682222-1	lydg	6682234-1	sarm	89617-5	2	20	12	2020-09-17	7	6 (1c)	5 (9/26)	6 (9/26)	0 (10/8)	Discard			
 73	2020-09-02	LS4	mixed	lydg	6682222-1	lydg	6682234-1	sarm	89617-5	3	20	12	2020-09-17	6	5 (1c)	0 (9/26)	1 (9/26)	6 (10/20)	Discard			
@@ -1264,7 +1264,7 @@ line	date_planted	code	type	momsp	momid	dadsp1	dadid1	dadsp2	dadid2	plate	plante
 		MK6	mixed	memb	864192-30	memb	2021-1	kaua	P2525-19	10	20	16										
 		MK6	mixed	memb	864192-30	memb	2021-1	kaua	P2525-19	10	20	17										
 		MK6	mixed	memb	864192-30	memb	2021-1	kaua	P2525-19	10	20	12										
-		MK6	mixed	memb	1a5251#20	memb	2021-1	kaua	P2525-19	10	20	5										
+		MK6	mixed	memb	864192-30	memb	2021-1	kaua	P2525-19	10	20	5										JP: changed momid 1a5251#20 > 864192-30 based on MK6 code
 			inter	hook	794-2	kaal	892-1				6	5										
 			inter	hook	794-2	kaal	892-1				10	8										
 			inter	hook	794-2	kaal	892-1				10	9										
@@ -1491,70 +1491,70 @@ line	date_planted	code	type	momsp	momid	dadsp1	dadid1	dadsp2	dadid2	plate	plante
 			inter	kaal	3587-C	hook	866-2				7	3										
 			inter	kaal	3587-C	hook	87910-1				3	0										
 			inter	kaal	3587-C	hook	879N-5				8	0										
-			inter	kaal	794-2	hook	794-4				6	5										
-			inter	kaal	794-2	hook	794-4				10	5										
-			inter	kaal	794-2	hook	794-4				10	6										
-			inter	kaal	794-2	hook	794-4				10	7										
-			inter	kaal	794-2	hook	794-4				10	7										
-			inter	kaal	794-2	hook	794-4				10	7										
-			inter	kaal	794-2	hook	794-4				10	8										
-			inter	kaal	794-2	hook	794-4				10	8										
-			inter	kaal	794-2	hook	794-4				10	8										
-			inter	kaal	794-2	hook	794-4				10	10										
-			inter	kaal	794-2	hook	794-4				10	10										
-			inter	kaal	794-2	hook	866-2				7	6										
-			inter	kaal	794-2	hook	866-2				10	6										
-			inter	kaal	794-2	hook	866-2				10	8										
-			inter	kaal	794-2	hook	866-2				10	9										
-			inter	kaal	794-2	hook	866-2				10	10										
-			inter	kaal	794-2	hook	8992E-1				2	1										
-			inter	kaal	794-2	hook	8992E-1				10	9										
-			inter	kaal	794-4	hook	794-2				4	3										
-			inter	kaal	794-4	hook	794-2				10	6										
-			inter	kaal	794-4	hook	794-2				10	6										
-			inter	kaal	794-4	hook	794-2				10	8										
-			inter	kaal	794-4	hook	794-2				10	8										
-			inter	kaal	794-4	hook	794-2				10	9										
-			inter	kaal	794-4	hook	794-2				10	10										
-			inter	kaal	794-4	hook	794-2				10	10										
-			inter	kaal	794-4	hook	866-2				10	3										
-			inter	kaal	794-4	hook	866-2				10	4										
-			inter	kaal	794-4	hook	866-2				10	6										
-			inter	kaal	794-4	hook	866-2				10	7										
-			inter	kaal	794-4	hook	866-2				10	7										
-			inter	kaal	794-4	hook	866-2				10	7										
-			inter	kaal	866-2	hook	794-4				7	3										
-			inter	kaal	866-2	hook	794-4				10	5										
-			inter	kaal	866-2	hook	794-4				10	6										
-			inter	kaal	866-2	hook	794-4				10	6										
-			inter	kaal	866-2	hook	794-4				10	8										
-			inter	kaal	866-2	hook	794-4				10	8										
-			inter	kaal	8792-2	hook	87910-1				6	4										
-			inter	kaal	8792-2	hook	87910-1				10	5										
-			inter	kaal	8792-2	hook	87910-1				10	7										
-			inter	kaal	8792-2	hook	87910-1				10	7										
-			inter	kaal	8792-2	hook	879G-2				2	1										
-			inter	kaal	8792-2	hook	879G-2				10	3										
-			inter	kaal	8792-2	hook	879G-2				10	7										
-			inter	kaal	8792-2	hook	879G-2				10	7										
-			inter	kaal	8792-2	hook	879G-2				10	10										
-			inter	kaal	8792-2	hook	879G-2				10	10										
-			inter	kaal	8792-2	hook	879N-5				7	7										
-			inter	kaal	8792-2	hook	879N-5				10	8										
-			inter	kaal	8792-2	hook	879N-5				10	9										
-			inter	kaal	8792-2	hook	879N-5				10	10										
-			inter	kaal	87910-1	hook	8792-2				6	5										
-			inter	kaal	87910-1	hook	879G-2				4	0										
-			inter	kaal	87910-1	hook	879H-2				2	2										
-			inter	kaal	87910-1	hook	879H-2				10	1										
-			inter	kaal	87910-1	hook	879N-5				8	2										
-			inter	kaal	879G2	hook	8792-2				8	8										
-			inter	kaal	879G2	hook	87910-1				6	5										
-			inter	kaal	879G2	hook	879G-2				4	1										
-			inter	kaal	879G2	hook	879G-2				10	0										
-			inter	kaal	879G2	hook	8792-2				8	8										
-			inter	kaal	879G2	hook	879G-2				3	1										
-			inter	kaal	879G2	hook	879H-2				6	4										
+			intra	hook	794-2	hook	794-4				6	5										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	794-2	hook	794-4				10	5										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	794-2	hook	794-4				10	6										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	794-2	hook	794-4				10	7										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	794-2	hook	794-4				10	7										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	794-2	hook	794-4				10	7										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	794-2	hook	794-4				10	8										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	794-2	hook	794-4				10	8										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	794-2	hook	794-4				10	8										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	794-2	hook	794-4				10	10										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	794-2	hook	794-4				10	10										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	794-2	hook	866-2				7	6										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	794-2	hook	866-2				10	6										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	794-2	hook	866-2				10	8										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	794-2	hook	866-2				10	9										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	794-2	hook	866-2				10	10										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	794-2	hook	8992E-1				2	1										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	794-2	hook	8992E-1				10	9										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	794-4	hook	794-2				4	3										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	794-4	hook	794-2				10	6										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	794-4	hook	794-2				10	6										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	794-4	hook	794-2				10	8										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	794-4	hook	794-2				10	8										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	794-4	hook	794-2				10	9										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	794-4	hook	794-2				10	10										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	794-4	hook	794-2				10	10										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	794-4	hook	866-2				10	3										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	794-4	hook	866-2				10	4										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	794-4	hook	866-2				10	6										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	794-4	hook	866-2				10	7										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	794-4	hook	866-2				10	7										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	794-4	hook	866-2				10	7										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	866-2	hook	794-4				7	3										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	866-2	hook	794-4				10	5										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	866-2	hook	794-4				10	6										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	866-2	hook	794-4				10	6										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	866-2	hook	794-4				10	8										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	866-2	hook	794-4				10	8										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	8792-2	hook	87910-1				6	4										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	8792-2	hook	87910-1				10	5										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	8792-2	hook	87910-1				10	7										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	8792-2	hook	87910-1				10	7										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	8792-2	hook	879G-2				2	1										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	8792-2	hook	879G-2				10	3										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	8792-2	hook	879G-2				10	7										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	8792-2	hook	879G-2				10	7										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	8792-2	hook	879G-2				10	10										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	8792-2	hook	879G-2				10	10										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	8792-2	hook	879N-5				7	7										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	8792-2	hook	879N-5				10	8										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	8792-2	hook	879N-5				10	9										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	8792-2	hook	879N-5				10	10										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	87910-1	hook	8792-2				6	5										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	87910-1	hook	879G-2				4	0										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	87910-1	hook	879H-2				2	2										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	87910-1	hook	879H-2				10	1										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	87910-1	hook	879N-5				8	2										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	879G2	hook	8792-2				8	8										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	879G2	hook	87910-1				6	5										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	879G2	hook	879G-2				4	1										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	879G2	hook	879G-2				10	0										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	879G2	hook	8792-2				8	8										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	879G2	hook	879G-2				3	1										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+			intra	hook	879G2	hook	879H-2				6	4										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
 			intra	kaal	892-1	kaal	892-4				6	2										
 			intra	kaal	892-1	kaal	892-5				10	3										
 			intra	kaal	892-3	kaal	892-1				10	1										

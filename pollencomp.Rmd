@@ -36,6 +36,10 @@ typenames <- set_names(c("Intraspecific","Competitive","Interspecific"),c("intra
 type_pal <- set_names(c("#DC0060", "#86D400", "#F56E00"), names(typenames))
 propnames <- set_names(c("Germinated","Survived","Hybrid"), c("prop.germ", "prop.alive", "prop.hybrid"))
 
+momid.fixes <- read_tsv("data/Pollen competition - momid_fixes.tsv")
+momid.fixes.germ <- momid.fixes %>% drop_na(germid, momid_fixed) %>% select(momid, momid_fixed) %>% deframe()
+momid.fixes.surv <- momid.fixes %>% drop_na(survid, momid_fixed) %>% select(momid, momid_fixed) %>% deframe()
+
 germ.pot <- read_tsv("data/Pollen competition - germination.tsv") %>%  
   mutate(dadspm = if_else(type=="mixed" & dadsp1==momsp, dadsp1, dadsp2), #rearrange dad1/dad2 to have dadsp match momsp
          dadidm = if_else(type=="mixed" & dadsp1==momsp, dadid1, dadid2),
@@ -44,13 +48,15 @@ germ.pot <- read_tsv("data/Pollen competition - germination.tsv") %>%
   select(-starts_with("germinated_n"), -transplanted_n, -matches("dad(sp|id)[12]")) %>% 
   drop_na(germinated) %>% #exclude one contaminated cross and "intra inv" inviability tests
   mutate(across(matches("sp"), ~ recode(.x, !!!sp_pairs)),
+         across(matches("(dad|mom)id"), ~str_remove_all(.x, "[ -]")), 
+         across(matches("(dad|mom)id"), ~recode(.x, !!!momid.fixes.germ)), #TODO are the momid fixes applicable to dads too?
          sxc = paste(momsp, type, sep="."),
-         across(where(is.character), factor), 
+         #across(where(is.character), factor), 
          type=factor(type, levels= names(typenames)), 
          across(matches("sp"), ~ factor(.x, levels = sp_pairs)),
          germinated = ifelse(germinated > planted, planted, germinated))
 
-germ <- germ.pot %>% group_by(date_planted, type, momsp, sxc, momid, dadspm, dadidm, dadsp, dadid) %>% 
+germ <- germ.pot %>% group_by(date_planted, type, momsp, sxc, momid, dadspm, dadidm, dadsp, dadid) %>% #date_planted splits 30 plant x plant crosses
   summarize(planted = sum(planted), germinated = sum(germinated), .groups="drop") %>% # add together all the pots of one cross
   mutate(prop.germ = germinated/planted) # proportion of planted seeds that germinated 
 
@@ -60,8 +66,10 @@ surv <- read_tsv("data/Pollen competition - survival.tsv") %>%
          dadsp  = if_else(type=="mixed" & dadsp1==momsp, dadsp2, dadsp1),
          dadid  = if_else(type=="mixed" & dadsp1==momsp, dadid2, dadid1), .after=momid) %>% 
   select(-matches("dad(sp|id)[12]")) %>% drop_na(dead) %>% #one row excluded
-  mutate(sxc = paste(momsp, type, sep="."),
-         across(where(is.character), factor), 
+  mutate(across(matches("(mom|dad)id"), ~str_remove_all(.x, "[ -]")), 
+         across(matches("(dad|mom)id"), ~recode(.x, !!!momid.fixes.surv)),
+         sxc = paste(momsp, type, sep="."),
+         #across(where(is.character), factor), 
          type=factor(type, levels= names(typenames)),
          across(matches("sp"), ~ factor(.x, levels = sp_pairs)),
          across(all_of(c("sameasmom", "hybrid")), ~replace_na(.x,0)), 
@@ -76,6 +84,14 @@ surv %>% count(momsp, type, dadsp, name="crosses_surv") %>%
   mutate(pots_per_cross = pots_germ/crosses_germ) %>% 
   kable(caption="Number of crosses between individual plants used for germination and survival,
         and how many pots the seeds filled")
+
+# to run this, comment out across(matches("(mom|dad)id"), ~str_remove_all(.x, "[ -]")) lines above
+# left_join(count(germ, momsp, germid=momid, name="germ") %>% mutate(momid=str_remove_all(germid, "[ -]")),
+#           germ %>% group_by(momsp, germid=momid) %>% summarize(tot.germ=sum(germinated))) %>%
+#   full_join(count(surv, momsp, survid=momid, name="surv")%>% mutate(momid=str_remove_all(survid, "[ -]"))) %>%
+#   arrange(momsp, momid) %>% select(momsp, momid, germid, survid, tot.germ, germ, surv) %>%
+#   add_count(momid) 
+# #  write_tsv("data/survgerm_momids.tsv", na="")
 
 mating <- read_tsv("data/Pollen competition - mating.tsv") %>% 
   left_join(tibble(momsp=sp_pairs, pair = factor(rep(1:5, each=2)))) %>% 
@@ -103,6 +119,17 @@ surv %>% ggplot(aes(x=date_planted, y=date_scored, color=momsp)) + geom_point() 
    scale_color_brewer(palette="Paired") + labs(title="Survival scoring")
 ```
 
+# Histograms
+
+```{r histogram}
+ggplot(germ, aes(x=planted, fill=type)) + geom_histogram(binwidth=10) + facet_wrap(vars(momsp))
+ggplot(germ, aes(x=germinated, fill=type)) + geom_histogram(binwidth=10) + facet_wrap(vars(momsp))
+ggplot(filter(surv, type !="inter"), aes(x=sameasmom, fill=type)) + geom_histogram(binwidth=10) + facet_wrap(vars(momsp))
+ggplot(filter(surv, type !="intra"), aes(x=hybrid, fill=type)) + geom_histogram(binwidth=1) + facet_wrap(vars(momsp))#lots of 20s
+ggplot(surv, aes(x=dead, fill=type)) + geom_histogram(binwidth=10) + facet_wrap(vars(momsp), scales="free_y")
+```
+
+
 # Models
 
 Expand this code to see the model specifications. The models have the following settings:
@@ -118,6 +145,20 @@ comp.mod <- list(
   prop.alive =   glmmTMB(prop.alive  ~ sxc + (1|momid), family="betabinomial", data=surv, weights = total),
   prop.hybrid =  glmmTMB(prop.hybrid ~ sxc + (1|momid), family="betabinomial", data=filter(surv, type=="mixed"), weights = alive))
 ```
+
+## Maternal effects
+
+```{r ranef}
+comp.ranef <- map_dfr(comp.mod, ~as.data.frame(ranef(.x)), .id="trait") %>% 
+  rename(momid=grp, estimate = condval, sd = condsd) %>% select(-component, -grpvar, -term) %>% 
+  mutate(momid= as.character(momid))
+
+ggplot(comp.ranef, aes(y=estimate, ymin=estimate-sd, ymax=estimate+sd, x=momid)) + facet_wrap(vars(trait)) +  geom_pointrange() + coord_flip()
+
+# comp.ranef %>% select(grp, trait, condval) %>% pivot_wider(names_from="trait", values_from="condval") %>% 
+#   ggplot(aes(x=prop.alive, y=prop.germ)) + geom_point() + geom_smooth()
+```
+
 
 ## Inference 
 
@@ -195,7 +236,9 @@ count(styles, momsp, plantid) %>% count(momsp) %>% kable(caption = "Number of pl
 
 styles.emm <- glmmTMB(style_length_mm ~ momsp + (1|plantid), data=styles) %>% 
   emmeans(~momsp) %>% summary(type="response") %>% tidy %>% rename(style_length_mm = estimate) %>% 
-  left_join(mating) %>% group_by(pair) %>% mutate(style_diff_mm = style_length_mm-min(style_length_mm))
+  left_join(mating) %>% group_by(pair) %>% 
+  mutate(momsp=factor(momsp, levels=sp_pairs), 
+         style_diff_mm = style_length_mm-min(style_length_mm))
 
 ggplot(styles, aes(x=momsp, y=style_length_mm, fill=momsp)) + 
   geom_violin(scale="width", draw_quantiles = c(0.25,0.5,0.75))+ 

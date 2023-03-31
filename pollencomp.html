@@ -11,7 +11,7 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2023-03-29" />
+<meta name="date" content="2023-03-31" />
 
 <title>Schiedea pollen competition</title>
 
@@ -253,7 +253,7 @@ div.tocify {
 <h1 class="title toc-ignore"><em>Schiedea</em> pollen competition</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John
 Powers</a></h4>
-<h4 class="date">2023-03-29</h4>
+<h4 class="date">2023-03-31</h4>
 
 </div>
 
@@ -279,6 +279,10 @@ typenames &lt;- set_names(c(&quot;Intraspecific&quot;,&quot;Competitive&quot;,&q
 type_pal &lt;- set_names(c(&quot;#DC0060&quot;, &quot;#86D400&quot;, &quot;#F56E00&quot;), names(typenames))
 propnames &lt;- set_names(c(&quot;Germinated&quot;,&quot;Survived&quot;,&quot;Hybrid&quot;), c(&quot;prop.germ&quot;, &quot;prop.alive&quot;, &quot;prop.hybrid&quot;))
 
+momid.fixes &lt;- read_tsv(&quot;data/Pollen competition - momid_fixes.tsv&quot;)
+momid.fixes.germ &lt;- momid.fixes %&gt;% drop_na(germid, momid_fixed) %&gt;% select(momid, momid_fixed) %&gt;% deframe()
+momid.fixes.surv &lt;- momid.fixes %&gt;% drop_na(survid, momid_fixed) %&gt;% select(momid, momid_fixed) %&gt;% deframe()
+
 germ.pot &lt;- read_tsv(&quot;data/Pollen competition - germination.tsv&quot;) %&gt;%  
   mutate(dadspm = if_else(type==&quot;mixed&quot; &amp; dadsp1==momsp, dadsp1, dadsp2), #rearrange dad1/dad2 to have dadsp match momsp
          dadidm = if_else(type==&quot;mixed&quot; &amp; dadsp1==momsp, dadid1, dadid2),
@@ -287,13 +291,15 @@ germ.pot &lt;- read_tsv(&quot;data/Pollen competition - germination.tsv&quot;) %
   select(-starts_with(&quot;germinated_n&quot;), -transplanted_n, -matches(&quot;dad(sp|id)[12]&quot;)) %&gt;% 
   drop_na(germinated) %&gt;% #exclude one contaminated cross and &quot;intra inv&quot; inviability tests
   mutate(across(matches(&quot;sp&quot;), ~ recode(.x, !!!sp_pairs)),
+         across(matches(&quot;(dad|mom)id&quot;), ~str_remove_all(.x, &quot;[ -]&quot;)), 
+         across(matches(&quot;(dad|mom)id&quot;), ~recode(.x, !!!momid.fixes.germ)), #TODO are the momid fixes applicable to dads too?
          sxc = paste(momsp, type, sep=&quot;.&quot;),
-         across(where(is.character), factor), 
+         #across(where(is.character), factor), 
          type=factor(type, levels= names(typenames)), 
          across(matches(&quot;sp&quot;), ~ factor(.x, levels = sp_pairs)),
          germinated = ifelse(germinated &gt; planted, planted, germinated))
 
-germ &lt;- germ.pot %&gt;% group_by(date_planted, type, momsp, sxc, momid, dadspm, dadidm, dadsp, dadid) %&gt;% 
+germ &lt;- germ.pot %&gt;% group_by(date_planted, type, momsp, sxc, momid, dadspm, dadidm, dadsp, dadid) %&gt;% #date_planted splits 30 plant x plant crosses
   summarize(planted = sum(planted), germinated = sum(germinated), .groups=&quot;drop&quot;) %&gt;% # add together all the pots of one cross
   mutate(prop.germ = germinated/planted) # proportion of planted seeds that germinated 
 
@@ -303,8 +309,10 @@ surv &lt;- read_tsv(&quot;data/Pollen competition - survival.tsv&quot;) %&gt;%
          dadsp  = if_else(type==&quot;mixed&quot; &amp; dadsp1==momsp, dadsp2, dadsp1),
          dadid  = if_else(type==&quot;mixed&quot; &amp; dadsp1==momsp, dadid2, dadid1), .after=momid) %&gt;% 
   select(-matches(&quot;dad(sp|id)[12]&quot;)) %&gt;% drop_na(dead) %&gt;% #one row excluded
-  mutate(sxc = paste(momsp, type, sep=&quot;.&quot;),
-         across(where(is.character), factor), 
+  mutate(across(matches(&quot;(mom|dad)id&quot;), ~str_remove_all(.x, &quot;[ -]&quot;)), 
+         across(matches(&quot;(dad|mom)id&quot;), ~recode(.x, !!!momid.fixes.surv)),
+         sxc = paste(momsp, type, sep=&quot;.&quot;),
+         #across(where(is.character), factor), 
          type=factor(type, levels= names(typenames)),
          across(matches(&quot;sp&quot;), ~ factor(.x, levels = sp_pairs)),
          across(all_of(c(&quot;sameasmom&quot;, &quot;hybrid&quot;)), ~replace_na(.x,0)), 
@@ -411,9 +419,9 @@ germination and survival, and how many pots the seeds filled</caption>
 <td align="left">mixed</td>
 <td align="left">sarmentosa</td>
 <td align="right">5</td>
-<td align="right">14</td>
-<td align="right">61</td>
-<td align="right">4.357</td>
+<td align="right">11</td>
+<td align="right">56</td>
+<td align="right">5.091</td>
 </tr>
 <tr class="odd">
 <td align="left">lydgatei</td>
@@ -438,9 +446,9 @@ germination and survival, and how many pots the seeds filled</caption>
 <td align="left">mixed</td>
 <td align="left">lydgatei</td>
 <td align="right">5</td>
-<td align="right">9</td>
-<td align="right">58</td>
-<td align="right">6.444</td>
+<td align="right">12</td>
+<td align="right">63</td>
+<td align="right">5.250</td>
 </tr>
 <tr class="even">
 <td align="left">sarmentosa</td>
@@ -519,9 +527,9 @@ germination and survival, and how many pots the seeds filled</caption>
 <td align="left">mixed</td>
 <td align="left">kauaiensis</td>
 <td align="right">5</td>
-<td align="right">7</td>
+<td align="right">6</td>
 <td align="right">60</td>
-<td align="right">8.571</td>
+<td align="right">10.000</td>
 </tr>
 <tr class="odd">
 <td align="left">membranacea</td>
@@ -582,18 +590,18 @@ germination and survival, and how many pots the seeds filled</caption>
 <td align="left">inter</td>
 <td align="left">hookeri</td>
 <td align="right">11</td>
-<td align="right">90</td>
-<td align="right">182</td>
-<td align="right">2.022</td>
+<td align="right">73</td>
+<td align="right">118</td>
+<td align="right">1.616</td>
 </tr>
 <tr class="even">
 <td align="left">hookeri</td>
 <td align="left">intra</td>
 <td align="left">hookeri</td>
 <td align="right">12</td>
-<td align="right">19</td>
-<td align="right">64</td>
-<td align="right">3.368</td>
+<td align="right">21</td>
+<td align="right">128</td>
+<td align="right">6.095</td>
 </tr>
 <tr class="odd">
 <td align="left">hookeri</td>
@@ -615,7 +623,15 @@ germination and survival, and how many pots the seeds filled</caption>
 </tr>
 </tbody>
 </table>
-<pre class="r"><code>mating &lt;- read_tsv(&quot;data/Pollen competition - mating.tsv&quot;) %&gt;% 
+<pre class="r"><code># to run this, comment out across(matches(&quot;(mom|dad)id&quot;), ~str_remove_all(.x, &quot;[ -]&quot;)) lines above
+# left_join(count(germ, momsp, germid=momid, name=&quot;germ&quot;) %&gt;% mutate(momid=str_remove_all(germid, &quot;[ -]&quot;)),
+#           germ %&gt;% group_by(momsp, germid=momid) %&gt;% summarize(tot.germ=sum(germinated))) %&gt;%
+#   full_join(count(surv, momsp, survid=momid, name=&quot;surv&quot;)%&gt;% mutate(momid=str_remove_all(survid, &quot;[ -]&quot;))) %&gt;%
+#   arrange(momsp, momid) %&gt;% select(momsp, momid, germid, survid, tot.germ, germ, surv) %&gt;%
+#   add_count(momid) 
+# #  write_tsv(&quot;data/survgerm_momids.tsv&quot;, na=&quot;&quot;)
+
+mating &lt;- read_tsv(&quot;data/Pollen competition - mating.tsv&quot;) %&gt;% 
   left_join(tibble(momsp=sp_pairs, pair = factor(rep(1:5, each=2)))) %&gt;% 
   mutate(momsp = factor(momsp, level=sp_pairs)) 
 
@@ -639,6 +655,19 @@ analysis.</p>
    scale_color_brewer(palette=&quot;Paired&quot;) + labs(title=&quot;Survival scoring&quot;)</code></pre>
 <p><img src="figures-comp/dates-3.svg" width="768" /></p>
 </div>
+<div id="histograms" class="section level1">
+<h1>Histograms</h1>
+<pre class="r"><code>ggplot(germ, aes(x=planted, fill=type)) + geom_histogram(binwidth=10) + facet_wrap(vars(momsp))</code></pre>
+<p><img src="figures-comp/histogram-1.svg" width="768" /></p>
+<pre class="r"><code>ggplot(germ, aes(x=germinated, fill=type)) + geom_histogram(binwidth=10) + facet_wrap(vars(momsp))</code></pre>
+<p><img src="figures-comp/histogram-2.svg" width="768" /></p>
+<pre class="r"><code>ggplot(filter(surv, type !=&quot;inter&quot;), aes(x=sameasmom, fill=type)) + geom_histogram(binwidth=10) + facet_wrap(vars(momsp))</code></pre>
+<p><img src="figures-comp/histogram-3.svg" width="768" /></p>
+<pre class="r"><code>ggplot(filter(surv, type !=&quot;intra&quot;), aes(x=hybrid, fill=type)) + geom_histogram(binwidth=1) + facet_wrap(vars(momsp))#lots of 20s</code></pre>
+<p><img src="figures-comp/histogram-4.svg" width="768" /></p>
+<pre class="r"><code>ggplot(surv, aes(x=dead, fill=type)) + geom_histogram(binwidth=10) + facet_wrap(vars(momsp), scales=&quot;free_y&quot;)</code></pre>
+<p><img src="figures-comp/histogram-5.svg" width="768" /></p>
+</div>
 <div id="models" class="section level1">
 <h1>Models</h1>
 <p>Expand this code to see the model specifications. The models have the
@@ -656,6 +685,17 @@ species, between species, mixed pollen)</li>
   prop.germ =    glmmTMB(prop.germ   ~ sxc + (1|momid), family=&quot;betabinomial&quot;, data=germ, weights = planted),
   prop.alive =   glmmTMB(prop.alive  ~ sxc + (1|momid), family=&quot;betabinomial&quot;, data=surv, weights = total),
   prop.hybrid =  glmmTMB(prop.hybrid ~ sxc + (1|momid), family=&quot;betabinomial&quot;, data=filter(surv, type==&quot;mixed&quot;), weights = alive))</code></pre>
+<div id="maternal-effects" class="section level2">
+<h2>Maternal effects</h2>
+<pre class="r"><code>comp.ranef &lt;- map_dfr(comp.mod, ~as.data.frame(ranef(.x)), .id=&quot;trait&quot;) %&gt;% 
+  rename(momid=grp, estimate = condval, sd = condsd) %&gt;% select(-component, -grpvar, -term) %&gt;% 
+  mutate(momid= as.character(momid))
+
+ggplot(comp.ranef, aes(y=estimate, ymin=estimate-sd, ymax=estimate+sd, x=momid)) + facet_wrap(vars(trait)) +  geom_pointrange() + coord_flip()</code></pre>
+<p><img src="figures-comp/ranef-1.svg" width="768" /></p>
+<pre class="r"><code># comp.ranef %&gt;% select(grp, trait, condval) %&gt;% pivot_wider(names_from=&quot;trait&quot;, values_from=&quot;condval&quot;) %&gt;% 
+#   ggplot(aes(x=prop.alive, y=prop.germ)) + geom_point() + geom_smooth()</code></pre>
+</div>
 <div id="inference" class="section level2">
 <h2>Inference</h2>
 <p>P-values for the overall effect of species and crosstype, or
@@ -679,23 +719,23 @@ comp.test %&gt;%  mutate(term=recode(term, sxc = &quot;species and crosstype&quo
 <tr class="odd">
 <td align="left">prop.germ</td>
 <td align="left">species and crosstype</td>
-<td align="right">217.0</td>
+<td align="right">277.7</td>
 <td align="right">29</td>
-<td align="left">1.1e-30</td>
+<td align="left">2.0e-42</td>
 </tr>
 <tr class="even">
 <td align="left">prop.alive</td>
 <td align="left">species and crosstype</td>
-<td align="right">359.6</td>
+<td align="right">356.8</td>
 <td align="right">29</td>
-<td align="left">1.0e-58</td>
+<td align="left">3.8e-58</td>
 </tr>
 <tr class="odd">
 <td align="left">prop.hybrid</td>
 <td align="left">species and crosstype</td>
-<td align="right">70.7</td>
+<td align="right">70.6</td>
 <td align="right">9</td>
-<td align="left">1.1e-11</td>
+<td align="left">1.2e-11</td>
 </tr>
 </tbody>
 </table>
@@ -817,7 +857,9 @@ indicated above the plot.</p>
 </table>
 <pre class="r"><code>styles.emm &lt;- glmmTMB(style_length_mm ~ momsp + (1|plantid), data=styles) %&gt;% 
   emmeans(~momsp) %&gt;% summary(type=&quot;response&quot;) %&gt;% tidy %&gt;% rename(style_length_mm = estimate) %&gt;% 
-  left_join(mating) %&gt;% group_by(pair) %&gt;% mutate(style_diff_mm = style_length_mm-min(style_length_mm))
+  left_join(mating) %&gt;% group_by(pair) %&gt;% 
+  mutate(momsp=factor(momsp, levels=sp_pairs), 
+         style_diff_mm = style_length_mm-min(style_length_mm))
 
 ggplot(styles, aes(x=momsp, y=style_length_mm, fill=momsp)) + 
   geom_violin(scale=&quot;width&quot;, draw_quantiles = c(0.25,0.5,0.75))+ 
@@ -886,26 +928,26 @@ hybrid.phylodist.test %&gt;% select(trait, type, term, p.value) %&gt;% filter(ty
 <tr class="odd">
 <td align="left">Germinated</td>
 <td align="left">Interspecific</td>
-<td align="right">0.002</td>
-<td align="right">0.473</td>
+<td align="right">0.007</td>
+<td align="right">0.433</td>
 </tr>
 <tr class="even">
 <td align="left">Germinated</td>
 <td align="left">Competitive</td>
-<td align="right">0.030</td>
-<td align="right">0.295</td>
+<td align="right">0.043</td>
+<td align="right">0.141</td>
 </tr>
 <tr class="odd">
 <td align="left">Survived</td>
 <td align="left">Interspecific</td>
-<td align="right">0.300</td>
-<td align="right">0.835</td>
+<td align="right">0.294</td>
+<td align="right">0.804</td>
 </tr>
 <tr class="even">
 <td align="left">Survived</td>
 <td align="left">Competitive</td>
-<td align="right">0.041</td>
-<td align="right">0.497</td>
+<td align="right">0.045</td>
+<td align="right">0.493</td>
 </tr>
 <tr class="odd">
 <td align="left">Hybrid</td>
