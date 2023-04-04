@@ -667,6 +667,248 @@ analysis.</p>
 <p><img src="figures-comp/histogram-4.svg" width="768" /></p>
 <pre class="r"><code>ggplot(surv, aes(x=dead, fill=type)) + geom_histogram(binwidth=10) + facet_wrap(vars(momsp), scales=&quot;free_y&quot;)</code></pre>
 <p><img src="figures-comp/histogram-5.svg" width="768" /></p>
+<pre class="r"><code>pct_y &lt;- scale_y_continuous(breaks=(0:4)/4, labels=~scales::percent(.,accuracy=1), expand=c(0,0))
+pct_x &lt;- scale_x_continuous(breaks=(0:4)/4, labels=~scales::percent(.,accuracy=1), expand=c(0,0))
+germ.surv &lt;- full_join(germ, surv) #TODO fix matching
+germ.surv %&gt;% mutate(germalive = paste(is.na(germinated), is.na(alive)) %&gt;% 
+                       recode(`FALSE FALSE`=&quot;both&quot;, `FALSE TRUE`=&quot;survival&quot;, `TRUE FALSE`=&quot;germination&quot;)) %&gt;% 
+  count(type, momsp, germalive) %&gt;% pivot_wider(names_from=&quot;germalive&quot;, values_from=&quot;n&quot;) %&gt;% 
+  kable(kable=&quot;Matching crosses between germination and survival datasets&quot;)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">type</th>
+<th align="left">momsp</th>
+<th align="right">both</th>
+<th align="right">survival</th>
+<th align="right">germination</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">intra</td>
+<td align="left">menziesii</td>
+<td align="right">7</td>
+<td align="right">1</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">intra</td>
+<td align="left">salicaria</td>
+<td align="right">6</td>
+<td align="right">5</td>
+<td align="right">5</td>
+</tr>
+<tr class="odd">
+<td align="left">intra</td>
+<td align="left">lydgatei</td>
+<td align="right">4</td>
+<td align="right">1</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">intra</td>
+<td align="left">sarmentosa</td>
+<td align="right">2</td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">intra</td>
+<td align="left">stellarioides</td>
+<td align="right">5</td>
+<td align="right">1</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">intra</td>
+<td align="left">spergulina</td>
+<td align="right">4</td>
+<td align="right">5</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">intra</td>
+<td align="left">membranacea</td>
+<td align="right">4</td>
+<td align="right">1</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">intra</td>
+<td align="left">kauaiensis</td>
+<td align="right">1</td>
+<td align="right">8</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">intra</td>
+<td align="left">kaalae</td>
+<td align="right">7</td>
+<td align="right">13</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">intra</td>
+<td align="left">hookeri</td>
+<td align="right">11</td>
+<td align="right">10</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">mixed</td>
+<td align="left">menziesii</td>
+<td align="right">8</td>
+<td align="right">8</td>
+<td align="right">3</td>
+</tr>
+<tr class="even">
+<td align="left">mixed</td>
+<td align="left">salicaria</td>
+<td align="right">11</td>
+<td align="right">1</td>
+<td align="right">3</td>
+</tr>
+<tr class="odd">
+<td align="left">mixed</td>
+<td align="left">lydgatei</td>
+<td align="right"></td>
+<td align="right">11</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="left">mixed</td>
+<td align="left">sarmentosa</td>
+<td align="right"></td>
+<td align="right">12</td>
+<td align="right">5</td>
+</tr>
+<tr class="odd">
+<td align="left">mixed</td>
+<td align="left">stellarioides</td>
+<td align="right"></td>
+<td align="right">6</td>
+<td align="right">6</td>
+</tr>
+<tr class="even">
+<td align="left">mixed</td>
+<td align="left">spergulina</td>
+<td align="right"></td>
+<td align="right">8</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">mixed</td>
+<td align="left">membranacea</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">mixed</td>
+<td align="left">kauaiensis</td>
+<td align="right">6</td>
+<td align="right">2</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">mixed</td>
+<td align="left">kaalae</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">6</td>
+</tr>
+<tr class="even">
+<td align="left">mixed</td>
+<td align="left">hookeri</td>
+<td align="right"></td>
+<td align="right">8</td>
+<td align="right">11</td>
+</tr>
+<tr class="odd">
+<td align="left">inter</td>
+<td align="left">menziesii</td>
+<td align="right">16</td>
+<td align="right">2</td>
+<td align="right">3</td>
+</tr>
+<tr class="even">
+<td align="left">inter</td>
+<td align="left">salicaria</td>
+<td align="right">10</td>
+<td align="right">2</td>
+<td align="right">3</td>
+</tr>
+<tr class="odd">
+<td align="left">inter</td>
+<td align="left">lydgatei</td>
+<td align="right">9</td>
+<td align="right">11</td>
+<td align="right">10</td>
+</tr>
+<tr class="even">
+<td align="left">inter</td>
+<td align="left">sarmentosa</td>
+<td align="right">6</td>
+<td align="right">3</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">inter</td>
+<td align="left">stellarioides</td>
+<td align="right">5</td>
+<td align="right">2</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="left">inter</td>
+<td align="left">spergulina</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">inter</td>
+<td align="left">membranacea</td>
+<td align="right"></td>
+<td align="right">4</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">inter</td>
+<td align="left">kauaiensis</td>
+<td align="right"></td>
+<td align="right">1</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">inter</td>
+<td align="left">kaalae</td>
+<td align="right">11</td>
+<td align="right">62</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">inter</td>
+<td align="left">hookeri</td>
+<td align="right">34</td>
+<td align="right">27</td>
+<td align="right"></td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>ggplot(germ.surv, aes(x=prop.germ, y=prop.alive, color=momsp)) + 
+  geom_point() + geom_smooth(se=F, span=1.1) + pct_y + pct_x + theme(legend.position=&quot;top&quot;) + 
+  scale_color_brewer(palette=&quot;Paired&quot;) + labs(x=&quot;Germination&quot;,y=&quot;Survival&quot;, color=&quot;Maternal species&quot;) </code></pre>
+<p><img src="figures-comp/compare-1.svg" width="768" /></p>
+<pre class="r"><code>ggplot(germ.surv %&gt;% filter(type==&quot;mixed&quot;), aes(x=prop.alive, y=prop.hybrid, color=momsp)) + 
+  geom_point() + geom_smooth(se=F, span=1.1)+ pct_y + pct_x + theme(legend.position=&quot;top&quot;) +
+  scale_color_brewer(palette=&quot;Paired&quot;) + labs(x=&quot;Survival&quot;,y=&quot;Hybrids&quot;, color=&quot;Maternal species&quot;) </code></pre>
+<p><img src="figures-comp/compare-2.svg" width="768" /></p>
+<pre class="r"><code>ggplot(germ.surv %&gt;% filter(type==&quot;mixed&quot;), aes(x=prop.germ, y=prop.hybrid, color=momsp)) + 
+  geom_point() + geom_smooth(se=F, span=1.1)+pct_y + pct_x + theme(legend.position=&quot;top&quot;) +
+  scale_color_brewer(palette=&quot;Paired&quot;) + labs(x=&quot;Germination&quot;,y=&quot;Hybrids&quot;, color=&quot;Maternal species&quot;) </code></pre>
+<p><img src="figures-comp/compare-3.svg" width="768" /></p>
 </div>
 <div id="models" class="section level1">
 <h1>Models</h1>
@@ -687,14 +929,26 @@ species, between species, mixed pollen)</li>
   prop.hybrid =  glmmTMB(prop.hybrid ~ sxc + (1|momid), family=&quot;betabinomial&quot;, data=filter(surv, type==&quot;mixed&quot;), weights = alive))</code></pre>
 <div id="maternal-effects" class="section level2">
 <h2>Maternal effects</h2>
-<pre class="r"><code>comp.ranef &lt;- map_dfr(comp.mod, ~as.data.frame(ranef(.x)), .id=&quot;trait&quot;) %&gt;% 
+<pre class="r"><code>comp.ranef &lt;- map_dfr(comp.mod, ~as.data.frame(ranef(.x)), .id=&quot;trait&quot;) %&gt;% as_tibble() %&gt;% 
   rename(momid=grp, estimate = condval, sd = condsd) %&gt;% select(-component, -grpvar, -term) %&gt;% 
-  mutate(momid= as.character(momid))
+  mutate(momid= as.character(momid)) %&gt;% 
+  left_join(count(germ, momsp.germ=momsp, momid, name=&quot;germ&quot;)) %&gt;% 
+  left_join(count(surv, momsp.surv=momsp, momid, name=&quot;surv&quot;)) %&gt;% 
+  mutate(momsp = coalesce(momsp.germ, momsp.surv), .keep=&quot;unused&quot;)
 
-ggplot(comp.ranef, aes(y=estimate, ymin=estimate-sd, ymax=estimate+sd, x=momid)) + facet_wrap(vars(trait)) +  geom_pointrange() + coord_flip()</code></pre>
+ggplot(comp.ranef, aes(y=estimate, ymin=estimate-sd, ymax=estimate+sd, x=paste(momsp,momid), color=momsp)) + 
+  facet_wrap(vars(trait)) +  geom_pointrange() + coord_flip() + scale_color_brewer(palette=&quot;Paired&quot;)</code></pre>
 <p><img src="figures-comp/ranef-1.svg" width="768" /></p>
-<pre class="r"><code># comp.ranef %&gt;% select(grp, trait, condval) %&gt;% pivot_wider(names_from=&quot;trait&quot;, values_from=&quot;condval&quot;) %&gt;% 
-#   ggplot(aes(x=prop.alive, y=prop.germ)) + geom_point() + geom_smooth()</code></pre>
+<pre class="r"><code>comp.ranef %&gt;% select(-sd) %&gt;% pivot_wider(names_from=&quot;trait&quot;, values_from=&quot;estimate&quot;) %&gt;%
+  ggplot(aes(y=prop.alive, x=prop.germ, color=momsp)) + geom_point() + scale_color_brewer(palette=&quot;Paired&quot;) +
+  geom_smooth(aes(group=1), color=&quot;grey30&quot;) + theme(legend.position=&quot;top&quot;)+
+  labs(x=&quot;Maternal effect on germination&quot;, y=&quot;Maternal effect on survival&quot;, color=&quot;Maternal species&quot;)</code></pre>
+<p><img src="figures-comp/ranef-2.svg" width="768" /></p>
+<pre class="r"><code>comp.ranef %&gt;% select(-sd) %&gt;% pivot_wider(names_from=&quot;trait&quot;, values_from=&quot;estimate&quot;) %&gt;%
+  ggplot(aes(y=prop.hybrid, x=prop.alive, color=momsp)) + geom_point() + scale_color_brewer(palette=&quot;Paired&quot;) +
+  geom_smooth(aes(group=1), color=&quot;grey30&quot;) + theme(legend.position=&quot;top&quot;)+
+  labs(x=&quot;Maternal effect on survival&quot;, y=&quot;Maternal effect on hybrids&quot;, color=&quot;Maternal species&quot;)</code></pre>
+<p><img src="figures-comp/ranef-3.svg" width="768" /></p>
 </div>
 <div id="inference" class="section level2">
 <h2>Inference</h2>
@@ -792,8 +1046,7 @@ ggplot(germ, aes(x=momsp, fill=type, y=prop.germ))  +
   scale_shape_manual(&quot;Different from 50%&quot;, values=c(1, 19), labels=c(&quot;no&quot;,&quot;yes&quot;))+
   geom_text(data=hybrid.test, aes(y=1.1, label=crosses))+
   #geom_text(data=hybrid.test, aes(y=1.1, label=alive))+
-  scale_fill_brewer(palette=&quot;Paired&quot;, guide=&quot;none&quot;) + 
-  scale_y_continuous(breaks=(0:4)/4, labels=~scales::percent(.,accuracy=1))+ 
+  scale_fill_brewer(palette=&quot;Paired&quot;, guide=&quot;none&quot;) + pct_y+ 
   labs(x=&quot;Maternal species&quot;, y=&quot;Hybrids from competitive pollinations&quot;) + sp_theme</code></pre>
 <p><img src="figures-comp/rawdata-3.svg" width="768" /></p>
 <p>Tested whether the proportion of hybrids significantly differed from
@@ -960,8 +1213,7 @@ hybrid.phylodist.test %&gt;% select(trait, type, term, p.value) %&gt;% filter(ty
 <pre class="r"><code>ggplot(left_join(hybrid.phylodist, filter(hybrid.phylodist.test, term==&quot;pd&quot;)), aes(x=pd, y=estimate)) + 
   facet_grid(trait~type, labeller=as_labeller(c(propnames, typenames)))+
   geom_smooth(aes(linetype=paste(p.value &lt; 0.05, type==&quot;intra&quot;)), method=&quot;lm&quot;, se=F, color=&quot;grey&quot;) +
-  geom_pointrange(aes(ymax=conf.high, ymin=conf.low, color=momsp)) + scale_color_brewer(palette=&quot;Paired&quot;) + 
-  scale_y_continuous(limits = c(0,1), breaks=(0:4)/4, labels=~scales::percent(.,accuracy=1), expand=c(0,0))+ 
+  geom_pointrange(aes(ymax=conf.high, ymin=conf.low, color=momsp)) + scale_color_brewer(palette=&quot;Paired&quot;) + pct_y+ 
   scale_linetype_manual(values=c(2,0,1,0), guide=&quot;none&quot;) + scale_alpha_manual(breaks=c(T,F), values=c(0.5, 1))+
   labs(x=&quot;Phylogenetic distance (mutations/site)&quot;, color=&quot;Maternal species&quot;) + theme_bw() +
   theme(axis.title.y=element_blank(), axis.text=element_text(color=&quot;black&quot;), legend.position=&quot;top&quot;,
@@ -977,8 +1229,7 @@ sense.</p>
 <pre class="r"><code>ggplot(left_join(comp.emm, select(styles.emm, momsp, style_length_mm, mating)), aes(x=style_length_mm, y=estimate)) + 
   facet_grid(trait~type, labeller=as_labeller(c(propnames, typenames)))+
   geom_line(aes(group=pair, color=momsp))+
-  geom_pointrange(aes(ymax=conf.high, ymin=conf.low, color=momsp, shape=mating)) + scale_color_brewer(palette=&quot;Paired&quot;) + 
-  scale_y_continuous(limits = c(0,1), breaks=(0:4)/4, labels=~scales::percent(.,accuracy=1), expand=c(0,0))+ 
+  geom_pointrange(aes(ymax=conf.high, ymin=conf.low, color=momsp, shape=mating)) + scale_color_brewer(palette=&quot;Paired&quot;) + pct_y+ 
   labs(x=&quot;Style length (mm)&quot;, color=&quot;Maternal species&quot;, shape=&quot;Mating&quot;) + theme_bw() +
   theme(axis.title.y=element_blank(), axis.text=element_text(color=&quot;black&quot;), legend.position=&quot;top&quot;,
         panel.grid.minor = element_blank(), panel.grid.major.x=element_blank(), panel.spacing = unit(1, &quot;lines&quot;))</code></pre>

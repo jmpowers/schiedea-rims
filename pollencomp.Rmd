@@ -129,6 +129,26 @@ ggplot(filter(surv, type !="intra"), aes(x=hybrid, fill=type)) + geom_histogram(
 ggplot(surv, aes(x=dead, fill=type)) + geom_histogram(binwidth=10) + facet_wrap(vars(momsp), scales="free_y")
 ```
 
+```{r compare}
+pct_y <- scale_y_continuous(breaks=(0:4)/4, labels=~scales::percent(.,accuracy=1), expand=c(0,0))
+pct_x <- scale_x_continuous(breaks=(0:4)/4, labels=~scales::percent(.,accuracy=1), expand=c(0,0))
+germ.surv <- full_join(germ, surv) #TODO fix matching
+germ.surv %>% mutate(germalive = paste(is.na(germinated), is.na(alive)) %>% 
+                       recode(`FALSE FALSE`="both", `FALSE TRUE`="survival", `TRUE FALSE`="germination")) %>% 
+  count(type, momsp, germalive) %>% pivot_wider(names_from="germalive", values_from="n") %>% 
+  kable(kable="Matching crosses between germination and survival datasets")
+
+ggplot(germ.surv, aes(x=prop.germ, y=prop.alive, color=momsp)) + 
+  geom_point() + geom_smooth(se=F, span=1.1) + pct_y + pct_x + theme(legend.position="top") + 
+  scale_color_brewer(palette="Paired") + labs(x="Germination",y="Survival", color="Maternal species") 
+ggplot(germ.surv %>% filter(type=="mixed"), aes(x=prop.alive, y=prop.hybrid, color=momsp)) + 
+  geom_point() + geom_smooth(se=F, span=1.1)+ pct_y + pct_x + theme(legend.position="top") +
+  scale_color_brewer(palette="Paired") + labs(x="Survival",y="Hybrids", color="Maternal species") 
+ggplot(germ.surv %>% filter(type=="mixed"), aes(x=prop.germ, y=prop.hybrid, color=momsp)) + 
+  geom_point() + geom_smooth(se=F, span=1.1)+pct_y + pct_x + theme(legend.position="top") +
+  scale_color_brewer(palette="Paired") + labs(x="Germination",y="Hybrids", color="Maternal species") 
+```
+
 
 # Models
 
@@ -149,14 +169,25 @@ comp.mod <- list(
 ## Maternal effects
 
 ```{r ranef}
-comp.ranef <- map_dfr(comp.mod, ~as.data.frame(ranef(.x)), .id="trait") %>% 
+comp.ranef <- map_dfr(comp.mod, ~as.data.frame(ranef(.x)), .id="trait") %>% as_tibble() %>% 
   rename(momid=grp, estimate = condval, sd = condsd) %>% select(-component, -grpvar, -term) %>% 
-  mutate(momid= as.character(momid))
+  mutate(momid= as.character(momid)) %>% 
+  left_join(count(germ, momsp.germ=momsp, momid, name="germ")) %>% 
+  left_join(count(surv, momsp.surv=momsp, momid, name="surv")) %>% 
+  mutate(momsp = coalesce(momsp.germ, momsp.surv), .keep="unused")
 
-ggplot(comp.ranef, aes(y=estimate, ymin=estimate-sd, ymax=estimate+sd, x=momid)) + facet_wrap(vars(trait)) +  geom_pointrange() + coord_flip()
+ggplot(comp.ranef, aes(y=estimate, ymin=estimate-sd, ymax=estimate+sd, x=paste(momsp,momid), color=momsp)) + 
+  facet_wrap(vars(trait)) +  geom_pointrange() + coord_flip() + scale_color_brewer(palette="Paired")
 
-# comp.ranef %>% select(grp, trait, condval) %>% pivot_wider(names_from="trait", values_from="condval") %>% 
-#   ggplot(aes(x=prop.alive, y=prop.germ)) + geom_point() + geom_smooth()
+comp.ranef %>% select(-sd) %>% pivot_wider(names_from="trait", values_from="estimate") %>%
+  ggplot(aes(y=prop.alive, x=prop.germ, color=momsp)) + geom_point() + scale_color_brewer(palette="Paired") +
+  geom_smooth(aes(group=1), color="grey30") + theme(legend.position="top")+
+  labs(x="Maternal effect on germination", y="Maternal effect on survival", color="Maternal species")
+
+comp.ranef %>% select(-sd) %>% pivot_wider(names_from="trait", values_from="estimate") %>%
+  ggplot(aes(y=prop.hybrid, x=prop.alive, color=momsp)) + geom_point() + scale_color_brewer(palette="Paired") +
+  geom_smooth(aes(group=1), color="grey30") + theme(legend.position="top")+
+  labs(x="Maternal effect on survival", y="Maternal effect on hybrids", color="Maternal species")
 ```
 
 
@@ -222,8 +253,7 @@ ggplot(filter(surv, type=="mixed"), aes(x=momsp, y=prop.hybrid, fill=momsp)) +
   scale_shape_manual("Different from 50%", values=c(1, 19), labels=c("no","yes"))+
   geom_text(data=hybrid.test, aes(y=1.1, label=crosses))+
   #geom_text(data=hybrid.test, aes(y=1.1, label=alive))+
-  scale_fill_brewer(palette="Paired", guide="none") + 
-  scale_y_continuous(breaks=(0:4)/4, labels=~scales::percent(.,accuracy=1))+ 
+  scale_fill_brewer(palette="Paired", guide="none") + pct_y+ 
   labs(x="Maternal species", y="Hybrids from competitive pollinations") + sp_theme
 ```
 
@@ -291,8 +321,7 @@ hybrid.phylodist.test %>% select(trait, type, term, p.value) %>% filter(type !="
 ggplot(left_join(hybrid.phylodist, filter(hybrid.phylodist.test, term=="pd")), aes(x=pd, y=estimate)) + 
   facet_grid(trait~type, labeller=as_labeller(c(propnames, typenames)))+
   geom_smooth(aes(linetype=paste(p.value < 0.05, type=="intra")), method="lm", se=F, color="grey") +
-  geom_pointrange(aes(ymax=conf.high, ymin=conf.low, color=momsp)) + scale_color_brewer(palette="Paired") + 
-  scale_y_continuous(limits = c(0,1), breaks=(0:4)/4, labels=~scales::percent(.,accuracy=1), expand=c(0,0))+ 
+  geom_pointrange(aes(ymax=conf.high, ymin=conf.low, color=momsp)) + scale_color_brewer(palette="Paired") + pct_y+ 
   scale_linetype_manual(values=c(2,0,1,0), guide="none") + scale_alpha_manual(breaks=c(T,F), values=c(0.5, 1))+
   labs(x="Phylogenetic distance (mutations/site)", color="Maternal species") + theme_bw() +
   theme(axis.title.y=element_blank(), axis.text=element_text(color="black"), legend.position="top",
@@ -307,8 +336,7 @@ Below, lines show the effect of style length within each pair.
 ggplot(left_join(comp.emm, select(styles.emm, momsp, style_length_mm, mating)), aes(x=style_length_mm, y=estimate)) + 
   facet_grid(trait~type, labeller=as_labeller(c(propnames, typenames)))+
   geom_line(aes(group=pair, color=momsp))+
-  geom_pointrange(aes(ymax=conf.high, ymin=conf.low, color=momsp, shape=mating)) + scale_color_brewer(palette="Paired") + 
-  scale_y_continuous(limits = c(0,1), breaks=(0:4)/4, labels=~scales::percent(.,accuracy=1), expand=c(0,0))+ 
+  geom_pointrange(aes(ymax=conf.high, ymin=conf.low, color=momsp, shape=mating)) + scale_color_brewer(palette="Paired") + pct_y+ 
   labs(x="Style length (mm)", color="Maternal species", shape="Mating") + theme_bw() +
   theme(axis.title.y=element_blank(), axis.text=element_text(color="black"), legend.position="top",
         panel.grid.minor = element_blank(), panel.grid.major.x=element_blank(), panel.spacing = unit(1, "lines"))

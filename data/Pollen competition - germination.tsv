@@ -1265,394 +1265,394 @@ line	date_planted	code	type	momsp	momid	dadsp1	dadid1	dadsp2	dadid2	plate	plante
 		MK6	mixed	memb	864192-30	memb	2021-1	kaua	P2525-19	10	20	17										
 		MK6	mixed	memb	864192-30	memb	2021-1	kaua	P2525-19	10	20	12										
 		MK6	mixed	memb	864192-30	memb	2021-1	kaua	P2525-19	10	20	5										JP: changed momid 1a5251#20 > 864192-30 based on MK6 code
-			inter	hook	794-2	kaal	892-1				6	5										
-			inter	hook	794-2	kaal	892-1				10	8										
-			inter	hook	794-2	kaal	892-1				10	9										
-			inter	hook	794-2	kaal	892-4				10	6										
-			inter	hook	794-2	kaal	892-4				10	6										
-			inter	hook	794-2	kaal	892-4				10	9										
-			inter	hook	794-2	kaal	892-4				10	9										
-			inter	hook	794-2	kaal	892-4				10	10										
-			inter	hook	794-2	kaal	892-5				10	10										
-			inter	hook	794-2	kaal	892-5				3	2										
-			inter	hook	794-2	kaal	892-5				10	7										
-			inter	hook	794-2	kaal	904-3				5	2										
-			inter	hook	794-2	kaal	892-5				3	2										
-			inter	hook	794-2	kaal	892-5				10	7										
-			inter	hook	794-2	kaal	3587-7				8	5										
-			inter	hook	794-2	kaal	3587-14				1	1										
-			inter	hook	794-2	kaal	3587-C				8	6										
-			inter	hook	794-4	kaal	892-1				6	5										
-			inter	hook	794-4	kaal	892-3				7	7										
-			inter	hook	794-4	kaal	892-4				1	1										
-			inter	hook	794-4	kaal	892-4				10	8										
-			inter	hook	794-4	kaal	892-5				1	1										
-			inter	hook	794-4	kaal	892-5				10	8										
-			inter	hook	794-4	kaal	904-2				5	2										
-			inter	hook	794-4	kaal	904-5				9	5										
-			inter	hook	794-4	kaal	3587-7				5	0										
-			inter	hook	794-4	kaal	3587-14				5	3										
-			inter	hook	794-4	kaal	3587-C				1	1										
-			inter	hook	866-2	kaal	892-1				2	1										
-			inter	hook	866-2	kaal	892-1				10	9										
-			inter	hook	866-2	kaal	892-4				8	7										
-			inter	hook	866-2	kaal	892-4				10	8										
-			inter	hook	866-2	kaal	892-5				2	2										
-			inter	hook	866-2	kaal	904-2				1	1										
-			inter	hook	866-2	kaal	904-5				9	7										
-			inter	hook	866-2	kaal	904-5				10	9										
-			inter	hook	866-2	kaal	904-5				10	10										
-			inter	hook	866-2	kaal	3587-7				1	1										
-			inter	hook	866-2	kaal	3587-7				10	9										
-			inter	hook	866-2	kaal	3587-14				2	2										
-			inter	hook	866-2	kaal	3587-C				2	0										
-			inter	hook	866-2	kaal	3587-C				10	10										
-			inter	hook	8792-2	kaal	892-1				10	9										
-			inter	hook	8792-2	kaal	892-1				10	9										
-			inter	hook	8792-2	kaal	892-1				10	9										
-			inter	hook	8792-2	kaal	892-1				10	10										
-			inter	hook	8792-2	kaal	892-3				3	1										
-			inter	hook	8792-2	kaal	892-4				4	2										
-			inter	hook	8792-2	kaal	892-4				10	4										
-			inter	hook	8792-2	kaal	892-4				10	6										
-			inter	hook	8792-2	kaal	892-4				10	8										
-			inter	hook	8792-2	kaal	892-4				10	10										
-			inter	hook	8792-2	kaal	892-5				1	1										
-			inter	hook	8792-2	kaal	892-5				10	9										
-			inter	hook	8792-2	kaal	892-5				10	10										
-			inter	hook	8792-2	kaal	892-5				10	10										
-			inter	hook	8792-2	kaal	904-2				4	4										
-			inter	hook	8792-2	kaal	904-2				10	9										
-			inter	hook	8792-2	kaal	904-2				10	9										
-			inter	hook	8792-2	kaal	904-3				1	1										
-			inter	hook	8792-2	kaal	904-3				10	7										
-			inter	hook	8792-2	kaal	904-5				4	3										
-			inter	hook	8792-2	kaal	904-5				10	8										
-			inter	hook	8792-2	kaal	904-5				10	9										
-			inter	hook	8792-2	kaal	3587-7				5	4										
-			inter	hook	8792-2	kaal	3587-C				5	5										
-			inter	hook	87910-1	kaal	892-1				6	3										
-			inter	hook	87910-1	kaal	892-1				10	3										
-			inter	hook	87910-1	kaal	892-4				8	7										
-			inter	hook	87910-1	kaal	892-4				10	4										
-			inter	hook	87910-1	kaal	892-5				3	0										
-			inter	hook	87910-1	kaal	904-3				3	3										
-			inter	hook	87910-1	kaal	904-5				3	1										
-			inter	hook	87910-1	kaal	3587-7				1	1										
-			inter	hook	87910-1	kaal	3587-7				10	7										
-			inter	hook	87910-1	kaal	3587-15				8	6										
-			inter	hook	87910-1	kaal	3587-15				10	9										
-			inter	hook	87910-1	kaal	3587-C				6	3										
-			inter	hook	879G-2	kaal	892-3				9	8										
-			inter	hook	879G-2	kaal	892-5				3	2										
-			inter	hook	879G-2	kaal	904-2				4	4										
-			inter	hook	879G-2	kaal	904-5				4	4										
-			inter	hook	879G-2	kaal	904-5				10	8										
-			inter	hook	879G-2	kaal	3587-7				1	1										
-			inter	hook	879G-2	kaal	3587-14				2	1										
-			inter	hook	879G-2	kaal	3587-14				10	8										
-			inter	hook	879G-2	kaal	358715				9	6										
-			inter	hook	879H-2	kaal	904-5				9	9										
-			inter	hook	879H-2	kaal	3587-14				1	0										
-			inter	hook	879N-5	kaal	892-1				1	0										
-			inter	hook	879N-5	kaal	892-1				10	3										
-			inter	hook	879N-5	kaal	892-5				9	6										
-			inter	hook	879N-5	kaal	904-2				9	4										
-			inter	hook	879N-5	kaal	904-5				3	2										
-			inter	hook	879N-5	kaal	904-5				10	4										
-			inter	hook	879N-5	kaal	3587-7				2	2										
-			inter	hook	879N-5	kaal	3587-7				8	0										
-			inter	hook	879N-5	kaal	3587-A				8	2										
-			inter	hook	879N-5	kaal	3587-C				5	1										
-			inter	hook	879N-5	kaal	3587-C				10	7										
-			inter	kaal	892-1	hook	794-4				7	0										
-			inter	kaal	892-1	hook	866-2				6	0										
-			inter	kaal	892-1	hook	8792-2				8	6										
-			inter	kaal	892-1	hook	8792-2				10	2										
-			inter	kaal	892-1	hook	879G-2				5	1										
-			inter	kaal	892-1	hook	879G-2				10	2										
-			inter	kaal	892-1	hook	879H-2				9	1										
-			inter	kaal	892-1	hook	879N-5				2	0										
-			inter	kaal	892-1	hook	8992E-1				5	0										
-			inter	kaal	892-3	hook	87910-1				6	1										
-			inter	kaal	892-3	hook	879G-2				4	1										
-			inter	kaal	892-3	hook	879G-2				10	2										
-			inter	kaal	892-3	hook	879N-5				1	0										
-			inter	kaal	892-3	hook	879N-5				10	0										
-			inter	kaal	892-4	hook	794-4				10	0										
-			inter	kaal	892-4	hook	866-2				2	0										
-			inter	kaal	892-4	hook	8792-2				6	1										
-			inter	kaal	892-4	hook	87910-1				3	0										
-			inter	kaal	892-4	hook	879G-2				10	1										
-			inter	kaal	892-5	hook	794-4				5	0										
-			inter	kaal	892-5	hook	8792-2				1	1										
-			inter	kaal	892-6	hook	8792-2				10	4										
-			inter	kaal	892-7	hook	879G-2				6	0										
-			inter	kaal	892-8	hook	879H-2				8	0										
-			inter	kaal	892-9	hook	8769N-5				10	0										
-			inter	kaal	892-10	hook	794-2				1	0										
-			intra	kaal	892-10	kaal	8792-2				5	0										
-			inter	hook	8992E-1	kaal	892-1				2	2										
-			inter	hook	8992E-1	kaal	892-1				10	9										
-			inter	hook	8992E-1	kaal	904-2				10	2										
-			inter	hook	8992E-1	kaal	904-5				10	8										
-			inter	hook	8992E-1	kaal	904-5				10	9										
-			inter	hook	8992E-1	kaal	904-5				10	9										
-			inter	hook	8992E-1	kaal	3587-14				10	9										
-			inter	kaal	904-2	hook	794-2				6	0										
-			inter	kaal	904-2	hook	794-4				3	0										
-			inter	kaal	904-2	hook	866-2				2	0										
-			inter	kaal	904-2	hook	8792-2				6	2										
-			inter	kaal	904-2	hook	8792-2				10	5										
-			inter	kaal	904-2	hook	87910-1				3	3										
-			inter	kaal	904-2	hook	879G-2				10	4										
-			inter	kaal	904-2	hook	879G-2				10	7										
-			inter	kaal	904-2	hook	879H-2				4	1										
-			inter	kaal	904-2	hook	879N-5				2	0										
-			inter	kaal	904-3	hook	794-2				8	0										
-			inter	kaal	904-3	hook	794-2				10	0										
-			inter	kaal	904-3	hook	794-4				3	0										
-			inter	kaal	904-3	hook	794-4				10	0										
-			inter	kaal	904-3	hook	8792-2				4	0										
-			inter	kaal	904-3	hook	8792-2				10	3										
-			inter	kaal	904-3	hook	87910-1				5	0										
-			inter	kaal	904-3	hook	87910-1				10	0										
-			inter	kaal	904-3	hook	879H-2				6	0										
-			inter	kaal	904-3	hook	879N-5				10	2										
-			inter	kaal	904-3	hook	8992E-1				1	0										
-			inter	kaal	904-3	hook	8992E-1				10	1										
-			inter	kaal	904-5	hook	794-2				4	0										
-			inter	kaal	904-5	hook	794-2				10	0										
-			inter	kaal	904-5	hook	794-2				10	1										
-			inter	kaal	904-5	hook	794-2				10	1										
-			inter	kaal	904-5	hook	794-2				10	1										
-			inter	kaal	904-5	hook	794-4				6	0										
-			inter	kaal	904-5	hook	794-4				10	1										
-			inter	kaal	904-5	hook	866-2				4	0										
-			inter	kaal	904-5	hook	866-2				10	0										
-			inter	kaal	904-5	hook	866-2				10	0										
-			inter	kaal	904-5	hook	866-2				10	2										
-			inter	kaal	904-5	hook	8792-2				2	0										
-			inter	kaal	904-5	hook	8792-2				10	4										
-			inter	kaal	904-5	hook	8792-2				10	6										
-			inter	kaal	904-5	hook	87910-1				5	0										
-			inter	kaal	904-5	hook	87910-1				10	1										
-			inter	kaal	904-5	hook	87910-1				10	2										
-			inter	kaal	904-5	hook	87910-1				10	2										
-			inter	kaal	904-5	hook	87910-1				10	3										
-			inter	kaal	904-5	hook	879G-2				8	3										
-			inter	kaal	904-5	hook	879G-2				10	0										
-			inter	kaal	904-5	hook	879G-2				10	1										
-			inter	kaal	904-5	hook	879G-2				10	3										
-			inter	kaal	904-5	hook	879G-2				10	6										
-			inter	kaal	904-5	hook	879N-5				8	1										
-			inter	kaal	904-5	hook	879N-5				10	1										
-			inter	kaal	904-5	hook	8992E-1				10	0										
-			inter	kaal	3587-7	hook	794-4				2	0										
-			inter	kaal	3587-7	hook	794-4				10	0										
-			inter	kaal	3587-7	hook	794-4				10	1										
-			inter	kaal	3587-7	hook	794-4				10	1										
-			inter	kaal	3587-7	hook	866-2				8	0										
-			inter	kaal	3587-7	hook	866-2				10	0										
-			inter	kaal	3587-7	hook	8792-2				3	1										
-			inter	kaal	3587-7	hook	8792-2				10	2										
-			inter	kaal	3587-7	hook	87910-1				3	0										
-			inter	kaal	3587-7	hook	87910-1				10	0										
-			inter	kaal	3587-7	hook	87910-1				10	4										
-			inter	kaal	3587-7	hook	879G-2				4	1										
-			inter	kaal	3587-7	hook	879G-2				10	1										
-			inter	kaal	3587-7	hook	879G-2				10	2										
-			inter	kaal	3587-7	hook	879G-2				10	2										
-			inter	kaal	3587-7	hook	879N-5				2	0										
-			inter	kaal	3587-7	hook	879N-5				10	3										
-			inter	kaal	3587-7	hook	879N-5				10	3										
-			inter	kaal	3587-10	hook	794-2				5	0										
-			inter	kaal	3587-10	hook	794-4				2	0										
-			inter	kaal	3587-10	hook	879G-2				2	0										
-			inter	kaal	3587-14	hook	794-2				7	0										
-			inter	kaal	3587-14	hook	794-4				4	0										
-			inter	kaal	3587-14	hook	866-2				5	2										
-			inter	kaal	3587-14	hook	866-2				10	0										
-			inter	kaal	3587-14	hook	8792-2				10	3										
-			inter	kaal	3587-14	hook	87910-1				6	5										
-			inter	kaal	3587-14	hook	879G-2				1	0										
-			inter	kaal	3587-14	hook	879G-2				10	1										
-			inter	kaal	3587-14	hook	879H-2				5	0										
-			inter	kaal	3587-14	hook	879N-5				7	0										
-			inter	kaal	3587-15	hook	794-4				5	0										
-			inter	kaal	3587-15	hook	866-2				9	0										
-			inter	kaal	3587-15	hook	879G-2				2	0										
-			inter	kaal	3587-A	hook	794-2				8	1										
-			inter	kaal	3587-A	hook	866-2				7	0										
-			inter	kaal	3587-A	hook	87910-1				6	2										
-			inter	kaal	3587-A	hook	879G-2				4	0										
-			inter	kaal	3587-A	hook	879G-2				10	0										
-			inter	kaal	3587-A	hook	879N-5				7	1										
-			inter	kaal	3587-C	hook	866-2				7	3										
-			inter	kaal	3587-C	hook	87910-1				3	0										
-			inter	kaal	3587-C	hook	879N-5				8	0										
-			intra	hook	794-2	hook	794-4				6	5										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	794-2	hook	794-4				10	5										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	794-2	hook	794-4				10	6										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	794-2	hook	794-4				10	7										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	794-2	hook	794-4				10	7										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	794-2	hook	794-4				10	7										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	794-2	hook	794-4				10	8										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	794-2	hook	794-4				10	8										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	794-2	hook	794-4				10	8										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	794-2	hook	794-4				10	10										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	794-2	hook	794-4				10	10										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	794-2	hook	866-2				7	6										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	794-2	hook	866-2				10	6										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	794-2	hook	866-2				10	8										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	794-2	hook	866-2				10	9										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	794-2	hook	866-2				10	10										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	794-2	hook	8992E-1				2	1										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	794-2	hook	8992E-1				10	9										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	794-4	hook	794-2				4	3										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	794-4	hook	794-2				10	6										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	794-4	hook	794-2				10	6										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	794-4	hook	794-2				10	8										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	794-4	hook	794-2				10	8										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	794-4	hook	794-2				10	9										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	794-4	hook	794-2				10	10										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	794-4	hook	794-2				10	10										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	794-4	hook	866-2				10	3										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	794-4	hook	866-2				10	4										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	794-4	hook	866-2				10	6										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	794-4	hook	866-2				10	7										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	794-4	hook	866-2				10	7										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	794-4	hook	866-2				10	7										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	866-2	hook	794-4				7	3										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	866-2	hook	794-4				10	5										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	866-2	hook	794-4				10	6										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	866-2	hook	794-4				10	6										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	866-2	hook	794-4				10	8										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	866-2	hook	794-4				10	8										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	8792-2	hook	87910-1				6	4										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	8792-2	hook	87910-1				10	5										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	8792-2	hook	87910-1				10	7										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	8792-2	hook	87910-1				10	7										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	8792-2	hook	879G-2				2	1										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	8792-2	hook	879G-2				10	3										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	8792-2	hook	879G-2				10	7										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	8792-2	hook	879G-2				10	7										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	8792-2	hook	879G-2				10	10										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	8792-2	hook	879G-2				10	10										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	8792-2	hook	879N-5				7	7										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	8792-2	hook	879N-5				10	8										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	8792-2	hook	879N-5				10	9										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	8792-2	hook	879N-5				10	10										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	87910-1	hook	8792-2				6	5										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	87910-1	hook	879G-2				4	0										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	87910-1	hook	879H-2				2	2										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	87910-1	hook	879H-2				10	1										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	87910-1	hook	879N-5				8	2										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	879G2	hook	8792-2				8	8										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	879G2	hook	87910-1				6	5										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	879G2	hook	879G-2				4	1										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	879G2	hook	879G-2				10	0										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	879G2	hook	8792-2				8	8										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	879G2	hook	879G-2				3	1										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	hook	879G2	hook	879H-2				6	4										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
-			intra	kaal	892-1	kaal	892-4				6	2										
-			intra	kaal	892-1	kaal	892-5				10	3										
-			intra	kaal	892-3	kaal	892-1				10	1										
-			intra	kaal	892-3	kaal	892-4				1	0										
-			intra	kaal	892-5	kaal	892-2				4	1										
-			intra	kaal	892-5	kaal	892-4				4	2										
-			intra	kaal	892-5	kaal	892-4				10	5										
-			intra	kaal	904-2	kaal	904-3				8	6										
-			intra	kaal	904-2	kaal	904-5				6	6										
-			intra	kaal	904-3	kaal	904-2				7	6										
-			intra	kaal	904-3	kaal	904-2				10	10										
-			intra	kaal	904-3	kaal	904-5				4	4										
-			intra	kaal	904-3	kaal	904-5				10	6										
-			intra	kaal	904-3	kaal	904-5				10	7										
-			intra	kaal	904-5	kaal	904-2				2	1										
-			intra	kaal	904-5	kaal	904-2				10	4										
-			intra	kaal	904-5	kaal	904-2				10	5										
-			intra	kaal	904-5	kaal	904-2				10	8										
-			intra	kaal	904-5	kaal	904-3				5	5										
-			intra	kaal	904-5	kaal	904-3				10	5										
-			intra	kaal	904-5	kaal	904-3				10	5										
-			intra	kaal	904-5	kaal	904-3				10	7										
-			intra	kaal	904-5	kaal	904-3				10	7										
-			intra	kaal	904-5	kaal	904-3				10	8										
-			intra	kaal	904-5	kaal	904-3				10	9										
-			intra	kaal	3587-7	kaal	3587-14				8	8										
-			intra	kaal	3587-7	kaal	3587-14				10	9										
-			intra	kaal	3587-10	kaal	3587-C				5	2										
-			intra	kaal	3587-15	kaal	3587-14				2	1										
-			intra	kaal	3587-15	kaal	3587-C				3	3										
-			intra	kaal	3587-A	kaal	3587-7				1	0										
-			intra	kaal	3587-A	kaal	3587-14				1	0										
-			intra	kaal	3587-A	kaal	3587-14				10	3										
-			intra	kaal	3587-C	kaal	3587-14				5	1										
-			intra	hook	794-2	hook	794-4			6	6	5		5								
-			intra	hook	794-2	hook	794-4			10	10	5		5								
-			intra	hook	794-2	hook	794-4			10	10	6		6								
-			intra	hook	794-2	hook	794-4			10	10	7		7								
-			intra	hook	794-2	hook	794-4			10	10	7		7								
-			intra	hook	794-2	hook	794-4			10	10	7		7								
-			intra	hook	794-2	hook	794-4			10	10	8		8								
-			intra	hook	794-2	hook	794-4			10	10	8		8								
-			intra	hook	794-2	hook	794-4			10	10	8		8								
-			intra	hook	794-2	hook	794-4			10	10	10		10								
-			intra	hook	794-2	hook	794-4			10	10	10		10								
-			intra	hook	794-2	hook	866-2			7	7	6		6								
-			intra	hook	794-2	hook	866-2			10	10	6		6								
-			intra	hook	794-2	hook	866-2			10	10	8		8								
-			intra	hook	794-2	hook	866-2			10	10	9		9								
-			intra	hook	794-2	hook	866-2			10	10	10		10								
-			intra	hook	794-2	hook	8.99E+02			2	2	1		1								
-			intra	hook	794-2	hook	8.99E+02			10	10	9		9								
-			intra	hook	794-4	hook	794-2			4	4	3		3								
-			intra	hook	794-4	hook	794-2			10	10	6		6								
-			intra	hook	794-4	hook	794-2			10	10	6		6								
-			intra	hook	794-4	hook	794-2			10	10	8		8								
-			intra	hook	794-4	hook	794-2			10	10	8		8								
-			intra	hook	794-4	hook	794-2			10	10	9		9								
-			intra	hook	794-4	hook	794-2			10	10	10		10								
-			intra	hook	794-4	hook	794-2			10	10	10		10								
-			intra	hook	794-4	hook	866-2			10	10	3		3								
-			intra	hook	794-4	hook	866-2			10	10	4		4								
-			intra	hook	794-4	hook	866-2			10	10	6		6								
-			intra	hook	794-4	hook	866-2			10	10	7		7								
-			intra	hook	794-4	hook	866-2			10	10	7		7								
-			intra	hook	794-4	hook	866-2			10	10	7		7								
-			intra	hook	866-2	hook	794-4			7	7	3		3								
-			intra	hook	866-2	hook	794-4			10	10	5		5								
-			intra	hook	866-2	hook	794-4			10	10	6		6								
-			intra	hook	866-2	hook	794-4			10	10	6		6								
-			intra	hook	866-2	hook	794-4			10	10	8		8								
-			intra	hook	866-2	hook	794-4			10	10	8		8								
-			intra	hook	87910-1	hook	8792-2			6	6	5		5								
-			intra	hook	87910-1	hook	879G-2			4	4	0		0								
-			intra	hook	87910-1	hook	879H-2			2	2	2		2								
-			intra	hook	87910-1	hook	879H-2			10	10	1		1								
-			intra	hook	87910-1	hook	879N-5			8	8	2		2								
-			intra	hook	8792-2	hook	87910-1			6	6	4		4								
-			intra	hook	8792-2	hook	87910-1			10	10	5		5								
-			intra	hook	8792-2	hook	87910-1			10	10	7		7								
-			intra	hook	8792-2	hook	87910-1			10	10	7		7								
-			intra	hook	8792-2	hook	879G-2			2	2	1		1								
-			intra	hook	8792-2	hook	879G-2			10	10	3		3								
-			intra	hook	8792-2	hook	879G-2			10	10	7		7								
-			intra	hook	8792-2	hook	879G-2			10	10	7		7								
-			intra	hook	8792-2	hook	879G-2			10	10	10		10								
-			intra	hook	8792-2	hook	879G-2			10	10	10		10								
-			intra	hook	8792-2	hook	879N-5			7	7	7		7								
-			intra	hook	8792-2	hook	879N-5			10	10	8		8								
-			intra	hook	8792-2	hook	879N-5			10	10	9		9								
-			intra	hook	8792-2	hook	879N-5			10	10	10		10								
-			intra	hook	879G-2	hook	87910-1			6	6	5		5								
-			intra	hook	879G-2	hook	8792-2			8	8	8		8								
-			intra	hook	879H-2	hook	879G-2			4	4	1		1								
-			intra	hook	879H-2	hook	879G-2			10	10	0		0								
-			intra	hook	879N-5	hook	8792-2			8	8	8		8								
-			intra	hook	879N-5	hook	879G-2			3	3	1		1								
-			intra	hook	879N-5	hook	879H-2			6	6	4		4								
+	2016-01-01		inter	hook	794-2	kaal	892-1				6	5										
+	2016-01-01		inter	hook	794-2	kaal	892-1				10	8										
+	2016-01-01		inter	hook	794-2	kaal	892-1				10	9										
+	2016-01-01		inter	hook	794-2	kaal	892-4				10	6										
+	2016-01-01		inter	hook	794-2	kaal	892-4				10	6										
+	2016-01-01		inter	hook	794-2	kaal	892-4				10	9										
+	2016-01-01		inter	hook	794-2	kaal	892-4				10	9										
+	2016-01-01		inter	hook	794-2	kaal	892-4				10	10										
+	2016-01-01		inter	hook	794-2	kaal	892-5				10	10										
+	2016-01-01		inter	hook	794-2	kaal	892-5				3	2										
+	2016-01-01		inter	hook	794-2	kaal	892-5				10	7										
+	2016-01-01		inter	hook	794-2	kaal	904-3				5	2										
+	2016-01-01		inter	hook	794-2	kaal	892-5				3	2										
+	2016-01-01		inter	hook	794-2	kaal	892-5				10	7										
+	2016-01-01		inter	hook	794-2	kaal	3587-7				8	5										
+	2016-01-01		inter	hook	794-2	kaal	3587-14				1	1										
+	2016-01-01		inter	hook	794-2	kaal	3587-C				8	6										
+	2016-01-01		inter	hook	794-4	kaal	892-1				6	5										
+	2016-01-01		inter	hook	794-4	kaal	892-3				7	7										
+	2016-01-01		inter	hook	794-4	kaal	892-4				1	1										
+	2016-01-01		inter	hook	794-4	kaal	892-4				10	8										
+	2016-01-01		inter	hook	794-4	kaal	892-5				1	1										
+	2016-01-01		inter	hook	794-4	kaal	892-5				10	8										
+	2016-01-01		inter	hook	794-4	kaal	904-2				5	2										
+	2016-01-01		inter	hook	794-4	kaal	904-5				9	5										
+	2016-01-01		inter	hook	794-4	kaal	3587-7				5	0										
+	2016-01-01		inter	hook	794-4	kaal	3587-14				5	3										
+	2016-01-01		inter	hook	794-4	kaal	3587-C				1	1										
+	2016-01-01		inter	hook	866-2	kaal	892-1				2	1										
+	2016-01-01		inter	hook	866-2	kaal	892-1				10	9										
+	2016-01-01		inter	hook	866-2	kaal	892-4				8	7										
+	2016-01-01		inter	hook	866-2	kaal	892-4				10	8										
+	2016-01-01		inter	hook	866-2	kaal	892-5				2	2										
+	2016-01-01		inter	hook	866-2	kaal	904-2				1	1										
+	2016-01-01		inter	hook	866-2	kaal	904-5				9	7										
+	2016-01-01		inter	hook	866-2	kaal	904-5				10	9										
+	2016-01-01		inter	hook	866-2	kaal	904-5				10	10										
+	2016-01-01		inter	hook	866-2	kaal	3587-7				1	1										
+	2016-01-01		inter	hook	866-2	kaal	3587-7				10	9										
+	2016-01-01		inter	hook	866-2	kaal	3587-14				2	2										
+	2016-01-01		inter	hook	866-2	kaal	3587-C				2	0										
+	2016-01-01		inter	hook	866-2	kaal	3587-C				10	10										
+	2016-01-01		inter	hook	8792-2	kaal	892-1				10	9										
+	2016-01-01		inter	hook	8792-2	kaal	892-1				10	9										
+	2016-01-01		inter	hook	8792-2	kaal	892-1				10	9										
+	2016-01-01		inter	hook	8792-2	kaal	892-1				10	10										
+	2016-01-01		inter	hook	8792-2	kaal	892-3				3	1										
+	2016-01-01		inter	hook	8792-2	kaal	892-4				4	2										
+	2016-01-01		inter	hook	8792-2	kaal	892-4				10	4										
+	2016-01-01		inter	hook	8792-2	kaal	892-4				10	6										
+	2016-01-01		inter	hook	8792-2	kaal	892-4				10	8										
+	2016-01-01		inter	hook	8792-2	kaal	892-4				10	10										
+	2016-01-01		inter	hook	8792-2	kaal	892-5				1	1										
+	2016-01-01		inter	hook	8792-2	kaal	892-5				10	9										
+	2016-01-01		inter	hook	8792-2	kaal	892-5				10	10										
+	2016-01-01		inter	hook	8792-2	kaal	892-5				10	10										
+	2016-01-01		inter	hook	8792-2	kaal	904-2				4	4										
+	2016-01-01		inter	hook	8792-2	kaal	904-2				10	9										
+	2016-01-01		inter	hook	8792-2	kaal	904-2				10	9										
+	2016-01-01		inter	hook	8792-2	kaal	904-3				1	1										
+	2016-01-01		inter	hook	8792-2	kaal	904-3				10	7										
+	2016-01-01		inter	hook	8792-2	kaal	904-5				4	3										
+	2016-01-01		inter	hook	8792-2	kaal	904-5				10	8										
+	2016-01-01		inter	hook	8792-2	kaal	904-5				10	9										
+	2016-01-01		inter	hook	8792-2	kaal	3587-7				5	4										
+	2016-01-01		inter	hook	8792-2	kaal	3587-C				5	5										
+	2016-01-01		inter	hook	87910-1	kaal	892-1				6	3										
+	2016-01-01		inter	hook	87910-1	kaal	892-1				10	3										
+	2016-01-01		inter	hook	87910-1	kaal	892-4				8	7										
+	2016-01-01		inter	hook	87910-1	kaal	892-4				10	4										
+	2016-01-01		inter	hook	87910-1	kaal	892-5				3	0										
+	2016-01-01		inter	hook	87910-1	kaal	904-3				3	3										
+	2016-01-01		inter	hook	87910-1	kaal	904-5				3	1										
+	2016-01-01		inter	hook	87910-1	kaal	3587-7				1	1										
+	2016-01-01		inter	hook	87910-1	kaal	3587-7				10	7										
+	2016-01-01		inter	hook	87910-1	kaal	3587-15				8	6										
+	2016-01-01		inter	hook	87910-1	kaal	3587-15				10	9										
+	2016-01-01		inter	hook	87910-1	kaal	3587-C				6	3										
+	2016-01-01		inter	hook	879G-2	kaal	892-3				9	8										
+	2016-01-01		inter	hook	879G-2	kaal	892-5				3	2										
+	2016-01-01		inter	hook	879G-2	kaal	904-2				4	4										
+	2016-01-01		inter	hook	879G-2	kaal	904-5				4	4										
+	2016-01-01		inter	hook	879G-2	kaal	904-5				10	8										
+	2016-01-01		inter	hook	879G-2	kaal	3587-7				1	1										
+	2016-01-01		inter	hook	879G-2	kaal	3587-14				2	1										
+	2016-01-01		inter	hook	879G-2	kaal	3587-14				10	8										
+	2016-01-01		inter	hook	879G-2	kaal	358715				9	6										
+	2016-01-01		inter	hook	879H-2	kaal	904-5				9	9										
+	2016-01-01		inter	hook	879H-2	kaal	3587-14				1	0										
+	2016-01-01		inter	hook	879N-5	kaal	892-1				1	0										
+	2016-01-01		inter	hook	879N-5	kaal	892-1				10	3										
+	2016-01-01		inter	hook	879N-5	kaal	892-5				9	6										
+	2016-01-01		inter	hook	879N-5	kaal	904-2				9	4										
+	2016-01-01		inter	hook	879N-5	kaal	904-5				3	2										
+	2016-01-01		inter	hook	879N-5	kaal	904-5				10	4										
+	2016-01-01		inter	hook	879N-5	kaal	3587-7				2	2										
+	2016-01-01		inter	hook	879N-5	kaal	3587-7				8	0										
+	2016-01-01		inter	hook	879N-5	kaal	3587-A				8	2										
+	2016-01-01		inter	hook	879N-5	kaal	3587-C				5	1										
+	2016-01-01		inter	hook	879N-5	kaal	3587-C				10	7										
+	2016-01-01		inter	kaal	892-1	hook	794-4				7	0										
+	2016-01-01		inter	kaal	892-1	hook	866-2				6	0										
+	2016-01-01		inter	kaal	892-1	hook	8792-2				8	6										
+	2016-01-01		inter	kaal	892-1	hook	8792-2				10	2										
+	2016-01-01		inter	kaal	892-1	hook	879G-2				5	1										
+	2016-01-01		inter	kaal	892-1	hook	879G-2				10	2										
+	2016-01-01		inter	kaal	892-1	hook	879H-2				9	1										
+	2016-01-01		inter	kaal	892-1	hook	879N-5				2	0										
+	2016-01-01		inter	kaal	892-1	hook	8992E-1				5	0										
+	2016-01-01		inter	kaal	892-3	hook	87910-1				6	1										
+	2016-01-01		inter	kaal	892-3	hook	879G-2				4	1										
+	2016-01-01		inter	kaal	892-3	hook	879G-2				10	2										
+	2016-01-01		inter	kaal	892-3	hook	879N-5				1	0										
+	2016-01-01		inter	kaal	892-3	hook	879N-5				10	0										
+	2016-01-01		inter	kaal	892-4	hook	794-4				10	0										
+	2016-01-01		inter	kaal	892-4	hook	866-2				2	0										
+	2016-01-01		inter	kaal	892-4	hook	8792-2				6	1										
+	2016-01-01		inter	kaal	892-4	hook	87910-1				3	0										
+	2016-01-01		inter	kaal	892-4	hook	879G-2				10	1										
+	2016-01-01		inter	kaal	892-5	hook	794-4				5	0										
+	2016-01-01		inter	kaal	892-5	hook	8792-2				1	1										
+	2016-01-01		inter	kaal	892-6	hook	8792-2				10	4										
+	2016-01-01		inter	kaal	892-7	hook	879G-2				6	0										
+	2016-01-01		inter	kaal	892-8	hook	879H-2				8	0										
+	2016-01-01		inter	kaal	892-9	hook	8769N-5				10	0										
+	2016-01-01		inter	kaal	892-10	hook	794-2				1	0										
+	2016-01-01		intra	kaal	892-10	kaal	8792-2				5	0										
+	2016-01-01		inter	hook	8992E-1	kaal	892-1				2	2										
+	2016-01-01		inter	hook	8992E-1	kaal	892-1				10	9										
+	2016-01-01		inter	hook	8992E-1	kaal	904-2				10	2										
+	2016-01-01		inter	hook	8992E-1	kaal	904-5				10	8										
+	2016-01-01		inter	hook	8992E-1	kaal	904-5				10	9										
+	2016-01-01		inter	hook	8992E-1	kaal	904-5				10	9										
+	2016-01-01		inter	hook	8992E-1	kaal	3587-14				10	9										
+	2016-01-01		inter	kaal	904-2	hook	794-2				6	0										
+	2016-01-01		inter	kaal	904-2	hook	794-4				3	0										
+	2016-01-01		inter	kaal	904-2	hook	866-2				2	0										
+	2016-01-01		inter	kaal	904-2	hook	8792-2				6	2										
+	2016-01-01		inter	kaal	904-2	hook	8792-2				10	5										
+	2016-01-01		inter	kaal	904-2	hook	87910-1				3	3										
+	2016-01-01		inter	kaal	904-2	hook	879G-2				10	4										
+	2016-01-01		inter	kaal	904-2	hook	879G-2				10	7										
+	2016-01-01		inter	kaal	904-2	hook	879H-2				4	1										
+	2016-01-01		inter	kaal	904-2	hook	879N-5				2	0										
+	2016-01-01		inter	kaal	904-3	hook	794-2				8	0										
+	2016-01-01		inter	kaal	904-3	hook	794-2				10	0										
+	2016-01-01		inter	kaal	904-3	hook	794-4				3	0										
+	2016-01-01		inter	kaal	904-3	hook	794-4				10	0										
+	2016-01-01		inter	kaal	904-3	hook	8792-2				4	0										
+	2016-01-01		inter	kaal	904-3	hook	8792-2				10	3										
+	2016-01-01		inter	kaal	904-3	hook	87910-1				5	0										
+	2016-01-01		inter	kaal	904-3	hook	87910-1				10	0										
+	2016-01-01		inter	kaal	904-3	hook	879H-2				6	0										
+	2016-01-01		inter	kaal	904-3	hook	879N-5				10	2										
+	2016-01-01		inter	kaal	904-3	hook	8992E-1				1	0										
+	2016-01-01		inter	kaal	904-3	hook	8992E-1				10	1										
+	2016-01-01		inter	kaal	904-5	hook	794-2				4	0										
+	2016-01-01		inter	kaal	904-5	hook	794-2				10	0										
+	2016-01-01		inter	kaal	904-5	hook	794-2				10	1										
+	2016-01-01		inter	kaal	904-5	hook	794-2				10	1										
+	2016-01-01		inter	kaal	904-5	hook	794-2				10	1										
+	2016-01-01		inter	kaal	904-5	hook	794-4				6	0										
+	2016-01-01		inter	kaal	904-5	hook	794-4				10	1										
+	2016-01-01		inter	kaal	904-5	hook	866-2				4	0										
+	2016-01-01		inter	kaal	904-5	hook	866-2				10	0										
+	2016-01-01		inter	kaal	904-5	hook	866-2				10	0										
+	2016-01-01		inter	kaal	904-5	hook	866-2				10	2										
+	2016-01-01		inter	kaal	904-5	hook	8792-2				2	0										
+	2016-01-01		inter	kaal	904-5	hook	8792-2				10	4										
+	2016-01-01		inter	kaal	904-5	hook	8792-2				10	6										
+	2016-01-01		inter	kaal	904-5	hook	87910-1				5	0										
+	2016-01-01		inter	kaal	904-5	hook	87910-1				10	1										
+	2016-01-01		inter	kaal	904-5	hook	87910-1				10	2										
+	2016-01-01		inter	kaal	904-5	hook	87910-1				10	2										
+	2016-01-01		inter	kaal	904-5	hook	87910-1				10	3										
+	2016-01-01		inter	kaal	904-5	hook	879G-2				8	3										
+	2016-01-01		inter	kaal	904-5	hook	879G-2				10	0										
+	2016-01-01		inter	kaal	904-5	hook	879G-2				10	1										
+	2016-01-01		inter	kaal	904-5	hook	879G-2				10	3										
+	2016-01-01		inter	kaal	904-5	hook	879G-2				10	6										
+	2016-01-01		inter	kaal	904-5	hook	879N-5				8	1										
+	2016-01-01		inter	kaal	904-5	hook	879N-5				10	1										
+	2016-01-01		inter	kaal	904-5	hook	8992E-1				10	0										
+	2016-01-01		inter	kaal	3587-7	hook	794-4				2	0										
+	2016-01-01		inter	kaal	3587-7	hook	794-4				10	0										
+	2016-01-01		inter	kaal	3587-7	hook	794-4				10	1										
+	2016-01-01		inter	kaal	3587-7	hook	794-4				10	1										
+	2016-01-01		inter	kaal	3587-7	hook	866-2				8	0										
+	2016-01-01		inter	kaal	3587-7	hook	866-2				10	0										
+	2016-01-01		inter	kaal	3587-7	hook	8792-2				3	1										
+	2016-01-01		inter	kaal	3587-7	hook	8792-2				10	2										
+	2016-01-01		inter	kaal	3587-7	hook	87910-1				3	0										
+	2016-01-01		inter	kaal	3587-7	hook	87910-1				10	0										
+	2016-01-01		inter	kaal	3587-7	hook	87910-1				10	4										
+	2016-01-01		inter	kaal	3587-7	hook	879G-2				4	1										
+	2016-01-01		inter	kaal	3587-7	hook	879G-2				10	1										
+	2016-01-01		inter	kaal	3587-7	hook	879G-2				10	2										
+	2016-01-01		inter	kaal	3587-7	hook	879G-2				10	2										
+	2016-01-01		inter	kaal	3587-7	hook	879N-5				2	0										
+	2016-01-01		inter	kaal	3587-7	hook	879N-5				10	3										
+	2016-01-01		inter	kaal	3587-7	hook	879N-5				10	3										
+	2016-01-01		inter	kaal	3587-10	hook	794-2				5	0										
+	2016-01-01		inter	kaal	3587-10	hook	794-4				2	0										
+	2016-01-01		inter	kaal	3587-10	hook	879G-2				2	0										
+	2016-01-01		inter	kaal	3587-14	hook	794-2				7	0										
+	2016-01-01		inter	kaal	3587-14	hook	794-4				4	0										
+	2016-01-01		inter	kaal	3587-14	hook	866-2				5	2										
+	2016-01-01		inter	kaal	3587-14	hook	866-2				10	0										
+	2016-01-01		inter	kaal	3587-14	hook	8792-2				10	3										
+	2016-01-01		inter	kaal	3587-14	hook	87910-1				6	5										
+	2016-01-01		inter	kaal	3587-14	hook	879G-2				1	0										
+	2016-01-01		inter	kaal	3587-14	hook	879G-2				10	1										
+	2016-01-01		inter	kaal	3587-14	hook	879H-2				5	0										
+	2016-01-01		inter	kaal	3587-14	hook	879N-5				7	0										
+	2016-01-01		inter	kaal	3587-15	hook	794-4				5	0										
+	2016-01-01		inter	kaal	3587-15	hook	866-2				9	0										
+	2016-01-01		inter	kaal	3587-15	hook	879G-2				2	0										
+	2016-01-01		inter	kaal	3587-A	hook	794-2				8	1										
+	2016-01-01		inter	kaal	3587-A	hook	866-2				7	0										
+	2016-01-01		inter	kaal	3587-A	hook	87910-1				6	2										
+	2016-01-01		inter	kaal	3587-A	hook	879G-2				4	0										
+	2016-01-01		inter	kaal	3587-A	hook	879G-2				10	0										
+	2016-01-01		inter	kaal	3587-A	hook	879N-5				7	1										
+	2016-01-01		inter	kaal	3587-C	hook	866-2				7	3										
+	2016-01-01		inter	kaal	3587-C	hook	87910-1				3	0										
+	2016-01-01		inter	kaal	3587-C	hook	879N-5				8	0										
+	2016-01-01		intra	hook	794-2	hook	794-4				6	5										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	794-2	hook	794-4				10	5										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	794-2	hook	794-4				10	6										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	794-2	hook	794-4				10	7										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	794-2	hook	794-4				10	7										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	794-2	hook	794-4				10	7										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	794-2	hook	794-4				10	8										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	794-2	hook	794-4				10	8										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	794-2	hook	794-4				10	8										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	794-2	hook	794-4				10	10										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	794-2	hook	794-4				10	10										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	794-2	hook	866-2				7	6										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	794-2	hook	866-2				10	6										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	794-2	hook	866-2				10	8										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	794-2	hook	866-2				10	9										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	794-2	hook	866-2				10	10										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	794-2	hook	8992E-1				2	1										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	794-2	hook	8992E-1				10	9										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	794-4	hook	794-2				4	3										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	794-4	hook	794-2				10	6										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	794-4	hook	794-2				10	6										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	794-4	hook	794-2				10	8										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	794-4	hook	794-2				10	8										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	794-4	hook	794-2				10	9										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	794-4	hook	794-2				10	10										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	794-4	hook	794-2				10	10										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	794-4	hook	866-2				10	3										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	794-4	hook	866-2				10	4										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	794-4	hook	866-2				10	6										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	794-4	hook	866-2				10	7										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	794-4	hook	866-2				10	7										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	794-4	hook	866-2				10	7										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	866-2	hook	794-4				7	3										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	866-2	hook	794-4				10	5										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	866-2	hook	794-4				10	6										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	866-2	hook	794-4				10	6										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	866-2	hook	794-4				10	8										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	866-2	hook	794-4				10	8										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	8792-2	hook	87910-1				6	4										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	8792-2	hook	87910-1				10	5										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	8792-2	hook	87910-1				10	7										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	8792-2	hook	87910-1				10	7										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	8792-2	hook	879G-2				2	1										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	8792-2	hook	879G-2				10	3										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	8792-2	hook	879G-2				10	7										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	8792-2	hook	879G-2				10	7										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	8792-2	hook	879G-2				10	10										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	8792-2	hook	879G-2				10	10										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	8792-2	hook	879N-5				7	7										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	8792-2	hook	879N-5				10	8										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	8792-2	hook	879N-5				10	9										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	8792-2	hook	879N-5				10	10										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	87910-1	hook	8792-2				6	5										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	87910-1	hook	879G-2				4	0										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	87910-1	hook	879H-2				2	2										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	87910-1	hook	879H-2				10	1										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	87910-1	hook	879N-5				8	2										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	879G2	hook	8792-2				8	8										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	879G2	hook	87910-1				6	5										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	879G2	hook	879G-2				4	1										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	879G2	hook	879G-2				10	0										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	879G2	hook	8792-2				8	8										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	879G2	hook	879G-2				3	1										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	hook	879G2	hook	879H-2				6	4										JP: following verbatim file, changed type inter>intra, momsp kaal>hook
+	2016-01-01		intra	kaal	892-1	kaal	892-4				6	2										
+	2016-01-01		intra	kaal	892-1	kaal	892-5				10	3										
+	2016-01-01		intra	kaal	892-3	kaal	892-1				10	1										
+	2016-01-01		intra	kaal	892-3	kaal	892-4				1	0										
+	2016-01-01		intra	kaal	892-5	kaal	892-2				4	1										
+	2016-01-01		intra	kaal	892-5	kaal	892-4				4	2										
+	2016-01-01		intra	kaal	892-5	kaal	892-4				10	5										
+	2016-01-01		intra	kaal	904-2	kaal	904-3				8	6										
+	2016-01-01		intra	kaal	904-2	kaal	904-5				6	6										
+	2016-01-01		intra	kaal	904-3	kaal	904-2				7	6										
+	2016-01-01		intra	kaal	904-3	kaal	904-2				10	10										
+	2016-01-01		intra	kaal	904-3	kaal	904-5				4	4										
+	2016-01-01		intra	kaal	904-3	kaal	904-5				10	6										
+	2016-01-01		intra	kaal	904-3	kaal	904-5				10	7										
+	2016-01-01		intra	kaal	904-5	kaal	904-2				2	1										
+	2016-01-01		intra	kaal	904-5	kaal	904-2				10	4										
+	2016-01-01		intra	kaal	904-5	kaal	904-2				10	5										
+	2016-01-01		intra	kaal	904-5	kaal	904-2				10	8										
+	2016-01-01		intra	kaal	904-5	kaal	904-3				5	5										
+	2016-01-01		intra	kaal	904-5	kaal	904-3				10	5										
+	2016-01-01		intra	kaal	904-5	kaal	904-3				10	5										
+	2016-01-01		intra	kaal	904-5	kaal	904-3				10	7										
+	2016-01-01		intra	kaal	904-5	kaal	904-3				10	7										
+	2016-01-01		intra	kaal	904-5	kaal	904-3				10	8										
+	2016-01-01		intra	kaal	904-5	kaal	904-3				10	9										
+	2016-01-01		intra	kaal	3587-7	kaal	3587-14				8	8										
+	2016-01-01		intra	kaal	3587-7	kaal	3587-14				10	9										
+	2016-01-01		intra	kaal	3587-10	kaal	3587-C				5	2										
+	2016-01-01		intra	kaal	3587-15	kaal	3587-14				2	1										
+	2016-01-01		intra	kaal	3587-15	kaal	3587-C				3	3										
+	2016-01-01		intra	kaal	3587-A	kaal	3587-7				1	0										
+	2016-01-01		intra	kaal	3587-A	kaal	3587-14				1	0										
+	2016-01-01		intra	kaal	3587-A	kaal	3587-14				10	3										
+	2016-01-01		intra	kaal	3587-C	kaal	3587-14				5	1										
+	2016-01-01		intra	hook	794-2	hook	794-4			6	6	5		5								
+	2016-01-01		intra	hook	794-2	hook	794-4			10	10	5		5								
+	2016-01-01		intra	hook	794-2	hook	794-4			10	10	6		6								
+	2016-01-01		intra	hook	794-2	hook	794-4			10	10	7		7								
+	2016-01-01		intra	hook	794-2	hook	794-4			10	10	7		7								
+	2016-01-01		intra	hook	794-2	hook	794-4			10	10	7		7								
+	2016-01-01		intra	hook	794-2	hook	794-4			10	10	8		8								
+	2016-01-01		intra	hook	794-2	hook	794-4			10	10	8		8								
+	2016-01-01		intra	hook	794-2	hook	794-4			10	10	8		8								
+	2016-01-01		intra	hook	794-2	hook	794-4			10	10	10		10								
+	2016-01-01		intra	hook	794-2	hook	794-4			10	10	10		10								
+	2016-01-01		intra	hook	794-2	hook	866-2			7	7	6		6								
+	2016-01-01		intra	hook	794-2	hook	866-2			10	10	6		6								
+	2016-01-01		intra	hook	794-2	hook	866-2			10	10	8		8								
+	2016-01-01		intra	hook	794-2	hook	866-2			10	10	9		9								
+	2016-01-01		intra	hook	794-2	hook	866-2			10	10	10		10								
+	2016-01-01		intra	hook	794-2	hook	8.99E+02			2	2	1		1								
+	2016-01-01		intra	hook	794-2	hook	8.99E+02			10	10	9		9								
+	2016-01-01		intra	hook	794-4	hook	794-2			4	4	3		3								
+	2016-01-01		intra	hook	794-4	hook	794-2			10	10	6		6								
+	2016-01-01		intra	hook	794-4	hook	794-2			10	10	6		6								
+	2016-01-01		intra	hook	794-4	hook	794-2			10	10	8		8								
+	2016-01-01		intra	hook	794-4	hook	794-2			10	10	8		8								
+	2016-01-01		intra	hook	794-4	hook	794-2			10	10	9		9								
+	2016-01-01		intra	hook	794-4	hook	794-2			10	10	10		10								
+	2016-01-01		intra	hook	794-4	hook	794-2			10	10	10		10								
+	2016-01-01		intra	hook	794-4	hook	866-2			10	10	3		3								
+	2016-01-01		intra	hook	794-4	hook	866-2			10	10	4		4								
+	2016-01-01		intra	hook	794-4	hook	866-2			10	10	6		6								
+	2016-01-01		intra	hook	794-4	hook	866-2			10	10	7		7								
+	2016-01-01		intra	hook	794-4	hook	866-2			10	10	7		7								
+	2016-01-01		intra	hook	794-4	hook	866-2			10	10	7		7								
+	2016-01-01		intra	hook	866-2	hook	794-4			7	7	3		3								
+	2016-01-01		intra	hook	866-2	hook	794-4			10	10	5		5								
+	2016-01-01		intra	hook	866-2	hook	794-4			10	10	6		6								
+	2016-01-01		intra	hook	866-2	hook	794-4			10	10	6		6								
+	2016-01-01		intra	hook	866-2	hook	794-4			10	10	8		8								
+	2016-01-01		intra	hook	866-2	hook	794-4			10	10	8		8								
+	2016-01-01		intra	hook	87910-1	hook	8792-2			6	6	5		5								
+	2016-01-01		intra	hook	87910-1	hook	879G-2			4	4	0		0								
+	2016-01-01		intra	hook	87910-1	hook	879H-2			2	2	2		2								
+	2016-01-01		intra	hook	87910-1	hook	879H-2			10	10	1		1								
+	2016-01-01		intra	hook	87910-1	hook	879N-5			8	8	2		2								
+	2016-01-01		intra	hook	8792-2	hook	87910-1			6	6	4		4								
+	2016-01-01		intra	hook	8792-2	hook	87910-1			10	10	5		5								
+	2016-01-01		intra	hook	8792-2	hook	87910-1			10	10	7		7								
+	2016-01-01		intra	hook	8792-2	hook	87910-1			10	10	7		7								
+	2016-01-01		intra	hook	8792-2	hook	879G-2			2	2	1		1								
+	2016-01-01		intra	hook	8792-2	hook	879G-2			10	10	3		3								
+	2016-01-01		intra	hook	8792-2	hook	879G-2			10	10	7		7								
+	2016-01-01		intra	hook	8792-2	hook	879G-2			10	10	7		7								
+	2016-01-01		intra	hook	8792-2	hook	879G-2			10	10	10		10								
+	2016-01-01		intra	hook	8792-2	hook	879G-2			10	10	10		10								
+	2016-01-01		intra	hook	8792-2	hook	879N-5			7	7	7		7								
+	2016-01-01		intra	hook	8792-2	hook	879N-5			10	10	8		8								
+	2016-01-01		intra	hook	8792-2	hook	879N-5			10	10	9		9								
+	2016-01-01		intra	hook	8792-2	hook	879N-5			10	10	10		10								
+	2016-01-01		intra	hook	879G-2	hook	87910-1			6	6	5		5								
+	2016-01-01		intra	hook	879G-2	hook	8792-2			8	8	8		8								
+	2016-01-01		intra	hook	879H-2	hook	879G-2			4	4	1		1								
+	2016-01-01		intra	hook	879H-2	hook	879G-2			10	10	0		0								
+	2016-01-01		intra	hook	879N-5	hook	8792-2			8	8	8		8								
+	2016-01-01		intra	hook	879N-5	hook	879G-2			3	3	1		1								
+	2016-01-01		intra	hook	879N-5	hook	879H-2			6	6	4		4								
 			inter	memb	864#1	kaua	24525x6a#6			1	20	0										
 			inter	memb	864#1	kaua	24525x6a#6			2	20	0										
 			inter	memb	864#1	kaua	24525x6a#6			3	14	0										
