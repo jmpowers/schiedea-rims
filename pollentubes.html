@@ -11,7 +11,7 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2023-03-24" />
+<meta name="date" content="2023-04-04" />
 
 <title>Schiedea pollen tube growth</title>
 
@@ -253,7 +253,7 @@ div.tocify {
 <h1 class="title toc-ignore"><em>Schiedea</em> pollen tube growth</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John
 Powers</a></h4>
-<h4 class="date">2023-03-24</h4>
+<h4 class="date">2023-04-04</h4>
 
 </div>
 
@@ -778,17 +778,18 @@ grid.arrange(grobs=pmap(select(tubes.mod, pair, emm=mid_emm, cont=mid_cont, data
 <pre class="r"><code>library(ape)
 tree &lt;- read.nexus(&quot;data/RAxML_1ps_nocp_bipartitionsBranchLabels.sch.short.nobs.nex&quot;)
 
-ratio.phylodist &lt;- tubes.mod %&gt;% select(pair, emm=ratio_emm) %&gt;% unnest(emm) %&gt;% 
-  mutate(momsp = factor(species_names[str_sub(cross, 1,2)], levels=species_names)) %&gt;% group_by(pair, momsp, hr) %&gt;% 
-  summarize(ratio_diff = response[1]-response[2], 
+tubes.phylodist &lt;- tubes.mod %&gt;% select(pair, ends_with(&quot;_emm&quot;)) %&gt;% pivot_longer(ends_with(&quot;_emm&quot;), names_to=&quot;trait&quot;) %&gt;% 
+  mutate(trait = str_remove(trait, &quot;_emm&quot;)) %&gt;% unnest(value) %&gt;% 
+  mutate(momsp = factor(species_names[str_sub(cross, 1,2)], levels=species_names)) %&gt;% group_by(pair, trait, momsp, hr) %&gt;% 
+  summarize(trait_diff = response[1]-response[2], 
             dadsp = species_names[str_sub(cross[2], 4,5)], .groups = &quot;drop&quot;) %&gt;% 
   mutate(pd = map2_dbl(as.character(momsp), as.character(dadsp), ~cophenetic(tree)[.x,.y]))
 
-ggplot(ratio.phylodist, aes(x=pd, y=ratio_diff)) + facet_wrap(vars(hr)) +
+ggplot(tubes.phylodist, aes(x=pd, y=trait_diff)) + facet_grid(trait~hr, scales=&quot;free_y&quot;) +
   geom_point(aes(color=momsp), size=2) + geom_smooth(method=&quot;lm&quot;, se=F, color=&quot;grey&quot;) + 
   scale_color_brewer(palette=&quot;Paired&quot;)+
   labs(x=&quot;Phylogenetic distance (mutations/site)&quot;, color=&quot;Maternal species&quot;,
-       y=&quot;Difference between intra and interspecies cross in bottom:mid ratio&quot;) + theme_bw() + 
+       y=&quot;Difference between intra and interspecies cross&quot;) + theme_bw() + 
   theme(legend.position = &quot;top&quot;)</code></pre>
 <p><img src="figures/phylo_tubes-1.svg" width="672" /></p>
 </div>

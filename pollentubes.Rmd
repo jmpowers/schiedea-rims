@@ -262,17 +262,18 @@ ggplot(tubes, aes(x=bottom, y=mid)) +
 library(ape)
 tree <- read.nexus("data/RAxML_1ps_nocp_bipartitionsBranchLabels.sch.short.nobs.nex")
 
-ratio.phylodist <- tubes.mod %>% select(pair, emm=ratio_emm) %>% unnest(emm) %>% 
-  mutate(momsp = factor(species_names[str_sub(cross, 1,2)], levels=species_names)) %>% group_by(pair, momsp, hr) %>% 
-  summarize(ratio_diff = response[1]-response[2], 
+tubes.phylodist <- tubes.mod %>% select(pair, ends_with("_emm")) %>% pivot_longer(ends_with("_emm"), names_to="trait") %>% 
+  mutate(trait = str_remove(trait, "_emm")) %>% unnest(value) %>% 
+  mutate(momsp = factor(species_names[str_sub(cross, 1,2)], levels=species_names)) %>% group_by(pair, trait, momsp, hr) %>% 
+  summarize(trait_diff = response[1]-response[2], 
             dadsp = species_names[str_sub(cross[2], 4,5)], .groups = "drop") %>% 
   mutate(pd = map2_dbl(as.character(momsp), as.character(dadsp), ~cophenetic(tree)[.x,.y]))
 
-ggplot(ratio.phylodist, aes(x=pd, y=ratio_diff)) + facet_wrap(vars(hr)) +
+ggplot(tubes.phylodist, aes(x=pd, y=trait_diff)) + facet_grid(trait~hr, scales="free_y") +
   geom_point(aes(color=momsp), size=2) + geom_smooth(method="lm", se=F, color="grey") + 
   scale_color_brewer(palette="Paired")+
   labs(x="Phylogenetic distance (mutations/site)", color="Maternal species",
-       y="Difference between intra and interspecies cross in bottom:mid ratio") + theme_bw() + 
+       y="Difference between intra and interspecies cross") + theme_bw() + 
   theme(legend.position = "top")
 ```
 
