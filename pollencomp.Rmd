@@ -168,7 +168,7 @@ comp.mod <- list(
 
 ## Maternal effects
 
-```{r ranef}
+```{r ranef, fig.height=12}
 comp.ranef <- map_dfr(comp.mod, ~as.data.frame(ranef(.x)), .id="trait") %>% as_tibble() %>% 
   rename(momid=grp, estimate = condval, sd = condsd) %>% select(-component, -grpvar, -term) %>% 
   mutate(momid= as.character(momid)) %>% 
@@ -176,8 +176,10 @@ comp.ranef <- map_dfr(comp.mod, ~as.data.frame(ranef(.x)), .id="trait") %>% as_t
   left_join(count(surv, momsp.surv=momsp, momid, name="surv")) %>% 
   mutate(momsp = coalesce(momsp.germ, momsp.surv), .keep="unused")
 
-ggplot(comp.ranef, aes(y=estimate, ymin=estimate-sd, ymax=estimate+sd, x=paste(momsp,momid), color=momsp)) + 
-  facet_wrap(vars(trait)) +  geom_pointrange() + coord_flip() + scale_color_brewer(palette="Paired")
+ggplot(comp.ranef, aes(x=estimate, y=paste(str_sub(momsp,1,4),momid), color=momsp)) + 
+  facet_wrap(vars(trait), labeller = as_labeller(propnames)) +
+  geom_pointrange(aes(xmin=estimate-sd, xmax=estimate+sd))  + theme(axis.text.y=element_text(size=7))+
+  scale_color_brewer(palette="Paired", guide="none") +  labs(x="Maternal effect", y="Maternal plant") 
 
 comp.ranef %>% select(-sd) %>% pivot_wider(names_from="trait", values_from="estimate") %>%
   ggplot(aes(y=prop.alive, x=prop.germ, color=momsp)) + geom_point() + scale_color_brewer(palette="Paired") +
@@ -251,7 +253,7 @@ ggplot(filter(surv, type=="mixed"), aes(x=momsp, y=prop.hybrid, fill=momsp)) +
   geom_pointrange(data=left_join(filter(comp.emm, trait=="prop.hybrid"), hybrid.test),
                   aes(y=estimate, ymax=conf.high, ymin=conf.low, shape=p.adj < 0.05)) + 
   scale_shape_manual("Different from 50%", values=c(1, 19), labels=c("no","yes"))+
-  geom_text(data=hybrid.test, aes(y=1.1, label=crosses))+
+  #geom_text(data=hybrid.test, aes(y=1.1, label=crosses))+
   #geom_text(data=hybrid.test, aes(y=1.1, label=alive))+
   scale_fill_brewer(palette="Paired", guide="none") + pct_y+ 
   labs(x="Maternal species", y="Hybrids from competitive pollinations") + sp_theme

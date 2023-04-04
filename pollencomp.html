@@ -702,9 +702,9 @@ germ.surv %&gt;% mutate(germalive = paste(is.na(germinated), is.na(alive)) %&gt;
 <tr class="odd">
 <td align="left">intra</td>
 <td align="left">lydgatei</td>
-<td align="right">4</td>
-<td align="right">1</td>
-<td align="right">1</td>
+<td align="right">5</td>
+<td align="right"></td>
+<td align="right"></td>
 </tr>
 <tr class="even">
 <td align="left">intra</td>
@@ -936,8 +936,10 @@ species, between species, mixed pollen)</li>
   left_join(count(surv, momsp.surv=momsp, momid, name=&quot;surv&quot;)) %&gt;% 
   mutate(momsp = coalesce(momsp.germ, momsp.surv), .keep=&quot;unused&quot;)
 
-ggplot(comp.ranef, aes(y=estimate, ymin=estimate-sd, ymax=estimate+sd, x=paste(momsp,momid), color=momsp)) + 
-  facet_wrap(vars(trait)) +  geom_pointrange() + coord_flip() + scale_color_brewer(palette=&quot;Paired&quot;)</code></pre>
+ggplot(comp.ranef, aes(x=estimate, y=paste(str_sub(momsp,1,4),momid), color=momsp)) + 
+  facet_wrap(vars(trait), labeller = as_labeller(propnames)) +
+  geom_pointrange(aes(xmin=estimate-sd, xmax=estimate+sd))  + theme(axis.text.y=element_text(size=7))+
+  scale_color_brewer(palette=&quot;Paired&quot;, guide=&quot;none&quot;) +  labs(x=&quot;Maternal effect&quot;, y=&quot;Maternal plant&quot;) </code></pre>
 <p><img src="figures-comp/ranef-1.svg" width="768" /></p>
 <pre class="r"><code>comp.ranef %&gt;% select(-sd) %&gt;% pivot_wider(names_from=&quot;trait&quot;, values_from=&quot;estimate&quot;) %&gt;%
   ggplot(aes(y=prop.alive, x=prop.germ, color=momsp)) + geom_point() + scale_color_brewer(palette=&quot;Paired&quot;) +
@@ -973,9 +975,9 @@ comp.test %&gt;%  mutate(term=recode(term, sxc = &quot;species and crosstype&quo
 <tr class="odd">
 <td align="left">prop.germ</td>
 <td align="left">species and crosstype</td>
-<td align="right">277.4</td>
+<td align="right">277.8</td>
 <td align="right">29</td>
-<td align="left">2.3e-42</td>
+<td align="left">2.0e-42</td>
 </tr>
 <tr class="even">
 <td align="left">prop.alive</td>
@@ -1044,7 +1046,7 @@ ggplot(germ, aes(x=momsp, fill=type, y=prop.germ))  +
   geom_pointrange(data=left_join(filter(comp.emm, trait==&quot;prop.hybrid&quot;), hybrid.test),
                   aes(y=estimate, ymax=conf.high, ymin=conf.low, shape=p.adj &lt; 0.05)) + 
   scale_shape_manual(&quot;Different from 50%&quot;, values=c(1, 19), labels=c(&quot;no&quot;,&quot;yes&quot;))+
-  geom_text(data=hybrid.test, aes(y=1.1, label=crosses))+
+  #geom_text(data=hybrid.test, aes(y=1.1, label=crosses))+
   #geom_text(data=hybrid.test, aes(y=1.1, label=alive))+
   scale_fill_brewer(palette=&quot;Paired&quot;, guide=&quot;none&quot;) + pct_y+ 
   labs(x=&quot;Maternal species&quot;, y=&quot;Hybrids from competitive pollinations&quot;) + sp_theme</code></pre>
@@ -1182,13 +1184,13 @@ hybrid.phylodist.test %&gt;% select(trait, type, term, p.value) %&gt;% filter(ty
 <td align="left">Germinated</td>
 <td align="left">Interspecific</td>
 <td align="right">0.007</td>
-<td align="right">0.433</td>
+<td align="right">0.432</td>
 </tr>
 <tr class="even">
 <td align="left">Germinated</td>
 <td align="left">Competitive</td>
 <td align="right">0.044</td>
-<td align="right">0.143</td>
+<td align="right">0.139</td>
 </tr>
 <tr class="odd">
 <td align="left">Survived</td>

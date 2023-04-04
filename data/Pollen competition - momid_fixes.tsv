@@ -42,13 +42,13 @@ lydgatei	66822041	6682204-1	6682 204-1	262	3	3	1
 lydgatei	66822092	6682209-2	6682 209-2	143	2	2	1			
 lydgatei	66822121	6682212-1	6682 212-1	164	3	3	1			
 lydgatei	66822171	6682217-1	6682 217-1	254	4	3	1			
-lydgatei	66822211	6682 221-1		181	1		1		6682222-1	221-1 not in inventory. SGW: book says 222-1 
+lydgatei	66822211	6682 221-1		181	1		1		66822221	221-1 not in inventory. SGW: book says 222-1 
 lydgatei	66822221	6682222-1	6682 222-1	187	3	2	1			
 lydgatei	66822231	6682223-1	6682 223-1	210	3	3	1			
 lydgatei	66822292	6682229-2	6682 229-2	200	3	2	1			
 lydgatei	66822332	6682233-2	6682 233-2	433	6	2	1	1		
 lydgatei	66822341	6682234-1	6682 234-1	75	1	2	1			
-lydgatei	66822342	6682 234-2		95	1		1		6682234-1	234-2 not in inventory, SGW: book says 234-1
+lydgatei	66822342	6682 234-2		95	1		1		66822341	234-2 not in inventory, SGW: book says 234-1
 lydgatei	66822352	6682235-2	6682 235-2	445	6	4	1			
 lydgatei	66832332		6683 233-2			2	1	1	66822332	JP: fix population number
 lydgatei	896123	89612-3		37	1		2	1		JP: sarm based on population number, fixed momsp 2 rows in germ data
