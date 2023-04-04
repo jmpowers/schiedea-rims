@@ -24,7 +24,7 @@ salicaria	84216923	842169-23	842 169-23	191	2	2	1
 salicaria	84217237	842172-37	842 172-37	162	1	1	1			
 salicaria	8421951	842195-1	842 195-1	245	2	2	1			
 salicaria	84220145	842201-45	842 201-45	186	2	2	1			
-salicaria	84220146		842 201-46			1	1			? 201-46 is in inventory, says hermaphrodite (201-45 is female)
+salicaria	84220146		842 201-46			1	1			? 201-46 is in inventory, says hermaphrodite (201-45 is female). SGW says plant is real
 salicaria	8422123	842212-3	842 212-3	112	2	2	1			
 salicaria	8422152	842215-2	842 215-2	82	1	1	1			
 salicaria	84222127	842221-27	842 221-27	63	1	1	1			
@@ -42,17 +42,17 @@ lydgatei	66822041	6682204-1	6682 204-1	262	3	3	1
 lydgatei	66822092	6682209-2	6682 209-2	143	2	2	1			
 lydgatei	66822121	6682212-1	6682 212-1	164	3	3	1			
 lydgatei	66822171	6682217-1	6682 217-1	254	4	3	1			
-lydgatei	66822211	6682 221-1		181	1		1			? 221-1 not in inventory, perhaps 222-1 or 212-1. germid has a space after 6682
+lydgatei	66822211	6682 221-1		181	1		1		6682222-1	221-1 not in inventory. SGW: book says 222-1 
 lydgatei	66822221	6682222-1	6682 222-1	187	3	2	1			
 lydgatei	66822231	6682223-1	6682 223-1	210	3	3	1			
 lydgatei	66822292	6682229-2	6682 229-2	200	3	2	1			
 lydgatei	66822332	6682233-2	6682 233-2	433	6	2	1	1		
 lydgatei	66822341	6682234-1	6682 234-1	75	1	2	1			
-lydgatei	66822342	6682 234-2		95	1		1			? 234-2 not in inventory, perhaps 235-2 or 234-1 or 233-2. germid has a space
+lydgatei	66822342	6682 234-2		95	1		1		6682234-1	234-2 not in inventory, SGW: book says 234-1
 lydgatei	66822352	6682235-2	6682 235-2	445	6	4	1			
 lydgatei	66832332		6683 233-2			2	1	1	66822332	JP: fix population number
 lydgatei	896123	89612-3		37	1		2	1		JP: sarm based on population number, fixed momsp 2 rows in germ data
-lydgatei	89612316	896123-16	896 123-16	53	2	1	2	1		? sarm based on population number, so I fixed mom/dad1/dad2 species in 3 rows in germ data, but not sure how to correct surv data (896 123-16 entry is intermixed with lydgatei)
+lydgatei	89612316	896123-16	896 123-16	53	2	1	2			sarm based on population number, so I fixed mom/dad1/dad2 species in 3 rows in germ data (lydg>sarm), in surv data kept as lydg and changed momid 896 123-16 > 6682 229-2
 sarmentosa	8796123	879612-3		383	4		1	1	896123	JP: too many population digits, drop 7
 sarmentosa	89612216	896122-16		115	1		1	1	89612316	JP: 122-16 not in inventory
 sarmentosa	8961222	896122-2	896 122-2	290	4	3	1			
@@ -60,8 +60,8 @@ sarmentosa	896123	89612-3	896 12-3	178	2	4	2	1
 sarmentosa	89612316	896123-16	896 123-16	538	5	4	2	1		
 sarmentosa	89682	8968-2	896 8-2	309	3	3	1	1		
 sarmentosa	89682F	8968-2F		88	1		1	1	89682	JP: drop F
-stellarioides	10C	10C	10C	66	1	3	1			? needs pop number - there are two 10C genotypes (14651 and 14765)
-stellarioides	1465110CC2	1465110C-C2	14651 10C C2	71	1	1	1			
+stellarioides	10C	10C	10C	66	1	3	1	1	1465110C	there are two 10C genotypes (14651 and 14765), SGW says 14651
+stellarioides	1465110CC2	1465110C-C2	14651 10C C2	71	1	1	1	1	1465110C	JP: collapse clones
 stellarioides	146513BC2	146513BC2		14	1		1	1	146513B	JP: collapse clones
 stellarioides	1476510C	1476510C	14765 10C	89	1	1	1	1		
 stellarioides	1476514B1		14765 14B-1			1	1	1	1476514B	JP: collapse clones
@@ -80,7 +80,7 @@ stellarioides	SS1029	SS10-29	SS10-29	78	1	1	1
 stellarioides	SS1043	SS10-43	SS10-43	53	1	1	1			
 stellarioides	SS212	SS2-12	SS2-12	132	1	1	1			
 spergulina	1202896	120289-6	120289-6	80	1	1	1			
-spergulina	1202897		120289-7			1	1			? 120289-7 is in inventory, says female. Perhaps 120294-7?
+spergulina	1202897		120289-7			1	1			? 120289-7 is in inventory, says female. Perhaps 120294-7? SGW confirms real plant
 spergulina	1202899	120289-9	120289-9	258	2	1	1			
 spergulina	1202908	120290-8	120290-8	91	1	1	1			
 spergulina	1202928	120292-8	120292-8	165	1	1	1			
@@ -99,10 +99,10 @@ membranacea	8642012	864201-2		5	1		1			only 5 seeds germinated
 membranacea	8645x9c7	8645x9c-7	864 5x9c-7	161	2	2	1			
 membranacea	864Cross6	864Cross6	864 Cross6	151	1	1	1			
 membranacea	Cross6	Cross6	Cross6	38	1	1	1			
-membranacea	Notag#2		No tag #2			1	1	1	memb#2	? confirm no tag #2 and memb#2 are the same plant?
-membranacea	memb#2	memb#2	memb#2	49	1	1	1	1		
+membranacea	Notag#2		No tag #2			1	1	1		
+membranacea	memb#2	memb#2	memb#2	49	1	1	1	1	Notag#2	SGW confirmed No tag #2 and memb#2 are the same plant
 kauaiensis	120747	12074-7		1	1		1			only 1 seeds germinated
-kauaiensis	120748X1207473a		12074-8X12074-7 3a			1	1			? 12074-8X12074-7 3a is in inventory
+kauaiensis	120748X1207473a		12074-8X12074-7 3a			1	1			? 12074-8X12074-7 3a is in inventory, SGW confirms real plant
 kauaiensis	1a	1a	1a	67	3	1	1			
 kauaiensis	1a2341#14	1a2341#14		104	1		1	1		
 kauaiensis	1a2341#7	1a234-1#7		105	1		1	1		
@@ -112,7 +112,7 @@ kauaiensis	1ax2341#7		1ax234-1#7			1	1	1	1a2341#7	JP: drop x
 kauaiensis	1ax5251#20		1ax525-1#20			1	1	1	1a5251#20	JP: drop x
 kauaiensis	245251	24525-1		3	1		1			only 3 seeds germinated
 kauaiensis	2452511	24525-11		6	1		1			only 6 seeds germinated
-kauaiensis	245251x6a#6		24525-1x6a#6			1	1			? 24525-1x6a#6 is not in 2019 inventory
+kauaiensis	245251x6a#6		24525-1x6a#6			1	1			? 24525-1x6a#6 is not in 2019 inventory, SGW confirms real plant
 kauaiensis	2a	2a	2a	96	1	1	1			
 kauaiensis	3a	3a		5	1		1			only 5 seeds germinated
 kauaiensis	5251x6a#2	525-1x6a#2	525-1x6a#2	108	2	1	1			
@@ -123,9 +123,9 @@ kauaiensis	P252519	P2525-19		99	2		1	1	Prog2x5251#9	JP: reformat name
 kauaiensis	Prog2x5251#9		Prog2x525-1#9			2	1	1		
 kaalae	1152	115-2	115-2	28	1	1	1			
 kaalae	1162	116-2	116-2	107	1	1	1			
-kaalae	1163		116-3			1	1			? 116-3 frequently used plant as mom and dad, in germ as a dad
+kaalae	1163		116-3			1	1			? 116-3 frequently used plant as mom and dad, in germ as a dad, SGW confirms it's one of Thu's original crosses.
 kaalae	1251	125-1	125-1	47	1	1	1			
-kaalae	1406		140-6			1	1			? 140-6 only appears once in surv sheet
+kaalae	1406		140-6			1	1			? 140-6 only appears once in surv sheet, SGW confirms it's one of Thu's original crosses.
 kaalae	358710	3587-10		2	4		1			only 2 seeds germinated
 kaalae	358714	3587-14	3587-14	11	8	1	1			
 kaalae	358715	3587-15		4	5		1			only 4 seeds germinated
