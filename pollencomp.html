@@ -11,7 +11,7 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2023-04-04" />
+<meta name="date" content="2023-04-06" />
 
 <title>Schiedea pollen competition</title>
 
@@ -253,7 +253,7 @@ div.tocify {
 <h1 class="title toc-ignore"><em>Schiedea</em> pollen competition</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John
 Powers</a></h4>
-<h4 class="date">2023-04-04</h4>
+<h4 class="date">2023-04-06</h4>
 
 </div>
 
@@ -277,11 +277,29 @@ sp_pairs &lt;- c(&quot;menz&quot;=&quot;menziesii&quot;, &quot;sal&quot;=&quot;s
               &quot;kaal&quot;=&quot;kaalae&quot;, &quot;hook&quot;=&quot;hookeri&quot;)
 typenames &lt;- set_names(c(&quot;Intraspecific&quot;,&quot;Competitive&quot;,&quot;Interspecific&quot;),c(&quot;intra&quot;,&quot;mixed&quot;,&quot;inter&quot;))
 type_pal &lt;- set_names(c(&quot;#DC0060&quot;, &quot;#86D400&quot;, &quot;#F56E00&quot;), names(typenames))
-propnames &lt;- set_names(c(&quot;Germinated&quot;,&quot;Survived&quot;,&quot;Hybrid&quot;), c(&quot;prop.germ&quot;, &quot;prop.alive&quot;, &quot;prop.hybrid&quot;))
+propnames &lt;- set_names(c(&quot;Capsule formation&quot;,&quot;Seeds&quot;,&quot;Germinated&quot;,&quot;Survived&quot;,&quot;Hybrid&quot;), c(&quot;capsule.formed&quot;,&quot;sds&quot;,&quot;prop.germ&quot;, &quot;prop.alive&quot;, &quot;prop.hybrid&quot;))
 
 momid.fixes &lt;- read_tsv(&quot;data/Pollen competition - momid_fixes.tsv&quot;)
+momid.fixes.seeds &lt;- momid.fixes %&gt;% drop_na(momid_fixed) %&gt;% select(momid, momid_fixed) %&gt;% deframe()
 momid.fixes.germ &lt;- momid.fixes %&gt;% drop_na(germid, momid_fixed) %&gt;% select(momid, momid_fixed) %&gt;% deframe()
 momid.fixes.surv &lt;- momid.fixes %&gt;% drop_na(survid, momid_fixed) %&gt;% select(momid, momid_fixed) %&gt;% deframe()
+
+seeds &lt;- read_tsv(&quot;data/Pollen competition - seeds.tsv&quot;) %&gt;% 
+  mutate(dadspm = if_else(type==&quot;mixed&quot; &amp; dadsp1==momsp, dadsp1, dadsp2), #rearrange dad1/dad2 to have dadsp match momsp
+         dadidm = if_else(type==&quot;mixed&quot; &amp; dadsp1==momsp, dadid1, dadid2),
+         dadsp  = if_else(type==&quot;mixed&quot; &amp; dadsp1==momsp, dadsp2, dadsp1),
+         dadid  = if_else(type==&quot;mixed&quot; &amp; dadsp1==momsp, dadid2, dadid1), .after=momid) %&gt;% 
+  select(-matches(&quot;dad(sp|id)[12]&quot;)) %&gt;% 
+  mutate(across(matches(&quot;sp&quot;), ~ recode(.x, !!!sp_pairs)),
+         across(matches(&quot;(dad|mom)id&quot;), ~str_remove_all(.x, &quot;[ -]&quot;)), 
+         across(matches(&quot;(dad|mom)id&quot;), ~recode(.x, !!!momid.fixes.seeds)),
+         sxc = paste(momsp, type, sep=&quot;.&quot;),
+         type=factor(type, levels= names(typenames)), 
+         across(matches(&quot;sp&quot;), ~ factor(.x, levels = sp_pairs)),
+         capsule.formed = sds&gt;0)
+
+seeds.bycross &lt;- seeds %&gt;% group_by(type, momsp, sxc, momid, dadspm, dadidm, dadsp, dadid) %&gt;% 
+  summarize(capsule.formed=mean(capsule.formed), .groups=&quot;drop&quot;)
 
 germ.pot &lt;- read_tsv(&quot;data/Pollen competition - germination.tsv&quot;) %&gt;%  
   mutate(dadspm = if_else(type==&quot;mixed&quot; &amp; dadsp1==momsp, dadsp1, dadsp2), #rearrange dad1/dad2 to have dadsp match momsp
@@ -294,7 +312,6 @@ germ.pot &lt;- read_tsv(&quot;data/Pollen competition - germination.tsv&quot;) %
          across(matches(&quot;(dad|mom)id&quot;), ~str_remove_all(.x, &quot;[ -]&quot;)), 
          across(matches(&quot;(dad|mom)id&quot;), ~recode(.x, !!!momid.fixes.germ)), #TODO are the momid fixes applicable to dads too?
          sxc = paste(momsp, type, sep=&quot;.&quot;),
-         #across(where(is.character), factor), 
          type=factor(type, levels= names(typenames)), 
          across(matches(&quot;sp&quot;), ~ factor(.x, levels = sp_pairs)),
          germinated = ifelse(germinated &gt; planted, planted, germinated))
@@ -312,7 +329,6 @@ surv &lt;- read_tsv(&quot;data/Pollen competition - survival.tsv&quot;) %&gt;%
   mutate(across(matches(&quot;(mom|dad)id&quot;), ~str_remove_all(.x, &quot;[ -]&quot;)), 
          across(matches(&quot;(dad|mom)id&quot;), ~recode(.x, !!!momid.fixes.surv)),
          sxc = paste(momsp, type, sep=&quot;.&quot;),
-         #across(where(is.character), factor), 
          type=factor(type, levels= names(typenames)),
          across(matches(&quot;sp&quot;), ~ factor(.x, levels = sp_pairs)),
          across(all_of(c(&quot;sameasmom&quot;, &quot;hybrid&quot;)), ~replace_na(.x,0)), 
@@ -322,22 +338,24 @@ surv &lt;- read_tsv(&quot;data/Pollen competition - survival.tsv&quot;) %&gt;%
          prop.alive = alive / total)
 
 surv %&gt;% count(momsp, type, dadsp, name=&quot;crosses_surv&quot;) %&gt;% 
+  full_join(seeds %&gt;% count(momsp, type, dadsp, name=&quot;crosses_seeds&quot;)) %&gt;% 
   full_join(germ %&gt;% count(momsp, type, dadsp, name=&quot;crosses_germ&quot;)) %&gt;% 
   full_join(germ.pot %&gt;% count(momsp, type, dadsp, name = &quot;pots_germ&quot;)) %&gt;%
   mutate(pots_per_cross = pots_germ/crosses_germ) %&gt;% 
-  kable(caption=&quot;Number of crosses between individual plants used for germination and survival,
+  kable(caption=&quot;Number of crosses between individual plants used for seeds, germination and survival,
         and how many pots the seeds filled&quot;)</code></pre>
-<table>
-<caption>Number of crosses between individual plants used for
+<table style="width:100%;">
+<caption>Number of crosses between individual plants used for seeds,
 germination and survival, and how many pots the seeds filled</caption>
 <colgroup>
-<col width="16%" />
-<col width="7%" />
-<col width="16%" />
+<col width="14%" />
+<col width="6%" />
+<col width="14%" />
+<col width="13%" />
+<col width="14%" />
+<col width="13%" />
+<col width="10%" />
 <col width="15%" />
-<col width="15%" />
-<col width="11%" />
-<col width="17%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -345,6 +363,7 @@ germination and survival, and how many pots the seeds filled</caption>
 <th align="left">type</th>
 <th align="left">dadsp</th>
 <th align="right">crosses_surv</th>
+<th align="right">crosses_seeds</th>
 <th align="right">crosses_germ</th>
 <th align="right">pots_germ</th>
 <th align="right">pots_per_cross</th>
@@ -356,6 +375,7 @@ germination and survival, and how many pots the seeds filled</caption>
 <td align="left">intra</td>
 <td align="left">menziesii</td>
 <td align="right">7</td>
+<td align="right">64</td>
 <td align="right">8</td>
 <td align="right">74</td>
 <td align="right">9.250</td>
@@ -365,6 +385,7 @@ germination and survival, and how many pots the seeds filled</caption>
 <td align="left">mixed</td>
 <td align="left">salicaria</td>
 <td align="right">11</td>
+<td align="right">170</td>
 <td align="right">16</td>
 <td align="right">80</td>
 <td align="right">5.000</td>
@@ -374,6 +395,7 @@ germination and survival, and how many pots the seeds filled</caption>
 <td align="left">inter</td>
 <td align="left">salicaria</td>
 <td align="right">19</td>
+<td align="right">301</td>
 <td align="right">18</td>
 <td align="right">87</td>
 <td align="right">4.833</td>
@@ -383,6 +405,7 @@ germination and survival, and how many pots the seeds filled</caption>
 <td align="left">intra</td>
 <td align="left">salicaria</td>
 <td align="right">11</td>
+<td align="right">82</td>
 <td align="right">11</td>
 <td align="right">97</td>
 <td align="right">8.818</td>
@@ -392,6 +415,7 @@ germination and survival, and how many pots the seeds filled</caption>
 <td align="left">mixed</td>
 <td align="left">menziesii</td>
 <td align="right">14</td>
+<td align="right">99</td>
 <td align="right">12</td>
 <td align="right">76</td>
 <td align="right">6.333</td>
@@ -401,6 +425,7 @@ germination and survival, and how many pots the seeds filled</caption>
 <td align="left">inter</td>
 <td align="left">menziesii</td>
 <td align="right">13</td>
+<td align="right">125</td>
 <td align="right">12</td>
 <td align="right">53</td>
 <td align="right">4.417</td>
@@ -410,6 +435,7 @@ germination and survival, and how many pots the seeds filled</caption>
 <td align="left">intra</td>
 <td align="left">lydgatei</td>
 <td align="right">5</td>
+<td align="right"></td>
 <td align="right">5</td>
 <td align="right">42</td>
 <td align="right">8.400</td>
@@ -419,6 +445,7 @@ germination and survival, and how many pots the seeds filled</caption>
 <td align="left">mixed</td>
 <td align="left">sarmentosa</td>
 <td align="right">5</td>
+<td align="right"></td>
 <td align="right">11</td>
 <td align="right">56</td>
 <td align="right">5.091</td>
@@ -428,6 +455,7 @@ germination and survival, and how many pots the seeds filled</caption>
 <td align="left">inter</td>
 <td align="left">sarmentosa</td>
 <td align="right">19</td>
+<td align="right"></td>
 <td align="right">20</td>
 <td align="right">90</td>
 <td align="right">4.500</td>
@@ -437,6 +465,7 @@ germination and survival, and how many pots the seeds filled</caption>
 <td align="left">intra</td>
 <td align="left">sarmentosa</td>
 <td align="right">2</td>
+<td align="right">103</td>
 <td align="right">2</td>
 <td align="right">20</td>
 <td align="right">10.000</td>
@@ -446,6 +475,7 @@ germination and survival, and how many pots the seeds filled</caption>
 <td align="left">mixed</td>
 <td align="left">lydgatei</td>
 <td align="right">5</td>
+<td align="right"></td>
 <td align="right">12</td>
 <td align="right">63</td>
 <td align="right">5.250</td>
@@ -455,6 +485,7 @@ germination and survival, and how many pots the seeds filled</caption>
 <td align="left">inter</td>
 <td align="left">lydgatei</td>
 <td align="right">7</td>
+<td align="right">74</td>
 <td align="right">9</td>
 <td align="right">41</td>
 <td align="right">4.556</td>
@@ -464,6 +495,7 @@ germination and survival, and how many pots the seeds filled</caption>
 <td align="left">intra</td>
 <td align="left">stellarioides</td>
 <td align="right">5</td>
+<td align="right">192</td>
 <td align="right">6</td>
 <td align="right">26</td>
 <td align="right">4.333</td>
@@ -473,6 +505,7 @@ germination and survival, and how many pots the seeds filled</caption>
 <td align="left">mixed</td>
 <td align="left">spergulina</td>
 <td align="right">6</td>
+<td align="right">137</td>
 <td align="right">6</td>
 <td align="right">27</td>
 <td align="right">4.500</td>
@@ -482,6 +515,7 @@ germination and survival, and how many pots the seeds filled</caption>
 <td align="left">inter</td>
 <td align="left">spergulina</td>
 <td align="right">10</td>
+<td align="right">163</td>
 <td align="right">7</td>
 <td align="right">13</td>
 <td align="right">1.857</td>
@@ -491,6 +525,7 @@ germination and survival, and how many pots the seeds filled</caption>
 <td align="left">intra</td>
 <td align="left">spergulina</td>
 <td align="right">5</td>
+<td align="right">159</td>
 <td align="right">9</td>
 <td align="right">67</td>
 <td align="right">7.444</td>
@@ -500,6 +535,7 @@ germination and survival, and how many pots the seeds filled</caption>
 <td align="left">mixed</td>
 <td align="left">stellarioides</td>
 <td align="right">4</td>
+<td align="right"></td>
 <td align="right">8</td>
 <td align="right">50</td>
 <td align="right">6.250</td>
@@ -509,6 +545,7 @@ germination and survival, and how many pots the seeds filled</caption>
 <td align="left">inter</td>
 <td align="left">stellarioides</td>
 <td align="right">4</td>
+<td align="right">89</td>
 <td align="right">3</td>
 <td align="right">14</td>
 <td align="right">4.667</td>
@@ -518,6 +555,7 @@ germination and survival, and how many pots the seeds filled</caption>
 <td align="left">intra</td>
 <td align="left">membranacea</td>
 <td align="right">4</td>
+<td align="right">57</td>
 <td align="right">5</td>
 <td align="right">27</td>
 <td align="right">5.400</td>
@@ -527,6 +565,7 @@ germination and survival, and how many pots the seeds filled</caption>
 <td align="left">mixed</td>
 <td align="left">kauaiensis</td>
 <td align="right">5</td>
+<td align="right">206</td>
 <td align="right">6</td>
 <td align="right">60</td>
 <td align="right">10.000</td>
@@ -536,6 +575,7 @@ germination and survival, and how many pots the seeds filled</caption>
 <td align="left">inter</td>
 <td align="left">kauaiensis</td>
 <td align="right">1</td>
+<td align="right">153</td>
 <td align="right">4</td>
 <td align="right">18</td>
 <td align="right">4.500</td>
@@ -545,6 +585,7 @@ germination and survival, and how many pots the seeds filled</caption>
 <td align="left">intra</td>
 <td align="left">kauaiensis</td>
 <td align="right">2</td>
+<td align="right">1500</td>
 <td align="right">9</td>
 <td align="right">19</td>
 <td align="right">2.111</td>
@@ -554,6 +595,7 @@ germination and survival, and how many pots the seeds filled</caption>
 <td align="left">mixed</td>
 <td align="left">membranacea</td>
 <td align="right">7</td>
+<td align="right">240</td>
 <td align="right">8</td>
 <td align="right">63</td>
 <td align="right">7.875</td>
@@ -563,6 +605,7 @@ germination and survival, and how many pots the seeds filled</caption>
 <td align="left">inter</td>
 <td align="left">membranacea</td>
 <td align="right">1</td>
+<td align="right">242</td>
 <td align="right">1</td>
 <td align="right">3</td>
 <td align="right">3.000</td>
@@ -572,6 +615,7 @@ germination and survival, and how many pots the seeds filled</caption>
 <td align="left">intra</td>
 <td align="left">kaalae</td>
 <td align="right">7</td>
+<td align="right">34</td>
 <td align="right">20</td>
 <td align="right">35</td>
 <td align="right">1.750</td>
@@ -581,6 +625,7 @@ germination and survival, and how many pots the seeds filled</caption>
 <td align="left">mixed</td>
 <td align="left">hookeri</td>
 <td align="right">10</td>
+<td align="right">93</td>
 <td align="right">6</td>
 <td align="right">34</td>
 <td align="right">5.667</td>
@@ -590,6 +635,7 @@ germination and survival, and how many pots the seeds filled</caption>
 <td align="left">inter</td>
 <td align="left">hookeri</td>
 <td align="right">11</td>
+<td align="right">175</td>
 <td align="right">73</td>
 <td align="right">118</td>
 <td align="right">1.616</td>
@@ -599,6 +645,7 @@ germination and survival, and how many pots the seeds filled</caption>
 <td align="left">intra</td>
 <td align="left">hookeri</td>
 <td align="right">12</td>
+<td align="right">35</td>
 <td align="right">21</td>
 <td align="right">128</td>
 <td align="right">6.095</td>
@@ -608,6 +655,7 @@ germination and survival, and how many pots the seeds filled</caption>
 <td align="left">mixed</td>
 <td align="left">kaalae</td>
 <td align="right">11</td>
+<td align="right">189</td>
 <td align="right">8</td>
 <td align="right">70</td>
 <td align="right">8.750</td>
@@ -617,6 +665,7 @@ germination and survival, and how many pots the seeds filled</caption>
 <td align="left">inter</td>
 <td align="left">kaalae</td>
 <td align="right">34</td>
+<td align="right">156</td>
 <td align="right">61</td>
 <td align="right">107</td>
 <td align="right">1.754</td>
@@ -657,16 +706,18 @@ analysis.</p>
 </div>
 <div id="histograms" class="section level1">
 <h1>Histograms</h1>
-<pre class="r"><code>ggplot(germ, aes(x=planted, fill=type)) + geom_histogram(binwidth=10) + facet_wrap(vars(momsp))</code></pre>
+<pre class="r"><code>ggplot(seeds, aes(x=sds, fill=type)) + geom_histogram(binwidth=1) + facet_wrap(vars(momsp))</code></pre>
 <p><img src="figures-comp/histogram-1.svg" width="768" /></p>
-<pre class="r"><code>ggplot(germ, aes(x=germinated, fill=type)) + geom_histogram(binwidth=10) + facet_wrap(vars(momsp))</code></pre>
+<pre class="r"><code>ggplot(germ, aes(x=planted, fill=type)) + geom_histogram(binwidth=10) + facet_wrap(vars(momsp))</code></pre>
 <p><img src="figures-comp/histogram-2.svg" width="768" /></p>
-<pre class="r"><code>ggplot(filter(surv, type !=&quot;inter&quot;), aes(x=sameasmom, fill=type)) + geom_histogram(binwidth=10) + facet_wrap(vars(momsp))</code></pre>
+<pre class="r"><code>ggplot(germ, aes(x=germinated, fill=type)) + geom_histogram(binwidth=10) + facet_wrap(vars(momsp))</code></pre>
 <p><img src="figures-comp/histogram-3.svg" width="768" /></p>
-<pre class="r"><code>ggplot(filter(surv, type !=&quot;intra&quot;), aes(x=hybrid, fill=type)) + geom_histogram(binwidth=1) + facet_wrap(vars(momsp))#lots of 20s</code></pre>
+<pre class="r"><code>ggplot(filter(surv, type !=&quot;inter&quot;), aes(x=sameasmom, fill=type)) + geom_histogram(binwidth=10) + facet_wrap(vars(momsp))</code></pre>
 <p><img src="figures-comp/histogram-4.svg" width="768" /></p>
-<pre class="r"><code>ggplot(surv, aes(x=dead, fill=type)) + geom_histogram(binwidth=10) + facet_wrap(vars(momsp), scales=&quot;free_y&quot;)</code></pre>
+<pre class="r"><code>ggplot(filter(surv, type !=&quot;intra&quot;), aes(x=hybrid, fill=type)) + geom_histogram(binwidth=1) + facet_wrap(vars(momsp))#lots of 20s</code></pre>
 <p><img src="figures-comp/histogram-5.svg" width="768" /></p>
+<pre class="r"><code>ggplot(surv, aes(x=dead, fill=type)) + geom_histogram(binwidth=10) + facet_wrap(vars(momsp), scales=&quot;free_y&quot;)</code></pre>
+<p><img src="figures-comp/histogram-6.svg" width="768" /></p>
 <pre class="r"><code>pct_y &lt;- scale_y_continuous(breaks=(0:4)/4, labels=~scales::percent(.,accuracy=1), expand=c(0,0))
 pct_x &lt;- scale_x_continuous(breaks=(0:4)/4, labels=~scales::percent(.,accuracy=1), expand=c(0,0))
 germ.surv &lt;- full_join(germ, surv) #TODO fix matching
@@ -924,6 +975,8 @@ species, between species, mixed pollen)</li>
 <li>family: betabinomial (for binary variables)</li>
 </ul>
 <pre class="r"><code>comp.mod &lt;- list(
+  capsule.formed=glmmTMB(capsule.formed ~ sxc + (1|momid), family=&quot;betabinomial&quot;, data=seeds),
+  sds =          glmmTMB(sds            ~ sxc + (1|momid), family=&quot;truncated_nbinom1&quot;, data=filter(seeds, sds&gt;0)),
   prop.germ =    glmmTMB(prop.germ   ~ sxc + (1|momid), family=&quot;betabinomial&quot;, data=germ, weights = planted),
   prop.alive =   glmmTMB(prop.alive  ~ sxc + (1|momid), family=&quot;betabinomial&quot;, data=surv, weights = total),
   prop.hybrid =  glmmTMB(prop.hybrid ~ sxc + (1|momid), family=&quot;betabinomial&quot;, data=filter(surv, type==&quot;mixed&quot;), weights = alive))</code></pre>
@@ -931,13 +984,14 @@ species, between species, mixed pollen)</li>
 <h2>Maternal effects</h2>
 <pre class="r"><code>comp.ranef &lt;- map_dfr(comp.mod, ~as.data.frame(ranef(.x)), .id=&quot;trait&quot;) %&gt;% as_tibble() %&gt;% 
   rename(momid=grp, estimate = condval, sd = condsd) %&gt;% select(-component, -grpvar, -term) %&gt;% 
-  mutate(momid= as.character(momid)) %&gt;% 
+  mutate(momid= as.character(momid), trait=factor(trait, levels=names(propnames))) %&gt;% 
   left_join(count(germ, momsp.germ=momsp, momid, name=&quot;germ&quot;)) %&gt;% 
   left_join(count(surv, momsp.surv=momsp, momid, name=&quot;surv&quot;)) %&gt;% 
-  mutate(momsp = coalesce(momsp.germ, momsp.surv), .keep=&quot;unused&quot;)
+  left_join(count(seeds, momsp.seeds=momsp, momid, name=&quot;seeds&quot;)) %&gt;%
+  mutate(momsp = coalesce(coalesce(momsp.germ, momsp.surv),momsp.seeds), .keep=&quot;unused&quot;)
 
 ggplot(comp.ranef, aes(x=estimate, y=paste(str_sub(momsp,1,4),momid), color=momsp)) + 
-  facet_wrap(vars(trait), labeller = as_labeller(propnames)) +
+  facet_wrap(vars(trait), labeller = as_labeller(propnames), nrow=1) +
   geom_pointrange(aes(xmin=estimate-sd, xmax=estimate+sd))  + theme(axis.text.y=element_text(size=7))+
   scale_color_brewer(palette=&quot;Paired&quot;, guide=&quot;none&quot;) +  labs(x=&quot;Maternal effect&quot;, y=&quot;Maternal plant&quot;) </code></pre>
 <p><img src="figures-comp/ranef-1.svg" width="768" /></p>
@@ -973,6 +1027,20 @@ comp.test %&gt;%  mutate(term=recode(term, sxc = &quot;species and crosstype&quo
 </thead>
 <tbody>
 <tr class="odd">
+<td align="left">capsule.formed</td>
+<td align="left">species and crosstype</td>
+<td align="right">257.0</td>
+<td align="right">24</td>
+<td align="left">6.7e-41</td>
+</tr>
+<tr class="even">
+<td align="left">sds</td>
+<td align="left">species and crosstype</td>
+<td align="right">485.0</td>
+<td align="right">24</td>
+<td align="left">2.2e-87</td>
+</tr>
+<tr class="odd">
 <td align="left">prop.germ</td>
 <td align="left">species and crosstype</td>
 <td align="right">277.8</td>
@@ -996,7 +1064,7 @@ comp.test %&gt;%  mutate(term=recode(term, sxc = &quot;species and crosstype&quo
 </tbody>
 </table>
 <pre class="r"><code>comp.emm &lt;-  map_dfr(comp.mod, ~emmeans(., ~sxc) %&gt;% summary(type=&quot;response&quot;) %&gt;%  #average over collect date
-                             tidy %&gt;% rename(estimate=prob), .id=&quot;trait&quot;) %&gt;% 
+                             tidy %&gt;% rename(estimate=any_of(c(&quot;response&quot;,&quot;prob&quot;))), .id=&quot;trait&quot;) %&gt;% 
   separate(sxc, into = c(&quot;momsp&quot;,&quot;type&quot;)) %&gt;% 
   mutate(momsp=factor(momsp, levels=sp_pairs), 
          type=factor(type, levels= names(typenames)),
@@ -1025,22 +1093,36 @@ CI.</p>
 <pre class="r"><code>sp_theme &lt;- theme(legend.position = &quot;top&quot;, 
                   panel.grid.major.x=element_blank(), panel.grid.minor.y=element_blank(), 
                   axis.text.x = element_text(angle=20), axis.text = element_text(color=&quot;black&quot;))
-alternate &lt;- geom_tile(data=tibble(momsp=sp_pairs[seq(1,10,by=2)]), aes(x=momsp, y=0.5, height=1, width=1),  alpha=0.15, fill=&quot;grey&quot;, inherit.aes = F) 
+alternate &lt;- geom_tile(data=tibble(momsp=sp_pairs[seq(1,10,by=2)]), aes(x=momsp, y=0.5, height=1, width=1),  alpha=0.2, fill=&quot;grey&quot;, inherit.aes = F) 
 
-ggplot(germ, aes(x=momsp, fill=type, y=prop.germ))  + 
+ggplot(seeds.bycross, aes(x=momsp, fill=type, y=capsule.formed))  +
+  geom_boxplot(position = position_dodge(width=0.9), color=&quot;grey50&quot;, outlier.size=0.5) + 
+  geom_pointrange(data=filter(comp.emm, trait==&quot;capsule.formed&quot;), aes(y=estimate, ymax=conf.high, ymin=conf.low),
+                  position = position_dodge(width=0.9), size=0.3, show.legend=F) + 
+  scale_fill_manual(values=type_pal, labels=typenames) + 
+  labs(x=&quot;Maternal species&quot;, y=&quot;Capsule formation&quot;, fill=&quot;Pollination&quot;) + sp_theme</code></pre>
+<p><img src="figures-comp/rawdata-1.svg" width="768" /></p>
+<pre class="r"><code>ggplot(seeds %&gt;% filter(sds&gt;0), aes(x=momsp, fill=type, y=sds))  +
+  geom_boxplot(position = position_dodge(width=0.9), color=&quot;grey50&quot;, outlier.size=0.5) + 
+  geom_pointrange(data=filter(comp.emm, trait==&quot;sds&quot;), aes(y=estimate, ymax=conf.high, ymin=conf.low),
+                  position = position_dodge(width=0.9), size=0.3, show.legend=F) + 
+  scale_fill_manual(values=type_pal, labels=typenames) + 
+  labs(x=&quot;Maternal species&quot;, y=&quot;Seeds&quot;, fill=&quot;Pollination&quot;) + sp_theme</code></pre>
+<p><img src="figures-comp/rawdata-2.svg" width="768" /></p>
+<pre class="r"><code>ggplot(germ, aes(x=momsp, fill=type, y=prop.germ))  + 
   geom_boxplot(position = position_dodge(width=0.9), color=&quot;grey50&quot;, outlier.size=0.5) + alternate+ 
   geom_pointrange(data=filter(comp.emm, trait==&quot;prop.germ&quot;), aes(y=estimate, ymax=conf.high, ymin=conf.low),
                   position = position_dodge(width=0.9), size=0.3, show.legend=F) + 
   scale_fill_manual(values=type_pal, labels=typenames) +  
   labs(x=&quot;Maternal species&quot;, y=&quot;Germination&quot;, fill=&quot;Pollination&quot;) + sp_theme</code></pre>
-<p><img src="figures-comp/rawdata-1.svg" width="768" /></p>
+<p><img src="figures-comp/rawdata-3.svg" width="768" /></p>
 <pre class="r"><code>ggplot(surv, aes(x=momsp, fill=type, y=prop.alive))  + 
   geom_boxplot(position = position_dodge(width=0.9), color=&quot;grey50&quot;, outlier.size=0.5) + alternate+ 
   geom_pointrange(data=filter(comp.emm, trait==&quot;prop.alive&quot;), aes(y=estimate, ymax=conf.high, ymin=conf.low),
                   position = position_dodge(width=0.9), size=0.3, show.legend=F) + 
   scale_fill_manual(values=type_pal, labels=typenames) +  
   labs(x=&quot;Maternal species&quot;, y=&quot;Survival&quot;, fill=&quot;Pollination&quot;) + sp_theme</code></pre>
-<p><img src="figures-comp/rawdata-2.svg" width="768" /></p>
+<p><img src="figures-comp/rawdata-4.svg" width="768" /></p>
 <pre class="r"><code>ggplot(filter(surv, type==&quot;mixed&quot;), aes(x=momsp, y=prop.hybrid, fill=momsp)) + 
   geom_hline(yintercept=0.5)+ geom_violin(scale=&quot;width&quot;, draw_quantiles = c(0.25,0.5,0.75))+ 
   geom_pointrange(data=left_join(filter(comp.emm, trait==&quot;prop.hybrid&quot;), hybrid.test),
@@ -1050,7 +1132,7 @@ ggplot(germ, aes(x=momsp, fill=type, y=prop.germ))  +
   #geom_text(data=hybrid.test, aes(y=1.1, label=alive))+
   scale_fill_brewer(palette=&quot;Paired&quot;, guide=&quot;none&quot;) + pct_y+ 
   labs(x=&quot;Maternal species&quot;, y=&quot;Hybrids from competitive pollinations&quot;) + sp_theme</code></pre>
-<p><img src="figures-comp/rawdata-3.svg" width="768" /></p>
+<p><img src="figures-comp/rawdata-5.svg" width="768" /></p>
 <p>Tested whether the proportion of hybrids significantly differed from
 50%, accounting for multiple comparisons. Violin plots show proportions
 for each plant x plant cross. The number of plant x plant crosses
@@ -1166,10 +1248,10 @@ hybrid.phylodist.test %&gt;% select(trait, type, term, p.value) %&gt;% filter(ty
 <table>
 <caption>p-values from models of each proportion</caption>
 <colgroup>
-<col width="15%" />
-<col width="19%" />
+<col width="23%" />
+<col width="17%" />
+<col width="28%" />
 <col width="30%" />
-<col width="33%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1180,6 +1262,30 @@ hybrid.phylodist.test %&gt;% select(trait, type, term, p.value) %&gt;% filter(ty
 </tr>
 </thead>
 <tbody>
+<tr class="odd">
+<td align="left">Capsule formation</td>
+<td align="left">Interspecific</td>
+<td align="right">0.037</td>
+<td align="right">0.659</td>
+</tr>
+<tr class="even">
+<td align="left">Capsule formation</td>
+<td align="left">Competitive</td>
+<td align="right">0.643</td>
+<td align="right">0.689</td>
+</tr>
+<tr class="odd">
+<td align="left">Seeds</td>
+<td align="left">Interspecific</td>
+<td align="right">0.015</td>
+<td align="right">0.804</td>
+</tr>
+<tr class="even">
+<td align="left">Seeds</td>
+<td align="left">Competitive</td>
+<td align="right">0.215</td>
+<td align="right">0.641</td>
+</tr>
 <tr class="odd">
 <td align="left">Germinated</td>
 <td align="left">Interspecific</td>
@@ -1213,7 +1319,7 @@ hybrid.phylodist.test %&gt;% select(trait, type, term, p.value) %&gt;% filter(ty
 </tbody>
 </table>
 <pre class="r"><code>ggplot(left_join(hybrid.phylodist, filter(hybrid.phylodist.test, term==&quot;pd&quot;)), aes(x=pd, y=estimate)) + 
-  facet_grid(trait~type, labeller=as_labeller(c(propnames, typenames)))+
+  facet_grid(trait~type, labeller=as_labeller(c(propnames, typenames)), scales=&quot;free_y&quot;)+ coord_cartesian(ylim=c(0,NA))+
   geom_smooth(aes(linetype=paste(p.value &lt; 0.05, type==&quot;intra&quot;)), method=&quot;lm&quot;, se=F, color=&quot;grey&quot;) +
   geom_pointrange(aes(ymax=conf.high, ymin=conf.low, color=momsp)) + scale_color_brewer(palette=&quot;Paired&quot;) + pct_y+ 
   scale_linetype_manual(values=c(2,0,1,0), guide=&quot;none&quot;) + scale_alpha_manual(breaks=c(T,F), values=c(0.5, 1))+
@@ -1229,7 +1335,7 @@ phylogenetic distance to its paired species, which doesn’t make great
 sense.</p>
 <p>Below, lines show the effect of style length within each pair.</p>
 <pre class="r"><code>ggplot(left_join(comp.emm, select(styles.emm, momsp, style_length_mm, mating)), aes(x=style_length_mm, y=estimate)) + 
-  facet_grid(trait~type, labeller=as_labeller(c(propnames, typenames)))+
+  facet_grid(trait~type, labeller=as_labeller(c(propnames, typenames)), scales=&quot;free_y&quot;)+coord_cartesian(ylim=c(0,NA))+
   geom_line(aes(group=pair, color=momsp))+
   geom_pointrange(aes(ymax=conf.high, ymin=conf.low, color=momsp, shape=mating)) + scale_color_brewer(palette=&quot;Paired&quot;) + pct_y+ 
   labs(x=&quot;Style length (mm)&quot;, color=&quot;Maternal species&quot;, shape=&quot;Mating&quot;) + theme_bw() +

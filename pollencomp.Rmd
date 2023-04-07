@@ -34,11 +34,29 @@ sp_pairs <- c("menz"="menziesii", "sal"="salicaria",
               "kaal"="kaalae", "hook"="hookeri")
 typenames <- set_names(c("Intraspecific","Competitive","Interspecific"),c("intra","mixed","inter"))
 type_pal <- set_names(c("#DC0060", "#86D400", "#F56E00"), names(typenames))
-propnames <- set_names(c("Germinated","Survived","Hybrid"), c("prop.germ", "prop.alive", "prop.hybrid"))
+propnames <- set_names(c("Capsule formation","Seeds","Germinated","Survived","Hybrid"), c("capsule.formed","sds","prop.germ", "prop.alive", "prop.hybrid"))
 
 momid.fixes <- read_tsv("data/Pollen competition - momid_fixes.tsv")
+momid.fixes.seeds <- momid.fixes %>% drop_na(momid_fixed) %>% select(momid, momid_fixed) %>% deframe()
 momid.fixes.germ <- momid.fixes %>% drop_na(germid, momid_fixed) %>% select(momid, momid_fixed) %>% deframe()
 momid.fixes.surv <- momid.fixes %>% drop_na(survid, momid_fixed) %>% select(momid, momid_fixed) %>% deframe()
+
+seeds <- read_tsv("data/Pollen competition - seeds.tsv") %>% 
+  mutate(dadspm = if_else(type=="mixed" & dadsp1==momsp, dadsp1, dadsp2), #rearrange dad1/dad2 to have dadsp match momsp
+         dadidm = if_else(type=="mixed" & dadsp1==momsp, dadid1, dadid2),
+         dadsp  = if_else(type=="mixed" & dadsp1==momsp, dadsp2, dadsp1),
+         dadid  = if_else(type=="mixed" & dadsp1==momsp, dadid2, dadid1), .after=momid) %>% 
+  select(-matches("dad(sp|id)[12]")) %>% 
+  mutate(across(matches("sp"), ~ recode(.x, !!!sp_pairs)),
+         across(matches("(dad|mom)id"), ~str_remove_all(.x, "[ -]")), 
+         across(matches("(dad|mom)id"), ~recode(.x, !!!momid.fixes.seeds)),
+         sxc = paste(momsp, type, sep="."),
+         type=factor(type, levels= names(typenames)), 
+         across(matches("sp"), ~ factor(.x, levels = sp_pairs)),
+         capsule.formed = sds>0)
+
+seeds.bycross <- seeds %>% group_by(type, momsp, sxc, momid, dadspm, dadidm, dadsp, dadid) %>% 
+  summarize(capsule.formed=mean(capsule.formed), .groups="drop")
 
 germ.pot <- read_tsv("data/Pollen competition - germination.tsv") %>%  
   mutate(dadspm = if_else(type=="mixed" & dadsp1==momsp, dadsp1, dadsp2), #rearrange dad1/dad2 to have dadsp match momsp
@@ -51,7 +69,6 @@ germ.pot <- read_tsv("data/Pollen competition - germination.tsv") %>%
          across(matches("(dad|mom)id"), ~str_remove_all(.x, "[ -]")), 
          across(matches("(dad|mom)id"), ~recode(.x, !!!momid.fixes.germ)), #TODO are the momid fixes applicable to dads too?
          sxc = paste(momsp, type, sep="."),
-         #across(where(is.character), factor), 
          type=factor(type, levels= names(typenames)), 
          across(matches("sp"), ~ factor(.x, levels = sp_pairs)),
          germinated = ifelse(germinated > planted, planted, germinated))
@@ -69,7 +86,6 @@ surv <- read_tsv("data/Pollen competition - survival.tsv") %>%
   mutate(across(matches("(mom|dad)id"), ~str_remove_all(.x, "[ -]")), 
          across(matches("(dad|mom)id"), ~recode(.x, !!!momid.fixes.surv)),
          sxc = paste(momsp, type, sep="."),
-         #across(where(is.character), factor), 
          type=factor(type, levels= names(typenames)),
          across(matches("sp"), ~ factor(.x, levels = sp_pairs)),
          across(all_of(c("sameasmom", "hybrid")), ~replace_na(.x,0)), 
@@ -79,10 +95,11 @@ surv <- read_tsv("data/Pollen competition - survival.tsv") %>%
          prop.alive = alive / total)
 
 surv %>% count(momsp, type, dadsp, name="crosses_surv") %>% 
+  full_join(seeds %>% count(momsp, type, dadsp, name="crosses_seeds")) %>% 
   full_join(germ %>% count(momsp, type, dadsp, name="crosses_germ")) %>% 
   full_join(germ.pot %>% count(momsp, type, dadsp, name = "pots_germ")) %>%
   mutate(pots_per_cross = pots_germ/crosses_germ) %>% 
-  kable(caption="Number of crosses between individual plants used for germination and survival,
+  kable(caption="Number of crosses between individual plants used for seeds, germination and survival,
         and how many pots the seeds filled")
 
 # to run this, comment out across(matches("(mom|dad)id"), ~str_remove_all(.x, "[ -]")) lines above
@@ -122,6 +139,7 @@ surv %>% ggplot(aes(x=date_planted, y=date_scored, color=momsp)) + geom_point() 
 # Histograms
 
 ```{r histogram}
+ggplot(seeds, aes(x=sds, fill=type)) + geom_histogram(binwidth=1) + facet_wrap(vars(momsp))
 ggplot(germ, aes(x=planted, fill=type)) + geom_histogram(binwidth=10) + facet_wrap(vars(momsp))
 ggplot(germ, aes(x=germinated, fill=type)) + geom_histogram(binwidth=10) + facet_wrap(vars(momsp))
 ggplot(filter(surv, type !="inter"), aes(x=sameasmom, fill=type)) + geom_histogram(binwidth=10) + facet_wrap(vars(momsp))
@@ -161,6 +179,8 @@ Expand this code to see the model specifications. The models have the following 
 
 ```{r models}
 comp.mod <- list(
+  capsule.formed=glmmTMB(capsule.formed ~ sxc + (1|momid), family="betabinomial", data=seeds),
+  sds =          glmmTMB(sds            ~ sxc + (1|momid), family="truncated_nbinom1", data=filter(seeds, sds>0)),
   prop.germ =    glmmTMB(prop.germ   ~ sxc + (1|momid), family="betabinomial", data=germ, weights = planted),
   prop.alive =   glmmTMB(prop.alive  ~ sxc + (1|momid), family="betabinomial", data=surv, weights = total),
   prop.hybrid =  glmmTMB(prop.hybrid ~ sxc + (1|momid), family="betabinomial", data=filter(surv, type=="mixed"), weights = alive))
@@ -171,13 +191,14 @@ comp.mod <- list(
 ```{r ranef, fig.height=12}
 comp.ranef <- map_dfr(comp.mod, ~as.data.frame(ranef(.x)), .id="trait") %>% as_tibble() %>% 
   rename(momid=grp, estimate = condval, sd = condsd) %>% select(-component, -grpvar, -term) %>% 
-  mutate(momid= as.character(momid)) %>% 
+  mutate(momid= as.character(momid), trait=factor(trait, levels=names(propnames))) %>% 
   left_join(count(germ, momsp.germ=momsp, momid, name="germ")) %>% 
   left_join(count(surv, momsp.surv=momsp, momid, name="surv")) %>% 
-  mutate(momsp = coalesce(momsp.germ, momsp.surv), .keep="unused")
+  left_join(count(seeds, momsp.seeds=momsp, momid, name="seeds")) %>%
+  mutate(momsp = coalesce(coalesce(momsp.germ, momsp.surv),momsp.seeds), .keep="unused")
 
 ggplot(comp.ranef, aes(x=estimate, y=paste(str_sub(momsp,1,4),momid), color=momsp)) + 
-  facet_wrap(vars(trait), labeller = as_labeller(propnames)) +
+  facet_wrap(vars(trait), labeller = as_labeller(propnames), nrow=1) +
   geom_pointrange(aes(xmin=estimate-sd, xmax=estimate+sd))  + theme(axis.text.y=element_text(size=7))+
   scale_color_brewer(palette="Paired", guide="none") +  labs(x="Maternal effect", y="Maternal plant") 
 
@@ -204,7 +225,7 @@ comp.test %>%  mutate(term=recode(term, sxc = "species and crosstype"),
   kable(digits=1, caption="ANOVA of GLMM (Type III Wald chisquare tests)")
   
 comp.emm <-  map_dfr(comp.mod, ~emmeans(., ~sxc) %>% summary(type="response") %>%  #average over collect date
-                             tidy %>% rename(estimate=prob), .id="trait") %>% 
+                             tidy %>% rename(estimate=any_of(c("response","prob"))), .id="trait") %>% 
   separate(sxc, into = c("momsp","type")) %>% 
   mutate(momsp=factor(momsp, levels=sp_pairs), 
          type=factor(type, levels= names(typenames)),
@@ -232,7 +253,21 @@ Boxplots of the germination and survival proportions in each plant x plant cross
 sp_theme <- theme(legend.position = "top", 
                   panel.grid.major.x=element_blank(), panel.grid.minor.y=element_blank(), 
                   axis.text.x = element_text(angle=20), axis.text = element_text(color="black"))
-alternate <- geom_tile(data=tibble(momsp=sp_pairs[seq(1,10,by=2)]), aes(x=momsp, y=0.5, height=1, width=1),  alpha=0.15, fill="grey", inherit.aes = F) 
+alternate <- geom_tile(data=tibble(momsp=sp_pairs[seq(1,10,by=2)]), aes(x=momsp, y=0.5, height=1, width=1),  alpha=0.2, fill="grey", inherit.aes = F) 
+
+ggplot(seeds.bycross, aes(x=momsp, fill=type, y=capsule.formed))  +
+  geom_boxplot(position = position_dodge(width=0.9), color="grey50", outlier.size=0.5) + 
+  geom_pointrange(data=filter(comp.emm, trait=="capsule.formed"), aes(y=estimate, ymax=conf.high, ymin=conf.low),
+                  position = position_dodge(width=0.9), size=0.3, show.legend=F) + 
+  scale_fill_manual(values=type_pal, labels=typenames) + 
+  labs(x="Maternal species", y="Capsule formation", fill="Pollination") + sp_theme
+
+ggplot(seeds %>% filter(sds>0), aes(x=momsp, fill=type, y=sds))  +
+  geom_boxplot(position = position_dodge(width=0.9), color="grey50", outlier.size=0.5) + 
+  geom_pointrange(data=filter(comp.emm, trait=="sds"), aes(y=estimate, ymax=conf.high, ymin=conf.low),
+                  position = position_dodge(width=0.9), size=0.3, show.legend=F) + 
+  scale_fill_manual(values=type_pal, labels=typenames) + 
+  labs(x="Maternal species", y="Seeds", fill="Pollination") + sp_theme
 
 ggplot(germ, aes(x=momsp, fill=type, y=prop.germ))  + 
   geom_boxplot(position = position_dodge(width=0.9), color="grey50", outlier.size=0.5) + alternate+ 
@@ -321,7 +356,7 @@ hybrid.phylodist.test %>% select(trait, type, term, p.value) %>% filter(type !="
   kable(caption = "p-values from models of each proportion", digits=3)
 
 ggplot(left_join(hybrid.phylodist, filter(hybrid.phylodist.test, term=="pd")), aes(x=pd, y=estimate)) + 
-  facet_grid(trait~type, labeller=as_labeller(c(propnames, typenames)))+
+  facet_grid(trait~type, labeller=as_labeller(c(propnames, typenames)), scales="free_y")+ coord_cartesian(ylim=c(0,NA))+
   geom_smooth(aes(linetype=paste(p.value < 0.05, type=="intra")), method="lm", se=F, color="grey") +
   geom_pointrange(aes(ymax=conf.high, ymin=conf.low, color=momsp)) + scale_color_brewer(palette="Paired") + pct_y+ 
   scale_linetype_manual(values=c(2,0,1,0), guide="none") + scale_alpha_manual(breaks=c(T,F), values=c(0.5, 1))+
@@ -336,7 +371,7 @@ Below, lines show the effect of style length within each pair.
 
 ```{r styles}
 ggplot(left_join(comp.emm, select(styles.emm, momsp, style_length_mm, mating)), aes(x=style_length_mm, y=estimate)) + 
-  facet_grid(trait~type, labeller=as_labeller(c(propnames, typenames)))+
+  facet_grid(trait~type, labeller=as_labeller(c(propnames, typenames)), scales="free_y")+coord_cartesian(ylim=c(0,NA))+
   geom_line(aes(group=pair, color=momsp))+
   geom_pointrange(aes(ymax=conf.high, ymin=conf.low, color=momsp, shape=mating)) + scale_color_brewer(palette="Paired") + pct_y+ 
   labs(x="Style length (mm)", color="Maternal species", shape="Mating") + theme_bw() +
