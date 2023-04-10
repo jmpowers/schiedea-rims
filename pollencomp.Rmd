@@ -17,7 +17,7 @@ library(glmmTMB)
 library(broom)
 library(emmeans)
 library(knitr)
-knitr::opts_chunk$set(comment="", cache=T, warning = F, message = F, fig.height=8, fig.width=8,
+knitr::opts_chunk$set(comment="", cache=T, warning = F, message = F,
                       fig.path = "figures-comp/", dev = "svglite", dev.args=list(fix_text_size=FALSE))
 options(digits=4, knitr.kable.NA = "")
 ggplot2::theme_set(theme_minimal())
@@ -32,9 +32,13 @@ sp_pairs <- c("menz"="menziesii", "sal"="salicaria",
               "stell"="stellarioides","sperg"="spergulina",
               "memb"="membranacea","kaua"="kauaiensis",
               "kaal"="kaalae", "hook"="hookeri")
+sp_pal <- set_names(brewer.pal(length(sp_pairs), "Paired"), sp_pairs)
+sp_pal_dark <- set_names(sp_pal[rep(seq(2,10,by=2), each=2)], sp_pairs)
 typenames <- set_names(c("Intraspecific","Competitive","Interspecific"),c("intra","mixed","inter"))
-type_pal <- set_names(c("#DC0060", "#86D400", "#F56E00"), names(typenames))
+type_pal <- set_names(brewer.pal(6,"Pastel1")[c(2,3,5)], names(typenames))
+type_pal_dark <- set_names(brewer.pal(6,"Set1")[c(2,3,5)], names(typenames))
 propnames <- set_names(c("Capsule formation","Seeds","Germinated","Survived","Hybrid"), c("capsule.formed","sds","prop.germ", "prop.alive", "prop.hybrid"))
+vigornames <- c(hybrid.vigor.all="Overall hybrid vigor", prop.hybrid="Surviving hybrids", prop.hybrid.fert = "Hybrid fertilizations")
 
 momid.fixes <- read_tsv("data/Pollen competition - momid_fixes.tsv")
 momid.fixes.seeds <- momid.fixes %>% drop_na(momid_fixed) %>% select(momid, momid_fixed) %>% deframe()
@@ -148,7 +152,7 @@ ggplot(surv, aes(x=dead, fill=type)) + geom_histogram(binwidth=10) + facet_wrap(
 ```
 
 ```{r compare}
-pct_y <- scale_y_continuous(breaks=(0:4)/4, labels=~scales::percent(.,accuracy=1), expand=c(0,0))
+pct_y <- scale_y_continuous(breaks=(0:4)/4, labels=~scales::percent(.,accuracy=1), expand=c(0,0.02))
 pct_x <- scale_x_continuous(breaks=(0:4)/4, labels=~scales::percent(.,accuracy=1), expand=c(0,0))
 germ.surv <- full_join(germ, surv) #TODO fix matching
 germ.surv %>% mutate(germalive = paste(is.na(germinated), is.na(alive)) %>% 
@@ -218,7 +222,7 @@ comp.ranef %>% select(-sd) %>% pivot_wider(names_from="trait", values_from="esti
 
 P-values for the overall effect of species and crosstype, or collection date, on the trait.
 
-```{r inference}
+```{r inference, fig.width=5, fig.height=3.5}
 comp.test <- map_dfr(comp.mod, ~car::Anova(.) %>% tidy(), .id="trait") 
 comp.test %>%  mutate(term=recode(term, sxc = "species and crosstype"),
          p.value=format(p.value,digits=2)) %>% 
@@ -231,7 +235,27 @@ comp.emm <-  map_dfr(comp.mod, ~emmeans(., ~sxc) %>% summary(type="response") %>
          type=factor(type, levels= names(typenames)),
          trait=factor(trait, levels=names(propnames)))
 
-#doesn't work, compares all to the first level (hookeri)
+calc_RI <- function(h, b) 1 - 2 *  h/(h + b) #method of Sobel and Chen 2014 for hybrids vs. between-population intraspecific fitness, varies between -1 (hybrd vigor) and 1 (complete isolation)
+highlow <- function(fn, a, b) { #method of Sobel and Streisfeld 2015 Fig. S1
+  combos <- c(fn(a[1], b[1]), fn(a[1],b[2]), fn(a[2],b[1]), fn(a[2], b[2]))
+  set_names(c(min(combos), max(combos)), c("low","high"))
+}
+postzygotic.ratios <- comp.emm %>% filter(type %in% c("inter","intra")) %>% 
+  select(trait, momsp, type, estimate, conf.low, conf.high) %>% 
+  pivot_wider(names_from = type, values_from = c(estimate, conf.low, conf.high)) %>% 
+  rename_with(~ str_remove(.,"estimate_|conf.")) %>% rowwise() %>% 
+  mutate(across(c(intra, inter), ~ ./max(intra, inter)),
+         hybrid.vigor = inter/intra,
+         RI = calc_RI(h=inter, b=intra)) %>% 
+  mutate(RI.range = list(highlow(fn=calc_RI, a=c(low_inter, high_inter), b=c(low_intra, high_intra))), 
+         .keep="unused") %>% unnest_wider(RI.range)
+
+ggplot(postzygotic.ratios, aes(y=fct_rev(momsp), x=trait, fill=log2(hybrid.vigor))) +
+  geom_tile() + geom_text(aes(label=format(hybrid.vigor,digits=1))) + 
+  scale_fill_gradient2(guide="none") + scale_x_discrete(labels=propnames, position="top")+
+  theme(axis.title = element_blank(), axis.text.y=element_text(color=sp_pal_dark, face="italic"))
+
+#doesn't work, compares all to the first level (hookeri), and glht doesn't support comparison to a constant
 #hybrid.half <- multcomp::glht(comp.mod$prop.hybrid, multcomp::mcp(sxc = paste0(sp_pairs[-7],".mixed = 0")))
 #compare to null of 50% hybrids, since pollen mixtures were 50-50
 hybrid.test <- surv %>% filter(type=="mixed") %>% 
@@ -242,7 +266,17 @@ hybrid.test <- surv %>% filter(type=="mixed") %>%
          p = map2_dbl(hybrid, alive, ~prop.test(x=.x, n=.y, p = 0.5)$p.value),
          p.adj = p.adjust(p, "bonferroni"),
          stars = cut(p.adj, breaks = c(-Inf, 0.01, 0.05, 0.10, Inf), 
-                labels = c("***", "**", "*", "n.s."), right = FALSE))
+                labels = c("***", "**", "*", "n.s."), right = FALSE)) %>% 
+  left_join(postzygotic.ratios %>% pivot_wider(id_cols = momsp, names_from=trait, values_from = hybrid.vigor)) %>% 
+  mutate(hybrid.vigor.all = capsule.formed * sds * prop.germ * prop.alive,
+         prop.hybrid.fert = prop.hybrid / hybrid.vigor.all)
+
+hybrid.test %>% select(momsp, prop.hybrid, hybrid.vigor.all, prop.hybrid.fert) %>% 
+  pivot_longer(2:4, names_to="trait") %>% 
+  ggplot(aes(y=fct_rev(momsp), x=trait, fill=log2(value))) +
+  geom_tile() + geom_text(aes(label=format(value,digits=1))) + scale_fill_gradient2(guide="none", midpoint=-1) + 
+  scale_x_discrete(labels=c("Overall hybrid vigor", "Prop hybrids", "Prop hybrids fert"), position="top")+
+  theme(axis.title = element_blank(), axis.text.y=element_text(color=sp_pal_dark, face="italic"))
 ```
 
 # Plots
@@ -252,35 +286,38 @@ Boxplots of the germination and survival proportions in each plant x plant cross
 ```{r rawdata}
 sp_theme <- theme(legend.position = "top", 
                   panel.grid.major.x=element_blank(), panel.grid.minor.y=element_blank(), 
-                  axis.text.x = element_text(angle=20), axis.text = element_text(color="black"))
-alternate <- geom_tile(data=tibble(momsp=sp_pairs[seq(1,10,by=2)]), aes(x=momsp, y=0.5, height=1, width=1),  alpha=0.2, fill="grey", inherit.aes = F) 
+                  axis.text.x = element_text(angle=20, face="italic"), axis.text = element_text(color="black"))
+bxplt <- geom_boxplot(position = position_dodge(width=0.9), color="grey50", outlier.size=0.5)
+alternate <- geom_tile(data=tibble(momsp=sp_pairs[seq(1,10,by=2)]), aes(x=momsp, y=0.5, height=1, width=1),  alpha=0.4, fill="grey", inherit.aes = F) 
 
-ggplot(seeds.bycross, aes(x=momsp, fill=type, y=capsule.formed))  +
-  geom_boxplot(position = position_dodge(width=0.9), color="grey50", outlier.size=0.5) + 
-  geom_pointrange(data=filter(comp.emm, trait=="capsule.formed"), aes(y=estimate, ymax=conf.high, ymin=conf.low),
-                  position = position_dodge(width=0.9), size=0.3, show.legend=F) + 
-  scale_fill_manual(values=type_pal, labels=typenames) + 
-  labs(x="Maternal species", y="Capsule formation", fill="Pollination") + sp_theme
+ggplot(seeds.bycross, aes(x=momsp, fill=type, y=capsule.formed))  + bxplt + alternate + bxplt +
+  geom_pointrange(data=filter(comp.emm, trait=="capsule.formed"), aes(y=estimate, ymax=conf.high, ymin=conf.low, color=type),
+                  position = position_dodge(width=0.9), size=0.5, show.legend=F) + 
+  scale_fill_manual(values=type_pal, labels=typenames) + scale_color_manual(values=type_pal_dark, labels=typenames) + 
+  scale_x_discrete(position="top") +  pct_y +
+  labs(x="Maternal species", y="Capsule formation", fill="Pollination") + sp_theme 
 
-ggplot(seeds %>% filter(sds>0), aes(x=momsp, fill=type, y=sds))  +
-  geom_boxplot(position = position_dodge(width=0.9), color="grey50", outlier.size=0.5) + 
-  geom_pointrange(data=filter(comp.emm, trait=="sds"), aes(y=estimate, ymax=conf.high, ymin=conf.low),
-                  position = position_dodge(width=0.9), size=0.3, show.legend=F) + 
-  scale_fill_manual(values=type_pal, labels=typenames) + 
+ggplot(seeds %>% filter(sds>0), aes(x=momsp, fill=type, y=sds))  + bxplt + 
+  geom_tile(data=tibble(momsp=sp_pairs[seq(1,10,by=2)]), aes(x=momsp, y=35, height=70, width=1), 
+            alpha=0.2, fill="grey", inherit.aes = F) + bxplt +
+  geom_pointrange(data=filter(comp.emm, trait=="sds"), aes(y=estimate, ymax=conf.high, ymin=conf.low, color=type),
+                  position = position_dodge(width=0.9), size=0.5, show.legend=F) + 
+  scale_fill_manual(values=type_pal, labels=typenames) + scale_color_manual(values=type_pal_dark, labels=typenames) +
+  scale_y_continuous(expand=c(0.02,0))+
   labs(x="Maternal species", y="Seeds", fill="Pollination") + sp_theme
 
-ggplot(germ, aes(x=momsp, fill=type, y=prop.germ))  + 
-  geom_boxplot(position = position_dodge(width=0.9), color="grey50", outlier.size=0.5) + alternate+ 
-  geom_pointrange(data=filter(comp.emm, trait=="prop.germ"), aes(y=estimate, ymax=conf.high, ymin=conf.low),
-                  position = position_dodge(width=0.9), size=0.3, show.legend=F) + 
-  scale_fill_manual(values=type_pal, labels=typenames) +  
+ggplot(germ, aes(x=momsp, fill=type, y=prop.germ))   + bxplt + alternate + bxplt + 
+  geom_pointrange(data=filter(comp.emm, trait=="prop.germ"), aes(y=estimate, ymax=conf.high, ymin=conf.low, color=type),
+                  position = position_dodge(width=0.9), size=0.5, show.legend=F) + 
+  scale_fill_manual(values=type_pal, labels=typenames) + scale_color_manual(values=type_pal_dark, labels=typenames) +
+  scale_x_discrete(position="top") +  pct_y +
   labs(x="Maternal species", y="Germination", fill="Pollination") + sp_theme
 
-ggplot(surv, aes(x=momsp, fill=type, y=prop.alive))  + 
-  geom_boxplot(position = position_dodge(width=0.9), color="grey50", outlier.size=0.5) + alternate+ 
-  geom_pointrange(data=filter(comp.emm, trait=="prop.alive"), aes(y=estimate, ymax=conf.high, ymin=conf.low),
-                  position = position_dodge(width=0.9), size=0.3, show.legend=F) + 
-  scale_fill_manual(values=type_pal, labels=typenames) +  
+ggplot(surv, aes(x=momsp, fill=type, y=prop.alive)) + bxplt + alternate + bxplt +
+  geom_pointrange(data=filter(comp.emm, trait=="prop.alive"), aes(y=estimate, ymax=conf.high, ymin=conf.low, color=type),
+                  position = position_dodge(width=0.9), size=0.5, show.legend=F) + 
+  scale_fill_manual(values=type_pal, labels=typenames) +  scale_color_manual(values=type_pal_dark, labels=typenames) +
+  scale_x_discrete(position="top") +  pct_y +
   labs(x="Maternal species", y="Survival", fill="Pollination") + sp_theme
 
 ggplot(filter(surv, type=="mixed"), aes(x=momsp, y=prop.hybrid, fill=momsp)) + 
@@ -290,7 +327,8 @@ ggplot(filter(surv, type=="mixed"), aes(x=momsp, y=prop.hybrid, fill=momsp)) +
   scale_shape_manual("Different from 50%", values=c(1, 19), labels=c("no","yes"))+
   #geom_text(data=hybrid.test, aes(y=1.1, label=crosses))+
   #geom_text(data=hybrid.test, aes(y=1.1, label=alive))+
-  scale_fill_brewer(palette="Paired", guide="none") + pct_y+ 
+  scale_fill_brewer(palette="Paired", guide="none") +
+  scale_y_continuous(breaks=(0:4)/4, labels=~scales::percent(.,accuracy=1), expand=c(0.02,0), limits=c(0,1))+
   labs(x="Maternal species", y="Hybrids from competitive pollinations") + sp_theme
 ```
 
@@ -318,14 +356,13 @@ ggplot(styles, aes(x=momsp, y=style_length_mm, fill=momsp)) +
 
 Load *Schiedea* tree inferred with RAxML from Willyard et al. nuclear dataset (no chloroplast data, 1 accession per species).
 
-```{r phylodist}
+```{r phylodist, fig.height=8, fig.width=8}
 library(ape)
 library(RColorBrewer)
 #devtools::install_github('gastonstat/arcdiagram')
 library(igraph)
 library(arcdiagram)
 
-sp_pal <- set_names(brewer.pal(length(sp_pairs), "Paired"), sp_pairs)
 tree <- read.nexus("data/RAxML_1ps_nocp_bipartitionsBranchLabels.sch.short.nobs.nex")
 plot(tree, tip.color = sp_pal[tree$tip.label])
 
@@ -342,6 +379,7 @@ par(mfrow=c(1,1))
 hybrid.phylodist <- comp.emm %>% left_join(select(hybrid.test, momsp, dadsp, -type)) %>% 
   mutate(pd = map2_dbl(as.character(momsp), as.character(dadsp), ~cophenetic(tree_pairs)[.x,.y])) %>% 
   select(-df)
+phylodist <- hybrid.phylodist %>% group_by(momsp, dadsp) %>% summarize(pd=pd[1])
 
 #TODO use a binomial GLM here, with the raw data?
 hybrid.phylodist.test <- hybrid.phylodist %>% left_join(styles.emm, by="momsp") %>% group_by(trait, type) %>% nest() %>% 
@@ -363,21 +401,23 @@ ggplot(left_join(hybrid.phylodist, filter(hybrid.phylodist.test, term=="pd")), a
   labs(x="Phylogenetic distance (mutations/site)", color="Maternal species") + theme_bw() +
   theme(axis.title.y=element_blank(), axis.text=element_text(color="black"), legend.position="top",
         panel.grid.minor = element_blank(), panel.grid.major.x=element_blank(), panel.spacing = unit(1, "lines"))
+
+ggplot(left_join(postzygotic.ratios, phylodist), aes(x=pd, y=RI)) + 
+  facet_wrap(vars(trait), labeller=as_labeller(propnames), nrow=1)+ 
+  geom_hline(yintercept=0, linetype=2) + geom_hline(yintercept=-1)+ geom_hline(yintercept=1)+
+  geom_smooth(method="loess", span=1.2, se=F, color="grey") + 
+  geom_pointrange(aes(color=momsp, ymin=low, ymax=high), size=0.5) + scale_color_brewer(palette="Paired") +  
+  labs(x="Phylogenetic distance (mutations/site)", color="Maternal species", y="Reproductive isolation") + 
+  scale_y_continuous(limits=c(-1,1), breaks=c(-1,-0.5,0,0.5,1), expand=c(0,0),
+                     labels=c("heterosis -1","-0.5","no barrier 0","0.5","complete isolation 0")) + 
+  theme_bw() + theme(axis.text=element_text(color="black"), legend.position="top",
+                     panel.grid.minor = element_blank(), panel.grid.major.x=element_blank(), panel.spacing = unit(1, "lines"))
+
 ```
 
 Regressions against the phylogenetic distance of each species pair. Solid regression lines are statistically significant in a model that also included the difference in style length within pairs. Note that for reference, data for intraspecific crosses is plotted with the phylogenetic distance to its paired species, which doesn't make great sense.
 
-Below, lines show the effect of style length within each pair. 
-
-```{r styles}
-ggplot(left_join(comp.emm, select(styles.emm, momsp, style_length_mm, mating)), aes(x=style_length_mm, y=estimate)) + 
-  facet_grid(trait~type, labeller=as_labeller(c(propnames, typenames)), scales="free_y")+coord_cartesian(ylim=c(0,NA))+
-  geom_line(aes(group=pair, color=momsp))+
-  geom_pointrange(aes(ymax=conf.high, ymin=conf.low, color=momsp, shape=mating)) + scale_color_brewer(palette="Paired") + pct_y+ 
-  labs(x="Style length (mm)", color="Maternal species", shape="Mating") + theme_bw() +
-  theme(axis.title.y=element_blank(), axis.text=element_text(color="black"), legend.position="top",
-        panel.grid.minor = element_blank(), panel.grid.major.x=element_blank(), panel.spacing = unit(1, "lines"))
-
+```{r styles, fig.width=8}
 hybrid.phylodist %>% filter(trait=="prop.hybrid",  type=="mixed") %>% 
   left_join(select(styles.emm, momsp, style_length_mm, mating, se=std.error)) %>% 
   ggplot(aes(x=pd, y=style_length_mm, color=momsp, shape=mating)) + 
@@ -389,5 +429,29 @@ hybrid.phylodist %>% filter(trait=="prop.hybrid",  type=="mixed") %>%
 
 The range of phylogenetic distances and style lengths in the study. The species in each pair with a longer style is given a lighter color.
 
+## Hybrid ratios at fertilization
+
+Divide the hybrid ratios in mixed crosses by the overall hybrid vigor relative to intraspecific offspring to estimate the proportion of ovules fertilized by interspecific pollen.
+
+```{r fertilized, fig.width=8}
+left_join(hybrid.test, phylodist) %>% 
+  left_join(select(styles.emm, momsp, mating)) %>% 
+  pivot_longer(cols=c(prop.hybrid, hybrid.vigor.all, prop.hybrid.fert)) %>% 
+  ggplot(aes(x=pd, y=value)) + facet_wrap(vars(name), scales="free_y", labeller=as_labeller(vigornames)) + expand_limits(y=c(1.2,0))+
+  geom_hline(aes(yintercept=rep(c(0.5,1,0.5), length(sp_pairs))), linetype=2)+  scale_y_continuous(expand=expansion(mult=c(0,0.05)))+
+  geom_smooth(method="lm", se=F, color="grey") +
+  geom_point(aes(color=momsp, shape=mating), size=4) + scale_color_brewer(palette="Paired") + 
+  labs(x="Phylogenetic distance (mutations/site)", color="Maternal species", shape="Mating") + theme_bw() +
+  theme(axis.text=element_text(color="black"), legend.position="top", axis.title.y=element_blank())
+
+left_join(hybrid.test, select(styles.emm, momsp, style_length_mm, mating)) %>% 
+  pivot_longer(cols=c(prop.hybrid, hybrid.vigor.all, prop.hybrid.fert)) %>% 
+  ggplot(aes(x=style_length_mm, y=value)) +
+  facet_wrap(vars(name), scales="free_y", labeller=as_labeller(vigornames)) + expand_limits(y=c(1.2,0))+
+  geom_hline(aes(yintercept=rep(c(0.5,1,0.5), length(sp_pairs))), linetype=2)+  scale_y_continuous(expand=expansion(mult=c(0,0.05)))+
+  geom_line(aes(group=pair, color=momsp))+ geom_point(aes(color=momsp, shape=mating), size=4) + scale_color_brewer(palette="Paired") + 
+  labs(x="Style length (mm)", color="Maternal species", shape="Mating") + theme_bw() +
+  theme(axis.text=element_text(color="black"), legend.position="top", axis.title.y=element_blank())
+```
 
 
