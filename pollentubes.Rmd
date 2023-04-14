@@ -43,6 +43,7 @@ knitr::opts_chunk$set(comment="", cache=T, warning = F, message = F, width=999,
                       fig.path = "figures/", dev = "svglite", dev.args=list(fix_text_size=FALSE))
 options(knitr.kable.NA = '')
 library(tidyverse)
+library(gridExtra)
 library(ggsignif) 
 library(gridExtra)
 library(broom)
@@ -69,23 +70,23 @@ signif.num <- function(x) {
 ```{r read}
 #long format: salmen (1 stigma/vial), lydsar (2 stigmas/vial), kaahoo (3 stigmas/vial without letter)
 #wide format: memkau (3-5 stigmas/vial), speste (6 stigmas/vial), kaahoo_extra(3-5 stigmas/vial)
-pops <- list(kaal = c("892", "3587"), hook = c("794", "866", "879","899"), 
+pops <- list(sali="842", menz = c("849", "950"), 
              lydg="6682", sarm="896", 
-             sali="842", menz = c("849", "950"), 
              sper= c("120289","120294","120296"), stel = c("14651","14765"),
-             memb = c("mem","864"), kaua = "kaua")
+             memb = c("mem","864"), kaua = "kaua",
+               kaal = c("892", "3587"), hook = c("794", "866", "879","899"))
 
-pair_labels <- c(kaahoo = "S. kaalae | S. hookeri",
+pair_labels <- c(salmen = "S. salicaria | S. menziesii",
                  lydsar = "S. lydgatei | S. sarmentosa",
-                 salmen = "S. salicaria | S. menziesii",
                  speste = "S. spergulina | S. stellariodes",
-                 memkau = "S. membranacea | S. kauaiensis")
+                 memkau = "S. membranacea | S. kauaiensis",
+                 kaahoo = "S. kaalae | S. hookeri")
 
-abbrev <- list(kaahoo = c(K="Kl",H="Ho"), 
+abbrev <- list(salmen = c(S="Sl",M="Mn"), 
                lydsar = c(L="Ly",S="Sr"), 
-               salmen = c(S="Sl",M="Mn"), 
                speste = c(Sp="Sp",St="St"), 
-               memkau = c(M="Mb",K="Ki"))
+               memkau = c(M="Mb",K="Ki"),
+               kaahoo = c(K="Kl",H="Ho"))
 
 species_names <- c("Mn"="menziesii", "Sl"="salicaria",
               "Ly"="lydgatei", "Sr" ="sarmentosa",
@@ -150,7 +151,8 @@ tubes <- bind_rows(tubesl, .id = "pair") %>%
          momcross = map2_chr(pair, momcross, ~ abbrev[[.x]][[.y]]),
          dadcross = map2_chr(pair, dadcross, ~ abbrev[[.x]][[.y]]),
          cross = factor(paste0(momcross,"x",dadcross), levels=unlist(cross_levels)),
-         crosshr = factor(paste0(cross, hr), levels = paste(rep(levels(cross),each=2), levels(hr), sep="")))
+         crosshr = factor(paste0(cross, hr), levels = paste(rep(levels(cross),each=2), levels(hr), sep="")),
+         pair = factor(pair, levels=names(pair_labels))) %>% arrange(pair)
 str(tubes)
 ```
 
@@ -209,10 +211,10 @@ tubes.mod <- tubes %>% group_by(pair) %>% nest() %>%
          ratio_cont = map(ratio_mod2, pair_contrasts))
 ```
 
-```{r pollentubes, fig.width=12, fig.height=10}
+```{r pollentubes, fig.width=19, fig.height=6}
 mytheme <- theme(legend.text=element_text(size=rel(1)), legend.position="right", 
                  axis.text = element_text(colour="black", size=rel(1)), text=element_text(size=14), 
-                 axis.ticks.x = element_blank(), plot.title = element_text(face="italic"))
+                 axis.ticks.x = element_blank(), plot.title = element_text(face="italic", size=14))
 timefills <-   scale_fill_brewer(palette=3, type="qual", labels=c("4 hr","24 hr"))
 
 var_labels <- c(mid = "Pollen tubes at middle of style",
@@ -223,7 +225,7 @@ var_labels <- c(mid = "Pollen tubes at middle of style",
 plot_emm <- function(pair, emm, cont, data, yvar) {
   ggplot(emm, aes(y=response, x=cross, fill=hr)) +
     geom_violin(data=data, aes_string(y=yvar),position=position_dodge(), 
-                draw_quantiles=c(0.25,0.5,0.75), size=0.5, bw=ifelse(yvar=="ratio",0.1,1)) +
+                draw_quantiles=c(0.25,0.5,0.75), linewidth=0.5, bw=ifelse(yvar=="ratio",0.1,1)) +
     geom_pointrange(aes(ymin=lSE, ymax=uSE), position=position_dodge2(0.9)) +
     geom_signif(data=emm, y_position=cont$height/c(mid=1, bottom=1, ratio=15)[yvar]+c(mid=19, bottom=19, ratio=1)[yvar], 
                 xmin = cont$x1, xmax = cont$x2, annotations=cont$stars, vjust=0.5, tip_length=0.01) +
@@ -235,13 +237,12 @@ plot_emm <- function(pair, emm, cont, data, yvar) {
     theme_classic() + mytheme + timefills + guides(fill="none")
 }
 
-library(gridExtra)
 grid.arrange(grobs=pmap(select(tubes.mod, pair, emm=mid_emm, cont=mid_cont, data), 
-                        plot_emm, yvar="mid"), nrow=2)
+                        plot_emm, yvar="mid"), nrow=1)
 grid.arrange(grobs=pmap(select(tubes.mod, pair, emm=bottom_emm, cont=bottom_cont, data),
-                        plot_emm, yvar="bottom"), nrow=2)
+                        plot_emm, yvar="bottom"), nrow=1)
 grid.arrange(grobs=pmap(select(tubes.mod, pair, emm=ratio_emm, cont=ratio_cont, data),
-                        plot_emm, yvar="ratio"), nrow=2)
+                        plot_emm, yvar="ratio"), nrow=1)
 ```
 
 # Tubes at bottom v. middle of style

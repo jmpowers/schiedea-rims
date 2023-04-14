@@ -11,7 +11,7 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2023-04-04" />
+<meta name="date" content="2023-04-10" />
 
 <title>Schiedea pollen tube growth</title>
 
@@ -253,7 +253,7 @@ div.tocify {
 <h1 class="title toc-ignore"><em>Schiedea</em> pollen tube growth</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John
 Powers</a></h4>
-<h4 class="date">2023-04-04</h4>
+<h4 class="date">2023-04-10</h4>
 
 </div>
 
@@ -308,6 +308,7 @@ knitr::opts_chunk$set(comment=&quot;&quot;, cache=T, warning = F, message = F, w
                       fig.path = &quot;figures/&quot;, dev = &quot;svglite&quot;, dev.args=list(fix_text_size=FALSE))
 options(knitr.kable.NA = &#39;&#39;)
 library(tidyverse)
+library(gridExtra)
 library(ggsignif) 
 library(gridExtra)
 library(broom)
@@ -332,23 +333,23 @@ signif.num &lt;- function(x) {
 <h1>Read data</h1>
 <pre class="r"><code>#long format: salmen (1 stigma/vial), lydsar (2 stigmas/vial), kaahoo (3 stigmas/vial without letter)
 #wide format: memkau (3-5 stigmas/vial), speste (6 stigmas/vial), kaahoo_extra(3-5 stigmas/vial)
-pops &lt;- list(kaal = c(&quot;892&quot;, &quot;3587&quot;), hook = c(&quot;794&quot;, &quot;866&quot;, &quot;879&quot;,&quot;899&quot;), 
+pops &lt;- list(sali=&quot;842&quot;, menz = c(&quot;849&quot;, &quot;950&quot;), 
              lydg=&quot;6682&quot;, sarm=&quot;896&quot;, 
-             sali=&quot;842&quot;, menz = c(&quot;849&quot;, &quot;950&quot;), 
              sper= c(&quot;120289&quot;,&quot;120294&quot;,&quot;120296&quot;), stel = c(&quot;14651&quot;,&quot;14765&quot;),
-             memb = c(&quot;mem&quot;,&quot;864&quot;), kaua = &quot;kaua&quot;)
+             memb = c(&quot;mem&quot;,&quot;864&quot;), kaua = &quot;kaua&quot;,
+               kaal = c(&quot;892&quot;, &quot;3587&quot;), hook = c(&quot;794&quot;, &quot;866&quot;, &quot;879&quot;,&quot;899&quot;))
 
-pair_labels &lt;- c(kaahoo = &quot;S. kaalae | S. hookeri&quot;,
+pair_labels &lt;- c(salmen = &quot;S. salicaria | S. menziesii&quot;,
                  lydsar = &quot;S. lydgatei | S. sarmentosa&quot;,
-                 salmen = &quot;S. salicaria | S. menziesii&quot;,
                  speste = &quot;S. spergulina | S. stellariodes&quot;,
-                 memkau = &quot;S. membranacea | S. kauaiensis&quot;)
+                 memkau = &quot;S. membranacea | S. kauaiensis&quot;,
+                 kaahoo = &quot;S. kaalae | S. hookeri&quot;)
 
-abbrev &lt;- list(kaahoo = c(K=&quot;Kl&quot;,H=&quot;Ho&quot;), 
+abbrev &lt;- list(salmen = c(S=&quot;Sl&quot;,M=&quot;Mn&quot;), 
                lydsar = c(L=&quot;Ly&quot;,S=&quot;Sr&quot;), 
-               salmen = c(S=&quot;Sl&quot;,M=&quot;Mn&quot;), 
                speste = c(Sp=&quot;Sp&quot;,St=&quot;St&quot;), 
-               memkau = c(M=&quot;Mb&quot;,K=&quot;Ki&quot;))
+               memkau = c(M=&quot;Mb&quot;,K=&quot;Ki&quot;),
+               kaahoo = c(K=&quot;Kl&quot;,H=&quot;Ho&quot;))
 
 species_names &lt;- c(&quot;Mn&quot;=&quot;menziesii&quot;, &quot;Sl&quot;=&quot;salicaria&quot;,
               &quot;Ly&quot;=&quot;lydgatei&quot;, &quot;Sr&quot; =&quot;sarmentosa&quot;,
@@ -413,40 +414,41 @@ tubes &lt;- bind_rows(tubesl, .id = &quot;pair&quot;) %&gt;%
          momcross = map2_chr(pair, momcross, ~ abbrev[[.x]][[.y]]),
          dadcross = map2_chr(pair, dadcross, ~ abbrev[[.x]][[.y]]),
          cross = factor(paste0(momcross,&quot;x&quot;,dadcross), levels=unlist(cross_levels)),
-         crosshr = factor(paste0(cross, hr), levels = paste(rep(levels(cross),each=2), levels(hr), sep=&quot;&quot;)))
+         crosshr = factor(paste0(cross, hr), levels = paste(rep(levels(cross),each=2), levels(hr), sep=&quot;&quot;)),
+         pair = factor(pair, levels=names(pair_labels))) %&gt;% arrange(pair)
 str(tubes)</code></pre>
 <pre><code>tibble [1,943 × 31] (S3: tbl_df/tbl/data.frame)
- $ pair             : chr [1:1943] &quot;kaahoo&quot; &quot;kaahoo&quot; &quot;kaahoo&quot; &quot;kaahoo&quot; ...
- $ line             : num [1:1943] 1 1 1 2 2 2 3 3 4 4 ...
- $ emasculation_date: Date[1:1943], format: &quot;2022-01-07&quot; &quot;2022-01-07&quot; ...
- $ pollination_date : Date[1:1943], format: &quot;2022-01-10&quot; &quot;2022-01-10&quot; ...
- $ momsp            : chr [1:1943] &quot;hook&quot; &quot;hook&quot; &quot;hook&quot; &quot;hook&quot; ...
- $ momid            : chr [1:1943] &quot;H 866-1&quot; &quot;H 866-1&quot; &quot;H 866-1&quot; &quot;H 866-1&quot; ...
- $ dadsp            : chr [1:1943] &quot;hook&quot; &quot;hook&quot; &quot;hook&quot; &quot;hook&quot; ...
- $ dadid            : chr [1:1943] &quot;H 794-2&quot; &quot;H 794-2&quot; &quot;H 794-2&quot; &quot;H 794-2&quot; ...
- $ vial             : chr [1:1943] &quot;112&quot; &quot;112&quot; &quot;112&quot; &quot;113&quot; ...
- $ hr               : Factor w/ 2 levels &quot;4hr&quot;,&quot;24hr&quot;: 1 1 1 1 1 1 2 2 2 2 ...
- $ count_date       : Date[1:1943], format: &quot;2022-03-01&quot; &quot;2022-03-01&quot; ...
+ $ pair             : Factor w/ 5 levels &quot;salmen&quot;,&quot;lydsar&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+ $ line             : num [1:1943] 114 422 423 454 455 330 331 452 453 206 ...
+ $ emasculation_date: Date[1:1943], format: NA NA ...
+ $ pollination_date : Date[1:1943], format: &quot;2020-01-08&quot; &quot;2020-01-17&quot; ...
+ $ momsp            : chr [1:1943] NA NA NA NA ...
+ $ momid            : chr [1:1943] &quot;842 201-46&quot; &quot;842 201-46&quot; &quot;842 201-46&quot; &quot;842 201-46&quot; ...
+ $ dadsp            : chr [1:1943] NA NA NA NA ...
+ $ dadid            : chr [1:1943] &quot;842 221F&quot; &quot;842 221F&quot; &quot;842 221F&quot; &quot;842 51-20&quot; ...
+ $ vial             : chr [1:1943] &quot;83&quot; &quot;408&quot; &quot;409&quot; &quot;442&quot; ...
+ $ hr               : Factor w/ 2 levels &quot;4hr&quot;,&quot;24hr&quot;: 1 1 2 1 2 1 2 1 2 1 ...
+ $ count_date       : Date[1:1943], format: NA NA ...
  $ notes            : chr [1:1943] NA NA NA NA ...
- $ stigma           : chr [1:1943] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;1&quot; ...
- $ mid              : num [1:1943] 0 0 2 0 0 0 4 4 5 5 ...
- $ bottom           : num [1:1943] 0 0 1 0 0 0 3 5 9 4 ...
- $ momcross         : chr [1:1943] &quot;Ho&quot; &quot;Ho&quot; &quot;Ho&quot; &quot;Ho&quot; ...
- $ dadcross         : chr [1:1943] &quot;Ho&quot; &quot;Ho&quot; &quot;Ho&quot; &quot;Ho&quot; ...
- $ observer         : chr [1:1943] &quot;SGW&quot; &quot;SGW&quot; &quot;SGW&quot; &quot;SGW&quot; ...
+ $ stigma           : chr [1:1943] NA NA NA NA ...
+ $ mid              : num [1:1943] 9 4 9 8 13 6 9 9 12 4 ...
+ $ bottom           : num [1:1943] 3 1 7 3 11 1 9 3 11 1 ...
+ $ momcross         : chr [1:1943] &quot;Sl&quot; &quot;Sl&quot; &quot;Sl&quot; &quot;Sl&quot; ...
+ $ dadcross         : chr [1:1943] &quot;Sl&quot; &quot;Sl&quot; &quot;Sl&quot; &quot;Sl&quot; ...
+ $ observer         : chr [1:1943] NA NA NA NA ...
  $ grains           : num [1:1943] NA NA NA NA NA NA NA NA NA NA ...
- $ mompop           : chr [1:1943] NA NA NA NA ...
+ $ mompop           : chr [1:1943] &quot;842&quot; &quot;842&quot; &quot;842&quot; &quot;842&quot; ...
  $ momplant         : chr [1:1943] NA NA NA NA ...
- $ dadpop           : chr [1:1943] NA NA NA NA ...
+ $ dadpop           : chr [1:1943] &quot;842&quot; &quot;842&quot; &quot;842&quot; &quot;842&quot; ...
  $ dadplant         : chr [1:1943] NA NA NA NA ...
- $ collect_date     : Date[1:1943], format: NA NA ...
+ $ collect_date     : Date[1:1943], format: &quot;2020-01-08&quot; NA ...
  $ status           : Factor w/ 3 levels &quot;no pollen on stigmas&quot;,..: NA NA NA NA NA NA NA NA NA NA ...
- $ ratioraw         : num [1:1943] NaN NaN 0.5 NaN NaN NaN 0.75 1.25 1.8 0.8 ...
- $ adjmid           : num [1:1943] 0 0 2 0 0 0 4 5 9 5 ...
- $ ratio            : num [1:1943] NaN NaN 0.5 NaN NaN NaN 0.75 1 1 0.8 ...
- $ justmid          : num [1:1943] 0 0 1 0 0 0 1 -1 -4 1 ...
- $ cross            : Factor w/ 20 levels &quot;KlxKl&quot;,&quot;KlxHo&quot;,..: 3 3 3 3 3 3 3 3 3 3 ...
- $ crosshr          : Factor w/ 40 levels &quot;KlxKl4hr&quot;,&quot;KlxKl24hr&quot;,..: 5 5 5 5 5 5 6 6 6 6 ...</code></pre>
+ $ ratioraw         : num [1:1943] 0.333 0.25 0.778 0.375 0.846 ...
+ $ adjmid           : num [1:1943] 9 4 9 8 13 6 9 9 12 4 ...
+ $ ratio            : num [1:1943] 0.333 0.25 0.778 0.375 0.846 ...
+ $ justmid          : num [1:1943] 6 3 2 5 2 5 0 6 1 3 ...
+ $ cross            : Factor w/ 20 levels &quot;SlxSl&quot;,&quot;SlxMn&quot;,..: 1 1 1 1 1 2 2 2 2 1 ...
+ $ crosshr          : Factor w/ 40 levels &quot;SlxSl4hr&quot;,&quot;SlxSl24hr&quot;,..: 1 1 2 1 2 3 4 3 4 1 ...</code></pre>
 </div>
 <div id="inventory-of-crosses" class="section level1">
 <h1>Inventory of crosses</h1>
@@ -462,24 +464,24 @@ str(tubes)</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">KlxKl</td>
-<td align="right">72</td>
-<td align="right">55</td>
+<td align="left">SlxSl</td>
+<td align="right">17</td>
+<td align="right">16</td>
 </tr>
 <tr class="even">
-<td align="left">KlxHo</td>
-<td align="right">53</td>
-<td align="right">38</td>
+<td align="left">SlxMn</td>
+<td align="right">18</td>
+<td align="right">18</td>
 </tr>
 <tr class="odd">
-<td align="left">HoxHo</td>
-<td align="right">97</td>
-<td align="right">79</td>
+<td align="left">MnxMn</td>
+<td align="right">22</td>
+<td align="right">22</td>
 </tr>
 <tr class="even">
-<td align="left">HoxKl</td>
-<td align="right">66</td>
-<td align="right">55</td>
+<td align="left">MnxSl</td>
+<td align="right">20</td>
+<td align="right">20</td>
 </tr>
 <tr class="odd">
 <td align="left">LyxLy</td>
@@ -500,26 +502,6 @@ str(tubes)</code></pre>
 <td align="left">SrxLy</td>
 <td align="right">18</td>
 <td align="right">18</td>
-</tr>
-<tr class="odd">
-<td align="left">SlxSl</td>
-<td align="right">17</td>
-<td align="right">16</td>
-</tr>
-<tr class="even">
-<td align="left">SlxMn</td>
-<td align="right">18</td>
-<td align="right">18</td>
-</tr>
-<tr class="odd">
-<td align="left">MnxMn</td>
-<td align="right">22</td>
-<td align="right">22</td>
-</tr>
-<tr class="even">
-<td align="left">MnxSl</td>
-<td align="right">20</td>
-<td align="right">20</td>
 </tr>
 <tr class="odd">
 <td align="left">SpxSp</td>
@@ -561,6 +543,26 @@ str(tubes)</code></pre>
 <td align="right">67</td>
 <td align="right">68</td>
 </tr>
+<tr class="odd">
+<td align="left">KlxKl</td>
+<td align="right">72</td>
+<td align="right">55</td>
+</tr>
+<tr class="even">
+<td align="left">KlxHo</td>
+<td align="right">53</td>
+<td align="right">38</td>
+</tr>
+<tr class="odd">
+<td align="left">HoxHo</td>
+<td align="right">97</td>
+<td align="right">79</td>
+</tr>
+<tr class="even">
+<td align="left">HoxKl</td>
+<td align="right">66</td>
+<td align="right">55</td>
+</tr>
 </tbody>
 </table>
 <pre class="r"><code>kable(with(tubes, table(pair, hr)), caption=&quot;Number of styles of each species pair&quot;)</code></pre>
@@ -575,9 +577,9 @@ str(tubes)</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">kaahoo</td>
-<td align="right">288</td>
-<td align="right">227</td>
+<td align="left">salmen</td>
+<td align="right">77</td>
+<td align="right">76</td>
 </tr>
 <tr class="even">
 <td align="left">lydsar</td>
@@ -585,19 +587,19 @@ str(tubes)</code></pre>
 <td align="right">90</td>
 </tr>
 <tr class="odd">
+<td align="left">speste</td>
+<td align="right">238</td>
+<td align="right">236</td>
+</tr>
+<tr class="even">
 <td align="left">memkau</td>
 <td align="right">302</td>
 <td align="right">319</td>
 </tr>
-<tr class="even">
-<td align="left">salmen</td>
-<td align="right">77</td>
-<td align="right">76</td>
-</tr>
 <tr class="odd">
-<td align="left">speste</td>
-<td align="right">238</td>
-<td align="right">236</td>
+<td align="left">kaahoo</td>
+<td align="right">288</td>
+<td align="right">227</td>
 </tr>
 </tbody>
 </table>
@@ -620,13 +622,13 @@ str(tubes)</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">kaahoo</td>
-<td align="right">5</td>
-<td align="right">19</td>
-<td align="right">121</td>
-<td align="right">19</td>
-<td align="right">3</td>
-<td align="right">3</td>
+<td align="left">salmen</td>
+<td align="right">153</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">0</td>
@@ -644,6 +646,18 @@ str(tubes)</code></pre>
 <td align="right">0</td>
 </tr>
 <tr class="odd">
+<td align="left">speste</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">74</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
 <td align="left">memkau</td>
 <td align="right">5</td>
 <td align="right">11</td>
@@ -655,26 +669,14 @@ str(tubes)</code></pre>
 <td align="right">3</td>
 <td align="right">1</td>
 </tr>
-<tr class="even">
-<td align="left">salmen</td>
-<td align="right">153</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-</tr>
 <tr class="odd">
-<td align="left">speste</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">6</td>
-<td align="right">74</td>
+<td align="left">kaahoo</td>
+<td align="right">5</td>
+<td align="right">19</td>
+<td align="right">121</td>
+<td align="right">19</td>
+<td align="right">3</td>
+<td align="right">3</td>
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">0</td>
@@ -728,7 +730,7 @@ tubes.mod &lt;- tubes %&gt;% group_by(pair) %&gt;% nest() %&gt;%
          ratio_cont = map(ratio_mod2, pair_contrasts))</code></pre>
 <pre class="r"><code>mytheme &lt;- theme(legend.text=element_text(size=rel(1)), legend.position=&quot;right&quot;, 
                  axis.text = element_text(colour=&quot;black&quot;, size=rel(1)), text=element_text(size=14), 
-                 axis.ticks.x = element_blank(), plot.title = element_text(face=&quot;italic&quot;))
+                 axis.ticks.x = element_blank(), plot.title = element_text(face=&quot;italic&quot;, size=14))
 timefills &lt;-   scale_fill_brewer(palette=3, type=&quot;qual&quot;, labels=c(&quot;4 hr&quot;,&quot;24 hr&quot;))
 
 var_labels &lt;- c(mid = &quot;Pollen tubes at middle of style&quot;,
@@ -739,7 +741,7 @@ var_labels &lt;- c(mid = &quot;Pollen tubes at middle of style&quot;,
 plot_emm &lt;- function(pair, emm, cont, data, yvar) {
   ggplot(emm, aes(y=response, x=cross, fill=hr)) +
     geom_violin(data=data, aes_string(y=yvar),position=position_dodge(), 
-                draw_quantiles=c(0.25,0.5,0.75), size=0.5, bw=ifelse(yvar==&quot;ratio&quot;,0.1,1)) +
+                draw_quantiles=c(0.25,0.5,0.75), linewidth=0.5, bw=ifelse(yvar==&quot;ratio&quot;,0.1,1)) +
     geom_pointrange(aes(ymin=lSE, ymax=uSE), position=position_dodge2(0.9)) +
     geom_signif(data=emm, y_position=cont$height/c(mid=1, bottom=1, ratio=15)[yvar]+c(mid=19, bottom=19, ratio=1)[yvar], 
                 xmin = cont$x1, xmax = cont$x2, annotations=cont$stars, vjust=0.5, tip_length=0.01) +
@@ -751,16 +753,15 @@ plot_emm &lt;- function(pair, emm, cont, data, yvar) {
     theme_classic() + mytheme + timefills + guides(fill=&quot;none&quot;)
 }
 
-library(gridExtra)
 grid.arrange(grobs=pmap(select(tubes.mod, pair, emm=mid_emm, cont=mid_cont, data), 
-                        plot_emm, yvar=&quot;mid&quot;), nrow=2)</code></pre>
-<p><img src="figures/pollentubes-1.svg" width="1152" /></p>
+                        plot_emm, yvar=&quot;mid&quot;), nrow=1)</code></pre>
+<p><img src="figures/pollentubes-1.svg" width="1824" /></p>
 <pre class="r"><code>grid.arrange(grobs=pmap(select(tubes.mod, pair, emm=bottom_emm, cont=bottom_cont, data),
-                        plot_emm, yvar=&quot;bottom&quot;), nrow=2)</code></pre>
-<p><img src="figures/pollentubes-2.svg" width="1152" /></p>
+                        plot_emm, yvar=&quot;bottom&quot;), nrow=1)</code></pre>
+<p><img src="figures/pollentubes-2.svg" width="1824" /></p>
 <pre class="r"><code>grid.arrange(grobs=pmap(select(tubes.mod, pair, emm=ratio_emm, cont=ratio_cont, data),
-                        plot_emm, yvar=&quot;ratio&quot;), nrow=2)</code></pre>
-<p><img src="figures/pollentubes-3.svg" width="1152" /></p>
+                        plot_emm, yvar=&quot;ratio&quot;), nrow=1)</code></pre>
+<p><img src="figures/pollentubes-3.svg" width="1824" /></p>
 </div>
 <div id="tubes-at-bottom-v.-middle-of-style" class="section level1">
 <h1>Tubes at bottom v. middle of style</h1>
@@ -803,7 +804,7 @@ To cite glmmTMB in publications use:
   Magnusson, Casper W. Berg, Anders Nielsen, Hans J. Skaug, Martin
   Maechler and Benjamin M. Bolker (2017). glmmTMB Balances Speed and
   Flexibility Among Packages for Zero-inflated Generalized Linear Mixed
-  Modeling. The R Journal, 9(2), 378-400.
+  Modeling. The R Journal, 9(2), 378-400. doi: 10.32614/RJ-2017-066.
 
 A BibTeX entry for LaTeX users is
 
@@ -812,7 +813,7 @@ A BibTeX entry for LaTeX users is
     title = {{glmmTMB} Balances Speed and Flexibility Among Packages for Zero-inflated Generalized Linear Mixed Modeling},
     year = {2017},
     journal = {The R Journal},
-    url = {https://journal.r-project.org/archive/2017/RJ-2017-066/index.html},
+    doi = {10.32614/RJ-2017-066},
     pages = {378--400},
     volume = {9},
     number = {2},
@@ -821,8 +822,8 @@ A BibTeX entry for LaTeX users is
 <pre><code>
 To cite package &#39;emmeans&#39; in publications use:
 
-  Lenth R (2022). _emmeans: Estimated Marginal Means, aka Least-Squares
-  Means_. R package version 1.7.3,
+  Lenth R (2023). _emmeans: Estimated Marginal Means, aka Least-Squares
+  Means_. R package version 1.8.5,
   &lt;https://CRAN.R-project.org/package=emmeans&gt;.
 
 A BibTeX entry for LaTeX users is
@@ -830,17 +831,16 @@ A BibTeX entry for LaTeX users is
   @Manual{,
     title = {emmeans: Estimated Marginal Means, aka Least-Squares Means},
     author = {Russell V. Lenth},
-    year = {2022},
-    note = {R package version 1.7.3},
+    year = {2023},
+    note = {R package version 1.8.5},
     url = {https://CRAN.R-project.org/package=emmeans},
   }</code></pre>
 <pre class="r"><code>citation(&quot;multcomp&quot;)</code></pre>
 <pre><code>
 Please cite the multcomp package by the following reference:
 
-  Torsten Hothorn, Frank Bretz and Peter Westfall (2008). Simultaneous
-  Inference in General Parametric Models. Biometrical Journal 50(3),
-  346--363.
+  Hothorn T, Bretz F, Westfall P (2008). &quot;Simultaneous Inference in
+  General Parametric Models.&quot; _Biometrical Journal_, *50*(3), 346-363.
 
 A BibTeX entry for LaTeX users is
 
