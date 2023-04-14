@@ -17,6 +17,11 @@ library(glmmTMB)
 library(broom)
 library(emmeans)
 library(knitr)
+library(ape)
+library(RColorBrewer)
+#devtools::install_github('gastonstat/arcdiagram')
+library(igraph)
+library(arcdiagram)
 knitr::opts_chunk$set(comment="", cache=T, warning = F, message = F,
                       fig.path = "figures-comp/", dev = "svglite", dev.args=list(fix_text_size=FALSE))
 options(digits=4, knitr.kable.NA = "")
@@ -38,7 +43,7 @@ typenames <- set_names(c("Intraspecific","Competitive","Interspecific"),c("intra
 type_pal <- set_names(brewer.pal(6,"Pastel1")[c(2,3,5)], names(typenames))
 type_pal_dark <- set_names(brewer.pal(6,"Set1")[c(2,3,5)], names(typenames))
 propnames <- set_names(c("Capsule formation","Seeds","Germinated","Survived","Hybrid"), c("capsule.formed","sds","prop.germ", "prop.alive", "prop.hybrid"))
-vigornames <- c(hybrid.vigor.all="Overall hybrid vigor", prop.hybrid="Surviving hybrids", prop.hybrid.fert = "Hybrid fertilizations")
+vigornames <- c(hybrid.vigor.germsurv="Germ*surv hybrid vigor", prop.hybrid="Surviving hybrids", prop.hybrid.sds = "Hybrid seeds")
 
 momid.fixes <- read_tsv("data/Pollen competition - momid_fixes.tsv")
 momid.fixes.seeds <- momid.fixes %>% drop_na(momid_fixed) %>% select(momid, momid_fixed) %>% deframe()
@@ -155,12 +160,13 @@ ggplot(surv, aes(x=dead, fill=type)) + geom_histogram(binwidth=10) + facet_wrap(
 pct_y <- scale_y_continuous(breaks=(0:4)/4, labels=~scales::percent(.,accuracy=1), expand=c(0,0.02))
 pct_x <- scale_x_continuous(breaks=(0:4)/4, labels=~scales::percent(.,accuracy=1), expand=c(0,0))
 germ.surv <- full_join(germ, surv) #TODO fix matching
+
 germ.surv %>% mutate(germalive = paste(is.na(germinated), is.na(alive)) %>% 
                        recode(`FALSE FALSE`="both", `FALSE TRUE`="survival", `TRUE FALSE`="germination")) %>% 
-  count(type, momsp, germalive) %>% pivot_wider(names_from="germalive", values_from="n") %>% 
+  count(type, germalive) %>% pivot_wider(names_from="germalive", values_from="n") %>% 
   kable(kable="Matching crosses between germination and survival datasets")
 
-ggplot(germ.surv, aes(x=prop.germ, y=prop.alive, color=momsp)) + 
+ggplot(germ.surv, aes(x=prop.germ, y=prop.alive, color=momsp, linetype=type)) + 
   geom_point() + geom_smooth(se=F, span=1.1) + pct_y + pct_x + theme(legend.position="top") + 
   scale_color_brewer(palette="Paired") + labs(x="Germination",y="Survival", color="Maternal species") 
 ggplot(germ.surv %>% filter(type=="mixed"), aes(x=prop.alive, y=prop.hybrid, color=momsp)) + 
@@ -169,6 +175,18 @@ ggplot(germ.surv %>% filter(type=="mixed"), aes(x=prop.alive, y=prop.hybrid, col
 ggplot(germ.surv %>% filter(type=="mixed"), aes(x=prop.germ, y=prop.hybrid, color=momsp)) + 
   geom_point() + geom_smooth(se=F, span=1.1)+pct_y + pct_x + theme(legend.position="top") +
   scale_color_brewer(palette="Paired") + labs(x="Germination",y="Hybrids", color="Maternal species") 
+
+#does germ and surv not being independent make a difference when you take the mean of each and then multiply, versus
+# multiplying within each cross?
+# germ.surv %>%   mutate(prop.germsurv = prop.germ * prop.alive) %>% drop_na(prop.germsurv) %>% #multiply within each cross
+#   group_by(momsp) %>% summarize(across(starts_with("prop"), mean)) %>% 
+#   mutate(prop.germXsurv = prop.germ * prop.alive) %>% #multiply after taking the mean
+#   ggplot(aes(x=prop.germsurv, y= prop.germXsurv, color=momsp)) + scale_color_brewer(palette="Paired")+
+#   geom_point() + geom_abline(intercept=0, slope=1)
+# 
+# #try it with perfectly correlated data
+# fakecrosses <- tibble(cross=0:10, germ = cross/10, surv=germ, germsurv=germ * surv)
+# fakecrosses %>% summarize(across(everything(), mean)) %>% mutate(germXsurv = germ * surv)
 ```
 
 
@@ -269,13 +287,14 @@ hybrid.test <- surv %>% filter(type=="mixed") %>%
                 labels = c("***", "**", "*", "n.s."), right = FALSE)) %>% 
   left_join(postzygotic.ratios %>% pivot_wider(id_cols = momsp, names_from=trait, values_from = hybrid.vigor)) %>% 
   mutate(hybrid.vigor.all = capsule.formed * sds * prop.germ * prop.alive,
-         prop.hybrid.fert = prop.hybrid / hybrid.vigor.all)
+         hybrid.vigor.germsurv = prop.germ * prop.alive, 
+         prop.hybrid.sds = prop.hybrid / hybrid.vigor.germsurv)
 
-hybrid.test %>% select(momsp, prop.hybrid, hybrid.vigor.all, prop.hybrid.fert) %>% 
+hybrid.test %>% select(momsp, prop.hybrid, hybrid.vigor.germsurv, prop.hybrid.sds) %>% 
   pivot_longer(2:4, names_to="trait") %>% 
   ggplot(aes(y=fct_rev(momsp), x=trait, fill=log2(value))) +
   geom_tile() + geom_text(aes(label=format(value,digits=1))) + scale_fill_gradient2(guide="none", midpoint=-1) + 
-  scale_x_discrete(labels=c("Overall hybrid vigor", "Prop hybrids", "Prop hybrids fert"), position="top")+
+  scale_x_discrete(labels=vigornames, position="top")+
   theme(axis.title = element_blank(), axis.text.y=element_text(color=sp_pal_dark, face="italic"))
 ```
 
@@ -357,12 +376,6 @@ ggplot(styles, aes(x=momsp, y=style_length_mm, fill=momsp)) +
 Load *Schiedea* tree inferred with RAxML from Willyard et al. nuclear dataset (no chloroplast data, 1 accession per species).
 
 ```{r phylodist, fig.height=8, fig.width=8}
-library(ape)
-library(RColorBrewer)
-#devtools::install_github('gastonstat/arcdiagram')
-library(igraph)
-library(arcdiagram)
-
 tree <- read.nexus("data/RAxML_1ps_nocp_bipartitionsBranchLabels.sch.short.nobs.nex")
 plot(tree, tip.color = sp_pal[tree$tip.label])
 
@@ -429,26 +442,26 @@ hybrid.phylodist %>% filter(trait=="prop.hybrid",  type=="mixed") %>%
 
 The range of phylogenetic distances and style lengths in the study. The species in each pair with a longer style is given a lighter color.
 
-## Hybrid ratios at fertilization
+## Hybrid seed ratios
 
-Divide the hybrid ratios in mixed crosses by the overall hybrid vigor relative to intraspecific offspring to estimate the proportion of ovules fertilized by interspecific pollen.
+To estimate the proportion of viable seeds sired by heterospecific pollen, divide the surviving hybrid ratios in mixed crosses by the "hybrid vigor": the germination and survival of hybrid seeds relative to conspecific seeds. 
 
 ```{r fertilized, fig.width=8}
 left_join(hybrid.test, phylodist) %>% 
   left_join(select(styles.emm, momsp, mating)) %>% 
-  pivot_longer(cols=c(prop.hybrid, hybrid.vigor.all, prop.hybrid.fert)) %>% 
-  ggplot(aes(x=pd, y=value)) + facet_wrap(vars(name), scales="free_y", labeller=as_labeller(vigornames)) + expand_limits(y=c(1.2,0))+
-  geom_hline(aes(yintercept=rep(c(0.5,1,0.5), length(sp_pairs))), linetype=2)+  scale_y_continuous(expand=expansion(mult=c(0,0.05)))+
+  pivot_longer(cols=c(prop.hybrid, hybrid.vigor.germsurv, prop.hybrid.sds)) %>% 
+  ggplot(aes(x=pd, y=value)) + facet_wrap(vars(name), scales="free_y", labeller=as_labeller(vigornames)) + expand_limits(y=c(1,0))+
+  geom_hline(aes(yintercept=rep(c(0.5,1,0.5), length(sp_pairs))), linetype=2)+  scale_y_continuous(expand=expansion(mult=c(0,0)))+
   geom_smooth(method="lm", se=F, color="grey") +
   geom_point(aes(color=momsp, shape=mating), size=4) + scale_color_brewer(palette="Paired") + 
   labs(x="Phylogenetic distance (mutations/site)", color="Maternal species", shape="Mating") + theme_bw() +
   theme(axis.text=element_text(color="black"), legend.position="top", axis.title.y=element_blank())
 
 left_join(hybrid.test, select(styles.emm, momsp, style_length_mm, mating)) %>% 
-  pivot_longer(cols=c(prop.hybrid, hybrid.vigor.all, prop.hybrid.fert)) %>% 
+  pivot_longer(cols=c(prop.hybrid, hybrid.vigor.germsurv, prop.hybrid.sds)) %>% 
   ggplot(aes(x=style_length_mm, y=value)) +
-  facet_wrap(vars(name), scales="free_y", labeller=as_labeller(vigornames)) + expand_limits(y=c(1.2,0))+
-  geom_hline(aes(yintercept=rep(c(0.5,1,0.5), length(sp_pairs))), linetype=2)+  scale_y_continuous(expand=expansion(mult=c(0,0.05)))+
+  facet_wrap(vars(name), scales="free_y", labeller=as_labeller(vigornames)) + expand_limits(y=c(1,0))+
+  geom_hline(aes(yintercept=rep(c(0.5,1,0.5), length(sp_pairs))), linetype=2)+  scale_y_continuous(expand=expansion(mult=c(0,0)))+
   geom_line(aes(group=pair, color=momsp))+ geom_point(aes(color=momsp, shape=mating), size=4) + scale_color_brewer(palette="Paired") + 
   labs(x="Style length (mm)", color="Maternal species", shape="Mating") + theme_bw() +
   theme(axis.text=element_text(color="black"), legend.position="top", axis.title.y=element_blank())
