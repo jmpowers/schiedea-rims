@@ -355,7 +355,7 @@ Tested whether the proportion of hybrids significantly differed from 50%, accoun
 
 # Style length
 
-```{r style_length}
+```{r style_length, fig.width=6, fig.height=4}
 count(styles, momsp, plantid) %>% count(momsp) %>% kable(caption = "Number of plants for style length")
 
 styles.emm <- glmmTMB(style_length_mm ~ momsp + (1|plantid), data=styles) %>% 
@@ -365,10 +365,12 @@ styles.emm <- glmmTMB(style_length_mm ~ momsp + (1|plantid), data=styles) %>%
          style_diff_mm = style_length_mm-min(style_length_mm))
 
 ggplot(styles, aes(x=momsp, y=style_length_mm, fill=momsp)) + 
+  geom_violin(scale="width")+ 
+  geom_tile(data=tibble(momsp=sp_pairs[c(1,2,5,6,9,10)]), aes(x=momsp, y=4, height=8, width=1),  alpha=0.4, fill="grey", inherit.aes = F) +
   geom_violin(scale="width", draw_quantiles = c(0.25,0.5,0.75))+ 
   geom_pointrange(data=styles.emm, aes(ymax=conf.high, ymin=conf.low)) + 
   scale_fill_brewer(palette="Paired", guide="none") + scale_y_continuous(limits=c(0,NA))+
-  labs(x="Maternal species", y="Style length (mm)") + sp_theme
+  labs(x="Species", y="Style length (mm)") + sp_theme
 ```
 
 # Phylogenetic distance and style length

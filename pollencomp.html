@@ -11,7 +11,7 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2023-04-13" />
+<meta name="date" content="2023-05-02" />
 
 <title>Schiedea pollen competition</title>
 
@@ -253,7 +253,7 @@ div.tocify {
 <h1 class="title toc-ignore"><em>Schiedea</em> pollen competition</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John
 Powers</a></h4>
-<h4 class="date">2023-04-13</h4>
+<h4 class="date">2023-05-02</h4>
 
 </div>
 
@@ -1063,11 +1063,13 @@ indicated above the plot.</p>
          style_diff_mm = style_length_mm-min(style_length_mm))
 
 ggplot(styles, aes(x=momsp, y=style_length_mm, fill=momsp)) + 
+  geom_violin(scale=&quot;width&quot;)+ 
+  geom_tile(data=tibble(momsp=sp_pairs[c(1,2,5,6,9,10)]), aes(x=momsp, y=4, height=8, width=1),  alpha=0.4, fill=&quot;grey&quot;, inherit.aes = F) +
   geom_violin(scale=&quot;width&quot;, draw_quantiles = c(0.25,0.5,0.75))+ 
   geom_pointrange(data=styles.emm, aes(ymax=conf.high, ymin=conf.low)) + 
   scale_fill_brewer(palette=&quot;Paired&quot;, guide=&quot;none&quot;) + scale_y_continuous(limits=c(0,NA))+
-  labs(x=&quot;Maternal species&quot;, y=&quot;Style length (mm)&quot;) + sp_theme</code></pre>
-<p><img src="figures-comp/style_length-1.svg" width="672" /></p>
+  labs(x=&quot;Species&quot;, y=&quot;Style length (mm)&quot;) + sp_theme</code></pre>
+<p><img src="figures-comp/style_length-1.svg" width="576" /></p>
 </div>
 <div id="phylogenetic-distance-and-style-length" class="section level1">
 <h1>Phylogenetic distance and style length</h1>
