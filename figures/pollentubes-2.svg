@@ -87,11 +87,11 @@
 <circle cx='194.83' cy='246.14' r='2.84' style='stroke-width: 1.42; fill: #000000;' />
 <circle cx='224.15' cy='369.67' r='2.84' style='stroke-width: 1.42; fill: #000000;' />
 <circle cx='248.13' cy='261.12' r='2.84' style='stroke-width: 1.42; fill: #000000;' />
-<text x='182.83' y='92.18' text-anchor='middle' style='font-size: 11.04px; font-family: "Arial";'>***</text>
+<text x='182.83' y='92.18' text-anchor='middle' style='font-size: 11.04px; font-family: "Arial";'>NA</text>
 <line x1='169.51' y1='94.09' x2='169.51' y2='91.84' style='stroke-width: 1.07;' />
 <line x1='169.51' y1='91.84' x2='196.16' y2='91.84' style='stroke-width: 1.07;' />
 <line x1='196.16' y1='91.84' x2='196.16' y2='94.09' style='stroke-width: 1.07;' />
-<text x='236.14' y='92.18' text-anchor='middle' style='font-size: 11.04px; font-family: "Arial";'>***</text>
+<text x='236.14' y='92.18' text-anchor='middle' style='font-size: 11.04px; font-family: "Arial";'>NA</text>
 <line x1='222.81' y1='94.09' x2='222.81' y2='91.84' style='stroke-width: 1.07;' />
 <line x1='222.81' y1='91.84' x2='249.46' y2='91.84' style='stroke-width: 1.07;' />
 <line x1='249.46' y1='91.84' x2='249.46' y2='94.09' style='stroke-width: 1.07;' />
@@ -591,7 +591,7 @@
 <circle cx='1289.23' cy='278.24' r='2.84' style='stroke-width: 1.42; fill: #000000;' />
 <circle cx='1318.55' cy='388.76' r='2.84' style='stroke-width: 1.42; fill: #000000;' />
 <circle cx='1342.53' cy='371.97' r='2.84' style='stroke-width: 1.42; fill: #000000;' />
-<text x='1277.23' y='92.18' text-anchor='middle' style='font-size: 11.04px; font-family: "Arial";'>***</text>
+<text x='1277.23' y='92.18' text-anchor='middle' style='font-size: 11.04px; font-family: "Arial";'>NA</text>
 <line x1='1263.91' y1='94.39' x2='1263.91' y2='91.84' style='stroke-width: 1.07;' />
 <line x1='1263.91' y1='91.84' x2='1290.56' y2='91.84' style='stroke-width: 1.07;' />
 <line x1='1290.56' y1='91.84' x2='1290.56' y2='94.39' style='stroke-width: 1.07;' />

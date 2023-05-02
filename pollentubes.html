@@ -11,7 +11,7 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2023-04-10" />
+<meta name="date" content="2023-05-02" />
 
 <title>Schiedea pollen tube growth</title>
 
@@ -253,7 +253,7 @@ div.tocify {
 <h1 class="title toc-ignore"><em>Schiedea</em> pollen tube growth</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John
 Powers</a></h4>
-<h4 class="date">2023-04-10</h4>
+<h4 class="date">2023-05-02</h4>
 
 </div>
 
@@ -324,9 +324,8 @@ modelparm.glmmTMB &lt;- function (model, coef. = function(x) fixef(x)[[component
 }
 
 signif.num &lt;- function(x) {
-    symnum(x, corr = FALSE, na = FALSE, legend = FALSE,
-           cutpoints = c(0, 0.001, 0.01, 0.05, 1), 
-           symbols = c(&quot;***&quot;, &quot;**&quot;, &quot;*&quot;, &quot; &quot;))
+   cut(x, breaks = c(0, 0.001, 0.01, 0.05, 1), 
+           labels = c(&quot;***&quot;, &quot;**&quot;, &quot;*&quot;, &quot; &quot;))
 }</code></pre>
 </div>
 <div id="read-data" class="section level1">
@@ -744,7 +743,7 @@ plot_emm &lt;- function(pair, emm, cont, data, yvar) {
                 draw_quantiles=c(0.25,0.5,0.75), linewidth=0.5, bw=ifelse(yvar==&quot;ratio&quot;,0.1,1)) +
     geom_pointrange(aes(ymin=lSE, ymax=uSE), position=position_dodge2(0.9)) +
     geom_signif(data=emm, y_position=cont$height/c(mid=1, bottom=1, ratio=15)[yvar]+c(mid=19, bottom=19, ratio=1)[yvar], 
-                xmin = cont$x1, xmax = cont$x2, annotations=cont$stars, vjust=0.5, tip_length=0.01) +
+                xmin = cont$x1, xmax = cont$x2, annotations=replace_na(as.character(cont$stars), &quot;NA&quot;), vjust=0.5, tip_length=0.01) +
     labs(x=&quot;&quot;, y=var_labels[yvar], title=pair_labels[pair]) +
     scale_y_continuous(limits=c(0,c(mid=24, bottom=24, ratio=1.4)[yvar]), 
                        expand = expansion(add=c(0,c(mid=0.5, bottom=0.5, ratio=0.05)[yvar])), 
@@ -762,6 +761,30 @@ grid.arrange(grobs=pmap(select(tubes.mod, pair, emm=mid_emm, cont=mid_cont, data
 <pre class="r"><code>grid.arrange(grobs=pmap(select(tubes.mod, pair, emm=ratio_emm, cont=ratio_cont, data),
                         plot_emm, yvar=&quot;ratio&quot;), nrow=1)</code></pre>
 <p><img src="figures/pollentubes-3.svg" width="1824" /></p>
+<pre class="r"><code>plot_all &lt;- function(yvar) {
+ggplot(unnest(select(tubes.mod, paste0(yvar,&quot;_emm&quot;)), paste0(yvar,&quot;_emm&quot;))) +
+  facet_wrap(vars(pair), scales=&quot;free_x&quot;, nrow=1, labeller = as_labeller(pair_labels)) +
+  geom_violin(data=unnest(select(tubes.mod, data), data),  aes(y=.data[[yvar]], x=cross, fill=hr),position=position_dodge(), 
+              draw_quantiles=c(0.25,0.5,0.75), linewidth=0.5, bw=ifelse(yvar==&quot;ratio&quot;,0.1,1)) +
+  geom_pointrange(aes(y=response, x=cross, fill=hr, ymin=lSE, ymax=uSE), position=position_dodge2(0.9)) +
+  geom_signif(data=unnest(select(tubes.mod, paste0(yvar,&quot;_cont&quot;)), paste0(yvar,&quot;_cont&quot;)) %&gt;% 
+                mutate(n=row_number(), stars=replace_na(as.character(stars), &quot;NA&quot;), #TODO speste contrasts are failing, fitting problem gives NAs here
+                       height=height/c(mid=1, bottom=1, ratio=15)[yvar]+c(mid=19, bottom=19, ratio=1)[yvar]),
+              aes(y_position=height, xmin = x1, xmax = x2, annotations=stars, group=n), 
+              vjust=0.5, tip_length=0.01, manual=T) +
+  labs(x=&quot;&quot;, y=var_labels[yvar]) +
+  scale_y_continuous(limits=c(0,c(mid=24, bottom=24, ratio=1.4)[yvar]), 
+                     expand = expansion(add=c(0,c(mid=0.5, bottom=0.5, ratio=0.05)[yvar])), 
+                     breaks = seq(0,1,by=0.25) * c(mid = 20, bottom = 20, ratio = 1)[yvar])+
+  scale_x_discrete(labels=~str_replace(.x, &quot;x&quot;,&quot; x &quot;)) + 
+  theme_classic() + mytheme + timefills + guides(fill=&quot;none&quot;)
+}
+plot_all(&quot;mid&quot;)</code></pre>
+<p><img src="figures/pollentubes_all-1.svg" width="1632" /></p>
+<pre class="r"><code>plot_all(&quot;bottom&quot;)</code></pre>
+<p><img src="figures/pollentubes_all-2.svg" width="1632" /></p>
+<pre class="r"><code>plot_all(&quot;ratio&quot;)</code></pre>
+<p><img src="figures/pollentubes_all-3.svg" width="1632" /></p>
 </div>
 <div id="tubes-at-bottom-v.-middle-of-style" class="section level1">
 <h1>Tubes at bottom v. middle of style</h1>
@@ -797,8 +820,7 @@ ggplot(tubes.phylodist, aes(x=pd, y=trait_diff)) + facet_grid(trait~hr, scales=&
 <div id="package-citations" class="section level1">
 <h1>Package citations</h1>
 <pre class="r"><code>citation(&quot;glmmTMB&quot;)</code></pre>
-<pre><code>
-To cite glmmTMB in publications use:
+<pre><code>To cite glmmTMB in publications use:
 
   Mollie E. Brooks, Kasper Kristensen, Koen J. van Benthem, Arni
   Magnusson, Casper W. Berg, Anders Nielsen, Hans J. Skaug, Martin
@@ -819,8 +841,7 @@ A BibTeX entry for LaTeX users is
     number = {2},
   }</code></pre>
 <pre class="r"><code>citation(&quot;emmeans&quot;)</code></pre>
-<pre><code>
-To cite package &#39;emmeans&#39; in publications use:
+<pre><code>To cite package &#39;emmeans&#39; in publications use:
 
   Lenth R (2023). _emmeans: Estimated Marginal Means, aka Least-Squares
   Means_. R package version 1.8.5,
@@ -836,8 +857,7 @@ A BibTeX entry for LaTeX users is
     url = {https://CRAN.R-project.org/package=emmeans},
   }</code></pre>
 <pre class="r"><code>citation(&quot;multcomp&quot;)</code></pre>
-<pre><code>
-Please cite the multcomp package by the following reference:
+<pre><code>Please cite the multcomp package by the following reference:
 
   Hothorn T, Bretz F, Westfall P (2008). &quot;Simultaneous Inference in
   General Parametric Models.&quot; _Biometrical Journal_, *50*(3), 346-363.

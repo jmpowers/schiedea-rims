@@ -59,9 +59,8 @@ modelparm.glmmTMB <- function (model, coef. = function(x) fixef(x)[[component]],
 }
 
 signif.num <- function(x) {
-    symnum(x, corr = FALSE, na = FALSE, legend = FALSE,
-           cutpoints = c(0, 0.001, 0.01, 0.05, 1), 
-           symbols = c("***", "**", "*", " "))
+   cut(x, breaks = c(0, 0.001, 0.01, 0.05, 1), 
+           labels = c("***", "**", "*", " "))
 }
 ```
 
@@ -228,7 +227,7 @@ plot_emm <- function(pair, emm, cont, data, yvar) {
                 draw_quantiles=c(0.25,0.5,0.75), linewidth=0.5, bw=ifelse(yvar=="ratio",0.1,1)) +
     geom_pointrange(aes(ymin=lSE, ymax=uSE), position=position_dodge2(0.9)) +
     geom_signif(data=emm, y_position=cont$height/c(mid=1, bottom=1, ratio=15)[yvar]+c(mid=19, bottom=19, ratio=1)[yvar], 
-                xmin = cont$x1, xmax = cont$x2, annotations=cont$stars, vjust=0.5, tip_length=0.01) +
+                xmin = cont$x1, xmax = cont$x2, annotations=replace_na(as.character(cont$stars), "NA"), vjust=0.5, tip_length=0.01) +
     labs(x="", y=var_labels[yvar], title=pair_labels[pair]) +
     scale_y_continuous(limits=c(0,c(mid=24, bottom=24, ratio=1.4)[yvar]), 
                        expand = expansion(add=c(0,c(mid=0.5, bottom=0.5, ratio=0.05)[yvar])), 
@@ -244,6 +243,31 @@ grid.arrange(grobs=pmap(select(tubes.mod, pair, emm=bottom_emm, cont=bottom_cont
 grid.arrange(grobs=pmap(select(tubes.mod, pair, emm=ratio_emm, cont=ratio_cont, data),
                         plot_emm, yvar="ratio"), nrow=1)
 ```
+
+```{r pollentubes_all, fig.width=17, fig.height=6}
+plot_all <- function(yvar) {
+ggplot(unnest(select(tubes.mod, paste0(yvar,"_emm")), paste0(yvar,"_emm"))) +
+  facet_wrap(vars(pair), scales="free_x", nrow=1, labeller = as_labeller(pair_labels)) +
+  geom_violin(data=unnest(select(tubes.mod, data), data),  aes(y=.data[[yvar]], x=cross, fill=hr),position=position_dodge(), 
+              draw_quantiles=c(0.25,0.5,0.75), linewidth=0.5, bw=ifelse(yvar=="ratio",0.1,1)) +
+  geom_pointrange(aes(y=response, x=cross, fill=hr, ymin=lSE, ymax=uSE), position=position_dodge2(0.9)) +
+  geom_signif(data=unnest(select(tubes.mod, paste0(yvar,"_cont")), paste0(yvar,"_cont")) %>% 
+                mutate(n=row_number(), stars=replace_na(as.character(stars), "NA"), #TODO speste contrasts are failing, fitting problem gives NAs here
+                       height=height/c(mid=1, bottom=1, ratio=15)[yvar]+c(mid=19, bottom=19, ratio=1)[yvar]),
+              aes(y_position=height, xmin = x1, xmax = x2, annotations=stars, group=n), 
+              vjust=0.5, tip_length=0.01, manual=T) +
+  labs(x="", y=var_labels[yvar]) +
+  scale_y_continuous(limits=c(0,c(mid=24, bottom=24, ratio=1.4)[yvar]), 
+                     expand = expansion(add=c(0,c(mid=0.5, bottom=0.5, ratio=0.05)[yvar])), 
+                     breaks = seq(0,1,by=0.25) * c(mid = 20, bottom = 20, ratio = 1)[yvar])+
+  scale_x_discrete(labels=~str_replace(.x, "x"," x ")) + 
+  theme_classic() + mytheme + timefills + guides(fill="none")
+}
+plot_all("mid")
+plot_all("bottom")
+plot_all("ratio")
+```
+
 
 # Tubes at bottom v. middle of style
 
