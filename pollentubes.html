@@ -11,7 +11,7 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2023-05-02" />
+<meta name="date" content="2023-05-03" />
 
 <title>Schiedea pollen tube growth</title>
 
@@ -253,7 +253,7 @@ div.tocify {
 <h1 class="title toc-ignore"><em>Schiedea</em> pollen tube growth</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John
 Powers</a></h4>
-<h4 class="date">2023-05-02</h4>
+<h4 class="date">2023-05-03</h4>
 
 </div>
 
@@ -308,8 +308,6 @@ knitr::opts_chunk$set(comment=&quot;&quot;, cache=T, warning = F, message = F, w
                       fig.path = &quot;figures/&quot;, dev = &quot;svglite&quot;, dev.args=list(fix_text_size=FALSE))
 options(knitr.kable.NA = &#39;&#39;)
 library(tidyverse)
-library(gridExtra)
-library(ggsignif) 
 library(gridExtra)
 library(broom)
 library(emmeans) #Estimated marginal means aka least square means.
@@ -733,39 +731,44 @@ tubes.mod &lt;- tubes %&gt;% group_by(pair) %&gt;% nest() %&gt;% #TODO got rid o
 #   ggplot(aes(x=pair, color=group, y=log10(estimate))) + geom_point()</code></pre>
 <pre class="r"><code>mytheme &lt;- theme(legend.text=element_text(size=rel(1)), legend.position=&quot;right&quot;, 
                  axis.text = element_text(colour=&quot;black&quot;, size=rel(1)), text=element_text(size=14), 
-                 axis.ticks.x = element_blank(), plot.title = element_text(face=&quot;italic&quot;, size=14))
-timefills &lt;-   scale_fill_brewer(palette=3, type=&quot;qual&quot;, labels=c(&quot;4 hr&quot;,&quot;24 hr&quot;))
+                 axis.ticks.x = element_blank(), axis.title.x=element_blank(),
+                 plot.title = element_text(face=&quot;italic&quot;, size=14), strip.text = element_text(face=&quot;italic&quot;))
+timefills &lt;-   scale_fill_brewer(&quot;Time&quot;, palette=&quot;Paired&quot;, labels=c(&quot;4 hr&quot;,&quot;24 hr&quot;))
+timecolors &lt;-   scale_color_brewer(&quot;Time&quot;, palette=&quot;Paired&quot;, labels=c(&quot;4 hr&quot;,&quot;24 hr&quot;))
 
 var_labels &lt;- c(mid = &quot;Pollen tubes at middle of style&quot;,
-                bottom = &quot;Pollen tubes at bottom of style&quot;,
-                ratio = &quot;Ratio of pollen tubes at bottom : middle of style&quot;,
-                justmid = &quot;Difference of pollen tubes at middle and bottom of style&quot;)
+                bottom = &quot;Pollen tubes at base of style&quot;,
+                ratio = &quot;Proportion of pollen tubes at middle that grew to base&quot;)
 
 plot_all &lt;- function(yvar) {
+signif.cont &lt;- unnest(select(tubes.mod, paste0(yvar,&quot;_cont&quot;)), paste0(yvar,&quot;_cont&quot;)) %&gt;% 
+              mutate(n=row_number(), stars=replace_na(as.character(stars), &quot;NA&quot;),
+                     hr = fct_recode(factor(height), &quot;4hr&quot;=&quot;2&quot;, &quot;24hr&quot;=&quot;3&quot;),
+                     ypos=(height-1)/c(mid=1, bottom=1, ratio=20)[yvar]+c(mid=20, bottom=20, ratio=1)[yvar])
 ggplot(unnest(select(tubes.mod, paste0(yvar,&quot;_emm&quot;)), paste0(yvar,&quot;_emm&quot;))) +
   facet_wrap(vars(pair), scales=&quot;free_x&quot;, nrow=1, labeller = as_labeller(pair_labels)) +
   geom_violin(data=unnest(select(tubes.mod, data), data),  aes(y=.data[[yvar]], x=cross, fill=hr),position=position_dodge(), 
               draw_quantiles=c(0.25,0.5,0.75), linewidth=0.5, bw=ifelse(yvar==&quot;ratio&quot;,0.1,1)) +
-  geom_pointrange(aes(y=response, x=cross, fill=hr, ymin=lSE, ymax=uSE), position=position_dodge2(0.9)) +
-  geom_signif(data=unnest(select(tubes.mod, paste0(yvar,&quot;_cont&quot;)), paste0(yvar,&quot;_cont&quot;)) %&gt;% 
-                mutate(n=row_number(), stars=replace_na(as.character(stars), &quot;NA&quot;), #TODO speste contrasts are failing, fitting problem gives NAs here
-                       hr = fct_recode(factor(height), &quot;4hr&quot;=&quot;2&quot;, &quot;24hr&quot;=&quot;3&quot;),
-                       ypos=(height-1)/c(mid=1, bottom=1, ratio=15)[yvar]+c(mid=20, bottom=20, ratio=1)[yvar]),
-              aes(y_position=ypos, xmin = x1, xmax = x2, annotations=stars, group=n), # color=hr #TODO signif color not working
-              vjust=0.5, tip_length=0.01, manual=T) +
-  labs(x=&quot;&quot;, y=var_labels[yvar]) +
-  scale_y_continuous(limits=c(0,c(mid=22, bottom=22, ratio=17/15)[yvar]), 
+  geom_pointrange(aes(y=response, x=cross, ymin=lSE, ymax=uSE), position=position_dodge2(0.9)) +
+  geom_segment(data=signif.cont, aes(x=x1, xend=x2, y=ypos, yend=ypos, color=hr))+
+  geom_text(data=signif.cont, aes(x=(x1+x2)/2, y=ypos*0.98, label=stars, color=hr), hjust=0.5, vjust=0, size=6)+
+  # geom_signif(data=, aes(y_position=ypos, xmin = x1, xmax = x2, annotations=stars, group=n),
+  #             vjust=0.5, tip_length=0.01, manual=T) +
+  labs(y=var_labels[yvar]) +
+  scale_y_continuous(limits=c(0,c(mid=22.5, bottom=22.5, ratio=1.1)[yvar]), 
                      expand = expansion(add=c(0,c(mid=0.5, bottom=0.5, ratio=0.05)[yvar])), 
-                     breaks = seq(0,1,by=0.25) * c(mid = 20, bottom = 20, ratio = 1)[yvar])+
-  scale_x_discrete(labels=~str_replace(.x, &quot;x&quot;,&quot; x\n&quot;)) + 
-  theme_classic() + mytheme + timefills + guides(fill=&quot;none&quot;)
+                     breaks = seq(0,1,by=0.25) * c(mid = 20, bottom = 20, ratio = 1)[yvar],
+                     labels = ifelse(yvar==&quot;ratio&quot;, scales::percent_format(), scales::number_format()))+
+  scale_x_discrete(labels=~str_replace_all(str_replace(.x, &quot;x&quot;,&quot;\n&quot;), 
+                                           set_names(str_sub(species_names,1,4), names(species_names)))) + 
+  theme_classic() + mytheme + timefills + timecolors + guides(color=&quot;none&quot;)
 }
 plot_all(&quot;mid&quot;)</code></pre>
-<p><img src="figures/pollentubes_all-1.svg" width="1248" /></p>
+<p><img src="figures/pollentubes_all-1.svg" width="1344" /></p>
 <pre class="r"><code>plot_all(&quot;bottom&quot;)</code></pre>
-<p><img src="figures/pollentubes_all-2.svg" width="1248" /></p>
+<p><img src="figures/pollentubes_all-2.svg" width="1344" /></p>
 <pre class="r"><code>plot_all(&quot;ratio&quot;)</code></pre>
-<p><img src="figures/pollentubes_all-3.svg" width="1248" /></p>
+<p><img src="figures/pollentubes_all-3.svg" width="1344" /></p>
 <pre class="r"><code>plot_emm &lt;- function(pair, emm, cont, data, yvar) {
   ggplot(emm, aes(y=response, x=cross, fill=hr)) +
     geom_violin(data=data, aes_string(y=yvar),position=position_dodge(),
@@ -812,12 +815,22 @@ tubes.phylodist &lt;- tubes.mod %&gt;% select(pair, ends_with(&quot;_emm&quot;))
   mutate(pd = map2_dbl(as.character(momsp), as.character(dadsp), ~cophenetic(tree)[.x,.y]))
 
 ggplot(tubes.phylodist, aes(x=pd, y=trait_diff)) + facet_grid(trait~hr, scales=&quot;free_y&quot;) +
-  geom_point(aes(color=momsp), size=2) + geom_smooth(method=&quot;lm&quot;, se=F, color=&quot;grey&quot;) + 
+  geom_smooth(method=&quot;lm&quot;, se=F, color=&quot;grey&quot;) + geom_point(aes(color=momsp), size=2) +
   scale_color_brewer(palette=&quot;Paired&quot;)+
   labs(x=&quot;Phylogenetic distance (mutations/site)&quot;, color=&quot;Maternal species&quot;,
        y=&quot;Difference between intra and interspecies cross&quot;) + theme_bw() + 
   theme(legend.position = &quot;top&quot;)</code></pre>
 <p><img src="figures/phylo_tubes-1.svg" width="672" /></p>
+<pre class="r"><code>tubes.phylodist %&gt;% filter(trait==&quot;ratio&quot;, hr==&quot;24hr&quot;) %&gt;% 
+  ggplot(aes(x=pd, y=trait_diff)) + 
+  geom_smooth(method=&quot;lm&quot;, se=F, color=&quot;grey&quot;) + geom_point(aes(color=momsp), size=3) + 
+  scale_color_brewer(palette=&quot;Paired&quot;)+
+  scale_y_continuous(labels=scales::percent_format()) + 
+  scale_x_continuous(limits=c(0, NA), expand=expansion(c(0,0.05))) +
+  labs(x=&quot;Phylogenetic distance (mutations/site)&quot;, color=&quot;Maternal\nspecies&quot;, 
+       y=&quot;Decrease in base/middle in hybrid crosses at 24 hr&quot;) + 
+  theme_classic() + theme(legend.position = &quot;top&quot;) </code></pre>
+<p><img src="figures/phylo_tubes_ratio-1.svg" width="624" /></p>
 </div>
 <div id="package-citations" class="section level1">
 <h1>Package citations</h1>

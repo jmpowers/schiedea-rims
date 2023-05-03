@@ -44,8 +44,6 @@ knitr::opts_chunk$set(comment="", cache=T, warning = F, message = F, width=999,
 options(knitr.kable.NA = '')
 library(tidyverse)
 library(gridExtra)
-library(ggsignif) 
-library(gridExtra)
 library(broom)
 library(emmeans) #Estimated marginal means aka least square means.
 library(glmmTMB) #generalized linear mixed models with Template Model Builder
@@ -214,35 +212,40 @@ tubes.mod <- tubes %>% group_by(pair) %>% nest() %>% #TODO got rid of 1|dadid du
 #   ggplot(aes(x=pair, color=group, y=log10(estimate))) + geom_point()
 ```
 
-```{r pollentubes_all, fig.width=13, fig.height=5}
+```{r pollentubes_all, fig.width=14, fig.height=5}
 mytheme <- theme(legend.text=element_text(size=rel(1)), legend.position="right", 
                  axis.text = element_text(colour="black", size=rel(1)), text=element_text(size=14), 
-                 axis.ticks.x = element_blank(), plot.title = element_text(face="italic", size=14))
-timefills <-   scale_fill_brewer(palette=3, type="qual", labels=c("4 hr","24 hr"))
+                 axis.ticks.x = element_blank(), axis.title.x=element_blank(),
+                 plot.title = element_text(face="italic", size=14), strip.text = element_text(face="italic"))
+timefills <-   scale_fill_brewer("Time", palette="Paired", labels=c("4 hr","24 hr"))
+timecolors <-   scale_color_brewer("Time", palette="Paired", labels=c("4 hr","24 hr"))
 
 var_labels <- c(mid = "Pollen tubes at middle of style",
-                bottom = "Pollen tubes at bottom of style",
-                ratio = "Ratio of pollen tubes at bottom : middle of style",
-                justmid = "Difference of pollen tubes at middle and bottom of style")
+                bottom = "Pollen tubes at base of style",
+                ratio = "Proportion of pollen tubes at middle that grew to base")
 
 plot_all <- function(yvar) {
+signif.cont <- unnest(select(tubes.mod, paste0(yvar,"_cont")), paste0(yvar,"_cont")) %>% 
+              mutate(n=row_number(), stars=replace_na(as.character(stars), "NA"),
+                     hr = fct_recode(factor(height), "4hr"="2", "24hr"="3"),
+                     ypos=(height-1)/c(mid=1, bottom=1, ratio=20)[yvar]+c(mid=20, bottom=20, ratio=1)[yvar])
 ggplot(unnest(select(tubes.mod, paste0(yvar,"_emm")), paste0(yvar,"_emm"))) +
   facet_wrap(vars(pair), scales="free_x", nrow=1, labeller = as_labeller(pair_labels)) +
   geom_violin(data=unnest(select(tubes.mod, data), data),  aes(y=.data[[yvar]], x=cross, fill=hr),position=position_dodge(), 
               draw_quantiles=c(0.25,0.5,0.75), linewidth=0.5, bw=ifelse(yvar=="ratio",0.1,1)) +
-  geom_pointrange(aes(y=response, x=cross, fill=hr, ymin=lSE, ymax=uSE), position=position_dodge2(0.9)) +
-  geom_signif(data=unnest(select(tubes.mod, paste0(yvar,"_cont")), paste0(yvar,"_cont")) %>% 
-                mutate(n=row_number(), stars=replace_na(as.character(stars), "NA"), #TODO speste contrasts are failing, fitting problem gives NAs here
-                       hr = fct_recode(factor(height), "4hr"="2", "24hr"="3"),
-                       ypos=(height-1)/c(mid=1, bottom=1, ratio=15)[yvar]+c(mid=20, bottom=20, ratio=1)[yvar]),
-              aes(y_position=ypos, xmin = x1, xmax = x2, annotations=stars, group=n), # color=hr #TODO signif color not working
-              vjust=0.5, tip_length=0.01, manual=T) +
-  labs(x="", y=var_labels[yvar]) +
-  scale_y_continuous(limits=c(0,c(mid=22, bottom=22, ratio=17/15)[yvar]), 
+  geom_pointrange(aes(y=response, x=cross, ymin=lSE, ymax=uSE), position=position_dodge2(0.9)) +
+  geom_segment(data=signif.cont, aes(x=x1, xend=x2, y=ypos, yend=ypos, color=hr))+
+  geom_text(data=signif.cont, aes(x=(x1+x2)/2, y=ypos*0.98, label=stars, color=hr), hjust=0.5, vjust=0, size=6)+
+  # geom_signif(data=, aes(y_position=ypos, xmin = x1, xmax = x2, annotations=stars, group=n),
+  #             vjust=0.5, tip_length=0.01, manual=T) +
+  labs(y=var_labels[yvar]) +
+  scale_y_continuous(limits=c(0,c(mid=22.5, bottom=22.5, ratio=1.1)[yvar]), 
                      expand = expansion(add=c(0,c(mid=0.5, bottom=0.5, ratio=0.05)[yvar])), 
-                     breaks = seq(0,1,by=0.25) * c(mid = 20, bottom = 20, ratio = 1)[yvar])+
-  scale_x_discrete(labels=~str_replace(.x, "x"," x\n")) + 
-  theme_classic() + mytheme + timefills + guides(fill="none")
+                     breaks = seq(0,1,by=0.25) * c(mid = 20, bottom = 20, ratio = 1)[yvar],
+                     labels = ifelse(yvar=="ratio", scales::percent_format(), scales::number_format()))+
+  scale_x_discrete(labels=~str_replace_all(str_replace(.x, "x","\n"), 
+                                           set_names(str_sub(species_names,1,4), names(species_names)))) + 
+  theme_classic() + mytheme + timefills + timecolors + guides(color="none")
 }
 plot_all("mid")
 plot_all("bottom")
@@ -299,11 +302,23 @@ tubes.phylodist <- tubes.mod %>% select(pair, ends_with("_emm")) %>% pivot_longe
   mutate(pd = map2_dbl(as.character(momsp), as.character(dadsp), ~cophenetic(tree)[.x,.y]))
 
 ggplot(tubes.phylodist, aes(x=pd, y=trait_diff)) + facet_grid(trait~hr, scales="free_y") +
-  geom_point(aes(color=momsp), size=2) + geom_smooth(method="lm", se=F, color="grey") + 
+  geom_smooth(method="lm", se=F, color="grey") + geom_point(aes(color=momsp), size=2) +
   scale_color_brewer(palette="Paired")+
   labs(x="Phylogenetic distance (mutations/site)", color="Maternal species",
        y="Difference between intra and interspecies cross") + theme_bw() + 
   theme(legend.position = "top")
+```
+
+```{r phylo_tubes_ratio, fig.height=4, fig.width=6.5}
+tubes.phylodist %>% filter(trait=="ratio", hr=="24hr") %>% 
+  ggplot(aes(x=pd, y=trait_diff)) + 
+  geom_smooth(method="lm", se=F, color="grey") + geom_point(aes(color=momsp), size=3) + 
+  scale_color_brewer(palette="Paired")+
+  scale_y_continuous(labels=scales::percent_format()) + 
+  scale_x_continuous(limits=c(0, NA), expand=expansion(c(0,0.05))) +
+  labs(x="Phylogenetic distance (mutations/site)", color="Maternal\nspecies", 
+       y="Decrease in base/middle in hybrid crosses at 24 hr") + 
+  theme_classic() + theme(legend.position = "top") 
 ```
 
 # Package citations
