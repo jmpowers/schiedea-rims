@@ -60,7 +60,7 @@ modelparm.glmmTMB <- function (model, coef. = function(x) fixef(x)[[component]],
 
 signif.num <- function(x) {
    cut(x, breaks = c(0, 0.001, 0.01, 0.05, 1), 
-           labels = c("***", "**", "*", " "))
+           labels = c("***", "**", "*", " "), include.lowest = T)
 }
 ```
 
@@ -173,19 +173,22 @@ pair_contrasts <- function(mod) {
                          c(3,4), c(1,2), c(3,1), c(4,2), 
                          c(5,1), c(6,2)) %>% 
     map_chr(~paste(lv[.x[1]], "-", lv[.x[2]], "== 0"))
+  tube.contrasts <- tube.contrasts[c(3,4,7,8)] #TODO exclude time and between-species comparisons for plotting
   
   multcomp::glht(mod, linfct = multcomp::mcp(crosshr=tube.contrasts)) %>%
   multcomp:::summary.glht(test=multcomp::adjusted(type="fdr")) %>% tidy() %>% 
   separate(contrast, c("lvl1", "lvl2"), sep = " - ", extra="merge") %>%
   mutate(signif = adj.p.value < 0.05, 
          stars = signif.num(adj.p.value), 
-         height =  c(rep(c(1,1,2,3),2),4,5), 
+         height =  c(rep(c(1,1,2,3),2),4,5)[c(3,4,7,8)], 
          x1 = crosshr.x[lvl1], 
          x2 = crosshr.x[lvl2])
 }
 
 pair_emm <- function(mod) {
-  emm <- ref_grid(mod) %>% emmeans(~ cross*hr) %>% summary()
+  emm <- ref_grid(mod) %>% emmeans(~ crosshr) %>% summary() %>% 
+    mutate(cross = factor(str_sub(crosshr,1,5),  levels=unlist(cross_levels)),
+           hr =    factor(str_sub(crosshr,6,10), levels=c("4hr","24hr")), .keep="unused")
   if(mod$modelInfo$family$link == "logit") {
     emm %>% mutate(response = plogis(emmean), uSE = plogis(emmean+SE), lSE = plogis(emmean-SE))
   } else if(mod$modelInfo$family$link == "log") {
@@ -193,24 +196,25 @@ pair_emm <- function(mod) {
   }
 }
 
-tubes.mod <- tubes %>% group_by(pair) %>% nest() %>% 
-  mutate(mid_mod    = map(data, ~ glmmTMB(mid~cross*hr + (1|momid) + (1|dadid) + (1|vial), data=.x, family="poisson")),
-         mid_mod2   = map(data, ~ glmmTMB(mid~crosshr +  (1|momid) + (1|dadid) + (1|vial), data=.x, family="poisson")),
+tubes.mod <- tubes %>% group_by(pair) %>% nest() %>% #TODO got rid of 1|dadid due to extremely small estimates in some species, OK?
+  mutate(mid_mod   = map(data, ~ glmmTMB(mid~crosshr +  (1|momid) + (1|vial), data=.x, family="poisson")),
          mid_emm    = map(mid_mod, pair_emm),
-         mid_cont   = map(mid_mod2, pair_contrasts),
-         bottom_mod = map(data, ~ glmmTMB(bottom~cross*hr + (1|momid) + (1|dadid) + (1|vial), data=.x, family="poisson")),
-         bottom_mod2= map(data, ~ glmmTMB(bottom~crosshr  + (1|momid) + (1|dadid) + (1|vial), data=.x, family="poisson")),
+         mid_cont   = map(mid_mod, pair_contrasts),
+         bottom_mod= map(data, ~ glmmTMB(bottom~crosshr  + (1|momid) + (1|vial), data=.x, family="poisson")),
          bottom_emm = map(bottom_mod, pair_emm),
-         bottom_cont= map(bottom_mod2, pair_contrasts),
-         ratio_mod  = map(data, ~ glmmTMB(cbind(bottom, adjmid-bottom)~cross*hr + (1|momid) + (1|dadid) + (1|vial), 
-                                          data=.x, family="binomial")),
-         ratio_mod2 = map(data, ~ glmmTMB(cbind(bottom, adjmid-bottom)~crosshr  + (1|momid) + (1|dadid) + (1|vial), 
-                                          data=.x, family="binomial")),
+         bottom_cont= map(bottom_mod, pair_contrasts),
+         ratio_mod = map(data, ~ glmmTMB(cbind(bottom, adjmid-bottom)~crosshr  + (1|momid) + (1|vial), data=.x, family="binomial")),
          ratio_emm  = map(ratio_mod, pair_emm),
-         ratio_cont = map(ratio_mod2, pair_contrasts))
+         ratio_cont = map(ratio_mod, pair_contrasts))
+
+#diagnose random effects
+# library(broom.mixed)
+# tubes.mod %>% mutate(ranef_midmod2 = map(bottom_mod, tidy)) %>% select(ranef_midmod2) %>% unnest(ranef_midmod2) %>% 
+#   filter(effect == "ran_pars") %>% 
+#   ggplot(aes(x=pair, color=group, y=log10(estimate))) + geom_point()
 ```
 
-```{r pollentubes, fig.width=19, fig.height=6}
+```{r pollentubes_all, fig.width=13, fig.height=5}
 mytheme <- theme(legend.text=element_text(size=rel(1)), legend.position="right", 
                  axis.text = element_text(colour="black", size=rel(1)), text=element_text(size=14), 
                  axis.ticks.x = element_blank(), plot.title = element_text(face="italic", size=14))
@@ -221,30 +225,6 @@ var_labels <- c(mid = "Pollen tubes at middle of style",
                 ratio = "Ratio of pollen tubes at bottom : middle of style",
                 justmid = "Difference of pollen tubes at middle and bottom of style")
 
-plot_emm <- function(pair, emm, cont, data, yvar) {
-  ggplot(emm, aes(y=response, x=cross, fill=hr)) +
-    geom_violin(data=data, aes_string(y=yvar),position=position_dodge(), 
-                draw_quantiles=c(0.25,0.5,0.75), linewidth=0.5, bw=ifelse(yvar=="ratio",0.1,1)) +
-    geom_pointrange(aes(ymin=lSE, ymax=uSE), position=position_dodge2(0.9)) +
-    geom_signif(data=emm, y_position=cont$height/c(mid=1, bottom=1, ratio=15)[yvar]+c(mid=19, bottom=19, ratio=1)[yvar], 
-                xmin = cont$x1, xmax = cont$x2, annotations=replace_na(as.character(cont$stars), "NA"), vjust=0.5, tip_length=0.01) +
-    labs(x="", y=var_labels[yvar], title=pair_labels[pair]) +
-    scale_y_continuous(limits=c(0,c(mid=24, bottom=24, ratio=1.4)[yvar]), 
-                       expand = expansion(add=c(0,c(mid=0.5, bottom=0.5, ratio=0.05)[yvar])), 
-                       breaks = seq(0,1,by=0.25) * c(mid = 20, bottom = 20, ratio = 1)[yvar])+
-    scale_x_discrete(labels=~str_replace(.x, "x"," x ")) + 
-    theme_classic() + mytheme + timefills + guides(fill="none")
-}
-
-grid.arrange(grobs=pmap(select(tubes.mod, pair, emm=mid_emm, cont=mid_cont, data), 
-                        plot_emm, yvar="mid"), nrow=1)
-grid.arrange(grobs=pmap(select(tubes.mod, pair, emm=bottom_emm, cont=bottom_cont, data),
-                        plot_emm, yvar="bottom"), nrow=1)
-grid.arrange(grobs=pmap(select(tubes.mod, pair, emm=ratio_emm, cont=ratio_cont, data),
-                        plot_emm, yvar="ratio"), nrow=1)
-```
-
-```{r pollentubes_all, fig.width=17, fig.height=6}
 plot_all <- function(yvar) {
 ggplot(unnest(select(tubes.mod, paste0(yvar,"_emm")), paste0(yvar,"_emm"))) +
   facet_wrap(vars(pair), scales="free_x", nrow=1, labeller = as_labeller(pair_labels)) +
@@ -253,14 +233,15 @@ ggplot(unnest(select(tubes.mod, paste0(yvar,"_emm")), paste0(yvar,"_emm"))) +
   geom_pointrange(aes(y=response, x=cross, fill=hr, ymin=lSE, ymax=uSE), position=position_dodge2(0.9)) +
   geom_signif(data=unnest(select(tubes.mod, paste0(yvar,"_cont")), paste0(yvar,"_cont")) %>% 
                 mutate(n=row_number(), stars=replace_na(as.character(stars), "NA"), #TODO speste contrasts are failing, fitting problem gives NAs here
-                       height=height/c(mid=1, bottom=1, ratio=15)[yvar]+c(mid=19, bottom=19, ratio=1)[yvar]),
-              aes(y_position=height, xmin = x1, xmax = x2, annotations=stars, group=n), 
+                       hr = fct_recode(factor(height), "4hr"="2", "24hr"="3"),
+                       ypos=(height-1)/c(mid=1, bottom=1, ratio=15)[yvar]+c(mid=20, bottom=20, ratio=1)[yvar]),
+              aes(y_position=ypos, xmin = x1, xmax = x2, annotations=stars, group=n), # color=hr #TODO signif color not working
               vjust=0.5, tip_length=0.01, manual=T) +
   labs(x="", y=var_labels[yvar]) +
-  scale_y_continuous(limits=c(0,c(mid=24, bottom=24, ratio=1.4)[yvar]), 
+  scale_y_continuous(limits=c(0,c(mid=22, bottom=22, ratio=17/15)[yvar]), 
                      expand = expansion(add=c(0,c(mid=0.5, bottom=0.5, ratio=0.05)[yvar])), 
                      breaks = seq(0,1,by=0.25) * c(mid = 20, bottom = 20, ratio = 1)[yvar])+
-  scale_x_discrete(labels=~str_replace(.x, "x"," x ")) + 
+  scale_x_discrete(labels=~str_replace(.x, "x"," x\n")) + 
   theme_classic() + mytheme + timefills + guides(fill="none")
 }
 plot_all("mid")
@@ -268,6 +249,29 @@ plot_all("bottom")
 plot_all("ratio")
 ```
 
+```{r pollentubes, fig.width=19, fig.height=6, eval=FALSE}
+plot_emm <- function(pair, emm, cont, data, yvar) {
+  ggplot(emm, aes(y=response, x=cross, fill=hr)) +
+    geom_violin(data=data, aes_string(y=yvar),position=position_dodge(),
+                draw_quantiles=c(0.25,0.5,0.75), linewidth=0.5, bw=ifelse(yvar=="ratio",0.1,1)) +
+    geom_pointrange(aes(ymin=lSE, ymax=uSE), position=position_dodge2(0.9)) +
+    geom_signif(data=emm, y_position=cont$height/c(mid=1, bottom=1, ratio=15)[yvar]+c(mid=19, bottom=19, ratio=1)[yvar],
+                xmin = cont$x1, xmax = cont$x2, annotations=replace_na(as.character(cont$stars), "NA"), vjust=0.5, tip_length=0.01) +
+    labs(x="", y=var_labels[yvar], title=pair_labels[pair]) +
+    scale_y_continuous(limits=c(0,c(mid=24, bottom=24, ratio=1.4)[yvar]),
+                       expand = expansion(add=c(0,c(mid=0.5, bottom=0.5, ratio=0.05)[yvar])),
+                       breaks = seq(0,1,by=0.25) * c(mid = 20, bottom = 20, ratio = 1)[yvar])+
+    scale_x_discrete(labels=~str_replace(.x, "x"," x ")) +
+    theme_classic() + mytheme + timefills + guides(fill="none")
+}
+
+grid.arrange(grobs=pmap(select(tubes.mod, pair, emm=mid_emm, cont=mid_cont, data),
+                        plot_emm, yvar="mid"), nrow=1)
+grid.arrange(grobs=pmap(select(tubes.mod, pair, emm=bottom_emm, cont=bottom_cont, data),
+                        plot_emm, yvar="bottom"), nrow=1)
+grid.arrange(grobs=pmap(select(tubes.mod, pair, emm=ratio_emm, cont=ratio_cont, data),
+                        plot_emm, yvar="ratio"), nrow=1)
+```
 
 # Tubes at bottom v. middle of style
 
