@@ -201,7 +201,7 @@
 </defs>
 <g clip-path='url(#cpMjIzLjU3fDMyOS42Mnw2MS45Nnw3OS4xNw==)'>
 <rect x='223.57' y='61.96' width='106.05' height='17.21' style='stroke-width: 1.07; stroke: #333333; fill: #D9D9D9;' />
-<text x='276.60' y='73.77' text-anchor='middle' style='font-size: 8.80px;fill: #1A1A1A; font-family: "Arial";'>Seeds</text>
+<text x='276.60' y='73.77' text-anchor='middle' style='font-size: 8.80px;fill: #1A1A1A; font-family: "Arial";'>Seed number </text>
 </g>
 <g clip-path='url(#cpMC4wMHw1NzYuMDB8MC4wMHw1NzYuMDA=)'>
 </g>
@@ -212,7 +212,7 @@
 </defs>
 <g clip-path='url(#cpMzQ0LjAyfDQ1MC4wN3w2MS45Nnw3OS4xNw==)'>
 <rect x='344.02' y='61.96' width='106.05' height='17.21' style='stroke-width: 1.07; stroke: #333333; fill: #D9D9D9;' />
-<text x='397.05' y='73.77' text-anchor='middle' style='font-size: 8.80px;fill: #1A1A1A; font-family: "Arial";'>Germinated</text>
+<text x='397.05' y='73.77' text-anchor='middle' style='font-size: 8.80px;fill: #1A1A1A; font-family: "Arial";'>Germination</text>
 </g>
 <g clip-path='url(#cpMC4wMHw1NzYuMDB8MC4wMHw1NzYuMDA=)'>
 </g>
@@ -223,7 +223,7 @@
 </defs>
 <g clip-path='url(#cpNDY0LjQ3fDU3MC41Mnw2MS45Nnw3OS4xNw==)'>
 <rect x='464.47' y='61.96' width='106.05' height='17.21' style='stroke-width: 1.07; stroke: #333333; fill: #D9D9D9;' />
-<text x='517.50' y='73.77' text-anchor='middle' style='font-size: 8.80px;fill: #1A1A1A; font-family: "Arial";'>Survived</text>
+<text x='517.50' y='73.77' text-anchor='middle' style='font-size: 8.80px;fill: #1A1A1A; font-family: "Arial";'>Survival</text>
 </g>
 <g clip-path='url(#cpMC4wMHw1NzYuMDB8MC4wMHw1NzYuMDA=)'>
 <polyline points='104.37,546.71 104.37,543.97 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />

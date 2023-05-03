@@ -42,8 +42,8 @@ sp_pal_dark <- set_names(sp_pal[rep(seq(2,10,by=2), each=2)], sp_pairs)
 typenames <- set_names(c("Intraspecific","Competitive","Interspecific"),c("intra","mixed","inter"))
 type_pal <- set_names(brewer.pal(6,"Pastel1")[c(2,3,5)], names(typenames))
 type_pal_dark <- set_names(brewer.pal(6,"Set1")[c(2,3,5)], names(typenames))
-propnames <- set_names(c("Capsule formation","Seeds","Germinated","Survived","Hybrid"), c("capsule.formed","sds","prop.germ", "prop.alive", "prop.hybrid"))
-vigornames <- c(hybrid.vigor.germsurv="Germ*surv hybrid vigor", prop.hybrid="Surviving hybrids", prop.hybrid.sds = "Hybrid seeds")
+propnames <- set_names(c("Capsule formation","Seed number ","Germination","Survival","Hybrid"), c("capsule.formed","sds","prop.germ", "prop.alive", "prop.hybrid"))
+vigornames <- c(hybrid.vigor.germsurv="Relative hybrid fitness", prop.hybrid="Surviving hybrids", prop.hybrid.sds = "Hybrid seeds")
 
 momid.fixes <- read_tsv("data/Pollen competition - momid_fixes.tsv")
 momid.fixes.seeds <- momid.fixes %>% drop_na(momid_fixed) %>% select(momid, momid_fixed) %>% deframe()
@@ -467,6 +467,19 @@ left_join(hybrid.test, select(styles.emm, momsp, style_length_mm, mating)) %>%
   geom_line(aes(group=pair, color=momsp))+ geom_point(aes(color=momsp, shape=mating), size=4) + scale_color_brewer(palette="Paired") + 
   labs(x="Style length (mm)", color="Maternal species", shape="Mating") + theme_bw() +
   theme(axis.text=element_text(color="black"), legend.position="top", axis.title.y=element_blank())
+```
+
+```{r progeny_styles, fig.width=6, fig.height=5}
+left_join(filter(comp.emm, trait=="prop.hybrid"), hybrid.test) %>% 
+left_join(select(styles.emm, momsp, style_length_mm, mating, style_conf.low=conf.low, style_conf.high=conf.high)) %>% 
+  ggplot(aes(x=style_length_mm, y=estimate, color=momsp)) + geom_hline(aes(yintercept=0.5)) +  
+  geom_errorbarh(aes(xmin=style_conf.low, xmax=style_conf.high)) +  geom_errorbar(aes(ymin=conf.low, ymax=conf.high)) +
+  geom_line(aes(group=pair))+  geom_point(size=4)+
+  scale_color_brewer(palette="Paired") + scale_y_continuous(labels=scales::percent_format(), breaks=(0:4)/4)+ scale_x_continuous(limits=c(0,NA))+
+  labs(x="Style length (mm)", color="Maternal\nspecies", y="Hybrids from competitive pollinations") + 
+  theme_minimal() + theme(axis.text=element_text(color="black"), legend.position="top",
+                          legend.key.size=unit(0.8, "lines"))+
+  guides(color = guide_legend(override.aes = list(size = 4)))
 ```
 
 
