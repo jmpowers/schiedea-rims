@@ -158,7 +158,12 @@ str(tubes)
 ```{r pollentube_inventory}
 kable(with(tubes, table(cross, hr)), caption="Number of styles of each cross type")
 kable(with(tubes, table(pair, hr)), caption="Number of styles of each species pair")
-kable(tubes %>% count(pair, cross, vial) %>% with(table(pair, n)), caption = "Number of styles counted per vial")
+nrow(tubes)
+kable(tubes %>% count(pair, cross, momid, dadid, hr, vial) %>% with(table(pair, n)), caption = "Number of styles counted per vial")
+kable(tubes %>% count(pair, cross, hr, momid, vial) %>% with(table(pair, hr)), caption = "Number of vials for each cross type")
+tubes %>% count(pair, cross, hr, momid, vial) %>% nrow()
+kable(tubes %>% count(pair, cross, momid) %>% count(pair, cross), caption="Number of maternal plants of each cross type")
+kable(tubes %>% count(pair, cross, momid, dadid) %>% count(pair, cross, momid) %>% with(table(pair, n)), caption="Number of paternal plants per maternal plant")
 ```
 
 # Models
