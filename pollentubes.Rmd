@@ -257,6 +257,42 @@ plot_all("bottom")
 plot_all("ratio")
 ```
 
+```{r pollentubes_all_simple, fig.width=14, fig.height=5}
+plot_all_simple <- function(yvar) {
+signif.cont <- unnest(select(tubes.mod, paste0(yvar,"_cont")), paste0(yvar,"_cont")) %>% 
+              mutate(n=row_number(), stars=replace_na(as.character(stars), "NA"),
+                     hr = fct_recode(factor(height), "4hr"="2", "24hr"="3"),
+                     ypos=(height-1)/c(mid=1, bottom=1, ratio=20)[yvar]+c(mid=20, bottom=20, ratio=1)[yvar])
+tubes.mod.plot <- unnest(select(tubes.mod, paste0(yvar,"_emm")), paste0(yvar,"_emm")) %>% 
+  mutate(cross_pos = as.integer(cross)-4*as.integer(pair)+4,
+       contrast = paste(pair, as.integer(cross_pos>2), ifelse(hr=="4hr","04hr","24hr")))
+
+tubes.mod.plot.signif <- tubes.mod.plot %>% select(pair, hr, response, contrast, cross_pos) %>%  
+  arrange(contrast) %>% mutate(startend = rep(c(1,2), 4)) %>% 
+  pivot_wider(names_from=startend, values_from=c(response, cross_pos)) %>% arrange(pair) %>% 
+  bind_cols(select(ungroup(signif.cont), -pair, -hr, -x1, -x2))
+
+ggplot(tubes.mod.plot) +
+  facet_wrap(vars(pair), scales="free_x", nrow=1, labeller = as_labeller(pair_labels)) +
+  geom_pointrange(aes(y=response, x=cross, ymin=lSE, ymax=uSE, color=hr),size=1, linewidth=1) +
+  #geom_path(aes(y=response, x=cross, group=contrast, color=hr))+
+  geom_segment(data=tubes.mod.plot.signif, aes(y=response_1, yend=response_2, x=cross_pos_1, xend=cross_pos_2, 
+                                               color=hr, linetype=signif), linewidth=1)+
+  labs(y=var_labels[yvar]) +
+  scale_y_continuous(limits=c(0,c(mid=13, bottom=13, ratio=1)[yvar]), 
+                     expand = expansion(add=c(0,c(mid=0.5, bottom=0.5, ratio=0.05)[yvar])), 
+                     breaks = seq(0,1,by=0.25) * c(mid = 20, bottom = 20, ratio = 1)[yvar],
+                     labels = ifelse(yvar=="ratio", scales::percent_format(), scales::number_format()))+
+  scale_x_discrete(labels=~str_replace_all(str_replace(.x, "x","\n"), 
+                                           set_names(str_sub(species_names,1,4), names(species_names)))) + 
+  theme_classic() + mytheme + 
+  scale_color_brewer(palette="Set2") + scale_linetype_manual(values=c(3,1))+  guides(linetype="none", color="none")
+}
+plot_all_simple("mid")
+plot_all_simple("bottom")
+plot_all_simple("ratio")
+```
+
 ```{r pollentubes, fig.width=19, fig.height=6, eval=FALSE}
 plot_emm <- function(pair, emm, cont, data, yvar) {
   ggplot(emm, aes(y=response, x=cross, fill=hr)) +

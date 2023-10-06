@@ -11,7 +11,7 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2023-05-08" />
+<meta name="date" content="2023-07-19" />
 
 <title>Schiedea pollen tube growth</title>
 
@@ -253,7 +253,7 @@ div.tocify {
 <h1 class="title toc-ignore"><em>Schiedea</em> pollen tube growth</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John
 Powers</a></h4>
-<h4 class="date">2023-05-08</h4>
+<h4 class="date">2023-07-19</h4>
 
 </div>
 
@@ -956,6 +956,42 @@ plot_all(&quot;mid&quot;)</code></pre>
 <p><img src="figures/pollentubes_all-2.svg" width="1344" /></p>
 <pre class="r"><code>plot_all(&quot;ratio&quot;)</code></pre>
 <p><img src="figures/pollentubes_all-3.svg" width="1344" /></p>
+<pre class="r"><code>plot_all_simple &lt;- function(yvar) {
+signif.cont &lt;- unnest(select(tubes.mod, paste0(yvar,&quot;_cont&quot;)), paste0(yvar,&quot;_cont&quot;)) %&gt;% 
+              mutate(n=row_number(), stars=replace_na(as.character(stars), &quot;NA&quot;),
+                     hr = fct_recode(factor(height), &quot;4hr&quot;=&quot;2&quot;, &quot;24hr&quot;=&quot;3&quot;),
+                     ypos=(height-1)/c(mid=1, bottom=1, ratio=20)[yvar]+c(mid=20, bottom=20, ratio=1)[yvar])
+tubes.mod.plot &lt;- unnest(select(tubes.mod, paste0(yvar,&quot;_emm&quot;)), paste0(yvar,&quot;_emm&quot;)) %&gt;% 
+  mutate(cross_pos = as.integer(cross)-4*as.integer(pair)+4,
+       contrast = paste(pair, as.integer(cross_pos&gt;2), ifelse(hr==&quot;4hr&quot;,&quot;04hr&quot;,&quot;24hr&quot;)))
+
+tubes.mod.plot.signif &lt;- tubes.mod.plot %&gt;% select(pair, hr, response, contrast, cross_pos) %&gt;%  
+  arrange(contrast) %&gt;% mutate(startend = rep(c(1,2), 4)) %&gt;% 
+  pivot_wider(names_from=startend, values_from=c(response, cross_pos)) %&gt;% arrange(pair) %&gt;% 
+  bind_cols(select(ungroup(signif.cont), -pair, -hr, -x1, -x2))
+
+ggplot(tubes.mod.plot) +
+  facet_wrap(vars(pair), scales=&quot;free_x&quot;, nrow=1, labeller = as_labeller(pair_labels)) +
+  geom_pointrange(aes(y=response, x=cross, ymin=lSE, ymax=uSE, color=hr),size=1, linewidth=1) +
+  #geom_path(aes(y=response, x=cross, group=contrast, color=hr))+
+  geom_segment(data=tubes.mod.plot.signif, aes(y=response_1, yend=response_2, x=cross_pos_1, xend=cross_pos_2, 
+                                               color=hr, linetype=signif), linewidth=1)+
+  labs(y=var_labels[yvar]) +
+  scale_y_continuous(limits=c(0,c(mid=13, bottom=13, ratio=1)[yvar]), 
+                     expand = expansion(add=c(0,c(mid=0.5, bottom=0.5, ratio=0.05)[yvar])), 
+                     breaks = seq(0,1,by=0.25) * c(mid = 20, bottom = 20, ratio = 1)[yvar],
+                     labels = ifelse(yvar==&quot;ratio&quot;, scales::percent_format(), scales::number_format()))+
+  scale_x_discrete(labels=~str_replace_all(str_replace(.x, &quot;x&quot;,&quot;\n&quot;), 
+                                           set_names(str_sub(species_names,1,4), names(species_names)))) + 
+  theme_classic() + mytheme + 
+  scale_color_brewer(palette=&quot;Set2&quot;) + scale_linetype_manual(values=c(3,1))+  guides(linetype=&quot;none&quot;, color=&quot;none&quot;)
+}
+plot_all_simple(&quot;mid&quot;)</code></pre>
+<p><img src="figures/pollentubes_all_simple-1.svg" width="1344" /></p>
+<pre class="r"><code>plot_all_simple(&quot;bottom&quot;)</code></pre>
+<p><img src="figures/pollentubes_all_simple-2.svg" width="1344" /></p>
+<pre class="r"><code>plot_all_simple(&quot;ratio&quot;)</code></pre>
+<p><img src="figures/pollentubes_all_simple-3.svg" width="1344" /></p>
 <pre class="r"><code>plot_emm &lt;- function(pair, emm, cont, data, yvar) {
   ggplot(emm, aes(y=response, x=cross, fill=hr)) +
     geom_violin(data=data, aes_string(y=yvar),position=position_dodge(),
