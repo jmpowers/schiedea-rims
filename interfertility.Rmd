@@ -1,5 +1,5 @@
 ---
-title: "Schiedea interfertility"
+title: "*Schiedea* hybrid pollen fertility"
 author: "[John Powers](http://sites.uci.edu/powers/)"
 date: "`r Sys.Date()`"#2017-10-19
 output:
@@ -13,35 +13,38 @@ resource_files:
 - .httr-oauth
 - fertiity.csv
 - sdata.R
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-knitr::opts_chunk$set(comment="  ", cache=T)
+library(knitr)
+knitr::opts_chunk$set(comment="", cache=T, warning = F, message = F,
+                      fig.path = "figures-fertility/", dev = "svglite", dev.args=list(fix_text_size=FALSE))
 library(arcdiagram)
 library(igraph)
-library(aod)
-library(ggplot2)
+library(aod) #wald.test
+library(tidyverse)
 library(viridis)
 library(ape)
 
-
-sch <- read.nexus("input/RAxML_1ps_nocp_bipartitionsBranchLabels.sch.short.nobs.nex")
+sch <- read.nexus("data/RAxML_1ps_nocp_bipartitionsBranchLabels.sch.short.nobs.nex")
 #sch <- read.nexus("input/fig2.nex")
 sch$tip.label <- toupper(paste("",substr(sch$tip.label,1,4),sep=""))
 
-species1 <-read.table("input/species.csv",header=TRUE,sep="\t",row.names=2) #load species data
+species1 <-read.table("data/species.csv",header=TRUE,sep="\t",row.names=2) #load species data
 species1$SpName <- factor(species1$SpName)
 species1 <- species1[sch$tip.label[-(33:35)],]
 ```
 
 Does interfertility decrease with phylogenetic distance in *Schiedea*?
 
-##Load data
-Data from Weller et al. 2001. F1 hybrids that made greater (green) or less than (red) 50 percent fertile pollen.
+# Binary pollen fertility data
+
+Data from Weller et al. 2001. F1 hybrids that made greater or less than 50 percent fertile pollen.
 
 ```{r data}
-fert <- read.table(file="input/fertility/fertility.csv", sep="\t", header=T)
+fert <- read.table(file="data/fertility.csv", sep="\t", header=T)
 fert$sp1 <- toupper(fert$sp1)
 fert$sp2 <- toupper(fert$sp2)
 fert$g50 <- fert$g50+1
@@ -50,7 +53,10 @@ g <- graph_from_data_frame(fert, directed=F, vertices=fspecies)
 g_edges = get.edgelist(g)
 ```
 
-##Clustering
+## Clustering
+
+Phylogeny on the right, clustering by network of fertile pollen on left
+
 ```{r cluster}
 #clustering by network
 adj <- get.adjacency(g, attr="g50")
@@ -69,7 +75,10 @@ ceb_tree <- cophylo(as_phylo(ceb), sch.f)
 plot(ceb_tree)
 ```
 
-##Arcplot
+## Arcplot
+
+F1 hybrids that made greater (green) or less than (red) 50 percent fertile pollen.
+
 ```{r arcplot}
 #phylo-arcplot
 par(mfrow=c(1,2))
@@ -79,7 +88,8 @@ par(mar=c(0,0,0,0))
 arcplot(g_edges, show.labels=F, horizontal=F, ordering=sch.f$tip.label, col.arcs=fert$g50+1)
 ```
 
-##Fertility vs. phylogenetic distance
+## Fertility vs. phylogenetic distance
+
 ```{r pf}
 adj <- as.matrix(get.adjacency(g, attr="g50"))
 adj[upper.tri(adj, diag=T)]<-NA
@@ -91,7 +101,8 @@ cor(pf$ft, pf$pd, use="complete.obs")
 cor.test(pf$ft, pf$pd, use="complete.obs")
 ```
 
-##Logistic regression
+## Logistic regression
+
 ```{r logreg}
 #Logistic regression 
 model <- glm(ft~pd, family=binomial(link='logit'), data=pf)
@@ -100,17 +111,20 @@ confint(model)
 wald.test(b = coef(model), Sigma = vcov(model), Terms = 2)
 ```
 
-##Logistic regression plot
+## Logistic regression plot
+
 ```{r lrplot}
 plot <- ggplot(pf, aes(pd, ft)) + stat_smooth(method="glm", method.args=list(family="binomial"), se=T, color="black") + scale_y_continuous(breaks=c(0, 1), labels=c("<50%", ">50%")) + scale_x_continuous() + xlab("Phylogenetic distance") + ylab("Hybrid pollen fertility") +  scale_fill_gradientn(colors=c("white","black")) + theme_bw()
 
 plot + geom_bin2d()
 ```
 
+# Continuous pollen fertility data
+
 ```{r data2}
-crosses <- read.table("input/fertility/hpol_crosses.csv", sep="\t", header=T, colClasses = list(cross="factor",crosstype="factor"))
+crosses <- read.table("data/hpol_crosses.csv", sep="\t", header=T, colClasses = list(cross="factor",crosstype="factor"))
 str(crosses)
-pol <- read.table("input/fertility/hpol.csv", sep="\t", header=T, colClasses = list(cross="factor", id="factor",crosstype="factor"))
+pol <- read.table("data/hpol.csv", sep="\t", header=T, colClasses = list(cross="factor", id="factor",crosstype="factor"))
 pol$vp <- pol$viable/200
 pol$mombs <- factor(ifelse(pol$crosstype %in% c("1","2"), "H", ifelse(pol$crosstype=="z", "z", "D")))
 pol$dadbs <- factor(ifelse(pol$crosstype %in% c("1","3"), "H", ifelse(pol$crosstype=="z", "z", "D")))
@@ -119,17 +133,17 @@ pol$dadgrp <- with(pol, factor(paste(dadclade,dadisle,dadbs)))
 pol$momsp <- crosses$momsp[match(pol$cross, crosses$cross)]
 pol$dadsp <- crosses$dadsp[match(pol$cross, crosses$cross)]
 str(pol)
-heatmap(with(pol, table(momsp,dadsp)), col=viridis(512), scale="none", Colv=NA, Rowv=NA)
+heatmap(with(pol, table(momsp,dadsp)), col=inferno(512), scale="none", Colv=NA, Rowv=NA)
 
 #polmeans <- aggregate(vp~cross*momgrp*momclade*momisle*mombs*dadgrp*dadclade*dadisle*dadbs, data=pol, FUN=function(x) c(mean(x), sd(x), length(x)))
 polmeans <- aggregate(vp~momsp*dadsp, data=pol, FUN=function(x) c(median(x), quantile(x,0.25), quantile(x,0.75), length(x))) #mean is median!!!
 polmeans <- do.call(data.frame, polmeans)
 colnames(polmeans)[3:6] <- c("mean", "q25", "q75", "N")
-write.csv(polmeans,  "results/hpol_means.csv", row.names=F)
+#write.csv(polmeans,  "results/hpol_means.csv", row.names=F)
 #alllvl <- sort(unique(c(levels(polmeans$momgrp), levels(polmeans$dadgrp))))
 #grps <- cbind(alllvl, read.table(text=alllvl, sep=" ", col.names=c("clade","isle","bs")))
-species <- unique(c(levels(pol$momsp),levels(pol$dadsp)))
-grps <- data.frame(sp=species) #
+species <- unique(c(pol$momsp,pol$dadsp))
+grps <- data.frame(sp=species) 
 
 library(reshape2)
 poltbl <- dcast(polmeans, momsp ~ dadsp, value.var="mean", fun.aggregate = mean)
@@ -139,7 +153,6 @@ poltbl2 <- as.matrix(poltbl)
 poltbl2[is.nan(poltbl2)] <- 0
 ```
 
-
 ```{r plot2}
 ggplot(pol, aes(x=momsp, color=dadsp, y=vp)) + geom_boxplot()
 ggplot(pol, aes(x=momclade, color=dadclade, y=vp)) + geom_boxplot() + geom_point()
@@ -148,7 +161,7 @@ ggplot(pol, aes(x=momclade, color=dadclade, y=vp)) + geom_boxplot() + geom_point
 ggplot(pol, aes(x=reorder(cross, viable, FUN=mean), y=vp, color=crosstype)) + geom_boxplot() + geom_point()
 ggplot(pol, aes(x=crosstype, y=vp, color=dadclade, fill=momclade)) + geom_boxplot()
 
-heatmap(poltbl2, col=viridis(512), scale="none", Rowv = NA, Colv=NA)
+#heatmap(poltbl2, col=viridis(512), scale="none", Rowv = NA, Colv=NA)
 
 #ggplot(polmeans, aes(x=factor(momsp, levels=alllvl), y=factor(dadgrp, levels=alllvl), fill=mean)) + geom_tile() + scale_x_discrete(drop=F) +  scale_y_discrete(drop=F) + scale_fill_viridis_c()
 #ggplot(polmeans, aes(x=momclade, y=dadclade, fill=mean)) + geom_tile() + scale_fill_viridis_c()
@@ -156,7 +169,6 @@ ggplot(polmeans, aes(x=momsp, y=dadsp, fill=mean)) + geom_tile() + scale_fill_vi
 
 hist(pol$viable, breaks=40)
 ```
-
 
 ```{r networks2}
 colfunc <- viridisLite::plasma
@@ -170,7 +182,7 @@ gu <- as.undirected(g, mode="collapse", edge.attr.comb = "mean")
 adj <- get.adjacency(gu, attr="mean")
 g.w <- graph_from_adjacency_matrix(adj, weighted=T, mode="undirected")
 #plot(g.w, layout_with_fr(g.w), edge.color=colfunc(100)[round(E(g)$mean*100)], edge.width=2,   vertex.color=rainbow(10)[grps$clade], vertex.label.color=rainbow(10)[as.integer(grps$isle)+6], vertex.label.cex=2)
-plot(g.w, layout_with_fr(g.w), edge.color=colfunc(100)[round(E(g)$mean*100)], edge.width=2)
+plot(g.w, layout=layout_with_fr(g.w), edge.color=colfunc(100)[round(E(g)$mean*100)], edge.width=2)
 
 #dendPlot(cle, mode="phylo", use.edge.length = T, main="leading eigen")
 plot(as.dendrogram(cluster_leading_eigen(gu)))
@@ -180,8 +192,8 @@ arcplot(g_edges, show.labels=T, horizontal=F, col.arcs=colfunc(100)[round(polmea
 
 ```
 
+## Clustering
 
-##Clustering
 ```{r cluster2}
 ceb <- cluster_leading_eigen(gu)
 #trim phlyo
@@ -202,10 +214,10 @@ ceb_tree <- cophylo(as_phylo(ceb), sch.f)
 plot(ceb_tree)
 ```
 
-##Arcplot
-```{r arcplot2}
+
+```{r arcplot2, eval=FALSE}
 #phylo-arcplot
-png("plots/arcplot.png", height=1500, width=3000, pointsize=56)
+#png("plots/arcplot.png", height=1500, width=3000, pointsize=56)
 par(mfrow=c(1,3) , bg="grey30")
 par(mar=c(1.5,0,1.5,0))
 plot(sch.f, align.tip.label=T, tip.color=BScols[as.integer(species1f$Breeding.System)], edge.width=8, edge.color="grey80", cex=1.5, lwd=8)
@@ -213,14 +225,15 @@ add.scale.bar(y=0.002, x=0.002, lcol="white",col="grey80")
 par(mar=c(0,0,0,0))
 arcplot(g_edges, show.labels=F, horizontal=F, ordering=sch.f$tip.label, col.arcs=plasma(512, direction=-1)[round(polmeans$mean*512)], sorted=T, show.nodes=T, lwd.arcs=6, col.nodes = plasma(512, direction=-1)[round(intraspecies*512)], pch.nodes = 19, cex.nodes=1)
 plot.new()
-legend(x=-0.05,y=1, legend = rev(levels(species1f$Breeding.System)), col = rev(BScols), pch = 19, cex=1.2, pt.cex=2.5, bty="n", xpd=T, text.col= rev(BScols))
+#legend(x=-0.05,y=1, legend = rev(levels(species1f$Breeding.System)), col = rev(BScols), pch = 19, cex=1.2, pt.cex=2.5, bty="n", xpd=T, text.col= rev(BScols))
 library(plotrix)
 color.legend(0,0.55,1,0.65,legend=seq(0,1,0.2),rect.col=plasma(512, direction=-1),cex=1, col="grey80", align="rt")
 text(0.2, 0.7, "Pollen viability", col="grey80", cex=1.5)
-dev.off()
+#dev.off()
 ```
 
-##Fertility vs. phylogenetic distance
+## Fertility vs. phylogenetic distance
+
 ```{r pf2}
 phydist <- cophenetic.phylo(sch.f)
 #phydist[upper.tri(phydist, diag=T)]<-NA
@@ -249,7 +262,7 @@ cor.test(pf$ft, pf$pd, use="complete.obs")
 
 
 pdft <- ggplot(pf, aes(x=pd, y=ft, weight=200*N)) + 
-    geom_line(aes(group=crossname.sort), col="grey70", size=2, alpha=0.5) + 
+    geom_line(aes(group=crossname.sort), col="grey70", linewidth=2, alpha=0.5) + 
   theme_grey() + 
   xlab("Phylogenetic distance (mutations/site)") + 
   ylab("Pollen viability")
@@ -261,17 +274,18 @@ pdft + scale_y_continuous(trans="logit", breaks=c(0.01,seq(0,1,by=0.05), 0.995))
 pdft  + geom_smooth(method="glm", method.args=list(family="binomial"), color="grey70", fill="grey80") + geom_text(aes(label=crossname, color=N)) + coord_trans(y="logit") + scale_y_continuous(breaks=c(0.01,seq(0,1,by=0.05), 0.994)) + scale_color_gradient(trans="sqrt", low="darkblue", high="green2")
 #scale_y_continuous(breaks=seq(0,1, by=0.05), limits=c(0,1), expand=c(0,0))
 
-ggsave("pdft.png", height=9, width=9)
+#ggsave("pdft.png", height=9, width=9)
 ```
 
-##Arcplot
+## Arcplot
+
 ```{r arcplot3}
 #phylo-arcplot
 #TODO: arrange arcs front-to-back by phydist?
 library(gridBase)
 library(grid)
 
-png("plots/arcplot.png", height=1500, width=4000, pointsize=20, res=300)
+#png("plots/arcplot.png", height=1500, width=4000, pointsize=20, res=300)
 par(mfrow=c(1,4) , bg="grey30")
 par(mar=c(1,0,1,0))
 plot(sch.f, align.tip.label=T, tip.color=BScols[as.integer(species1f$Breeding.System)], edge.width=3, edge.color="grey80", cex=1, lwd=4, label.offset=0.0001)
@@ -279,7 +293,7 @@ add.scale.bar(y=0.6, x=0, lcol="grey80",col="grey80", cex=1, lwd=3)
 par(mar=c(0,0,0,0))
 arcplot(g_edges, show.labels=F, horizontal=F, ordering=sch.f$tip.label, col.arcs=plasma(512, direction=-1)[round(polmeans$mean*512)], sorted=T, show.nodes=T, lwd.arcs=3, col.nodes = plasma(512, direction=-1)[round(intraspecies[order(names(intraspecies))]*512)], pch.nodes = 19, cex.nodes=1)
 plot.new()
-legend(x=-0.05,y=1, legend = rev(levels(species1f$Breeding.System)), col = rev(BScols), pch = NA, cex=1, pt.cex=2.5, bty="n", xpd=T, text.col= rev(BScols))
+#legend(x=-0.05,y=1, legend = rev(levels(species1f$Breeding.System)), col = rev(BScols), pch = NA, cex=1, pt.cex=2.5, bty="n", xpd=T, text.col= rev(BScols))
 library(plotrix)
 color.legend(0.1,0.05,0.2,0.55,legend=seq(0,1,0.2),rect.col=plasma(511, direction=-1),cex=0.45, col="grey80", align="rt", gradient="y")
 text(0.26, 0.6, "Pollen viability", col="grey80", cex=1)
@@ -297,23 +311,24 @@ print(pdft  +
         theme_classic() + 
         theme(plot.background = element_rect(color = "grey30", fill = "grey30"), panel.background = element_rect(fill = "grey30", color  =  NA),  legend.background = element_rect(color = NA, fill = "grey30"), axis.text = element_text(color = "grey80"), axis.title = element_text(color = "grey80")) + 
         guides(color=F), vp = vp1)
-dev.off()
+#dev.off()
 ```
 
-##Binomial regression on means
-```{r logreg2}
-model <- glm(ft~pd, family="quasibinomial", weights=N*200, data=pf)
-summary(model)
-plot(model)
+## Binomial regression on means
 
-library(glmmADMB)
-betabin.admb <- glmmadmb(round(cbind(ft*N*200,(1-ft)*N*200))~pd, data=pf, family="betabinomial")
-summary(betabin.admb)
+```{r logreg2}
+# model <- glm(ft~pd, family="quasibinomial", weights=N*200, data=pf)
+# summary(model)
+#plot(model)
+
+library(glmmTMB)
+betabin.tmb <- glmmTMB(round(cbind(ft*N*200,(1-ft)*N*200))~pd, data=pf, family="betabinomial")
+summary(betabin.tmb)
 ```
 
+## Binomial regression on raw data 
 
-##Binomial regression on raw data 
-```{r logreg2}
+```{r logreg2raw}
 phydist.m <- melt(phydist)
 polmeans$pd <- phydist.m$value[match(paste(polmeans$momsp,polmeans$dadsp), paste(phydist.m$Var1,phydist.m$Var2))]
 pol$pd <- phydist.m$value[match(paste(pol$momsp,pol$dadsp), paste(phydist.m$Var1,phydist.m$Var2))]
@@ -322,45 +337,50 @@ pol$inviable <- pol$tot-pol$viable
 
 ggplot(pol, aes(y=vp,x=pd)) + geom_point()
 
-model <- glm(cbind(viable, inviable)~pd, family="quasibinomial", data=pol)
-summary(model)
-#plot(model)
-library(jtools)
-effect_plot(model, pred = pd, interval = TRUE, data=pol) + geom_point(data=pol, aes(pd,vp), color="blue")
-coef(model)
+# model <- glm(cbind(viable, inviable)~pd, family="quasibinomial", data=pol)
+# summary(model)
+# #plot(model)
+# library(jtools)
+# effect_plot(model, pred = pd, interval = TRUE, data=pol) + geom_point(data=pol, aes(pd,vp), color="blue")
+# coef(model)
 
-library(glmmADMB)
-plot.glmmadmb <- function(x, ...) {  qplot(x$fitted, x$residuals, xlab="Fitted values", ylab="Residuals", ...) + geom_smooth()}
+library(glmmTMB)
+# plot.glmmTMB <- function(x, ...) {  qplot(x$fitted, x$residuals, xlab="Fitted values", ylab="Residuals", ...) + geom_smooth()}
+# 
+# betabin.tmb <- glmmTMB(cbind(viable,inviable)~pd, data=pol, family="betabinomial")
+# summary(betabin.tmb)
+#plot(betabin.tmb)
+# plot(fitted(betabin.tmb)~pol$pd)
+# points(polmeans$mean~polmeans$pd, col="red")
+#coef(betabin.tmb)
 
-betabin.admb <- glmmadmb(cbind(viable,inviable)~pd, data=pol, family="betabinomial")
-summary(betabin.admb)
-plot(betabin.admb)
-plot(fitted(betabin.admb)~pol$pd)
-points(polmeans$mean~polmeans$pd, col="red")
-coef(betabin.admb)
-
-#betabin.admb.momdadsp <- glmmadmb(cbind(viable,inviable)~pd + (1|momsp) + (1|dadsp), data=pol, family="betabinomial")
-load("betabin.admb.momdadsp.Rdata")
-summary(betabin.admb.momdadsp)
-plot(betabin.admb.momdadsp)
-#save(betabin.admb.momdadsp, file="betabin.admb.momdadsp.Rdata")
+betabin.tmb.momdadsp <- glmmTMB(cbind(viable,inviable)~pd + (1|momsp) + (1|dadsp), data=pol, family="betabinomial")
+#load("betabin.tmb.momdadsp.Rdata")
+summary(betabin.tmb.momdadsp)
+#plot(betabin.tmb.momdadsp)
+#save(betabin.tmb.momdadsp, file="betabin.tmb.momdadsp.Rdata")
 
 ######Plots############
 #Looks like the random effects are overfitting :( GLM does the best
-#pol$fitted <- fitted(betabin.admb)
-#pol$fitted <- fitted(betabin.admb.momdadsp)
-pol$fitted <- fitted(model)
+#pol$fitted <- fitted(betabin.tmb)
+pol$fitted <- fitted(betabin.tmb.momdadsp)
+#pol$fitted <- fitted(model)
 polmeans$fitmean <- aggregate(fitted~momsp*dadsp, data=pol, FUN=mean)$fitted
-  ggplot(polmeans, aes(pd, fitmean)) +     geom_smooth(aes(y=mean), method="glm", method.args=list(family="binomial"), color="red", fill="pink") + geom_smooth(method="glm", method.args=list(family="binomial"), color="black") + geom_point() + geom_point(aes(y=mean), color="red") + geom_segment(aes(xend=pd, yend=mean))  + geom_text(aes(y=mean, label=paste(momsp,dadsp,sep=" x ")), color="blue")
+  ggplot(polmeans, aes(pd, fitmean)) +    
+    geom_smooth(aes(y=mean), method="glm", method.args=list(family="binomial"), color="red", fill="pink") +
+    geom_smooth(method="glm", method.args=list(family="binomial"), color="black") + 
+    geom_point() + geom_point(aes(y=mean), color="red") + 
+    geom_segment(aes(xend=pd, yend=mean))  + geom_text(aes(y=mean, label=paste(momsp,dadsp,sep=" x ")), color="blue")
 
 ####Random effects#####
-momsp.ef <- data.frame(sp=rownames(ranef(betabin.admb.momdadsp)[[1]]), ef=as.vector(ranef(betabin.admb.momdadsp)[[1]]), sd=as.vector(ranef(betabin.admb.momdadsp, sd=T)[[1]]))
+momsp.ef <- data.frame(sp=rownames(ranef(betabin.tmb.momdadsp)$cond$momsp), ef=ranef(betabin.tmb.momdadsp)$cond$momsp[[1]])#, sd=ranef(betabin.tmb.momdadsp, sd=T)$cond$momsp[[1]])
 momsp.ef$sp <- reorder(momsp.ef$sp, momsp.ef$ef)
-ggplot(momsp.ef, aes(sp,ef)) + geom_point() + geom_linerange(aes(ymin=ef-sd, ymax=ef+sd)) + ggtitle("Maternal random effects") + xlab("Species") + ylab("Effect")
+ggplot(momsp.ef, aes(sp,ef)) + geom_point() +# geom_linerange(aes(ymin=ef-sd, ymax=ef+sd)) + 
+  ggtitle("Maternal random effects") + xlab("Species") + ylab("Effect")
 
-dadsp.ef <- data.frame(sp=rownames(ranef(betabin.admb.momdadsp)[[2]]), ef=as.vector(ranef(betabin.admb.momdadsp)[[2]]), sd=as.vector(ranef(betabin.admb.momdadsp, sd=T)[[2]]))
+dadsp.ef <- data.frame(sp=rownames(ranef(betabin.tmb.momdadsp)$cond$dadsp), ef=ranef(betabin.tmb.momdadsp)$cond$dadsp[[1]])#, sd=ranef(betabin.tmb.momdadsp, sd=T)$cond$dadsp[[1]])
 dadsp.ef$sp <- reorder(dadsp.ef$sp, dadsp.ef$ef)
-ggplot(dadsp.ef, aes(sp,ef)) + geom_point() + geom_linerange(aes(ymin=ef-sd, ymax=ef+sd)) + ggtitle("Paternal random effects") + xlab("Species") + ylab("Effect")
-
+ggplot(dadsp.ef, aes(sp,ef)) + geom_point() +# geom_linerange(aes(ymin=ef-sd, ymax=ef+sd)) + 
+  ggtitle("Paternal random effects") + xlab("Species") + ylab("Effect")
 
 ```
