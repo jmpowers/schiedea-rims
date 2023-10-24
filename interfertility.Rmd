@@ -19,7 +19,7 @@ editor_options:
 
 ```{r setup, include=FALSE}
 library(knitr)
-knitr::opts_chunk$set(comment="", cache=T, warning = F, message = F,
+knitr::opts_chunk$set(comment="", cache=T, warning = F, message = F, fig.width=9, fig.height=8,
                       fig.path = "figures-fertility/", dev = "svglite", dev.args=list(fix_text_size=FALSE))
 library(arcdiagram)
 library(igraph)
@@ -122,9 +122,10 @@ plot + geom_bin2d()
 # Continuous pollen fertility data
 
 ```{r data2}
-crosses <- read.table("data/hpol_crosses.csv", sep="\t", header=T, colClasses = list(cross="factor",crosstype="factor"))
+crosses <- read.table("data/hpol_crosses.tsv", sep="\t", header=T, colClasses = list(cross="factor",crosstype="factor"))
 str(crosses)
-pol <- read.table("data/hpol.csv", sep="\t", header=T, colClasses = list(cross="factor", id="factor",crosstype="factor"))
+pol <- read.table("data/hpol.tsv", sep="\t", header=T, colClasses = list(cross="factor", id="factor",crosstype="factor"))
+pol$date <- NULL
 pol$vp <- pol$viable/200
 pol$mombs <- factor(ifelse(pol$crosstype %in% c("1","2"), "H", ifelse(pol$crosstype=="z", "z", "D")))
 pol$dadbs <- factor(ifelse(pol$crosstype %in% c("1","3"), "H", ifelse(pol$crosstype=="z", "z", "D")))
@@ -132,6 +133,15 @@ pol$momgrp <- with(pol, factor(paste(momclade,momisle,mombs)))
 pol$dadgrp <- with(pol, factor(paste(dadclade,dadisle,dadbs)))
 pol$momsp <- crosses$momsp[match(pol$cross, crosses$cross)]
 pol$dadsp <- crosses$dadsp[match(pol$cross, crosses$cross)]
+
+#data from crosses 2019-2022
+pol2 <- read.csv("data/Pollen fertility - fertility.csv") %>%
+  drop_na(momsp, dadsp, viable, inviable, tot)
+pol2$vp <- pol2$viable/pol2$tot
+pol2$momsp <- str_sub(pol2$momsp, 1, 4)
+pol2$dadsp <- str_sub(pol2$dadsp, 1, 4)
+pol <- bind_rows(pol=pol, pol2=pol2, .id="dataset")
+
 str(pol)
 heatmap(with(pol, table(momsp,dadsp)), col=inferno(512), scale="none", Colv=NA, Rowv=NA)
 
@@ -167,7 +177,7 @@ ggplot(pol, aes(x=crosstype, y=vp, color=dadclade, fill=momclade)) + geom_boxplo
 #ggplot(polmeans, aes(x=momclade, y=dadclade, fill=mean)) + geom_tile() + scale_fill_viridis_c()
 ggplot(polmeans, aes(x=momsp, y=dadsp, fill=mean)) + geom_tile() + scale_fill_viridis_c()
 
-hist(pol$viable, breaks=40)
+ggplot(pol, aes(x=vp, fill=dataset)) + geom_density(alpha=0.5)
 ```
 
 ```{r networks2}
@@ -314,28 +324,27 @@ print(pdft  +
 #dev.off()
 ```
 
-## Binomial regression on means
+## Binomial regression on raw data 
 
-```{r logreg2}
-# model <- glm(ft~pd, family="quasibinomial", weights=N*200, data=pf)
-# summary(model)
-#plot(model)
+```{r logreg2, eval=FALSE}
+## Binomial regression on means
+model <- glm(ft~pd, family="quasibinomial", weights=N*200, data=pf)
+summary(model)
+plot(model)
 
 library(glmmTMB)
 betabin.tmb <- glmmTMB(round(cbind(ft*N*200,(1-ft)*N*200))~pd, data=pf, family="betabinomial")
 summary(betabin.tmb)
 ```
 
-## Binomial regression on raw data 
-
 ```{r logreg2raw}
 phydist.m <- melt(phydist)
 polmeans$pd <- phydist.m$value[match(paste(polmeans$momsp,polmeans$dadsp), paste(phydist.m$Var1,phydist.m$Var2))]
 pol$pd <- phydist.m$value[match(paste(pol$momsp,pol$dadsp), paste(phydist.m$Var1,phydist.m$Var2))]
-pol$tot <- 200
+pol$tot <- replace_na(pol$tot, 200) #pol dataset lacks totals
 pol$inviable <- pol$tot-pol$viable
 
-ggplot(pol, aes(y=vp,x=pd)) + geom_point()
+ggplot(pol, aes(y=vp,x=pd)) + geom_point() + geom_smooth()
 
 # model <- glm(cbind(viable, inviable)~pd, family="quasibinomial", data=pol)
 # summary(model)
@@ -366,7 +375,7 @@ summary(betabin.tmb.momdadsp)
 pol$fitted <- fitted(betabin.tmb.momdadsp)
 #pol$fitted <- fitted(model)
 polmeans$fitmean <- aggregate(fitted~momsp*dadsp, data=pol, FUN=mean)$fitted
-  ggplot(polmeans, aes(pd, fitmean)) +    
+ggplot(polmeans, aes(pd, fitmean)) +    
     geom_smooth(aes(y=mean), method="glm", method.args=list(family="binomial"), color="red", fill="pink") +
     geom_smooth(method="glm", method.args=list(family="binomial"), color="black") + 
     geom_point() + geom_point(aes(y=mean), color="red") + 
@@ -382,5 +391,5 @@ dadsp.ef <- data.frame(sp=rownames(ranef(betabin.tmb.momdadsp)$cond$dadsp), ef=r
 dadsp.ef$sp <- reorder(dadsp.ef$sp, dadsp.ef$ef)
 ggplot(dadsp.ef, aes(sp,ef)) + geom_point() +# geom_linerange(aes(ymin=ef-sd, ymax=ef+sd)) + 
   ggtitle("Paternal random effects") + xlab("Species") + ylab("Effect")
-
 ```
+
