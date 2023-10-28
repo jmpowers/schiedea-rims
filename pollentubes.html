@@ -11,7 +11,7 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2023-07-19" />
+<meta name="date" content="2023-10-24" />
 
 <title>Schiedea pollen tube growth</title>
 
@@ -253,7 +253,7 @@ div.tocify {
 <h1 class="title toc-ignore"><em>Schiedea</em> pollen tube growth</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John
 Powers</a></h4>
-<h4 class="date">2023-07-19</h4>
+<h4 class="date">2023-10-24</h4>
 
 </div>
 
@@ -984,7 +984,7 @@ ggplot(tubes.mod.plot) +
   scale_x_discrete(labels=~str_replace_all(str_replace(.x, &quot;x&quot;,&quot;\n&quot;), 
                                            set_names(str_sub(species_names,1,4), names(species_names)))) + 
   theme_classic() + mytheme + 
-  scale_color_brewer(palette=&quot;Set2&quot;) + scale_linetype_manual(values=c(3,1))+  guides(linetype=&quot;none&quot;, color=&quot;none&quot;)
+  scale_color_brewer(palette=&quot;Set2&quot;) + scale_linetype_manual(values=c(2,1))+  guides(linetype=&quot;none&quot;, color=&quot;none&quot;)
 }
 plot_all_simple(&quot;mid&quot;)</code></pre>
 <p><img src="figures/pollentubes_all_simple-1.svg" width="1344" /></p>

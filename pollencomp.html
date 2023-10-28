@@ -11,7 +11,7 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2023-05-03" />
+<meta name="date" content="2023-10-24" />
 
 <title>Schiedea pollen competition</title>
 
@@ -253,7 +253,7 @@ div.tocify {
 <h1 class="title toc-ignore"><em>Schiedea</em> pollen competition</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John
 Powers</a></h4>
-<h4 class="date">2023-05-03</h4>
+<h4 class="date">2023-10-24</h4>
 
 </div>
 
@@ -1078,16 +1078,15 @@ al. nuclear dataset (no chloroplast data, 1 accession per species).</p>
 <pre class="r"><code>tree &lt;- read.nexus(&quot;data/RAxML_1ps_nocp_bipartitionsBranchLabels.sch.short.nobs.nex&quot;)
 plot(tree, tip.color = sp_pal[tree$tip.label])</code></pre>
 <p><img src="figures-comp/phylodist-1.svg" width="768" /></p>
-<pre class="r"><code>par(mfrow=c(1,2))
-par(mar=c(1.5,0,1.5,0))
+<pre class="r"><code># par(mfrow=c(1,2))
+# par(mar=c(1.5,0,1.5,0))
 tree_pairs &lt;- tree %&gt;% keep.tip(sp_pairs)
-plot(tree_pairs, tip.color = sp_pal[tree_pairs$tip.label])
-par(mar=c(0,0,0,0))
-sp_pairs %&gt;% matrix(ncol=2, byrow=T) %&gt;% 
-  arcplot(show.labels=F, horizontal=F, ordering=tree_pairs$tip.label, 
-          col.arcs=sp_pal[(1:5)*2], col.nodes = sp_pal)</code></pre>
-<p><img src="figures-comp/phylodist-2.svg" width="768" /></p>
-<pre class="r"><code>par(mfrow=c(1,1))
+# plot(tree_pairs, tip.color = sp_pal[tree_pairs$tip.label])
+# par(mar=c(0,0,0,0))
+# sp_pairs %&gt;% matrix(ncol=2, byrow=T) %&gt;% 
+#   arcplot(show.labels=F, horizontal=F, ordering=tree_pairs$tip.label, 
+#           col.arcs=sp_pal[(1:5)*2], col.nodes = sp_pal)
+# par(mfrow=c(1,1))
 
 hybrid.phylodist &lt;- comp.emm %&gt;% left_join(select(hybrid.test, momsp, dadsp, -type)) %&gt;% 
   mutate(pd = map2_dbl(as.character(momsp), as.character(dadsp), ~cophenetic(tree_pairs)[.x,.y])) %&gt;% 
@@ -1186,18 +1185,44 @@ hybrid.phylodist.test %&gt;% select(trait, type, term, p.value) %&gt;% filter(ty
   labs(x=&quot;Phylogenetic distance (mutations/site)&quot;, color=&quot;Maternal species&quot;) + theme_bw() +
   theme(axis.title.y=element_blank(), axis.text=element_text(color=&quot;black&quot;), legend.position=&quot;top&quot;,
         panel.grid.minor = element_blank(), panel.grid.major.x=element_blank(), panel.spacing = unit(1, &quot;lines&quot;))</code></pre>
-<p><img src="figures-comp/phylodist-3.svg" width="768" /></p>
+<p><img src="figures-comp/phylodist-2.svg" width="768" /></p>
 <pre class="r"><code>ggplot(left_join(postzygotic.ratios, phylodist), aes(x=pd, y=RI)) + 
   facet_wrap(vars(trait), labeller=as_labeller(propnames), nrow=1)+ 
   geom_hline(yintercept=0, linetype=2) + geom_hline(yintercept=-1)+ geom_hline(yintercept=1)+
   geom_smooth(method=&quot;loess&quot;, span=1.2, se=F, color=&quot;grey&quot;) + 
-  geom_pointrange(aes(color=momsp, ymin=low, ymax=high), size=0.5) + scale_color_brewer(palette=&quot;Paired&quot;) +  
+  geom_errorbar(aes(color=momsp, ymin=low, ymax=high), width=0.001, linewidth=0.5) +
+  geom_point(aes(color=momsp), size=2) + 
+  scale_color_brewer(palette=&quot;Paired&quot;) +  
   labs(x=&quot;Phylogenetic distance (mutations/site)&quot;, color=&quot;Maternal species&quot;, y=&quot;Reproductive isolation&quot;) + 
   scale_y_continuous(limits=c(-1,1), breaks=c(-1,-0.5,0,0.5,1), expand=c(0,0),
-                     labels=c(&quot;heterosis -1&quot;,&quot;-0.5&quot;,&quot;no barrier 0&quot;,&quot;0.5&quot;,&quot;complete isolation 0&quot;)) + 
+                     labels=c(&quot;heterosis -1&quot;,&quot;-0.5&quot;,&quot;no barrier 0&quot;,&quot;0.5&quot;,&quot;complete isolation 1&quot;)) + 
   theme_bw() + theme(axis.text=element_text(color=&quot;black&quot;), legend.position=&quot;top&quot;,
                      panel.grid.minor = element_blank(), panel.grid.major.x=element_blank(), panel.spacing = unit(1, &quot;lines&quot;))</code></pre>
-<p><img src="figures-comp/phylodist-4.svg" width="768" /></p>
+<p><img src="figures-comp/phylodist-3.svg" width="768" /></p>
+<pre class="r"><code>par(mfrow=c(1,2))
+par(mar=c(1.5,0,1.5,0))
+plot(tree_pairs, tip.color = sp_pal_dark[tree_pairs$tip.label])
+par(mar=c(0,0,0,0))
+sp_pairs %&gt;% matrix(ncol=2, byrow=T) %&gt;% 
+  arcplot(show.labels=F, horizontal=F, ordering=tree_pairs$tip.label, 
+          col.arcs=sp_pal[(1:5)*2], col.nodes = sp_pal)</code></pre>
+<p><img src="figures-comp/phylo_arc-1.svg" width="384" /></p>
+<pre class="r"><code>par(mfrow=c(1,1))</code></pre>
+<pre class="r"><code>ggplot(left_join(hybrid.phylodist, filter(hybrid.phylodist.test, term==&quot;pd&quot;)) %&gt;% 
+         filter(trait==&quot;prop.hybrid&quot;, type==&quot;mixed&quot;) %&gt;% left_join(hybrid.test),
+       aes(x=pd, y=estimate)) + coord_cartesian(xlim=c(0,NA))+
+  geom_hline(yintercept=0.5, linetype=2)+
+  geom_smooth(method=&quot;lm&quot;, se=F, color=&quot;grey&quot;) +
+  geom_pointrange(aes(ymax=conf.high, ymin=conf.low, color=momsp, shape=p.adj &lt; 0.05)) + 
+    scale_shape_manual(&quot;Different from 50%&quot;, values=c(1, 19), labels=c(&quot;no&quot;,&quot;yes&quot;))+
+  scale_color_brewer(palette=&quot;Paired&quot;) + 
+  scale_alpha_manual(breaks=c(T,F), values=c(0.5, 1))+
+  scale_y_continuous(breaks=(0:4)/4, labels=~scales::percent(.,accuracy=1), expand=c(0.02,0), limits=c(0,NA))+
+  labs(x=&quot;Phylogenetic distance (mutations/site)&quot;, color=&quot;Maternal species&quot;,
+       y=&quot;Hybrids from competitive pollinations&quot;) + theme_minimal() +
+  theme(axis.text=element_text(color=&quot;black&quot;), legend.position=&quot;top&quot;, legend.box = &quot;vertical&quot;,
+        panel.grid.minor = element_blank(), panel.grid.major.x=element_blank(), panel.spacing = unit(1, &quot;lines&quot;))</code></pre>
+<p><img src="figures-comp/phylodist_hybrid-1.svg" width="672" /></p>
 <p>Regressions against the phylogenetic distance of each species pair.
 Solid regression lines are statistically significant in a model that
 also included the difference in style length within pairs. Note that for
@@ -1242,7 +1267,7 @@ conspecific seeds.</p>
 <p><img src="figures-comp/fertilized-2.svg" width="768" /></p>
 <pre class="r"><code>left_join(filter(comp.emm, trait==&quot;prop.hybrid&quot;), hybrid.test) %&gt;% 
 left_join(select(styles.emm, momsp, style_length_mm, mating, style_conf.low=conf.low, style_conf.high=conf.high)) %&gt;% 
-  ggplot(aes(x=style_length_mm, y=estimate, color=momsp)) + geom_hline(aes(yintercept=0.5)) +  
+  ggplot(aes(x=style_length_mm, y=estimate, color=momsp)) + geom_hline(aes(yintercept=0.5), linetype=2) +  
   geom_errorbarh(aes(xmin=style_conf.low, xmax=style_conf.high)) +  geom_errorbar(aes(ymin=conf.low, ymax=conf.high)) +
   geom_line(aes(group=pair))+  geom_point(size=4)+
   scale_color_brewer(palette=&quot;Paired&quot;) + scale_y_continuous(labels=scales::percent_format(), breaks=(0:4)/4)+ scale_x_continuous(limits=c(0,NA))+

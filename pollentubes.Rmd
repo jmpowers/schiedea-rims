@@ -286,7 +286,7 @@ ggplot(tubes.mod.plot) +
   scale_x_discrete(labels=~str_replace_all(str_replace(.x, "x","\n"), 
                                            set_names(str_sub(species_names,1,4), names(species_names)))) + 
   theme_classic() + mytheme + 
-  scale_color_brewer(palette="Set2") + scale_linetype_manual(values=c(3,1))+  guides(linetype="none", color="none")
+  scale_color_brewer(palette="Set2") + scale_linetype_manual(values=c(2,1))+  guides(linetype="none", color="none")
 }
 plot_all_simple("mid")
 plot_all_simple("bottom")

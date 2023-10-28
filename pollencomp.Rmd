@@ -9,6 +9,8 @@ output:
     code_folding: hide
     toc: yes
     toc_float: TRUE
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, message = FALSE}
@@ -381,15 +383,15 @@ Load *Schiedea* tree inferred with RAxML from Willyard et al. nuclear dataset (n
 tree <- read.nexus("data/RAxML_1ps_nocp_bipartitionsBranchLabels.sch.short.nobs.nex")
 plot(tree, tip.color = sp_pal[tree$tip.label])
 
-par(mfrow=c(1,2))
-par(mar=c(1.5,0,1.5,0))
+# par(mfrow=c(1,2))
+# par(mar=c(1.5,0,1.5,0))
 tree_pairs <- tree %>% keep.tip(sp_pairs)
-plot(tree_pairs, tip.color = sp_pal[tree_pairs$tip.label])
-par(mar=c(0,0,0,0))
-sp_pairs %>% matrix(ncol=2, byrow=T) %>% 
-  arcplot(show.labels=F, horizontal=F, ordering=tree_pairs$tip.label, 
-          col.arcs=sp_pal[(1:5)*2], col.nodes = sp_pal)
-par(mfrow=c(1,1))
+# plot(tree_pairs, tip.color = sp_pal[tree_pairs$tip.label])
+# par(mar=c(0,0,0,0))
+# sp_pairs %>% matrix(ncol=2, byrow=T) %>% 
+#   arcplot(show.labels=F, horizontal=F, ordering=tree_pairs$tip.label, 
+#           col.arcs=sp_pal[(1:5)*2], col.nodes = sp_pal)
+# par(mfrow=c(1,1))
 
 hybrid.phylodist <- comp.emm %>% left_join(select(hybrid.test, momsp, dadsp, -type)) %>% 
   mutate(pd = map2_dbl(as.character(momsp), as.character(dadsp), ~cophenetic(tree_pairs)[.x,.y])) %>% 
@@ -421,14 +423,46 @@ ggplot(left_join(postzygotic.ratios, phylodist), aes(x=pd, y=RI)) +
   facet_wrap(vars(trait), labeller=as_labeller(propnames), nrow=1)+ 
   geom_hline(yintercept=0, linetype=2) + geom_hline(yintercept=-1)+ geom_hline(yintercept=1)+
   geom_smooth(method="loess", span=1.2, se=F, color="grey") + 
-  geom_pointrange(aes(color=momsp, ymin=low, ymax=high), size=0.5) + scale_color_brewer(palette="Paired") +  
+  geom_errorbar(aes(color=momsp, ymin=low, ymax=high), width=0.001, linewidth=0.5) +
+  geom_point(aes(color=momsp), size=2) + 
+  scale_color_brewer(palette="Paired") +  
   labs(x="Phylogenetic distance (mutations/site)", color="Maternal species", y="Reproductive isolation") + 
   scale_y_continuous(limits=c(-1,1), breaks=c(-1,-0.5,0,0.5,1), expand=c(0,0),
-                     labels=c("heterosis -1","-0.5","no barrier 0","0.5","complete isolation 0")) + 
+                     labels=c("heterosis -1","-0.5","no barrier 0","0.5","complete isolation 1")) + 
   theme_bw() + theme(axis.text=element_text(color="black"), legend.position="top",
                      panel.grid.minor = element_blank(), panel.grid.major.x=element_blank(), panel.spacing = unit(1, "lines"))
 
 ```
+
+```{r phylo_arc, fig.width=4, fig.height=4}
+par(mfrow=c(1,2))
+par(mar=c(1.5,0,1.5,0))
+plot(tree_pairs, tip.color = sp_pal_dark[tree_pairs$tip.label])
+par(mar=c(0,0,0,0))
+sp_pairs %>% matrix(ncol=2, byrow=T) %>% 
+  arcplot(show.labels=F, horizontal=F, ordering=tree_pairs$tip.label, 
+          col.arcs=sp_pal[(1:5)*2], col.nodes = sp_pal)
+par(mfrow=c(1,1))
+```
+
+
+```{r phylodist_hybrid, fig.width=7, fig.height=5}
+ggplot(left_join(hybrid.phylodist, filter(hybrid.phylodist.test, term=="pd")) %>% 
+         filter(trait=="prop.hybrid", type=="mixed") %>% left_join(hybrid.test),
+       aes(x=pd, y=estimate)) + coord_cartesian(xlim=c(0,NA))+
+  geom_hline(yintercept=0.5, linetype=2)+
+  geom_smooth(method="lm", se=F, color="grey") +
+  geom_pointrange(aes(ymax=conf.high, ymin=conf.low, color=momsp, shape=p.adj < 0.05)) + 
+    scale_shape_manual("Different from 50%", values=c(1, 19), labels=c("no","yes"))+
+  scale_color_brewer(palette="Paired") + 
+  scale_alpha_manual(breaks=c(T,F), values=c(0.5, 1))+
+  scale_y_continuous(breaks=(0:4)/4, labels=~scales::percent(.,accuracy=1), expand=c(0.02,0), limits=c(0,NA))+
+  labs(x="Phylogenetic distance (mutations/site)", color="Maternal species",
+       y="Hybrids from competitive pollinations") + theme_minimal() +
+  theme(axis.text=element_text(color="black"), legend.position="top", legend.box = "vertical",
+        panel.grid.minor = element_blank(), panel.grid.major.x=element_blank(), panel.spacing = unit(1, "lines"))
+```
+
 
 Regressions against the phylogenetic distance of each species pair. Solid regression lines are statistically significant in a model that also included the difference in style length within pairs. Note that for reference, data for intraspecific crosses is plotted with the phylogenetic distance to its paired species, which doesn't make great sense.
 
@@ -472,7 +506,7 @@ left_join(hybrid.test, select(styles.emm, momsp, style_length_mm, mating)) %>%
 ```{r progeny_styles, fig.width=6, fig.height=5}
 left_join(filter(comp.emm, trait=="prop.hybrid"), hybrid.test) %>% 
 left_join(select(styles.emm, momsp, style_length_mm, mating, style_conf.low=conf.low, style_conf.high=conf.high)) %>% 
-  ggplot(aes(x=style_length_mm, y=estimate, color=momsp)) + geom_hline(aes(yintercept=0.5)) +  
+  ggplot(aes(x=style_length_mm, y=estimate, color=momsp)) + geom_hline(aes(yintercept=0.5), linetype=2) +  
   geom_errorbarh(aes(xmin=style_conf.low, xmax=style_conf.high)) +  geom_errorbar(aes(ymin=conf.low, ymax=conf.high)) +
   geom_line(aes(group=pair))+  geom_point(size=4)+
   scale_color_brewer(palette="Paired") + scale_y_continuous(labels=scales::percent_format(), breaks=(0:4)/4)+ scale_x_continuous(limits=c(0,NA))+
