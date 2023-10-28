@@ -4,15 +4,11 @@ author: "[John Powers](http://sites.uci.edu/powers/)"
 date: "`r Sys.Date()`"#2017-10-19
 output:
   html_document:
+    self_contained: no
+    lib_dir: libs
     code_folding: hide
     toc: yes
     toc_float: TRUE
-  pdf_document:
-    toc: yes
-resource_files:
-- .httr-oauth
-- fertiity.csv
-- sdata.R
 editor_options: 
   chunk_output_type: console
 ---
