@@ -120,11 +120,13 @@ plot + geom_bin2d()
 # Continuous pollen fertility data
 
 ```{r data2}
+#data from the original "hpol" and "hpol2" datasets (Weller et al. 2001), Lisa McGrath
 crosses <- read.table("data/hpol_crosses.tsv", sep="\t", header=T, colClasses = list(cross="factor",crosstype="factor"))
 str(crosses)
 pol <- read.table("data/hpol.tsv", sep="\t", header=T, colClasses = list(cross="factor", id="factor",crosstype="factor"))
 pol$date <- NULL
-pol$vp <- pol$viable/200
+pol$tot <- 200
+pol$vp <- pol$viable/pol$tot
 pol$mombs <- factor(ifelse(pol$crosstype %in% c("1","2"), "H", ifelse(pol$crosstype=="z", "z", "D")))
 pol$dadbs <- factor(ifelse(pol$crosstype %in% c("1","3"), "H", ifelse(pol$crosstype=="z", "z", "D")))
 pol$momgrp <- with(pol, factor(paste(momclade,momisle,mombs)))
@@ -138,7 +140,12 @@ pol2 <- read.csv("data/Pollen fertility - fertility.csv") %>%
 pol2$vp <- pol2$viable/pol2$tot
 pol2$momsp <- str_sub(pol2$momsp, 1, 4)
 pol2$dadsp <- str_sub(pol2$dadsp, 1, 4)
-pol <- bind_rows(pol=pol, pol2=pol2, .id="dataset")
+
+#data from kaal/hook crosses 2015-2017
+pol3 <- read.table("data/pollen.tsv", sep="\t", header=T) %>% rename(tot=total)
+pol3$vp <- pol3$viable/pol3$tot
+
+pol <- bind_rows(HPOL=pol, pol2019.2022=pol2, pol2015.2017.KH=pol3, .id="dataset")
 
 str(pol)
 heatmap(with(pol, table(momsp,dadsp)), col=inferno(512), scale="none", Colv=NA, Rowv=NA)
