@@ -598,7 +598,8 @@ pf$dadsp &lt;- substr(pf$crossname, 8,11)
 
 #plot(sch.f)
 #nodelabels()
-polyploids &lt;- extract.clade(sch.f, 31)$tip.label
+polyploid.event &lt;- 31
+polyploids &lt;- extract.clade(sch.f, polyploid.event)$tip.label
 pf$momploidy &lt;- ifelse(pf$momsp %in% polyploids, &quot;tetra&quot;, &quot;di&quot;)
 pf$dadploidy &lt;- ifelse(pf$dadsp %in% polyploids, &quot;tetra&quot;, &quot;di&quot;)
 pf$diffploidy &lt;- pf$momploidy != pf$dadploidy
@@ -615,6 +616,13 @@ pf$momdadploidy &lt;-paste(pf$momploidy, pf$dadploidy, sep=&quot;, &quot;)
 <p><img src="figures-fertility/pf2-1.svg" width="864" /></p>
 <pre class="r"><code>pdft + geom_text(aes(label=crossname))</code></pre>
 <p><img src="figures-fertility/pf2-2.svg" width="864" /></p>
+<pre class="r"><code>plot(paintSubTree(sch.f,polyploid.event,&quot;tetraploid&quot;,&quot;diploid&quot;))</code></pre>
+<pre><code>no colors provided. using the following legend:
+   diploid tetraploid 
+   &quot;black&quot;  &quot;#DF536B&quot; </code></pre>
+<pre class="r"><code>legend(&quot;bottomright&quot;, legend=c(&quot;diploid&quot;,&quot;tetraploid&quot;), fill=c(1,2))
+nodelabels(node=polyploid.event, col=2, pch=19, cex=2)</code></pre>
+<p><img src="figures-fertility/pf2-3.svg" width="864" /></p>
 <pre class="r"><code>sppairs &lt;- c(&quot;menz x sali&quot;, &quot;sali x menz&quot;, &quot;lydg x sarm&quot;, &quot;sarm x lydg&quot;,
               &quot;stel x sper&quot;, &quot;sper x stel&quot;, &quot;memb x kaua&quot;, &quot;kaua x memb&quot;,
               &quot;kaal x hook&quot;, &quot;hook x kaal&quot;)

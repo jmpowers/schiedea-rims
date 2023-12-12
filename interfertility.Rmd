@@ -276,7 +276,8 @@ pf$dadsp <- substr(pf$crossname, 8,11)
 
 #plot(sch.f)
 #nodelabels()
-polyploids <- extract.clade(sch.f, 31)$tip.label
+polyploid.event <- 31
+polyploids <- extract.clade(sch.f, polyploid.event)$tip.label
 pf$momploidy <- ifelse(pf$momsp %in% polyploids, "tetra", "di")
 pf$dadploidy <- ifelse(pf$dadsp %in% polyploids, "tetra", "di")
 pf$diffploidy <- pf$momploidy != pf$dadploidy
@@ -292,6 +293,10 @@ pf$momdadploidy <-paste(pf$momploidy, pf$dadploidy, sep=", ")
   labs(x="Phylogenetic distance (mutations/site)", y="Pollen viability", color="Maternal, paternal ploidy"))
 
 pdft + geom_text(aes(label=crossname))
+
+plot(paintSubTree(sch.f,polyploid.event,"tetraploid","diploid"))
+legend("bottomright", legend=c("diploid","tetraploid"), fill=c(1,2))
+nodelabels(node=polyploid.event, col=2, pch=19, cex=2)
 ```
 
 ```{r pf_pairs,fig.height=5, fig.width=8}
