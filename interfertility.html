@@ -11,7 +11,7 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2023-12-07" />
+<meta name="date" content="2023-12-12" />
 
 <title>Schiedea hybrid pollen fertility</title>
 
@@ -254,7 +254,7 @@ div.tocify {
 fertility</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John
 Powers</a></h4>
-<h4 class="date">2023-12-07</h4>
+<h4 class="date">2023-12-12</h4>
 
 </div>
 
@@ -592,46 +592,48 @@ comb &lt;-function(x,y) {mapply(function(q,r) paste(sort(c(q,r)), collapse=&quot
 labels &lt;- outer(sch.f$tip.label, sch.f$tip.label, comb)
 
 pf &lt;- na.omit(data.frame(pd=c(phydist), ft=c(adj), N=c(adj.N), q25=c(adj.q25), q75=c(adj.q75),crossname= c(outer(sch.f$tip.label, sch.f$tip.label, paste, sep=&quot; x &quot;)), crossname.sort=c(labels)))
-pf$q75[pf$q75==1]&lt;- NA # safe for logit transform
-cor(pf$ft, pf$pd, use=&quot;complete.obs&quot;)</code></pre>
-<pre><code>[1] -0.7131672</code></pre>
-<pre class="r"><code>cor.test(pf$ft, pf$pd, use=&quot;complete.obs&quot;)</code></pre>
-<pre><code>
-    Pearson&#39;s product-moment correlation
+#pf$q75[pf$q75==1]&lt;- NA # safe for logit transform
+pf$momsp &lt;- substr(pf$crossname, 1,4)
+pf$dadsp &lt;- substr(pf$crossname, 8,11)
 
-data:  pf$ft and pf$pd
-t = -12.377, df = 148, p-value &lt; 2.2e-16
-alternative hypothesis: true correlation is not equal to 0
-95 percent confidence interval:
- -0.7838410 -0.6242537
-sample estimates:
-       cor 
--0.7131672 </code></pre>
-<pre class="r"><code>pdft &lt;- ggplot(pf, aes(x=pd, y=ft, weight=200*N)) + 
-    geom_line(aes(group=crossname.sort), col=&quot;grey70&quot;, linewidth=2, alpha=0.5) + 
-  theme_grey() + 
-  xlab(&quot;Phylogenetic distance (mutations/site)&quot;) + 
-  ylab(&quot;Pollen viability&quot;)
+#plot(sch.f)
+#nodelabels()
+polyploids &lt;- extract.clade(sch.f, 31)$tip.label
+pf$momploidy &lt;- ifelse(pf$momsp %in% polyploids, &quot;tetra&quot;, &quot;di&quot;)
+pf$dadploidy &lt;- ifelse(pf$dadsp %in% polyploids, &quot;tetra&quot;, &quot;di&quot;)
+pf$diffploidy &lt;- pf$momploidy != pf$dadploidy
+pf$momdadploidy &lt;-paste(pf$momploidy, pf$dadploidy, sep=&quot;, &quot;)
 
-pdft + geom_point() + geom_linerange(aes(ymin=q25, ymax=q75)) + ylim(c(0,1))</code></pre>
+# cor(pf$ft, pf$pd, use=&quot;complete.obs&quot;)
+# cor.test(pf$ft, pf$pd, use=&quot;complete.obs&quot;)
+
+(pdft &lt;- ggplot(pf, aes(x=pd, y=ft, color=momdadploidy)) + 
+  geom_line(aes(group=crossname.sort), linewidth=2, alpha=0.5) + 
+  geom_point() + geom_linerange(aes(ymin=q25, ymax=q75)) + 
+  geom_smooth(se=F, span=0.8, linewidth=2) + theme(legend.position = &quot;top&quot;)+
+  labs(x=&quot;Phylogenetic distance (mutations/site)&quot;, y=&quot;Pollen viability&quot;, color=&quot;Maternal, paternal ploidy&quot;))</code></pre>
 <p><img src="figures-fertility/pf2-1.svg" width="864" /></p>
-<pre class="r"><code>#pdft + scale_y_continuous(trans=&quot;logit&quot;, breaks=c(0.01,seq(0,1,by=0.05), 0.995)) + geom_text(aes(label=crossname), size=3) # trans_breaks(function(p) { log(p/(1-p)) }, function(x) { 1/(1+exp(-x)) },  n=10)
-
-pdft  + geom_smooth(method=&quot;glm&quot;, method.args=list(family=&quot;binomial&quot;), color=&quot;grey70&quot;, fill=&quot;grey80&quot;) + geom_text(aes(label=crossname, color=N)) + coord_trans(y=&quot;logit&quot;) + scale_y_continuous(breaks=c(0.01,seq(0,1,by=0.05), 0.99)) + scale_color_gradient(trans=&quot;sqrt&quot;, low=&quot;darkblue&quot;, high=&quot;green2&quot;)</code></pre>
+<pre class="r"><code>pdft + geom_text(aes(label=crossname))</code></pre>
 <p><img src="figures-fertility/pf2-2.svg" width="864" /></p>
-<pre class="r"><code>#scale_y_continuous(breaks=seq(0,1, by=0.05), limits=c(0,1), expand=c(0,0))
-
-#ggsave(&quot;pdft.png&quot;, height=9, width=9)
-
-sppairs &lt;- c(&quot;menz x sali&quot;, &quot;sali x menz&quot;, &quot;lydg x sarm&quot;, &quot;sarm x lydg&quot;,
+<pre class="r"><code>sppairs &lt;- c(&quot;menz x sali&quot;, &quot;sali x menz&quot;, &quot;lydg x sarm&quot;, &quot;sarm x lydg&quot;,
               &quot;stel x sper&quot;, &quot;sper x stel&quot;, &quot;memb x kaua&quot;, &quot;kaua x memb&quot;,
               &quot;kaal x hook&quot;, &quot;hook x kaal&quot;)
-pdft  + geom_smooth(method=&quot;glm&quot;, method.args=list(family=&quot;binomial&quot;), color=&quot;black&quot;) + 
-  geom_pointrange(aes(ymin=q25, ymax=q75), alpha=0.1, shape=1) +
-  geom_text(data = filter(pf, crossname %in% sppairs), aes(label=crossname, color = factor(crossname, levels=sppairs))) + 
-  coord_trans(y=&quot;logit&quot;) + scale_y_continuous(breaks=c(seq(0,1,by=0.1), 0.99)) + 
-  theme_minimal() + scale_color_brewer(palette = &quot;Paired&quot;) + guides(color=&quot;none&quot;)</code></pre>
-<p><img src="figures-fertility/pf2-3.svg" width="864" /></p>
+sp &lt;- c(&quot;menziesii&quot;,&quot;salicaria&quot;,
+        &quot;lydgatei&quot;, &quot;sarmentosa&quot;,
+        &quot;stellarioides&quot;,&quot;spergulina&quot;,
+        &quot;membranacea&quot;,&quot;kauaiensis&quot;,
+        &quot;kaalae&quot;, &quot;hookeri&quot;)
+sp &lt;- set_names(sp, substr(sp, 1,4))
+
+pf %&gt;% #filter(momsp %in% names(sp), dadsp %in% names(sp)) %&gt;% 
+  filter(crossname %in% sppairs | (momsp %in% names(sp) &amp; momsp==dadsp)) %&gt;% 
+  ggplot(aes(x=pd, y=ft, color=factor(sp[momsp], levels=sp))) + 
+  geom_linerange(aes(ymin=q25, ymax=q75)) + geom_point(size=3)+ 
+  scale_color_brewer(palette = &quot;Paired&quot;) + 
+  scale_y_continuous(labels=scales::percent_format(), limits=c(0,1))+
+  labs(x=&quot;Phylogenetic distance (mutations/site)&quot;, y=&quot;Pollen viability&quot;, color=&quot;Maternal species&quot;)+
+  theme(legend.position = &quot;top&quot;) </code></pre>
+<p><img src="figures-fertility/pf_pairs-1.svg" width="768" /></p>
 </div>
 <div id="arcplot-1" class="section level2">
 <h2>Arcplot</h2>
