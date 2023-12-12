@@ -11,7 +11,7 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2023-10-24" />
+<meta name="date" content="2023-12-11" />
 
 <title>Schiedea pollen competition</title>
 
@@ -253,7 +253,7 @@ div.tocify {
 <h1 class="title toc-ignore"><em>Schiedea</em> pollen competition</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John
 Powers</a></h4>
-<h4 class="date">2023-10-24</h4>
+<h4 class="date">2023-12-11</h4>
 
 </div>
 
@@ -285,7 +285,7 @@ sp_pal_dark &lt;- set_names(sp_pal[rep(seq(2,10,by=2), each=2)], sp_pairs)
 typenames &lt;- set_names(c(&quot;Intraspecific&quot;,&quot;Competitive&quot;,&quot;Interspecific&quot;),c(&quot;intra&quot;,&quot;mixed&quot;,&quot;inter&quot;))
 type_pal &lt;- set_names(brewer.pal(6,&quot;Pastel1&quot;)[c(2,3,5)], names(typenames))
 type_pal_dark &lt;- set_names(brewer.pal(6,&quot;Set1&quot;)[c(2,3,5)], names(typenames))
-propnames &lt;- set_names(c(&quot;Capsule formation&quot;,&quot;Seed number &quot;,&quot;Germination&quot;,&quot;Survival&quot;,&quot;Hybrid&quot;), c(&quot;capsule.formed&quot;,&quot;sds&quot;,&quot;prop.germ&quot;, &quot;prop.alive&quot;, &quot;prop.hybrid&quot;))
+propnames &lt;- set_names(c(&quot;Capsule formation&quot;,&quot;Seed number&quot;,&quot;Germination&quot;,&quot;Survival&quot;,&quot;Hybrid&quot;), c(&quot;capsule.formed&quot;,&quot;sds&quot;,&quot;prop.germ&quot;, &quot;prop.alive&quot;, &quot;prop.hybrid&quot;))
 vigornames &lt;- c(hybrid.vigor.germsurv=&quot;Relative hybrid fitness&quot;, prop.hybrid=&quot;Surviving hybrids&quot;, prop.hybrid.sds = &quot;Hybrid seeds&quot;)
 
 momid.fixes &lt;- read_tsv(&quot;data/Pollen competition - momid_fixes.tsv&quot;)
@@ -326,7 +326,7 @@ germ.pot &lt;- read_tsv(&quot;data/Pollen competition - germination.tsv&quot;) %
          germinated = ifelse(germinated &gt; planted, planted, germinated))
 
 germ &lt;- germ.pot %&gt;% group_by(date_planted, type, momsp, sxc, momid, dadspm, dadidm, dadsp, dadid) %&gt;% #date_planted splits 30 plant x plant crosses
-  summarize(planted = sum(planted), germinated = sum(germinated), .groups=&quot;drop&quot;) %&gt;% # add together all the pots of one cross
+  summarize(n.pdishes = n(), planted = sum(planted), germinated = sum(germinated), .groups=&quot;drop&quot;) %&gt;% # add together all the pots of one cross
   mutate(prop.germ = germinated/planted) # proportion of planted seeds that germinated 
 
 surv &lt;- read_tsv(&quot;data/Pollen competition - survival.tsv&quot;) %&gt;% 
@@ -346,7 +346,12 @@ surv &lt;- read_tsv(&quot;data/Pollen competition - survival.tsv&quot;) %&gt;%
          prop.hybrid = hybrid / alive,
          prop.alive = alive / total)
 
-surv %&gt;% count(momsp, type, dadsp, name=&quot;crosses_surv&quot;) %&gt;% 
+germ %&gt;% summarize(across(c(n.pdishes, planted, germinated), sum))</code></pre>
+<pre><code># A tibble: 1 × 3
+  n.pdishes planted germinated
+      &lt;int&gt;   &lt;dbl&gt;      &lt;dbl&gt;
+1      1658   27812      18732</code></pre>
+<pre class="r"><code>surv %&gt;% count(momsp, type, dadsp, name=&quot;crosses_surv&quot;) %&gt;% 
   full_join(seeds %&gt;% count(momsp, type, dadsp, name=&quot;crosses_seeds&quot;)) %&gt;% 
   full_join(germ %&gt;% count(momsp, type, dadsp, name=&quot;crosses_germ&quot;)) %&gt;% 
   full_join(germ.pot %&gt;% count(momsp, type, dadsp, name = &quot;pots_germ&quot;)) %&gt;%
@@ -926,7 +931,7 @@ hybrid.test &lt;- surv %&gt;% filter(type==&quot;mixed&quot;) %&gt;%
   summarize(total=sum(total), alive=sum(alive), hybrid=sum(hybrid), crosses=n(), .groups=&quot;drop&quot;) %&gt;% 
   mutate(total_per_c = total/crosses, alive_per_c = alive / crosses,
          prop.hybrid = hybrid/alive,
-         p = map2_dbl(hybrid, alive, ~prop.test(x=.x, n=.y, p = 0.5)$p.value),
+         p = map2_dbl(hybrid, alive, ~binom.test(x=.x, n=.y, p = 0.5)$p.value),
          p.adj = p.adjust(p, &quot;bonferroni&quot;),
          stars = cut(p.adj, breaks = c(-Inf, 0.01, 0.05, 0.10, Inf), 
                 labels = c(&quot;***&quot;, &quot;**&quot;, &quot;*&quot;, &quot;n.s.&quot;), right = FALSE)) %&gt;% 
@@ -1186,7 +1191,9 @@ hybrid.phylodist.test %&gt;% select(trait, type, term, p.value) %&gt;% filter(ty
   theme(axis.title.y=element_blank(), axis.text=element_text(color=&quot;black&quot;), legend.position=&quot;top&quot;,
         panel.grid.minor = element_blank(), panel.grid.major.x=element_blank(), panel.spacing = unit(1, &quot;lines&quot;))</code></pre>
 <p><img src="figures-comp/phylodist-2.svg" width="768" /></p>
-<pre class="r"><code>ggplot(left_join(postzygotic.ratios, phylodist), aes(x=pd, y=RI)) + 
+<pre class="r"><code>left_join(postzygotic.ratios, phylodist) %&gt;% 
+  filter(!(trait==&quot;capsule.formed&quot; &amp; momsp %in% c(&quot;spergulina&quot;, &quot;sarmentosa&quot;))) %&gt;% #whole inflor in organza bag - no capsule data
+  ggplot(aes(x=pd, y=RI)) + 
   facet_wrap(vars(trait), labeller=as_labeller(propnames), nrow=1)+ 
   geom_hline(yintercept=0, linetype=2) + geom_hline(yintercept=-1)+ geom_hline(yintercept=1)+
   geom_smooth(method=&quot;loess&quot;, span=1.2, se=F, color=&quot;grey&quot;) + 

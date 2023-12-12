@@ -44,7 +44,7 @@ sp_pal_dark <- set_names(sp_pal[rep(seq(2,10,by=2), each=2)], sp_pairs)
 typenames <- set_names(c("Intraspecific","Competitive","Interspecific"),c("intra","mixed","inter"))
 type_pal <- set_names(brewer.pal(6,"Pastel1")[c(2,3,5)], names(typenames))
 type_pal_dark <- set_names(brewer.pal(6,"Set1")[c(2,3,5)], names(typenames))
-propnames <- set_names(c("Capsule formation","Seed number ","Germination","Survival","Hybrid"), c("capsule.formed","sds","prop.germ", "prop.alive", "prop.hybrid"))
+propnames <- set_names(c("Capsule formation","Seed number","Germination","Survival","Hybrid"), c("capsule.formed","sds","prop.germ", "prop.alive", "prop.hybrid"))
 vigornames <- c(hybrid.vigor.germsurv="Relative hybrid fitness", prop.hybrid="Surviving hybrids", prop.hybrid.sds = "Hybrid seeds")
 
 momid.fixes <- read_tsv("data/Pollen competition - momid_fixes.tsv")
@@ -85,7 +85,7 @@ germ.pot <- read_tsv("data/Pollen competition - germination.tsv") %>%
          germinated = ifelse(germinated > planted, planted, germinated))
 
 germ <- germ.pot %>% group_by(date_planted, type, momsp, sxc, momid, dadspm, dadidm, dadsp, dadid) %>% #date_planted splits 30 plant x plant crosses
-  summarize(planted = sum(planted), germinated = sum(germinated), .groups="drop") %>% # add together all the pots of one cross
+  summarize(n.pdishes = n(), planted = sum(planted), germinated = sum(germinated), .groups="drop") %>% # add together all the pots of one cross
   mutate(prop.germ = germinated/planted) # proportion of planted seeds that germinated 
 
 surv <- read_tsv("data/Pollen competition - survival.tsv") %>% 
@@ -104,6 +104,8 @@ surv <- read_tsv("data/Pollen competition - survival.tsv") %>%
          total = alive + dead, 
          prop.hybrid = hybrid / alive,
          prop.alive = alive / total)
+
+germ %>% summarize(across(c(n.pdishes, planted, germinated), sum))
 
 surv %>% count(momsp, type, dadsp, name="crosses_surv") %>% 
   full_join(seeds %>% count(momsp, type, dadsp, name="crosses_seeds")) %>% 
@@ -283,7 +285,7 @@ hybrid.test <- surv %>% filter(type=="mixed") %>%
   summarize(total=sum(total), alive=sum(alive), hybrid=sum(hybrid), crosses=n(), .groups="drop") %>% 
   mutate(total_per_c = total/crosses, alive_per_c = alive / crosses,
          prop.hybrid = hybrid/alive,
-         p = map2_dbl(hybrid, alive, ~prop.test(x=.x, n=.y, p = 0.5)$p.value),
+         p = map2_dbl(hybrid, alive, ~binom.test(x=.x, n=.y, p = 0.5)$p.value),
          p.adj = p.adjust(p, "bonferroni"),
          stars = cut(p.adj, breaks = c(-Inf, 0.01, 0.05, 0.10, Inf), 
                 labels = c("***", "**", "*", "n.s."), right = FALSE)) %>% 
@@ -379,7 +381,7 @@ ggplot(styles, aes(x=momsp, y=style_length_mm, fill=momsp)) +
 
 Load *Schiedea* tree inferred with RAxML from Willyard et al. nuclear dataset (no chloroplast data, 1 accession per species).
 
-```{r phylodist, fig.height=8, fig.width=8}
+```{r phylodist, fig.height=5, fig.width=8}
 tree <- read.nexus("data/RAxML_1ps_nocp_bipartitionsBranchLabels.sch.short.nobs.nex")
 plot(tree, tip.color = sp_pal[tree$tip.label])
 
@@ -419,7 +421,9 @@ ggplot(left_join(hybrid.phylodist, filter(hybrid.phylodist.test, term=="pd")), a
   theme(axis.title.y=element_blank(), axis.text=element_text(color="black"), legend.position="top",
         panel.grid.minor = element_blank(), panel.grid.major.x=element_blank(), panel.spacing = unit(1, "lines"))
 
-ggplot(left_join(postzygotic.ratios, phylodist), aes(x=pd, y=RI)) + 
+left_join(postzygotic.ratios, phylodist) %>% 
+  filter(!(trait=="capsule.formed" & momsp %in% c("spergulina", "sarmentosa"))) %>% #whole inflor in organza bag - no capsule data
+  ggplot(aes(x=pd, y=RI)) + 
   facet_wrap(vars(trait), labeller=as_labeller(propnames), nrow=1)+ 
   geom_hline(yintercept=0, linetype=2) + geom_hline(yintercept=-1)+ geom_hline(yintercept=1)+
   geom_smooth(method="loess", span=1.2, se=F, color="grey") + 
