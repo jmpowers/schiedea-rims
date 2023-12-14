@@ -11,7 +11,7 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2023-12-13" />
+<meta name="date" content="2023-12-14" />
 
 <title>Schiedea hybrid pollen fertility</title>
 
@@ -254,7 +254,7 @@ div.tocify {
 fertility</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John
 Powers</a></h4>
-<h4 class="date">2023-12-13</h4>
+<h4 class="date">2023-12-14</h4>
 
 </div>
 
@@ -373,110 +373,65 @@ plot + geom_bin2d()</code></pre>
 </div>
 <div id="continuous-pollen-fertility-data" class="section level1">
 <h1>Continuous pollen fertility data</h1>
-<pre class="r"><code>#data from the original &quot;hpol&quot; and &quot;hpol2&quot; datasets (Weller et al. 2001), Lisa McGrath
-crosses &lt;- read.table(&quot;data/hpol_crosses.tsv&quot;, sep=&quot;\t&quot;, header=T, colClasses = list(cross=&quot;factor&quot;,crosstype=&quot;factor&quot;))
-str(crosses)</code></pre>
-<pre><code>&#39;data.frame&#39;:   120 obs. of  11 variables:
- $ cross    : Factor w/ 120 levels &quot;108&quot;,&quot;11&quot;,&quot;116&quot;,..: 13 24 105 107 118 2 4 9 20 23 ...
- $ mompop   : int  847 847 847 847 847 847 847 847 847 847 ...
- $ momid    : chr  &quot;B&quot; &quot;B&quot; &quot;B&quot; &quot;B&quot; ...
- $ dadpop   : int  794 794 794 794 794 842 842 842 847 791 ...
- $ dadid    : chr  &quot;3&quot; &quot;3&quot; &quot;3&quot; &quot;3&quot; ...
- $ momsp    : chr  &quot;adam&quot; &quot;adam&quot; &quot;adam&quot; &quot;adam&quot; ...
- $ dadsp    : chr  &quot;hook&quot; &quot;hook&quot; &quot;hook&quot; &quot;hook&quot; ...
- $ mombs    : chr  &quot;d&quot; &quot;d&quot; &quot;d&quot; &quot;d&quot; ...
- $ dadbs    : chr  &quot;h&quot; &quot;h&quot; &quot;h&quot; &quot;h&quot; ...
- $ crosstype: Factor w/ 4 levels &quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;: 3 3 3 3 3 4 4 4 4 4 ...
- $ notes    : chr  &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; ...</code></pre>
-<pre class="r"><code>pol &lt;- read.table(&quot;data/hpol.tsv&quot;, sep=&quot;\t&quot;, header=T, colClasses = list(cross=&quot;factor&quot;, id=&quot;factor&quot;,crosstype=&quot;factor&quot;))
-pol$date &lt;- NULL
-pol$tot &lt;- 200
-pol$vp &lt;- pol$viable/pol$tot
-pol$mombs &lt;- factor(ifelse(pol$crosstype %in% c(&quot;1&quot;,&quot;2&quot;), &quot;H&quot;, ifelse(pol$crosstype==&quot;z&quot;, &quot;z&quot;, &quot;D&quot;)))
-pol$dadbs &lt;- factor(ifelse(pol$crosstype %in% c(&quot;1&quot;,&quot;3&quot;), &quot;H&quot;, ifelse(pol$crosstype==&quot;z&quot;, &quot;z&quot;, &quot;D&quot;)))
-pol$momgrp &lt;- with(pol, factor(paste(momclade,momisle,mombs)))
-pol$dadgrp &lt;- with(pol, factor(paste(dadclade,dadisle,dadbs)))
-pol$momsp &lt;- crosses$momsp[match(pol$cross, crosses$cross)]
-pol$dadsp &lt;- crosses$dadsp[match(pol$cross, crosses$cross)]
+<pre class="r"><code>#data from the original &quot;hpol&quot; and Lisa McGrath&#39;s 1993 cross #400-443&quot;hpol2&quot; datasets (Weller et al. 2001) 
+#https://docs.google.com/spreadsheets/d/16mIbPzzO9X3XaOcJ9v-31trM-qJ8v18JVgI-4HO6Mc0
+crosses &lt;- read_tsv(&quot;data/hpol_crosses.tsv&quot;)
+#https://docs.google.com/spreadsheets/d/1saqnEfk-SgABqlfxGzz7gmqDsPrmP9EnSlF55KcuZn4
+pol1 &lt;- read_tsv(&quot;data/hpol.tsv&quot;) %&gt;% select(-date) %&gt;% 
+  mutate(tot = 200, vp = viable/tot) %&gt;% left_join(crosses) %&gt;% 
+  mutate(across(c(cross,id,crosstype,mompop,dadpop), as.character))
 
 #data from crosses 2019-2022
-pol2 &lt;- read.csv(&quot;data/Pollen fertility - fertility.csv&quot;) %&gt;%
-  drop_na(momsp, dadsp, viable, inviable, tot)
-pol2$vp &lt;- pol2$viable/pol2$tot
-pol2$momsp &lt;- str_sub(pol2$momsp, 1, 4)
-pol2$dadsp &lt;- str_sub(pol2$dadsp, 1, 4)
+#https://docs.google.com/spreadsheets/d/1r5mavlrzRaPLBU8bSn98CzWzjz-t7LAfMosvgqSB6sg
+pol2 &lt;- read_csv(&quot;data/Pollen fertility - fertility.csv&quot;) %&gt;%
+  drop_na(momsp, dadsp, viable, inviable, tot) %&gt;% 
+  mutate(vp = viable/tot, momsp = str_sub(momsp, 1, 4), dadsp = str_sub(dadsp, 1, 4))
 
 #data from kaal/hook crosses 2015-2017
-pol3 &lt;- read.table(&quot;data/pollen.tsv&quot;, sep=&quot;\t&quot;, header=T) %&gt;% rename(tot=total)
-pol3$vp &lt;- pol3$viable/pol3$tot
+#https://docs.google.com/spreadsheets/d/1pYbAnEDw2KfM34l85wlJV6pfAr1DroPj_7GjfApnCq8
+pol3 &lt;- read_tsv(&quot;data/pollen.tsv&quot;) %&gt;% 
+  select(-starts_with(&quot;I&quot;, ignore.case=F), -starts_with(&quot;V&quot;, ignore.case=F), 
+         -prop.viable, -momid, -dadid, -ends_with(&quot;anther&quot;), -sxc, -sxcxm,- smompop,
+         tot=total, boxcell=cell) %&gt;% 
+  mutate(vp = viable/tot)
 
-pol &lt;- bind_rows(HPOL=pol, pol2019.2022=pol2, pol2015.2017.KH=pol3, .id=&quot;dataset&quot;)
+pol &lt;- bind_rows(HPOL=pol1, pol2019.2022=pol2, pol2015.2017.KH=pol3, .id=&quot;dataset&quot;) %&gt;% as.data.frame()
 
 str(pol)</code></pre>
-<pre><code>&#39;data.frame&#39;:   3457 obs. of  63 variables:
- $ dataset            : chr  &quot;HPOL&quot; &quot;HPOL&quot; &quot;HPOL&quot; &quot;HPOL&quot; ...
- $ cross              : chr  &quot;66&quot; &quot;66&quot; &quot;66&quot; &quot;66&quot; ...
- $ id                 : chr  &quot;31&quot; &quot;31&quot; &quot;31&quot; &quot;31&quot; ...
- $ viable             : int  122 165 151 166 173 189 191 183 184 179 ...
- $ crosstype          : chr  &quot;4&quot; &quot;4&quot; &quot;4&quot; &quot;4&quot; ...
- $ momisle            : chr  &quot;O&quot; &quot;O&quot; &quot;O&quot; &quot;O&quot; ...
- $ dadisle            : chr  &quot;O&quot; &quot;O&quot; &quot;O&quot; &quot;O&quot; ...
- $ momclade           : chr  &quot;2&quot; &quot;2&quot; &quot;2&quot; &quot;2&quot; ...
- $ dadclade           : chr  &quot;4&quot; &quot;4&quot; &quot;4&quot; &quot;4&quot; ...
- $ tot                : num  200 200 200 200 200 200 200 200 200 200 ...
- $ vp                 : num  0.61 0.825 0.755 0.83 0.865 0.945 0.955 0.915 0.92 0.895 ...
- $ mombs              : Factor w/ 2 levels &quot;D&quot;,&quot;H&quot;: 1 1 1 1 1 1 1 1 1 1 ...
- $ dadbs              : Factor w/ 2 levels &quot;D&quot;,&quot;H&quot;: 1 1 1 1 1 1 1 1 1 1 ...
- $ momgrp             : Factor w/ 13 levels &quot;1 K H&quot;,&quot;1 N H&quot;,..: 5 5 5 5 5 11 11 11 11 11 ...
- $ dadgrp             : Factor w/ 16 levels &quot;1 K H&quot;,&quot;1 N H&quot;,..: 13 13 13 13 13 5 5 5 5 5 ...
- $ momsp              : chr  &quot;adam&quot; &quot;adam&quot; &quot;adam&quot; &quot;adam&quot; ...
- $ dadsp              : chr  &quot;keal&quot; &quot;keal&quot; &quot;keal&quot; &quot;keal&quot; ...
- $ index              : int  NA NA NA NA NA NA NA NA NA NA ...
- $ date               : chr  NA NA NA NA ...
- $ boxcell            : int  NA NA NA NA NA NA NA NA NA NA ...
- $ mompid             : chr  NA NA NA NA ...
- $ dadpid             : chr  NA NA NA NA ...
- $ fullcross          : chr  NA NA NA NA ...
- $ progenyid          : int  NA NA NA NA NA NA NA NA NA NA ...
- $ flowers            : int  NA NA NA NA NA NA NA NA NA NA ...
- $ anthers            : int  NA NA NA NA NA NA NA NA NA NA ...
- $ line               : num  NA NA NA NA NA NA NA NA NA NA ...
- $ inviable           : int  NA NA NA NA NA NA NA NA NA NA ...
- $ notes              : chr  NA NA NA NA ...
- $ set                : int  NA NA NA NA NA NA NA NA NA NA ...
- $ cell               : int  NA NA NA NA NA NA NA NA NA NA ...
- $ mompop             : chr  NA NA NA NA ...
- $ momid              : chr  NA NA NA NA ...
- $ dadpop             : chr  NA NA NA NA ...
- $ dadid              : chr  NA NA NA NA ...
- $ V1                 : int  NA NA NA NA NA NA NA NA NA NA ...
- $ I1                 : int  NA NA NA NA NA NA NA NA NA NA ...
- $ V2                 : int  NA NA NA NA NA NA NA NA NA NA ...
- $ I2                 : int  NA NA NA NA NA NA NA NA NA NA ...
- $ V3                 : int  NA NA NA NA NA NA NA NA NA NA ...
- $ I3                 : int  NA NA NA NA NA NA NA NA NA NA ...
- $ V4                 : int  NA NA NA NA NA NA NA NA NA NA ...
- $ I4                 : int  NA NA NA NA NA NA NA NA NA NA ...
- $ V5                 : int  NA NA NA NA NA NA NA NA NA NA ...
- $ I5                 : int  NA NA NA NA NA NA NA NA NA NA ...
- $ V6                 : int  NA NA NA NA NA NA NA NA NA NA ...
- $ I6                 : int  NA NA NA NA NA NA NA NA NA NA ...
- $ V7                 : int  NA NA NA NA NA NA NA NA NA NA ...
- $ I7                 : int  NA NA NA NA NA NA NA NA NA NA ...
- $ V8                 : int  NA NA NA NA NA NA NA NA NA NA ...
- $ I8                 : int  NA NA NA NA NA NA NA NA NA NA ...
- $ V9                 : int  NA NA NA NA NA NA NA NA NA NA ...
- $ I9                 : int  NA NA NA NA NA NA NA NA NA NA ...
- $ V10                : int  NA NA NA NA NA NA NA NA NA NA ...
- $ I10                : int  NA NA NA NA NA NA NA NA NA NA ...
- $ comments           : chr  NA NA NA NA ...
- $ viable.per.anther  : num  NA NA NA NA NA NA NA NA NA NA ...
- $ inviable.per.anther: num  NA NA NA NA NA NA NA NA NA NA ...
- $ total.per.anther   : num  NA NA NA NA NA NA NA NA NA NA ...
- $ prop.viable        : num  NA NA NA NA NA NA NA NA NA NA ...
- $ sxc                : chr  NA NA NA NA ...
- $ sxcxm              : chr  NA NA NA NA ...
- $ smompop            : chr  NA NA NA NA ...</code></pre>
+<pre><code>&#39;data.frame&#39;:   3457 obs. of  33 variables:
+ $ dataset  : chr  &quot;HPOL&quot; &quot;HPOL&quot; &quot;HPOL&quot; &quot;HPOL&quot; ...
+ $ cross    : chr  &quot;66&quot; &quot;66&quot; &quot;66&quot; &quot;66&quot; ...
+ $ id       : chr  &quot;31&quot; &quot;31&quot; &quot;31&quot; &quot;31&quot; ...
+ $ viable   : num  122 165 151 166 173 189 191 183 184 179 ...
+ $ crosstype: chr  &quot;4&quot; &quot;4&quot; &quot;4&quot; &quot;4&quot; ...
+ $ momisle  : chr  &quot;O&quot; &quot;O&quot; &quot;O&quot; &quot;O&quot; ...
+ $ dadisle  : chr  &quot;O&quot; &quot;O&quot; &quot;O&quot; &quot;O&quot; ...
+ $ momclade : chr  &quot;2&quot; &quot;2&quot; &quot;2&quot; &quot;2&quot; ...
+ $ dadclade : chr  &quot;4&quot; &quot;4&quot; &quot;4&quot; &quot;4&quot; ...
+ $ comments : chr  NA NA NA NA ...
+ $ tot      : num  200 200 200 200 200 200 200 200 200 200 ...
+ $ vp       : num  0.61 0.825 0.755 0.83 0.865 0.945 0.955 0.915 0.92 0.895 ...
+ $ mompop   : chr  &quot;847&quot; &quot;847&quot; &quot;847&quot; &quot;847&quot; ...
+ $ momid    : chr  &quot;B&quot; &quot;B&quot; &quot;B&quot; &quot;B&quot; ...
+ $ dadpop   : chr  &quot;791&quot; &quot;791&quot; &quot;791&quot; &quot;791&quot; ...
+ $ dadid    : chr  &quot;16&quot; &quot;16&quot; &quot;16&quot; &quot;16&quot; ...
+ $ momsp    : chr  &quot;adam&quot; &quot;adam&quot; &quot;adam&quot; &quot;adam&quot; ...
+ $ dadsp    : chr  &quot;keal&quot; &quot;keal&quot; &quot;keal&quot; &quot;keal&quot; ...
+ $ mombs    : chr  &quot;d&quot; &quot;d&quot; &quot;d&quot; &quot;d&quot; ...
+ $ dadbs    : chr  &quot;d&quot; &quot;d&quot; &quot;d&quot; &quot;d&quot; ...
+ $ notes    : chr  NA NA NA NA ...
+ $ index    : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ date     : Date, format: NA NA ...
+ $ boxcell  : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ mompid   : chr  NA NA NA NA ...
+ $ dadpid   : chr  NA NA NA NA ...
+ $ fullcross: chr  NA NA NA NA ...
+ $ progenyid: num  NA NA NA NA NA NA NA NA NA NA ...
+ $ flowers  : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ anthers  : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ line     : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ inviable : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ set      : num  NA NA NA NA NA NA NA NA NA NA ...</code></pre>
 <pre class="r"><code>heatmap(with(pol, table(momsp,dadsp)), col=inferno(512), scale=&quot;none&quot;, Colv=NA, Rowv=NA)</code></pre>
 <p><img src="figures-fertility/data2-1.svg" width="864" /></p>
 <pre class="r"><code>#polmeans &lt;- aggregate(vp~cross*momgrp*momclade*momisle*mombs*dadgrp*dadclade*dadisle*dadbs, data=pol, FUN=function(x) c(mean(x), sd(x), length(x)))
@@ -494,6 +449,752 @@ rownames(poltbl) &lt;- poltbl$momsp
 poltbl$momsp &lt;- NULL
 poltbl2 &lt;- as.matrix(poltbl)
 poltbl2[is.nan(poltbl2)] &lt;- 0</code></pre>
+<pre class="r"><code>print(paste(&quot;number of slides:&quot;, nrow(pol)))</code></pre>
+<pre><code>[1] &quot;number of slides: 3457&quot;</code></pre>
+<pre class="r"><code>print(paste(&quot;number of pollen grains:&quot;, sum(pol$tot)))</code></pre>
+<pre><code>[1] &quot;number of pollen grains: 748276&quot;</code></pre>
+<pre class="r"><code>count(crosses, momsp, mombs) %&gt;% pivot_wider(names_from=mombs, values_from=n) %&gt;% kable(caption=&quot;mombs&quot;)</code></pre>
+<table>
+<caption>mombs</caption>
+<thead>
+<tr class="header">
+<th align="left">momsp</th>
+<th align="right">d</th>
+<th align="right">h</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">adam</td>
+<td align="right">25</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">apok</td>
+<td align="right">4</td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">diff</td>
+<td align="right"></td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="left">glob</td>
+<td align="right">26</td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">hook</td>
+<td align="right"></td>
+<td align="right">8</td>
+</tr>
+<tr class="even">
+<td align="left">kaal</td>
+<td align="right"></td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">keal</td>
+<td align="right">15</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">ligu</td>
+<td align="right">9</td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">lych</td>
+<td align="right"></td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">mann</td>
+<td align="right">1</td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">memb</td>
+<td align="right"></td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">nutt</td>
+<td align="right"></td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">sali</td>
+<td align="right">5</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">sper</td>
+<td align="right">7</td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">vert</td>
+<td align="right"></td>
+<td align="right">5</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>count(crosses, dadsp, dadbs) %&gt;% pivot_wider(names_from=dadbs, values_from=n) %&gt;% kable(caption=&quot;dadbs&quot;)</code></pre>
+<table>
+<caption>dadbs</caption>
+<thead>
+<tr class="header">
+<th align="left">dadsp</th>
+<th align="right">d</th>
+<th align="right">h</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">adam</td>
+<td align="right">8</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">apok</td>
+<td align="right">5</td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">glob</td>
+<td align="right">12</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">hook</td>
+<td align="right"></td>
+<td align="right">11</td>
+</tr>
+<tr class="odd">
+<td align="left">kaal</td>
+<td align="right"></td>
+<td align="right">13</td>
+</tr>
+<tr class="even">
+<td align="left">keal</td>
+<td align="right">7</td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">ligu</td>
+<td align="right">7</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">lych</td>
+<td align="right"></td>
+<td align="right">10</td>
+</tr>
+<tr class="odd">
+<td align="left">mann</td>
+<td align="right">3</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">memb</td>
+<td align="right"></td>
+<td align="right">7</td>
+</tr>
+<tr class="odd">
+<td align="left">menz</td>
+<td align="right"></td>
+<td align="right">7</td>
+</tr>
+<tr class="even">
+<td align="left">nutt</td>
+<td align="right"></td>
+<td align="right">8</td>
+</tr>
+<tr class="odd">
+<td align="left">pube</td>
+<td align="right"></td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">sali</td>
+<td align="right">13</td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">sper</td>
+<td align="right">2</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">vert</td>
+<td align="right"></td>
+<td align="right">5</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>#TODO isles and clades are not 1-1 with species!
+count(pol1, momsp, momisle) %&gt;% pivot_wider(names_from=momisle, values_from=n) %&gt;% kable(caption=&quot;momisle&quot;)</code></pre>
+<table>
+<caption>momisle</caption>
+<thead>
+<tr class="header">
+<th align="left">momsp</th>
+<th align="right">O</th>
+<th align="right">z</th>
+<th align="right">K</th>
+<th align="right">M</th>
+<th align="right">N</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">adam</td>
+<td align="right">497</td>
+<td align="right">41</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">apok</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right">90</td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">diff</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right">72</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">glob</td>
+<td align="right">536</td>
+<td align="right">19</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">hook</td>
+<td align="right">106</td>
+<td align="right">14</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">kaal</td>
+<td align="right">23</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">keal</td>
+<td align="right">304</td>
+<td align="right">25</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">ligu</td>
+<td align="right">95</td>
+<td align="right">9</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">lych</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right">54</td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">mann</td>
+<td align="right"></td>
+<td align="right">5</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">memb</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right">9</td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">nutt</td>
+<td align="right">76</td>
+<td align="right">5</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">sali</td>
+<td align="right"></td>
+<td align="right">14</td>
+<td align="right"></td>
+<td align="right">34</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">sper</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right">117</td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">vert</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right">94</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>count(pol1, dadsp, dadisle) %&gt;% pivot_wider(names_from=dadisle, values_from=n) %&gt;% kable(caption=&quot;dadisle&quot;)</code></pre>
+<table>
+<caption>dadisle</caption>
+<thead>
+<tr class="header">
+<th align="left">dadsp</th>
+<th align="right">O</th>
+<th align="right">z</th>
+<th align="right">K</th>
+<th align="right">M</th>
+<th align="right">N</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">adam</td>
+<td align="right">157</td>
+<td align="right">36</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">apok</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right">70</td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">glob</td>
+<td align="right">198</td>
+<td align="right">19</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">hook</td>
+<td align="right">196</td>
+<td align="right">19</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">kaal</td>
+<td align="right">190</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">keal</td>
+<td align="right">150</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">ligu</td>
+<td align="right">109</td>
+<td align="right">9</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">lych</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right">158</td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">mann</td>
+<td align="right">49</td>
+<td align="right">5</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">memb</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right">148</td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">menz</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right">164</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">nutt</td>
+<td align="right">122</td>
+<td align="right">30</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">pube</td>
+<td align="right">45</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">sali</td>
+<td align="right">50</td>
+<td align="right">14</td>
+<td align="right"></td>
+<td align="right">212</td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">sper</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right">28</td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">vert</td>
+<td align="right">23</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right">38</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>count(pol1, momsp, momclade) %&gt;% pivot_wider(names_from=momclade, values_from=n) %&gt;% kable(caption=&quot;momclade&quot;)</code></pre>
+<table>
+<caption>momclade</caption>
+<thead>
+<tr class="header">
+<th align="left">momsp</th>
+<th align="right">2</th>
+<th align="right">4</th>
+<th align="right">z</th>
+<th align="right">3</th>
+<th align="right">1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">adam</td>
+<td align="right">447</td>
+<td align="right">50</td>
+<td align="right">41</td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">apok</td>
+<td align="right">90</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">diff</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right">72</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">glob</td>
+<td align="right"></td>
+<td align="right">536</td>
+<td align="right">19</td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">hook</td>
+<td align="right"></td>
+<td align="right">106</td>
+<td align="right">14</td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">kaal</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right">23</td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">keal</td>
+<td align="right"></td>
+<td align="right">304</td>
+<td align="right">25</td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">ligu</td>
+<td align="right">95</td>
+<td align="right"></td>
+<td align="right">9</td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">lych</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right">54</td>
+</tr>
+<tr class="even">
+<td align="left">mann</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right">5</td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">memb</td>
+<td align="right"></td>
+<td align="right">9</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">nutt</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right">5</td>
+<td align="right">76</td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">sali</td>
+<td align="right">34</td>
+<td align="right"></td>
+<td align="right">14</td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">sper</td>
+<td align="right"></td>
+<td align="right">117</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">vert</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right">94</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>count(pol1, dadsp, dadclade) %&gt;% pivot_wider(names_from=dadclade, values_from=n) %&gt;% kable(caption=&quot;dadclade&quot;)</code></pre>
+<table>
+<caption>dadclade</caption>
+<thead>
+<tr class="header">
+<th align="left">dadsp</th>
+<th align="right">2</th>
+<th align="right">z</th>
+<th align="right">4</th>
+<th align="right">3</th>
+<th align="right">1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">adam</td>
+<td align="right">157</td>
+<td align="right">36</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">apok</td>
+<td align="right">70</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">glob</td>
+<td align="right"></td>
+<td align="right">19</td>
+<td align="right">198</td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">hook</td>
+<td align="right"></td>
+<td align="right">19</td>
+<td align="right">196</td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">kaal</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right">190</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">keal</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right">150</td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">ligu</td>
+<td align="right">109</td>
+<td align="right">9</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">lych</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right">158</td>
+</tr>
+<tr class="odd">
+<td align="left">mann</td>
+<td align="right"></td>
+<td align="right">5</td>
+<td align="right">49</td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">memb</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right">148</td>
+</tr>
+<tr class="odd">
+<td align="left">menz</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right">164</td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">nutt</td>
+<td align="right"></td>
+<td align="right">30</td>
+<td align="right"></td>
+<td align="right">122</td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">pube</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right">45</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">sali</td>
+<td align="right">212</td>
+<td align="right">14</td>
+<td align="right">50</td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">sper</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right">10</td>
+<td align="right">18</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">vert</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right">9</td>
+<td align="right">23</td>
+<td align="right">29</td>
+</tr>
+</tbody>
+</table>
 <pre class="r"><code>ggplot(pol, aes(x=momsp, color=dadsp, y=vp)) + geom_boxplot()</code></pre>
 <p><img src="figures-fertility/plot2-1.svg" width="864" /></p>
 <pre class="r"><code>ggplot(pol, aes(x=momclade, color=dadclade, y=vp)) + geom_boxplot() + geom_point()</code></pre>
@@ -628,17 +1329,235 @@ nodelabels(node=polyploid.event, col=2, pch=19, cex=2)</code></pre>
 <pre class="r"><code>sppairs &lt;- c(&quot;menz x sali&quot;, &quot;sali x menz&quot;, &quot;lydg x sarm&quot;, &quot;sarm x lydg&quot;,
               &quot;stel x sper&quot;, &quot;sper x stel&quot;, &quot;memb x kaua&quot;, &quot;kaua x memb&quot;,
               &quot;kaal x hook&quot;, &quot;hook x kaal&quot;)
+
 sp &lt;- c(&quot;menziesii&quot;,&quot;salicaria&quot;,
         &quot;lydgatei&quot;, &quot;sarmentosa&quot;,
         &quot;stellarioides&quot;,&quot;spergulina&quot;,
         &quot;membranacea&quot;,&quot;kauaiensis&quot;,
         &quot;kaalae&quot;, &quot;hookeri&quot;)
 sp &lt;- set_names(sp, substr(sp, 1,4))
-
-pf %&gt;%  filter(crossname %in% sppairs | (momsp %in% names(sp) &amp; momsp==dadsp)) %&gt;% 
+pol.sppair &lt;- pol %&gt;% mutate(crossname = paste(momsp, &quot;x&quot;, dadsp), type = if_else(momsp==dadsp, &quot;within&quot;,&quot;between&quot;)) %&gt;% 
+  filter(crossname %in% sppairs | (momsp == dadsp &amp; momsp %in% names(sp))) 
+pol.sppair %&gt;% group_by(dataset, crossname, type) %&gt;% 
+  summarize(n.mompid = length(unique(mompid)), n.dadpid = length(unique(dadpid)), n.fullcross = length(unique(fullcross)), n.slides = n(), min.grains = min(tot), median.grains = median(tot),  max.grains = max(tot), n.grains = sum(tot)) %&gt;% kable()</code></pre>
+<table>
+<colgroup>
+<col width="13%" />
+<col width="10%" />
+<col width="6%" />
+<col width="7%" />
+<col width="7%" />
+<col width="10%" />
+<col width="7%" />
+<col width="9%" />
+<col width="11%" />
+<col width="9%" />
+<col width="7%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">dataset</th>
+<th align="left">crossname</th>
+<th align="left">type</th>
+<th align="right">n.mompid</th>
+<th align="right">n.dadpid</th>
+<th align="right">n.fullcross</th>
+<th align="right">n.slides</th>
+<th align="right">min.grains</th>
+<th align="right">median.grains</th>
+<th align="right">max.grains</th>
+<th align="right">n.grains</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">HPOL</td>
+<td align="left">hook x hook</td>
+<td align="left">within</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">14</td>
+<td align="right">200</td>
+<td align="right">200.0</td>
+<td align="right">200</td>
+<td align="right">2800</td>
+</tr>
+<tr class="even">
+<td align="left">HPOL</td>
+<td align="left">sali x sali</td>
+<td align="left">within</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">14</td>
+<td align="right">200</td>
+<td align="right">200.0</td>
+<td align="right">200</td>
+<td align="right">2800</td>
+</tr>
+<tr class="odd">
+<td align="left">pol2015.2017.KH</td>
+<td align="left">hook x hook</td>
+<td align="left">within</td>
+<td align="right">7</td>
+<td align="right">7</td>
+<td align="right">15</td>
+<td align="right">30</td>
+<td align="right">255</td>
+<td align="right">422.5</td>
+<td align="right">831</td>
+<td align="right">13767</td>
+</tr>
+<tr class="even">
+<td align="left">pol2015.2017.KH</td>
+<td align="left">hook x kaal</td>
+<td align="left">between</td>
+<td align="right">7</td>
+<td align="right">9</td>
+<td align="right">22</td>
+<td align="right">61</td>
+<td align="right">283</td>
+<td align="right">546.0</td>
+<td align="right">886</td>
+<td align="right">33932</td>
+</tr>
+<tr class="odd">
+<td align="left">pol2015.2017.KH</td>
+<td align="left">kaal x hook</td>
+<td align="left">between</td>
+<td align="right">10</td>
+<td align="right">6</td>
+<td align="right">22</td>
+<td align="right">49</td>
+<td align="right">207</td>
+<td align="right">397.0</td>
+<td align="right">822</td>
+<td align="right">20053</td>
+</tr>
+<tr class="even">
+<td align="left">pol2015.2017.KH</td>
+<td align="left">kaal x kaal</td>
+<td align="left">within</td>
+<td align="right">12</td>
+<td align="right">9</td>
+<td align="right">27</td>
+<td align="right">57</td>
+<td align="right">119</td>
+<td align="right">517.0</td>
+<td align="right">883</td>
+<td align="right">30508</td>
+</tr>
+<tr class="odd">
+<td align="left">pol2019.2022</td>
+<td align="left">kaua x memb</td>
+<td align="left">between</td>
+<td align="right">4</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">19</td>
+<td align="right">190</td>
+<td align="right">200.0</td>
+<td align="right">200</td>
+<td align="right">3790</td>
+</tr>
+<tr class="even">
+<td align="left">pol2019.2022</td>
+<td align="left">lydg x sarm</td>
+<td align="left">between</td>
+<td align="right">10</td>
+<td align="right">7</td>
+<td align="right">20</td>
+<td align="right">100</td>
+<td align="right">200</td>
+<td align="right">200.0</td>
+<td align="right">200</td>
+<td align="right">20000</td>
+</tr>
+<tr class="odd">
+<td align="left">pol2019.2022</td>
+<td align="left">memb x kaua</td>
+<td align="left">between</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">5</td>
+<td align="right">8</td>
+<td align="right">180</td>
+<td align="right">200.0</td>
+<td align="right">200</td>
+<td align="right">1580</td>
+</tr>
+<tr class="even">
+<td align="left">pol2019.2022</td>
+<td align="left">menz x sali</td>
+<td align="left">between</td>
+<td align="right">13</td>
+<td align="right">24</td>
+<td align="right">21</td>
+<td align="right">99</td>
+<td align="right">194</td>
+<td align="right">200.0</td>
+<td align="right">203</td>
+<td align="right">19797</td>
+</tr>
+<tr class="odd">
+<td align="left">pol2019.2022</td>
+<td align="left">sali x menz</td>
+<td align="left">between</td>
+<td align="right">11</td>
+<td align="right">19</td>
+<td align="right">16</td>
+<td align="right">68</td>
+<td align="right">200</td>
+<td align="right">200.0</td>
+<td align="right">287</td>
+<td align="right">13687</td>
+</tr>
+<tr class="even">
+<td align="left">pol2019.2022</td>
+<td align="left">sarm x lydg</td>
+<td align="left">between</td>
+<td align="right">4</td>
+<td align="right">8</td>
+<td align="right">7</td>
+<td align="right">36</td>
+<td align="right">200</td>
+<td align="right">200.0</td>
+<td align="right">200</td>
+<td align="right">7200</td>
+</tr>
+<tr class="odd">
+<td align="left">pol2019.2022</td>
+<td align="left">sper x stel</td>
+<td align="left">between</td>
+<td align="right">4</td>
+<td align="right">5</td>
+<td align="right">4</td>
+<td align="right">19</td>
+<td align="right">200</td>
+<td align="right">200.0</td>
+<td align="right">200</td>
+<td align="right">3800</td>
+</tr>
+<tr class="even">
+<td align="left">pol2019.2022</td>
+<td align="left">stel x sper</td>
+<td align="left">between</td>
+<td align="right">6</td>
+<td align="right">6</td>
+<td align="right">11</td>
+<td align="right">51</td>
+<td align="right">194</td>
+<td align="right">200.0</td>
+<td align="right">200</td>
+<td align="right">10192</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>pf %&gt;%  filter(crossname %in% sppairs) %&gt;% 
   ggplot(aes(x=pd, y=ft, color=factor(sp[momsp], levels=sp))) + 
   geom_linerange(aes(ymin=q25, ymax=q75)) + geom_point(size=3)+ 
-  scale_color_brewer(palette = &quot;Paired&quot;) + 
+  scale_color_brewer(palette = &quot;Paired&quot;) + xlim(c(0,NA))+
   scale_y_continuous(labels=scales::percent_format(), limits=c(0,1))+
   labs(x=&quot;Phylogenetic distance (mutations/site)&quot;, y=&quot;Pollen viability&quot;, color=&quot;Maternal species&quot;)+
   theme(legend.position = &quot;top&quot;) </code></pre>
@@ -704,16 +1623,17 @@ plot.new()
 vps &lt;- baseViewports()
 pushViewport(vps$figure) 
 vp1 &lt;-plotViewport(c(0,0,0,0)) 
-print(pdft  + 
+print(ggplot(pf, aes(x=pd, y=ft)) + 
+        labs(x=&quot;Phylogenetic distance (mutations/site)&quot;, y=&quot;Pollen viability&quot;)  + 
         geom_smooth(method=&quot;glm&quot;, method.args=list(family=&quot;binomial&quot;), color=&quot;grey70&quot;, fill=&quot;grey80&quot;) +
         geom_linerange(aes(ymin=q25, ymax=q75)) +
         geom_point(aes(color=ft), size=2) + 
-        coord_trans(y=&quot;logit&quot;) + 
-        scale_y_continuous(breaks=c(0.01,seq(0,1,by=0.1), 0.99)) + 
+        #coord_trans(y=&quot;logit&quot;) + 
+        #scale_y_continuous(breaks=c(0.01,seq(0,1,by=0.1), 0.99)) + 
         scale_color_viridis_c(option=&quot;plasma&quot;, direction=-1) + 
         theme_classic() + 
         theme(plot.background = element_rect(color = &quot;grey30&quot;, fill = &quot;grey30&quot;), panel.background = element_rect(fill = &quot;grey30&quot;, color  =  NA),  legend.background = element_rect(color = NA, fill = &quot;grey30&quot;), axis.text = element_text(color = &quot;grey80&quot;), axis.title = element_text(color = &quot;grey80&quot;)) + 
-        guides(color=F), vp = vp1)</code></pre>
+        guides(color=&quot;none&quot;), vp = vp1)</code></pre>
 <p><img src="figures-fertility/arcplot3-1.svg" width="864" /></p>
 <pre class="r"><code>#dev.off()</code></pre>
 </div>
@@ -760,22 +1680,22 @@ Formula:          cbind(viable, inviable) ~ pd + (1 | momsp) + (1 | dadsp)
 Data: pol
 
      AIC      BIC   logLik deviance df.resid 
- 32299.0  32329.8 -16144.5  32289.0     3452 
+ 32297.8  32328.6 -16143.9  32287.8     3452 
 
 Random effects:
 
 Conditional model:
  Groups Name        Variance Std.Dev.
- momsp  (Intercept) 0.5235   0.7236  
- dadsp  (Intercept) 0.3277   0.5724  
+ momsp  (Intercept) 0.5222   0.7226  
+ dadsp  (Intercept) 0.3295   0.5740  
 Number of obs: 3457, groups:  momsp, 26; dadsp, 26
 
 Dispersion parameter for betabinomial family (): 4.09 
 
 Conditional model:
              Estimate Std. Error z value Pr(&gt;|z|)    
-(Intercept)    1.9220     0.1915   10.04   &lt;2e-16 ***
-pd          -105.5477     3.2649  -32.33   &lt;2e-16 ***
+(Intercept)    1.9166     0.1915   10.01   &lt;2e-16 ***
+pd          -105.2323     3.2567  -32.31   &lt;2e-16 ***
 ---
 Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <pre class="r"><code>#plot(betabin.tmb.momdadsp)

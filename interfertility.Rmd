@@ -17,6 +17,7 @@ editor_options:
 library(knitr)
 knitr::opts_chunk$set(comment="", cache=T, warning = F, message = F, fig.width=9, fig.height=8,
                       fig.path = "figures-fertility/", dev = "svglite", dev.args=list(fix_text_size=FALSE))
+options(knitr.kable.NA = "")
 library(tidyverse)
 theme_set(theme_minimal())
 library(reshape2)
@@ -121,32 +122,29 @@ plot + geom_bin2d()
 # Continuous pollen fertility data
 
 ```{r data2}
-#data from the original "hpol" and "hpol2" datasets (Weller et al. 2001), Lisa McGrath
-crosses <- read.table("data/hpol_crosses.tsv", sep="\t", header=T, colClasses = list(cross="factor",crosstype="factor"))
-str(crosses)
-pol <- read.table("data/hpol.tsv", sep="\t", header=T, colClasses = list(cross="factor", id="factor",crosstype="factor"))
-pol$date <- NULL
-pol$tot <- 200
-pol$vp <- pol$viable/pol$tot
-pol$mombs <- factor(ifelse(pol$crosstype %in% c("1","2"), "H", ifelse(pol$crosstype=="z", "z", "D")))
-pol$dadbs <- factor(ifelse(pol$crosstype %in% c("1","3"), "H", ifelse(pol$crosstype=="z", "z", "D")))
-pol$momgrp <- with(pol, factor(paste(momclade,momisle,mombs)))
-pol$dadgrp <- with(pol, factor(paste(dadclade,dadisle,dadbs)))
-pol$momsp <- crosses$momsp[match(pol$cross, crosses$cross)]
-pol$dadsp <- crosses$dadsp[match(pol$cross, crosses$cross)]
+#data from the original "hpol" and Lisa McGrath's 1993 cross #400-443"hpol2" datasets (Weller et al. 2001) 
+#https://docs.google.com/spreadsheets/d/16mIbPzzO9X3XaOcJ9v-31trM-qJ8v18JVgI-4HO6Mc0
+crosses <- read_tsv("data/hpol_crosses.tsv")
+#https://docs.google.com/spreadsheets/d/1saqnEfk-SgABqlfxGzz7gmqDsPrmP9EnSlF55KcuZn4
+pol1 <- read_tsv("data/hpol.tsv") %>% select(-date) %>% 
+  mutate(tot = 200, vp = viable/tot) %>% left_join(crosses) %>% 
+  mutate(across(c(cross,id,crosstype,mompop,dadpop), as.character))
 
 #data from crosses 2019-2022
-pol2 <- read.csv("data/Pollen fertility - fertility.csv") %>%
-  drop_na(momsp, dadsp, viable, inviable, tot)
-pol2$vp <- pol2$viable/pol2$tot
-pol2$momsp <- str_sub(pol2$momsp, 1, 4)
-pol2$dadsp <- str_sub(pol2$dadsp, 1, 4)
+#https://docs.google.com/spreadsheets/d/1r5mavlrzRaPLBU8bSn98CzWzjz-t7LAfMosvgqSB6sg
+pol2 <- read_csv("data/Pollen fertility - fertility.csv") %>%
+  drop_na(momsp, dadsp, viable, inviable, tot) %>% 
+  mutate(vp = viable/tot, momsp = str_sub(momsp, 1, 4), dadsp = str_sub(dadsp, 1, 4))
 
 #data from kaal/hook crosses 2015-2017
-pol3 <- read.table("data/pollen.tsv", sep="\t", header=T) %>% rename(tot=total)
-pol3$vp <- pol3$viable/pol3$tot
+#https://docs.google.com/spreadsheets/d/1pYbAnEDw2KfM34l85wlJV6pfAr1DroPj_7GjfApnCq8
+pol3 <- read_tsv("data/pollen.tsv") %>% 
+  select(-starts_with("I", ignore.case=F), -starts_with("V", ignore.case=F), 
+         -prop.viable, -momid, -dadid, -ends_with("anther"), -sxc, -sxcxm,- smompop,
+         tot=total, boxcell=cell) %>% 
+  mutate(vp = viable/tot)
 
-pol <- bind_rows(HPOL=pol, pol2019.2022=pol2, pol2015.2017.KH=pol3, .id="dataset")
+pol <- bind_rows(HPOL=pol1, pol2019.2022=pol2, pol2015.2017.KH=pol3, .id="dataset") %>% as.data.frame()
 
 str(pol)
 heatmap(with(pol, table(momsp,dadsp)), col=inferno(512), scale="none", Colv=NA, Rowv=NA)
@@ -169,6 +167,17 @@ poltbl2[is.nan(poltbl2)] <- 0
 ```
 
 ```{r plot2}
+print(paste("number of slides:", nrow(pol)))
+print(paste("number of pollen grains:", sum(pol$tot)))
+
+count(crosses, momsp, mombs) %>% pivot_wider(names_from=mombs, values_from=n) %>% kable(caption="mombs")
+count(crosses, dadsp, dadbs) %>% pivot_wider(names_from=dadbs, values_from=n) %>% kable(caption="dadbs")
+#TODO isles and clades are not 1-1 with species!
+count(pol1, momsp, momisle) %>% pivot_wider(names_from=momisle, values_from=n) %>% kable(caption="momisle")
+count(pol1, dadsp, dadisle) %>% pivot_wider(names_from=dadisle, values_from=n) %>% kable(caption="dadisle")
+count(pol1, momsp, momclade) %>% pivot_wider(names_from=momclade, values_from=n) %>% kable(caption="momclade")
+count(pol1, dadsp, dadclade) %>% pivot_wider(names_from=dadclade, values_from=n) %>% kable(caption="dadclade")
+
 ggplot(pol, aes(x=momsp, color=dadsp, y=vp)) + geom_boxplot()
 ggplot(pol, aes(x=momclade, color=dadclade, y=vp)) + geom_boxplot() + geom_point()
 ggplot(pol, aes(x=momisle, color=dadisle, y=vp)) + geom_boxplot() + geom_point()
@@ -315,17 +324,22 @@ Just the species pairs
 sppairs <- c("menz x sali", "sali x menz", "lydg x sarm", "sarm x lydg",
               "stel x sper", "sper x stel", "memb x kaua", "kaua x memb",
               "kaal x hook", "hook x kaal")
+
 sp <- c("menziesii","salicaria",
         "lydgatei", "sarmentosa",
         "stellarioides","spergulina",
         "membranacea","kauaiensis",
         "kaalae", "hookeri")
 sp <- set_names(sp, substr(sp, 1,4))
+pol.sppair <- pol %>% mutate(crossname = paste(momsp, "x", dadsp), type = if_else(momsp==dadsp, "within","between")) %>% 
+  filter(crossname %in% sppairs | (momsp == dadsp & momsp %in% names(sp))) 
+pol.sppair %>% group_by(dataset, crossname, type) %>% 
+  summarize(n.mompid = length(unique(mompid)), n.dadpid = length(unique(dadpid)), n.fullcross = length(unique(fullcross)), n.slides = n(), min.grains = min(tot), median.grains = median(tot),  max.grains = max(tot), n.grains = sum(tot)) %>% kable()
 
-pf %>%  filter(crossname %in% sppairs | (momsp %in% names(sp) & momsp==dadsp)) %>% 
+pf %>%  filter(crossname %in% sppairs) %>% 
   ggplot(aes(x=pd, y=ft, color=factor(sp[momsp], levels=sp))) + 
   geom_linerange(aes(ymin=q25, ymax=q75)) + geom_point(size=3)+ 
-  scale_color_brewer(palette = "Paired") + 
+  scale_color_brewer(palette = "Paired") + xlim(c(0,NA))+
   scale_y_continuous(labels=scales::percent_format(), limits=c(0,1))+
   labs(x="Phylogenetic distance (mutations/site)", y="Pollen viability", color="Maternal species")+
   theme(legend.position = "top") 
@@ -390,16 +404,17 @@ plot.new()
 vps <- baseViewports()
 pushViewport(vps$figure) 
 vp1 <-plotViewport(c(0,0,0,0)) 
-print(pdft  + 
+print(ggplot(pf, aes(x=pd, y=ft)) + 
+        labs(x="Phylogenetic distance (mutations/site)", y="Pollen viability")  + 
         geom_smooth(method="glm", method.args=list(family="binomial"), color="grey70", fill="grey80") +
         geom_linerange(aes(ymin=q25, ymax=q75)) +
         geom_point(aes(color=ft), size=2) + 
-        coord_trans(y="logit") + 
-        scale_y_continuous(breaks=c(0.01,seq(0,1,by=0.1), 0.99)) + 
+        #coord_trans(y="logit") + 
+        #scale_y_continuous(breaks=c(0.01,seq(0,1,by=0.1), 0.99)) + 
         scale_color_viridis_c(option="plasma", direction=-1) + 
         theme_classic() + 
         theme(plot.background = element_rect(color = "grey30", fill = "grey30"), panel.background = element_rect(fill = "grey30", color  =  NA),  legend.background = element_rect(color = NA, fill = "grey30"), axis.text = element_text(color = "grey80"), axis.title = element_text(color = "grey80")) + 
-        guides(color=F), vp = vp1)
+        guides(color="none"), vp = vp1)
 #dev.off()
 ```
 
