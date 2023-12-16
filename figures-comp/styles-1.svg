@@ -57,16 +57,16 @@
 <line x1='263.30' y1='249.25' x2='263.30' y2='234.59' style='stroke-width: 1.07; stroke: #33A02C; stroke-linecap: butt;' />
 <line x1='361.19' y1='213.01' x2='361.19' y2='199.90' style='stroke-width: 1.07; stroke: #E31A1C; stroke-linecap: butt;' />
 <line x1='361.19' y1='161.98' x2='361.19' y2='148.86' style='stroke-width: 1.07; stroke: #FB9A99; stroke-linecap: butt;' />
-<polygon points='545.91,156.13 549.74,162.76 542.09,162.76 ' style='stroke-width: 1.42; stroke: none; fill: #6A3D9A;' />
-<polygon points='545.91,120.37 549.74,127.00 542.09,127.00 ' style='stroke-width: 1.42; stroke: none; fill: #CAB2D6;' />
-<polygon points='540.63,158.47 544.46,165.10 536.80,165.10 ' style='stroke-width: 1.42; stroke: none; fill: #FF7F00;' />
-<polygon points='263.30,174.49 267.13,181.12 259.47,181.12 ' style='stroke-width: 1.42; stroke: none; fill: #B2DF8A;' />
-<polygon points='540.63,152.37 544.46,159.00 536.80,159.00 ' style='stroke-width: 1.42; stroke: none; fill: #FDBF6F;' />
-<polygon points='258.81,76.19 262.64,82.82 254.98,82.82 ' style='stroke-width: 1.42; stroke: none; fill: #A6CEE3;' />
-<circle cx='258.81' cy='174.46' r='2.84' style='stroke-width: 1.42; stroke: none; fill: #1F78B4;' />
-<circle cx='263.30' cy='241.92' r='2.84' style='stroke-width: 1.42; stroke: none; fill: #33A02C;' />
+<polygon points='543.07,163.40 548.76,163.40 548.76,157.71 543.07,157.71 ' style='stroke-width: 1.42; stroke: none; fill: #6A3D9A;' />
+<polygon points='543.07,127.64 548.76,127.64 548.76,121.95 543.07,121.95 ' style='stroke-width: 1.42; stroke: none; fill: #CAB2D6;' />
+<polygon points='537.78,165.73 543.47,165.73 543.47,160.05 537.78,160.05 ' style='stroke-width: 1.42; stroke: none; fill: #FF7F00;' />
+<polygon points='260.46,181.75 266.14,181.75 266.14,176.07 260.46,176.07 ' style='stroke-width: 1.42; stroke: none; fill: #B2DF8A;' />
+<polygon points='537.78,159.63 543.47,159.63 543.47,153.95 537.78,153.95 ' style='stroke-width: 1.42; stroke: none; fill: #FDBF6F;' />
+<polygon points='255.97,83.45 261.65,83.45 261.65,77.76 255.97,77.76 ' style='stroke-width: 1.42; stroke: none; fill: #A6CEE3;' />
+<polygon points='258.81,170.04 262.64,176.67 254.98,176.67 ' style='stroke-width: 1.42; stroke: none; fill: #1F78B4;' />
+<polygon points='263.30,237.50 267.13,244.13 259.47,244.13 ' style='stroke-width: 1.42; stroke: none; fill: #33A02C;' />
 <circle cx='361.19' cy='206.46' r='2.84' style='stroke-width: 1.42; stroke: none; fill: #E31A1C;' />
-<circle cx='361.19' cy='155.42' r='2.84' style='stroke-width: 1.42; stroke: none; fill: #FB9A99;' />
+<polygon points='358.35,158.26 364.03,158.26 364.03,152.58 358.35,152.58 ' style='stroke-width: 1.42; stroke: none; fill: #FB9A99;' />
 </g>
 <g clip-path='url(#cpMC4wMHw1NzYuMDB8MC4wMHwzNjAuMDA=)'>
 <text x='24.25' y='319.13' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Arial";'>0</text>
@@ -81,43 +81,46 @@
 <text x='539.75' y='339.36' text-anchor='middle' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Arial";'>0.025</text>
 <text x='299.85' y='352.10' text-anchor='middle' style='font-size: 11.00px; font-family: "Arial";'>Phylogenetic distance (mutations/site)</text>
 <text transform='translate(13.50,194.99) rotate(-90)' text-anchor='middle' style='font-size: 11.00px; font-family: "Arial";'>Style length (mm)</text>
-<text x='37.85' y='23.61' style='font-size: 11.00px; font-family: "Arial";'>Mating</text>
-<line x1='84.98' y1='26.51' x2='84.98' y2='12.69' style='stroke-width: 1.07; stroke-linecap: butt;' />
-<circle cx='84.98' cy='19.60' r='2.84' style='stroke-width: 1.42; stroke: none; fill: #000000;' />
-<line x1='119.72' y1='26.51' x2='119.72' y2='12.69' style='stroke-width: 1.07; stroke-linecap: butt;' />
-<polygon points='119.72,15.18 123.54,21.81 115.89,21.81 ' style='stroke-width: 1.42; stroke: none; fill: #000000;' />
-<text x='99.10' y='22.81' style='font-size: 8.80px; font-family: "Arial";'>D</text>
-<text x='133.84' y='22.81' style='font-size: 8.80px; font-family: "Arial";'>H</text>
-<text x='162.25' y='32.25' style='font-size: 11.00px; font-family: "Arial";'>Species</text>
-<line x1='215.50' y1='26.51' x2='215.50' y2='12.69' style='stroke-width: 1.07; stroke: #A6CEE3; stroke-linecap: butt;' />
-<circle cx='215.50' cy='19.60' r='2.84' style='stroke-width: 1.42; stroke: #A6CEE3; fill: #A6CEE3;' />
-<line x1='215.50' y1='43.79' x2='215.50' y2='29.97' style='stroke-width: 1.07; stroke: #1F78B4; stroke-linecap: butt;' />
-<circle cx='215.50' cy='36.88' r='2.84' style='stroke-width: 1.42; stroke: #1F78B4; fill: #1F78B4;' />
-<line x1='281.24' y1='26.51' x2='281.24' y2='12.69' style='stroke-width: 1.07; stroke: #B2DF8A; stroke-linecap: butt;' />
-<circle cx='281.24' cy='19.60' r='2.84' style='stroke-width: 1.42; stroke: #B2DF8A; fill: #B2DF8A;' />
-<line x1='281.24' y1='43.79' x2='281.24' y2='29.97' style='stroke-width: 1.07; stroke: #33A02C; stroke-linecap: butt;' />
-<circle cx='281.24' cy='36.88' r='2.84' style='stroke-width: 1.42; stroke: #33A02C; fill: #33A02C;' />
-<line x1='356.72' y1='26.51' x2='356.72' y2='12.69' style='stroke-width: 1.07; stroke: #FB9A99; stroke-linecap: butt;' />
-<circle cx='356.72' cy='19.60' r='2.84' style='stroke-width: 1.42; stroke: #FB9A99; fill: #FB9A99;' />
-<line x1='356.72' y1='43.79' x2='356.72' y2='29.97' style='stroke-width: 1.07; stroke: #E31A1C; stroke-linecap: butt;' />
-<circle cx='356.72' cy='36.88' r='2.84' style='stroke-width: 1.42; stroke: #E31A1C; fill: #E31A1C;' />
-<line x1='432.60' y1='26.51' x2='432.60' y2='12.69' style='stroke-width: 1.07; stroke: #FDBF6F; stroke-linecap: butt;' />
-<circle cx='432.60' cy='19.60' r='2.84' style='stroke-width: 1.42; stroke: #FDBF6F; fill: #FDBF6F;' />
-<line x1='432.60' y1='43.79' x2='432.60' y2='29.97' style='stroke-width: 1.07; stroke: #FF7F00; stroke-linecap: butt;' />
-<circle cx='432.60' cy='36.88' r='2.84' style='stroke-width: 1.42; stroke: #FF7F00; fill: #FF7F00;' />
-<line x1='518.27' y1='26.51' x2='518.27' y2='12.69' style='stroke-width: 1.07; stroke: #CAB2D6; stroke-linecap: butt;' />
-<circle cx='518.27' cy='19.60' r='2.84' style='stroke-width: 1.42; stroke: #CAB2D6; fill: #CAB2D6;' />
-<line x1='518.27' y1='43.79' x2='518.27' y2='29.97' style='stroke-width: 1.07; stroke: #6A3D9A; stroke-linecap: butt;' />
-<circle cx='518.27' cy='36.88' r='2.84' style='stroke-width: 1.42; stroke: #6A3D9A; fill: #6A3D9A;' />
-<text x='229.62' y='22.81' style='font-size: 8.80px; font-family: "Arial";'>menziesii</text>
-<text x='229.62' y='40.09' style='font-size: 8.80px; font-family: "Arial";'>salicaria</text>
-<text x='295.36' y='22.81' style='font-size: 8.80px; font-family: "Arial";'>lydgatei</text>
-<text x='295.36' y='40.09' style='font-size: 8.80px; font-family: "Arial";'>sarmentosa</text>
-<text x='370.84' y='22.81' style='font-size: 8.80px; font-family: "Arial";'>stellarioides</text>
-<text x='370.84' y='40.09' style='font-size: 8.80px; font-family: "Arial";'>spergulina</text>
-<text x='446.72' y='22.81' style='font-size: 8.80px; font-family: "Arial";'>membranacea</text>
-<text x='446.72' y='40.09' style='font-size: 8.80px; font-family: "Arial";'>kauaiensis</text>
-<text x='532.39' y='22.81' style='font-size: 8.80px; font-family: "Arial";'>kaalae</text>
-<text x='532.39' y='40.09' style='font-size: 8.80px; font-family: "Arial";'>hookeri</text>
+<text x='20.23' y='23.61' style='font-size: 11.00px; font-family: "Arial";'>Mating</text>
+<line x1='67.36' y1='26.51' x2='67.36' y2='12.69' style='stroke-width: 1.07; stroke-linecap: butt;' />
+<circle cx='67.36' cy='19.60' r='2.84' style='stroke-width: 1.42; stroke: none; fill: #000000;' />
+<line x1='102.10' y1='26.51' x2='102.10' y2='12.69' style='stroke-width: 1.07; stroke-linecap: butt;' />
+<polygon points='102.10,15.18 105.92,21.81 98.27,21.81 ' style='stroke-width: 1.42; stroke: none; fill: #000000;' />
+<line x1='137.34' y1='26.51' x2='137.34' y2='12.69' style='stroke-width: 1.07; stroke-linecap: butt;' />
+<polygon points='134.49,22.44 140.18,22.44 140.18,16.76 134.49,16.76 ' style='stroke-width: 1.42; stroke: none; fill: #000000;' />
+<text x='81.48' y='22.81' style='font-size: 8.80px; font-family: "Arial";'>D</text>
+<text x='116.22' y='22.81' style='font-size: 8.80px; font-family: "Arial";'>G</text>
+<text x='151.46' y='22.81' style='font-size: 8.80px; font-family: "Arial";'>H</text>
+<text x='179.87' y='32.25' style='font-size: 11.00px; font-family: "Arial";'>Species</text>
+<line x1='233.12' y1='26.51' x2='233.12' y2='12.69' style='stroke-width: 1.07; stroke: #A6CEE3; stroke-linecap: butt;' />
+<circle cx='233.12' cy='19.60' r='2.84' style='stroke-width: 1.42; stroke: #A6CEE3; fill: #A6CEE3;' />
+<line x1='233.12' y1='43.79' x2='233.12' y2='29.97' style='stroke-width: 1.07; stroke: #1F78B4; stroke-linecap: butt;' />
+<circle cx='233.12' cy='36.88' r='2.84' style='stroke-width: 1.42; stroke: #1F78B4; fill: #1F78B4;' />
+<line x1='298.86' y1='26.51' x2='298.86' y2='12.69' style='stroke-width: 1.07; stroke: #B2DF8A; stroke-linecap: butt;' />
+<circle cx='298.86' cy='19.60' r='2.84' style='stroke-width: 1.42; stroke: #B2DF8A; fill: #B2DF8A;' />
+<line x1='298.86' y1='43.79' x2='298.86' y2='29.97' style='stroke-width: 1.07; stroke: #33A02C; stroke-linecap: butt;' />
+<circle cx='298.86' cy='36.88' r='2.84' style='stroke-width: 1.42; stroke: #33A02C; fill: #33A02C;' />
+<line x1='374.34' y1='26.51' x2='374.34' y2='12.69' style='stroke-width: 1.07; stroke: #FB9A99; stroke-linecap: butt;' />
+<circle cx='374.34' cy='19.60' r='2.84' style='stroke-width: 1.42; stroke: #FB9A99; fill: #FB9A99;' />
+<line x1='374.34' y1='43.79' x2='374.34' y2='29.97' style='stroke-width: 1.07; stroke: #E31A1C; stroke-linecap: butt;' />
+<circle cx='374.34' cy='36.88' r='2.84' style='stroke-width: 1.42; stroke: #E31A1C; fill: #E31A1C;' />
+<line x1='450.22' y1='26.51' x2='450.22' y2='12.69' style='stroke-width: 1.07; stroke: #FDBF6F; stroke-linecap: butt;' />
+<circle cx='450.22' cy='19.60' r='2.84' style='stroke-width: 1.42; stroke: #FDBF6F; fill: #FDBF6F;' />
+<line x1='450.22' y1='43.79' x2='450.22' y2='29.97' style='stroke-width: 1.07; stroke: #FF7F00; stroke-linecap: butt;' />
+<circle cx='450.22' cy='36.88' r='2.84' style='stroke-width: 1.42; stroke: #FF7F00; fill: #FF7F00;' />
+<line x1='535.89' y1='26.51' x2='535.89' y2='12.69' style='stroke-width: 1.07; stroke: #CAB2D6; stroke-linecap: butt;' />
+<circle cx='535.89' cy='19.60' r='2.84' style='stroke-width: 1.42; stroke: #CAB2D6; fill: #CAB2D6;' />
+<line x1='535.89' y1='43.79' x2='535.89' y2='29.97' style='stroke-width: 1.07; stroke: #6A3D9A; stroke-linecap: butt;' />
+<circle cx='535.89' cy='36.88' r='2.84' style='stroke-width: 1.42; stroke: #6A3D9A; fill: #6A3D9A;' />
+<text x='247.24' y='22.81' style='font-size: 8.80px; font-family: "Arial";'>menziesii</text>
+<text x='247.24' y='40.09' style='font-size: 8.80px; font-family: "Arial";'>salicaria</text>
+<text x='312.98' y='22.81' style='font-size: 8.80px; font-family: "Arial";'>lydgatei</text>
+<text x='312.98' y='40.09' style='font-size: 8.80px; font-family: "Arial";'>sarmentosa</text>
+<text x='388.46' y='22.81' style='font-size: 8.80px; font-family: "Arial";'>stellarioides</text>
+<text x='388.46' y='40.09' style='font-size: 8.80px; font-family: "Arial";'>spergulina</text>
+<text x='464.34' y='22.81' style='font-size: 8.80px; font-family: "Arial";'>membranacea</text>
+<text x='464.34' y='40.09' style='font-size: 8.80px; font-family: "Arial";'>kauaiensis</text>
+<text x='550.01' y='22.81' style='font-size: 8.80px; font-family: "Arial";'>kaalae</text>
+<text x='550.01' y='40.09' style='font-size: 8.80px; font-family: "Arial";'>hookeri</text>
 </g>
 </svg>

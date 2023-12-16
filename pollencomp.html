@@ -11,7 +11,7 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2023-12-11" />
+<meta name="date" content="2023-12-16" />
 
 <title>Schiedea pollen competition</title>
 
@@ -253,7 +253,7 @@ div.tocify {
 <h1 class="title toc-ignore"><em>Schiedea</em> pollen competition</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John
 Powers</a></h4>
-<h4 class="date">2023-12-11</h4>
+<h4 class="date">2023-12-16</h4>
 
 </div>
 
@@ -1206,22 +1206,24 @@ hybrid.phylodist.test %&gt;% select(trait, type, term, p.value) %&gt;% filter(ty
   theme_bw() + theme(axis.text=element_text(color=&quot;black&quot;), legend.position=&quot;top&quot;,
                      panel.grid.minor = element_blank(), panel.grid.major.x=element_blank(), panel.spacing = unit(1, &quot;lines&quot;))</code></pre>
 <p><img src="figures-comp/phylodist-3.svg" width="768" /></p>
-<pre class="r"><code>par(mfrow=c(1,2))
-par(mar=c(1.5,0,1.5,0))
-plot(tree_pairs, tip.color = sp_pal_dark[tree_pairs$tip.label])
+<pre class="r"><code>mating.tree &lt;- data.frame(momsp=tree_pairs$tip.label) %&gt;% left_join(mating)
+layout(matrix(c(1,2), nrow=1), widths=c(4,1))
+par(mar=c(1,0,1,0))
+plot.phylo(tree_pairs, tip.color = sp_pal[tree_pairs$tip.label], edge.width=5, edge.col =&quot;grey&quot;, label.offset=0.0002, font=4, cex=1.2,  x.lim=0.025)
+add.scale.bar(x=0,y=10, lwd=5, lcol=&quot;grey&quot;, col=&quot;grey&quot;)
+text(x=0.025, y=1:10, mating.tree$mating, cex=1.2, col=sp_pal[tree_pairs$tip.label]) #c(&quot;H&quot;=&quot;\U26A5&quot;,&quot;D&quot;=&quot;\U2640\U2642&quot;,&quot;G&quot;=&quot;\U26A5\U2640&quot;)
 par(mar=c(0,0,0,0))
 sp_pairs %&gt;% matrix(ncol=2, byrow=T) %&gt;% 
   arcplot(show.labels=F, horizontal=F, ordering=tree_pairs$tip.label, 
-          col.arcs=sp_pal[(1:5)*2], col.nodes = sp_pal)</code></pre>
-<p><img src="figures-comp/phylo_arc-1.svg" width="384" /></p>
-<pre class="r"><code>par(mfrow=c(1,1))</code></pre>
-<pre class="r"><code>ggplot(left_join(hybrid.phylodist, filter(hybrid.phylodist.test, term==&quot;pd&quot;)) %&gt;% 
-         filter(trait==&quot;prop.hybrid&quot;, type==&quot;mixed&quot;) %&gt;% left_join(hybrid.test),
-       aes(x=pd, y=estimate)) + coord_cartesian(xlim=c(0,NA))+
+          col.arcs=sp_pal[(1:5)*2], col.nodes = sp_pal, lwd.arcs=5)</code></pre>
+<p><img src="figures-comp/phylo_arc-1.svg" width="480" /></p>
+<pre class="r"><code>left_join(hybrid.phylodist, filter(hybrid.phylodist.test, term==&quot;pd&quot;)) %&gt;% 
+  filter(trait==&quot;prop.hybrid&quot;, type==&quot;mixed&quot;) %&gt;% left_join(hybrid.test) %&gt;% 
+  ggplot(aes(x=pd, y=estimate)) + coord_cartesian(xlim=c(0,NA))+
   geom_hline(yintercept=0.5, linetype=2)+
   geom_smooth(method=&quot;lm&quot;, se=F, color=&quot;grey&quot;) +
   geom_pointrange(aes(ymax=conf.high, ymin=conf.low, color=momsp, shape=p.adj &lt; 0.05)) + 
-    scale_shape_manual(&quot;Different from 50%&quot;, values=c(1, 19), labels=c(&quot;no&quot;,&quot;yes&quot;))+
+  scale_shape_manual(&quot;Different from 50%&quot;, values=c(1, 19), labels=c(&quot;no&quot;,&quot;yes&quot;))+
   scale_color_brewer(palette=&quot;Paired&quot;) + 
   scale_alpha_manual(breaks=c(T,F), values=c(0.5, 1))+
   scale_y_continuous(breaks=(0:4)/4, labels=~scales::percent(.,accuracy=1), expand=c(0.02,0), limits=c(0,NA))+
@@ -1230,6 +1232,29 @@ sp_pairs %&gt;% matrix(ncol=2, byrow=T) %&gt;%
   theme(axis.text=element_text(color=&quot;black&quot;), legend.position=&quot;top&quot;, legend.box = &quot;vertical&quot;,
         panel.grid.minor = element_blank(), panel.grid.major.x=element_blank(), panel.spacing = unit(1, &quot;lines&quot;))</code></pre>
 <p><img src="figures-comp/phylodist_hybrid-1.svg" width="672" /></p>
+<pre class="r"><code>hybrid.phylodist %&gt;% filter(trait==&quot;prop.hybrid&quot;, type==&quot;mixed&quot;) %&gt;% 
+  left_join(select(hybrid.test, momsp, p.adj)) %&gt;% 
+  left_join(select(styles.emm, momsp, style_length_mm, style.se = std.error)) %&gt;% 
+  pivot_longer(c(pd, style_length_mm)) %&gt;% 
+  {
+    ggplot(., aes(x=value, y=estimate, color=momsp)) + 
+      facet_wrap(vars(name), scales=&quot;free_x&quot;, strip.position = &quot;bottom&quot;,
+                 labeller=as_labeller(c(pd=&quot;Phylogenetic distance (mutations/site)&quot;, style_length_mm = &quot;Style length (mm)&quot;)))+
+      geom_hline(yintercept=0.5, linetype=2)+
+      geom_smooth(data = filter(., name==&quot;pd&quot;), method=&quot;lm&quot;, se=F, color=&quot;grey&quot;) +
+      geom_line(data = filter(., name==&quot;style_length_mm&quot;), aes(group=pair))+
+      geom_errorbarh(data = filter(., name==&quot;style_length_mm&quot;), aes(xmin=value-style.se, xmax=value+style.se))+
+      geom_pointrange(aes(ymax=estimate+std.error, ymin=estimate-std.error, shape=p.adj &lt; 0.05)) + 
+      scale_shape_manual(&quot;Different from 50%&quot;, values=c(1, 19), labels=c(&quot;no&quot;,&quot;yes&quot;))+
+      scale_color_brewer(palette=&quot;Paired&quot;) + 
+      scale_alpha_manual(breaks=c(T,F), values=c(0.5, 1))+
+      scale_y_continuous(breaks=(0:4)/4, labels=~scales::percent(.,accuracy=1), expand=c(0.02,0), limits=c(0,NA))+
+      labs(color=&quot;Maternal species&quot;, y=&quot;Hybrids from competitive pollinations&quot;) + theme_minimal() +
+      theme(axis.text=element_text(color=&quot;black&quot;), legend.position=&quot;top&quot;, legend.box = &quot;vertical&quot;,
+            axis.title.x=element_blank(), panel.grid.minor = element_blank(),  panel.spacing = unit(1, &quot;lines&quot;), 
+            strip.placement = &quot;outside&quot;, strip.text = element_text(size=11)) 
+  }</code></pre>
+<p><img src="figures-comp/phylodist_hybrid-2.svg" width="672" /></p>
 <p>Regressions against the phylogenetic distance of each species pair.
 Solid regression lines are statistically significant in a model that
 also included the difference in style length within pairs. Note that for

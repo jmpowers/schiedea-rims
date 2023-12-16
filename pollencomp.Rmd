@@ -438,26 +438,28 @@ left_join(postzygotic.ratios, phylodist) %>%
 
 ```
 
-```{r phylo_arc, fig.width=4, fig.height=4}
-par(mfrow=c(1,2))
-par(mar=c(1.5,0,1.5,0))
-plot(tree_pairs, tip.color = sp_pal_dark[tree_pairs$tip.label])
+```{r phylo_arc, fig.width=5, fig.height=3}
+mating.tree <- data.frame(momsp=tree_pairs$tip.label) %>% left_join(mating)
+layout(matrix(c(1,2), nrow=1), widths=c(4,1))
+par(mar=c(1,0,1,0))
+plot.phylo(tree_pairs, tip.color = sp_pal[tree_pairs$tip.label], edge.width=5, edge.col ="grey", label.offset=0.0002, font=4, cex=1.2,  x.lim=0.025)
+add.scale.bar(x=0,y=10, lwd=5, lcol="grey", col="grey")
+text(x=0.025, y=1:10, mating.tree$mating, cex=1.2, col=sp_pal[tree_pairs$tip.label]) #c("H"="\U26A5","D"="\U2640\U2642","G"="\U26A5\U2640")
 par(mar=c(0,0,0,0))
 sp_pairs %>% matrix(ncol=2, byrow=T) %>% 
   arcplot(show.labels=F, horizontal=F, ordering=tree_pairs$tip.label, 
-          col.arcs=sp_pal[(1:5)*2], col.nodes = sp_pal)
-par(mfrow=c(1,1))
+          col.arcs=sp_pal[(1:5)*2], col.nodes = sp_pal, lwd.arcs=5)
 ```
 
 
 ```{r phylodist_hybrid, fig.width=7, fig.height=5}
-ggplot(left_join(hybrid.phylodist, filter(hybrid.phylodist.test, term=="pd")) %>% 
-         filter(trait=="prop.hybrid", type=="mixed") %>% left_join(hybrid.test),
-       aes(x=pd, y=estimate)) + coord_cartesian(xlim=c(0,NA))+
+left_join(hybrid.phylodist, filter(hybrid.phylodist.test, term=="pd")) %>% 
+  filter(trait=="prop.hybrid", type=="mixed") %>% left_join(hybrid.test) %>% 
+  ggplot(aes(x=pd, y=estimate)) + coord_cartesian(xlim=c(0,NA))+
   geom_hline(yintercept=0.5, linetype=2)+
   geom_smooth(method="lm", se=F, color="grey") +
   geom_pointrange(aes(ymax=conf.high, ymin=conf.low, color=momsp, shape=p.adj < 0.05)) + 
-    scale_shape_manual("Different from 50%", values=c(1, 19), labels=c("no","yes"))+
+  scale_shape_manual("Different from 50%", values=c(1, 19), labels=c("no","yes"))+
   scale_color_brewer(palette="Paired") + 
   scale_alpha_manual(breaks=c(T,F), values=c(0.5, 1))+
   scale_y_continuous(breaks=(0:4)/4, labels=~scales::percent(.,accuracy=1), expand=c(0.02,0), limits=c(0,NA))+
@@ -465,6 +467,29 @@ ggplot(left_join(hybrid.phylodist, filter(hybrid.phylodist.test, term=="pd")) %>
        y="Hybrids from competitive pollinations") + theme_minimal() +
   theme(axis.text=element_text(color="black"), legend.position="top", legend.box = "vertical",
         panel.grid.minor = element_blank(), panel.grid.major.x=element_blank(), panel.spacing = unit(1, "lines"))
+
+hybrid.phylodist %>% filter(trait=="prop.hybrid", type=="mixed") %>% 
+  left_join(select(hybrid.test, momsp, p.adj)) %>% 
+  left_join(select(styles.emm, momsp, style_length_mm, style.se = std.error)) %>% 
+  pivot_longer(c(pd, style_length_mm)) %>% 
+  {
+    ggplot(., aes(x=value, y=estimate, color=momsp)) + 
+      facet_wrap(vars(name), scales="free_x", strip.position = "bottom",
+                 labeller=as_labeller(c(pd="Phylogenetic distance (mutations/site)", style_length_mm = "Style length (mm)")))+
+      geom_hline(yintercept=0.5, linetype=2)+
+      geom_smooth(data = filter(., name=="pd"), method="lm", se=F, color="grey") +
+      geom_line(data = filter(., name=="style_length_mm"), aes(group=pair))+
+      geom_errorbarh(data = filter(., name=="style_length_mm"), aes(xmin=value-style.se, xmax=value+style.se))+
+      geom_pointrange(aes(ymax=estimate+std.error, ymin=estimate-std.error, shape=p.adj < 0.05)) + 
+      scale_shape_manual("Different from 50%", values=c(1, 19), labels=c("no","yes"))+
+      scale_color_brewer(palette="Paired") + 
+      scale_alpha_manual(breaks=c(T,F), values=c(0.5, 1))+
+      scale_y_continuous(breaks=(0:4)/4, labels=~scales::percent(.,accuracy=1), expand=c(0.02,0), limits=c(0,NA))+
+      labs(color="Maternal species", y="Hybrids from competitive pollinations") + theme_minimal() +
+      theme(axis.text=element_text(color="black"), legend.position="top", legend.box = "vertical",
+            axis.title.x=element_blank(), panel.grid.minor = element_blank(),  panel.spacing = unit(1, "lines"), 
+            strip.placement = "outside", strip.text = element_text(size=11)) 
+  }
 ```
 
 
