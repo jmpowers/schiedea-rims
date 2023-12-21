@@ -205,11 +205,11 @@ Expand this code to see the model specifications. The models have the following 
 
 ```{r models}
 comp.mod <- list(
-  capsule.formed=glmmTMB(capsule.formed ~ sxc + (1|momid), family="betabinomial", data=seeds),
-  sds =          glmmTMB(sds            ~ sxc + (1|momid), family="truncated_nbinom1", data=filter(seeds, sds>0)),
-  prop.germ =    glmmTMB(prop.germ   ~ sxc + (1|momid), family="betabinomial", data=germ, weights = planted),
-  prop.alive =   glmmTMB(prop.alive  ~ sxc + (1|momid), family="betabinomial", data=surv, weights = total),
-  prop.hybrid =  glmmTMB(prop.hybrid ~ sxc + (1|momid), family="betabinomial", data=filter(surv, type=="mixed"), weights = alive))
+  capsule.formed=glmmTMB(capsule.formed ~ sxc + (1|momid), family="betabinomial", data=seeds %>% mutate(sxc=factor(sxc))),
+  sds =          glmmTMB(sds            ~ sxc + (1|momid), family="truncated_nbinom1", data=filter(seeds, sds>0) %>% mutate(sxc=factor(sxc))),
+  prop.germ =    glmmTMB(prop.germ   ~ sxc + (1|momid), family="betabinomial", data=germ %>% mutate(sxc=factor(sxc)), weights = planted),
+  prop.alive =   glmmTMB(prop.alive  ~ sxc + (1|momid), family="betabinomial", data=surv %>% mutate(sxc=factor(sxc)), weights = total),
+  prop.hybrid =  glmmTMB(prop.hybrid ~ sxc + (1|momid), family="betabinomial", data=filter(surv, type=="mixed") %>% mutate(sxc=factor(sxc)), weights = alive))
 ```
 
 ## Maternal effects
@@ -242,13 +242,12 @@ comp.ranef %>% select(-sd) %>% pivot_wider(names_from="trait", values_from="esti
 
 ## Inference 
 
-P-values for the overall effect of species and crosstype, or collection date, on the trait.
-
 ```{r inference, fig.width=5, fig.height=3.5}
-comp.test <- map_dfr(comp.mod, ~car::Anova(.) %>% tidy(), .id="trait") 
-comp.test %>%  mutate(term=recode(term, sxc = "species and crosstype"),
-         p.value=format(p.value,digits=2)) %>% 
-  kable(digits=1, caption="ANOVA of GLMM (Type III Wald chisquare tests)")
+comp.tests <- map_dfr(comp.mod[-5], ~multcomp::glht(.x, linfct = multcomp::mcp(sxc = paste0(sp_pairs,".inter - ",sp_pairs,".intra = 0"))) %>% 
+                          multcomp:::summary.glht(test=multcomp::adjusted(type="fdr")) %>% tidy(), .id="trait") %>% 
+    mutate(momsp = factor(str_extract(contrast, "([^\\.]+)"), levels=sp_pairs), 
+           trait = factor(trait, levels=names(propnames))) %>% 
+  select(trait, momsp, inter.minus.intra=estimate, std.error, adj.p.value)
   
 comp.emm <-  map_dfr(comp.mod, ~emmeans(., ~sxc) %>% summary(type="response") %>%  #average over collect date
                              tidy %>% rename(estimate=any_of(c("response","prob"))), .id="trait") %>% 
@@ -353,6 +352,8 @@ ggplot(filter(surv, type=="mixed"), aes(x=momsp, y=prop.hybrid, fill=momsp)) +
   scale_fill_brewer(palette="Paired", guide="none") +
   scale_y_continuous(breaks=(0:4)/4, labels=~scales::percent(.,accuracy=1), expand=c(0.02,0), limits=c(0,1))+
   labs(x="Maternal species", y="Hybrids from competitive pollinations") + sp_theme
+
+hybrid.test %>% select(momsp, dadsp, prop.hybrid, p.adj) %>% arrange(p.adj)
 ```
 
 Tested whether the proportion of hybrids significantly differed from 50%, accounting for multiple comparisons. Violin plots show proportions for each plant x plant cross. The number of plant x plant crosses indicated above the plot.
@@ -421,34 +422,39 @@ ggplot(left_join(hybrid.phylodist, filter(hybrid.phylodist.test, term=="pd")), a
   theme(axis.title.y=element_blank(), axis.text=element_text(color="black"), legend.position="top",
         panel.grid.minor = element_blank(), panel.grid.major.x=element_blank(), panel.spacing = unit(1, "lines"))
 
-left_join(postzygotic.ratios, phylodist) %>% 
+postzygotic.ratios %>% left_join(comp.tests) %>% left_join(phylodist) %>% 
+  mutate(signif = adj.p.value < 0.05) %>% 
   filter(!(trait=="capsule.formed" & momsp %in% c("spergulina", "sarmentosa"))) %>% #whole inflor in organza bag - no capsule data
   ggplot(aes(x=pd, y=RI)) + 
   facet_wrap(vars(trait), labeller=as_labeller(propnames), nrow=1)+ 
   geom_hline(yintercept=0, linetype=2) + geom_hline(yintercept=-1)+ geom_hline(yintercept=1)+
-  geom_smooth(method="loess", span=1.2, se=F, color="grey") + 
+  geom_smooth(method="lm", se=F, color="grey") + 
   geom_errorbar(aes(color=momsp, ymin=low, ymax=high), width=0.001, linewidth=0.5) +
-  geom_point(aes(color=momsp), size=2) + 
-  scale_color_brewer(palette="Paired") +  
+  geom_point(aes(color=momsp, shape = signif), size=2) + 
+  scale_color_brewer(palette="Paired") +  scale_shape_manual(values=c(1, 19),guide="none")+
   labs(x="Phylogenetic distance (mutations/site)", color="Maternal species", y="Reproductive isolation") + 
   scale_y_continuous(limits=c(-1,1), breaks=c(-1,-0.5,0,0.5,1), expand=c(0,0),
                      labels=c("heterosis -1","-0.5","no barrier 0","0.5","complete isolation 1")) + 
-  theme_bw() + theme(axis.text=element_text(color="black"), legend.position="top",
+  theme_bw() + theme(axis.text=element_text(color="black"), legend.position="top", 
                      panel.grid.minor = element_blank(), panel.grid.major.x=element_blank(), panel.spacing = unit(1, "lines"))
 
+postzygotic.ratios %>% left_join(comp.tests) %>% left_join(phylodist) %>% 
+  arrange(trait, pd) %>% select(trait, momsp, dadsp, RI, adj.p.value) %>% 
+  kable(digits=3, caption = "compare inter vs. intraspecific crosses")
 ```
 
 ```{r phylo_arc, fig.width=5, fig.height=3}
 mating.tree <- data.frame(momsp=tree_pairs$tip.label) %>% left_join(mating)
 layout(matrix(c(1,2), nrow=1), widths=c(4,1))
-par(mar=c(1,0,1,0))
+par(mar=c(0,0,0,0))
 plot.phylo(tree_pairs, tip.color = sp_pal[tree_pairs$tip.label], edge.width=5, edge.col ="grey", label.offset=0.0002, font=4, cex=1.2,  x.lim=0.025)
 add.scale.bar(x=0,y=10, lwd=5, lcol="grey", col="grey")
 text(x=0.025, y=1:10, mating.tree$mating, cex=1.2, col=sp_pal[tree_pairs$tip.label]) #c("H"="\U26A5","D"="\U2640\U2642","G"="\U26A5\U2640")
-par(mar=c(0,0,0,0))
+ntaxa <- Ntip(tree_pairs)
 sp_pairs %>% matrix(ncol=2, byrow=T) %>% 
   arcplot(show.labels=F, horizontal=F, ordering=tree_pairs$tip.label, 
-          col.arcs=sp_pal[(1:5)*2], col.nodes = sp_pal, lwd.arcs=5)
+          col.arcs=sp_pal[(1:5)*2], col.nodes = sp_pal, lwd.arcs=5, 
+          ylim = range(arcdiagram::xynodes(ntaxa, 1:ntaxa, labels = 1:ntaxa)))
 ```
 
 
@@ -481,12 +487,12 @@ hybrid.phylodist %>% filter(trait=="prop.hybrid", type=="mixed") %>%
       geom_line(data = filter(., name=="style_length_mm"), aes(group=pair))+
       geom_errorbarh(data = filter(., name=="style_length_mm"), aes(xmin=value-style.se, xmax=value+style.se))+
       geom_pointrange(aes(ymax=estimate+std.error, ymin=estimate-std.error, shape=p.adj < 0.05)) + 
-      scale_shape_manual("Different from 50%", values=c(1, 19), labels=c("no","yes"))+
+      scale_shape_manual(values=c(1, 19), guide="none")+
       scale_color_brewer(palette="Paired") + 
       scale_alpha_manual(breaks=c(T,F), values=c(0.5, 1))+
       scale_y_continuous(breaks=(0:4)/4, labels=~scales::percent(.,accuracy=1), expand=c(0.02,0), limits=c(0,NA))+
       labs(color="Maternal species", y="Hybrids from competitive pollinations") + theme_minimal() +
-      theme(axis.text=element_text(color="black"), legend.position="top", legend.box = "vertical",
+      theme(axis.text=element_text(color="black"), legend.position="top",
             axis.title.x=element_blank(), panel.grid.minor = element_blank(),  panel.spacing = unit(1, "lines"), 
             strip.placement = "outside", strip.text = element_text(size=11)) 
   }
@@ -518,7 +524,7 @@ left_join(hybrid.test, phylodist) %>%
   ggplot(aes(x=pd, y=value)) + facet_wrap(vars(name), scales="free_y", labeller=as_labeller(vigornames)) + expand_limits(y=c(1,0))+
   geom_hline(aes(yintercept=rep(c(0.5,1,0.5), length(sp_pairs))), linetype=2)+  scale_y_continuous(expand=expansion(mult=c(0,0)))+
   geom_smooth(method="lm", se=F, color="grey") +
-  geom_point(aes(color=momsp, shape=mating), size=4) + scale_color_brewer(palette="Paired") + 
+  geom_point(aes(color=momsp), size=4) + scale_color_brewer(palette="Paired") + 
   labs(x="Phylogenetic distance (mutations/site)", color="Maternal species", shape="Mating") + theme_bw() +
   theme(axis.text=element_text(color="black"), legend.position="top", axis.title.y=element_blank())
 
@@ -527,7 +533,7 @@ left_join(hybrid.test, select(styles.emm, momsp, style_length_mm, mating)) %>%
   ggplot(aes(x=style_length_mm, y=value)) +
   facet_wrap(vars(name), scales="free_y", labeller=as_labeller(vigornames)) + expand_limits(y=c(1,0))+
   geom_hline(aes(yintercept=rep(c(0.5,1,0.5), length(sp_pairs))), linetype=2)+  scale_y_continuous(expand=expansion(mult=c(0,0)))+
-  geom_line(aes(group=pair, color=momsp))+ geom_point(aes(color=momsp, shape=mating), size=4) + scale_color_brewer(palette="Paired") + 
+  geom_line(aes(group=pair, color=momsp))+ geom_point(aes(color=momsp), size=4) + scale_color_brewer(palette="Paired") + 
   labs(x="Style length (mm)", color="Maternal species", shape="Mating") + theme_bw() +
   theme(axis.text=element_text(color="black"), legend.position="top", axis.title.y=element_blank())
 ```
