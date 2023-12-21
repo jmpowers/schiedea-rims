@@ -11,7 +11,7 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2023-12-14" />
+<meta name="date" content="2023-12-20" />
 
 <title>Schiedea hybrid pollen fertility</title>
 
@@ -254,7 +254,7 @@ div.tocify {
 fertility</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John
 Powers</a></h4>
-<h4 class="date">2023-12-14</h4>
+<h4 class="date">2023-12-20</h4>
 
 </div>
 
@@ -1339,19 +1339,21 @@ sp &lt;- set_names(sp, substr(sp, 1,4))
 pol.sppair &lt;- pol %&gt;% mutate(crossname = paste(momsp, &quot;x&quot;, dadsp), type = if_else(momsp==dadsp, &quot;within&quot;,&quot;between&quot;)) %&gt;% 
   filter(crossname %in% sppairs | (momsp == dadsp &amp; momsp %in% names(sp))) 
 pol.sppair %&gt;% group_by(dataset, crossname, type) %&gt;% 
-  summarize(n.mompid = length(unique(mompid)), n.dadpid = length(unique(dadpid)), n.fullcross = length(unique(fullcross)), n.slides = n(), min.grains = min(tot), median.grains = median(tot),  max.grains = max(tot), n.grains = sum(tot)) %&gt;% kable()</code></pre>
+  summarize(n.mompid = length(unique(mompid)), n.dadpid = length(unique(dadpid)), n.fullcross = length(unique(fullcross)), n.slides = n(), 
+            min.grains = min(tot), median.grains = median(tot),  max.grains = max(tot), n.grains = sum(tot), median.vp = median(vp)) %&gt;% kable()</code></pre>
 <table>
 <colgroup>
-<col width="13%" />
-<col width="10%" />
+<col width="12%" />
+<col width="9%" />
 <col width="6%" />
-<col width="7%" />
-<col width="7%" />
+<col width="6%" />
+<col width="6%" />
+<col width="9%" />
+<col width="6%" />
+<col width="8%" />
 <col width="10%" />
-<col width="7%" />
-<col width="9%" />
-<col width="11%" />
-<col width="9%" />
+<col width="8%" />
+<col width="6%" />
 <col width="7%" />
 </colgroup>
 <thead>
@@ -1367,6 +1369,7 @@ pol.sppair %&gt;% group_by(dataset, crossname, type) %&gt;%
 <th align="right">median.grains</th>
 <th align="right">max.grains</th>
 <th align="right">n.grains</th>
+<th align="right">median.vp</th>
 </tr>
 </thead>
 <tbody>
@@ -1382,6 +1385,7 @@ pol.sppair %&gt;% group_by(dataset, crossname, type) %&gt;%
 <td align="right">200.0</td>
 <td align="right">200</td>
 <td align="right">2800</td>
+<td align="right">0.9800000</td>
 </tr>
 <tr class="even">
 <td align="left">HPOL</td>
@@ -1395,6 +1399,7 @@ pol.sppair %&gt;% group_by(dataset, crossname, type) %&gt;%
 <td align="right">200.0</td>
 <td align="right">200</td>
 <td align="right">2800</td>
+<td align="right">0.9950000</td>
 </tr>
 <tr class="odd">
 <td align="left">pol2015.2017.KH</td>
@@ -1408,6 +1413,7 @@ pol.sppair %&gt;% group_by(dataset, crossname, type) %&gt;%
 <td align="right">422.5</td>
 <td align="right">831</td>
 <td align="right">13767</td>
+<td align="right">0.9317744</td>
 </tr>
 <tr class="even">
 <td align="left">pol2015.2017.KH</td>
@@ -1421,6 +1427,7 @@ pol.sppair %&gt;% group_by(dataset, crossname, type) %&gt;%
 <td align="right">546.0</td>
 <td align="right">886</td>
 <td align="right">33932</td>
+<td align="right">0.5200000</td>
 </tr>
 <tr class="odd">
 <td align="left">pol2015.2017.KH</td>
@@ -1434,6 +1441,7 @@ pol.sppair %&gt;% group_by(dataset, crossname, type) %&gt;%
 <td align="right">397.0</td>
 <td align="right">822</td>
 <td align="right">20053</td>
+<td align="right">0.4505929</td>
 </tr>
 <tr class="even">
 <td align="left">pol2015.2017.KH</td>
@@ -1447,6 +1455,7 @@ pol.sppair %&gt;% group_by(dataset, crossname, type) %&gt;%
 <td align="right">517.0</td>
 <td align="right">883</td>
 <td align="right">30508</td>
+<td align="right">0.9287169</td>
 </tr>
 <tr class="odd">
 <td align="left">pol2019.2022</td>
@@ -1460,6 +1469,7 @@ pol.sppair %&gt;% group_by(dataset, crossname, type) %&gt;%
 <td align="right">200.0</td>
 <td align="right">200</td>
 <td align="right">3790</td>
+<td align="right">0.5650000</td>
 </tr>
 <tr class="even">
 <td align="left">pol2019.2022</td>
@@ -1473,6 +1483,7 @@ pol.sppair %&gt;% group_by(dataset, crossname, type) %&gt;%
 <td align="right">200.0</td>
 <td align="right">200</td>
 <td align="right">20000</td>
+<td align="right">0.9350000</td>
 </tr>
 <tr class="odd">
 <td align="left">pol2019.2022</td>
@@ -1486,6 +1497,7 @@ pol.sppair %&gt;% group_by(dataset, crossname, type) %&gt;%
 <td align="right">200.0</td>
 <td align="right">200</td>
 <td align="right">1580</td>
+<td align="right">0.5800000</td>
 </tr>
 <tr class="even">
 <td align="left">pol2019.2022</td>
@@ -1499,6 +1511,7 @@ pol.sppair %&gt;% group_by(dataset, crossname, type) %&gt;%
 <td align="right">200.0</td>
 <td align="right">203</td>
 <td align="right">19797</td>
+<td align="right">0.9600000</td>
 </tr>
 <tr class="odd">
 <td align="left">pol2019.2022</td>
@@ -1512,6 +1525,7 @@ pol.sppair %&gt;% group_by(dataset, crossname, type) %&gt;%
 <td align="right">200.0</td>
 <td align="right">287</td>
 <td align="right">13687</td>
+<td align="right">0.9525000</td>
 </tr>
 <tr class="even">
 <td align="left">pol2019.2022</td>
@@ -1525,6 +1539,7 @@ pol.sppair %&gt;% group_by(dataset, crossname, type) %&gt;%
 <td align="right">200.0</td>
 <td align="right">200</td>
 <td align="right">7200</td>
+<td align="right">0.9325000</td>
 </tr>
 <tr class="odd">
 <td align="left">pol2019.2022</td>
@@ -1538,6 +1553,7 @@ pol.sppair %&gt;% group_by(dataset, crossname, type) %&gt;%
 <td align="right">200.0</td>
 <td align="right">200</td>
 <td align="right">3800</td>
+<td align="right">0.6250000</td>
 </tr>
 <tr class="even">
 <td align="left">pol2019.2022</td>
@@ -1551,13 +1567,15 @@ pol.sppair %&gt;% group_by(dataset, crossname, type) %&gt;%
 <td align="right">200.0</td>
 <td align="right">200</td>
 <td align="right">10192</td>
+<td align="right">0.6400000</td>
 </tr>
 </tbody>
 </table>
 <pre class="r"><code>pf %&gt;%  filter(crossname %in% sppairs) %&gt;% 
   ggplot(aes(x=pd, y=ft, color=factor(sp[momsp], levels=sp))) + 
+  geom_smooth(method=&quot;lm&quot;, se=F, color=&quot;grey&quot;)+
   geom_linerange(aes(ymin=q25, ymax=q75)) + geom_point(size=3)+ 
-  scale_color_brewer(palette = &quot;Paired&quot;) + xlim(c(0,NA))+
+  scale_color_brewer(palette = &quot;Paired&quot;) +
   scale_y_continuous(labels=scales::percent_format(), limits=c(0,1))+
   labs(x=&quot;Phylogenetic distance (mutations/site)&quot;, y=&quot;Pollen viability&quot;, color=&quot;Maternal species&quot;)+
   theme(legend.position = &quot;top&quot;) </code></pre>

@@ -264,13 +264,14 @@ signif.cont <- unnest(select(tubes.mod, paste0(yvar,"_cont")), paste0(yvar,"_con
                      hr = fct_recode(factor(height), "4hr"="2", "24hr"="3"),
                      ypos=(height-1)/c(mid=1, bottom=1, ratio=20)[yvar]+c(mid=20, bottom=20, ratio=1)[yvar])
 tubes.mod.plot <- unnest(select(tubes.mod, paste0(yvar,"_emm")), paste0(yvar,"_emm")) %>% 
-  mutate(cross_pos = as.integer(cross)-4*as.integer(pair)+4,
+  mutate(cross_pos = as.integer(cross)-4*as.integer(pair)+4, 
        contrast = paste(pair, as.integer(cross_pos>2), ifelse(hr=="4hr","04hr","24hr")))
 
 tubes.mod.plot.signif <- tubes.mod.plot %>% select(pair, hr, response, contrast, cross_pos) %>%  
   arrange(contrast) %>% mutate(startend = rep(c(1,2), 4)) %>% 
-  pivot_wider(names_from=startend, values_from=c(response, cross_pos)) %>% arrange(pair) %>% 
-  bind_cols(select(ungroup(signif.cont), -pair, -hr, -x1, -x2))
+  pivot_wider(names_from=startend, values_from=c(response, cross_pos)) %>% 
+  arrange(pair, desc(cross_pos_1), hr) %>% #careful, needs to match order of signif.cont
+  bind_cols(select(ungroup(signif.cont), -pair, -hr, -x1, -x2)) 
 
 ggplot(tubes.mod.plot) +
   facet_wrap(vars(pair), scales="free_x", nrow=1, labeller = as_labeller(pair_labels)) +
@@ -317,6 +318,19 @@ grid.arrange(grobs=pmap(select(tubes.mod, pair, emm=ratio_emm, cont=ratio_cont, 
                         plot_emm, yvar="ratio"), nrow=1)
 ```
 
+```{r comparisons}
+tubes.mod.long <- tubes.mod %>% select(ends_with(c("emm","cont"))) %>% pivot_longer(ends_with(c("emm","cont"))) %>% 
+  separate(name, into=c("var","table")) %>% pivot_wider(names_from=table)
+emm.response <- tubes.mod.long %>% select(var, emm) %>% unnest(emm) %>% mutate(crosshr = paste0(cross, hr)) %>% select(var, crosshr, response)
+tubes.mod.long %>% select(var, cont) %>% unnest(cont) %>% select(var, lvl1, lvl2, adj.p.value) %>%
+  left_join(rename(emm.response, lvl1=crosshr, response1=response)) %>% 
+  left_join(rename(emm.response, lvl2=crosshr, response2=response)) %>% 
+  mutate(hyb.vs.intra = if_else(str_sub(lvl1, 1,2) != str_sub(lvl1, 4,5), response1/response2, response2/response1),
+                                decline = 1-hyb.vs.intra) %>% 
+  kable(caption = "Decline in pollen tubes from intraspecific to interspecific crosses", digits=2)
+```
+
+
 # Tubes at bottom v. middle of style
 
 ```{r pollentubes_diff, fig.width=9, fig.height=7}
@@ -339,11 +353,13 @@ tubes.phylodist <- tubes.mod %>% select(pair, ends_with("_emm")) %>% pivot_longe
   mutate(trait = str_remove(trait, "_emm")) %>% unnest(value) %>% 
   mutate(momsp = factor(species_names[str_sub(cross, 1,2)], levels=species_names)) %>% group_by(pair, trait, momsp, hr) %>% 
   summarize(trait_diff = response[1]-response[2], 
+            trait_se = sqrt(((uSE[1]-lSE[1])/2)^2 + ((uSE[2]-lSE[2])/2)^2),#average upper + lower SE, then propagate error
             dadsp = species_names[str_sub(cross[2], 4,5)], .groups = "drop") %>% 
   mutate(pd = map2_dbl(as.character(momsp), as.character(dadsp), ~cophenetic(tree)[.x,.y]))
 
 ggplot(tubes.phylodist, aes(x=pd, y=trait_diff)) + facet_grid(trait~hr, scales="free_y") +
-  geom_smooth(method="lm", se=F, color="grey") + geom_point(aes(color=momsp), size=2) +
+  geom_smooth(method="lm", se=F, color="grey") + 
+  geom_pointrange(aes(color=momsp, ymin=trait_diff-trait_se, ymax=trait_diff+trait_se)) +
   scale_color_brewer(palette="Paired")+
   labs(x="Phylogenetic distance (mutations/site)", color="Maternal species",
        y="Difference between intra and interspecies cross") + theme_bw() + 
@@ -353,13 +369,15 @@ ggplot(tubes.phylodist, aes(x=pd, y=trait_diff)) + facet_grid(trait~hr, scales="
 ```{r phylo_tubes_ratio, fig.height=4, fig.width=6.5}
 tubes.phylodist %>% filter(trait=="ratio", hr=="24hr") %>% 
   ggplot(aes(x=pd, y=trait_diff)) + 
-  geom_smooth(method="lm", se=F, color="grey") + geom_point(aes(color=momsp), size=3) + 
+  geom_smooth(method="lm", se=F, color="grey") + 
+  geom_pointrange(aes(color=momsp, ymin=trait_diff-trait_se, ymax=trait_diff+trait_se)) + 
   scale_color_brewer(palette="Paired")+
   scale_y_continuous(labels=scales::percent_format()) + 
-  scale_x_continuous(limits=c(0, NA), expand=expansion(c(0,0.05))) +
   labs(x="Phylogenetic distance (mutations/site)", color="Maternal\nspecies", 
        y="Decrease in base/middle in hybrid crosses at 24 hr") + 
   theme_classic() + theme(legend.position = "top") 
+
+tubes.phylodist %>% filter(trait=="ratio", hr=="24hr") %>% pull(trait_diff) %>% summary()
 ```
 
 # Package citations
