@@ -11,11 +11,11 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2023-12-20" />
+<meta name="date" content="2024-04-26" />
 
 <title>Schiedea hybrid pollen fertility</title>
 
-<script src="libs/header-attrs-2.20/header-attrs.js"></script>
+<script src="libs/header-attrs-2.26/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -31,7 +31,7 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<script src="libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="libs/navigation-1.1/tabsets.js"></script>
@@ -254,7 +254,7 @@ div.tocify {
 fertility</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John
 Powers</a></h4>
-<h4 class="date">2023-12-20</h4>
+<h4 class="date">2024-04-26</h4>
 
 </div>
 
@@ -288,7 +288,7 @@ sch.f$tip.label &lt;- toupper(paste(&quot;&quot;,substr(sch.f$tip.label,1,4),sep
 sch.f&lt;-drop.tip(sch.f,sch.f$tip.label[-match(fspecies$name, sch$tip.label)])
 
 #cophenetic plot
-ceb_tree &lt;- cophylo(as_phylo(ceb), sch.f)</code></pre>
+ceb_tree &lt;- cophylo(as.phylo(ceb), sch.f)</code></pre>
 <pre><code>Rotating nodes to optimize matching...
 Done.</code></pre>
 <pre class="r"><code>plot(ceb_tree)</code></pre>
@@ -1250,7 +1250,7 @@ intraspecies &lt;- setNames(polmeans$mean[match(paste(names(V(g)),names(V(g))), 
 
 #cluster based on graph with edges weighted by pollen viability - poor result
 #ceb &lt;- cluster_leading_eigen(gu) 
-# plot(cophylo(as_phylo(ceb), sch.f))</code></pre>
+# plot(cophylo(as.phylo(ceb), sch.f))</code></pre>
 <pre class="r"><code>#phylo-arcplot
 #png(&quot;plots/arcplot.png&quot;, height=1500, width=3000, pointsize=56)
 par(mfrow=c(1,3) , bg=&quot;grey30&quot;)
@@ -1580,6 +1580,90 @@ pol.sppair %&gt;% group_by(dataset, crossname, type) %&gt;%
   labs(x=&quot;Phylogenetic distance (mutations/site)&quot;, y=&quot;Pollen viability&quot;, color=&quot;Maternal species&quot;)+
   theme(legend.position = &quot;top&quot;) </code></pre>
 <p><img src="figures-fertility/pf_pairs-1.svg" width="768" /></p>
+<pre class="r"><code>pf %&gt;%  filter(crossname %in% sppairs) %&gt;% arrange(pd) %&gt;% select(pd, crossname, ft, q25, q75) %&gt;% kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">pd</th>
+<th align="left">crossname</th>
+<th align="right">ft</th>
+<th align="right">q25</th>
+<th align="right">q75</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.010547</td>
+<td align="left">menz x sali</td>
+<td align="right">0.9600000</td>
+<td align="right">0.9050000</td>
+<td align="right">0.9850000</td>
+</tr>
+<tr class="even">
+<td align="right">0.010547</td>
+<td align="left">sali x menz</td>
+<td align="right">0.9525000</td>
+<td align="right">0.8587500</td>
+<td align="right">0.9750000</td>
+</tr>
+<tr class="odd">
+<td align="right">0.010778</td>
+<td align="left">sarm x lydg</td>
+<td align="right">0.9325000</td>
+<td align="right">0.8350000</td>
+<td align="right">0.9650000</td>
+</tr>
+<tr class="even">
+<td align="right">0.010778</td>
+<td align="left">lydg x sarm</td>
+<td align="right">0.9350000</td>
+<td align="right">0.8637500</td>
+<td align="right">0.9700000</td>
+</tr>
+<tr class="odd">
+<td align="right">0.015814</td>
+<td align="left">sper x stel</td>
+<td align="right">0.6250000</td>
+<td align="right">0.5525000</td>
+<td align="right">0.6475000</td>
+</tr>
+<tr class="even">
+<td align="right">0.015814</td>
+<td align="left">stel x sper</td>
+<td align="right">0.6400000</td>
+<td align="right">0.5550000</td>
+<td align="right">0.6975000</td>
+</tr>
+<tr class="odd">
+<td align="right">0.025045</td>
+<td align="left">kaua x memb</td>
+<td align="right">0.5650000</td>
+<td align="right">0.4100000</td>
+<td align="right">0.6225000</td>
+</tr>
+<tr class="even">
+<td align="right">0.025045</td>
+<td align="left">memb x kaua</td>
+<td align="right">0.5800000</td>
+<td align="right">0.3523611</td>
+<td align="right">0.6287500</td>
+</tr>
+<tr class="odd">
+<td align="right">0.025317</td>
+<td align="left">hook x kaal</td>
+<td align="right">0.5200000</td>
+<td align="right">0.2906977</td>
+<td align="right">0.6806723</td>
+</tr>
+<tr class="even">
+<td align="right">0.025317</td>
+<td align="left">kaal x hook</td>
+<td align="right">0.4505929</td>
+<td align="right">0.2674651</td>
+<td align="right">0.5503876</td>
+</tr>
+</tbody>
+</table>
 <pre class="r"><code>pf %&gt;% filter(momsp %in% names(sp), dadsp %in% names(sp)) %&gt;% 
   ggplot(aes(x=pd, y=ft, color=factor(sp[momsp], levels=sp))) + 
   geom_line(aes(group=crossname.sort), linewidth=2, alpha=0.5, color=&quot;grey&quot;) +

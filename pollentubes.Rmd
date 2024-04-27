@@ -327,7 +327,7 @@ tubes.mod.long %>% select(var, cont) %>% unnest(cont) %>% select(var, lvl1, lvl2
   left_join(rename(emm.response, lvl2=crosshr, response2=response)) %>% 
   mutate(hyb.vs.intra = if_else(str_sub(lvl1, 1,2) != str_sub(lvl1, 4,5), response1/response2, response2/response1),
                                 decline = 1-hyb.vs.intra) %>% 
-  kable(caption = "Decline in pollen tubes from intraspecific to interspecific crosses", digits=2)
+  kable(caption = "Decline in pollen tubes from intraspecific to interspecific crosses", digits=3)
 ```
 
 

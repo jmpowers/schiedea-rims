@@ -353,7 +353,8 @@ ggplot(filter(surv, type=="mixed"), aes(x=momsp, y=prop.hybrid, fill=momsp)) +
   scale_y_continuous(breaks=(0:4)/4, labels=~scales::percent(.,accuracy=1), expand=c(0.02,0), limits=c(0,1))+
   labs(x="Maternal species", y="Hybrids from competitive pollinations") + sp_theme
 
-hybrid.test %>% select(momsp, dadsp, prop.hybrid, p.adj) %>% arrange(p.adj)
+hybrid.test %>% left_join(filter(comp.emm, trait=="prop.hybrid")) %>% 
+  select(momsp, dadsp, prop.hybrid, std.error, p.adj) %>% kable(caption="Test if hybrid proportions differ from 50%")
 ```
 
 Tested whether the proportion of hybrids significantly differed from 50%, accounting for multiple comparisons. Violin plots show proportions for each plant x plant cross. The number of plant x plant crosses indicated above the plot.
@@ -367,7 +368,8 @@ styles.emm <- glmmTMB(style_length_mm ~ momsp + (1|plantid), data=styles) %>%
   emmeans(~momsp) %>% summary(type="response") %>% tidy %>% rename(style_length_mm = estimate) %>% 
   left_join(mating) %>% group_by(pair) %>% 
   mutate(momsp=factor(momsp, levels=sp_pairs), 
-         style_diff_mm = style_length_mm-min(style_length_mm))
+         style_diff_mm = style_length_mm-min(style_length_mm),
+         style_diff_rel = style_diff_mm / min(style_length_mm))
 
 ggplot(styles, aes(x=momsp, y=style_length_mm, fill=momsp)) + 
   geom_violin(scale="width")+ 
@@ -376,6 +378,10 @@ ggplot(styles, aes(x=momsp, y=style_length_mm, fill=momsp)) +
   geom_pointrange(data=styles.emm, aes(ymax=conf.high, ymin=conf.low)) + 
   scale_fill_brewer(palette="Paired", guide="none") + scale_y_continuous(limits=c(0,NA))+
   labs(x="Species", y="Style length (mm)") + sp_theme
+
+styles.emm %>%left_join(styles %>% group_by(momsp, plantid) %>% summarize(style_length_mm = mean(style_length_mm)) %>% 
+  group_by(momsp) %>% summarize(sd=sd(style_length_mm))) %>% select(momsp, style_length_mm, std.error, sd, style_diff_rel) %>% 
+  kable(caption="comparison of style length relative to short-styled species")
 ```
 
 # Phylogenetic distance and style length

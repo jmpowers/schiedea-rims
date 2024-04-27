@@ -11,11 +11,11 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2023-12-20" />
+<meta name="date" content="2024-04-26" />
 
 <title>Schiedea pollen competition</title>
 
-<script src="libs/header-attrs-2.20/header-attrs.js"></script>
+<script src="libs/header-attrs-2.26/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -31,7 +31,7 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<script src="libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="libs/navigation-1.1/tabsets.js"></script>
@@ -253,14 +253,22 @@ div.tocify {
 <h1 class="title toc-ignore"><em>Schiedea</em> pollen competition</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John
 Powers</a></h4>
-<h4 class="date">2023-12-20</h4>
+<h4 class="date">2024-04-26</h4>
 
 </div>
 
 
 <pre class="r"><code>library(tidyverse)
-library(glmmTMB)
-library(broom)
+library(glmmTMB)</code></pre>
+<pre><code>## Warning in checkMatrixPackageVersion(getOption(&quot;TMB.check.Matrix&quot;, TRUE)): Package version inconsistency detected.
+## TMB was built with Matrix ABI version 1
+## Current Matrix ABI version is 2
+## Please re-install &#39;TMB&#39; from source using install.packages(&#39;TMB&#39;, type = &#39;source&#39;) or ask CRAN for a binary version of &#39;TMB&#39; matching CRAN&#39;s &#39;Matrix&#39; package</code></pre>
+<pre><code>## Warning in check_dep_version(): ABI version mismatch: 
+## lme4 was built with Matrix ABI version 1
+## Current Matrix ABI version is 2
+## Please re-install lme4 from source or restore original &#39;Matrix&#39; package</code></pre>
+<pre class="r"><code>library(broom)
 library(emmeans)
 library(knitr)
 library(ape)
@@ -953,20 +961,92 @@ ggplot(seeds.bycross, aes(x=momsp, fill=type, y=capsule.formed))  + bxplt + alte
   scale_y_continuous(breaks=(0:4)/4, labels=~scales::percent(.,accuracy=1), expand=c(0.02,0), limits=c(0,1))+
   labs(x=&quot;Maternal species&quot;, y=&quot;Hybrids from competitive pollinations&quot;) + sp_theme</code></pre>
 <p><img src="figures-comp/rawdata-5.svg" width="672" /></p>
-<pre class="r"><code>hybrid.test %&gt;% select(momsp, dadsp, prop.hybrid, p.adj) %&gt;% arrange(p.adj)</code></pre>
-<pre><code># A tibble: 10 × 4
-   momsp         dadsp         prop.hybrid     p.adj
-   &lt;fct&gt;         &lt;fct&gt;               &lt;dbl&gt;     &lt;dbl&gt;
- 1 membranacea   kauaiensis         0.0129 4.53e-105
- 2 kauaiensis    membranacea        0.0331 1.94e- 86
- 3 stellarioides spergulina         0.0386 6.88e- 72
- 4 lydgatei      sarmentosa         0.105  5.02e- 69
- 5 kaalae        hookeri            0.193  7.29e- 43
- 6 hookeri       kaalae             0.302  4.81e- 38
- 7 menziesii     salicaria          0.415  7.51e-  6
- 8 spergulina    stellarioides      0.386  6.06e-  5
- 9 salicaria     menziesii          0.546  2.74e-  2
-10 sarmentosa    lydgatei           0.539  1   e+  0</code></pre>
+<pre class="r"><code>hybrid.test %&gt;% left_join(filter(comp.emm, trait==&quot;prop.hybrid&quot;)) %&gt;% 
+  select(momsp, dadsp, prop.hybrid, std.error, p.adj) %&gt;% kable(caption=&quot;Test if hybrid proportions differ from 50%&quot;)</code></pre>
+<table>
+<caption>Test if hybrid proportions differ from 50%</caption>
+<thead>
+<tr class="header">
+<th align="left">momsp</th>
+<th align="left">dadsp</th>
+<th align="right">prop.hybrid</th>
+<th align="right">std.error</th>
+<th align="right">p.adj</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">menziesii</td>
+<td align="left">salicaria</td>
+<td align="right">0.4148</td>
+<td align="right">0.0713</td>
+<td align="right">0.0000</td>
+</tr>
+<tr class="even">
+<td align="left">salicaria</td>
+<td align="left">menziesii</td>
+<td align="right">0.5457</td>
+<td align="right">0.0617</td>
+<td align="right">0.0274</td>
+</tr>
+<tr class="odd">
+<td align="left">lydgatei</td>
+<td align="left">sarmentosa</td>
+<td align="right">0.1045</td>
+<td align="right">0.0482</td>
+<td align="right">0.0000</td>
+</tr>
+<tr class="even">
+<td align="left">sarmentosa</td>
+<td align="left">lydgatei</td>
+<td align="right">0.5390</td>
+<td align="right">0.1011</td>
+<td align="right">1.0000</td>
+</tr>
+<tr class="odd">
+<td align="left">stellarioides</td>
+<td align="left">spergulina</td>
+<td align="right">0.0386</td>
+<td align="right">0.0309</td>
+<td align="right">0.0000</td>
+</tr>
+<tr class="even">
+<td align="left">spergulina</td>
+<td align="left">stellarioides</td>
+<td align="right">0.3860</td>
+<td align="right">0.1000</td>
+<td align="right">0.0001</td>
+</tr>
+<tr class="odd">
+<td align="left">membranacea</td>
+<td align="left">kauaiensis</td>
+<td align="right">0.0129</td>
+<td align="right">0.0223</td>
+<td align="right">0.0000</td>
+</tr>
+<tr class="even">
+<td align="left">kauaiensis</td>
+<td align="left">membranacea</td>
+<td align="right">0.0331</td>
+<td align="right">0.0171</td>
+<td align="right">0.0000</td>
+</tr>
+<tr class="odd">
+<td align="left">kaalae</td>
+<td align="left">hookeri</td>
+<td align="right">0.1933</td>
+<td align="right">0.0413</td>
+<td align="right">0.0000</td>
+</tr>
+<tr class="even">
+<td align="left">hookeri</td>
+<td align="left">kaalae</td>
+<td align="right">0.3021</td>
+<td align="right">0.0621</td>
+<td align="right">0.0000</td>
+</tr>
+</tbody>
+</table>
 <p>Tested whether the proportion of hybrids significantly differed from
 50%, accounting for multiple comparisons. Violin plots show proportions
 for each plant x plant cross. The number of plant x plant crosses
@@ -1030,7 +1110,8 @@ indicated above the plot.</p>
   emmeans(~momsp) %&gt;% summary(type=&quot;response&quot;) %&gt;% tidy %&gt;% rename(style_length_mm = estimate) %&gt;% 
   left_join(mating) %&gt;% group_by(pair) %&gt;% 
   mutate(momsp=factor(momsp, levels=sp_pairs), 
-         style_diff_mm = style_length_mm-min(style_length_mm))
+         style_diff_mm = style_length_mm-min(style_length_mm),
+         style_diff_rel = style_diff_mm / min(style_length_mm))
 
 ggplot(styles, aes(x=momsp, y=style_length_mm, fill=momsp)) + 
   geom_violin(scale=&quot;width&quot;)+ 
@@ -1040,6 +1121,113 @@ ggplot(styles, aes(x=momsp, y=style_length_mm, fill=momsp)) +
   scale_fill_brewer(palette=&quot;Paired&quot;, guide=&quot;none&quot;) + scale_y_continuous(limits=c(0,NA))+
   labs(x=&quot;Species&quot;, y=&quot;Style length (mm)&quot;) + sp_theme</code></pre>
 <p><img src="figures-comp/style_length-1.svg" width="576" /></p>
+<pre class="r"><code>styles.emm %&gt;%left_join(styles %&gt;% group_by(momsp, plantid) %&gt;% summarize(style_length_mm = mean(style_length_mm)) %&gt;% 
+  group_by(momsp) %&gt;% summarize(sd=sd(style_length_mm))) %&gt;% select(momsp, style_length_mm, std.error, sd, style_diff_rel) %&gt;% 
+  kable(caption=&quot;comparison of style length relative to short-styled species&quot;)</code></pre>
+<table style="width:100%;">
+<caption>comparison of style length relative to short-styled
+species</caption>
+<colgroup>
+<col width="7%" />
+<col width="20%" />
+<col width="23%" />
+<col width="14%" />
+<col width="10%" />
+<col width="22%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">pair</th>
+<th align="left">momsp</th>
+<th align="right">style_length_mm</th>
+<th align="right">std.error</th>
+<th align="right">sd</th>
+<th align="right">style_diff_rel</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1</td>
+<td align="left">menziesii</td>
+<td align="right">6.595</td>
+<td align="right">0.1838</td>
+<td align="right">0.7509</td>
+<td align="right">0.6634</td>
+</tr>
+<tr class="even">
+<td align="left">1</td>
+<td align="left">salicaria</td>
+<td align="right">3.965</td>
+<td align="right">0.1838</td>
+<td align="right">0.5266</td>
+<td align="right">0.0000</td>
+</tr>
+<tr class="odd">
+<td align="left">2</td>
+<td align="left">lydgatei</td>
+<td align="right">3.840</td>
+<td align="right">0.1553</td>
+<td align="right">0.5169</td>
+<td align="right">0.8515</td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="left">sarmentosa</td>
+<td align="right">2.074</td>
+<td align="right">0.2055</td>
+<td align="right">0.1635</td>
+<td align="right">0.0000</td>
+</tr>
+<tr class="odd">
+<td align="left">3</td>
+<td align="left">stellarioides</td>
+<td align="right">4.498</td>
+<td align="right">0.1838</td>
+<td align="right">0.4483</td>
+<td align="right">0.4662</td>
+</tr>
+<tr class="even">
+<td align="left">3</td>
+<td align="left">spergulina</td>
+<td align="right">3.068</td>
+<td align="right">0.1838</td>
+<td align="right">0.4707</td>
+<td align="right">0.0000</td>
+</tr>
+<tr class="odd">
+<td align="left">4</td>
+<td align="left">membranacea</td>
+<td align="right">4.460</td>
+<td align="right">0.2055</td>
+<td align="right">0.1665</td>
+<td align="right">0.0399</td>
+</tr>
+<tr class="even">
+<td align="left">4</td>
+<td align="left">kauaiensis</td>
+<td align="right">4.289</td>
+<td align="right">0.1562</td>
+<td align="right">0.2922</td>
+<td align="right">0.0000</td>
+</tr>
+<tr class="odd">
+<td align="left">5</td>
+<td align="left">kaalae</td>
+<td align="right">5.357</td>
+<td align="right">0.1838</td>
+<td align="right">0.3640</td>
+<td align="right">0.2302</td>
+</tr>
+<tr class="even">
+<td align="left">5</td>
+<td align="left">hookeri</td>
+<td align="right">4.354</td>
+<td align="right">0.1372</td>
+<td align="right">0.4571</td>
+<td align="right">0.0000</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="phylogenetic-distance-and-style-length" class="section level1">
 <h1>Phylogenetic distance and style length</h1>

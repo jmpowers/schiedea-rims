@@ -71,7 +71,7 @@ sch.f$tip.label <- toupper(paste("",substr(sch.f$tip.label,1,4),sep=""))
 sch.f<-drop.tip(sch.f,sch.f$tip.label[-match(fspecies$name, sch$tip.label)])
 
 #cophenetic plot
-ceb_tree <- cophylo(as_phylo(ceb), sch.f)
+ceb_tree <- cophylo(as.phylo(ceb), sch.f)
 plot(ceb_tree)
 ```
 
@@ -233,7 +233,7 @@ intraspecies <- setNames(polmeans$mean[match(paste(names(V(g)),names(V(g))), pas
 
 #cluster based on graph with edges weighted by pollen viability - poor result
 #ceb <- cluster_leading_eigen(gu) 
-# plot(cophylo(as_phylo(ceb), sch.f))
+# plot(cophylo(as.phylo(ceb), sch.f))
 ```
 
 
@@ -345,6 +345,8 @@ pf %>%  filter(crossname %in% sppairs) %>%
   scale_y_continuous(labels=scales::percent_format(), limits=c(0,1))+
   labs(x="Phylogenetic distance (mutations/site)", y="Pollen viability", color="Maternal species")+
   theme(legend.position = "top") 
+
+pf %>%  filter(crossname %in% sppairs) %>% arrange(pd) %>% select(pd, crossname, ft, q25, q75) %>% kable()
 
 pf %>% filter(momsp %in% names(sp), dadsp %in% names(sp)) %>% 
   ggplot(aes(x=pd, y=ft, color=factor(sp[momsp], levels=sp))) + 
