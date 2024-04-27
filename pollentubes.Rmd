@@ -351,31 +351,42 @@ tree <- read.nexus("data/RAxML_1ps_nocp_bipartitionsBranchLabels.sch.short.nobs.
 
 tubes.phylodist <- tubes.mod %>% select(pair, ends_with("_emm")) %>% pivot_longer(ends_with("_emm"), names_to="trait") %>% 
   mutate(trait = str_remove(trait, "_emm")) %>% unnest(value) %>% 
-  mutate(momsp = factor(species_names[str_sub(cross, 1,2)], levels=species_names)) %>% group_by(pair, trait, momsp, hr) %>% 
+  mutate(momsp = factor(species_names[str_sub(cross, 1,2)], levels=species_names)) %>% 
+  group_by(pair, trait, momsp, hr) %>% 
   summarize(trait_diff = response[1]-response[2], 
             trait_se = sqrt(((uSE[1]-lSE[1])/2)^2 + ((uSE[2]-lSE[2])/2)^2),#average upper + lower SE, then propagate error
             dadsp = species_names[str_sub(cross[2], 4,5)], .groups = "drop") %>% 
+  left_join(tubes.mod %>% select(pair, ends_with("_cont")) %>% pivot_longer(ends_with("_cont"), names_to="trait") %>% 
+              mutate(trait = str_remove(trait, "_cont")) %>% unnest(value) %>% 
+              mutate(momsp = factor(species_names[str_sub(lvl1, 1,2)], levels=species_names),
+                     hr = factor(str_sub(lvl1,6,10), levels=c("4hr","24hr")))) %>% 
   mutate(pd = map2_dbl(as.character(momsp), as.character(dadsp), ~cophenetic(tree)[.x,.y]))
 
 ggplot(tubes.phylodist, aes(x=pd, y=trait_diff)) + facet_grid(trait~hr, scales="free_y") +
   geom_smooth(method="lm", se=F, color="grey") + 
-  geom_pointrange(aes(color=momsp, ymin=trait_diff-trait_se, ymax=trait_diff+trait_se)) +
-  scale_color_brewer(palette="Paired")+
+  geom_pointrange(aes(color=momsp, ymin=trait_diff-trait_se, ymax=trait_diff+trait_se, shape=adj.p.value < 0.05)) +
+  scale_color_brewer(palette="Paired") + scale_shape_manual(values = c(1,19), guide ="none")+
   labs(x="Phylogenetic distance (mutations/site)", color="Maternal species",
        y="Difference between intra and interspecies cross") + theme_bw() + 
   theme(legend.position = "top")
+
+tubes.phylodist %>% group_by(trait, hr) %>% nest() %>% 
+  mutate(model = map(data, ~lm(trait_diff ~ pd, data=.x)),
+         coef = map(model, tidy)) %>% select(-data, -model) %>% 
+  unnest(coef) %>% filter(term=="pd") %>% kable(digits=3)
 ```
 
 ```{r phylo_tubes_ratio, fig.height=4, fig.width=6.5}
-tubes.phylodist %>% filter(trait=="ratio", hr=="24hr") %>% 
-  ggplot(aes(x=pd, y=trait_diff)) + 
+tubes.phylodist %>% filter(trait=="ratio") %>% 
+  ggplot(aes(x=pd, y=-trait_diff)) + facet_wrap(vars(hr), labeller = as_labeller(c(`4hr`="4 hr", `24hr`="24 hr"))) + 
+  geom_hline(yintercept=0)+
   geom_smooth(method="lm", se=F, color="grey") + 
-  geom_pointrange(aes(color=momsp, ymin=trait_diff-trait_se, ymax=trait_diff+trait_se)) + 
-  scale_color_brewer(palette="Paired")+
+  geom_pointrange(aes(color=momsp, ymin=-(trait_diff-trait_se), ymax=-(trait_diff+trait_se), shape=adj.p.value < 0.05)) + 
+  scale_color_brewer(palette="Paired")+  scale_shape_manual(values = c(1,19), guide ="none")+
   scale_y_continuous(labels=scales::percent_format()) + 
   labs(x="Phylogenetic distance (mutations/site)", color="Maternal\nspecies", 
-       y="Decrease in base/middle in hybrid crosses at 24 hr") + 
-  theme_classic() + theme(legend.position = "top") 
+       y="Change in base/middle in hybrid crosses") + 
+  theme_classic() + theme(legend.position = "top", panel.spacing = unit(1, "lines"))
 
 tubes.phylodist %>% filter(trait=="ratio", hr=="24hr") %>% pull(trait_diff) %>% summary()
 ```

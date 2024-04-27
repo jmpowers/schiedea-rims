@@ -11,7 +11,7 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2024-04-25" />
+<meta name="date" content="2024-04-26" />
 
 <title>Schiedea pollen tube growth</title>
 
@@ -253,7 +253,7 @@ div.tocify {
 <h1 class="title toc-ignore"><em>Schiedea</em> pollen tube growth</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John
 Powers</a></h4>
-<h4 class="date">2024-04-25</h4>
+<h4 class="date">2024-04-26</h4>
 
 </div>
 
@@ -311,9 +311,16 @@ library(tidyverse)
 library(gridExtra)
 library(broom)
 library(emmeans) #Estimated marginal means aka least square means.
-library(glmmTMB) #generalized linear mixed models with Template Model Builder
-
-#overwrite function to make emmeans and multcomp play nice
+library(glmmTMB) #generalized linear mixed models with Template Model Builder</code></pre>
+<pre><code>## Warning in checkMatrixPackageVersion(getOption(&quot;TMB.check.Matrix&quot;, TRUE)): Package version inconsistency detected.
+## TMB was built with Matrix ABI version 1
+## Current Matrix ABI version is 2
+## Please re-install &#39;TMB&#39; from source using install.packages(&#39;TMB&#39;, type = &#39;source&#39;) or ask CRAN for a binary version of &#39;TMB&#39; matching CRAN&#39;s &#39;Matrix&#39; package</code></pre>
+<pre><code>## Warning in check_dep_version(): ABI version mismatch: 
+## lme4 was built with Matrix ABI version 1
+## Current Matrix ABI version is 2
+## Please re-install lme4 from source or restore original &#39;Matrix&#39; package</code></pre>
+<pre class="r"><code>#overwrite function to make emmeans and multcomp play nice
 modelparm.glmmTMB &lt;- function (model, coef. = function(x) fixef(x)[[component]],
                                vcov. = function(x) vcov(x)[[component]],
                                df = NULL, component=&quot;cond&quot;, ...) {
@@ -1732,29 +1739,108 @@ tree &lt;- read.nexus(&quot;data/RAxML_1ps_nocp_bipartitionsBranchLabels.sch.sho
 
 tubes.phylodist &lt;- tubes.mod %&gt;% select(pair, ends_with(&quot;_emm&quot;)) %&gt;% pivot_longer(ends_with(&quot;_emm&quot;), names_to=&quot;trait&quot;) %&gt;% 
   mutate(trait = str_remove(trait, &quot;_emm&quot;)) %&gt;% unnest(value) %&gt;% 
-  mutate(momsp = factor(species_names[str_sub(cross, 1,2)], levels=species_names)) %&gt;% group_by(pair, trait, momsp, hr) %&gt;% 
+  mutate(momsp = factor(species_names[str_sub(cross, 1,2)], levels=species_names)) %&gt;% 
+  group_by(pair, trait, momsp, hr) %&gt;% 
   summarize(trait_diff = response[1]-response[2], 
             trait_se = sqrt(((uSE[1]-lSE[1])/2)^2 + ((uSE[2]-lSE[2])/2)^2),#average upper + lower SE, then propagate error
             dadsp = species_names[str_sub(cross[2], 4,5)], .groups = &quot;drop&quot;) %&gt;% 
+  left_join(tubes.mod %&gt;% select(pair, ends_with(&quot;_cont&quot;)) %&gt;% pivot_longer(ends_with(&quot;_cont&quot;), names_to=&quot;trait&quot;) %&gt;% 
+              mutate(trait = str_remove(trait, &quot;_cont&quot;)) %&gt;% unnest(value) %&gt;% 
+              mutate(momsp = factor(species_names[str_sub(lvl1, 1,2)], levels=species_names),
+                     hr = factor(str_sub(lvl1,6,10), levels=c(&quot;4hr&quot;,&quot;24hr&quot;)))) %&gt;% 
   mutate(pd = map2_dbl(as.character(momsp), as.character(dadsp), ~cophenetic(tree)[.x,.y]))
 
 ggplot(tubes.phylodist, aes(x=pd, y=trait_diff)) + facet_grid(trait~hr, scales=&quot;free_y&quot;) +
   geom_smooth(method=&quot;lm&quot;, se=F, color=&quot;grey&quot;) + 
-  geom_pointrange(aes(color=momsp, ymin=trait_diff-trait_se, ymax=trait_diff+trait_se)) +
-  scale_color_brewer(palette=&quot;Paired&quot;)+
+  geom_pointrange(aes(color=momsp, ymin=trait_diff-trait_se, ymax=trait_diff+trait_se, shape=adj.p.value &lt; 0.05)) +
+  scale_color_brewer(palette=&quot;Paired&quot;) + scale_shape_manual(values = c(1,19), guide =&quot;none&quot;)+
   labs(x=&quot;Phylogenetic distance (mutations/site)&quot;, color=&quot;Maternal species&quot;,
        y=&quot;Difference between intra and interspecies cross&quot;) + theme_bw() + 
   theme(legend.position = &quot;top&quot;)</code></pre>
 <p><img src="figures/phylo_tubes-1.svg" width="672" /></p>
-<pre class="r"><code>tubes.phylodist %&gt;% filter(trait==&quot;ratio&quot;, hr==&quot;24hr&quot;) %&gt;% 
-  ggplot(aes(x=pd, y=trait_diff)) + 
+<pre class="r"><code>tubes.phylodist %&gt;% group_by(trait, hr) %&gt;% nest() %&gt;% 
+  mutate(model = map(data, ~lm(trait_diff ~ pd, data=.x)),
+         coef = map(model, tidy)) %&gt;% select(-data, -model) %&gt;% 
+  unnest(coef) %&gt;% filter(term==&quot;pd&quot;) %&gt;% kable(digits=3)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">trait</th>
+<th align="left">hr</th>
+<th align="left">term</th>
+<th align="right">estimate</th>
+<th align="right">std.error</th>
+<th align="right">statistic</th>
+<th align="right">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">bottom</td>
+<td align="left">4hr</td>
+<td align="left">pd</td>
+<td align="right">-30.181</td>
+<td align="right">47.239</td>
+<td align="right">-0.639</td>
+<td align="right">0.541</td>
+</tr>
+<tr class="even">
+<td align="left">bottom</td>
+<td align="left">24hr</td>
+<td align="left">pd</td>
+<td align="right">180.347</td>
+<td align="right">60.643</td>
+<td align="right">2.974</td>
+<td align="right">0.018</td>
+</tr>
+<tr class="odd">
+<td align="left">mid</td>
+<td align="left">4hr</td>
+<td align="left">pd</td>
+<td align="right">-58.105</td>
+<td align="right">58.332</td>
+<td align="right">-0.996</td>
+<td align="right">0.348</td>
+</tr>
+<tr class="even">
+<td align="left">mid</td>
+<td align="left">24hr</td>
+<td align="left">pd</td>
+<td align="right">49.666</td>
+<td align="right">73.109</td>
+<td align="right">0.679</td>
+<td align="right">0.516</td>
+</tr>
+<tr class="odd">
+<td align="left">ratio</td>
+<td align="left">4hr</td>
+<td align="left">pd</td>
+<td align="right">2.215</td>
+<td align="right">10.144</td>
+<td align="right">0.218</td>
+<td align="right">0.833</td>
+</tr>
+<tr class="even">
+<td align="left">ratio</td>
+<td align="left">24hr</td>
+<td align="left">pd</td>
+<td align="right">32.508</td>
+<td align="right">4.809</td>
+<td align="right">6.760</td>
+<td align="right">0.000</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>tubes.phylodist %&gt;% filter(trait==&quot;ratio&quot;) %&gt;% 
+  ggplot(aes(x=pd, y=-trait_diff)) + facet_wrap(vars(hr), labeller = as_labeller(c(`4hr`=&quot;4 hr&quot;, `24hr`=&quot;24 hr&quot;))) + 
+  geom_hline(yintercept=0)+
   geom_smooth(method=&quot;lm&quot;, se=F, color=&quot;grey&quot;) + 
-  geom_pointrange(aes(color=momsp, ymin=trait_diff-trait_se, ymax=trait_diff+trait_se)) + 
-  scale_color_brewer(palette=&quot;Paired&quot;)+
+  geom_pointrange(aes(color=momsp, ymin=-(trait_diff-trait_se), ymax=-(trait_diff+trait_se), shape=adj.p.value &lt; 0.05)) + 
+  scale_color_brewer(palette=&quot;Paired&quot;)+  scale_shape_manual(values = c(1,19), guide =&quot;none&quot;)+
   scale_y_continuous(labels=scales::percent_format()) + 
   labs(x=&quot;Phylogenetic distance (mutations/site)&quot;, color=&quot;Maternal\nspecies&quot;, 
-       y=&quot;Decrease in base/middle in hybrid crosses at 24 hr&quot;) + 
-  theme_classic() + theme(legend.position = &quot;top&quot;) </code></pre>
+       y=&quot;Change in base/middle in hybrid crosses&quot;) + 
+  theme_classic() + theme(legend.position = &quot;top&quot;, panel.spacing = unit(1, &quot;lines&quot;))</code></pre>
 <p><img src="figures/phylo_tubes_ratio-1.svg" width="624" /></p>
 <pre class="r"><code>tubes.phylodist %&gt;% filter(trait==&quot;ratio&quot;, hr==&quot;24hr&quot;) %&gt;% pull(trait_diff) %&gt;% summary()</code></pre>
 <pre><code>    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
