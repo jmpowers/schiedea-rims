@@ -428,10 +428,11 @@ ggplot(left_join(hybrid.phylodist, filter(hybrid.phylodist.test, term=="pd")), a
   theme(axis.title.y=element_blank(), axis.text=element_text(color="black"), legend.position="top",
         panel.grid.minor = element_blank(), panel.grid.major.x=element_blank(), panel.spacing = unit(1, "lines"))
 
-postzygotic.ratios %>% left_join(comp.tests) %>% left_join(phylodist) %>% 
+postzygotic.ratios.phylo <- postzygotic.ratios %>% left_join(comp.tests) %>% left_join(phylodist) %>% 
   mutate(signif = adj.p.value < 0.05) %>% 
-  filter(!(trait=="capsule.formed" & momsp %in% c("spergulina", "sarmentosa"))) %>% #whole inflor in organza bag - no capsule data
-  ggplot(aes(x=pd, y=RI)) + 
+  filter(!(trait=="capsule.formed" & momsp %in% c("spergulina", "sarmentosa"))) #whole inflor in organza bag - no capsule data
+
+ggplot(postzygotic.ratios.phylo, aes(x=pd, y=RI)) + 
   facet_wrap(vars(trait), labeller=as_labeller(propnames), nrow=1)+ 
   geom_hline(yintercept=0, linetype=2) + geom_hline(yintercept=-1)+ geom_hline(yintercept=1)+
   geom_smooth(method="lm", se=F, color="grey") + 
@@ -444,9 +445,13 @@ postzygotic.ratios %>% left_join(comp.tests) %>% left_join(phylodist) %>%
   theme_bw() + theme(axis.text=element_text(color="black"), legend.position="top", 
                      panel.grid.minor = element_blank(), panel.grid.major.x=element_blank(), panel.spacing = unit(1, "lines"))
 
-postzygotic.ratios %>% left_join(comp.tests) %>% left_join(phylodist) %>% 
-  arrange(trait, pd) %>% select(trait, momsp, dadsp, RI, adj.p.value) %>% 
+postzygotic.ratios.phylo %>% arrange(trait, pd) %>% select(trait, momsp, dadsp, RI, adj.p.value) %>% 
   kable(digits=3, caption = "compare inter vs. intraspecific crosses")
+
+postzygotic.ratios.phylo %>% group_by(trait) %>% nest() %>% 
+  mutate(model = map(data, ~lm(RI ~ pd, data=.x)), 
+         coef = map(model, tidy)) %>% 
+  select(trait, coef) %>% unnest(coef) %>% filter(term != "(Intercept)") %>% kable()
 ```
 
 ```{r phylo_arc, fig.width=5, fig.height=3}
@@ -523,25 +528,32 @@ The range of phylogenetic distances and style lengths in the study. The species 
 
 To estimate the proportion of viable seeds sired by heterospecific pollen, divide the surviving hybrid ratios in mixed crosses by the "hybrid vigor": the germination and survival of hybrid seeds relative to conspecific seeds. 
 
-```{r fertilized, fig.width=8}
-left_join(hybrid.test, phylodist) %>% 
-  left_join(select(styles.emm, momsp, mating)) %>% 
-  pivot_longer(cols=c(prop.hybrid, hybrid.vigor.germsurv, prop.hybrid.sds)) %>% 
-  ggplot(aes(x=pd, y=value)) + facet_wrap(vars(name), scales="free_y", labeller=as_labeller(vigornames)) + expand_limits(y=c(1,0))+
-  geom_hline(aes(yintercept=rep(c(0.5,1,0.5), length(sp_pairs))), linetype=2)+  scale_y_continuous(expand=expansion(mult=c(0,0)))+
-  geom_smooth(method="lm", se=F, color="grey") +
-  geom_point(aes(color=momsp), size=4) + scale_color_brewer(palette="Paired") + 
-  labs(x="Phylogenetic distance (mutations/site)", color="Maternal species", shape="Mating") + theme_bw() +
-  theme(axis.text=element_text(color="black"), legend.position="top", axis.title.y=element_blank())
+```{r fertilized, fig.width=6.5, fig.height=8}
+hybrid.phylostyle <- left_join(hybrid.test, phylodist) %>% 
+  left_join(select(styles.emm, momsp, style_length_mm, style_diff_rel)) %>% 
+  pivot_longer(c(prop.hybrid, hybrid.vigor.germsurv, prop.hybrid.sds)) 
 
-left_join(hybrid.test, select(styles.emm, momsp, style_length_mm, mating)) %>% 
-  pivot_longer(cols=c(prop.hybrid, hybrid.vigor.germsurv, prop.hybrid.sds)) %>% 
-  ggplot(aes(x=style_length_mm, y=value)) +
-  facet_wrap(vars(name), scales="free_y", labeller=as_labeller(vigornames)) + expand_limits(y=c(1,0))+
-  geom_hline(aes(yintercept=rep(c(0.5,1,0.5), length(sp_pairs))), linetype=2)+  scale_y_continuous(expand=expansion(mult=c(0,0)))+
-  geom_line(aes(group=pair, color=momsp))+ geom_point(aes(color=momsp), size=4) + scale_color_brewer(palette="Paired") + 
-  labs(x="Style length (mm)", color="Maternal species", shape="Mating") + theme_bw() +
-  theme(axis.text=element_text(color="black"), legend.position="top", axis.title.y=element_blank())
+hybrid.phylostyle %>% pivot_longer(c(pd, style_length_mm), names_to = "xname", values_to = "xvalue") %>% 
+  ggplot(aes(x=xvalue, y=value)) + 
+  facet_grid(name ~ xname, scales="free", switch="both", 
+             labeller=as_labeller(c(vigornames, style_length_mm = "Style length (mm)", 
+                                    pd="Phylogenetic distance (mutations/site)"))) + 
+  geom_hline(aes(yintercept=if_else(name=="hybrid.vigor.germsurv",1,0.5)), linetype=2)+
+  geom_smooth(aes(linetype=if_else(xname=="pd","yes","no")), method="lm", se=F, color="grey") +
+  geom_path(aes(linetype=if_else(xname=="style_length_mm" & name != "hybrid.vigor.germsurv","yes","no"), 
+                group=pair, color=sp_pairs[as.integer(pair)*2]), show.legend = F)+
+  geom_point(aes(color=momsp), size=4) + 
+  scale_linetype_manual(values=c(yes="solid", no="blank"), guide="none") +
+  scale_y_continuous(expand=expansion(mult=c(0,0.05))) + expand_limits(y=0) +
+  scale_color_brewer("Maternal\nspecies", palette="Paired") + theme_minimal()+
+  theme(axis.text=element_text(color="black"), legend.position="top", panel.background = element_rect(),
+        strip.placement = "outside", axis.title.x = element_blank(), axis.title.y = element_blank(),
+        panel.spacing = unit(0.5,"lines"), panel.grid = element_blank()) 
+
+hybrid.phylostyle %>% group_by(name) %>% nest() %>% 
+  mutate(model = map(data, ~lm(value ~ pd + style_diff_rel, data=.x)), 
+         coef = map(model, tidy)) %>% 
+  select(name, coef) %>% unnest(coef) %>% filter(term != "(Intercept)") %>% kable()
 ```
 
 ```{r progeny_styles, fig.width=6, fig.height=5}
@@ -557,4 +569,29 @@ left_join(select(styles.emm, momsp, style_length_mm, mating, style_conf.low=conf
   guides(color = guide_legend(override.aes = list(size = 4)))
 ```
 
+## Predicted and actual germination
+
+```{r compare_germination, fig.height=7, fig.width=8}
+#hybrid.vigor.germsurv = (prop.germ_inter / prop.germ_intra) * (prop.surv_inter / prop.surv_intra)
+#prop.hybrid.sds = prop.hybrid / hybrid.vigor.germsurv
+# prop.germ_mixed.pred ?= prop.germ_mixed
+# prop.germ_mixed.pred = prop.hybrid.sds * prop.germ_inter + (1-prop.hybrid.sds) * prop.germ_intra
+#                      = prop.germ_intra + prop.hybrid.sds * (prop.germ_inter - prop.germ_intra)
+
+hybrid.test %>% left_join(pivot_wider(comp.emm, id_cols = momsp, names_from=c(trait, type), values_from = estimate)) %>% 
+  mutate(prop.germ_mixed.pred = prop.hybrid.sds * prop.germ_inter + (1-prop.hybrid.sds) * prop.germ_intra) %>% 
+  ggplot(aes(x = momsp, color=momsp)) + 
+  geom_segment(aes(y=prop.germ_intra, yend=prop.germ_inter, xend=momsp))+
+  geom_point(aes(y=prop.germ_inter, shape="inter"), size=4)+
+  geom_point(aes(y=prop.germ_intra, shape="intra"), size=4)+
+  geom_point(aes(y=prop.germ_mixed, shape="mixed"), size=4)+
+  geom_point(aes(y=prop.germ_mixed.pred, shape="pred"), size=4)+
+  geom_label(aes(y=prop.germ_mixed.pred, label=paste0(round(prop.hybrid.sds*100),"%"), fill=momsp), show.legend = F, nudge_x = 0.5, color="black") +
+  scale_shape_manual("Cross", values=c(inter=15, intra=16, mixed=17, pred=3), 
+                     labels=c(inter="Interspecific",intra="Intraspecific",mixed="Competitive",pred="Predicted from estimated hybrid seed ratio"))+
+  scale_color_brewer(palette="Paired", guide="none") + scale_fill_brewer(palette="Paired") +
+  scale_y_continuous("Germination", limits=c(0,1), expand=c(0,0), labels=~scales::percent(.,accuracy=1)) + 
+  scale_x_discrete("Maternal species", guide = guide_axis(angle=90), expand = expansion(mult=0.1))+
+  theme(legend.position="top")
+```
 
