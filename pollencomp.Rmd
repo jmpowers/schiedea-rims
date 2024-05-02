@@ -129,6 +129,12 @@ mating <- read_tsv("data/Pollen competition - mating.tsv") %>%
 
 styles <- read_tsv("data/Pollen competition - style_length.tsv") %>% 
   mutate(momsp = factor(sp_pairs[momsp], levels=sp_pairs))
+
+seedsize <- read_csv("data/seedlengths.csv") %>% #from Schiedea monograph, SeedsNectaries project
+  mutate(seedlength_mm = (seedlength_low_mm + seedlength_high_mm)/2) %>%  #midpoint of range 
+  rename(momsp=species) %>% left_join(mating) %>% drop_na(pair) %>% group_by(pair) %>% 
+  mutate(momsp=factor(momsp, levels=sp_pairs), 
+         seed_diff_mm = seedlength_mm-min(seedlength_mm)) %>% arrange(momsp)
 ```
 
 # Scoring dates
@@ -453,6 +459,26 @@ postzygotic.ratios.phylo %>% group_by(trait) %>% nest() %>%
          coef = map(model, tidy)) %>% 
   select(trait, coef) %>% unnest(coef) %>% filter(term != "(Intercept)") %>% kable()
 ```
+
+## Seed size
+
+```{r seedsize}
+postzygotic.ratios.phylo %>% left_join(seedsize) %>% filter(trait %in% c("prop.germ", "prop.alive")) %>% 
+  ggplot(aes(x=seedlength_mm, y=RI)) + 
+  facet_wrap(vars(trait), labeller=as_labeller(propnames), nrow=1)+ 
+  geom_hline(yintercept=0, linetype=2) + geom_hline(yintercept=-1)+ geom_hline(yintercept=1)+
+  geom_errorbar(aes(color=momsp, ymin=low, ymax=high), width=0.001, linewidth=0.5) +
+  geom_path(aes(group=pair, color=momsp))+
+  geom_point(aes(color=momsp, shape = signif), size=2) + 
+  scale_color_brewer(palette="Paired") +  scale_shape_manual(values=c(1, 19),guide="none")+
+  labs(x="Seed length (mm)", color="Maternal species", y="Reproductive isolation") + 
+  scale_y_continuous(limits=c(-1,1), breaks=c(-1,-0.5,0,0.5,1), expand=c(0,0),
+                     labels=c("heterosis -1","-0.5","no barrier 0","0.5","complete isolation 1")) + 
+  theme_bw() + theme(axis.text=element_text(color="black"), legend.position="top", 
+                     panel.grid.minor = element_blank(), panel.grid.major.x=element_blank(), panel.spacing = unit(1, "lines"))
+```
+
+## Competitive pollinations and phylogeny
 
 ```{r phylo_arc, fig.width=5, fig.height=3}
 mating.tree <- data.frame(momsp=tree_pairs$tip.label) %>% left_join(mating)

@@ -389,6 +389,21 @@ tubes.phylodist %>% filter(trait=="ratio") %>%
   theme_classic() + theme(legend.position = "top", panel.spacing = unit(1, "lines"))
 
 tubes.phylodist %>% filter(trait=="ratio", hr=="24hr") %>% pull(trait_diff) %>% summary()
+
+tubes.phylodist %>%
+  ggplot(aes(x=momsp, y=-trait_diff, color=hr)) + facet_wrap(vars(trait), scales="free_y") + 
+  geom_hline(yintercept=0)+
+  geom_pointrange(aes(ymin=-(trait_diff-trait_se), ymax=-(trait_diff+trait_se), shape=adj.p.value < 0.05)) + 
+  scale_color_brewer(palette="Set2")+  scale_shape_manual(values = c(1,19), guide ="none")+
+  scale_y_continuous(labels=scales::percent_format()) + 
+  labs(x="Maternal\nspecies", color="Maternal\nspecies", 
+       y="Change") + 
+  theme_classic() + theme(legend.position = "top", panel.spacing = unit(1, "lines"))
+
+tubes.phylodist %>% pivot_wider(id_cols = c(momsp, trait), names_from=hr, values_from=trait_diff) %>% 
+  mutate(trait_diff_24_vs_4hr = `24hr`-`4hr`) %>% 
+  ggplot(aes(x=trait, y=trait_diff_24_vs_4hr)) + geom_hline(yintercept=0) + geom_boxplot() + 
+  geom_point(aes(color=momsp)) + scale_color_brewer(palette="Paired")
 ```
 
 # Package citations

@@ -11,7 +11,7 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2024-04-30" />
+<meta name="date" content="2024-05-01" />
 
 <title>Schiedea pollen competition</title>
 
@@ -253,22 +253,14 @@ div.tocify {
 <h1 class="title toc-ignore"><em>Schiedea</em> pollen competition</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John
 Powers</a></h4>
-<h4 class="date">2024-04-30</h4>
+<h4 class="date">2024-05-01</h4>
 
 </div>
 
 
 <pre class="r"><code>library(tidyverse)
-library(glmmTMB)</code></pre>
-<pre><code>## Warning in checkMatrixPackageVersion(getOption(&quot;TMB.check.Matrix&quot;, TRUE)): Package version inconsistency detected.
-## TMB was built with Matrix ABI version 1
-## Current Matrix ABI version is 2
-## Please re-install &#39;TMB&#39; from source using install.packages(&#39;TMB&#39;, type = &#39;source&#39;) or ask CRAN for a binary version of &#39;TMB&#39; matching CRAN&#39;s &#39;Matrix&#39; package</code></pre>
-<pre><code>## Warning in check_dep_version(): ABI version mismatch: 
-## lme4 was built with Matrix ABI version 1
-## Current Matrix ABI version is 2
-## Please re-install lme4 from source or restore original &#39;Matrix&#39; package</code></pre>
-<pre class="r"><code>library(broom)
+library(glmmTMB)
+library(broom)
 library(emmeans)
 library(knitr)
 library(ape)
@@ -707,7 +699,13 @@ mating &lt;- read_tsv(&quot;data/Pollen competition - mating.tsv&quot;) %&gt;%
   mutate(momsp = factor(momsp, level=sp_pairs)) 
 
 styles &lt;- read_tsv(&quot;data/Pollen competition - style_length.tsv&quot;) %&gt;% 
-  mutate(momsp = factor(sp_pairs[momsp], levels=sp_pairs))</code></pre>
+  mutate(momsp = factor(sp_pairs[momsp], levels=sp_pairs))
+
+seedsize &lt;- read_csv(&quot;data/seedlengths.csv&quot;) %&gt;% #from Schiedea monograph, SeedsNectaries project
+  mutate(seedlength_mm = (seedlength_low_mm + seedlength_high_mm)/2) %&gt;%  #midpoint of range 
+  rename(momsp=species) %&gt;% left_join(mating) %&gt;% drop_na(pair) %&gt;% group_by(pair) %&gt;% 
+  mutate(momsp=factor(momsp, levels=sp_pairs), 
+         seed_diff_mm = seedlength_mm-min(seedlength_mm)) %&gt;% arrange(momsp)</code></pre>
 </div>
 <div id="scoring-dates" class="section level1">
 <h1>Scoring dates</h1>
@@ -1693,6 +1691,25 @@ ggplot(postzygotic.ratios.phylo, aes(x=pd, y=RI)) +
 </tr>
 </tbody>
 </table>
+<div id="seed-size" class="section level2">
+<h2>Seed size</h2>
+<pre class="r"><code>postzygotic.ratios.phylo %&gt;% left_join(seedsize) %&gt;% filter(trait %in% c(&quot;prop.germ&quot;, &quot;prop.alive&quot;)) %&gt;% 
+  ggplot(aes(x=seedlength_mm, y=RI)) + 
+  facet_wrap(vars(trait), labeller=as_labeller(propnames), nrow=1)+ 
+  geom_hline(yintercept=0, linetype=2) + geom_hline(yintercept=-1)+ geom_hline(yintercept=1)+
+  geom_errorbar(aes(color=momsp, ymin=low, ymax=high), width=0.001, linewidth=0.5) +
+  geom_path(aes(group=pair, color=momsp))+
+  geom_point(aes(color=momsp, shape = signif), size=2) + 
+  scale_color_brewer(palette=&quot;Paired&quot;) +  scale_shape_manual(values=c(1, 19),guide=&quot;none&quot;)+
+  labs(x=&quot;Seed length (mm)&quot;, color=&quot;Maternal species&quot;, y=&quot;Reproductive isolation&quot;) + 
+  scale_y_continuous(limits=c(-1,1), breaks=c(-1,-0.5,0,0.5,1), expand=c(0,0),
+                     labels=c(&quot;heterosis -1&quot;,&quot;-0.5&quot;,&quot;no barrier 0&quot;,&quot;0.5&quot;,&quot;complete isolation 1&quot;)) + 
+  theme_bw() + theme(axis.text=element_text(color=&quot;black&quot;), legend.position=&quot;top&quot;, 
+                     panel.grid.minor = element_blank(), panel.grid.major.x=element_blank(), panel.spacing = unit(1, &quot;lines&quot;))</code></pre>
+<p><img src="figures-comp/seedsize-1.svg" width="672" /></p>
+</div>
+<div id="competitive-pollinations-and-phylogeny" class="section level2">
+<h2>Competitive pollinations and phylogeny</h2>
 <pre class="r"><code>mating.tree &lt;- data.frame(momsp=tree_pairs$tip.label) %&gt;% left_join(mating)
 layout(matrix(c(1,2), nrow=1), widths=c(4,1))
 par(mar=c(0,0,0,0))
@@ -1760,6 +1777,7 @@ sense.</p>
 <p>The range of phylogenetic distances and style lengths in the study.
 The species in each pair with a longer style is given a lighter
 color.</p>
+</div>
 <div id="hybrid-seed-ratios" class="section level2">
 <h2>Hybrid seed ratios</h2>
 <p>To estimate the proportion of viable seeds sired by heterospecific
