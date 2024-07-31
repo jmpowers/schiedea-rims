@@ -318,11 +318,12 @@ sp_theme <- theme(legend.position = "top",
 bxplt <- geom_boxplot(position = position_dodge(width=0.9), color="grey50", outlier.size=0.5)
 alternate <- geom_tile(data=tibble(momsp=sp_pairs[seq(1,10,by=2)]), aes(x=momsp, y=0.5, height=1, width=1),  alpha=0.4, fill="grey", inherit.aes = F) 
 
-ggplot(seeds.bycross, aes(x=momsp, fill=type, y=capsule.formed))  + bxplt + alternate + bxplt +
-  geom_pointrange(data=filter(comp.emm, trait=="capsule.formed"), aes(y=estimate, ymax=conf.high, ymin=conf.low, color=type),
+ggplot(filter(seeds.bycross, !momsp %in% c("sarmentosa","spergulina")), aes(x=momsp, fill=type, y=capsule.formed))  +
+  bxplt + alternate + bxplt +
+  geom_pointrange(data=filter(comp.emm, trait=="capsule.formed", !momsp %in% c("sarmentosa","spergulina")), aes(y=estimate, ymax=conf.high, ymin=conf.low, color=type),
                   position = position_dodge(width=0.9), size=0.5, show.legend=F) + 
   scale_fill_manual(values=type_pal, labels=typenames) + scale_color_manual(values=type_pal_dark, labels=typenames) + 
-  scale_x_discrete(position="top") +  pct_y +
+  scale_x_discrete(position="top", drop=FALSE) +  pct_y +
   labs(x="Maternal species", y="Capsule formation", fill="Pollination") + sp_theme 
 
 ggplot(seeds %>% filter(sds>0), aes(x=momsp, fill=type, y=sds))  + bxplt + 
