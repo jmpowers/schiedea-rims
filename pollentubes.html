@@ -11,7 +11,7 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2024-04-26" />
+<meta name="date" content="2024-09-07" />
 
 <title>Schiedea pollen tube growth</title>
 
@@ -253,7 +253,7 @@ div.tocify {
 <h1 class="title toc-ignore"><em>Schiedea</em> pollen tube growth</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John
 Powers</a></h4>
-<h4 class="date">2024-04-26</h4>
+<h4 class="date">2024-09-07</h4>
 
 </div>
 
@@ -311,16 +311,9 @@ library(tidyverse)
 library(gridExtra)
 library(broom)
 library(emmeans) #Estimated marginal means aka least square means.
-library(glmmTMB) #generalized linear mixed models with Template Model Builder</code></pre>
-<pre><code>## Warning in checkMatrixPackageVersion(getOption(&quot;TMB.check.Matrix&quot;, TRUE)): Package version inconsistency detected.
-## TMB was built with Matrix ABI version 1
-## Current Matrix ABI version is 2
-## Please re-install &#39;TMB&#39; from source using install.packages(&#39;TMB&#39;, type = &#39;source&#39;) or ask CRAN for a binary version of &#39;TMB&#39; matching CRAN&#39;s &#39;Matrix&#39; package</code></pre>
-<pre><code>## Warning in check_dep_version(): ABI version mismatch: 
-## lme4 was built with Matrix ABI version 1
-## Current Matrix ABI version is 2
-## Please re-install lme4 from source or restore original &#39;Matrix&#39; package</code></pre>
-<pre class="r"><code>#overwrite function to make emmeans and multcomp play nice
+library(glmmTMB) #generalized linear mixed models with Template Model Builder
+
+#overwrite function to make emmeans and multcomp play nice
 modelparm.glmmTMB &lt;- function (model, coef. = function(x) fixef(x)[[component]],
                                vcov. = function(x) vcov(x)[[component]],
                                df = NULL, component=&quot;cond&quot;, ...) {
@@ -662,11 +655,11 @@ str(tubes)</code></pre>
 </tr>
 <tr class="odd">
 <td align="left">kaahoo</td>
-<td align="right">5</td>
+<td align="right">6</td>
 <td align="right">21</td>
 <td align="right">126</td>
-<td align="right">20</td>
-<td align="right">2</td>
+<td align="right">21</td>
+<td align="right">1</td>
 <td align="right">0</td>
 </tr>
 </tbody>
@@ -704,13 +697,13 @@ str(tubes)</code></pre>
 </tr>
 <tr class="odd">
 <td align="left">kaahoo</td>
-<td align="right">98</td>
+<td align="right">99</td>
 <td align="right">76</td>
 </tr>
 </tbody>
 </table>
 <pre class="r"><code>tubes %&gt;% count(pair, cross, hr, momid, vial) %&gt;% nrow()</code></pre>
-<pre><code>[1] 677</code></pre>
+<pre><code>[1] 678</code></pre>
 <pre class="r"><code>kable(tubes %&gt;% count(pair, cross, momid) %&gt;% count(pair, cross), caption=&quot;Number of maternal plants of each cross type&quot;)</code></pre>
 <table>
 <caption>Number of maternal plants of each cross type</caption>
@@ -930,9 +923,9 @@ tubes.mod &lt;- tubes %&gt;% group_by(pair) %&gt;% nest() %&gt;% #TODO got rid o
 timefills &lt;-   scale_fill_brewer(&quot;Time&quot;, palette=&quot;Paired&quot;, labels=c(&quot;4 hr&quot;,&quot;24 hr&quot;))
 timecolors &lt;-   scale_color_brewer(&quot;Time&quot;, palette=&quot;Paired&quot;, labels=c(&quot;4 hr&quot;,&quot;24 hr&quot;))
 
-var_labels &lt;- c(mid = &quot;Pollen tubes at middle of style&quot;,
-                bottom = &quot;Pollen tubes at base of style&quot;,
-                ratio = &quot;Proportion of pollen tubes at middle that grew to base&quot;)
+var_labels &lt;- c(mid = &quot;Pollen tubes at style midpoint&quot;,
+                bottom = &quot;Pollen tubes at style base&quot;,
+                ratio = &quot;Proportion of tubes at midpoint that grew to base&quot;)
 
 plot_all &lt;- function(yvar) {
 signif.cont &lt;- unnest(select(tubes.mod, paste0(yvar,&quot;_cont&quot;)), paste0(yvar,&quot;_cont&quot;)) %&gt;% 
@@ -1592,10 +1585,10 @@ crosses</caption>
 <td align="left">HoxHo4hr</td>
 <td align="left">HoxKl4hr</td>
 <td align="right">0.000</td>
-<td align="right">3.005</td>
-<td align="right">1.289</td>
-<td align="right">0.429</td>
-<td align="right">0.571</td>
+<td align="right">3.031</td>
+<td align="right">1.292</td>
+<td align="right">0.426</td>
+<td align="right">0.574</td>
 </tr>
 <tr class="even">
 <td align="left">kaahoo</td>
@@ -1603,32 +1596,32 @@ crosses</caption>
 <td align="left">HoxHo24hr</td>
 <td align="left">HoxKl24hr</td>
 <td align="right">0.000</td>
-<td align="right">7.395</td>
+<td align="right">7.375</td>
 <td align="right">3.826</td>
-<td align="right">0.517</td>
-<td align="right">0.483</td>
+<td align="right">0.519</td>
+<td align="right">0.481</td>
 </tr>
 <tr class="odd">
 <td align="left">kaahoo</td>
 <td align="left">mid</td>
 <td align="left">KlxHo4hr</td>
 <td align="left">KlxKl4hr</td>
-<td align="right">0.100</td>
-<td align="right">5.795</td>
-<td align="right">4.052</td>
-<td align="right">1.430</td>
-<td align="right">-0.430</td>
+<td align="right">0.096</td>
+<td align="right">5.806</td>
+<td align="right">4.057</td>
+<td align="right">1.431</td>
+<td align="right">-0.431</td>
 </tr>
 <tr class="even">
 <td align="left">kaahoo</td>
 <td align="left">mid</td>
 <td align="left">KlxHo24hr</td>
 <td align="left">KlxKl24hr</td>
-<td align="right">0.100</td>
-<td align="right">7.375</td>
-<td align="right">5.319</td>
-<td align="right">1.387</td>
-<td align="right">-0.387</td>
+<td align="right">0.098</td>
+<td align="right">7.374</td>
+<td align="right">5.322</td>
+<td align="right">1.386</td>
+<td align="right">-0.386</td>
 </tr>
 <tr class="odd">
 <td align="left">kaahoo</td>
@@ -1636,10 +1629,10 @@ crosses</caption>
 <td align="left">HoxHo4hr</td>
 <td align="left">HoxKl4hr</td>
 <td align="right">0.000</td>
-<td align="right">1.054</td>
-<td align="right">0.234</td>
-<td align="right">0.222</td>
-<td align="right">0.778</td>
+<td align="right">1.062</td>
+<td align="right">0.235</td>
+<td align="right">0.221</td>
+<td align="right">0.779</td>
 </tr>
 <tr class="even">
 <td align="left">kaahoo</td>
@@ -1647,10 +1640,10 @@ crosses</caption>
 <td align="left">HoxHo24hr</td>
 <td align="left">HoxKl24hr</td>
 <td align="right">0.000</td>
-<td align="right">6.545</td>
-<td align="right">1.245</td>
-<td align="right">0.190</td>
-<td align="right">0.810</td>
+<td align="right">6.534</td>
+<td align="right">1.248</td>
+<td align="right">0.191</td>
+<td align="right">0.809</td>
 </tr>
 <tr class="odd">
 <td align="left">kaahoo</td>
@@ -1658,19 +1651,19 @@ crosses</caption>
 <td align="left">KlxHo4hr</td>
 <td align="left">KlxKl4hr</td>
 <td align="right">0.007</td>
-<td align="right">1.199</td>
-<td align="right">2.989</td>
-<td align="right">0.401</td>
-<td align="right">0.599</td>
+<td align="right">1.203</td>
+<td align="right">2.990</td>
+<td align="right">0.402</td>
+<td align="right">0.598</td>
 </tr>
 <tr class="even">
 <td align="left">kaahoo</td>
 <td align="left">bottom</td>
 <td align="left">KlxHo24hr</td>
 <td align="left">KlxKl24hr</td>
-<td align="right">0.611</td>
-<td align="right">3.647</td>
-<td align="right">4.275</td>
+<td align="right">0.610</td>
+<td align="right">3.649</td>
+<td align="right">4.277</td>
 <td align="right">0.853</td>
 <td align="right">0.147</td>
 </tr>
@@ -1779,37 +1772,37 @@ ggplot(tubes.phylodist, aes(x=pd, y=trait_diff)) + facet_grid(trait~hr, scales=&
 <td align="left">bottom</td>
 <td align="left">4hr</td>
 <td align="left">pd</td>
-<td align="right">-30.181</td>
-<td align="right">47.239</td>
-<td align="right">-0.639</td>
+<td align="right">-30.123</td>
+<td align="right">47.219</td>
+<td align="right">-0.638</td>
 <td align="right">0.541</td>
 </tr>
 <tr class="even">
 <td align="left">bottom</td>
 <td align="left">24hr</td>
 <td align="left">pd</td>
-<td align="right">180.347</td>
-<td align="right">60.643</td>
-<td align="right">2.974</td>
+<td align="right">180.091</td>
+<td align="right">60.490</td>
+<td align="right">2.977</td>
 <td align="right">0.018</td>
 </tr>
 <tr class="odd">
 <td align="left">mid</td>
 <td align="left">4hr</td>
 <td align="left">pd</td>
-<td align="right">-58.105</td>
-<td align="right">58.332</td>
-<td align="right">-0.996</td>
-<td align="right">0.348</td>
+<td align="right">-57.822</td>
+<td align="right">58.555</td>
+<td align="right">-0.987</td>
+<td align="right">0.352</td>
 </tr>
 <tr class="even">
 <td align="left">mid</td>
 <td align="left">24hr</td>
 <td align="left">pd</td>
-<td align="right">49.666</td>
-<td align="right">73.109</td>
-<td align="right">0.679</td>
-<td align="right">0.516</td>
+<td align="right">49.371</td>
+<td align="right">72.872</td>
+<td align="right">0.678</td>
+<td align="right">0.517</td>
 </tr>
 <tr class="odd">
 <td align="left">ratio</td>
@@ -1839,12 +1832,27 @@ ggplot(tubes.phylodist, aes(x=pd, y=trait_diff)) + facet_grid(trait~hr, scales=&
   scale_color_brewer(palette=&quot;Paired&quot;)+  scale_shape_manual(values = c(1,19), guide =&quot;none&quot;)+
   scale_y_continuous(labels=scales::percent_format()) + 
   labs(x=&quot;Phylogenetic distance (mutations/site)&quot;, color=&quot;Maternal\nspecies&quot;, 
-       y=&quot;Change in base/middle in hybrid crosses&quot;) + 
+       y=&quot;Change in base/midpoint ratio in hybrid crosses&quot;) + 
   theme_classic() + theme(legend.position = &quot;top&quot;, panel.spacing = unit(1, &quot;lines&quot;))</code></pre>
 <p><img src="figures/phylo_tubes_ratio-1.svg" width="624" /></p>
 <pre class="r"><code>tubes.phylodist %&gt;% filter(trait==&quot;ratio&quot;, hr==&quot;24hr&quot;) %&gt;% pull(trait_diff) %&gt;% summary()</code></pre>
 <pre><code>    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
 -0.02480  0.01646  0.20678  0.23690  0.42701  0.61171 </code></pre>
+<pre class="r"><code>tubes.phylodist %&gt;%
+  ggplot(aes(x=momsp, y=-trait_diff, color=hr)) + facet_wrap(vars(trait), scales=&quot;free_y&quot;) + 
+  geom_hline(yintercept=0)+
+  geom_pointrange(aes(ymin=-(trait_diff-trait_se), ymax=-(trait_diff+trait_se), shape=adj.p.value &lt; 0.05)) + 
+  scale_color_brewer(palette=&quot;Set2&quot;)+  scale_shape_manual(values = c(1,19), guide =&quot;none&quot;)+
+  scale_y_continuous(labels=scales::percent_format()) + 
+  labs(x=&quot;Maternal\nspecies&quot;, color=&quot;Maternal\nspecies&quot;, 
+       y=&quot;Change&quot;) + 
+  theme_classic() + theme(legend.position = &quot;top&quot;, panel.spacing = unit(1, &quot;lines&quot;))</code></pre>
+<p><img src="figures/phylo_tubes_ratio-2.svg" width="624" /></p>
+<pre class="r"><code>tubes.phylodist %&gt;% pivot_wider(id_cols = c(momsp, trait), names_from=hr, values_from=trait_diff) %&gt;% 
+  mutate(trait_diff_24_vs_4hr = `24hr`-`4hr`) %&gt;% 
+  ggplot(aes(x=trait, y=trait_diff_24_vs_4hr)) + geom_hline(yintercept=0) + geom_boxplot() + 
+  geom_point(aes(color=momsp)) + scale_color_brewer(palette=&quot;Paired&quot;)</code></pre>
+<p><img src="figures/phylo_tubes_ratio-3.svg" width="624" /></p>
 </div>
 <div id="package-citations" class="section level1">
 <h1>Package citations</h1>
@@ -1872,8 +1880,8 @@ A BibTeX entry for LaTeX users is
 <pre class="r"><code>citation(&quot;emmeans&quot;)</code></pre>
 <pre><code>To cite package &#39;emmeans&#39; in publications use:
 
-  Lenth R (2023). _emmeans: Estimated Marginal Means, aka Least-Squares
-  Means_. R package version 1.8.5,
+  Lenth R (2024). _emmeans: Estimated Marginal Means, aka Least-Squares
+  Means_. R package version 1.10.1,
   &lt;https://CRAN.R-project.org/package=emmeans&gt;.
 
 A BibTeX entry for LaTeX users is
@@ -1881,8 +1889,8 @@ A BibTeX entry for LaTeX users is
   @Manual{,
     title = {emmeans: Estimated Marginal Means, aka Least-Squares Means},
     author = {Russell V. Lenth},
-    year = {2023},
-    note = {R package version 1.8.5},
+    year = {2024},
+    note = {R package version 1.10.1},
     url = {https://CRAN.R-project.org/package=emmeans},
   }</code></pre>
 <pre class="r"><code>citation(&quot;multcomp&quot;)</code></pre>

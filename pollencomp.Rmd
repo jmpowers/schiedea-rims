@@ -45,7 +45,9 @@ typenames <- set_names(c("Intraspecific","Competitive","Interspecific"),c("intra
 type_pal <- set_names(brewer.pal(6,"Pastel1")[c(2,3,5)], names(typenames))
 type_pal_dark <- set_names(brewer.pal(6,"Set1")[c(2,3,5)], names(typenames))
 propnames <- set_names(c("Capsule formation","Seed number","Germination","Survival","Hybrid"), c("capsule.formed","sds","prop.germ", "prop.alive", "prop.hybrid"))
-vigornames <- c(hybrid.vigor.germsurv="Relative hybrid fitness", prop.hybrid="Surviving hybrids", prop.hybrid.sds = "Hybrid seeds")
+vigornames <- c(hybrid.vigor.germsurv="Hybrid/intraspecific fitness", 
+                prop.hybrid="Proportion of hybrid offspring", 
+                prop.hybrid.sds = "Proporiton of hybrid seeds")
 
 momid.fixes <- read_tsv("data/Pollen competition - momid_fixes.tsv")
 momid.fixes.seeds <- momid.fixes %>% drop_na(momid_fixed) %>% select(momid, momid_fixed) %>% deframe()
@@ -352,13 +354,15 @@ ggplot(surv, aes(x=momsp, fill=type, y=prop.alive)) + bxplt + alternate + bxplt 
 ggplot(filter(surv, type=="mixed"), aes(x=momsp, y=prop.hybrid, fill=momsp)) + 
   geom_hline(yintercept=0.5)+ geom_violin(scale="width", draw_quantiles = c(0.25,0.5,0.75))+ 
   geom_pointrange(data=left_join(filter(comp.emm, trait=="prop.hybrid"), hybrid.test),
-                  aes(y=estimate, ymax=conf.high, ymin=conf.low, shape=p.adj < 0.05)) + 
+                  aes(y=estimate, ymax=conf.high, ymin=conf.low, shape=p.adj < 0.05), size=1) + 
   scale_shape_manual("Different from 50%", values=c(1, 19), labels=c("no","yes"))+
-  #geom_text(data=hybrid.test, aes(y=1.1, label=crosses))+
-  #geom_text(data=hybrid.test, aes(y=1.1, label=alive))+
+  geom_text(data=hybrid.test, aes(y=1.1, label=crosses))+ annotate("text", x=11, y=1.1, label="crosses")+
+  geom_text(data=hybrid.test, aes(y=1.04, label=alive))+ annotate("text", x=11, y=1.04, label="progeny")+
+  coord_cartesian(clip="off")+
   scale_fill_brewer(palette="Paired", guide="none") +
-  scale_y_continuous(breaks=(0:4)/4, labels=~scales::percent(.,accuracy=1), expand=c(0.02,0), limits=c(0,1))+
-  labs(x="Maternal species", y="Hybrids from competitive pollinations") + sp_theme
+  scale_y_continuous(breaks=(0:4)/4, labels=~scales::percent(.,accuracy=1), expand=c(0.02,0), limits=c(0,1.1))+
+  labs(x="Maternal species", y="Hybrids from competitive pollinations") + sp_theme + 
+  theme(plot.margin = unit(5.5*c(1,6,1,1), "points"))
 
 hybrid.test %>% left_join(filter(comp.emm, trait=="prop.hybrid")) %>% 
   select(momsp, dadsp, prop.hybrid, std.error, p.adj) %>% kable(caption="Test if hybrid proportions differ from 50%")
@@ -571,11 +575,12 @@ hybrid.phylostyle %>% pivot_longer(c(pd, style_length_mm), names_to = "xname", v
                 group=pair, color=sp_pairs[as.integer(pair)*2]), show.legend = F)+
   geom_point(aes(color=momsp), size=4) + 
   scale_linetype_manual(values=c(yes="solid", no="blank"), guide="none") +
-  scale_y_continuous(expand=expansion(mult=c(0,0.05))) + expand_limits(y=0) +
+  scale_y_continuous(expand=expansion(mult=c(0,0.05)), breaks=scales::breaks_extended(n=5)) + 
+  expand_limits(y=c(0,1)) +
   scale_color_brewer("Maternal\nspecies", palette="Paired") + theme_minimal()+
   theme(axis.text=element_text(color="black"), legend.position="top", panel.background = element_rect(),
         strip.placement = "outside", axis.title.x = element_blank(), axis.title.y = element_blank(),
-        panel.spacing = unit(0.5,"lines"), panel.grid = element_blank()) 
+        panel.spacing.y = unit(0.5,"lines"), panel.spacing.x = unit(1,"lines"), panel.grid = element_blank()) 
 
 hybrid.phylostyle %>% group_by(name) %>% nest() %>% 
   mutate(model = map(data, ~lm(value ~ pd + style_diff_rel, data=.x)), 

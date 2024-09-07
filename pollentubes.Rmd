@@ -225,9 +225,9 @@ mytheme <- theme(legend.text=element_text(size=rel(1)), legend.position="right",
 timefills <-   scale_fill_brewer("Time", palette="Paired", labels=c("4 hr","24 hr"))
 timecolors <-   scale_color_brewer("Time", palette="Paired", labels=c("4 hr","24 hr"))
 
-var_labels <- c(mid = "Pollen tubes at middle of style",
-                bottom = "Pollen tubes at base of style",
-                ratio = "Proportion of pollen tubes at middle that grew to base")
+var_labels <- c(mid = "Pollen tubes at style midpoint",
+                bottom = "Pollen tubes at style base",
+                ratio = "Proportion of tubes at midpoint that grew to base")
 
 plot_all <- function(yvar) {
 signif.cont <- unnest(select(tubes.mod, paste0(yvar,"_cont")), paste0(yvar,"_cont")) %>% 
@@ -385,7 +385,7 @@ tubes.phylodist %>% filter(trait=="ratio") %>%
   scale_color_brewer(palette="Paired")+  scale_shape_manual(values = c(1,19), guide ="none")+
   scale_y_continuous(labels=scales::percent_format()) + 
   labs(x="Phylogenetic distance (mutations/site)", color="Maternal\nspecies", 
-       y="Change in base/middle in hybrid crosses") + 
+       y="Change in base/midpoint ratio in hybrid crosses") + 
   theme_classic() + theme(legend.position = "top", panel.spacing = unit(1, "lines"))
 
 tubes.phylodist %>% filter(trait=="ratio", hr=="24hr") %>% pull(trait_diff) %>% summary()
