@@ -71,7 +71,7 @@
 <text x='217.36' y='339.64' text-anchor='middle' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Arial";'>30</text>
 <text x='327.72' y='339.64' text-anchor='middle' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Arial";'>100</text>
 <text x='232.72' y='352.23' text-anchor='middle' style='font-size: 11.00px; font-family: "Arial";'>Viable seeds per capsule</text>
-<text transform='translate(13.50,166.89) rotate(-90)' text-anchor='middle' style='font-size: 11.00px; font-family: "Arial";'>Seed mass (g)</text>
+<text transform='translate(13.50,166.89) rotate(-90)' text-anchor='middle' style='font-size: 11.00px; font-family: "Arial";'>Seed mass (mg)</text>
 <text x='444.43' y='142.24' style='font-size: 11.00px; font-family: "Arial";'>Habitat</text>
 <text x='453.07' y='161.52' text-anchor='middle' style='font-size: 11.04px; font-weight: bold;fill: #F8766D; font-family: "Arial";'>a</text>
 <text x='453.07' y='178.80' text-anchor='middle' style='font-size: 11.04px; font-weight: bold;fill: #00BA38; font-family: "Arial";'>a</text>

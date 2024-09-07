@@ -264,15 +264,15 @@ knitr::opts_chunk$set(comment=&quot;&quot;, cache=T, warning = F, message = F,
 library(tidyverse)
 theme_set(theme_minimal())</code></pre>
 <pre class="r"><code>seedmass &lt;- read_csv(&quot;data/seedmass.csv&quot;) %&gt;% 
-  mutate(seed_mass_g = total_mass_g / seeds_weighed,
+  mutate(seed_mass_mg = total_mass_mg / seeds_weighed,
          source = fct_collapse(source, field=c(&quot;Field&quot;,&quot;F&quot;), greenhouse=&quot;GH&quot;),
-         species = fct_reorder(str_remove(species, &quot;S.&quot;), seed_mass_g),
+         species = fct_reorder(str_remove(species, &quot;S.&quot;), seed_mass_mg),
          habitat = fct_recode(habitat, &quot;dry&quot;=&quot;D&quot;,&quot;mesic&quot;=&quot;M&quot;,&quot;wet&quot;=&quot;W&quot;))
 
-#ggplot(seedmass, aes(x=seeds_weighed, y=total_mass_g)) + geom_point()
-ggplot(seedmass, aes(y=species, x=seed_mass_g, color=source)) + geom_boxplot(outlier.size = 0.3) +
+#ggplot(seedmass, aes(x=seeds_weighed, y=total_mass_mg)) + geom_point()
+ggplot(seedmass, aes(y=species, x=seed_mass_mg, color=source)) + geom_boxplot(outlier.size = 0.3) +
   facet_grid(vars(fct_rev(habitat)),  scales = &quot;free_y&quot;, space=&quot;free&quot;) + 
-  labs(color=&quot;Source&quot;, y=&quot;Species&quot;, x=&quot;Seed mass (g)&quot;)</code></pre>
+  labs(color=&quot;Source&quot;, y=&quot;Species&quot;, x=&quot;Seed mass (mg)&quot;)</code></pre>
 <p><img src="figures-seedmass/mass-1.svg" width="672" /></p>
 <pre class="r"><code>seedcounts &lt;- read_csv(&quot;data/seedcounts.csv&quot;, guess_max = 2000) %&gt;% 
   mutate(source = fct_collapse(source, field=&quot;Field&quot;, greenhouse=c(&quot;GH&quot;,&quot;Source?&quot;)),
@@ -282,12 +282,13 @@ ggplot(seedcounts, aes(y=species, x=viable_seeds, color=source)) + geom_boxplot(
   facet_grid(vars(fct_rev(habitat)),  scales = &quot;free_y&quot;, space=&quot;free&quot;) + 
   labs(color=&quot;Source&quot;, y=&quot;Species&quot;, x=&quot;Viable seeds per capsule&quot;)</code></pre>
 <p><img src="figures-seedmass/counts-1.svg" width="672" /></p>
-<pre class="r"><code>speciesmeans &lt;- seedmass %&gt;% summarize(seed_mass_g = mean(seed_mass_g), .by=c(species, habitat)) %&gt;% 
-  full_join(seedcounts %&gt;% summarize(viable_seeds = mean(viable_seeds), .by=species))
+<pre class="r"><code>speciesmeans &lt;- seedmass %&gt;% summarize(seed_mass_mg = mean(seed_mass_mg), .by=c(species, habitat)) %&gt;% 
+  full_join(seedcounts %&gt;% summarize(viable_seeds = mean(viable_seeds), .by=species)) %&gt;% 
+  mutate(seed_mass_per_capsule_mg = seed_mass_mg * viable_seeds)
 
-ggplot(speciesmeans, aes(x = viable_seeds, y=seed_mass_g, label=species, color=habitat)) + geom_text(fontface=2) + 
+ggplot(speciesmeans, aes(x = viable_seeds, y=seed_mass_mg, label=species, color=habitat)) + geom_text(fontface=2) + 
   scale_y_log10() + scale_x_log10() + scale_color_discrete() +
-  labs(color=&quot;Habitat&quot;, y=&quot;Seed mass (g)&quot;, x=&quot;Viable seeds per capsule&quot;)</code></pre>
+  labs(color=&quot;Habitat&quot;, y=&quot;Seed mass (mg)&quot;, x=&quot;Viable seeds per capsule&quot;)</code></pre>
 <p><img src="figures-seedmass/countsmass-1.svg" width="672" /></p>
 <pre class="r"><code>library(phytools)
 #from Fig 2, Nuclear BEST tree, Willyard et al. 2011
@@ -299,10 +300,10 @@ sch$tip.label &lt;- substr(sch$tip.label,1,4)
 sch.p&lt;-drop.tip(sch,setdiff(sch$tip.label, speciesmeans$species))
 
 speciesmeans.log &lt;- speciesmeans[order(match(speciesmeans$species,sch.p$tip.label)),] %&gt;% 
-  mutate(viable_seeds=log10(viable_seeds), seed_mass_g = log10(seed_mass_g)) 
-XY &lt;- as.matrix(speciesmeans.log[,c(&quot;viable_seeds&quot;, &quot;seed_mass_g&quot;)])
+  mutate(viable_seeds=log10(viable_seeds), seed_mass_mg = log10(seed_mass_mg)) 
+XY &lt;- as.matrix(speciesmeans.log[,c(&quot;viable_seeds&quot;, &quot;seed_mass_mg&quot;)])
 rownames(XY) &lt;- sch.p$tip.label
-phylomorphospace(sch.p, XY, node.size=c(0,1.3), xlab=&quot;log10 Viable seeds per capsule&quot;, ylab=&quot;log10 Seed mass (g)&quot;)
+phylomorphospace(sch.p, XY, node.size=c(0,1.3), xlab=&quot;log10 Viable seeds per capsule&quot;, ylab=&quot;log10 Seed mass (mg)&quot;)
 points(XY, col=scales::hue_pal()(3)[as.integer(speciesmeans.log$habitat)], pch=19)
 legend(&quot;bottomright&quot;, levels(speciesmeans$habitat), fill = scales::hue_pal()(3), title=&quot;Habitat&quot;)</code></pre>
 <p><img src="figures-seedmass/phylo-1.svg" width="576" /></p>

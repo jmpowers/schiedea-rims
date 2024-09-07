@@ -55,7 +55,7 @@
 <text transform='translate(41.76,86.99) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: "Arial";'>-0.2</text>
 <polygon points='59.04,358.56 401.76,358.56 401.76,59.04 59.04,59.04 ' style='stroke-width: 0.75;' />
 <text x='230.40' y='413.28' text-anchor='middle' style='font-size: 12.00px; font-family: "Arial";'>log10 Viable seeds per capsule</text>
-<text transform='translate(12.96,208.80) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: "Arial";'>log10 Seed mass (g)</text>
+<text transform='translate(12.96,208.80) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: "Arial";'>log10 Seed mass (mg)</text>
 </g>
 <g clip-path='url(#cpNTkuMDR8NDAxLjc2fDU5LjA0fDM1OC41Ng==)'>
 <polyline points='197.48,240.14 202.03,239.82 ' style='stroke-width: 0.75;' />

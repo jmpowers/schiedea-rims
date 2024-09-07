@@ -1,4 +1,4 @@
-index,species,pop,source,plant_id,sex,habitat,seeds_weighed,total_mass_g,notes,notes2
+index,species,pop,source,plant_id,sex,habitat,seeds_weighed,total_mass_mg,notes,notes2
 1,S.sali,842,F,9,2,D,25,3.602,,
 2,S.sali,842,F,9,2,D,25,3.394,,
 3,S.sali,842,F,9,2,D,25,3.815,,

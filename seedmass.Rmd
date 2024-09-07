@@ -23,15 +23,15 @@ theme_set(theme_minimal())
 
 ```{r mass}
 seedmass <- read_csv("data/seedmass.csv") %>% 
-  mutate(seed_mass_g = total_mass_g / seeds_weighed,
+  mutate(seed_mass_mg = total_mass_mg / seeds_weighed,
          source = fct_collapse(source, field=c("Field","F"), greenhouse="GH"),
-         species = fct_reorder(str_remove(species, "S."), seed_mass_g),
+         species = fct_reorder(str_remove(species, "S."), seed_mass_mg),
          habitat = fct_recode(habitat, "dry"="D","mesic"="M","wet"="W"))
 
-#ggplot(seedmass, aes(x=seeds_weighed, y=total_mass_g)) + geom_point()
-ggplot(seedmass, aes(y=species, x=seed_mass_g, color=source)) + geom_boxplot(outlier.size = 0.3) +
+#ggplot(seedmass, aes(x=seeds_weighed, y=total_mass_mg)) + geom_point()
+ggplot(seedmass, aes(y=species, x=seed_mass_mg, color=source)) + geom_boxplot(outlier.size = 0.3) +
   facet_grid(vars(fct_rev(habitat)),  scales = "free_y", space="free") + 
-  labs(color="Source", y="Species", x="Seed mass (g)")
+  labs(color="Source", y="Species", x="Seed mass (mg)")
 ```
 
 ```{r counts}
@@ -45,12 +45,13 @@ ggplot(seedcounts, aes(y=species, x=viable_seeds, color=source)) + geom_boxplot(
 ```
 
 ```{r countsmass}
-speciesmeans <- seedmass %>% summarize(seed_mass_g = mean(seed_mass_g), .by=c(species, habitat)) %>% 
-  full_join(seedcounts %>% summarize(viable_seeds = mean(viable_seeds), .by=species))
+speciesmeans <- seedmass %>% summarize(seed_mass_mg = mean(seed_mass_mg), .by=c(species, habitat)) %>% 
+  full_join(seedcounts %>% summarize(viable_seeds = mean(viable_seeds), .by=species)) %>% 
+  mutate(seed_mass_per_capsule_mg = seed_mass_mg * viable_seeds)
 
-ggplot(speciesmeans, aes(x = viable_seeds, y=seed_mass_g, label=species, color=habitat)) + geom_text(fontface=2) + 
+ggplot(speciesmeans, aes(x = viable_seeds, y=seed_mass_mg, label=species, color=habitat)) + geom_text(fontface=2) + 
   scale_y_log10() + scale_x_log10() + scale_color_discrete() +
-  labs(color="Habitat", y="Seed mass (g)", x="Viable seeds per capsule")
+  labs(color="Habitat", y="Seed mass (mg)", x="Viable seeds per capsule")
 ```
 
 ```{r phylo, fig.height=6, fig.width=6}
@@ -64,10 +65,10 @@ sch$tip.label <- substr(sch$tip.label,1,4)
 sch.p<-drop.tip(sch,setdiff(sch$tip.label, speciesmeans$species))
 
 speciesmeans.log <- speciesmeans[order(match(speciesmeans$species,sch.p$tip.label)),] %>% 
-  mutate(viable_seeds=log10(viable_seeds), seed_mass_g = log10(seed_mass_g)) 
-XY <- as.matrix(speciesmeans.log[,c("viable_seeds", "seed_mass_g")])
+  mutate(viable_seeds=log10(viable_seeds), seed_mass_mg = log10(seed_mass_mg)) 
+XY <- as.matrix(speciesmeans.log[,c("viable_seeds", "seed_mass_mg")])
 rownames(XY) <- sch.p$tip.label
-phylomorphospace(sch.p, XY, node.size=c(0,1.3), xlab="log10 Viable seeds per capsule", ylab="log10 Seed mass (g)")
+phylomorphospace(sch.p, XY, node.size=c(0,1.3), xlab="log10 Viable seeds per capsule", ylab="log10 Seed mass (mg)")
 points(XY, col=scales::hue_pal()(3)[as.integer(speciesmeans.log$habitat)], pch=19)
 legend("bottomright", levels(speciesmeans$habitat), fill = scales::hue_pal()(3), title="Habitat")
 ```
