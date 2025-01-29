@@ -121,6 +121,24 @@ germination <- read_sheet(gsheet, "germination", col_types="c") %>%
   mutate(prop.germ = germinated/planted) %>% # proportion of planted seeds that germinated 
   add_combos()
 
+germination.full <- read_sheet(gsheet, "germination_full") %>% add_combos()
+
+germination.long <- germination.full %>% 
+  pivot_longer(starts_with("2016"), names_to = "scoredate", values_to = "germinated") %>% 
+  mutate(scoredate = ymd(scoredate), scoreday = as.numeric(scoredate - ymd(as.character(plant.date)), units="days"))
+
+germination.timing <- 
+  left_join(germination.long, 
+            germination.long %>%   
+              group_by(crossidpotid) %>% mutate(prop.germ = germinated/max(germinated)) %>% #scale to maximum seedlings, not seeds planted
+              filter(!all(germinated == 0), #exclude 79 pots that never germinated 
+                     !all(prop.germ == 1)) %>%  #exclude 1 pot that had already all germinated
+              mutate(scoreday.peak = scoreday[min(which(prop.germ==1))]) %>% #day that seedling number is maximum
+              mutate(prop.germ = if_else(scoreday > scoreday.peak, 1, prop.germ)) %>% # erase death after peak to focus on timing
+              ungroup() %>% drop_na(prop.germ) %>% nest(.by=crossidpotid) %>% 
+              mutate(coef = map(data, ~coef(glm(prop.germ~scoreday, family="quasibinomial", data=.x))), .keep="unused") %>% 
+              unnest_wider(coef) %>% mutate(half.germ.day = -`(Intercept)`/scoreday, .keep="unused") )
+
 # vegbiomass --------------------------------------------------------------
 
 vegbiomass <- read_sheet(gsheet, "vegbiomass", col_types="c") %>% 
