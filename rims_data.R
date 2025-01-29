@@ -1,5 +1,4 @@
 library(tidyverse)
-library(lubridate)
 library(googlesheets4)
 
 # common ------------------------------------------------------------------
@@ -114,30 +113,26 @@ seeds.nonzero <- filter(seeds, viable.seeds > 0)
   
 # germination -------------------------------------------------------------
 
-germination <- read_sheet(gsheet, "germination", col_types="c") %>% 
-  mutate(across(c(planted, germinated), as.integer)) %>% 
-  group_by(crossid, mompop, momid, momsp, dadpop, dadid, dadsp, crosstype) %>% 
+germination <- read_sheet(gsheet, "germination") %>% 
+  group_by(crossid, mompop, momid, momsp, dadpop, dadid, dadsp, crosstype) %>% #drop potid, comments
   summarize(planted = sum(planted), germinated = sum(germinated), .groups="drop") %>% # add together all the pots of one cross
   mutate(prop.germ = germinated/planted) %>% # proportion of planted seeds that germinated 
-  add_combos()
-
-germination.full <- read_sheet(gsheet, "germination_full") %>% add_combos()
-
-germination.long <- germination.full %>% 
-  pivot_longer(starts_with("2016"), names_to = "scoredate", values_to = "germinated") %>% 
-  mutate(scoredate = ymd(scoredate), scoreday = as.numeric(scoredate - ymd(as.character(plant.date)), units="days"))
-
-germination.timing <- 
-  left_join(germination.long, 
-            germination.long %>%   
-              group_by(crossidpotid) %>% mutate(prop.germ = germinated/max(germinated)) %>% #scale to maximum seedlings, not seeds planted
-              filter(!all(germinated == 0), #exclude 79 pots that never germinated 
-                     !all(prop.germ == 1)) %>%  #exclude 1 pot that had already all germinated
-              mutate(scoreday.peak = scoreday[min(which(prop.germ==1))]) %>% #day that seedling number is maximum
-              mutate(prop.germ = if_else(scoreday > scoreday.peak, 1, prop.germ)) %>% # erase death after peak to focus on timing
-              ungroup() %>% drop_na(prop.germ) %>% nest(.by=crossidpotid) %>% 
-              mutate(coef = map(data, ~coef(glm(prop.germ~scoreday, family="quasibinomial", data=.x))), .keep="unused") %>% 
-              unnest_wider(coef) %>% mutate(half.germ.day = -`(Intercept)`/scoreday, .keep="unused") )
+  add_combos() %>% 
+  left_join(#estimate date that half of seedlings have germinated
+    read_sheet(gsheet, "germination_full") %>% 
+      filter(crosstype!="control") %>% #one pot with seeds from a control (unpollinated) cross, not present in "germination" sheet
+      pivot_longer(starts_with("2016"), names_to = "scoredate", values_to = "germinated") %>% 
+      group_by(crossid, tray, plantdate, scoredate) %>% #drop pot identifiers, comments.germ, and ID columns updated in "germination" sheet
+      summarize(across(c(planted, germinated), sum), .groups = "drop") %>% 
+      mutate(scoredate = ymd(scoredate), scoreday = as.numeric(scoredate - ymd(as.character(plantdate)), units="days")) %>% 
+      group_by(crossid) %>% mutate(prop.germ = germinated/max(germinated)) %>% #scale to maximum seedlings, not seeds planted
+      filter(!all(germinated == 0), #exclude crosses that never germinated 
+             !all(prop.germ == 1)) %>%  #exclude crosses that had already all germinated
+      mutate(scoreday.peak = scoreday[min(which(prop.germ==1))]) %>% #day that seedling number is maximum
+      mutate(prop.germ = if_else(scoreday > scoreday.peak, 1, prop.germ)) %>% # erase death after peak to focus on timing
+      ungroup() %>% drop_na(prop.germ) %>% nest(.by=crossid) %>% 
+      mutate(coef = map(data, ~coef(glm(prop.germ~scoreday, family="quasibinomial", data=.x))), .keep="unused") %>% 
+      unnest_wider(coef) %>% mutate(half.germ.day = -`(Intercept)`/scoreday, .keep="unused"))
 
 # vegbiomass --------------------------------------------------------------
 
@@ -188,7 +183,7 @@ inflobiomass <- read_sheet(gsheet, "inflobiomass", col_types="c") %>%
   filter(is.na(use.inflo)) %>% 
   mutate(across(matches("date"), ymd),
          across(c(flrs, inflo.e, inflo, inflo.biomass.g), as.numeric),
-         collect = collect.date - first_planting,
+         collect = as.numeric(collect.date - first_planting, units="days"),
          flrs.per.inflo.biomass.g = flrs/inflo.biomass.g) %>% 
   left_join(crosses) %>% 
   add_combos()
