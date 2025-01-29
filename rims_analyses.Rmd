@@ -267,6 +267,20 @@ ggplot(inflobiomass.sum %>% filter(inflo>0, flrs>0), aes(x=inflo, y=inflo.biomas
   theme_minimal() + labs(y="Average biomass per inflorescence (g)", x="Inflorescences", color="Cross")
 ```
 
+```{r timetoflower}
+ggplot(survflr, aes(x=firstflower, y=firstinflo.biomass.g, color=cross)) + 
+  geom_point(size=1) + geom_smooth(se=F, span=0.8) + scale_y_sqrt()+
+  scale_color_manual(values=set_names(F1.col, c("KKwithin","KK", "KH", "HK", "HH", "HHwithin"))[-c(1,6)]) +
+  theme_minimal() + labs(y="First infloresence biomass (g)", x="Time to flower (d)", color="Cross")
+
+ggplot(left_join(survflr, inflobiomass.sum, by=c(colnames(crosses), "plantid")), 
+       aes(x=firstflower, y=inflo.biomass.g, color=cross)) + 
+  geom_point(size=1) + geom_smooth(se=F, span=0.8) + scale_y_sqrt()+
+  scale_color_manual(values=set_names(F1.col, c("KKwithin","KK", "KH", "HK", "HH", "HHwithin"))[-c(1,6)]) +
+  theme_minimal() + labs(y="Infloresence biomass (g)", x="Time to flower (d)", color="Cross")
+```
+
+
 ## Fitness and RI
 
 ```{r fitness, fig.width=6}

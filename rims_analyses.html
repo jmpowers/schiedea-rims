@@ -11,11 +11,11 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2022-02-08" />
+<meta name="date" content="2025-01-27" />
 
-<title>Schiedea hookeri/kaalae RIMs</title>
+<title>Schiedea reproductive isolating mechanisms</title>
 
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/header-attrs-2.26/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -31,7 +31,7 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<script src="libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="libs/navigation-1.1/tabsets.js"></script>
@@ -66,6 +66,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -87,6 +88,9 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+details > summary > p:only-child {
+  display: inline;
+}
 pre code {
   padding: 0;
 }
@@ -106,8 +110,8 @@ pre code {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -115,16 +119,9 @@ pre code {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -244,7 +241,7 @@ div.tocify {
 <div id="header">
 
 <div class="btn-group pull-right float-right">
-<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
 <ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
 <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
 <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
@@ -253,9 +250,11 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Schiedea hookeri/kaalae RIMs</h1>
-<h4 class="author"><a href="http://sites.uci.edu/powers/">John Powers</a></h4>
-<h4 class="date">2022-02-08</h4>
+<h1 class="title toc-ignore"><em>Schiedea</em> reproductive isolating
+mechanisms</h1>
+<h4 class="author"><a href="http://sites.uci.edu/powers/">John
+Powers</a></h4>
+<h4 class="date">2025-01-27</h4>
 
 </div>
 
@@ -288,9 +287,20 @@ sxc.labels &lt;- set_names(c(&quot;K intrapop&quot;, &quot;K interpop&quot;, &qu
 F1.col &lt;- set_names(c(brewer.pal(3,&quot;Greens&quot;)[2:3],brewer.pal(9,&quot;Oranges&quot;)[5], brewer.pal(9,&quot;Set1&quot;)[7], brewer.pal(3,&quot;Purples&quot;)[3:2]), sxc.levels)</code></pre>
 <div id="datasets" class="section level1">
 <h1>Datasets</h1>
-<p>For seed production (capsule formation and viable seeds), the generation refers to the zygote generation (e.g. F2 seed grown from an F1 plant), otherwise the plant that produced the trait (e.g. F2 pollen is from F2 plants). This convention isn’t always carried over to the name of the dataset for historical reasons.</p>
+<p>For seed production (capsule formation and viable seeds), the
+generation refers to the zygote generation (e.g. F2 seed grown from an
+F1 plant), otherwise the plant that produced the trait (e.g. F2 pollen
+is from F2 plants). This convention isn’t always carried over to the
+name of the dataset for historical reasons.</p>
 <pre class="r"><code>traits %&gt;% filter(generation !=&quot;P&quot;) %&gt;% select(c(generation,ylab, yvar, data, type)) %&gt;% kable</code></pre>
-<table>
+<table style="width:100%;">
+<colgroup>
+<col width="11%" />
+<col width="34%" />
+<col width="22%" />
+<col width="18%" />
+<col width="11%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">generation</th>
@@ -455,10 +465,12 @@ F1.col &lt;- set_names(c(brewer.pal(3,&quot;Greens&quot;)[2:3],brewer.pal(9,&quo
 <h1>F1 Generation</h1>
 <div id="sample-sizes" class="section level2">
 <h2>Sample sizes</h2>
-<p>These sample sizes are the number of rows in the dataset. The rows mean different things in each dataset:</p>
+<p>These sample sizes are the number of rows in the dataset. The rows
+mean different things in each dataset:</p>
 <ul>
 <li>seeds = seeds from one pollination</li>
-<li>germination = seeds from one pollination (multiple pots are pooled)</li>
+<li>germination = seeds from one pollination (multiple pots are
+pooled)</li>
 <li>vegbiomass = one offspring plant, if it survived</li>
 <li>survflr = one offspring plant</li>
 <li>pollen = one pollen collection</li>
@@ -495,6 +507,17 @@ map_dfr(F1, ~ tally(get(.)), .id=&quot;dataset&quot;) %&gt;%
   pivot_wider(names_from=dataset, values_from=n) %&gt;% kable(caption=&quot;F1 datasets by crosstype and species&quot;)</code></pre>
 <table>
 <caption>F1 datasets by crosstype and species</caption>
+<colgroup>
+<col width="12%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="15%" />
+<col width="13%" />
+<col width="10%" />
+<col width="8%" />
+<col width="16%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">crosstype</th>
@@ -944,6 +967,16 @@ tally.parents %&gt;% group_by(dataset, momsp, mompid) %&gt;% count() %&gt;%
   pivot_wider(names_from=dataset, values_from=n) %&gt;% kable(caption=&quot;F1 datasets by maternal plant&quot;)</code></pre>
 <table>
 <caption>F1 datasets by maternal plant</caption>
+<colgroup>
+<col width="8%" />
+<col width="16%" />
+<col width="16%" />
+<col width="17%" />
+<col width="9%" />
+<col width="8%" />
+<col width="10%" />
+<col width="14%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">momsp</th>
@@ -1203,6 +1236,16 @@ tally.parents %&gt;% group_by(dataset, momsp, mompid) %&gt;% count() %&gt;%
   pivot_wider(names_from=dataset, values_from=n) %&gt;% kable(caption=&quot;F1 datasets by paternal plant&quot;)</code></pre>
 <table>
 <caption>F1 datasets by paternal plant</caption>
+<colgroup>
+<col width="7%" />
+<col width="19%" />
+<col width="15%" />
+<col width="16%" />
+<col width="8%" />
+<col width="7%" />
+<col width="10%" />
+<col width="14%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">dadsp</th>
@@ -1716,14 +1759,21 @@ tally.parents %&gt;% group_by(dataset, momsp, mompid) %&gt;% count() %&gt;%
 </div>
 <div id="models" class="section level2">
 <h2>Models</h2>
-<p>Expand this code to see the model specifications. The models have the following settings:</p>
+<p>Expand this code to see the model specifications. The models have the
+following settings:</p>
 <ul>
-<li>response variable: for details see the <a href="https://docs.google.com/spreadsheets/d/1f487VMTsYzYGn0_daogtTF0nNE7ntoqd0Yh4h9tgyDE/edit#gid=2002881351">metadata</a></li>
-<li>sxc: the combined maternal plant species and crosstype (within population, between population, hybrid)</li>
-<li>collect: the number of days from planting to harvest, to account for growth during harvest period</li>
-<li>mompid, dadpid: random effects of the maternal and paternal plant genotypes (clones are treated as the same genotype)</li>
+<li>response variable: for details see the <a
+href="https://docs.google.com/spreadsheets/d/1f487VMTsYzYGn0_daogtTF0nNE7ntoqd0Yh4h9tgyDE/edit#gid=2002881351">metadata</a></li>
+<li>sxc: the combined maternal plant species and crosstype (within
+population, between population, hybrid)</li>
+<li>collect: the number of days from planting to harvest, to account for
+growth during harvest period</li>
+<li>mompid, dadpid: random effects of the maternal and paternal plant
+genotypes (clones are treated as the same genotype)</li>
 <li>data: for details and sample sizes see tables above</li>
-<li>family: gaussian (the default, for continuous variables), truncated_nbinom1 (quasi-Poisson truncated at zero for nonzero seed counts), betabinomial (for binary variables)</li>
+<li>family: gaussian (the default, for continuous variables),
+truncated_nbinom1 (quasi-Poisson truncated at zero for nonzero seed
+counts), betabinomial (for binary variables)</li>
 </ul>
 <pre class="r"><code>F1.mod &lt;- list(
   firstflower =          glmmTMB(firstflower ~          sxc +           (1|mompid) + (1|dadpid), data=survflr),
@@ -1745,7 +1795,8 @@ save(F1.mod, file=&quot;data/F1mod.rda&quot;)
 </div>
 <div id="inference" class="section level2">
 <h2>Inference</h2>
-<p>P-values for the overall effect of species and crosstype, or collection date, on the trait.</p>
+<p>P-values for the overall effect of species and crosstype, or
+collection date, on the trait.</p>
 <pre class="r"><code>F1.test &lt;- map_dfr(F1.mod, ~car::Anova(.) %&gt;% tidy(), .id=&quot;trait&quot;) 
 F1.test %&gt;% left_join(traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;% select(trait=yvar, step)) %&gt;% 
   arrange(step) %&gt;% select(-step) %&gt;% 
@@ -1756,6 +1807,13 @@ F1.test %&gt;% left_join(traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;%
   kable(digits=1, caption=&quot;ANOVA of GLMM (Type III Wald chisquare tests)&quot;)</code></pre>
 <table>
 <caption>ANOVA of GLMM (Type III Wald chisquare tests)</caption>
+<colgroup>
+<col width="42%" />
+<col width="29%" />
+<col width="13%" />
+<col width="4%" />
+<col width="10%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">trait</th>
@@ -1892,7 +1950,10 @@ F1.test %&gt;% left_join(traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;%
 </div>
 <div id="plots" class="section level2">
 <h2>Plots</h2>
-<p>Estimated marginal means with 95% CI are shown as dots. For the continuous variables, these show violin plots of the raw data with median and first and third quartiles. For binary variables, colored dots show the proportions of each population x population combination.</p>
+<p>Estimated marginal means with 95% CI are shown as dots. For the
+continuous variables, these show violin plots of the raw data with
+median and first and third quartiles. For binary variables, colored dots
+show the proportions of each population x population combination.</p>
 <pre class="r"><code>F1.traits &lt;- traits %&gt;% filter(generation==&quot;F1&quot;,yvar!=&quot;viable.per.anther&quot;) %&gt;% select(data, yvar, ylab, type)
 
 F1.contrasts &lt;- tibble(sxc = c(&quot;kaal.between&quot;,&quot;kaal.hybrid&quot;,&quot;hook.between&quot;,&quot;hook.hybrid&quot;,
@@ -2056,6 +2117,17 @@ ggplot(inflobiomass.sum %&gt;% filter(inflo&gt;0, flrs&gt;0), aes(x=inflo, y=flr
   scale_color_manual(values=set_names(F1.col, c(&quot;KKwithin&quot;,&quot;KK&quot;, &quot;KH&quot;, &quot;HK&quot;, &quot;HH&quot;, &quot;HHwithin&quot;))[-c(1,6)]) +
   theme_minimal() + labs(y=&quot;Average biomass per inflorescence (g)&quot;, x=&quot;Inflorescences&quot;, color=&quot;Cross&quot;)</code></pre>
 <p><img src="figures/inflotraits-3.svg" width="432" /></p>
+<pre class="r"><code>ggplot(survflr, aes(x=firstflower, y=firstinflo.biomass.g, color=cross)) + 
+  geom_point(size=1) + geom_smooth(se=F, span=0.8) + scale_y_sqrt()+
+  scale_color_manual(values=set_names(F1.col, c(&quot;KKwithin&quot;,&quot;KK&quot;, &quot;KH&quot;, &quot;HK&quot;, &quot;HH&quot;, &quot;HHwithin&quot;))[-c(1,6)]) +
+  theme_minimal() + labs(y=&quot;First infloresence biomass (g)&quot;, x=&quot;Time to flower (d)&quot;, color=&quot;Cross&quot;)</code></pre>
+<p><img src="figures/timetoflower-1.svg" width="480" /></p>
+<pre class="r"><code>ggplot(left_join(survflr, inflobiomass.sum, by=c(colnames(crosses), &quot;plantid&quot;)), 
+       aes(x=firstflower, y=inflo.biomass.g, color=cross)) + 
+  geom_point(size=1) + geom_smooth(se=F, span=0.8) + scale_y_sqrt()+
+  scale_color_manual(values=set_names(F1.col, c(&quot;KKwithin&quot;,&quot;KK&quot;, &quot;KH&quot;, &quot;HK&quot;, &quot;HH&quot;, &quot;HHwithin&quot;))[-c(1,6)]) +
+  theme_minimal() + labs(y=&quot;Infloresence biomass (g)&quot;, x=&quot;Time to flower (d)&quot;, color=&quot;Cross&quot;)</code></pre>
+<p><img src="figures/timetoflower-2.svg" width="480" /></p>
 </div>
 </div>
 <div id="fitness-and-ri" class="section level2">
@@ -2067,7 +2139,8 @@ ggplot(inflobiomass.sum %&gt;% filter(inflo&gt;0, flrs&gt;0), aes(x=inflo, y=flr
   select(trait, sxc, est.se) %&gt;% pivot_wider(names_from = sxc, values_from=est.se) %&gt;% 
   kable(caption=&quot;Absolute fitness components with estimated marginal mean and standard error&quot;)</code></pre>
 <table>
-<caption>Absolute fitness components with estimated marginal mean and standard error</caption>
+<caption>Absolute fitness components with estimated marginal mean and
+standard error</caption>
 <colgroup>
 <col width="26%" />
 <col width="11%" />
@@ -2253,7 +2326,8 @@ F1.RI %&gt;% select(trait, momsp, between, hybrid, RI) %&gt;%
                 HH = between_hook, HK = hybrid_hook, H_RI = RI_hook, H_AC = ACRI_hook, H_RC = RACRI_hook) %&gt;% 
   kable(caption=&quot;Relative fitness components of hybrids vs. maternal parent. RI, AC, RC follow Sobel &amp; Chen 2014, Ramsey et al. 2003&quot;, digits=3)</code></pre>
 <table style="width:100%;">
-<caption>Relative fitness components of hybrids vs. maternal parent. RI, AC, RC follow Sobel &amp; Chen 2014, Ramsey et al. 2003</caption>
+<caption>Relative fitness components of hybrids vs. maternal parent. RI,
+AC, RC follow Sobel &amp; Chen 2014, Ramsey et al. 2003</caption>
 <colgroup>
 <col width="32%" />
 <col width="6%" />
@@ -2456,7 +2530,8 @@ F1.RI %&gt;% select(trait, momsp, between, hybrid, RI) %&gt;%
 <pre class="r"><code>F1.CRI.m %&gt;% summarize(across(starts_with(&quot;AC&quot;), sum)) %&gt;% rename_with(~str_remove(.,&quot;ACRI_&quot;)) %&gt;% 
   kable(caption=&quot;Total male reproductive isolation = sum of absolute contributions (AC) to RI&quot;, digits=3)</code></pre>
 <table>
-<caption>Total male reproductive isolation = sum of absolute contributions (AC) to RI</caption>
+<caption>Total male reproductive isolation = sum of absolute
+contributions (AC) to RI</caption>
 <thead>
 <tr class="header">
 <th align="right">kaal</th>
@@ -2578,7 +2653,17 @@ F1.inbred %&gt;% select(trait, momsp, between, within, ID) %&gt;%
   select(trait, between_kaal, within_kaal, ID_kaal, between_hook, within_hook, ID_hook) %&gt;% 
   kable(caption=&quot;Inbreeding depression \u03B4 = 1 - (within pop / between pop)&quot;, digits=3)</code></pre>
 <table>
-<caption>Inbreeding depression δ = 1 - (within pop / between pop)</caption>
+<caption>Inbreeding depression δ = 1 - (within pop / between
+pop)</caption>
+<colgroup>
+<col width="32%" />
+<col width="13%" />
+<col width="12%" />
+<col width="8%" />
+<col width="13%" />
+<col width="12%" />
+<col width="8%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">trait</th>
@@ -2728,7 +2813,8 @@ F1.inbred %&gt;% select(trait, momsp, between, within, ID) %&gt;%
                 Hb = between_hook, Hw = within_hook, H_ID = ID_hook, H_AC = ACID_hook, H_RC = RACID_hook) %&gt;% 
   kable(caption=&quot;Relative fitness components of within vs. between population crosses&quot;, digits=3)</code></pre>
 <table style="width:100%;">
-<caption>Relative fitness components of within vs. between population crosses</caption>
+<caption>Relative fitness components of within vs. between population
+crosses</caption>
 <colgroup>
 <col width="32%" />
 <col width="6%" />
@@ -2919,7 +3005,8 @@ F1.inbred %&gt;% select(trait, momsp, between, within, ID) %&gt;%
 <pre class="r"><code>F1.CID.m %&gt;% summarize(across(starts_with(&quot;AC&quot;), sum)) %&gt;% rename_with(~str_remove(.,&quot;ACID_&quot;)) %&gt;% 
   kable(caption=&quot;Total male inbreeding depression = sum of absolute contributions (AC) to ID&quot;, digits=3)</code></pre>
 <table>
-<caption>Total male inbreeding depression = sum of absolute contributions (AC) to ID</caption>
+<caption>Total male inbreeding depression = sum of absolute
+contributions (AC) to ID</caption>
 <thead>
 <tr class="header">
 <th align="right">kaal</th>
@@ -2969,7 +3056,8 @@ ggplot(F1.cumul.isolation, aes(y=fct_rev(stage), color=momsp, x=ID)) +
 <h1>F2 Generation</h1>
 <div id="sample-sizes-1" class="section level2">
 <h2>Sample sizes</h2>
-<p>These sample sizes are the number of rows in the dataset. The rows mean different things in each dataset:</p>
+<p>These sample sizes are the number of rows in the dataset. The rows
+mean different things in each dataset:</p>
 <ul>
 <li>f1seeds = seeds from one pollination</li>
 <li>f1seeds = the mass of ten seeds</li>
@@ -3208,7 +3296,9 @@ F2.test %&gt;% left_join(traits %&gt;% filter(generation==&quot;F2&quot;) %&gt;%
 </div>
 <div id="plots-1" class="section level2">
 <h2>Plots</h2>
-<p>Estimated marginal means with 95% CI are shown as dots. For the continuous variables, these show violin plots of the raw data with median and first and third quartiles.</p>
+<p>Estimated marginal means with 95% CI are shown as dots. For the
+continuous variables, these show violin plots of the raw data with
+median and first and third quartiles.</p>
 <div id="all-crosses" class="section level3">
 <h3>All crosses</h3>
 <pre class="r"><code>momdadcross.levels &lt;- rev(c(&quot;H x H&quot;,&quot;H x HK&quot;,&quot;H x KH&quot;,&quot;H x K&quot;,&quot;HK x H&quot;,&quot;HK x HK&quot;,&quot;HK x KH&quot;,&quot;HK x K&quot;,&quot;KH x H&quot;,&quot;KH x HK&quot;,&quot;KH x KH&quot;,&quot;KH x K&quot;,&quot;K x H&quot;,&quot;K x HK&quot;,&quot;K x KH&quot;,&quot;K x K&quot;))
