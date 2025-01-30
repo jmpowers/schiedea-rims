@@ -26,7 +26,6 @@ pre code {
 ```{r setup, message = FALSE}
 library(tidyverse)
 library(RColorBrewer)
-library(scales)
 library(gridExtra)
 library(glmmTMB)
 library(broom)
@@ -102,6 +101,7 @@ Expand this code to see the model specifications. The models have the following 
 
 ```{r models}
 F1.mod <- list(
+# half.germ.day =        glmmTMB(half.germ.day ~        sxc +           (1|mompid) + (1|dadpid), data=germination),
   firstflower =          glmmTMB(firstflower ~          sxc +           (1|mompid) + (1|dadpid), data=survflr),
   firstinflo.biomass.g = glmmTMB(firstinflo.biomass.g ~ sxc + collect + (1|mompid) + (1|dadpid), data=survflr),
   inflo.biomass.g =      glmmTMB(inflo.biomass.g  ~     sxc + collect + (1|mompid) + (1|dadpid), data=inflobiomass.sum),
@@ -128,10 +128,10 @@ P-values for the overall effect of species and crosstype, or collection date, on
 F1.test <- map_dfr(F1.mod, ~car::Anova(.) %>% tidy(), .id="trait") 
 F1.test %>% left_join(traits %>% filter(generation=="F1") %>% select(trait=yvar, step)) %>% 
   arrange(step) %>% select(-step) %>% 
-  mutate(term=recode(term, sxc = "species and crosstype", collect= "collection date"),
+  mutate(term = recode(term, sxc="species and crosstype", collect="collection date"),
          trait = recode(trait, !!!set_names(traits$ylab[-1], traits$yvar[-1])) %>% 
                str_remove(fixed(" (g)")),
-         p.value=format(p.value,digits=2)) %>% 
+         p.value = format(p.value, digit =2)) %>% 
   kable(digits=1, caption="ANOVA of GLMM (Type III Wald chisquare tests)")
   
 F1.emm <-  map_dfr(F1.mod, ~emmeans(., ~sxc) %>% summary(type="response") %>%  #average over collect date
@@ -143,7 +143,7 @@ F1.emm <-  map_dfr(F1.mod, ~emmeans(., ~sxc) %>% summary(type="response") %>%  #
 Estimated marginal means with 95% CI are shown as dots. For the continuous variables, these show violin plots of the raw data with median and first and third quartiles. For binary variables, colored dots show the proportions of each population x population combination.
 
 ```{r f1plot, fig.width=8.5, fig.height=11}
-F1.traits <- traits %>% filter(generation=="F1",yvar!="viable.per.anther") %>% select(data, yvar, ylab, type)
+F1.traits <- traits %>% filter(generation=="F1", !yvar %in% c("viable.per.anther", "half.germ.day")) %>% select(data, yvar, ylab, type)
 
 F1.contrasts <- tibble(sxc = c("kaal.between","kaal.hybrid","hook.between","hook.hybrid",
                                "kaal.between","kaal.within","hook.between","hook.within"),

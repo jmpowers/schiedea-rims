@@ -4,9 +4,9 @@ library(googlesheets4)
 # common ------------------------------------------------------------------
 
 gs4_auth(email = T)
-traits <- read_sheet("1f487VMTsYzYGn0_daogtTF0nNE7ntoqd0Yh4h9tgyDE", "Traits")
+traits <- read_sheet("1f487VMTsYzYGn0_daogtTF0nNE7ntoqd0Yh4h9tgyDE", "Traits") #RIMs summary
 
-gsheet <- gs4_get("1pYbAnEDw2KfM34l85wlJV6pfAr1DroPj_7GjfApnCq8")
+gsheet <- gs4_get("1pYbAnEDw2KfM34l85wlJV6pfAr1DroPj_7GjfApnCq8") #RIMs data
 datanames <- sheet_names(gsheet)[-c(1,2,4)]#all except crosses, seeds_full, germination_full
 
 species.pops <- tibble(

@@ -9,6 +9,9 @@
       stroke-linejoin: round;
       stroke-miterlimit: 10.00;
     }
+    .svglite text {
+      white-space: pre;
+    }
   ]]></style>
 </defs>
 <rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
@@ -20,68 +23,68 @@
 <g clip-path='url(#cpMC4wMHwzNjAuMDB8MC4wMHwyODguMDA=)'>
 </g>
 <defs>
-  <clipPath id='cpMTU4LjM3fDM1NC41Mnw0NC42OHwyMzcuMDE='>
-    <rect x='158.37' y='44.68' width='196.15' height='192.33' />
+  <clipPath id='cpMTU4LjI0fDM1NC41Mnw0NC42OHwyMzcuMjk='>
+    <rect x='158.24' y='44.68' width='196.28' height='192.61' />
   </clipPath>
 </defs>
-<g clip-path='url(#cpMTU4LjM3fDM1NC41Mnw0NC42OHwyMzcuMDE=)'>
-<polyline points='207.81,237.01 207.81,44.68 ' style='stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='288.87,237.01 288.87,44.68 ' style='stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='158.37,222.93 354.52,222.93 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='158.37,199.48 354.52,199.48 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='158.37,176.02 354.52,176.02 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='158.37,152.57 354.52,152.57 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='158.37,129.11 354.52,129.11 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='158.37,105.66 354.52,105.66 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='158.37,82.20 354.52,82.20 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='158.37,58.75 354.52,58.75 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='167.28,237.01 167.28,44.68 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='248.34,237.01 248.34,44.68 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='329.39,237.01 329.39,44.68 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<line x1='167.28' y1='237.01' x2='167.28' y2='44.68' style='stroke-width: 1.07; stroke-dasharray: 5.69,5.69; stroke-linecap: butt;' />
-<line x1='329.39' y1='237.01' x2='329.39' y2='44.68' style='stroke-width: 1.07; stroke-linecap: butt;' />
-<polyline points='174.36,58.75 192.76,82.20 197.32,105.66 198.45,129.11 199.82,152.57 199.43,176.02 209.89,199.48 212.38,222.93 ' style='stroke-width: 1.07; stroke: #756BB1; stroke-linecap: butt;' />
-<polyline points='176.55,58.75 185.27,82.20 216.10,105.66 222.06,129.11 222.06,152.57 214.60,176.02 219.29,199.48 220.42,222.93 ' style='stroke-width: 1.07; stroke: #31A354; stroke-linecap: butt;' />
-<circle cx='176.55' cy='58.75' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
-<circle cx='174.36' cy='58.75' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
-<circle cx='185.27' cy='82.20' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
-<circle cx='192.76' cy='82.20' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
-<circle cx='216.10' cy='105.66' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
-<circle cx='197.32' cy='105.66' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
-<circle cx='222.06' cy='129.11' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
-<circle cx='198.45' cy='129.11' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
-<circle cx='222.06' cy='152.57' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
-<circle cx='199.82' cy='152.57' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
-<circle cx='214.60' cy='176.02' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
-<circle cx='199.43' cy='176.02' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
-<circle cx='219.29' cy='199.48' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
-<circle cx='209.89' cy='199.48' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
-<circle cx='220.42' cy='222.93' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
-<circle cx='212.38' cy='222.93' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
+<g clip-path='url(#cpMTU4LjI0fDM1NC41Mnw0NC42OHwyMzcuMjk=)'>
+<polyline points='207.71,237.29 207.71,44.68 ' style='stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='288.82,237.29 288.82,44.68 ' style='stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='158.24,223.19 354.52,223.19 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='158.24,199.70 354.52,199.70 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='158.24,176.22 354.52,176.22 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='158.24,152.73 354.52,152.73 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='158.24,129.24 354.52,129.24 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='158.24,105.75 354.52,105.75 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='158.24,82.26 354.52,82.26 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='158.24,58.77 354.52,58.77 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='167.16,237.29 167.16,44.68 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='248.27,237.29 248.27,44.68 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='329.38,237.29 329.38,44.68 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<line x1='167.16' y1='237.29' x2='167.16' y2='44.68' style='stroke-width: 1.07; stroke-dasharray: 5.69,5.69; stroke-linecap: butt;' />
+<line x1='329.38' y1='237.29' x2='329.38' y2='44.68' style='stroke-width: 1.07; stroke-linecap: butt;' />
+<polyline points='174.24,58.77 192.65,82.26 197.48,105.75 198.61,129.24 199.98,152.73 199.59,176.22 210.01,199.70 212.50,223.19 ' style='stroke-width: 1.07; stroke: #756BB1; stroke-linecap: butt;' />
+<polyline points='176.43,58.77 185.16,82.26 216.16,105.75 222.11,129.24 222.11,152.73 214.67,176.22 219.25,199.70 220.38,223.19 ' style='stroke-width: 1.07; stroke: #31A354; stroke-linecap: butt;' />
+<circle cx='176.43' cy='58.77' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
+<circle cx='174.24' cy='58.77' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
+<circle cx='185.16' cy='82.26' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
+<circle cx='192.65' cy='82.26' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
+<circle cx='216.16' cy='105.75' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
+<circle cx='197.48' cy='105.75' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
+<circle cx='222.11' cy='129.24' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
+<circle cx='198.61' cy='129.24' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
+<circle cx='222.11' cy='152.73' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
+<circle cx='199.98' cy='152.73' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
+<circle cx='214.67' cy='176.22' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
+<circle cx='199.59' cy='176.22' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
+<circle cx='219.25' cy='199.70' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
+<circle cx='210.01' cy='199.70' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
+<circle cx='220.38' cy='223.19' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
+<circle cx='212.50' cy='223.19' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
 </g>
 <g clip-path='url(#cpMC4wMHwzNjAuMDB8MC4wMHwyODguMDA=)'>
-<text x='153.44' y='226.14' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;'>Pollen viability</text>
-<text x='153.44' y='202.69' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;'>Pollen grains per anther</text>
-<text x='153.44' y='179.23' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;'>Flower number</text>
-<text x='153.44' y='155.78' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;'>Flowering if survived</text>
-<text x='153.44' y='132.32' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;'>Survival</text>
-<text x='153.44' y='108.87' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;'>Germination</text>
-<text x='153.44' y='85.41' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;'>Viable seeds if capsule formed</text>
-<text x='153.44' y='61.96' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;'>Capsule formation</text>
-<text x='167.28' y='248.35' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;'>0</text>
-<text x='167.28' y='257.86' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;'>neutral</text>
-<text x='248.34' y='248.35' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;'>0.5</text>
-<text x='329.39' y='248.35' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;'>1</text>
-<text x='329.39' y='257.86' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;'>inbreeding</text>
-<text x='329.39' y='267.36' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: Arial;'>depression</text>
-<text x='256.44' y='280.10' text-anchor='middle' style='font-size: 11.00px; font-family: Arial;'>Cumulative inbreeding depression</text>
-<text transform='translate(13.50,140.84) rotate(-90)' text-anchor='middle' style='font-size: 11.00px; font-family: Arial;'>Fitness component</text>
-<text x='169.65' y='23.61' style='font-size: 11.00px; font-family: Arial;'>Species</text>
-<line x1='215.98' y1='19.60' x2='229.80' y2='19.60' style='stroke-width: 1.07; stroke: #31A354; stroke-linecap: butt;' />
-<circle cx='222.89' cy='19.60' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
-<line x1='281.74' y1='19.60' x2='295.56' y2='19.60' style='stroke-width: 1.07; stroke: #756BB1; stroke-linecap: butt;' />
-<circle cx='288.65' cy='19.60' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
-<text x='237.01' y='22.81' style='font-size: 8.80px; font-style: italic; font-family: Arial;'>S. kaalae</text>
-<text x='302.77' y='22.81' style='font-size: 8.80px; font-style: italic; font-family: Arial;'>S. hookeri</text>
+<text x='153.31' y='226.40' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Arial";'>Pollen viability</text>
+<text x='153.31' y='202.91' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Arial";'>Pollen grains per anther</text>
+<text x='153.31' y='179.42' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Arial";'>Flower number</text>
+<text x='153.31' y='155.93' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Arial";'>Flowering if survived</text>
+<text x='153.31' y='132.45' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Arial";'>Survival</text>
+<text x='153.31' y='108.96' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Arial";'>Germination</text>
+<text x='153.31' y='85.47' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Arial";'>Viable seeds if capsule formed</text>
+<text x='153.31' y='61.98' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Arial";'>Capsule formation</text>
+<text x='167.16' y='248.63' text-anchor='middle' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Arial";'>0</text>
+<text x='167.16' y='258.14' text-anchor='middle' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Arial";'>neutral</text>
+<text x='248.27' y='248.63' text-anchor='middle' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Arial";'>0.5</text>
+<text x='329.38' y='248.63' text-anchor='middle' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Arial";'>1</text>
+<text x='329.38' y='258.14' text-anchor='middle' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Arial";'>inbreeding</text>
+<text x='329.38' y='267.64' text-anchor='middle' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Arial";'>depression</text>
+<text x='256.38' y='280.23' text-anchor='middle' style='font-size: 11.00px; font-family: "Arial";'>Cumulative inbreeding depression</text>
+<text transform='translate(13.50,140.98) rotate(-90)' text-anchor='middle' style='font-size: 11.00px; font-family: "Arial";'>Fitness component</text>
+<text x='164.77' y='23.61' style='font-size: 11.00px; font-family: "Arial";'>Species</text>
+<line x1='214.32' y1='19.60' x2='228.14' y2='19.60' style='stroke-width: 1.07; stroke: #756BB1; stroke-linecap: butt;' />
+<circle cx='221.23' cy='19.60' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #756BB1;' />
+<line x1='282.87' y1='19.60' x2='296.69' y2='19.60' style='stroke-width: 1.07; stroke: #31A354; stroke-linecap: butt;' />
+<circle cx='289.78' cy='19.60' r='2.49' style='stroke-width: 0.71; stroke: none; fill: #31A354;' />
+<text x='235.35' y='22.81' style='font-size: 8.80px; font-style: italic; font-family: "Arial";'>S. kaalae</text>
+<text x='303.90' y='22.81' style='font-size: 8.80px; font-style: italic; font-family: "Arial";'>S. hookeri</text>
 </g>
 </svg>

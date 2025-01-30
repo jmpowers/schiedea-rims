@@ -11,7 +11,7 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2025-01-27" />
+<meta name="date" content="2025-01-29" />
 
 <title>Schiedea reproductive isolating mechanisms</title>
 
@@ -254,7 +254,7 @@ div.tocify {
 mechanisms</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John
 Powers</a></h4>
-<h4 class="date">2025-01-27</h4>
+<h4 class="date">2025-01-29</h4>
 
 </div>
 
@@ -270,7 +270,6 @@ pre code {
 </style>
 <pre class="r"><code>library(tidyverse)
 library(RColorBrewer)
-library(scales)
 library(gridExtra)
 library(glmmTMB)
 library(broom)
@@ -334,124 +333,131 @@ name of the dataset for historical reasons.</p>
 </tr>
 <tr class="even">
 <td align="left">F1</td>
+<td align="left">Median germination time (d)</td>
+<td align="left">half.germ.day</td>
+<td align="left">germination</td>
+<td align="left">continuous</td>
+</tr>
+<tr class="odd">
+<td align="left">F1</td>
 <td align="left">Survival</td>
 <td align="left">alive</td>
 <td align="left">survflr</td>
 <td align="left">binary</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">F1</td>
 <td align="left">Vegetative biomass (g)</td>
 <td align="left">veg.biomass.g</td>
 <td align="left">vegbiomass</td>
 <td align="left">continuous</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">F1</td>
 <td align="left">Flowering if survived</td>
 <td align="left">flowered</td>
 <td align="left">survflr.alive</td>
 <td align="left">binary</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">F1</td>
 <td align="left">Days to flower</td>
 <td align="left">firstflower</td>
 <td align="left">survflr</td>
 <td align="left">continuous</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">F1</td>
 <td align="left">First inflorescence biomass (g)</td>
 <td align="left">firstinflo.biomass.g</td>
 <td align="left">survflr</td>
 <td align="left">continuous</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">F1</td>
 <td align="left">Inflorescence biomass (g)</td>
 <td align="left">inflo.biomass.g</td>
 <td align="left">inflobiomass.sum</td>
 <td align="left">continuous</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">F1</td>
 <td align="left">Flower number</td>
 <td align="left">flower.number</td>
 <td align="left">inflobiomass.sum</td>
 <td align="left">continuous</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">F1</td>
 <td align="left">Pollen grains per anther</td>
 <td align="left">total.per.anther</td>
 <td align="left">pollen</td>
 <td align="left">continuous</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">F1</td>
 <td align="left">Pollen viability</td>
 <td align="left">prop.viable</td>
 <td align="left">pollen</td>
 <td align="left">binary</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">F1</td>
 <td align="left">Viable pollen grains per anther</td>
 <td align="left">viable.per.anther</td>
 <td align="left">pollen</td>
 <td align="left">continuous</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">F2</td>
 <td align="left">Capsule formation</td>
 <td align="left">capsule.formed</td>
 <td align="left">f1seeds</td>
 <td align="left">binary</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">F2</td>
 <td align="left">Viable seeds if capsule formed</td>
 <td align="left">viable.seeds</td>
 <td align="left">f1seeds.nonzero</td>
 <td align="left">continuous</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">F2</td>
 <td align="left">Seed mass (mg)</td>
 <td align="left">seed.mass.mg</td>
 <td align="left">f1seedmass</td>
 <td align="left">continuous</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">F2</td>
 <td align="left">Pollen grains per anther</td>
 <td align="left">total.per.anther</td>
 <td align="left">f2pollen</td>
 <td align="left">continuous</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">F2</td>
 <td align="left">Pollen viability</td>
 <td align="left">prop.viable</td>
 <td align="left">f2pollen</td>
 <td align="left">binary</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">F2</td>
 <td align="left">Viable pollen grains per anther</td>
 <td align="left">viable.per.anther</td>
 <td align="left">f2pollen</td>
 <td align="left">continuous</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">F3</td>
 <td align="left">Capsule formation</td>
 <td align="left">capsule.formed</td>
 <td align="left">f1seeds</td>
 <td align="left">binary</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">F3</td>
 <td align="left">Viable seeds if capsule formed</td>
 <td align="left">viable.seeds</td>
@@ -1776,6 +1782,7 @@ truncated_nbinom1 (quasi-Poisson truncated at zero for nonzero seed
 counts), betabinomial (for binary variables)</li>
 </ul>
 <pre class="r"><code>F1.mod &lt;- list(
+# half.germ.day =        glmmTMB(half.germ.day ~        sxc +           (1|mompid) + (1|dadpid), data=germination),
   firstflower =          glmmTMB(firstflower ~          sxc +           (1|mompid) + (1|dadpid), data=survflr),
   firstinflo.biomass.g = glmmTMB(firstinflo.biomass.g ~ sxc + collect + (1|mompid) + (1|dadpid), data=survflr),
   inflo.biomass.g =      glmmTMB(inflo.biomass.g  ~     sxc + collect + (1|mompid) + (1|dadpid), data=inflobiomass.sum),
@@ -1800,10 +1807,10 @@ collection date, on the trait.</p>
 <pre class="r"><code>F1.test &lt;- map_dfr(F1.mod, ~car::Anova(.) %&gt;% tidy(), .id=&quot;trait&quot;) 
 F1.test %&gt;% left_join(traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;% select(trait=yvar, step)) %&gt;% 
   arrange(step) %&gt;% select(-step) %&gt;% 
-  mutate(term=recode(term, sxc = &quot;species and crosstype&quot;, collect= &quot;collection date&quot;),
+  mutate(term = recode(term, sxc=&quot;species and crosstype&quot;, collect=&quot;collection date&quot;),
          trait = recode(trait, !!!set_names(traits$ylab[-1], traits$yvar[-1])) %&gt;% 
                str_remove(fixed(&quot; (g)&quot;)),
-         p.value=format(p.value,digits=2)) %&gt;% 
+         p.value = format(p.value, digit =2)) %&gt;% 
   kable(digits=1, caption=&quot;ANOVA of GLMM (Type III Wald chisquare tests)&quot;)</code></pre>
 <table>
 <caption>ANOVA of GLMM (Type III Wald chisquare tests)</caption>
@@ -1841,9 +1848,9 @@ F1.test %&gt;% left_join(traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;%
 <tr class="odd">
 <td align="left">Germination</td>
 <td align="left">species and crosstype</td>
-<td align="right">147.8</td>
+<td align="right">149.7</td>
 <td align="right">5</td>
-<td align="left">4.0e-30</td>
+<td align="left">1.5e-30</td>
 </tr>
 <tr class="even">
 <td align="left">Survival</td>
@@ -1925,9 +1932,9 @@ F1.test %&gt;% left_join(traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;%
 <tr class="odd">
 <td align="left">Pollen grains per anther</td>
 <td align="left">species and crosstype</td>
-<td align="right">13.1</td>
+<td align="right">12.8</td>
 <td align="right">5</td>
-<td align="left">2.2e-02</td>
+<td align="left">2.6e-02</td>
 </tr>
 <tr class="even">
 <td align="left">Pollen viability</td>
@@ -1954,7 +1961,7 @@ F1.test %&gt;% left_join(traits %&gt;% filter(generation==&quot;F1&quot;) %&gt;%
 continuous variables, these show violin plots of the raw data with
 median and first and third quartiles. For binary variables, colored dots
 show the proportions of each population x population combination.</p>
-<pre class="r"><code>F1.traits &lt;- traits %&gt;% filter(generation==&quot;F1&quot;,yvar!=&quot;viable.per.anther&quot;) %&gt;% select(data, yvar, ylab, type)
+<pre class="r"><code>F1.traits &lt;- traits %&gt;% filter(generation==&quot;F1&quot;, !yvar %in% c(&quot;viable.per.anther&quot;, &quot;half.germ.day&quot;)) %&gt;% select(data, yvar, ylab, type)
 
 F1.contrasts &lt;- tibble(sxc = c(&quot;kaal.between&quot;,&quot;kaal.hybrid&quot;,&quot;hook.between&quot;,&quot;hook.hybrid&quot;,
                                &quot;kaal.between&quot;,&quot;kaal.within&quot;,&quot;hook.between&quot;,&quot;hook.within&quot;),
@@ -2182,12 +2189,12 @@ standard error</caption>
 </tr>
 <tr class="odd">
 <td align="left">Germination</td>
-<td align="left">0.536 ± 0.071</td>
+<td align="left">0.535 ± 0.07</td>
 <td align="left">0.682 ± 0.051</td>
-<td align="left">0.109 ± 0.023</td>
-<td align="left">0.706 ± 0.048</td>
-<td align="left">0.688 ± 0.057</td>
-<td align="left">0.665 ± 0.063</td>
+<td align="left">0.108 ± 0.023</td>
+<td align="left">0.706 ± 0.047</td>
+<td align="left">0.688 ± 0.056</td>
+<td align="left">0.664 ± 0.063</td>
 </tr>
 <tr class="even">
 <td align="left">Survival</td>
@@ -2256,10 +2263,10 @@ standard error</caption>
 <td align="left">Pollen grains per anther</td>
 <td align="left">11400 ± 700</td>
 <td align="left">11900 ± 600</td>
-<td align="left">9580 ± 630</td>
+<td align="left">9590 ± 640</td>
 <td align="left">12300 ± 500</td>
 <td align="left">10800 ± 800</td>
-<td align="left">9910 ± 820</td>
+<td align="left">9940 ± 820</td>
 </tr>
 <tr class="even">
 <td align="left">Pollen viability</td>
@@ -2368,7 +2375,7 @@ AC, RC follow Sobel &amp; Chen 2014, Ramsey et al. 2003</caption>
 <td align="right">0.795</td>
 <td align="right">0.114</td>
 <td align="right">0.114</td>
-<td align="right">0.352</td>
+<td align="right">0.350</td>
 </tr>
 <tr class="even">
 <td align="left">Viable seeds if capsule formed</td>
@@ -2381,19 +2388,19 @@ AC, RC follow Sobel &amp; Chen 2014, Ramsey et al. 2003</caption>
 <td align="right">0.476</td>
 <td align="right">0.355</td>
 <td align="right">0.315</td>
-<td align="right">0.972</td>
+<td align="right">0.968</td>
 </tr>
 <tr class="odd">
 <td align="left">Germination</td>
 <td align="right">1.000</td>
-<td align="right">0.160</td>
-<td align="right">0.725</td>
+<td align="right">0.159</td>
+<td align="right">0.726</td>
 <td align="right">0.592</td>
 <td align="right">0.684</td>
-<td align="right">0.974</td>
+<td align="right">0.975</td>
 <td align="right">1.000</td>
 <td align="right">-0.013</td>
-<td align="right">-0.008</td>
+<td align="right">-0.007</td>
 <td align="right">-0.023</td>
 </tr>
 <tr class="even">
@@ -2433,7 +2440,7 @@ AC, RC follow Sobel &amp; Chen 2014, Ramsey et al. 2003</caption>
 <td align="right">0.952</td>
 <td align="right">0.024</td>
 <td align="right">0.014</td>
-<td align="right">0.045</td>
+<td align="right">0.044</td>
 </tr>
 <tr class="odd">
 <td align="left">First inflorescence biomass</td>
@@ -2472,20 +2479,20 @@ AC, RC follow Sobel &amp; Chen 2014, Ramsey et al. 2003</caption>
 <td align="right">1.000</td>
 <td align="right">-0.507</td>
 <td align="right">-0.293</td>
-<td align="right">-0.906</td>
+<td align="right">-0.902</td>
 </tr>
 <tr class="even">
 <td align="left">Pollen grains per anther</td>
 <td align="right">1.000</td>
-<td align="right">0.806</td>
-<td align="right">0.107</td>
-<td align="right">0.025</td>
+<td align="right">0.808</td>
+<td align="right">0.106</td>
+<td align="right">0.024</td>
 <td align="right">0.028</td>
-<td align="right">0.877</td>
+<td align="right">0.881</td>
 <td align="right">1.000</td>
-<td align="right">-0.066</td>
-<td align="right">-0.057</td>
-<td align="right">-0.176</td>
+<td align="right">-0.063</td>
+<td align="right">-0.055</td>
+<td align="right">-0.170</td>
 </tr>
 <tr class="odd">
 <td align="left">Pollen viability</td>
@@ -2498,7 +2505,7 @@ AC, RC follow Sobel &amp; Chen 2014, Ramsey et al. 2003</caption>
 <td align="right">0.573</td>
 <td align="right">0.271</td>
 <td align="right">0.252</td>
-<td align="right">0.779</td>
+<td align="right">0.774</td>
 </tr>
 <tr class="even">
 <td align="left">Viable pollen grains per anther</td>
@@ -2540,8 +2547,8 @@ contributions (AC) to RI</caption>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">0.865</td>
-<td align="right">0.323</td>
+<td align="right">0.866</td>
+<td align="right">0.325</td>
 </tr>
 </tbody>
 </table>
@@ -2697,11 +2704,11 @@ pop)</caption>
 <tr class="odd">
 <td align="left">Germination</td>
 <td align="right">1.000</td>
-<td align="right">0.786</td>
-<td align="right">0.214</td>
+<td align="right">0.785</td>
+<td align="right">0.215</td>
 <td align="right">1.000</td>
-<td align="right">0.967</td>
-<td align="right">0.033</td>
+<td align="right">0.965</td>
+<td align="right">0.035</td>
 </tr>
 <tr class="even">
 <td align="left">Survival</td>
@@ -2760,8 +2767,8 @@ pop)</caption>
 <tr class="even">
 <td align="left">Pollen grains per anther</td>
 <td align="right">1.000</td>
-<td align="right">0.959</td>
-<td align="right">0.041</td>
+<td align="right">0.960</td>
+<td align="right">0.040</td>
 <td align="right">1.000</td>
 <td align="right">0.920</td>
 <td align="right">0.080</td>
@@ -2855,7 +2862,7 @@ crosses</caption>
 <td align="right">0.956</td>
 <td align="right">0.044</td>
 <td align="right">0.044</td>
-<td align="right">0.157</td>
+<td align="right">0.156</td>
 </tr>
 <tr class="even">
 <td align="left">Viable seeds if capsule formed</td>
@@ -2868,20 +2875,20 @@ crosses</caption>
 <td align="right">0.881</td>
 <td align="right">0.119</td>
 <td align="right">0.113</td>
-<td align="right">0.408</td>
+<td align="right">0.406</td>
 </tr>
 <tr class="odd">
 <td align="left">Germination</td>
 <td align="right">1.000</td>
-<td align="right">0.786</td>
-<td align="right">0.214</td>
-<td align="right">0.190</td>
-<td align="right">0.580</td>
+<td align="right">0.785</td>
+<td align="right">0.215</td>
+<td align="right">0.191</td>
+<td align="right">0.583</td>
 <td align="right">1.000</td>
-<td align="right">0.967</td>
-<td align="right">0.033</td>
-<td align="right">0.028</td>
-<td align="right">0.101</td>
+<td align="right">0.965</td>
+<td align="right">0.035</td>
+<td align="right">0.030</td>
+<td align="right">0.107</td>
 </tr>
 <tr class="even">
 <td align="left">Survival</td>
@@ -2964,15 +2971,15 @@ crosses</caption>
 <tr class="even">
 <td align="left">Pollen grains per anther</td>
 <td align="right">1.000</td>
-<td align="right">0.959</td>
-<td align="right">0.041</td>
-<td align="right">0.029</td>
-<td align="right">0.088</td>
+<td align="right">0.960</td>
+<td align="right">0.040</td>
+<td align="right">0.028</td>
+<td align="right">0.086</td>
 <td align="right">1.000</td>
 <td align="right">0.920</td>
 <td align="right">0.080</td>
 <td align="right">0.064</td>
-<td align="right">0.232</td>
+<td align="right">0.230</td>
 </tr>
 <tr class="odd">
 <td align="left">Pollen viability</td>
@@ -3016,7 +3023,7 @@ contributions (AC) to ID</caption>
 <tbody>
 <tr class="odd">
 <td align="right">0.328</td>
-<td align="right">0.278</td>
+<td align="right">0.28</td>
 </tr>
 </tbody>
 </table>
