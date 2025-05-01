@@ -45,9 +45,11 @@ typenames <- set_names(c("Intraspecific","Competitive","Interspecific"),c("intra
 type_pal <- set_names(brewer.pal(6,"Pastel1")[c(2,3,5)], names(typenames))
 type_pal_dark <- set_names(brewer.pal(6,"Set1")[c(2,3,5)], names(typenames))
 propnames <- set_names(c("Capsule formation","Seed number","Germination","Survival","Hybrid"), c("capsule.formed","sds","prop.germ", "prop.alive", "prop.hybrid"))
-vigornames <- c(hybrid.vigor.germsurv="Hybrid/intraspecific fitness", 
+vigornames <- c(hybrid.vigor.germsurv="Hybrid/intraspecific fitness:\ngermination and survival", 
+                hybrid.vigor.all="Hybrid/intraspecific fitness:\nseeds, germination, survivial", 
                 prop.hybrid="Proportion of hybrid offspring", 
-                prop.hybrid.sds = "Proporiton of hybrid seeds")
+                prop.hybrid.sds = "Proporiton of hybrid seeds",
+                prop.hybrid.zyg = "Proporiton of hybrid zygotes")
 
 momid.fixes <- read_tsv("data/Pollen competition - momid_fixes.tsv")
 momid.fixes.seeds <- momid.fixes %>% drop_na(momid_fixed) %>% select(momid, momid_fixed) %>% deframe()
@@ -250,7 +252,7 @@ comp.ranef %>% select(-sd) %>% pivot_wider(names_from="trait", values_from="esti
 
 ## Inference 
 
-```{r inference, fig.width=5, fig.height=3.5}
+```{r inference, fig.width=10, fig.height=3.5}
 comp.tests <- map_dfr(comp.mod[-5], ~multcomp::glht(.x, linfct = multcomp::mcp(sxc = paste0(sp_pairs,".inter - ",sp_pairs,".intra = 0"))) %>% 
                           multcomp:::summary.glht(test=multcomp::adjusted(type="fdr")) %>% tidy(), .id="trait") %>% 
     mutate(momsp = factor(str_extract(contrast, "([^\\.]+)"), levels=sp_pairs), 
@@ -298,11 +300,12 @@ hybrid.test <- surv %>% filter(type=="mixed") %>%
                 labels = c("***", "**", "*", "n.s."), right = FALSE)) %>% 
   left_join(postzygotic.ratios %>% pivot_wider(id_cols = momsp, names_from=trait, values_from = hybrid.vigor)) %>% 
   mutate(hybrid.vigor.all = capsule.formed * sds * prop.germ * prop.alive,
+         prop.hybrid.zyg = prop.hybrid / hybrid.vigor.all, #estimated number of fertilized zygotes that are hybrids
          hybrid.vigor.germsurv = prop.germ * prop.alive, 
-         prop.hybrid.sds = prop.hybrid / hybrid.vigor.germsurv)
+         prop.hybrid.sds = prop.hybrid / hybrid.vigor.germsurv) #estimated number of planted seeds that are hybrids
 
-hybrid.test %>% select(momsp, prop.hybrid, hybrid.vigor.germsurv, prop.hybrid.sds) %>% 
-  pivot_longer(2:4, names_to="trait") %>% 
+hybrid.test %>% select(momsp, prop.hybrid, hybrid.vigor.germsurv, prop.hybrid.sds, hybrid.vigor.all, prop.hybrid.zyg) %>% 
+  pivot_longer(-momsp, names_to="trait") %>% 
   ggplot(aes(y=fct_rev(momsp), x=trait, fill=log2(value))) +
   geom_tile() + geom_text(aes(label=format(value,digits=1))) + scale_fill_gradient2(guide="none", midpoint=-1) + 
   scale_x_discrete(labels=vigornames, position="top")+
@@ -559,10 +562,10 @@ The range of phylogenetic distances and style lengths in the study. The species 
 
 To estimate the proportion of viable seeds sired by heterospecific pollen, divide the surviving hybrid ratios in mixed crosses by the "hybrid vigor": the germination and survival of hybrid seeds relative to conspecific seeds. 
 
-```{r fertilized, fig.width=6.5, fig.height=8}
+```{r fertilized, fig.width=6.5, fig.height=12}
 hybrid.phylostyle <- left_join(hybrid.test, phylodist) %>% 
   left_join(select(styles.emm, momsp, style_length_mm, style_diff_rel)) %>% 
-  pivot_longer(c(prop.hybrid, hybrid.vigor.germsurv, prop.hybrid.sds)) 
+  pivot_longer(c(prop.hybrid, hybrid.vigor.germsurv, prop.hybrid.sds, hybrid.vigor.all, prop.hybrid.zyg)) 
 
 hybrid.phylostyle %>% pivot_longer(c(pd, style_length_mm), names_to = "xname", values_to = "xvalue") %>% 
   ggplot(aes(x=xvalue, y=value)) + 
