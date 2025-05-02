@@ -46,10 +46,7 @@ type_pal <- set_names(brewer.pal(6,"Pastel1")[c(2,3,5)], names(typenames))
 type_pal_dark <- set_names(brewer.pal(6,"Set1")[c(2,3,5)], names(typenames))
 propnames <- set_names(c("Capsule formation","Seed number","Germination","Survival","Hybrid"), c("capsule.formed","sds","prop.germ", "prop.alive", "prop.hybrid"))
 vigornames <- c(hybrid.vigor.germsurv="Hybrid/intraspecific fitness:\ngermination and survival", 
-                hybrid.vigor.all="Hybrid/intraspecific fitness:\nseeds, germination, survivial", 
-                prop.hybrid="Proportion of hybrid offspring", 
-                prop.hybrid.sds = "Proporiton of hybrid seeds",
-                prop.hybrid.zyg = "Proporiton of hybrid zygotes")
+                hybrid.vigor.all="Hybrid/intraspecific fitness:\nseeds, germination, survivial")
 
 momid.fixes <- read_tsv("data/Pollen competition - momid_fixes.tsv")
 momid.fixes.seeds <- momid.fixes %>% drop_na(momid_fixed) %>% select(momid, momid_fixed) %>% deframe()
@@ -289,6 +286,16 @@ ggplot(postzygotic.ratios, aes(y=fct_rev(momsp), x=trait, fill=log2(hybrid.vigor
 #doesn't work, compares all to the first level (hookeri), and glht doesn't support comparison to a constant
 #hybrid.half <- multcomp::glht(comp.mod$prop.hybrid, multcomp::mcp(sxc = paste0(sp_pairs[-7],".mixed = 0")))
 #compare to null of 50% hybrids, since pollen mixtures were 50-50
+
+# function that takes p = proportion of hybrids and 
+# W = relative fitness of hybrids = absolute fitness of hybrids / absolute fitness of intraspecifics
+# and returns the proportion of hybrids in the previous life stage.
+# based on solving the following for pp (previous proportion):
+# p = pp W / (pp W + 1 - pp)
+# 1 - pp represents the previous proportion of intraspecifics
+# see https://www.zoology.ubc.ca/~otto/PopGen500/Lecture1/Overheads.html
+goback <- function(p, W) p/(p + W - p*W)
+
 hybrid.test <- surv %>% filter(type=="mixed") %>% 
   group_by(momsp, type, dadsp) %>% 
   summarize(total=sum(total), alive=sum(alive), hybrid=sum(hybrid), crosses=n(), .groups="drop") %>% 
@@ -299,17 +306,33 @@ hybrid.test <- surv %>% filter(type=="mixed") %>%
          stars = cut(p.adj, breaks = c(-Inf, 0.01, 0.05, 0.10, Inf), 
                 labels = c("***", "**", "*", "n.s."), right = FALSE)) %>% 
   left_join(postzygotic.ratios %>% pivot_wider(id_cols = momsp, names_from=trait, values_from = hybrid.vigor)) %>% 
-  mutate(hybrid.vigor.all = capsule.formed * sds * prop.germ * prop.alive,
-         prop.hybrid.zyg = prop.hybrid / hybrid.vigor.all, #estimated number of fertilized zygotes that are hybrids
-         hybrid.vigor.germsurv = prop.germ * prop.alive, 
-         prop.hybrid.sds = prop.hybrid / hybrid.vigor.germsurv) #estimated number of planted seeds that are hybrids
+  mutate(hybrid.vigor.all = capsule.formed * sds * prop.germ * prop.alive, #these are all inter/intra relative fitnesses (hybrid vigor)
+         prop.hybrid.sdl = goback(prop.hybrid, prop.alive), #seedling stage
+         prop.hybrid.sds = goback(prop.hybrid.sdl, prop.germ), #seed stage
+         prop.hybrid.cap = goback(prop.hybrid.sds, sds), #capsule stage
+         prop.hybrid.zyg = goback(prop.hybrid.cap, capsule.formed)) #zygote stage
 
-hybrid.test %>% select(momsp, prop.hybrid, hybrid.vigor.germsurv, prop.hybrid.sds, hybrid.vigor.all, prop.hybrid.zyg) %>% 
+propnames <- c(prop.hybrid =     "Hybrid plants", 
+               prop.hybrid.sdl = "Hybrid seedlings",
+               prop.hybrid.sds = "Hybrid seeds",
+               prop.hybrid.cap = "Hybrid capsules",#term is not accurate
+               prop.hybrid.zyg = "Hybrid zygotes")
+
+hybrid.test %>% select(momsp, all_of(names(propnames))) %>% 
   pivot_longer(-momsp, names_to="trait") %>% 
   ggplot(aes(y=fct_rev(momsp), x=trait, fill=log2(value))) +
   geom_tile() + geom_text(aes(label=format(value,digits=1))) + scale_fill_gradient2(guide="none", midpoint=-1) + 
-  scale_x_discrete(labels=vigornames, position="top")+
+  scale_x_discrete(labels=propnames, position="top")+
   theme(axis.title = element_blank(), axis.text.y=element_text(color=sp_pal_dark, face="italic"))
+
+hybrid.test %>% select(momsp, all_of(names(propnames))) %>% 
+  pivot_longer(-momsp, names_to="trait") %>% mutate(trait = factor(trait, levels = rev(names(propnames)))) %>% 
+  ggplot(aes(color=momsp, x=trait, y=value, group=momsp)) + 
+  geom_hline(yintercept=0.5, linetype=2)+
+  geom_path(linewidth=2) + geom_point(size=4) +
+  scale_color_brewer("Maternal species", palette="Paired") + scale_x_discrete(labels=propnames, position="top")+
+  theme(axis.title = element_blank(), legend.text=element_text(face="italic")) 
+#TODO colors and labels don't match
 ```
 
 # Plots
@@ -565,12 +588,12 @@ To estimate the proportion of viable seeds sired by heterospecific pollen, divid
 ```{r fertilized, fig.width=6.5, fig.height=12}
 hybrid.phylostyle <- left_join(hybrid.test, phylodist) %>% 
   left_join(select(styles.emm, momsp, style_length_mm, style_diff_rel)) %>% 
-  pivot_longer(c(prop.hybrid, hybrid.vigor.germsurv, prop.hybrid.sds, hybrid.vigor.all, prop.hybrid.zyg)) 
+  pivot_longer(c(prop.hybrid, prop.hybrid.sds, hybrid.vigor.all, prop.hybrid.zyg)) 
 
 hybrid.phylostyle %>% pivot_longer(c(pd, style_length_mm), names_to = "xname", values_to = "xvalue") %>% 
   ggplot(aes(x=xvalue, y=value)) + 
   facet_grid(name ~ xname, scales="free", switch="both", 
-             labeller=as_labeller(c(vigornames, style_length_mm = "Style length (mm)", 
+             labeller=as_labeller(c(vigornames, propnames, style_length_mm = "Style length (mm)", 
                                     pd="Phylogenetic distance (mutations/site)"))) + 
   geom_hline(aes(yintercept=if_else(name=="hybrid.vigor.germsurv",1,0.5)), linetype=2)+
   geom_smooth(aes(linetype=if_else(xname=="pd","yes","no")), method="lm", se=F, color="grey") +
