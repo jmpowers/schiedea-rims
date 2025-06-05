@@ -463,7 +463,7 @@
 <polyline points='63.54,192.39 66.28,192.39 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
 <polyline points='63.54,127.90 66.28,127.90 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
 <polyline points='63.54,63.42 66.28,63.42 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
-<text transform='translate(15.68,173.04) rotate(-90)' text-anchor='middle' style='font-size: 14.00px; font-family: "Arial";'>Proportion of tubes at midpoint that grew to base</text>
+<text transform='translate(15.68,173.04) rotate(-90)' text-anchor='middle' style='font-size: 14.00px; font-family: "Arial";'>Base/midpoint ratio</text>
 <rect x='931.92' y='140.99' width='70.60' height='64.11' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
 <text x='937.40' y='158.13' style='font-size: 14.00px; font-family: "Arial";'>Time</text>
 <rect x='937.40' y='165.06' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />

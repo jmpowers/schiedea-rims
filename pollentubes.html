@@ -11,11 +11,11 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2024-09-07" />
+<meta name="date" content="2025-05-16" />
 
 <title>Schiedea pollen tube growth</title>
 
-<script src="libs/header-attrs-2.26/header-attrs.js"></script>
+<script src="libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -253,7 +253,7 @@ div.tocify {
 <h1 class="title toc-ignore"><em>Schiedea</em> pollen tube growth</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John
 Powers</a></h4>
-<h4 class="date">2024-09-07</h4>
+<h4 class="date">2025-05-16</h4>
 
 </div>
 
@@ -925,7 +925,7 @@ timecolors &lt;-   scale_color_brewer(&quot;Time&quot;, palette=&quot;Paired&quo
 
 var_labels &lt;- c(mid = &quot;Pollen tubes at style midpoint&quot;,
                 bottom = &quot;Pollen tubes at style base&quot;,
-                ratio = &quot;Proportion of tubes at midpoint that grew to base&quot;)
+                ratio = &quot;Base/midpoint ratio&quot;)
 
 plot_all &lt;- function(yvar) {
 signif.cont &lt;- unnest(select(tubes.mod, paste0(yvar,&quot;_cont&quot;)), paste0(yvar,&quot;_cont&quot;)) %&gt;% 
@@ -987,12 +987,12 @@ ggplot(tubes.mod.plot) +
   theme_classic() + mytheme + 
   scale_color_brewer(palette=&quot;Set2&quot;) + scale_linetype_manual(values=c(2,1))+  guides(linetype=&quot;none&quot;, color=&quot;none&quot;)
 }
-plot_all_simple(&quot;mid&quot;)</code></pre>
-<p><img src="figures/pollentubes_all_simple-1.svg" width="1344" /></p>
-<pre class="r"><code>plot_all_simple(&quot;bottom&quot;)</code></pre>
-<p><img src="figures/pollentubes_all_simple-2.svg" width="1344" /></p>
-<pre class="r"><code>plot_all_simple(&quot;ratio&quot;)</code></pre>
-<p><img src="figures/pollentubes_all_simple-3.svg" width="1344" /></p>
+p1 &lt;- plot_all_simple(&quot;mid&quot;) + theme(axis.text.x=element_blank())
+p2 &lt;- plot_all_simple(&quot;bottom&quot;) + theme(axis.text.x=element_blank(), strip.background = element_blank(), strip.text = element_blank())
+p3 &lt;- plot_all_simple(&quot;ratio&quot;) + theme(strip.background = element_blank(), strip.text = element_blank())
+library(patchwork)
+p1 + p2 + p3 + plot_layout(ncol=1)</code></pre>
+<p><img src="figures/pollentubes_all_simple-1.svg" width="1248" /></p>
 <pre class="r"><code>plot_emm &lt;- function(pair, emm, cont, data, yvar) {
   ggplot(emm, aes(y=response, x=cross, fill=hr)) +
     geom_violin(data=data, aes_string(y=yvar),position=position_dodge(),

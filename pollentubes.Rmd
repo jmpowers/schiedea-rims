@@ -227,7 +227,7 @@ timecolors <-   scale_color_brewer("Time", palette="Paired", labels=c("4 hr","24
 
 var_labels <- c(mid = "Pollen tubes at style midpoint",
                 bottom = "Pollen tubes at style base",
-                ratio = "Proportion of tubes at midpoint that grew to base")
+                ratio = "Base/midpoint ratio")
 
 plot_all <- function(yvar) {
 signif.cont <- unnest(select(tubes.mod, paste0(yvar,"_cont")), paste0(yvar,"_cont")) %>% 
@@ -257,7 +257,7 @@ plot_all("bottom")
 plot_all("ratio")
 ```
 
-```{r pollentubes_all_simple, fig.width=14, fig.height=5}
+```{r pollentubes_all_simple, fig.width=13, fig.height=9}
 plot_all_simple <- function(yvar) {
 signif.cont <- unnest(select(tubes.mod, paste0(yvar,"_cont")), paste0(yvar,"_cont")) %>% 
               mutate(n=row_number(), stars=replace_na(as.character(stars), "NA"),
@@ -289,9 +289,11 @@ ggplot(tubes.mod.plot) +
   theme_classic() + mytheme + 
   scale_color_brewer(palette="Set2") + scale_linetype_manual(values=c(2,1))+  guides(linetype="none", color="none")
 }
-plot_all_simple("mid")
-plot_all_simple("bottom")
-plot_all_simple("ratio")
+p1 <- plot_all_simple("mid") + theme(axis.text.x=element_blank())
+p2 <- plot_all_simple("bottom") + theme(axis.text.x=element_blank(), strip.background = element_blank(), strip.text = element_blank())
+p3 <- plot_all_simple("ratio") + theme(strip.background = element_blank(), strip.text = element_blank())
+library(patchwork)
+p1 + p2 + p3 + plot_layout(ncol=1)
 ```
 
 ```{r pollentubes, fig.width=19, fig.height=6, eval=FALSE}
