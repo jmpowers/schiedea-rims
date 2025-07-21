@@ -65,7 +65,8 @@ seeds <- read_tsv("data/Pollen competition - seeds.tsv") %>%
          sxc = paste(momsp, type, sep="."),
          type=factor(type, levels= names(typenames)), 
          across(matches("sp"), ~ factor(.x, levels = sp_pairs)),
-         capsule.formed = sds>0)
+         capsule.formed = sds>0,
+         sds.nz = sds+1)
 
 seeds.bycross <- seeds %>% group_by(type, momsp, sxc, momid, dadspm, dadidm, dadsp, dadid) %>% 
   summarize(capsule.formed=mean(capsule.formed), .groups="drop")
@@ -87,7 +88,8 @@ germ.pot <- read_tsv("data/Pollen competition - germination.tsv") %>%
 
 germ <- germ.pot %>% group_by(date_planted, type, momsp, sxc, momid, dadspm, dadidm, dadsp, dadid) %>% #date_planted splits 30 plant x plant crosses
   summarize(n.pdishes = n(), planted = sum(planted), germinated = sum(germinated), .groups="drop") %>% # add together all the pots of one cross
-  mutate(prop.germ = germinated/planted) # proportion of planted seeds that germinated 
+  mutate(prop.germ = germinated/planted, # proportion of planted seeds that germinated 
+         prop.germ.nz = (germinated+1)/(planted+1)) 
 
 surv <- read_tsv("data/Pollen competition - survival.tsv") %>% 
   mutate(dadspm = if_else(type=="mixed" & dadsp1==momsp, dadsp1, dadsp2), #rearrange dad1/dad2 to have dadsp match momsp
@@ -104,7 +106,8 @@ surv <- read_tsv("data/Pollen competition - survival.tsv") %>%
          alive = sameasmom + hybrid,
          total = alive + dead, 
          prop.hybrid = hybrid / alive,
-         prop.alive = alive / total)
+         prop.alive = alive / total,
+         prop.alive.nz = (alive+1)/(total+1))
 
 germ %>% summarize(across(c(n.pdishes, planted, germinated), sum))
 
@@ -209,6 +212,120 @@ ggplot(germ.surv %>% filter(type=="mixed"), aes(x=prop.germ, y=prop.hybrid, colo
 # fakecrosses %>% summarize(across(everything(), mean)) %>% mutate(germXsurv = germ * surv)
 ```
 
+# Distribution of cumulative fitness
+
+```{r totalRI_simulation, fig.height=6, fig.width=8}
+#dataname = name of the dataset, yvar = the fitness trait, N = number of trials for each species and crosstype
+sample_trait <- function(dataname, yvar, N) {
+  get(dataname) %>% select(sxc, y=!!yvar) %>% 
+    drop_na(y) %>% #drop missing trait values (various reasons for these)
+    group_by(sxc) %>% nest() %>% #subset data by the species and crosstype (between/within/hybrid)
+    mutate(sampled = map(data, slice_sample, n=N, replace=T)) %>% #sample each subset N times with replacement
+    select(-data) %>% unnest(sampled) %>% arrange(sxc) %>% mutate(trial=row_number()) #give each trial an index
+}
+traits <- enframe(propnames[2:4], name="yvar", value="ylab") %>%
+  mutate(data = c("seeds","germ","surv")) #seeds includes zeros (no capsule formed)
+
+set.seed(1)
+ntrials <- 1000
+F1.cumul.fitness <- traits %>% select(data, yvar) %>%  # independent multiplicative traits
+  mutate(samp = pmap(., sample_trait, N = ntrials)) %>% # sample each trait N times per species and crosstype
+  select(-data) %>% unnest(samp) %>% # expand sampled dataset to full size
+  pivot_wider(id_cols=c(sxc, trial), names_from=yvar, values_from=y) %>% # line up the trials for each variable
+  drop_na(sds, prop.germ, prop.alive) %>% #drop missing data for sarm+sper mixed pollinations
+  mutate(fitness_sds         = sds,
+         fitness_prop.germ   = sds * prop.germ,
+         fitness_prop.alive  = sds * prop.germ * prop.alive)
+
+F1.cumul.fitness %>% select(sxc, starts_with("fitness")) %>% 
+  pivot_longer(starts_with("fitness"), names_to="stage", names_prefix = "fitness_") %>% 
+  separate(sxc, into=c("momsp","type")) %>% 
+  mutate(type = factor(type, levels=names(typenames)),
+         stage = factor(stage, levels=traits$yvar), momsp=factor(momsp, levels=sp_pairs)) %>% 
+  ggplot(aes(x=value, fill=stage)) + 
+  facet_grid(type~momsp, scales="free_x", labeller=as_labeller(c(set_names(sp_pairs), typenames)))+
+  geom_histogram(binwidth=1, boundary=-0.5, position=position_identity(), linewidth=1, alpha=0.5) +
+  scale_y_continuous(labels = ~scales::percent(./ntrials)) + 
+  scale_fill_hue("Cumulative fitness after this stage: ",labels=traits$ylab) +
+  labs(y=paste0("Frequency of outcome (",ntrials," trials)"), 
+       x="Surviving hybrids resulting from one pollination") +
+  theme_minimal() + theme(legend.position = "top")
+
+F1.cumul.fitness %>% group_by(sxc) %>% summarize(prop.zero=mean(fitness_sds>0)) %>% 
+ggplot(aes(x=prop.zero, y=sxc)) + 
+  geom_point(size=2)+ 
+  scale_x_continuous(limits=c(0,1), labels=scales::percent) + theme_minimal() + 
+  labs(x=paste0("Nonzero F1 flowers resulting from one P x P pollination (",ntrials," trials)"), y="Crosstype",
+       title = "Frequency cumulativefitness greater than zero") 
+```
+
+```{r totalRI_means, fig.height=6, fig.width=6.5}
+trials_to_average <- 50
+calc_RI <- function(h, b) 1 - 2 *  h/(h + b) #method of Sobel and Chen 2014 for hybrids vs. between-population intraspecific fitness, varies between -1 (hybrd vigor) and 1 (complete isolation)
+F1.cumul.isolation <- F1.cumul.fitness %>% 
+  group_by(sxc, meanblock = ceiling(trial / trials_to_average)) %>% #group into blocks of trials_to_average trials
+  summarize(across(starts_with("fitness"), mean)) %>% #take the mean fitness for each block and crosstype
+  pivot_longer(starts_with("fitness"), names_prefix = "fitness_", names_to="stage", values_to="fitness") %>% 
+  separate(sxc, into=c("momsp","crosstype")) %>% 
+  pivot_wider(names_from=crosstype, values_from=fitness) %>% 
+  mutate(stage = factor(stage, levels=unique(traits$yvar)),
+         RI = calc_RI(h=intra, b=inter)) 
+
+ggplot(F1.cumul.isolation, aes(y=fct_rev(stage), color=factor(momsp, levels=sp_pairs), x=RI)) + 
+  geom_vline(xintercept=0, linetype=2) + geom_vline(xintercept=-1)+ geom_vline(xintercept=1)+ 
+  geom_boxplot(position=position_dodge(width=0.5), outlier.size = 0.2) + 
+  scale_y_discrete(labels=deframe(select(traits, yvar, ylab))) +
+  scale_color_brewer(palette = "Paired") +
+  scale_x_continuous(limits=c(-1.1,1.1), breaks=c(-1,-0.5,0,0.5,1),
+                     labels=c("-1\nheterosis","-0.5","0\nno\nbarrier","0.5","1\ncomplete\nisolation")) + 
+  theme_minimal() + theme(legend.position = "top", legend.text = element_text(face="italic")) +
+  labs(x="Cumulative reproductive isolation", y="Fitness component", color="Maternal parent")
+```
+
+# Distribution of estimated hybrid proportions
+
+```{r backwards, fig.height=10, fig.width=8}
+#make a version of the resampled data that avoids zero proportions
+set.seed(1)
+ntrials <- 1000
+F1.cumul.fitness.nz <- traits %>% select(data, yvar) %>%  # independent multiplicative traits
+  mutate(yvar = paste0(yvar, ".nz")) %>% #get the data without zeros (add 1 to num and denom)
+  mutate(samp = pmap(., sample_trait, N = ntrials)) %>% # sample each trait N times per species and crosstype
+  select(-data) %>% unnest(samp) %>% # expand sampled dataset to full size
+  pivot_wider(id_cols=c(sxc, trial), names_from=yvar, values_from=y) %>% # line up the trials for each variable
+  drop_na(sds.nz, prop.germ.nz, prop.alive.nz) #drop missing data for sarm+sper mixed pollinations
+
+#get Monte Carlo samples for uncertainty estimation
+samples_per_batch <- 20
+F1.backest <- surv %>% filter(type=="mixed") %>% select(momsp, hybrid, sameasmom) %>% mutate(batch = row_number()) %>%
+  pivot_longer(c(hybrid, sameasmom), names_to="type", values_to = "plt") %>% 
+  mutate(type = recode(type, hybrid="inter", sameasmom="intra")) %>% 
+  left_join(F1.cumul.fitness.nz %>% select(sxc, prop.alive.nz, prop.germ.nz, sds.nz) %>% 
+              separate(sxc, into=c("momsp","type")) %>% group_by(momsp, type) %>% nest(), by=c("momsp", "type")) %>% 
+  mutate(data = map(data, ~mutate(sample_n(.x, samples_per_batch), samp=row_number()))) %>% unnest(data) %>% 
+  mutate(sdl = plt/prop.alive.nz, #back-estimate but avoid dividing by zero by adding one to num and den
+         sds = sdl/prop.germ.nz, 
+         zyg = sds/sds.nz) %>% #add one to all seed counts to avoid zeros
+  pivot_wider(names_from="type", values_from=c(plt, prop.alive.nz, prop.germ.nz, sds.nz, sdl, sds, zyg)) %>% 
+  mutate(hyb.plt = plt_inter / (plt_inter + plt_intra),
+         hyb.sdl = sdl_inter / (sdl_inter + sdl_intra),
+         hyb.sds = sds_inter / (sds_inter + sds_intra),
+         hyb.zyg = zyg_inter / (zyg_inter + zyg_intra))
+
+F1.backest.long <- F1.backest %>% 
+  select(momsp, batch, samp, starts_with("hyb")) %>% 
+  mutate(momsp= factor(momsp, levels=sp_pairs)) %>% 
+  pivot_longer(starts_with("hyb"), names_prefix="hyb.", names_to="stage", values_to="prop") %>% 
+  arrange(momsp, batch, stage)
+
+ggplot(F1.backest.long, aes(x=fct_rev(stage), color=momsp, y=prop)) + 
+  facet_wrap(vars(momsp), ncol=2) +
+  geom_path(aes(group=paste(batch, samp)), alpha=0.2)+ 
+  geom_violin(draw_quantiles = c(0.25, 0.5, 0.75)) + geom_jitter(size=0.2, height=0, width=0.2)  +
+  scale_color_brewer(palette = "Paired") + guides(color="none") +
+  scale_x_discrete(labels=c(zyg="Comp", sds="Seed", sdl="Seedling", plt="Plant"))+
+  labs(x="Life stage", y="Proportion of hybrids")
+```
 
 # Models
 
@@ -318,27 +435,27 @@ hybrid.test <- surv %>% filter(type=="mixed") %>%
   mutate(hybrid.vigor.all = capsule.formed * sds * prop.germ * prop.alive, #these are all inter/intra relative fitnesses (hybrid vigor)
          prop.hybrid.sdl = goback(prop.hybrid, prop.alive), #seedling stage
          prop.hybrid.sds = goback(prop.hybrid.sdl, prop.germ), #seed stage
-         prop.hybrid.zyg = goback(goback(prop.hybrid.sds, sds), capsule.formed)) #zygote stage - two steps!
+         prop.hybrid.zyg = goback(goback(prop.hybrid.sds, sds), capsule.formed)) #two steps!
 
-propnames <- c(prop.hybrid =     "Plant", 
+hybnames <- c(prop.hybrid =     "Plant", #TODO rename this hybnames to avoid conflict
                prop.hybrid.sdl = "Seedling",
                prop.hybrid.sds = "Seed",
-               prop.hybrid.zyg = "Zygote")
+               prop.hybrid.zyg = "Competition")
 
-hybrid.test %>% select(momsp, all_of(names(propnames))) %>% 
+hybrid.test %>% select(momsp, all_of(names(hybnames))) %>% 
   pivot_longer(-momsp, names_to="trait") %>% 
   ggplot(aes(y=fct_rev(momsp), x=trait, fill=log2(value))) +
   geom_tile() + geom_text(aes(label=format(value,digits=1))) + scale_fill_gradient2(guide="none", midpoint=-1) + 
-  scale_x_discrete(labels=propnames, position="top")+
+  scale_x_discrete(labels=hybnames, position="top")+
   theme(axis.title = element_blank(), axis.text.y=element_text(color=rev(sp_pal_dark), face="italic"))
 
-hybrid.test %>% select(momsp, all_of(names(propnames))) %>% 
-  pivot_longer(-momsp, names_to="trait") %>% mutate(trait = factor(trait, levels = rev(names(propnames)))) %>% 
+hybrid.test %>% select(momsp, all_of(names(hybnames))) %>% 
+  pivot_longer(-momsp, names_to="trait") %>% mutate(trait = factor(trait, levels = rev(names(hybnames)))) %>% 
   ggplot(aes(color=momsp, x=trait, y=value, group=momsp)) + 
   geom_hline(yintercept=0.5, linetype=2)+
   geom_path(linewidth=2) + geom_point(size=4) +
   scale_color_brewer("Maternal species", palette="Paired") +
-  scale_x_discrete("Life stage", labels=propnames, position="top")+
+  scale_x_discrete("Life stage", labels=hybnames, position="top")+
   scale_y_continuous("Estimated proportion of hybrid progeny", breaks=0:10/10)+
   theme(legend.text=element_text(face="italic"), panel.grid.major.x = element_blank()) 
 ```
@@ -413,6 +530,33 @@ hybrid.test %>% left_join(filter(comp.emm, trait=="prop.hybrid")) %>%
 ```
 
 Tested whether the proportion of hybrids significantly differed from 50%, accounting for multiple comparisons. Violin plots show proportions for each plant x plant cross. The number of plant x plant crosses indicated above the plot.
+
+## Predicted and actual germination
+
+```{r compare_germination, fig.height=7, fig.width=8}
+#hybrid.vigor.germsurv = (prop.germ_inter / prop.germ_intra) * (prop.surv_inter / prop.surv_intra)
+#prop.hybrid.sds = prop.hybrid / hybrid.vigor.germsurv
+# prop.germ_mixed.pred ?= prop.germ_mixed
+# prop.germ_mixed.pred = prop.hybrid.sds * prop.germ_inter + (1-prop.hybrid.sds) * prop.germ_intra
+#                      = prop.germ_intra + prop.hybrid.sds * (prop.germ_inter - prop.germ_intra)
+
+hybrid.test %>% left_join(pivot_wider(comp.emm, id_cols = momsp, names_from=c(trait, type), values_from = estimate)) %>% 
+  mutate(prop.germ_mixed.pred = prop.hybrid.sds * prop.germ_inter + (1-prop.hybrid.sds) * prop.germ_intra) %>% 
+  ggplot(aes(x = momsp, color=momsp)) + 
+  geom_segment(aes(y=prop.germ_intra, yend=prop.germ_inter, xend=momsp))+
+  geom_point(aes(y=prop.germ_inter, shape="inter"), size=4)+
+  geom_point(aes(y=prop.germ_intra, shape="intra"), size=4)+
+  geom_point(aes(y=prop.germ_mixed, shape="mixed"), size=4)+
+  geom_point(aes(y=prop.germ_mixed.pred, shape="pred"), size=4)+
+  geom_label(aes(y=prop.germ_mixed.pred, label=paste0(round(prop.hybrid.sds*100),"%"), fill=momsp), show.legend = F, nudge_x = 0.5, color="black") +
+  scale_shape_manual("Cross", values=c(inter=15, intra=16, mixed=17, pred=3), 
+                     labels=c(typenames, pred="Predicted from estimated hybrid seed ratio"))+
+  scale_color_brewer(palette="Paired", guide="none") + scale_fill_brewer(palette="Paired") +
+  scale_y_continuous("Germination", limits=c(0,1), expand=c(0,0), labels=~scales::percent(.,accuracy=1)) + 
+  scale_x_discrete("Maternal species", guide = guide_axis(angle=90), expand = expansion(mult=0.1))+
+  theme(legend.position="top")
+```
+
 
 # Style length
 
@@ -614,7 +758,7 @@ hybrid.phylostyle %>% pivot_longer(c(pd, style_length_mm), names_to = "xname", v
   facet_grid(name ~ xname, scales="free", switch="both", 
              labeller=as_labeller(c(hybrid.RI.all="Reproductive isolation\n(heterosis \U2194 complete isolation)",
                                     prop.hybrid="Proportion of hybrid plants\n(observed)",
-                                    prop.hybrid.zyg = "Proportion of hybrid zygotes\n(estimated)",
+                                    prop.hybrid.zyg = "Hybrids pollen competiveness\n(estimated)",
                                     style_length_mm = "Style length (mm)", 
                                     pd="Phylogenetic distance (mutations/site)"))) + 
   geom_hline(aes(yintercept=if_else(name=="hybrid.RI.all",0,0.5)), linetype=2)+
@@ -647,31 +791,5 @@ left_join(select(styles.emm, momsp, style_length_mm, mating, style_conf.low=conf
   theme_minimal() + theme(axis.text=element_text(color="black"), legend.position="top",
                           legend.key.size=unit(0.8, "lines"))+
   guides(color = guide_legend(override.aes = list(size = 4)))
-```
-
-## Predicted and actual germination
-
-```{r compare_germination, fig.height=7, fig.width=8}
-#hybrid.vigor.germsurv = (prop.germ_inter / prop.germ_intra) * (prop.surv_inter / prop.surv_intra)
-#prop.hybrid.sds = prop.hybrid / hybrid.vigor.germsurv
-# prop.germ_mixed.pred ?= prop.germ_mixed
-# prop.germ_mixed.pred = prop.hybrid.sds * prop.germ_inter + (1-prop.hybrid.sds) * prop.germ_intra
-#                      = prop.germ_intra + prop.hybrid.sds * (prop.germ_inter - prop.germ_intra)
-
-hybrid.test %>% left_join(pivot_wider(comp.emm, id_cols = momsp, names_from=c(trait, type), values_from = estimate)) %>% 
-  mutate(prop.germ_mixed.pred = prop.hybrid.sds * prop.germ_inter + (1-prop.hybrid.sds) * prop.germ_intra) %>% 
-  ggplot(aes(x = momsp, color=momsp)) + 
-  geom_segment(aes(y=prop.germ_intra, yend=prop.germ_inter, xend=momsp))+
-  geom_point(aes(y=prop.germ_inter, shape="inter"), size=4)+
-  geom_point(aes(y=prop.germ_intra, shape="intra"), size=4)+
-  geom_point(aes(y=prop.germ_mixed, shape="mixed"), size=4)+
-  geom_point(aes(y=prop.germ_mixed.pred, shape="pred"), size=4)+
-  geom_label(aes(y=prop.germ_mixed.pred, label=paste0(round(prop.hybrid.sds*100),"%"), fill=momsp), show.legend = F, nudge_x = 0.5, color="black") +
-  scale_shape_manual("Cross", values=c(inter=15, intra=16, mixed=17, pred=3), 
-                     labels=c(inter="Interspecific",intra="Intraspecific",mixed="Competitive",pred="Predicted from estimated hybrid seed ratio"))+
-  scale_color_brewer(palette="Paired", guide="none") + scale_fill_brewer(palette="Paired") +
-  scale_y_continuous("Germination", limits=c(0,1), expand=c(0,0), labels=~scales::percent(.,accuracy=1)) + 
-  scale_x_discrete("Maternal species", guide = guide_axis(angle=90), expand = expansion(mult=0.1))+
-  theme(legend.position="top")
 ```
 

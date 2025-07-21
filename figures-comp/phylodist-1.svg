@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='576.00pt' height='360.00pt' viewBox='0 0 576.00 360.00'>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='576.00pt' height='360.00pt' viewBox='0 0 576.00 360.00'>
+<g class='svglite'>
 <defs>
   <style type='text/css'><![CDATA[
     .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
@@ -11,6 +12,10 @@
     }
     .svglite text {
       white-space: pre;
+    }
+    .svglite g.glyphgroup path {
+      fill: inherit;
+      stroke: none;
     }
   ]]></style>
 </defs>
@@ -28,142 +33,143 @@
   </clipPath>
 </defs>
 <g clip-path='url(#cpNTkuMDR8NTQ1Ljc2fDU5LjA0fDI4Ni41Ng==)'>
-<line x1='77.07' y1='107.57' x2='109.56' y2='107.57' style='stroke-width: 0.75;' />
-<line x1='109.56' y1='141.48' x2='126.88' y2='141.48' style='stroke-width: 0.75;' />
-<line x1='126.88' y1='203.10' x2='357.52' y2='203.10' style='stroke-width: 0.75;' />
-<line x1='357.52' y1='275.04' x2='375.83' y2='275.04' style='stroke-width: 0.75;' />
-<line x1='375.83' y1='278.13' x2='383.87' y2='278.13' style='stroke-width: 0.75;' />
-<line x1='375.83' y1='271.94' x2='382.41' y2='271.94' style='stroke-width: 0.75;' />
-<line x1='357.52' y1='131.16' x2='358.71' y2='131.16' style='stroke-width: 0.75;' />
-<line x1='358.71' y1='152.26' x2='361.12' y2='152.26' style='stroke-width: 0.75;' />
-<line x1='361.12' y1='181.30' x2='363.67' y2='181.30' style='stroke-width: 0.75;' />
-<line x1='363.67' y1='223.72' x2='370.10' y2='223.72' style='stroke-width: 0.75;' />
-<line x1='370.10' y1='235.92' x2='373.09' y2='235.92' style='stroke-width: 0.75;' />
-<line x1='373.09' y1='249.48' x2='373.96' y2='249.48' style='stroke-width: 0.75;' />
-<line x1='373.96' y1='261.09' x2='374.73' y2='261.09' style='stroke-width: 0.75;' />
-<line x1='374.73' y1='265.74' x2='383.01' y2='265.74' style='stroke-width: 0.75;' />
-<line x1='374.73' y1='256.45' x2='377.44' y2='256.45' style='stroke-width: 0.75;' />
-<line x1='377.44' y1='259.55' x2='382.48' y2='259.55' style='stroke-width: 0.75;' />
-<line x1='377.44' y1='253.35' x2='378.63' y2='253.35' style='stroke-width: 0.75;' />
-<line x1='373.96' y1='237.86' x2='376.89' y2='237.86' style='stroke-width: 0.75;' />
-<line x1='376.89' y1='244.05' x2='378.53' y2='244.05' style='stroke-width: 0.75;' />
-<line x1='378.53' y1='247.15' x2='386.11' y2='247.15' style='stroke-width: 0.75;' />
-<line x1='378.53' y1='240.96' x2='384.39' y2='240.96' style='stroke-width: 0.75;' />
-<line x1='376.89' y1='231.66' x2='379.38' y2='231.66' style='stroke-width: 0.75;' />
-<line x1='379.38' y1='234.76' x2='387.06' y2='234.76' style='stroke-width: 0.75;' />
-<line x1='379.38' y1='228.56' x2='383.23' y2='228.56' style='stroke-width: 0.75;' />
-<line x1='373.09' y1='222.37' x2='382.60' y2='222.37' style='stroke-width: 0.75;' />
-<line x1='370.10' y1='211.53' x2='371.62' y2='211.53' style='stroke-width: 0.75;' />
-<line x1='371.62' y1='216.17' x2='381.62' y2='216.17' style='stroke-width: 0.75;' />
-<line x1='371.62' y1='206.88' x2='374.38' y2='206.88' style='stroke-width: 0.75;' />
-<line x1='374.38' y1='209.98' x2='380.79' y2='209.98' style='stroke-width: 0.75;' />
-<line x1='374.38' y1='203.78' x2='382.79' y2='203.78' style='stroke-width: 0.75;' />
-<line x1='363.67' y1='138.87' x2='371.43' y2='138.87' style='stroke-width: 0.75;' />
-<line x1='371.43' y1='148.31' x2='373.39' y2='148.31' style='stroke-width: 0.75;' />
-<line x1='373.39' y1='160.99' x2='374.05' y2='160.99' style='stroke-width: 0.75;' />
-<line x1='374.05' y1='177.06' x2='377.31' y2='177.06' style='stroke-width: 0.75;' />
-<line x1='377.31' y1='188.29' x2='378.79' y2='188.29' style='stroke-width: 0.75;' />
-<line x1='378.79' y1='194.49' x2='384.50' y2='194.49' style='stroke-width: 0.75;' />
-<line x1='384.50' y1='197.58' x2='392.31' y2='197.58' style='stroke-width: 0.75;' />
-<line x1='384.50' y1='191.39' x2='387.98' y2='191.39' style='stroke-width: 0.75;' />
-<line x1='378.79' y1='182.09' x2='381.11' y2='182.09' style='stroke-width: 0.75;' />
-<line x1='381.11' y1='185.19' x2='386.90' y2='185.19' style='stroke-width: 0.75;' />
-<line x1='381.11' y1='179.00' x2='386.81' y2='179.00' style='stroke-width: 0.75;' />
-<line x1='377.31' y1='165.83' x2='378.44' y2='165.83' style='stroke-width: 0.75;' />
-<line x1='378.44' y1='172.80' x2='389.49' y2='172.80' style='stroke-width: 0.75;' />
-<line x1='378.44' y1='158.86' x2='381.46' y2='158.86' style='stroke-width: 0.75;' />
-<line x1='381.46' y1='163.51' x2='383.78' y2='163.51' style='stroke-width: 0.75;' />
-<line x1='383.78' y1='166.60' x2='391.34' y2='166.60' style='stroke-width: 0.75;' />
-<line x1='383.78' y1='160.41' x2='391.00' y2='160.41' style='stroke-width: 0.75;' />
-<line x1='381.46' y1='154.21' x2='389.30' y2='154.21' style='stroke-width: 0.75;' />
-<line x1='374.05' y1='144.92' x2='375.48' y2='144.92' style='stroke-width: 0.75;' />
-<line x1='375.48' y1='148.02' x2='388.61' y2='148.02' style='stroke-width: 0.75;' />
-<line x1='375.48' y1='141.82' x2='382.42' y2='141.82' style='stroke-width: 0.75;' />
-<line x1='373.39' y1='135.62' x2='383.99' y2='135.62' style='stroke-width: 0.75;' />
-<line x1='371.43' y1='129.43' x2='377.40' y2='129.43' style='stroke-width: 0.75;' />
-<line x1='361.12' y1='123.23' x2='376.05' y2='123.23' style='stroke-width: 0.75;' />
-<line x1='358.71' y1='110.06' x2='365.45' y2='110.06' style='stroke-width: 0.75;' />
-<line x1='365.45' y1='117.04' x2='385.90' y2='117.04' style='stroke-width: 0.75;' />
-<line x1='365.45' y1='103.09' x2='370.84' y2='103.09' style='stroke-width: 0.75;' />
-<line x1='370.84' y1='110.84' x2='381.86' y2='110.84' style='stroke-width: 0.75;' />
-<line x1='370.84' y1='95.35' x2='373.76' y2='95.35' style='stroke-width: 0.75;' />
-<line x1='373.76' y1='101.55' x2='380.16' y2='101.55' style='stroke-width: 0.75;' />
-<line x1='380.16' y1='104.64' x2='382.44' y2='104.64' style='stroke-width: 0.75;' />
-<line x1='380.16' y1='98.45' x2='382.68' y2='98.45' style='stroke-width: 0.75;' />
-<line x1='373.76' y1='89.15' x2='379.21' y2='89.15' style='stroke-width: 0.75;' />
-<line x1='379.21' y1='92.25' x2='382.16' y2='92.25' style='stroke-width: 0.75;' />
-<line x1='379.21' y1='86.05' x2='382.56' y2='86.05' style='stroke-width: 0.75;' />
-<line x1='126.88' y1='79.86' x2='161.71' y2='79.86' style='stroke-width: 0.75;' />
-<line x1='109.56' y1='73.66' x2='117.90' y2='73.66' style='stroke-width: 0.75;' />
-<line x1='77.07' y1='67.47' x2='109.56' y2='67.47' style='stroke-width: 0.75;' />
+<line x1='77.07' y1='107.57' x2='111.20' y2='107.57' style='stroke-width: 0.75;' />
+<line x1='111.20' y1='141.48' x2='129.40' y2='141.48' style='stroke-width: 0.75;' />
+<line x1='129.40' y1='203.10' x2='371.68' y2='203.10' style='stroke-width: 0.75;' />
+<line x1='371.68' y1='275.04' x2='390.92' y2='275.04' style='stroke-width: 0.75;' />
+<line x1='390.92' y1='278.13' x2='399.36' y2='278.13' style='stroke-width: 0.75;' />
+<line x1='390.92' y1='271.94' x2='397.83' y2='271.94' style='stroke-width: 0.75;' />
+<line x1='371.68' y1='131.16' x2='372.93' y2='131.16' style='stroke-width: 0.75;' />
+<line x1='372.93' y1='152.26' x2='375.46' y2='152.26' style='stroke-width: 0.75;' />
+<line x1='375.46' y1='181.30' x2='378.14' y2='181.30' style='stroke-width: 0.75;' />
+<line x1='378.14' y1='223.72' x2='384.90' y2='223.72' style='stroke-width: 0.75;' />
+<line x1='384.90' y1='235.92' x2='388.03' y2='235.92' style='stroke-width: 0.75;' />
+<line x1='388.03' y1='249.48' x2='388.95' y2='249.48' style='stroke-width: 0.75;' />
+<line x1='388.95' y1='261.09' x2='389.76' y2='261.09' style='stroke-width: 0.75;' />
+<line x1='389.76' y1='265.74' x2='398.46' y2='265.74' style='stroke-width: 0.75;' />
+<line x1='389.76' y1='256.45' x2='392.61' y2='256.45' style='stroke-width: 0.75;' />
+<line x1='392.61' y1='259.55' x2='397.90' y2='259.55' style='stroke-width: 0.75;' />
+<line x1='392.61' y1='253.35' x2='393.86' y2='253.35' style='stroke-width: 0.75;' />
+<line x1='388.95' y1='237.86' x2='392.02' y2='237.86' style='stroke-width: 0.75;' />
+<line x1='392.02' y1='244.05' x2='393.75' y2='244.05' style='stroke-width: 0.75;' />
+<line x1='393.75' y1='247.15' x2='401.71' y2='247.15' style='stroke-width: 0.75;' />
+<line x1='393.75' y1='240.96' x2='399.90' y2='240.96' style='stroke-width: 0.75;' />
+<line x1='392.02' y1='231.66' x2='394.65' y2='231.66' style='stroke-width: 0.75;' />
+<line x1='394.65' y1='234.76' x2='402.71' y2='234.76' style='stroke-width: 0.75;' />
+<line x1='394.65' y1='228.56' x2='398.68' y2='228.56' style='stroke-width: 0.75;' />
+<line x1='388.03' y1='222.37' x2='398.03' y2='222.37' style='stroke-width: 0.75;' />
+<line x1='384.90' y1='211.53' x2='386.49' y2='211.53' style='stroke-width: 0.75;' />
+<line x1='386.49' y1='216.17' x2='397.00' y2='216.17' style='stroke-width: 0.75;' />
+<line x1='386.49' y1='206.88' x2='389.39' y2='206.88' style='stroke-width: 0.75;' />
+<line x1='389.39' y1='209.98' x2='396.13' y2='209.98' style='stroke-width: 0.75;' />
+<line x1='389.39' y1='203.78' x2='398.23' y2='203.78' style='stroke-width: 0.75;' />
+<line x1='378.14' y1='138.87' x2='386.29' y2='138.87' style='stroke-width: 0.75;' />
+<line x1='386.29' y1='148.31' x2='388.35' y2='148.31' style='stroke-width: 0.75;' />
+<line x1='388.35' y1='160.99' x2='389.05' y2='160.99' style='stroke-width: 0.75;' />
+<line x1='389.05' y1='177.06' x2='392.47' y2='177.06' style='stroke-width: 0.75;' />
+<line x1='392.47' y1='188.29' x2='394.02' y2='188.29' style='stroke-width: 0.75;' />
+<line x1='394.02' y1='194.49' x2='400.02' y2='194.49' style='stroke-width: 0.75;' />
+<line x1='400.02' y1='197.58' x2='408.23' y2='197.58' style='stroke-width: 0.75;' />
+<line x1='400.02' y1='191.39' x2='403.68' y2='191.39' style='stroke-width: 0.75;' />
+<line x1='394.02' y1='182.09' x2='396.46' y2='182.09' style='stroke-width: 0.75;' />
+<line x1='396.46' y1='185.19' x2='402.55' y2='185.19' style='stroke-width: 0.75;' />
+<line x1='396.46' y1='179.00' x2='402.45' y2='179.00' style='stroke-width: 0.75;' />
+<line x1='392.47' y1='165.83' x2='393.66' y2='165.83' style='stroke-width: 0.75;' />
+<line x1='393.66' y1='172.80' x2='405.26' y2='172.80' style='stroke-width: 0.75;' />
+<line x1='393.66' y1='158.86' x2='396.83' y2='158.86' style='stroke-width: 0.75;' />
+<line x1='396.83' y1='163.51' x2='399.26' y2='163.51' style='stroke-width: 0.75;' />
+<line x1='399.26' y1='166.60' x2='407.20' y2='166.60' style='stroke-width: 0.75;' />
+<line x1='399.26' y1='160.41' x2='406.85' y2='160.41' style='stroke-width: 0.75;' />
+<line x1='396.83' y1='154.21' x2='405.07' y2='154.21' style='stroke-width: 0.75;' />
+<line x1='389.05' y1='144.92' x2='390.55' y2='144.92' style='stroke-width: 0.75;' />
+<line x1='390.55' y1='148.02' x2='404.33' y2='148.02' style='stroke-width: 0.75;' />
+<line x1='390.55' y1='141.82' x2='397.84' y2='141.82' style='stroke-width: 0.75;' />
+<line x1='388.35' y1='135.62' x2='399.49' y2='135.62' style='stroke-width: 0.75;' />
+<line x1='386.29' y1='129.43' x2='392.56' y2='129.43' style='stroke-width: 0.75;' />
+<line x1='375.46' y1='123.23' x2='391.15' y2='123.23' style='stroke-width: 0.75;' />
+<line x1='372.93' y1='110.06' x2='380.02' y2='110.06' style='stroke-width: 0.75;' />
+<line x1='380.02' y1='117.04' x2='401.49' y2='117.04' style='stroke-width: 0.75;' />
+<line x1='380.02' y1='103.09' x2='385.68' y2='103.09' style='stroke-width: 0.75;' />
+<line x1='385.68' y1='110.84' x2='397.25' y2='110.84' style='stroke-width: 0.75;' />
+<line x1='385.68' y1='95.35' x2='388.74' y2='95.35' style='stroke-width: 0.75;' />
+<line x1='388.74' y1='101.55' x2='395.46' y2='101.55' style='stroke-width: 0.75;' />
+<line x1='395.46' y1='104.64' x2='397.85' y2='104.64' style='stroke-width: 0.75;' />
+<line x1='395.46' y1='98.45' x2='398.11' y2='98.45' style='stroke-width: 0.75;' />
+<line x1='388.74' y1='89.15' x2='394.47' y2='89.15' style='stroke-width: 0.75;' />
+<line x1='394.47' y1='92.25' x2='397.57' y2='92.25' style='stroke-width: 0.75;' />
+<line x1='394.47' y1='86.05' x2='397.99' y2='86.05' style='stroke-width: 0.75;' />
+<line x1='129.40' y1='79.86' x2='165.98' y2='79.86' style='stroke-width: 0.75;' />
+<line x1='111.20' y1='73.66' x2='119.97' y2='73.66' style='stroke-width: 0.75;' />
+<line x1='77.07' y1='67.47' x2='111.20' y2='67.47' style='stroke-width: 0.75;' />
 <line x1='77.07' y1='107.57' x2='77.07' y2='67.47' style='stroke-width: 0.75;' />
-<line x1='109.56' y1='141.48' x2='109.56' y2='73.66' style='stroke-width: 0.75;' />
-<line x1='126.88' y1='203.10' x2='126.88' y2='79.86' style='stroke-width: 0.75;' />
-<line x1='357.52' y1='275.04' x2='357.52' y2='131.16' style='stroke-width: 0.75;' />
-<line x1='375.83' y1='278.13' x2='375.83' y2='271.94' style='stroke-width: 0.75;' />
-<line x1='358.71' y1='152.26' x2='358.71' y2='110.06' style='stroke-width: 0.75;' />
-<line x1='361.12' y1='181.30' x2='361.12' y2='123.23' style='stroke-width: 0.75;' />
-<line x1='363.67' y1='223.72' x2='363.67' y2='138.87' style='stroke-width: 0.75;' />
-<line x1='370.10' y1='235.92' x2='370.10' y2='211.53' style='stroke-width: 0.75;' />
-<line x1='373.09' y1='249.48' x2='373.09' y2='222.37' style='stroke-width: 0.75;' />
-<line x1='373.96' y1='261.09' x2='373.96' y2='237.86' style='stroke-width: 0.75;' />
-<line x1='374.73' y1='265.74' x2='374.73' y2='256.45' style='stroke-width: 0.75;' />
-<line x1='377.44' y1='259.55' x2='377.44' y2='253.35' style='stroke-width: 0.75;' />
-<line x1='376.89' y1='244.05' x2='376.89' y2='231.66' style='stroke-width: 0.75;' />
-<line x1='378.53' y1='247.15' x2='378.53' y2='240.96' style='stroke-width: 0.75;' />
-<line x1='379.38' y1='234.76' x2='379.38' y2='228.56' style='stroke-width: 0.75;' />
-<line x1='371.62' y1='216.17' x2='371.62' y2='206.88' style='stroke-width: 0.75;' />
-<line x1='374.38' y1='209.98' x2='374.38' y2='203.78' style='stroke-width: 0.75;' />
-<line x1='371.43' y1='148.31' x2='371.43' y2='129.43' style='stroke-width: 0.75;' />
-<line x1='373.39' y1='160.99' x2='373.39' y2='135.62' style='stroke-width: 0.75;' />
-<line x1='374.05' y1='177.06' x2='374.05' y2='144.92' style='stroke-width: 0.75;' />
-<line x1='377.31' y1='188.29' x2='377.31' y2='165.83' style='stroke-width: 0.75;' />
-<line x1='378.79' y1='194.49' x2='378.79' y2='182.09' style='stroke-width: 0.75;' />
-<line x1='384.50' y1='197.58' x2='384.50' y2='191.39' style='stroke-width: 0.75;' />
-<line x1='381.11' y1='185.19' x2='381.11' y2='179.00' style='stroke-width: 0.75;' />
-<line x1='378.44' y1='172.80' x2='378.44' y2='158.86' style='stroke-width: 0.75;' />
-<line x1='381.46' y1='163.51' x2='381.46' y2='154.21' style='stroke-width: 0.75;' />
-<line x1='383.78' y1='166.60' x2='383.78' y2='160.41' style='stroke-width: 0.75;' />
-<line x1='375.48' y1='148.02' x2='375.48' y2='141.82' style='stroke-width: 0.75;' />
-<line x1='365.45' y1='117.04' x2='365.45' y2='103.09' style='stroke-width: 0.75;' />
-<line x1='370.84' y1='110.84' x2='370.84' y2='95.35' style='stroke-width: 0.75;' />
-<line x1='373.76' y1='101.55' x2='373.76' y2='89.15' style='stroke-width: 0.75;' />
-<line x1='380.16' y1='104.64' x2='380.16' y2='98.45' style='stroke-width: 0.75;' />
-<line x1='379.21' y1='92.25' x2='379.21' y2='86.05' style='stroke-width: 0.75;' />
-<text x='383.87' y='282.61' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>helleri</text>
-<text x='382.41' y='276.41' style='font-size: 12.00px; font-style: italic;fill: #FDBF6F; font-family: "Arial";'>membranacea</text>
-<text x='383.01' y='270.22' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>hawaiiensis</text>
-<text x='382.48' y='262.86' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>pubescens</text>
-<text x='378.63' y='256.66' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>pentandra</text>
-<text x='386.11' y='251.63' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>laui</text>
-<text x='384.39' y='245.43' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>nuttallii</text>
-<text x='387.06' y='239.24' style='font-size: 12.00px; font-style: italic;fill: #CAB2D6; font-family: "Arial";'>kaalae</text>
-<text x='383.23' y='231.88' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>jacobii</text>
-<text x='382.60' y='226.84' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>diffusa</text>
-<text x='381.62' y='220.65' style='font-size: 12.00px; font-style: italic;fill: #FB9A99; font-family: "Arial";'>stellarioides</text>
-<text x='380.79' y='213.29' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>perlmanii</text>
-<text x='382.79' y='208.26' style='font-size: 12.00px; font-style: italic;fill: #FF7F00; font-family: "Arial";'>kauaiensis</text>
-<text x='392.31' y='202.06' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>adamantis</text>
-<text x='387.98' y='194.70' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>ligustrina</text>
-<text x='386.90' y='188.50' style='font-size: 12.00px; font-style: italic;fill: #B2DF8A; font-family: "Arial";'>lydgatei</text>
-<text x='386.81' y='183.47' style='font-size: 12.00px; font-style: italic;fill: #1F78B4; font-family: "Arial";'>salicaria</text>
-<text x='389.49' y='176.11' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>globosa</text>
-<text x='391.34' y='171.08' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>kealiae</text>
-<text x='391.00' y='164.88' style='font-size: 12.00px; font-style: italic;fill: #6A3D9A; font-family: "Arial";'>hookeri</text>
-<text x='389.30' y='158.34' style='font-size: 12.00px; font-style: italic;fill: #33A02C; font-family: "Arial";'>sarmentosa</text>
-<text x='388.61' y='152.49' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>mannii</text>
-<text x='382.42' y='146.29' style='font-size: 12.00px; font-style: italic;fill: #A6CEE3; font-family: "Arial";'>menziesii</text>
-<text x='383.99' y='140.10' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>haleakalensis</text>
-<text x='377.40' y='132.74' style='font-size: 12.00px; font-style: italic;fill: #E31A1C; font-family: "Arial";'>spergulina</text>
-<text x='376.05' y='126.54' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>apokremnos</text>
-<text x='385.90' y='121.51' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>verticillata</text>
-<text x='381.86' y='114.97' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>attenuata</text>
-<text x='382.44' y='109.12' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>obovata</text>
-<text x='382.68' y='102.92' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>trinervis</text>
-<text x='382.16' y='96.73' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>viscosa</text>
-<text x='382.56' y='89.37' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>lychnoides</text>
-<text x='161.71' y='83.17' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>Honckenya peploides</text>
-<text x='117.90' y='76.97' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>Wilhelmsia physodes</text>
-<text x='109.56' y='70.78' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>Triplateia moehringiodes</text>
+<line x1='111.20' y1='141.48' x2='111.20' y2='73.66' style='stroke-width: 0.75;' />
+<line x1='129.40' y1='203.10' x2='129.40' y2='79.86' style='stroke-width: 0.75;' />
+<line x1='371.68' y1='275.04' x2='371.68' y2='131.16' style='stroke-width: 0.75;' />
+<line x1='390.92' y1='278.13' x2='390.92' y2='271.94' style='stroke-width: 0.75;' />
+<line x1='372.93' y1='152.26' x2='372.93' y2='110.06' style='stroke-width: 0.75;' />
+<line x1='375.46' y1='181.30' x2='375.46' y2='123.23' style='stroke-width: 0.75;' />
+<line x1='378.14' y1='223.72' x2='378.14' y2='138.87' style='stroke-width: 0.75;' />
+<line x1='384.90' y1='235.92' x2='384.90' y2='211.53' style='stroke-width: 0.75;' />
+<line x1='388.03' y1='249.48' x2='388.03' y2='222.37' style='stroke-width: 0.75;' />
+<line x1='388.95' y1='261.09' x2='388.95' y2='237.86' style='stroke-width: 0.75;' />
+<line x1='389.76' y1='265.74' x2='389.76' y2='256.45' style='stroke-width: 0.75;' />
+<line x1='392.61' y1='259.55' x2='392.61' y2='253.35' style='stroke-width: 0.75;' />
+<line x1='392.02' y1='244.05' x2='392.02' y2='231.66' style='stroke-width: 0.75;' />
+<line x1='393.75' y1='247.15' x2='393.75' y2='240.96' style='stroke-width: 0.75;' />
+<line x1='394.65' y1='234.76' x2='394.65' y2='228.56' style='stroke-width: 0.75;' />
+<line x1='386.49' y1='216.17' x2='386.49' y2='206.88' style='stroke-width: 0.75;' />
+<line x1='389.39' y1='209.98' x2='389.39' y2='203.78' style='stroke-width: 0.75;' />
+<line x1='386.29' y1='148.31' x2='386.29' y2='129.43' style='stroke-width: 0.75;' />
+<line x1='388.35' y1='160.99' x2='388.35' y2='135.62' style='stroke-width: 0.75;' />
+<line x1='389.05' y1='177.06' x2='389.05' y2='144.92' style='stroke-width: 0.75;' />
+<line x1='392.47' y1='188.29' x2='392.47' y2='165.83' style='stroke-width: 0.75;' />
+<line x1='394.02' y1='194.49' x2='394.02' y2='182.09' style='stroke-width: 0.75;' />
+<line x1='400.02' y1='197.58' x2='400.02' y2='191.39' style='stroke-width: 0.75;' />
+<line x1='396.46' y1='185.19' x2='396.46' y2='179.00' style='stroke-width: 0.75;' />
+<line x1='393.66' y1='172.80' x2='393.66' y2='158.86' style='stroke-width: 0.75;' />
+<line x1='396.83' y1='163.51' x2='396.83' y2='154.21' style='stroke-width: 0.75;' />
+<line x1='399.26' y1='166.60' x2='399.26' y2='160.41' style='stroke-width: 0.75;' />
+<line x1='390.55' y1='148.02' x2='390.55' y2='141.82' style='stroke-width: 0.75;' />
+<line x1='380.02' y1='117.04' x2='380.02' y2='103.09' style='stroke-width: 0.75;' />
+<line x1='385.68' y1='110.84' x2='385.68' y2='95.35' style='stroke-width: 0.75;' />
+<line x1='388.74' y1='101.55' x2='388.74' y2='89.15' style='stroke-width: 0.75;' />
+<line x1='395.46' y1='104.64' x2='395.46' y2='98.45' style='stroke-width: 0.75;' />
+<line x1='394.47' y1='92.25' x2='394.47' y2='86.05' style='stroke-width: 0.75;' />
+<text x='399.36' y='282.36' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>helleri</text>
+<text x='397.83' y='276.17' style='font-size: 12.00px; font-style: italic;fill: #FDBF6F; font-family: "Arial";'>membranacea</text>
+<text x='398.46' y='269.97' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>hawaiiensis</text>
+<text x='397.90' y='262.65' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>pubescens</text>
+<text x='393.86' y='256.46' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>pentandra</text>
+<text x='401.71' y='251.38' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>laui</text>
+<text x='399.90' y='245.19' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>nuttallii</text>
+<text x='402.71' y='238.99' style='font-size: 12.00px; font-style: italic;fill: #CAB2D6; font-family: "Arial";'>kaalae</text>
+<text x='398.68' y='231.62' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>jacobii</text>
+<text x='398.03' y='226.67' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>diffusa</text>
+<text x='397.00' y='220.40' style='font-size: 12.00px; font-style: italic;fill: #FB9A99; font-family: "Arial";'>stellarioides</text>
+<text x='396.13' y='213.08' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>perlmanii</text>
+<text x='398.23' y='208.01' style='font-size: 12.00px; font-style: italic;fill: #FF7F00; font-family: "Arial";'>kauaiensis</text>
+<text x='408.23' y='201.81' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>adamantis</text>
+<text x='403.68' y='194.44' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>ligustrina</text>
+<text x='402.55' y='188.23' style='font-size: 12.00px; font-style: italic;fill: #B2DF8A; font-family: "Arial";'>lydgatei</text>
+<text x='402.45' y='183.23' style='font-size: 12.00px; font-style: italic;fill: #1F78B4; font-family: "Arial";'>salicaria</text>
+<text x='405.26' y='175.86' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>globosa</text>
+<text x='407.20' y='170.83' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>kealiae</text>
+<text x='406.85' y='164.64' style='font-size: 12.00px; font-style: italic;fill: #6A3D9A; font-family: "Arial";'>hookeri</text>
+<text x='405.07' y='158.39' style='font-size: 12.00px; font-style: italic;fill: #33A02C; font-family: "Arial";'>sarmentosa</text>
+<text x='404.33' y='152.25' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>mannii</text>
+<text x='397.84' y='146.05' style='font-size: 12.00px; font-style: italic;fill: #A6CEE3; font-family: "Arial";'>menziesii</text>
+<text x='399.49' y='139.85' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>haleakalensis</text>
+<text x='392.56' y='132.48' style='font-size: 12.00px; font-style: italic;fill: #E31A1C; font-family: "Arial";'>spergulina</text>
+<text x='391.15' y='126.34' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>apokremnos</text>
+<text x='401.49' y='121.27' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>verticillata</text>
+<text x='397.25' y='115.02' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>attenuata</text>
+<text x='397.85' y='108.87' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>obovata</text>
+<text x='398.11' y='102.68' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>trinervis</text>
+<text x='397.57' y='96.48' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>viscosa</text>
+<text x='397.99' y='89.09' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>lychnoides</text>
+<text x='165.98' y='82.89' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>Honckenya peploides</text>
+<text x='119.97' y='76.70' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>Wilhelmsia physodes</text>
+<text x='111.20' y='70.52' style='font-size: 12.00px; font-style: italic; font-family: "Arial";'>Triplateia moehringiodes</text>
+</g>
 </g>
 </svg>

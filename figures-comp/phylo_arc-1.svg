@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='360.00pt' height='216.00pt' viewBox='0 0 360.00 216.00'>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='360.00pt' height='216.00pt' viewBox='0 0 360.00 216.00'>
+<g class='svglite'>
 <defs>
   <style type='text/css'><![CDATA[
     .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
@@ -11,6 +12,10 @@
     }
     .svglite text {
       white-space: pre;
+    }
+    .svglite g.glyphgroup path {
+      fill: inherit;
+      stroke: none;
     }
   ]]></style>
 </defs>
@@ -55,28 +60,28 @@
 <line x1='116.05' y1='108.00' x2='116.05' y2='63.56' style='stroke-width: 3.75; stroke: #BEBEBE;' />
 <line x1='136.32' y1='119.11' x2='136.32' y2='96.89' style='stroke-width: 3.75; stroke: #BEBEBE;' />
 <line x1='138.18' y1='74.67' x2='138.18' y2='52.44' style='stroke-width: 3.75; stroke: #BEBEBE;' />
-<text x='145.35' y='213.37' style='font-size: 14.40px; font-weight: bold; font-style: italic;fill: #FDBF6F; font-family: "Arial";'>membranacea</text>
-<text x='170.10' y='191.15' style='font-size: 14.40px; font-weight: bold; font-style: italic;fill: #CAB2D6; font-family: "Arial";'>kaalae</text>
-<text x='141.17' y='168.92' style='font-size: 14.40px; font-weight: bold; font-style: italic;fill: #FB9A99; font-family: "Arial";'>stellarioides</text>
-<text x='147.39' y='146.70' style='font-size: 14.40px; font-weight: bold; font-style: italic;fill: #FF7F00; font-family: "Arial";'>kauaiensis</text>
-<text x='169.28' y='123.03' style='font-size: 14.40px; font-weight: bold; font-style: italic;fill: #B2DF8A; font-family: "Arial";'>lydgatei</text>
-<text x='168.78' y='102.26' style='font-size: 14.40px; font-weight: bold; font-style: italic;fill: #1F78B4; font-family: "Arial";'>salicaria</text>
-<text x='191.10' y='80.03' style='font-size: 14.40px; font-weight: bold; font-style: italic;fill: #6A3D9A; font-family: "Arial";'>hookeri</text>
-<text x='182.06' y='57.40' style='font-size: 14.40px; font-weight: bold; font-style: italic;fill: #33A02C; font-family: "Arial";'>sarmentosa</text>
-<text x='145.43' y='35.59' style='font-size: 14.40px; font-weight: bold; font-style: italic;fill: #A6CEE3; font-family: "Arial";'>menziesii</text>
-<text x='118.67' y='11.92' style='font-size: 14.40px; font-weight: bold; font-style: italic;fill: #E31A1C; font-family: "Arial";'>spergulina</text>
+<text x='145.35' y='213.07' style='font-size: 14.40px; font-weight: bold; font-style: italic;fill: #FDBF6F; font-family: "Arial";'>membranacea</text>
+<text x='170.10' y='190.84' style='font-size: 14.40px; font-weight: bold; font-style: italic;fill: #CAB2D6; font-family: "Arial";'>kaalae</text>
+<text x='141.17' y='168.62' style='font-size: 14.40px; font-weight: bold; font-style: italic;fill: #FB9A99; font-family: "Arial";'>stellarioides</text>
+<text x='147.39' y='146.40' style='font-size: 14.40px; font-weight: bold; font-style: italic;fill: #FF7F00; font-family: "Arial";'>kauaiensis</text>
+<text x='169.28' y='122.75' style='font-size: 14.40px; font-weight: bold; font-style: italic;fill: #B2DF8A; font-family: "Arial";'>lydgatei</text>
+<text x='168.78' y='101.95' style='font-size: 14.40px; font-weight: bold; font-style: italic;fill: #1F78B4; font-family: "Arial";'>salicaria</text>
+<text x='191.10' y='79.73' style='font-size: 14.40px; font-weight: bold; font-style: italic;fill: #6A3D9A; font-family: "Arial";'>hookeri</text>
+<text x='182.06' y='57.38' style='font-size: 14.40px; font-weight: bold; font-style: italic;fill: #33A02C; font-family: "Arial";'>sarmentosa</text>
+<text x='145.43' y='35.29' style='font-size: 14.40px; font-weight: bold; font-style: italic;fill: #A6CEE3; font-family: "Arial";'>menziesii</text>
+<text x='118.67' y='11.64' style='font-size: 14.40px; font-weight: bold; font-style: italic;fill: #E31A1C; font-family: "Arial";'>spergulina</text>
 <line x1='10.67' y1='8.00' x2='32.00' y2='8.00' style='stroke-width: 3.75; stroke: #BEBEBE;' />
-<text x='34.13' y='12.37' style='font-size: 12.00px;fill: #BEBEBE; font-family: "Arial";'>0.002</text>
-<text x='277.33' y='213.25' text-anchor='middle' style='font-size: 14.40px;fill: #FDBF6F; font-family: "Arial";'>H</text>
-<text x='277.33' y='191.02' text-anchor='middle' style='font-size: 14.40px;fill: #CAB2D6; font-family: "Arial";'>H</text>
-<text x='277.33' y='168.80' text-anchor='middle' style='font-size: 14.40px;fill: #FB9A99; font-family: "Arial";'>H</text>
-<text x='277.33' y='146.58' text-anchor='middle' style='font-size: 14.40px;fill: #FF7F00; font-family: "Arial";'>H</text>
-<text x='277.33' y='124.36' text-anchor='middle' style='font-size: 14.40px;fill: #B2DF8A; font-family: "Arial";'>H</text>
-<text x='277.33' y='102.13' text-anchor='middle' style='font-size: 14.40px;fill: #1F78B4; font-family: "Arial";'>G</text>
-<text x='277.33' y='79.91' text-anchor='middle' style='font-size: 14.40px;fill: #6A3D9A; font-family: "Arial";'>H</text>
-<text x='277.33' y='57.69' text-anchor='middle' style='font-size: 14.40px;fill: #33A02C; font-family: "Arial";'>G</text>
-<text x='277.33' y='35.47' text-anchor='middle' style='font-size: 14.40px;fill: #A6CEE3; font-family: "Arial";'>H</text>
-<text x='277.33' y='13.25' text-anchor='middle' style='font-size: 14.40px;fill: #E31A1C; font-family: "Arial";'>D</text>
+<text x='34.13' y='12.30' style='font-size: 12.00px;fill: #BEBEBE; font-family: "Arial";'>0.002</text>
+<text x='277.33' y='213.15' text-anchor='middle' style='font-size: 14.40px;fill: #FDBF6F; font-family: "Arial";'>H</text>
+<text x='277.33' y='190.93' text-anchor='middle' style='font-size: 14.40px;fill: #CAB2D6; font-family: "Arial";'>H</text>
+<text x='277.33' y='168.71' text-anchor='middle' style='font-size: 14.40px;fill: #FB9A99; font-family: "Arial";'>H</text>
+<text x='277.33' y='146.48' text-anchor='middle' style='font-size: 14.40px;fill: #FF7F00; font-family: "Arial";'>H</text>
+<text x='277.33' y='124.26' text-anchor='middle' style='font-size: 14.40px;fill: #B2DF8A; font-family: "Arial";'>H</text>
+<text x='277.33' y='102.04' text-anchor='middle' style='font-size: 14.40px;fill: #1F78B4; font-family: "Arial";'>G</text>
+<text x='277.33' y='79.82' text-anchor='middle' style='font-size: 14.40px;fill: #6A3D9A; font-family: "Arial";'>H</text>
+<text x='277.33' y='57.60' text-anchor='middle' style='font-size: 14.40px;fill: #33A02C; font-family: "Arial";'>G</text>
+<text x='277.33' y='35.37' text-anchor='middle' style='font-size: 14.40px;fill: #A6CEE3; font-family: "Arial";'>H</text>
+<text x='277.33' y='13.15' text-anchor='middle' style='font-size: 14.40px;fill: #E31A1C; font-family: "Arial";'>D</text>
 </g>
 <defs>
   <clipPath id='cpMjg4LjAwfDM2MC4wMHwwLjAwfDIxNi4wMA=='>
@@ -139,5 +144,6 @@
 <circle cx='290.67' cy='52.44' r='2.70' style='stroke-width: 0.75; stroke: #33A02C; fill: #33A02C;' />
 <circle cx='290.67' cy='30.22' r='2.70' style='stroke-width: 0.75; stroke: #A6CEE3; fill: #A6CEE3;' />
 <circle cx='290.67' cy='8.00' r='2.70' style='stroke-width: 0.75; stroke: #E31A1C; fill: #E31A1C;' />
+</g>
 </g>
 </svg>
