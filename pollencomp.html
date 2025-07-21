@@ -1317,7 +1317,7 @@ hybrid.test &lt;- surv %&gt;% filter(type==&quot;mixed&quot;) %&gt;%
          prop.hybrid.sds = goback(prop.hybrid.sdl, prop.germ), #seed stage
          prop.hybrid.zyg = goback(goback(prop.hybrid.sds, sds), capsule.formed)) #two steps!
 
-hybnames &lt;- c(prop.hybrid =     &quot;Plant&quot;, #TODO rename this hybnames to avoid conflict
+hybnames &lt;- c(prop.hybrid =     &quot;Plant&quot;, 
                prop.hybrid.sdl = &quot;Seedling&quot;,
                prop.hybrid.sds = &quot;Seed&quot;,
                prop.hybrid.zyg = &quot;Competition&quot;)
@@ -2305,27 +2305,35 @@ color.</p>
 </div>
 <div id="hybrid-seed-ratios" class="section level2">
 <h2>Hybrid seed ratios</h2>
-<p>To estimate the proportion of viable seeds sired by heterospecific
-pollen, divide the surviving hybrid ratios in mixed crosses by the
-“hybrid vigor”: the germination and survival of hybrid seeds relative to
-conspecific seeds.</p>
-<pre class="r"><code>hybrid.phylostyle &lt;- left_join(hybrid.test, phylodist) %&gt;% 
+<pre class="r"><code>F1.backest.quantiles &lt;- F1.backest.long %&gt;% group_by(momsp, stage) %&gt;% 
+  summarize(q25 = quantile(prop, 0.25), 
+            q50 = quantile(prop, 0.50), 
+            q75 = quantile(prop, 0.75)) %&gt;% 
+  mutate(stage = paste0(&quot;prop.hybrid.&quot;, stage)) %&gt;% 
+  mutate(stage = recode(stage, &quot;prop.hybrid.plt&quot; = &quot;prop.hybrid&quot;)) %&gt;%
+  rename(name = stage)
+
+hybrid.phylostyle &lt;- left_join(hybrid.test, phylodist) %&gt;% 
   left_join(select(styles.emm, momsp, style_length_mm, style_diff_rel)) %&gt;% 
   mutate(hybrid.RI.all = 1-2*hybrid.vigor.all/(hybrid.vigor.all+1)) %&gt;% #RI per Sobel and Chen 2014 
-  pivot_longer(all_of(c(names(propnames[c(1,4)]), &quot;hybrid.RI.all&quot;)) )
+  pivot_longer(all_of(c(names(hybnames), &quot;hybrid.RI.all&quot;)) ) %&gt;% 
+  left_join(F1.backest.quantiles)
 
 hybrid.phylostyle %&gt;% pivot_longer(c(pd, style_length_mm), names_to = &quot;xname&quot;, values_to = &quot;xvalue&quot;) %&gt;% 
   ggplot(aes(x=xvalue, y=value)) + 
   facet_grid(name ~ xname, scales=&quot;free&quot;, switch=&quot;both&quot;, 
-             labeller=as_labeller(c(hybrid.RI.all=&quot;Reproductive isolation\n(heterosis \U2194 complete isolation)&quot;,
-                                    prop.hybrid=&quot;Proportion of hybrid plants\n(observed)&quot;,
-                                    prop.hybrid.zyg = &quot;Hybrids pollen competiveness\n(estimated)&quot;,
+             labeller=as_labeller(c(hybrid.RI.all=&quot;Reproductive isolation&quot;,#\n(heterosis \U2194 complete isolation)
+                                    prop.hybrid=&quot;Hybrid plants\n(observed)&quot;,
+                                    prop.hybrid.sdl=&quot;Hybrid seedlings\n(estimated)&quot;,
+                                    prop.hybrid.sds=&quot;Hybrid seeds\n(estimated)&quot;,
+                                    prop.hybrid.zyg = &quot;Hybrid pollen\ncompetiveness (est.)&quot;,
                                     style_length_mm = &quot;Style length (mm)&quot;, 
                                     pd=&quot;Phylogenetic distance (mutations/site)&quot;))) + 
   geom_hline(aes(yintercept=if_else(name==&quot;hybrid.RI.all&quot;,0,0.5)), linetype=2)+
   geom_smooth(aes(linetype=if_else(xname==&quot;pd&quot;,&quot;yes&quot;,&quot;no&quot;)), method=&quot;lm&quot;, se=F, color=&quot;grey&quot;) +
   geom_path(aes(linetype=if_else(xname==&quot;style_length_mm&quot; &amp; name != &quot;hybrid.vigor.germsurv&quot;,&quot;yes&quot;,&quot;no&quot;), 
                 group=pair, color=sp_pairs[as.integer(pair)*2]), show.legend = F)+
+  geom_errorbar(aes(color=momsp, ymin=q25, ymax=q75, width=if_else(xname == &quot;pd&quot;, 0.001, 0.25))) + 
   geom_point(aes(color=momsp), size=4) + 
   scale_linetype_manual(values=c(yes=&quot;solid&quot;, no=&quot;blank&quot;), guide=&quot;none&quot;) +
   scale_y_continuous(expand=expansion(mult=c(0.05,0.05)), breaks=(-2:2)/2) + 
@@ -2341,9 +2349,9 @@ hybrid.phylostyle %&gt;% pivot_longer(c(pd, style_length_mm), names_to = &quot;x
   select(name, coef) %&gt;% unnest(coef) %&gt;% filter(term != &quot;(Intercept)&quot;) %&gt;% kable()</code></pre>
 <table>
 <colgroup>
+<col width="23%" />
 <col width="22%" />
-<col width="22%" />
-<col width="14%" />
+<col width="13%" />
 <col width="14%" />
 <col width="14%" />
 <col width="11%" />
@@ -2360,36 +2368,68 @@ hybrid.phylostyle %&gt;% pivot_longer(c(pd, style_length_mm), names_to = &quot;x
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">capsule.formed</td>
+<td align="left">prop.hybrid</td>
 <td align="left">pd</td>
-<td align="right">-20.4473</td>
-<td align="right">11.3916</td>
-<td align="right">-1.7950</td>
-<td align="right">0.1157</td>
+<td align="right">-26.2767</td>
+<td align="right">7.4003</td>
+<td align="right">-3.5508</td>
+<td align="right">0.0093</td>
 </tr>
 <tr class="even">
-<td align="left">capsule.formed</td>
+<td align="left">prop.hybrid</td>
 <td align="left">style_diff_rel</td>
-<td align="right">0.0598</td>
-<td align="right">0.2446</td>
-<td align="right">0.2444</td>
-<td align="right">0.8139</td>
+<td align="right">-0.4175</td>
+<td align="right">0.1589</td>
+<td align="right">-2.6280</td>
+<td align="right">0.0340</td>
 </tr>
 <tr class="odd">
-<td align="left">prop.alive</td>
+<td align="left">prop.hybrid.sdl</td>
 <td align="left">pd</td>
-<td align="right">-149.7522</td>
-<td align="right">54.2623</td>
-<td align="right">-2.7598</td>
-<td align="right">0.0281</td>
+<td align="right">-8.9758</td>
+<td align="right">5.8354</td>
+<td align="right">-1.5382</td>
+<td align="right">0.1679</td>
 </tr>
 <tr class="even">
-<td align="left">prop.alive</td>
+<td align="left">prop.hybrid.sdl</td>
 <td align="left">style_diff_rel</td>
-<td align="right">-0.5421</td>
-<td align="right">1.1650</td>
-<td align="right">-0.4653</td>
-<td align="right">0.6558</td>
+<td align="right">-0.2442</td>
+<td align="right">0.1253</td>
+<td align="right">-1.9495</td>
+<td align="right">0.0922</td>
+</tr>
+<tr class="odd">
+<td align="left">prop.hybrid.sds</td>
+<td align="left">pd</td>
+<td align="right">4.1633</td>
+<td align="right">8.1548</td>
+<td align="right">0.5105</td>
+<td align="right">0.6254</td>
+</tr>
+<tr class="even">
+<td align="left">prop.hybrid.sds</td>
+<td align="left">style_diff_rel</td>
+<td align="right">-0.1552</td>
+<td align="right">0.1751</td>
+<td align="right">-0.8865</td>
+<td align="right">0.4048</td>
+</tr>
+<tr class="odd">
+<td align="left">prop.hybrid.zyg</td>
+<td align="left">pd</td>
+<td align="right">17.7468</td>
+<td align="right">6.3356</td>
+<td align="right">2.8011</td>
+<td align="right">0.0265</td>
+</tr>
+<tr class="even">
+<td align="left">prop.hybrid.zyg</td>
+<td align="left">style_diff_rel</td>
+<td align="right">-0.1876</td>
+<td align="right">0.1360</td>
+<td align="right">-1.3796</td>
+<td align="right">0.2102</td>
 </tr>
 <tr class="odd">
 <td align="left">hybrid.RI.all</td>
