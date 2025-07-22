@@ -11,7 +11,7 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2025-07-21" />
+<meta name="date" content="2025-07-22" />
 
 <title>Schiedea pollen competition</title>
 
@@ -253,7 +253,7 @@ div.tocify {
 <h1 class="title toc-ignore"><em>Schiedea</em> pollen competition</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John
 Powers</a></h4>
-<h4 class="date">2025-07-21</h4>
+<h4 class="date">2025-07-22</h4>
 
 </div>
 
@@ -2344,6 +2344,8 @@ hybrid.phylostyle %&gt;% pivot_longer(c(pd, style_length_mm), names_to = &quot;x
         strip.placement = &quot;outside&quot;, axis.title.x = element_blank(), axis.title.y = element_blank(),
         panel.spacing.y = unit(0.5,&quot;lines&quot;), panel.spacing.x = unit(1,&quot;lines&quot;), panel.grid = element_blank()) </code></pre>
 <p><img src="figures-comp/fertilized-1.svg" width="633.6" /></p>
+<div id="regressions" class="section level3">
+<h3>Regressions</h3>
 <pre class="r"><code>#regressions with one point per species
 hybrid.phylostyle %&gt;% group_by(name) %&gt;% nest() %&gt;% 
   mutate(model = map(data, ~lm(value ~ pd + style_diff_rel, data=.x)), 
@@ -2452,17 +2454,43 @@ hybrid.phylostyle %&gt;% group_by(name) %&gt;% nest() %&gt;%
 </tbody>
 </table>
 <pre class="r"><code>#regressions with sample size of the hybrid scoring
+pdseq &lt;- tibble(pd=seq(min(phylodist$pd),max(phylodist$pd)+0.001, by=0.001), alive=1)#for predictions later
+stagenames &lt;- rev(c(&quot;plt&quot;, &quot;sdl&quot;,&quot;sds&quot;,&quot;zyg&quot;))
+
 mod.pd.backest &lt;- F1.backest.long %&gt;% filter(samp==1) %&gt;%  #just one sample
   left_join(surv %&gt;% filter(type==&quot;mixed&quot;) %&gt;% select(momsp, alive) %&gt;% mutate(batch=row_number())) %&gt;%
   mutate(hybrid = round(prop*alive), #give the estimates the same number of trials, and round successes
          prop.round=hybrid/alive) %&gt;% 
   left_join(phylodist) %&gt;% 
+  mutate(stage = factor(stage, levels=stagenames)) %&gt;% 
   group_by(stage) %&gt;% nest() %&gt;% 
   mutate(model = map(data, ~glmmTMB(prop.round ~ pd + (1|momsp), family = &quot;betabinomial&quot;, weights=alive, data=.x)),
          coef = map(model, ~fixef(.x)),
-         anova = map(model, ~tidy(car::Anova(.x))))
-
-mod.pd.backest %&gt;% select(-data, -model, -coef) %&gt;% unnest(anova) %&gt;% filter(term !=&quot;Residuals&quot;) %&gt;%
+         anova = map(model, ~tidy(car::Anova(.x))),
+         pred = map(model, ~bind_cols(pdseq, predict(.x, newdata=pdseq, 
+                                                       re.form=NA, type=&quot;response&quot;, se.fit=T))))
+mod.pd.backest %&gt;% select(stage, data) %&gt;% unnest(data) %&gt;% 
+  ggplot(aes(x=pd)) + 
+  facet_wrap(vars(stage), nrow=1,
+             labeller = as_labeller(set_names(labs.phylostyle[2:5], rev(stagenames)))) + 
+  geom_ribbon(data = unnest(mod.pd.backest, pred), 
+              aes(ymax=fit+se.fit, ymin=fit-se.fit), fill=&quot;black&quot;, alpha=0.1)+
+  geom_line(data = unnest(mod.pd.backest, pred), aes(y=fit)) +
+  geom_jitter(aes(color=momsp, y=prop, size=alive), width=0.001, height=0) + scale_size(range=c(0,3))+
+  # geom_point(data = hybrid.phylostyle %&gt;% mutate(stage=str_remove(name, &quot;prop.hybrid.&quot;) %&gt;%
+  #                            str_replace(&quot;prop.hybrid&quot;, &quot;plt&quot;) %&gt;% factor(levels=stagenames)) %&gt;%
+  #              drop_na(stage),
+  #            aes(color=momsp, y=value), size=4)+
+  scale_color_brewer(&quot;Maternal\nspecies&quot;, palette=&quot;Paired&quot;) + 
+  labs(x=labs.phylostyle[&quot;pd&quot;], y=&quot;&quot;)+ 
+  scale_y_continuous(limits=c(0,1), expand = expansion(mult=c(0,0)))+
+  theme_bw() +
+  theme(axis.title.y=element_blank(), axis.text=element_text(color=&quot;black&quot;), legend.position=&quot;top&quot;,
+        panel.grid.minor = element_blank(), panel.grid.major.x=element_blank(), 
+        panel.spacing = unit(1, &quot;lines&quot;)) + 
+  guides(color = guide_legend(override.aes = list(size = 4)), size=&quot;none&quot;)</code></pre>
+<p><img src="figures-comp/reg_pd-1.svg" width="672" /></p>
+<pre class="r"><code>mod.pd.backest %&gt;% select(stage, anova) %&gt;% unnest(anova) %&gt;% filter(term !=&quot;Residuals&quot;) %&gt;%
   ungroup() %&gt;% mutate(slope.pd = map_dbl(mod.pd.backest$coef, ~.x$cond[2])) %&gt;% kable()</code></pre>
 <table>
 <thead>
@@ -2510,15 +2538,6 @@ mod.pd.backest %&gt;% select(-data, -model, -coef) %&gt;% unnest(anova) %&gt;% f
 </tr>
 </tbody>
 </table>
-<pre class="r"><code>mod.pd.backest %&gt;% select(-model, -coef, -anova) %&gt;% unnest(data) %&gt;% 
-  ggplot(aes(x=pd, y=prop)) + 
-  facet_wrap(vars(stage), 
-             labeller = as_labeller(set_names(labs.phylostyle[2:5], c(&quot;plt&quot;, &quot;sdl&quot;,&quot;sds&quot;,&quot;zyg&quot;)))) + 
-  geom_point(aes(color=momsp)) + 
-  scale_color_brewer(&quot;Maternal\nspecies&quot;, palette=&quot;Paired&quot;) + 
-  labs(x=labs.phylostyle[&quot;pd&quot;], y=&quot;&quot;)+
-  theme_minimal() + theme(legend.position =&quot;top&quot;)</code></pre>
-<p><img src="figures-comp/reg_pd-1.svg" width="672" /></p>
 <pre class="r"><code>left_join(filter(comp.emm, trait==&quot;prop.hybrid&quot;), hybrid.test) %&gt;% 
 left_join(select(styles.emm, momsp, style_length_mm, mating, style_conf.low=conf.low, style_conf.high=conf.high)) %&gt;% 
   ggplot(aes(x=style_length_mm, y=estimate, color=momsp)) + geom_hline(aes(yintercept=0.5), linetype=2) +  
@@ -2530,6 +2549,7 @@ left_join(select(styles.emm, momsp, style_length_mm, mating, style_conf.low=conf
                           legend.key.size=unit(0.8, &quot;lines&quot;))+
   guides(color = guide_legend(override.aes = list(size = 4)))</code></pre>
 <p><img src="figures-comp/progeny_styles-1.svg" width="576" /></p>
+</div>
 </div>
 </div>
 

@@ -786,7 +786,9 @@ hybrid.phylostyle %>% pivot_longer(c(pd, style_length_mm), names_to = "xname", v
         panel.spacing.y = unit(0.5,"lines"), panel.spacing.x = unit(1,"lines"), panel.grid = element_blank()) 
 ```
 
-```{r reg_pd}
+### Regressions
+
+```{r reg_pd, fig.width=7, fig.height=5}
 #regressions with one point per species
 hybrid.phylostyle %>% group_by(name) %>% nest() %>% 
   mutate(model = map(data, ~lm(value ~ pd + style_diff_rel, data=.x)), 
@@ -794,27 +796,44 @@ hybrid.phylostyle %>% group_by(name) %>% nest() %>%
   select(name, coef) %>% unnest(coef) %>% filter(term != "(Intercept)") %>% kable()
 
 #regressions with sample size of the hybrid scoring
+pdseq <- tibble(pd=seq(min(phylodist$pd),max(phylodist$pd)+0.001, by=0.001), alive=1)#for predictions later
+stagenames <- rev(c("plt", "sdl","sds","zyg"))
+
 mod.pd.backest <- F1.backest.long %>% filter(samp==1) %>%  #just one sample
   left_join(surv %>% filter(type=="mixed") %>% select(momsp, alive) %>% mutate(batch=row_number())) %>%
   mutate(hybrid = round(prop*alive), #give the estimates the same number of trials, and round successes
          prop.round=hybrid/alive) %>% 
   left_join(phylodist) %>% 
+  mutate(stage = factor(stage, levels=stagenames)) %>% 
   group_by(stage) %>% nest() %>% 
   mutate(model = map(data, ~glmmTMB(prop.round ~ pd + (1|momsp), family = "betabinomial", weights=alive, data=.x)),
          coef = map(model, ~fixef(.x)),
-         anova = map(model, ~tidy(car::Anova(.x))))
-
-mod.pd.backest %>% select(-data, -model, -coef) %>% unnest(anova) %>% filter(term !="Residuals") %>%
-  ungroup() %>% mutate(slope.pd = map_dbl(mod.pd.backest$coef, ~.x$cond[2])) %>% kable()
-
-mod.pd.backest %>% select(-model, -coef, -anova) %>% unnest(data) %>% 
-  ggplot(aes(x=pd, y=prop)) + 
-  facet_wrap(vars(stage), 
-             labeller = as_labeller(set_names(labs.phylostyle[2:5], c("plt", "sdl","sds","zyg")))) + 
-  geom_point(aes(color=momsp)) + 
+         anova = map(model, ~tidy(car::Anova(.x))),
+         pred = map(model, ~bind_cols(pdseq, predict(.x, newdata=pdseq, 
+                                                       re.form=NA, type="response", se.fit=T))))
+mod.pd.backest %>% select(stage, data) %>% unnest(data) %>% 
+  ggplot(aes(x=pd)) + 
+  facet_wrap(vars(stage), nrow=1,
+             labeller = as_labeller(set_names(labs.phylostyle[2:5], rev(stagenames)))) + 
+  geom_ribbon(data = unnest(mod.pd.backest, pred), 
+              aes(ymax=fit+se.fit, ymin=fit-se.fit), fill="black", alpha=0.1)+
+  geom_line(data = unnest(mod.pd.backest, pred), aes(y=fit)) +
+  geom_jitter(aes(color=momsp, y=prop, size=alive), width=0.001, height=0) + scale_size(range=c(0,3))+
+  # geom_point(data = hybrid.phylostyle %>% mutate(stage=str_remove(name, "prop.hybrid.") %>%
+  #                            str_replace("prop.hybrid", "plt") %>% factor(levels=stagenames)) %>%
+  #              drop_na(stage),
+  #            aes(color=momsp, y=value), size=4)+
   scale_color_brewer("Maternal\nspecies", palette="Paired") + 
-  labs(x=labs.phylostyle["pd"], y="")+
-  theme_minimal() + theme(legend.position ="top")
+  labs(x=labs.phylostyle["pd"], y="")+ 
+  scale_y_continuous(limits=c(0,1), expand = expansion(mult=c(0,0)))+
+  theme_bw() +
+  theme(axis.title.y=element_blank(), axis.text=element_text(color="black"), legend.position="top",
+        panel.grid.minor = element_blank(), panel.grid.major.x=element_blank(), 
+        panel.spacing = unit(1, "lines")) + 
+  guides(color = guide_legend(override.aes = list(size = 4)), size="none")
+
+mod.pd.backest %>% select(stage, anova) %>% unnest(anova) %>% filter(term !="Residuals") %>%
+  ungroup() %>% mutate(slope.pd = map_dbl(mod.pd.backest$coef, ~.x$cond[2])) %>% kable()
 ```
 
 
