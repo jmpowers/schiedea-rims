@@ -760,16 +760,17 @@ hybrid.phylostyle <- left_join(hybrid.test, phylodist) %>%
   pivot_longer(all_of(c(names(hybnames), "hybrid.RI.all")) ) %>% 
   left_join(F1.backest.quantiles)
 
+labs.phylostyle <- c(hybrid.RI.all="Reproductive isolation",#\n(heterosis \U2194 complete isolation)
+                     prop.hybrid="Hybrid plants\n(observed)",
+                     prop.hybrid.sdl="Hybrid seedlings\n(estimated)",
+                     prop.hybrid.sds="Hybrid seeds\n(estimated)",
+                     prop.hybrid.zyg = "Hybrid pollen\ncompetiveness (est.)",
+                     style_length_mm = "Style length (mm)", 
+                     pd="Phylogenetic distance (mutations/site)")
+
 hybrid.phylostyle %>% pivot_longer(c(pd, style_length_mm), names_to = "xname", values_to = "xvalue") %>% 
   ggplot(aes(x=xvalue, y=value)) + 
-  facet_grid(name ~ xname, scales="free", switch="both", 
-             labeller=as_labeller(c(hybrid.RI.all="Reproductive isolation",#\n(heterosis \U2194 complete isolation)
-                                    prop.hybrid="Hybrid plants\n(observed)",
-                                    prop.hybrid.sdl="Hybrid seedlings\n(estimated)",
-                                    prop.hybrid.sds="Hybrid seeds\n(estimated)",
-                                    prop.hybrid.zyg = "Hybrid pollen\ncompetiveness (est.)",
-                                    style_length_mm = "Style length (mm)", 
-                                    pd="Phylogenetic distance (mutations/site)"))) + 
+  facet_grid(name ~ xname, scales="free", switch="both", labeller=as_labeller(labs.phylostyle)) + 
   geom_hline(aes(yintercept=if_else(name=="hybrid.RI.all",0,0.5)), linetype=2)+
   geom_smooth(aes(linetype=if_else(xname=="pd","yes","no")), method="lm", se=F, color="grey") +
   geom_path(aes(linetype=if_else(xname=="style_length_mm" & name != "hybrid.vigor.germsurv","yes","no"), 
@@ -783,12 +784,39 @@ hybrid.phylostyle %>% pivot_longer(c(pd, style_length_mm), names_to = "xname", v
   theme(axis.text=element_text(color="black"), legend.position="top", panel.background = element_rect(),
         strip.placement = "outside", axis.title.x = element_blank(), axis.title.y = element_blank(),
         panel.spacing.y = unit(0.5,"lines"), panel.spacing.x = unit(1,"lines"), panel.grid = element_blank()) 
+```
 
+```{r reg_pd}
+#regressions with one point per species
 hybrid.phylostyle %>% group_by(name) %>% nest() %>% 
   mutate(model = map(data, ~lm(value ~ pd + style_diff_rel, data=.x)), 
          coef = map(model, tidy)) %>% 
   select(name, coef) %>% unnest(coef) %>% filter(term != "(Intercept)") %>% kable()
+
+#regressions with sample size of the hybrid scoring
+mod.pd.backest <- F1.backest.long %>% filter(samp==1) %>%  #just one sample
+  left_join(surv %>% filter(type=="mixed") %>% select(momsp, alive) %>% mutate(batch=row_number())) %>%
+  mutate(hybrid = round(prop*alive), #give the estimates the same number of trials, and round successes
+         prop.round=hybrid/alive) %>% 
+  left_join(phylodist) %>% 
+  group_by(stage) %>% nest() %>% 
+  mutate(model = map(data, ~glmmTMB(prop.round ~ pd + (1|momsp), family = "betabinomial", weights=alive, data=.x)),
+         coef = map(model, ~fixef(.x)),
+         anova = map(model, ~tidy(car::Anova(.x))))
+
+mod.pd.backest %>% select(-data, -model, -coef) %>% unnest(anova) %>% filter(term !="Residuals") %>%
+  ungroup() %>% mutate(slope.pd = map_dbl(mod.pd.backest$coef, ~.x$cond[2])) %>% kable()
+
+mod.pd.backest %>% select(-model, -coef, -anova) %>% unnest(data) %>% 
+  ggplot(aes(x=pd, y=prop)) + 
+  facet_wrap(vars(stage), 
+             labeller = as_labeller(set_names(labs.phylostyle[2:5], c("plt", "sdl","sds","zyg")))) + 
+  geom_point(aes(color=momsp)) + 
+  scale_color_brewer("Maternal\nspecies", palette="Paired") + 
+  labs(x=labs.phylostyle["pd"], y="")+
+  theme_minimal() + theme(legend.position ="top")
 ```
+
 
 ```{r progeny_styles, fig.width=6, fig.height=5}
 left_join(filter(comp.emm, trait=="prop.hybrid"), hybrid.test) %>% 

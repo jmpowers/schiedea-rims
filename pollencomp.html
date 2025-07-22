@@ -2319,16 +2319,17 @@ hybrid.phylostyle &lt;- left_join(hybrid.test, phylodist) %&gt;%
   pivot_longer(all_of(c(names(hybnames), &quot;hybrid.RI.all&quot;)) ) %&gt;% 
   left_join(F1.backest.quantiles)
 
+labs.phylostyle &lt;- c(hybrid.RI.all=&quot;Reproductive isolation&quot;,#\n(heterosis \U2194 complete isolation)
+                     prop.hybrid=&quot;Hybrid plants\n(observed)&quot;,
+                     prop.hybrid.sdl=&quot;Hybrid seedlings\n(estimated)&quot;,
+                     prop.hybrid.sds=&quot;Hybrid seeds\n(estimated)&quot;,
+                     prop.hybrid.zyg = &quot;Hybrid pollen\ncompetiveness (est.)&quot;,
+                     style_length_mm = &quot;Style length (mm)&quot;, 
+                     pd=&quot;Phylogenetic distance (mutations/site)&quot;)
+
 hybrid.phylostyle %&gt;% pivot_longer(c(pd, style_length_mm), names_to = &quot;xname&quot;, values_to = &quot;xvalue&quot;) %&gt;% 
   ggplot(aes(x=xvalue, y=value)) + 
-  facet_grid(name ~ xname, scales=&quot;free&quot;, switch=&quot;both&quot;, 
-             labeller=as_labeller(c(hybrid.RI.all=&quot;Reproductive isolation&quot;,#\n(heterosis \U2194 complete isolation)
-                                    prop.hybrid=&quot;Hybrid plants\n(observed)&quot;,
-                                    prop.hybrid.sdl=&quot;Hybrid seedlings\n(estimated)&quot;,
-                                    prop.hybrid.sds=&quot;Hybrid seeds\n(estimated)&quot;,
-                                    prop.hybrid.zyg = &quot;Hybrid pollen\ncompetiveness (est.)&quot;,
-                                    style_length_mm = &quot;Style length (mm)&quot;, 
-                                    pd=&quot;Phylogenetic distance (mutations/site)&quot;))) + 
+  facet_grid(name ~ xname, scales=&quot;free&quot;, switch=&quot;both&quot;, labeller=as_labeller(labs.phylostyle)) + 
   geom_hline(aes(yintercept=if_else(name==&quot;hybrid.RI.all&quot;,0,0.5)), linetype=2)+
   geom_smooth(aes(linetype=if_else(xname==&quot;pd&quot;,&quot;yes&quot;,&quot;no&quot;)), method=&quot;lm&quot;, se=F, color=&quot;grey&quot;) +
   geom_path(aes(linetype=if_else(xname==&quot;style_length_mm&quot; &amp; name != &quot;hybrid.vigor.germsurv&quot;,&quot;yes&quot;,&quot;no&quot;), 
@@ -2343,7 +2344,8 @@ hybrid.phylostyle %&gt;% pivot_longer(c(pd, style_length_mm), names_to = &quot;x
         strip.placement = &quot;outside&quot;, axis.title.x = element_blank(), axis.title.y = element_blank(),
         panel.spacing.y = unit(0.5,&quot;lines&quot;), panel.spacing.x = unit(1,&quot;lines&quot;), panel.grid = element_blank()) </code></pre>
 <p><img src="figures-comp/fertilized-1.svg" width="633.6" /></p>
-<pre class="r"><code>hybrid.phylostyle %&gt;% group_by(name) %&gt;% nest() %&gt;% 
+<pre class="r"><code>#regressions with one point per species
+hybrid.phylostyle %&gt;% group_by(name) %&gt;% nest() %&gt;% 
   mutate(model = map(data, ~lm(value ~ pd + style_diff_rel, data=.x)), 
          coef = map(model, tidy)) %&gt;% 
   select(name, coef) %&gt;% unnest(coef) %&gt;% filter(term != &quot;(Intercept)&quot;) %&gt;% kable()</code></pre>
@@ -2449,6 +2451,74 @@ hybrid.phylostyle %&gt;% pivot_longer(c(pd, style_length_mm), names_to = &quot;x
 </tr>
 </tbody>
 </table>
+<pre class="r"><code>#regressions with sample size of the hybrid scoring
+mod.pd.backest &lt;- F1.backest.long %&gt;% filter(samp==1) %&gt;%  #just one sample
+  left_join(surv %&gt;% filter(type==&quot;mixed&quot;) %&gt;% select(momsp, alive) %&gt;% mutate(batch=row_number())) %&gt;%
+  mutate(hybrid = round(prop*alive), #give the estimates the same number of trials, and round successes
+         prop.round=hybrid/alive) %&gt;% 
+  left_join(phylodist) %&gt;% 
+  group_by(stage) %&gt;% nest() %&gt;% 
+  mutate(model = map(data, ~glmmTMB(prop.round ~ pd + (1|momsp), family = &quot;betabinomial&quot;, weights=alive, data=.x)),
+         coef = map(model, ~fixef(.x)),
+         anova = map(model, ~tidy(car::Anova(.x))))
+
+mod.pd.backest %&gt;% select(-data, -model, -coef) %&gt;% unnest(anova) %&gt;% filter(term !=&quot;Residuals&quot;) %&gt;%
+  ungroup() %&gt;% mutate(slope.pd = map_dbl(mod.pd.backest$coef, ~.x$cond[2])) %&gt;% kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">stage</th>
+<th align="left">term</th>
+<th align="right">statistic</th>
+<th align="right">df</th>
+<th align="right">p.value</th>
+<th align="right">slope.pd</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">plt</td>
+<td align="left">pd</td>
+<td align="right">5.7989</td>
+<td align="right">1</td>
+<td align="right">0.0160</td>
+<td align="right">-115.54</td>
+</tr>
+<tr class="even">
+<td align="left">sdl</td>
+<td align="left">pd</td>
+<td align="right">1.7436</td>
+<td align="right">1</td>
+<td align="right">0.1867</td>
+<td align="right">-56.21</td>
+</tr>
+<tr class="odd">
+<td align="left">sds</td>
+<td align="left">pd</td>
+<td align="right">0.1332</td>
+<td align="right">1</td>
+<td align="right">0.7151</td>
+<td align="right">-12.73</td>
+</tr>
+<tr class="even">
+<td align="left">zyg</td>
+<td align="left">pd</td>
+<td align="right">0.2237</td>
+<td align="right">1</td>
+<td align="right">0.6362</td>
+<td align="right">-16.72</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>mod.pd.backest %&gt;% select(-model, -coef, -anova) %&gt;% unnest(data) %&gt;% 
+  ggplot(aes(x=pd, y=prop)) + 
+  facet_wrap(vars(stage), 
+             labeller = as_labeller(set_names(labs.phylostyle[2:5], c(&quot;plt&quot;, &quot;sdl&quot;,&quot;sds&quot;,&quot;zyg&quot;)))) + 
+  geom_point(aes(color=momsp)) + 
+  scale_color_brewer(&quot;Maternal\nspecies&quot;, palette=&quot;Paired&quot;) + 
+  labs(x=labs.phylostyle[&quot;pd&quot;], y=&quot;&quot;)+
+  theme_minimal() + theme(legend.position =&quot;top&quot;)</code></pre>
+<p><img src="figures-comp/reg_pd-1.svg" width="672" /></p>
 <pre class="r"><code>left_join(filter(comp.emm, trait==&quot;prop.hybrid&quot;), hybrid.test) %&gt;% 
 left_join(select(styles.emm, momsp, style_length_mm, mating, style_conf.low=conf.low, style_conf.high=conf.high)) %&gt;% 
   ggplot(aes(x=style_length_mm, y=estimate, color=momsp)) + geom_hline(aes(yintercept=0.5), linetype=2) +  
