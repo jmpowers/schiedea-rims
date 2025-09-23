@@ -29,7 +29,7 @@ Response variables:
 Fixed effects:
 
 * **cross** - the maternal plant x the paternal plant
-* **hr** - the time elapsed since pollination: 4 hr or 24 hr
+* **hr** - the time elapsed since pollination: 4 h or 24 h
 
 Random effects:
 
@@ -222,8 +222,8 @@ mytheme <- theme(legend.text=element_text(size=rel(1)), legend.position="right",
                  axis.text = element_text(colour="black", size=rel(1)), text=element_text(size=14), 
                  axis.ticks.x = element_blank(), axis.title.x=element_blank(),
                  plot.title = element_text(face="italic", size=14), strip.text = element_text(face="italic"))
-timefills <-   scale_fill_brewer("Time", palette="Paired", labels=c("4 hr","24 hr"))
-timecolors <-   scale_color_brewer("Time", palette="Paired", labels=c("4 hr","24 hr"))
+timefills <-   scale_fill_brewer("Time", palette="Paired", labels=c("4 h","24 h"))
+timecolors <-   scale_color_brewer("Time", palette="Paired", labels=c("4 h","24 h"))
 
 var_labels <- c(mid = "Pollen tubes at style midpoint",
                 bottom = "Pollen tubes at style base",
@@ -380,7 +380,7 @@ tubes.phylodist %>% group_by(trait, hr) %>% nest() %>%
 
 ```{r phylo_tubes_ratio, fig.height=4, fig.width=6.5}
 tubes.phylodist %>% filter(trait=="ratio") %>% 
-  ggplot(aes(x=pd, y=-trait_diff)) + facet_wrap(vars(hr), labeller = as_labeller(c(`4hr`="4 hr", `24hr`="24 hr"))) + 
+  ggplot(aes(x=pd, y=-trait_diff)) + facet_wrap(vars(hr), labeller = as_labeller(c(`4hr`="4 h", `24hr`="24 h"))) + 
   geom_hline(yintercept=0)+
   geom_smooth(method="lm", se=F, color="grey") + 
   geom_pointrange(aes(color=momsp, ymin=-(trait_diff-trait_se), ymax=-(trait_diff+trait_se), shape=adj.p.value < 0.05)) + 

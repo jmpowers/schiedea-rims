@@ -11,7 +11,7 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2025-05-16" />
+<meta name="date" content="2025-09-21" />
 
 <title>Schiedea pollen tube growth</title>
 
@@ -253,7 +253,7 @@ div.tocify {
 <h1 class="title toc-ignore"><em>Schiedea</em> pollen tube growth</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John
 Powers</a></h4>
-<h4 class="date">2025-05-16</h4>
+<h4 class="date">2025-09-21</h4>
 
 </div>
 
@@ -291,8 +291,8 @@ binomial model, the input is the number of successes (pollen tubes at
 <ul>
 <li><strong>cross</strong> - the maternal plant x the paternal
 plant</li>
-<li><strong>hr</strong> - the time elapsed since pollination: 4 hr or 24
-hr</li>
+<li><strong>hr</strong> - the time elapsed since pollination: 4 h or 24
+h</li>
 </ul>
 <p>Random effects:</p>
 <ul>
@@ -920,8 +920,8 @@ tubes.mod &lt;- tubes %&gt;% group_by(pair) %&gt;% nest() %&gt;% #TODO got rid o
                  axis.text = element_text(colour=&quot;black&quot;, size=rel(1)), text=element_text(size=14), 
                  axis.ticks.x = element_blank(), axis.title.x=element_blank(),
                  plot.title = element_text(face=&quot;italic&quot;, size=14), strip.text = element_text(face=&quot;italic&quot;))
-timefills &lt;-   scale_fill_brewer(&quot;Time&quot;, palette=&quot;Paired&quot;, labels=c(&quot;4 hr&quot;,&quot;24 hr&quot;))
-timecolors &lt;-   scale_color_brewer(&quot;Time&quot;, palette=&quot;Paired&quot;, labels=c(&quot;4 hr&quot;,&quot;24 hr&quot;))
+timefills &lt;-   scale_fill_brewer(&quot;Time&quot;, palette=&quot;Paired&quot;, labels=c(&quot;4 h&quot;,&quot;24 h&quot;))
+timecolors &lt;-   scale_color_brewer(&quot;Time&quot;, palette=&quot;Paired&quot;, labels=c(&quot;4 h&quot;,&quot;24 h&quot;))
 
 var_labels &lt;- c(mid = &quot;Pollen tubes at style midpoint&quot;,
                 bottom = &quot;Pollen tubes at style base&quot;,
@@ -1825,7 +1825,7 @@ ggplot(tubes.phylodist, aes(x=pd, y=trait_diff)) + facet_grid(trait~hr, scales=&
 </tbody>
 </table>
 <pre class="r"><code>tubes.phylodist %&gt;% filter(trait==&quot;ratio&quot;) %&gt;% 
-  ggplot(aes(x=pd, y=-trait_diff)) + facet_wrap(vars(hr), labeller = as_labeller(c(`4hr`=&quot;4 hr&quot;, `24hr`=&quot;24 hr&quot;))) + 
+  ggplot(aes(x=pd, y=-trait_diff)) + facet_wrap(vars(hr), labeller = as_labeller(c(`4hr`=&quot;4 h&quot;, `24hr`=&quot;24 h&quot;))) + 
   geom_hline(yintercept=0)+
   geom_smooth(method=&quot;lm&quot;, se=F, color=&quot;grey&quot;) + 
   geom_pointrange(aes(color=momsp, ymin=-(trait_diff-trait_se), ymax=-(trait_diff+trait_se), shape=adj.p.value &lt; 0.05)) + 
