@@ -133,16 +133,16 @@
 <text x='231.16' y='13.63' text-anchor='middle' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Arial";'>Seedling</text>
 <text x='333.99' y='13.63' text-anchor='middle' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Arial";'>Seed</text>
 <text x='436.82' y='13.63' text-anchor='middle' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Arial";'>Competition</text>
-<text x='61.70' y='236.26' text-anchor='end' style='font-size: 8.80px; font-style: italic;fill: #6A3D9A; font-family: "Arial";'>hookeri</text>
-<text x='61.70' y='213.91' text-anchor='end' style='font-size: 8.80px; font-style: italic;fill: #6A3D9A; font-family: "Arial";'>kaalae</text>
-<text x='61.70' y='191.56' text-anchor='end' style='font-size: 8.80px; font-style: italic;fill: #FF7F00; font-family: "Arial";'>kauaiensis</text>
-<text x='61.70' y='169.21' text-anchor='end' style='font-size: 8.80px; font-style: italic;fill: #FF7F00; font-family: "Arial";'>membranacea</text>
-<text x='61.70' y='146.87' text-anchor='end' style='font-size: 8.80px; font-style: italic;fill: #E31A1C; font-family: "Arial";'>spergulina</text>
-<text x='61.70' y='124.52' text-anchor='end' style='font-size: 8.80px; font-style: italic;fill: #E31A1C; font-family: "Arial";'>stellarioides</text>
-<text x='61.70' y='102.17' text-anchor='end' style='font-size: 8.80px; font-style: italic;fill: #33A02C; font-family: "Arial";'>sarmentosa</text>
-<text x='61.70' y='79.82' text-anchor='end' style='font-size: 8.80px; font-style: italic;fill: #33A02C; font-family: "Arial";'>lydgatei</text>
-<text x='61.70' y='57.47' text-anchor='end' style='font-size: 8.80px; font-style: italic;fill: #1F78B4; font-family: "Arial";'>salicaria</text>
-<text x='61.70' y='35.12' text-anchor='end' style='font-size: 8.80px; font-style: italic;fill: #1F78B4; font-family: "Arial";'>menziesii</text>
+<text x='61.70' y='236.26' text-anchor='end' style='font-size: 8.80px;fill: #6A3D9A; font-family: "Arial";'>hookeri</text>
+<text x='61.70' y='213.91' text-anchor='end' style='font-size: 8.80px;fill: #6A3D9A; font-family: "Arial";'>kaalae</text>
+<text x='61.70' y='191.56' text-anchor='end' style='font-size: 8.80px;fill: #FF7F00; font-family: "Arial";'>kauaiensis</text>
+<text x='61.70' y='169.21' text-anchor='end' style='font-size: 8.80px;fill: #FF7F00; font-family: "Arial";'>membranacea</text>
+<text x='61.70' y='146.87' text-anchor='end' style='font-size: 8.80px;fill: #E31A1C; font-family: "Arial";'>spergulina</text>
+<text x='61.70' y='124.52' text-anchor='end' style='font-size: 8.80px;fill: #E31A1C; font-family: "Arial";'>stellarioides</text>
+<text x='61.70' y='102.17' text-anchor='end' style='font-size: 8.80px;fill: #33A02C; font-family: "Arial";'>sarmentosa</text>
+<text x='61.70' y='79.82' text-anchor='end' style='font-size: 8.80px;fill: #33A02C; font-family: "Arial";'>lydgatei</text>
+<text x='61.70' y='57.47' text-anchor='end' style='font-size: 8.80px;fill: #1F78B4; font-family: "Arial";'>salicaria</text>
+<text x='61.70' y='35.12' text-anchor='end' style='font-size: 8.80px;fill: #1F78B4; font-family: "Arial";'>menziesii</text>
 </g>
 </g>
 </svg>
