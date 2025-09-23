@@ -11,7 +11,7 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2025-09-21" />
+<meta name="date" content="2025-09-22" />
 
 <title>Schiedea pollen competition</title>
 
@@ -253,7 +253,7 @@ div.tocify {
 <h1 class="title toc-ignore"><em>Schiedea</em> pollen competition</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John
 Powers</a></h4>
-<h4 class="date">2025-09-21</h4>
+<h4 class="date">2025-09-22</h4>
 
 </div>
 
@@ -1759,7 +1759,7 @@ species</caption>
 al. nuclear dataset (no chloroplast data, 1 accession per species).</p>
 <pre class="r"><code>tree &lt;- read.nexus(&quot;data/RAxML_1ps_nocp_bipartitionsBranchLabels.sch.short.nobs.nex&quot;)
 plot(tree, tip.color = sp_pal[tree$tip.label])</code></pre>
-<p><img src="figures-comp/phylodist-1.svg" width="768" /></p>
+<p><img src="figures-comp/phylodist-1.svg" width="864" /></p>
 <pre class="r"><code># par(mfrow=c(1,2))
 # par(mar=c(1.5,0,1.5,0))
 tree_pairs &lt;- tree %&gt;% keep.tip(sp_pairs)
@@ -1867,24 +1867,30 @@ hybrid.phylodist.test %&gt;% select(trait, type, term, p.value) %&gt;% filter(ty
   labs(x=&quot;Phylogenetic distance (mutations/site)&quot;, color=&quot;Maternal species&quot;) + theme_bw() +
   theme(axis.title.y=element_blank(), axis.text=element_text(color=&quot;black&quot;), legend.position=&quot;top&quot;,
         panel.grid.minor = element_blank(), panel.grid.major.x=element_blank(), panel.spacing = unit(1, &quot;lines&quot;))</code></pre>
-<p><img src="figures-comp/phylodist-2.svg" width="768" /></p>
-<pre class="r"><code>postzygotic.ratios.phylo &lt;- postzygotic.ratios %&gt;% left_join(comp.tests) %&gt;% left_join(phylodist) %&gt;% 
-  mutate(signif = adj.p.value &lt; 0.05) %&gt;% 
+<p><img src="figures-comp/phylodist-2.svg" width="864" /></p>
+<pre class="r"><code>postzygotic.all &lt;- hybrid.test %&gt;% select(momsp, hybrid.vigor=hybrid.vigor.all) %&gt;% 
+  mutate(trait=&quot;all&quot;, RI = 1-2*hybrid.vigor/(hybrid.vigor+1))
+
+postzygotic.ratios.phylo &lt;- postzygotic.ratios %&gt;% bind_rows(postzygotic.all) %&gt;% 
+  mutate(trait = factor(trait, levels = c(names(propnames), &quot;all&quot;))) %&gt;% 
+  left_join(comp.tests) %&gt;% left_join(phylodist) %&gt;% 
+  mutate(signif = adj.p.value &lt; 0.05) %&gt;% #TODO no p-values defined for cumul RI
   filter(!(trait==&quot;capsule.formed&quot; &amp; momsp %in% c(&quot;spergulina&quot;, &quot;sarmentosa&quot;))) #whole inflor in organza bag - no capsule data
 
 ggplot(postzygotic.ratios.phylo, aes(x=pd, y=RI)) + 
-  facet_wrap(vars(trait), labeller=as_labeller(propnames), nrow=1)+ 
+  facet_wrap(vars(trait), labeller=as_labeller(c(propnames, all=&quot;Cumulative&quot;)), nrow=1)+ 
   geom_hline(yintercept=0, linetype=2) + geom_hline(yintercept=-1)+ geom_hline(yintercept=1)+
   geom_smooth(method=&quot;lm&quot;, se=F, color=&quot;grey&quot;) + 
-  geom_errorbar(aes(color=momsp, ymin=low, ymax=high), width=0.001, linewidth=0.5) +
-  geom_point(aes(color=momsp, shape = signif), size=2) + 
-  scale_color_brewer(palette=&quot;Paired&quot;) +  scale_shape_manual(values=c(1, 19),guide=&quot;none&quot;)+
+  geom_errorbar(aes(color=momsp, ymin=low, ymax=high), width=0.001, linewidth=1) +
+  geom_point(aes(color=momsp, shape = signif), size=2, stroke=2) + 
+  scale_color_brewer(palette=&quot;Paired&quot;) +  scale_shape_manual(values=c(1, 19),guide=&quot;none&quot;, na.value=15)+
   labs(x=&quot;Phylogenetic distance (mutations/site)&quot;, color=&quot;Maternal species&quot;, y=&quot;Reproductive isolation&quot;) + 
   scale_y_continuous(limits=c(-1,1), breaks=c(-1,-0.5,0,0.5,1), expand=c(0,0),
                      labels=c(&quot;heterosis -1&quot;,&quot;-0.5&quot;,&quot;no barrier 0&quot;,&quot;0.5&quot;,&quot;complete isolation 1&quot;)) + 
   theme_bw() + theme(axis.text=element_text(color=&quot;black&quot;), legend.position=&quot;top&quot;, 
-                     panel.grid.minor = element_blank(), panel.grid.major.x=element_blank(), panel.spacing = unit(1, &quot;lines&quot;))</code></pre>
-<p><img src="figures-comp/phylodist-3.svg" width="768" /></p>
+                     panel.grid.minor = element_blank(), panel.grid.major.x=element_blank(), 
+                     panel.spacing = unit(1, &quot;lines&quot;))</code></pre>
+<p><img src="figures-comp/phylodist-3.svg" width="864" /></p>
 <pre class="r"><code>postzygotic.ratios.phylo %&gt;% arrange(trait, pd) %&gt;% select(trait, momsp, dadsp, RI, adj.p.value) %&gt;% 
   kable(digits=3, caption = &quot;compare inter vs. intraspecific crosses&quot;)</code></pre>
 <table>
@@ -2165,6 +2171,76 @@ ggplot(postzygotic.ratios.phylo, aes(x=pd, y=RI)) +
 <td align="right">0.056</td>
 <td align="right">0.094</td>
 </tr>
+<tr class="odd">
+<td align="left">all</td>
+<td align="left">menziesii</td>
+<td align="left">salicaria</td>
+<td align="right">-0.687</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">all</td>
+<td align="left">salicaria</td>
+<td align="left">menziesii</td>
+<td align="right">-0.558</td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">all</td>
+<td align="left">lydgatei</td>
+<td align="left">sarmentosa</td>
+<td align="right">-0.210</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">all</td>
+<td align="left">sarmentosa</td>
+<td align="left">lydgatei</td>
+<td align="right">-0.456</td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">all</td>
+<td align="left">stellarioides</td>
+<td align="left">spergulina</td>
+<td align="right">0.201</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">all</td>
+<td align="left">spergulina</td>
+<td align="left">stellarioides</td>
+<td align="right">-0.473</td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">all</td>
+<td align="left">membranacea</td>
+<td align="left">kauaiensis</td>
+<td align="right">0.976</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">all</td>
+<td align="left">kauaiensis</td>
+<td align="left">membranacea</td>
+<td align="right">0.876</td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">all</td>
+<td align="left">kaalae</td>
+<td align="left">hookeri</td>
+<td align="right">0.713</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">all</td>
+<td align="left">hookeri</td>
+<td align="left">kaalae</td>
+<td align="right">0.349</td>
+<td align="right"></td>
+</tr>
 </tbody>
 </table>
 <pre class="r"><code>postzygotic.ratios.phylo %&gt;% group_by(trait) %&gt;% nest() %&gt;% 
@@ -2214,6 +2290,14 @@ ggplot(postzygotic.ratios.phylo, aes(x=pd, y=RI)) +
 <td align="right">7.913</td>
 <td align="right">4.394</td>
 <td align="right">0.0023</td>
+</tr>
+<tr class="odd">
+<td align="left">all</td>
+<td align="left">pd</td>
+<td align="right">83.67</td>
+<td align="right">13.177</td>
+<td align="right">6.350</td>
+<td align="right">0.0002</td>
 </tr>
 </tbody>
 </table>

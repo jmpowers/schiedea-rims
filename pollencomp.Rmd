@@ -588,7 +588,7 @@ styles.emm %>%left_join(styles %>% group_by(momsp, plantid) %>% summarize(style_
 
 Load *Schiedea* tree inferred with RAxML from Willyard et al. nuclear dataset (no chloroplast data, 1 accession per species).
 
-```{r phylodist, fig.height=5, fig.width=8}
+```{r phylodist, fig.height=5, fig.width=9}
 tree <- read.nexus("data/RAxML_1ps_nocp_bipartitionsBranchLabels.sch.short.nobs.nex")
 plot(tree, tip.color = sp_pal[tree$tip.label])
 
