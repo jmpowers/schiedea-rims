@@ -11,7 +11,7 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2025-09-21" />
+<meta name="date" content="2025-09-22" />
 
 <title>Schiedea pollen tube growth</title>
 
@@ -253,7 +253,7 @@ div.tocify {
 <h1 class="title toc-ignore"><em>Schiedea</em> pollen tube growth</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John
 Powers</a></h4>
-<h4 class="date">2025-09-21</h4>
+<h4 class="date">2025-09-22</h4>
 
 </div>
 
@@ -956,7 +956,8 @@ plot_all(&quot;mid&quot;)</code></pre>
 <p><img src="figures/pollentubes_all-2.svg" width="1344" /></p>
 <pre class="r"><code>plot_all(&quot;ratio&quot;)</code></pre>
 <p><img src="figures/pollentubes_all-3.svg" width="1344" /></p>
-<pre class="r"><code>plot_all_simple &lt;- function(yvar) {
+<pre class="r"><code>var_labels_letter &lt;- paste(c(&quot;A.&quot;, &quot;B.&quot;, &quot;C.&quot;), var_labels) %&gt;% set_names(names(var_labels))
+plot_all_simple &lt;- function(yvar) {
 signif.cont &lt;- unnest(select(tubes.mod, paste0(yvar,&quot;_cont&quot;)), paste0(yvar,&quot;_cont&quot;)) %&gt;% 
               mutate(n=row_number(), stars=replace_na(as.character(stars), &quot;NA&quot;),
                      hr = fct_recode(factor(height), &quot;4hr&quot;=&quot;2&quot;, &quot;24hr&quot;=&quot;3&quot;),
@@ -977,7 +978,7 @@ ggplot(tubes.mod.plot) +
   #geom_path(aes(y=response, x=cross, group=contrast, color=hr))+
   geom_segment(data=tubes.mod.plot.signif, aes(y=response_1, yend=response_2, x=cross_pos_1, xend=cross_pos_2, 
                                                color=hr, linetype=signif), linewidth=1)+
-  labs(y=var_labels[yvar]) +
+  labs(y=var_labels_letter[yvar]) +
   scale_y_continuous(limits=c(0,c(mid=13, bottom=13, ratio=1)[yvar]), 
                      expand = expansion(add=c(0,c(mid=0.5, bottom=0.5, ratio=0.05)[yvar])), 
                      breaks = seq(0,1,by=0.25) * c(mid = 20, bottom = 20, ratio = 1)[yvar],

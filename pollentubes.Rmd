@@ -258,6 +258,7 @@ plot_all("ratio")
 ```
 
 ```{r pollentubes_all_simple, fig.width=13, fig.height=9}
+var_labels_letter <- paste(c("A.", "B.", "C."), var_labels) %>% set_names(names(var_labels))
 plot_all_simple <- function(yvar) {
 signif.cont <- unnest(select(tubes.mod, paste0(yvar,"_cont")), paste0(yvar,"_cont")) %>% 
               mutate(n=row_number(), stars=replace_na(as.character(stars), "NA"),
@@ -279,7 +280,7 @@ ggplot(tubes.mod.plot) +
   #geom_path(aes(y=response, x=cross, group=contrast, color=hr))+
   geom_segment(data=tubes.mod.plot.signif, aes(y=response_1, yend=response_2, x=cross_pos_1, xend=cross_pos_2, 
                                                color=hr, linetype=signif), linewidth=1)+
-  labs(y=var_labels[yvar]) +
+  labs(y=var_labels_letter[yvar]) +
   scale_y_continuous(limits=c(0,c(mid=13, bottom=13, ratio=1)[yvar]), 
                      expand = expansion(add=c(0,c(mid=0.5, bottom=0.5, ratio=0.05)[yvar])), 
                      breaks = seq(0,1,by=0.25) * c(mid = 20, bottom = 20, ratio = 1)[yvar],

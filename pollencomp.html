@@ -2325,6 +2325,8 @@ layout(matrix(c(1,2), nrow=1), widths=c(4,1))
 par(mar=c(0,0,0,0))
 plot.phylo(tree_pairs, tip.color = sp_pal[tree_pairs$tip.label], edge.width=5, edge.col =&quot;grey&quot;, label.offset=0.0002, font=4, cex=1.2,  x.lim=0.025)
 add.scale.bar(x=0,y=10, lwd=5, lcol=&quot;grey&quot;, col=&quot;grey&quot;)
+text(x=c(0.003, 0.008, 0.005), y=c(9, 4, 1)+0.4, c(&quot;Schiedea&quot;,&quot;Mononeura&quot;, &quot;Alphaschiedea&quot;), 
+     cex=1.2, col=&quot;grey40&quot;)
 text(x=0.025, y=1:10, mating.tree$mating, cex=1.2, col=sp_pal[tree_pairs$tip.label]) #c(&quot;H&quot;=&quot;\U26A5&quot;,&quot;D&quot;=&quot;\U2640\U2642&quot;,&quot;G&quot;=&quot;\U26A5\U2640&quot;)
 ntaxa &lt;- Ntip(tree_pairs)
 sp_pairs %&gt;% matrix(ncol=2, byrow=T) %&gt;% 

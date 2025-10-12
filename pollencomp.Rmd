@@ -10,7 +10,7 @@ output:
     toc: yes
     toc_float: TRUE
 editor_options: 
-  chunk_output_type: console
+  chunk_output_type: inline
 ---
 
 ```{r setup, message = FALSE}
@@ -686,6 +686,8 @@ layout(matrix(c(1,2), nrow=1), widths=c(4,1))
 par(mar=c(0,0,0,0))
 plot.phylo(tree_pairs, tip.color = sp_pal[tree_pairs$tip.label], edge.width=5, edge.col ="grey", label.offset=0.0002, font=4, cex=1.2,  x.lim=0.025)
 add.scale.bar(x=0,y=10, lwd=5, lcol="grey", col="grey")
+text(x=c(0.003, 0.008, 0.005), y=c(9, 4, 1)+0.4, c("Schiedea","Mononeura", "Alphaschiedea"), 
+     cex=1.2, col="grey40")
 text(x=0.025, y=1:10, mating.tree$mating, cex=1.2, col=sp_pal[tree_pairs$tip.label]) #c("H"="\U26A5","D"="\U2640\U2642","G"="\U26A5\U2640")
 ntaxa <- Ntip(tree_pairs)
 sp_pairs %>% matrix(ncol=2, byrow=T) %>% 
