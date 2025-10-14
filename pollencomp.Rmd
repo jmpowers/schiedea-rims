@@ -10,7 +10,7 @@ output:
     toc: yes
     toc_float: TRUE
 editor_options: 
-  chunk_output_type: inline
+  chunk_output_type: console
 ---
 
 ```{r setup, message = FALSE}
@@ -128,6 +128,19 @@ inventory.momid <- surv %>% count(momsp, type, dadsp, momid) %>% count(momsp, ty
 kable(inventory.momid, caption="Number of maternal plants used for seeds, germination and survival")
 inventory.momid %>%  group_by(type) %>% summarize(across(starts_with("crosses"), sum, na.rm=T)) %>% 
    kable(caption="Number of maternal plants used for seeds, germination and survival")
+
+inventory.dadid <- seeds %>% count(momsp, type, dadsp, momid, dadidm, dadspm, dadsp, dadid) %>% 
+  count(momsp, type, dadsp, momid, name="dadids_seeds") %>% 
+  full_join(germ %>% count(momsp, type, dadsp, momid, dadidm, dadspm, dadsp, dadid) %>% 
+              count(momsp, type, dadsp, momid, name="dadids_germ")) %>% 
+  full_join(surv %>% count(momsp, type, dadsp, momid, dadidm, dadspm, dadsp, dadid) %>% 
+              count(momsp, type, dadsp, momid, name="dadids_surv")) %>% 
+  arrange(momsp, momid, type)
+
+inventory.dadid %>% select(-dadsp) %>% 
+  pivot_wider(names_from = type, values_from = starts_with("dadids"), names_vary = "slowest") %>% 
+  rename_with(~str_remove(.x, "dadids_")) %>% write_tsv("data/pollencomp_dadids.tsv") %>% 
+  kable(caption = "Number of paternal combinations per maternal plant")
 
 # to run this, comment out across(matches("(mom|dad)id"), ~str_remove_all(.x, "[ -]")) lines above
 # left_join(count(germ, momsp, germid=momid, name="germ") %>% mutate(momid=str_remove_all(germid, "[ -]")),
