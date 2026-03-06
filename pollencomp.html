@@ -11,7 +11,7 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2025-10-14" />
+<meta name="date" content="2025-10-24" />
 
 <title>Schiedea pollen competition</title>
 
@@ -253,7 +253,7 @@ div.tocify {
 <h1 class="title toc-ignore"><em>Schiedea</em> pollen competition</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John
 Powers</a></h4>
-<h4 class="date">2025-10-14</h4>
+<h4 class="date">2025-10-24</h4>
 
 </div>
 
@@ -290,10 +290,8 @@ propnames &lt;- set_names(c(&quot;Capsule formation&quot;,&quot;Seed number&quot
 vigornames &lt;- c(hybrid.vigor.germsurv=&quot;Hybrid/intraspecific fitness:\ngermination and survival&quot;, 
                 hybrid.vigor.all=&quot;Hybrid/intraspecific fitness:\nseeds, germination, survivial&quot;)
 
-momid.fixes &lt;- read_tsv(&quot;data/Pollen competition - momid_fixes.tsv&quot;)
-momid.fixes.seeds &lt;- momid.fixes %&gt;% drop_na(momid_fixed) %&gt;% select(momid, momid_fixed) %&gt;% deframe()
-momid.fixes.germ &lt;- momid.fixes %&gt;% drop_na(germid, momid_fixed) %&gt;% select(momid, momid_fixed) %&gt;% deframe()
-momid.fixes.surv &lt;- momid.fixes %&gt;% drop_na(survid, momid_fixed) %&gt;% select(momid, momid_fixed) %&gt;% deframe()
+momid.fixes &lt;- read_tsv(&quot;data/Pollen competition - momid_fixes2.tsv&quot;) %&gt;% 
+  drop_na(momid_fixed) %&gt;% select(momid, momid_fixed) %&gt;% deframe()
 
 seeds &lt;- read_tsv(&quot;data/Pollen competition - seeds.tsv&quot;) %&gt;% 
   mutate(dadspm = if_else(type==&quot;mixed&quot; &amp; dadsp1==momsp, dadsp1, dadsp2), #rearrange dad1/dad2 to have dadsp match momsp
@@ -302,8 +300,8 @@ seeds &lt;- read_tsv(&quot;data/Pollen competition - seeds.tsv&quot;) %&gt;%
          dadid  = if_else(type==&quot;mixed&quot; &amp; dadsp1==momsp, dadid2, dadid1), .after=momid) %&gt;% 
   select(-matches(&quot;dad(sp|id)[12]&quot;)) %&gt;% 
   mutate(across(matches(&quot;sp&quot;), ~ recode(.x, !!!sp_pairs)),
-         across(matches(&quot;(dad|mom)id&quot;), ~str_remove_all(.x, &quot;[ -]&quot;)), 
-         across(matches(&quot;(dad|mom)id&quot;), ~recode(.x, !!!momid.fixes.seeds)),
+         across(matches(&quot;(dad|mom)id&quot;), ~str_remove_all(.x, &quot;[ #-]&quot;)), 
+         across(matches(&quot;(dad|mom)id&quot;), ~recode(.x, !!!momid.fixes)),
          sxc = paste(momsp, type, sep=&quot;.&quot;),
          type=factor(type, levels= names(typenames)), 
          across(matches(&quot;sp&quot;), ~ factor(.x, levels = sp_pairs)),
@@ -321,8 +319,8 @@ germ.pot &lt;- read_tsv(&quot;data/Pollen competition - germination.tsv&quot;) %
   select(-starts_with(&quot;germinated_n&quot;), -transplanted_n, -matches(&quot;dad(sp|id)[12]&quot;)) %&gt;% 
   drop_na(germinated) %&gt;% #exclude one contaminated cross and &quot;intra inv&quot; inviability tests
   mutate(across(matches(&quot;sp&quot;), ~ recode(.x, !!!sp_pairs)),
-         across(matches(&quot;(dad|mom)id&quot;), ~str_remove_all(.x, &quot;[ -]&quot;)), 
-         across(matches(&quot;(dad|mom)id&quot;), ~recode(.x, !!!momid.fixes.germ)), #TODO are the momid fixes applicable to dads too?
+         across(matches(&quot;id&quot;), ~str_remove_all(.x, &quot;[ #-]&quot;)), 
+         across(matches(&quot;(dad|mom)id&quot;), ~recode(.x, !!!momid.fixes)), #TODO are the momid fixes applicable to dads too?
          sxc = paste(momsp, type, sep=&quot;.&quot;),
          type=factor(type, levels= names(typenames)), 
          across(matches(&quot;sp&quot;), ~ factor(.x, levels = sp_pairs)),
@@ -339,8 +337,8 @@ surv &lt;- read_tsv(&quot;data/Pollen competition - survival.tsv&quot;) %&gt;%
          dadsp  = if_else(type==&quot;mixed&quot; &amp; dadsp1==momsp, dadsp2, dadsp1),
          dadid  = if_else(type==&quot;mixed&quot; &amp; dadsp1==momsp, dadid2, dadid1), .after=momid) %&gt;% 
   select(-matches(&quot;dad(sp|id)[12]&quot;)) %&gt;% drop_na(dead) %&gt;% #one row excluded
-  mutate(across(matches(&quot;(mom|dad)id&quot;), ~str_remove_all(.x, &quot;[ -]&quot;)), 
-         across(matches(&quot;(dad|mom)id&quot;), ~recode(.x, !!!momid.fixes.surv)),
+  mutate(across(matches(&quot;(dad|mom)id&quot;), ~str_remove_all(.x, &quot;[ #-]&quot;)), 
+         across(matches(&quot;(dad|mom)id&quot;), ~recode(.x, !!!momid.fixes)),
          sxc = paste(momsp, type, sep=&quot;.&quot;),
          type=factor(type, levels= names(typenames)),
          across(matches(&quot;sp&quot;), ~ factor(.x, levels = sp_pairs)),
@@ -655,9 +653,9 @@ germination and survival, and how many pots the seeds filled</caption>
 <td align="left">hookeri</td>
 <td align="right">11</td>
 <td align="right">175</td>
-<td align="right">73</td>
+<td align="right">72</td>
 <td align="right">118</td>
-<td align="right">1.616</td>
+<td align="right">1.639</td>
 </tr>
 <tr class="even">
 <td align="left">hookeri</td>
@@ -722,23 +720,34 @@ germination and survival, and how many pots the seeds filled</caption>
 <td align="left">inter</td>
 <td align="right">119</td>
 <td align="right">1812</td>
-<td align="right">208</td>
+<td align="right">207</td>
 </tr>
 </tbody>
 </table>
-<pre class="r"><code>inventory.momid &lt;- surv %&gt;% count(momsp, type, dadsp, momid) %&gt;% count(momsp, type, dadsp, name=&quot;crosses_surv&quot;) %&gt;% 
-  full_join(germ %&gt;% count(momsp, type, dadsp, momid) %&gt;% count(momsp, type, dadsp, name=&quot;crosses_germ&quot;))
+<pre class="r"><code>inventory.momid &lt;- 
+  seeds %&gt;% count(momsp, type, dadsp, momid) %&gt;% count(momsp, type, dadsp, name=&quot;crosses_seeds&quot;) %&gt;% 
+  full_join(germ %&gt;% count(momsp, type, dadsp, momid) %&gt;% count(momsp, type, dadsp, name=&quot;crosses_germ&quot;)) %&gt;% 
+  full_join(surv %&gt;% count(momsp, type, dadsp, momid) %&gt;% count(momsp, type, dadsp, name=&quot;crosses_surv&quot;))
 kable(inventory.momid, caption=&quot;Number of maternal plants used for seeds, germination and survival&quot;)</code></pre>
 <table>
 <caption>Number of maternal plants used for seeds, germination and
 survival</caption>
+<colgroup>
+<col width="18%" />
+<col width="8%" />
+<col width="18%" />
+<col width="18%" />
+<col width="17%" />
+<col width="17%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">momsp</th>
 <th align="left">type</th>
 <th align="left">dadsp</th>
-<th align="right">crosses_surv</th>
+<th align="right">crosses_seeds</th>
 <th align="right">crosses_germ</th>
+<th align="right">crosses_surv</th>
 </tr>
 </thead>
 <tbody>
@@ -746,8 +755,9 @@ survival</caption>
 <td align="left">menziesii</td>
 <td align="left">intra</td>
 <td align="left">menziesii</td>
-<td align="right">4</td>
 <td align="right">5</td>
+<td align="right">5</td>
+<td align="right">4</td>
 </tr>
 <tr class="even">
 <td align="left">menziesii</td>
@@ -755,11 +765,13 @@ survival</caption>
 <td align="left">salicaria</td>
 <td align="right">7</td>
 <td align="right">7</td>
+<td align="right">7</td>
 </tr>
 <tr class="odd">
 <td align="left">menziesii</td>
 <td align="left">inter</td>
 <td align="left">salicaria</td>
+<td align="right">15</td>
 <td align="right">11</td>
 <td align="right">11</td>
 </tr>
@@ -767,190 +779,217 @@ survival</caption>
 <td align="left">salicaria</td>
 <td align="left">intra</td>
 <td align="left">salicaria</td>
+<td align="right">5</td>
 <td align="right">6</td>
 <td align="right">6</td>
 </tr>
 <tr class="odd">
 <td align="left">salicaria</td>
 <td align="left">mixed</td>
-<td align="left">menziesii</td>
-<td align="right">12</td>
-<td align="right">11</td>
-</tr>
-<tr class="even">
-<td align="left">salicaria</td>
-<td align="left">inter</td>
 <td align="left">menziesii</td>
 <td align="right">10</td>
-<td align="right">9</td>
-</tr>
-<tr class="odd">
-<td align="left">lydgatei</td>
-<td align="left">intra</td>
-<td align="left">lydgatei</td>
-<td align="right">5</td>
-<td align="right">5</td>
-</tr>
-<tr class="even">
-<td align="left">lydgatei</td>
-<td align="left">mixed</td>
-<td align="left">sarmentosa</td>
-<td align="right">5</td>
-<td align="right">5</td>
-</tr>
-<tr class="odd">
-<td align="left">lydgatei</td>
-<td align="left">inter</td>
-<td align="left">sarmentosa</td>
-<td align="right">9</td>
-<td align="right">9</td>
-</tr>
-<tr class="even">
-<td align="left">sarmentosa</td>
-<td align="left">intra</td>
-<td align="left">sarmentosa</td>
-<td align="right">2</td>
-<td align="right">2</td>
-</tr>
-<tr class="odd">
-<td align="left">sarmentosa</td>
-<td align="left">mixed</td>
-<td align="left">lydgatei</td>
-<td align="right">4</td>
-<td align="right">4</td>
-</tr>
-<tr class="even">
-<td align="left">sarmentosa</td>
-<td align="left">inter</td>
-<td align="left">lydgatei</td>
-<td align="right">4</td>
-<td align="right">4</td>
-</tr>
-<tr class="odd">
-<td align="left">stellarioides</td>
-<td align="left">intra</td>
-<td align="left">stellarioides</td>
-<td align="right">5</td>
-<td align="right">6</td>
-</tr>
-<tr class="even">
-<td align="left">stellarioides</td>
-<td align="left">mixed</td>
-<td align="left">spergulina</td>
-<td align="right">5</td>
-<td align="right">5</td>
-</tr>
-<tr class="odd">
-<td align="left">stellarioides</td>
-<td align="left">inter</td>
-<td align="left">spergulina</td>
-<td align="right">5</td>
-<td align="right">4</td>
-</tr>
-<tr class="even">
-<td align="left">spergulina</td>
-<td align="left">intra</td>
-<td align="left">spergulina</td>
-<td align="right">5</td>
-<td align="right">5</td>
-</tr>
-<tr class="odd">
-<td align="left">spergulina</td>
-<td align="left">mixed</td>
-<td align="left">stellarioides</td>
-<td align="right">4</td>
-<td align="right">4</td>
-</tr>
-<tr class="even">
-<td align="left">spergulina</td>
-<td align="left">inter</td>
-<td align="left">stellarioides</td>
-<td align="right">4</td>
-<td align="right">3</td>
-</tr>
-<tr class="odd">
-<td align="left">membranacea</td>
-<td align="left">intra</td>
-<td align="left">membranacea</td>
-<td align="right">4</td>
-<td align="right">4</td>
-</tr>
-<tr class="even">
-<td align="left">membranacea</td>
-<td align="left">mixed</td>
-<td align="left">kauaiensis</td>
-<td align="right">5</td>
-<td align="right">6</td>
-</tr>
-<tr class="odd">
-<td align="left">membranacea</td>
-<td align="left">inter</td>
-<td align="left">kauaiensis</td>
-<td align="right">1</td>
-<td align="right">3</td>
-</tr>
-<tr class="even">
-<td align="left">kauaiensis</td>
-<td align="left">intra</td>
-<td align="left">kauaiensis</td>
-<td align="right">2</td>
-<td align="right">8</td>
-</tr>
-<tr class="odd">
-<td align="left">kauaiensis</td>
-<td align="left">mixed</td>
-<td align="left">membranacea</td>
-<td align="right">7</td>
-<td align="right">7</td>
-</tr>
-<tr class="even">
-<td align="left">kauaiensis</td>
-<td align="left">inter</td>
-<td align="left">membranacea</td>
-<td align="right">1</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td align="left">kaalae</td>
-<td align="left">intra</td>
-<td align="left">kaalae</td>
-<td align="right">5</td>
+<td align="right">11</td>
 <td align="right">12</td>
 </tr>
 <tr class="even">
+<td align="left">salicaria</td>
+<td align="left">inter</td>
+<td align="left">menziesii</td>
+<td align="right">6</td>
+<td align="right">9</td>
+<td align="right">10</td>
+</tr>
+<tr class="odd">
+<td align="left">lydgatei</td>
+<td align="left">intra</td>
+<td align="left">lydgatei</td>
+<td align="right">6</td>
+<td align="right">5</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="left">lydgatei</td>
+<td align="left">mixed</td>
+<td align="left">sarmentosa</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">5</td>
+</tr>
+<tr class="odd">
+<td align="left">lydgatei</td>
+<td align="left">inter</td>
+<td align="left">sarmentosa</td>
+<td align="right">9</td>
+<td align="right">9</td>
+<td align="right">9</td>
+</tr>
+<tr class="even">
+<td align="left">sarmentosa</td>
+<td align="left">intra</td>
+<td align="left">sarmentosa</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">sarmentosa</td>
+<td align="left">inter</td>
+<td align="left">lydgatei</td>
+<td align="right">5</td>
+<td align="right">4</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">stellarioides</td>
+<td align="left">intra</td>
+<td align="left">stellarioides</td>
+<td align="right">15</td>
+<td align="right">6</td>
+<td align="right">5</td>
+</tr>
+<tr class="odd">
+<td align="left">stellarioides</td>
+<td align="left">mixed</td>
+<td align="left">spergulina</td>
+<td align="right">6</td>
+<td align="right">6</td>
+<td align="right">6</td>
+</tr>
+<tr class="even">
+<td align="left">stellarioides</td>
+<td align="left">inter</td>
+<td align="left">spergulina</td>
+<td align="right">7</td>
+<td align="right">4</td>
+<td align="right">5</td>
+</tr>
+<tr class="odd">
+<td align="left">spergulina</td>
+<td align="left">intra</td>
+<td align="left">spergulina</td>
+<td align="right">6</td>
+<td align="right">5</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="left">spergulina</td>
+<td align="left">inter</td>
+<td align="left">stellarioides</td>
+<td align="right">5</td>
+<td align="right">3</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">membranacea</td>
+<td align="left">intra</td>
+<td align="left">membranacea</td>
+<td align="right">6</td>
+<td align="right">4</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">membranacea</td>
+<td align="left">mixed</td>
+<td align="left">kauaiensis</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">5</td>
+</tr>
+<tr class="odd">
+<td align="left">membranacea</td>
+<td align="left">inter</td>
+<td align="left">kauaiensis</td>
+<td align="right">8</td>
+<td align="right">3</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">kauaiensis</td>
+<td align="left">intra</td>
+<td align="left">kauaiensis</td>
+<td align="right">53</td>
+<td align="right">8</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">kauaiensis</td>
+<td align="left">mixed</td>
+<td align="left">membranacea</td>
+<td align="right">10</td>
+<td align="right">7</td>
+<td align="right">7</td>
+</tr>
+<tr class="even">
+<td align="left">kauaiensis</td>
+<td align="left">inter</td>
+<td align="left">membranacea</td>
+<td align="right">15</td>
+<td align="right">1</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">kaalae</td>
+<td align="left">intra</td>
+<td align="left">kaalae</td>
+<td align="right">12</td>
+<td align="right">12</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
 <td align="left">kaalae</td>
 <td align="left">mixed</td>
 <td align="left">hookeri</td>
-<td align="right">8</td>
 <td align="right">5</td>
+<td align="right">5</td>
+<td align="right">8</td>
 </tr>
 <tr class="odd">
 <td align="left">kaalae</td>
 <td align="left">inter</td>
 <td align="left">hookeri</td>
+<td align="right">14</td>
+<td align="right">14</td>
 <td align="right">6</td>
-<td align="right">18</td>
 </tr>
 <tr class="even">
 <td align="left">hookeri</td>
 <td align="left">intra</td>
 <td align="left">hookeri</td>
-<td align="right">6</td>
+<td align="right">9</td>
 <td align="right">8</td>
+<td align="right">6</td>
 </tr>
 <tr class="odd">
 <td align="left">hookeri</td>
 <td align="left">mixed</td>
 <td align="left">kaalae</td>
-<td align="right">9</td>
 <td align="right">7</td>
+<td align="right">7</td>
+<td align="right">9</td>
 </tr>
 <tr class="even">
 <td align="left">hookeri</td>
 <td align="left">inter</td>
 <td align="left">kaalae</td>
+<td align="right">10</td>
 <td align="right">9</td>
 <td align="right">9</td>
+</tr>
+<tr class="odd">
+<td align="left">sarmentosa</td>
+<td align="left">mixed</td>
+<td align="left">lydgatei</td>
+<td align="right"></td>
+<td align="right">4</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">spergulina</td>
+<td align="left">mixed</td>
+<td align="left">stellarioides</td>
+<td align="right"></td>
+<td align="right">4</td>
+<td align="right">4</td>
 </tr>
 </tbody>
 </table>
@@ -962,25 +1001,29 @@ survival</caption>
 <thead>
 <tr class="header">
 <th align="left">type</th>
-<th align="right">crosses_surv</th>
+<th align="right">crosses_seeds</th>
 <th align="right">crosses_germ</th>
+<th align="right">crosses_surv</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left">intra</td>
-<td align="right">44</td>
+<td align="right">121</td>
 <td align="right">61</td>
+<td align="right">44</td>
 </tr>
 <tr class="even">
 <td align="left">mixed</td>
-<td align="right">66</td>
+<td align="right">55</td>
 <td align="right">61</td>
+<td align="right">67</td>
 </tr>
 <tr class="odd">
 <td align="left">inter</td>
+<td align="right">94</td>
+<td align="right">67</td>
 <td align="right">60</td>
-<td align="right">71</td>
 </tr>
 </tbody>
 </table>
@@ -994,7 +1037,7 @@ survival</caption>
 
 inventory.dadid %&gt;% select(-dadsp) %&gt;% 
   pivot_wider(names_from = type, values_from = starts_with(&quot;dadids&quot;), names_vary = &quot;slowest&quot;) %&gt;% 
-  rename_with(~str_remove(.x, &quot;dadids_&quot;)) %&gt;% write_tsv(&quot;data/pollencomp_dadids.tsv&quot;) %&gt;% 
+  rename_with(~str_remove(.x, &quot;dadids_&quot;)) %&gt;% #write_tsv(&quot;data/pollencomp_dadids.tsv&quot;) %&gt;% 
   kable(caption = &quot;Number of paternal combinations per maternal plant&quot;)</code></pre>
 <table>
 <caption>Number of paternal combinations per maternal plant</caption>
@@ -1127,24 +1170,11 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 <td align="right"></td>
-<td align="right"></td>
+<td align="right">2</td>
 <td align="right">1</td>
 <td align="right">2</td>
 </tr>
 <tr class="odd">
-<td align="left">menziesii</td>
-<td align="left">849772H</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">2</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
 <td align="left">menziesii</td>
 <td align="left">84983A</td>
 <td align="right"></td>
@@ -1157,7 +1187,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right">2</td>
 <td align="right">2</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">menziesii</td>
 <td align="left">84989E</td>
 <td align="right"></td>
@@ -1170,7 +1200,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right">1</td>
 <td align="right">1</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">menziesii</td>
 <td align="left">84993C</td>
 <td align="right">1</td>
@@ -1183,7 +1213,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right">1</td>
 <td align="right">1</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">menziesii</td>
 <td align="left">9504062</td>
 <td align="right">1</td>
@@ -1196,7 +1226,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right">2</td>
 <td align="right">2</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">menziesii</td>
 <td align="left">9504102</td>
 <td align="right"></td>
@@ -1209,7 +1239,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">menziesii</td>
 <td align="left">9504291</td>
 <td align="right">1</td>
@@ -1222,7 +1252,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right">2</td>
 <td align="right">2</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">menziesii</td>
 <td align="left">9504422</td>
 <td align="right"></td>
@@ -1235,7 +1265,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">menziesii</td>
 <td align="left">950501</td>
 <td align="right"></td>
@@ -1248,7 +1278,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">menziesii</td>
 <td align="left">95050136</td>
 <td align="right"></td>
@@ -1261,7 +1291,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">salicaria</td>
 <td align="left">8421085</td>
 <td align="right"></td>
@@ -1274,7 +1304,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">salicaria</td>
 <td align="left">84213956</td>
 <td align="right"></td>
@@ -1287,7 +1317,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">salicaria</td>
 <td align="left">8421433</td>
 <td align="right"></td>
@@ -1300,7 +1330,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right">1</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">salicaria</td>
 <td align="left">842151E</td>
 <td align="right">1</td>
@@ -1313,19 +1343,6 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 </tr>
-<tr class="odd">
-<td align="left">salicaria</td>
-<td align="left">84216121</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
 <tr class="even">
 <td align="left">salicaria</td>
 <td align="left">84216221</td>
@@ -1335,7 +1352,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 <td align="right"></td>
-<td align="right">1</td>
+<td align="right">2</td>
 <td align="right"></td>
 <td align="right"></td>
 </tr>
@@ -1384,7 +1401,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 <td align="right"></td>
-<td align="right">2</td>
+<td align="right">3</td>
 <td align="right">1</td>
 <td align="right">1</td>
 <td align="right"></td>
@@ -1392,19 +1409,6 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="odd">
-<td align="left">salicaria</td>
-<td align="left">84217337</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
 <td align="left">salicaria</td>
 <td align="left">8421951</td>
 <td align="right"></td>
@@ -1417,7 +1421,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right">1</td>
 <td align="right">1</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">salicaria</td>
 <td align="left">84220145</td>
 <td align="right"></td>
@@ -1430,7 +1434,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right">2</td>
 <td align="right">2</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">salicaria</td>
 <td align="left">84220146</td>
 <td align="right"></td>
@@ -1443,7 +1447,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">salicaria</td>
 <td align="left">8422123</td>
 <td align="right"></td>
@@ -1456,7 +1460,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right">2</td>
 <td align="right">2</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">salicaria</td>
 <td align="left">8422152</td>
 <td align="right"></td>
@@ -1469,7 +1473,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right">1</td>
 <td align="right">1</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">salicaria</td>
 <td align="left">84222127</td>
 <td align="right"></td>
@@ -1482,7 +1486,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">salicaria</td>
 <td align="left">842221F</td>
 <td align="right">1</td>
@@ -1495,7 +1499,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">salicaria</td>
 <td align="left">842223</td>
 <td align="right"></td>
@@ -1508,25 +1512,12 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 </tr>
-<tr class="even">
-<td align="left">salicaria</td>
-<td align="left">84224131</td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
 <tr class="odd">
 <td align="left">salicaria</td>
-<td align="left">84224131F</td>
+<td align="left">84224131</td>
 <td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
+<td align="right">1</td>
+<td align="right">1</td>
 <td align="right"></td>
 <td align="right"></td>
 <td align="right"></td>
@@ -1601,19 +1592,6 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 </tr>
 <tr class="odd">
 <td align="left">salicaria</td>
-<td align="left">8428120</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">salicaria</td>
 <td align="left">8428638</td>
 <td align="right"></td>
 <td align="right"></td>
@@ -1625,7 +1603,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">salicaria</td>
 <td align="left">842958</td>
 <td align="right"></td>
@@ -1637,19 +1615,6 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right">1</td>
 <td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="left">lydgatei</td>
-<td align="left">6682041</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
 </tr>
 <tr class="odd">
 <td align="left">lydgatei</td>
@@ -1889,8 +1854,8 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="left">stellarioides</td>
 <td align="left">10CC2x6GC1(SS1029)</td>
 <td align="right">2</td>
-<td align="right"></td>
-<td align="right"></td>
+<td align="right">1</td>
+<td align="right">1</td>
 <td align="right"></td>
 <td align="right"></td>
 <td align="right"></td>
@@ -1902,8 +1867,8 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="left">stellarioides</td>
 <td align="left">10CC2x6GC1(SS1043)</td>
 <td align="right">2</td>
-<td align="right"></td>
-<td align="right"></td>
+<td align="right">1</td>
+<td align="right">1</td>
 <td align="right"></td>
 <td align="right"></td>
 <td align="right"></td>
@@ -1956,27 +1921,40 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 <td align="right"></td>
-<td align="right">1</td>
-<td align="right">2</td>
-<td align="right">2</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
 <td align="right">2</td>
 <td align="right"></td>
 <td align="right">1</td>
 </tr>
 <tr class="odd">
 <td align="left">stellarioides</td>
-<td align="left">1476514B1G</td>
+<td align="left">1476514B1</td>
 <td align="right"></td>
 <td align="right"></td>
 <td align="right"></td>
 <td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
 <td align="right"></td>
 <td align="right"></td>
 </tr>
 <tr class="even">
+<td align="left">stellarioides</td>
+<td align="left">1476514B2</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
 <td align="left">stellarioides</td>
 <td align="left">1476520J</td>
 <td align="right"></td>
@@ -1989,10 +1967,10 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right">1</td>
 <td align="right">2</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">stellarioides</td>
 <td align="left">147654E</td>
-<td align="right"></td>
+<td align="right">1</td>
 <td align="right">1</td>
 <td align="right"></td>
 <td align="right">1</td>
@@ -2002,7 +1980,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">stellarioides</td>
 <td align="left">147656G</td>
 <td align="right">2</td>
@@ -2014,19 +1992,6 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right">3</td>
 <td align="right">3</td>
 <td align="right">3</td>
-</tr>
-<tr class="odd">
-<td align="left">stellarioides</td>
-<td align="left">14B1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
 </tr>
 <tr class="even">
 <td align="left">stellarioides</td>
@@ -2070,32 +2035,6 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <tr class="odd">
 <td align="left">stellarioides</td>
 <td align="left">14Bx9A(SS113)</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">stellarioides</td>
-<td align="left">4E</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">stellarioides</td>
-<td align="left">4Ex18E(SS21)</td>
 <td align="right">2</td>
 <td align="right"></td>
 <td align="right"></td>
@@ -2108,8 +2047,8 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 </tr>
 <tr class="even">
 <td align="left">stellarioides</td>
-<td align="left">4Ex18E(SS212)</td>
-<td align="right">1</td>
+<td align="left">4Ex18E(SS21)</td>
+<td align="right">2</td>
 <td align="right"></td>
 <td align="right"></td>
 <td align="right"></td>
@@ -2121,10 +2060,10 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 </tr>
 <tr class="odd">
 <td align="left">stellarioides</td>
-<td align="left">4Ex18E(SS234)</td>
+<td align="left">4Ex18E(SS212)</td>
 <td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
+<td align="right">1</td>
+<td align="right">1</td>
 <td align="right"></td>
 <td align="right"></td>
 <td align="right"></td>
@@ -2134,7 +2073,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 </tr>
 <tr class="even">
 <td align="left">stellarioides</td>
-<td align="left">6GC2</td>
+<td align="left">4Ex18E(SS234)</td>
 <td align="right">1</td>
 <td align="right"></td>
 <td align="right"></td>
@@ -2159,71 +2098,6 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="even">
-<td align="left">stellarioides</td>
-<td align="left">9Ex18E(SS21)</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">stellarioides</td>
-<td align="left">SS1029</td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">stellarioides</td>
-<td align="left">SS1043</td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">stellarioides</td>
-<td align="left">SS113(14Bx9A3)</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">stellarioides</td>
-<td align="left">SS212</td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
 <td align="left">spergulina</td>
 <td align="left">12028911</td>
 <td align="right">1</td>
@@ -2236,7 +2110,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">spergulina</td>
 <td align="left">1202896</td>
 <td align="right"></td>
@@ -2249,7 +2123,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right">1</td>
 <td align="right">1</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">spergulina</td>
 <td align="left">1202897</td>
 <td align="right"></td>
@@ -2262,7 +2136,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right">1</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">spergulina</td>
 <td align="left">1202899</td>
 <td align="right">2</td>
@@ -2275,7 +2149,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">spergulina</td>
 <td align="left">1202908</td>
 <td align="right"></td>
@@ -2288,7 +2162,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right">1</td>
 <td align="right">1</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">spergulina</td>
 <td align="left">1202928</td>
 <td align="right">1</td>
@@ -2301,7 +2175,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">spergulina</td>
 <td align="left">1202941</td>
 <td align="right"></td>
@@ -2314,7 +2188,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">spergulina</td>
 <td align="left">1202944</td>
 <td align="right">1</td>
@@ -2327,7 +2201,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right">1</td>
 <td align="right">1</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">spergulina</td>
 <td align="left">1202947</td>
 <td align="right">1</td>
@@ -2340,7 +2214,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">spergulina</td>
 <td align="left">1202969</td>
 <td align="right">1</td>
@@ -2353,7 +2227,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">spergulina</td>
 <td align="left">1202984</td>
 <td align="right"></td>
@@ -2366,59 +2240,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 </tr>
-<tr class="even">
-<td align="left">membranacea</td>
-<td align="left">19033</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">2</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
 <tr class="odd">
-<td align="left">membranacea</td>
-<td align="left">19230</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">membranacea</td>
-<td align="left">20111</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">3</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">membranacea</td>
-<td align="left">2012</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
 <td align="left">membranacea</td>
 <td align="left">20211</td>
 <td align="right">2</td>
@@ -2431,72 +2253,46 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 </tr>
-<tr class="odd">
-<td align="left">membranacea</td>
-<td align="left">20228</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
 <tr class="even">
 <td align="left">membranacea</td>
-<td align="left">5x9c7</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
+<td align="left">86419033</td>
 <td align="right"></td>
 <td align="right"></td>
 <td align="right"></td>
 <td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">membranacea</td>
-<td align="left">864#1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">membranacea</td>
-<td align="left">864#2</td>
-<td align="right"></td>
-<td align="right">2</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right">1</td>
 <td align="right"></td>
 <td align="right"></td>
 <td align="right">2</td>
+<td align="right"></td>
 <td align="right"></td>
 </tr>
 <tr class="odd">
 <td align="left">membranacea</td>
 <td align="left">86419230</td>
-<td align="right"></td>
-<td align="right"></td>
+<td align="right">1</td>
 <td align="right"></td>
 <td align="right"></td>
 <td align="right">1</td>
 <td align="right">1</td>
-<td align="right"></td>
+<td align="right">1</td>
+<td align="right">1</td>
 <td align="right"></td>
 <td align="right"></td>
 </tr>
 <tr class="even">
+<td align="left">membranacea</td>
+<td align="left">86420111</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right">3</td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
 <td align="left">membranacea</td>
 <td align="left">8642012</td>
 <td align="right"></td>
@@ -2505,17 +2301,30 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 <td align="right"></td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">membranacea</td>
+<td align="left">86420228</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
 <td align="right"></td>
 <td align="right">1</td>
+<td align="right"></td>
 <td align="right"></td>
 </tr>
 <tr class="odd">
 <td align="left">membranacea</td>
 <td align="left">8645x9c7</td>
-<td align="right"></td>
 <td align="right">1</td>
 <td align="right">1</td>
-<td align="right"></td>
+<td align="right">1</td>
+<td align="right">1</td>
 <td align="right">1</td>
 <td align="right">1</td>
 <td align="right"></td>
@@ -2526,8 +2335,8 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="left">membranacea</td>
 <td align="left">864Cross6</td>
 <td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
+<td align="right">1</td>
+<td align="right">1</td>
 <td align="right"></td>
 <td align="right">1</td>
 <td align="right">1</td>
@@ -2537,33 +2346,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 </tr>
 <tr class="odd">
 <td align="left">membranacea</td>
-<td align="left">Cross6</td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">membranacea</td>
-<td align="left">NoTag#2</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">membranacea</td>
-<td align="left">Notag#1</td>
+<td align="left">864Notag1</td>
 <td align="right"></td>
 <td align="right"></td>
 <td align="right"></td>
@@ -2571,25 +2354,25 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 <td align="right">3</td>
-<td align="right"></td>
+<td align="right">1</td>
 <td align="right"></td>
 </tr>
 <tr class="even">
 <td align="left">membranacea</td>
-<td align="left">Notag#2</td>
+<td align="left">864Notag2</td>
 <td align="right">2</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">1</td>
 <td align="right">1</td>
 <td align="right">1</td>
 <td align="right">3</td>
-<td align="right"></td>
+<td align="right">2</td>
 <td align="right">1</td>
 </tr>
 <tr class="odd">
 <td align="left">membranacea</td>
-<td align="left">membcross#10</td>
+<td align="left">membcross10</td>
 <td align="right">1</td>
 <td align="right"></td>
 <td align="right"></td>
@@ -2602,7 +2385,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 </tr>
 <tr class="even">
 <td align="left">membranacea</td>
-<td align="left">membcross#2</td>
+<td align="left">membcross2</td>
 <td align="right">1</td>
 <td align="right"></td>
 <td align="right"></td>
@@ -2628,19 +2411,6 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 </tr>
 <tr class="even">
 <td align="left">kauaiensis</td>
-<td align="left">120741a</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">3</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">kauaiensis</td>
 <td align="left">120747</td>
 <td align="right">8</td>
 <td align="right">1</td>
@@ -2652,7 +2422,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">kauaiensis</td>
 <td align="left">120748X1207473a</td>
 <td align="right"></td>
@@ -2665,7 +2435,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">kauaiensis</td>
 <td align="left">1a</td>
 <td align="right">10</td>
@@ -2674,105 +2444,14 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right">3</td>
 <td align="right">1</td>
 <td align="right">1</td>
-<td align="right">3</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">kauaiensis</td>
-<td align="left">1a2341#10</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">kauaiensis</td>
-<td align="left">1a2341#14</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">kauaiensis</td>
-<td align="left">1a2341#3</td>
-<td align="right">2</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">kauaiensis</td>
-<td align="left">1a2341#4</td>
-<td align="right">6</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">kauaiensis</td>
-<td align="left">1a2341#5</td>
 <td align="right">4</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">kauaiensis</td>
-<td align="left">1a2341#6</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">kauaiensis</td>
-<td align="left">1a2341#7</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
 <td align="right"></td>
 <td align="right"></td>
 </tr>
 <tr class="odd">
 <td align="left">kauaiensis</td>
 <td align="left">1a234110</td>
-<td align="right">3</td>
+<td align="right">2</td>
 <td align="right"></td>
 <td align="right"></td>
 <td align="right"></td>
@@ -2804,13 +2483,39 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 <td align="right"></td>
-<td align="right"></td>
+<td align="right">1</td>
 <td align="right"></td>
 <td align="right"></td>
 </tr>
 <tr class="even">
 <td align="left">kauaiensis</td>
 <td align="left">1a234114</td>
+<td align="right">4</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">kauaiensis</td>
+<td align="left">1a23413</td>
+<td align="right">2</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">kauaiensis</td>
+<td align="left">1a23414</td>
 <td align="right">5</td>
 <td align="right"></td>
 <td align="right"></td>
@@ -2824,7 +2529,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <tr class="odd">
 <td align="left">kauaiensis</td>
 <td align="left">1a23415</td>
-<td align="right">4</td>
+<td align="right">7</td>
 <td align="right"></td>
 <td align="right"></td>
 <td align="right">2</td>
@@ -2837,7 +2542,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <tr class="even">
 <td align="left">kauaiensis</td>
 <td align="left">1a23416</td>
-<td align="right">2</td>
+<td align="right">1</td>
 <td align="right"></td>
 <td align="right"></td>
 <td align="right"></td>
@@ -2850,12 +2555,12 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <tr class="odd">
 <td align="left">kauaiensis</td>
 <td align="left">1a23417</td>
-<td align="right">7</td>
+<td align="right">6</td>
 <td align="right"></td>
 <td align="right"></td>
 <td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
+<td align="right">1</td>
+<td align="right">1</td>
 <td align="right">1</td>
 <td align="right"></td>
 <td align="right"></td>
@@ -2875,19 +2580,6 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 </tr>
 <tr class="odd">
 <td align="left">kauaiensis</td>
-<td align="left">1a5251#20</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">kauaiensis</td>
 <td align="left">1a525111</td>
 <td align="right">1</td>
 <td align="right"></td>
@@ -2899,7 +2591,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">kauaiensis</td>
 <td align="left">1a5251111</td>
 <td align="right">1</td>
@@ -2912,10 +2604,10 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">kauaiensis</td>
 <td align="left">1a525113</td>
-<td align="right">8</td>
+<td align="right">7</td>
 <td align="right"></td>
 <td align="right"></td>
 <td align="right"></td>
@@ -2925,7 +2617,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">kauaiensis</td>
 <td align="left">1a525114</td>
 <td align="right">2</td>
@@ -2938,7 +2630,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">kauaiensis</td>
 <td align="left">1a525117</td>
 <td align="right">1</td>
@@ -2951,20 +2643,20 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">kauaiensis</td>
 <td align="left">1a525120</td>
 <td align="right"></td>
 <td align="right"></td>
 <td align="right"></td>
 <td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
+<td align="right">1</td>
+<td align="right">1</td>
 <td align="right">2</td>
 <td align="right"></td>
 <td align="right"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">kauaiensis</td>
 <td align="left">1a52516a2</td>
 <td align="right"></td>
@@ -2977,7 +2669,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">kauaiensis</td>
 <td align="left">1a52519</td>
 <td align="right">1</td>
@@ -2990,9 +2682,9 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">kauaiensis</td>
-<td align="left">1ax1#1</td>
+<td align="left">1ax11</td>
 <td align="right">3</td>
 <td align="right"></td>
 <td align="right"></td>
@@ -3003,49 +2695,36 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 </tr>
-<tr class="odd">
-<td align="left">kauaiensis</td>
-<td align="left">1ax1#2</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
 <tr class="even">
 <td align="left">kauaiensis</td>
-<td align="left">1ax1#3</td>
+<td align="left">1ax12</td>
 <td align="right">1</td>
 <td align="right"></td>
 <td align="right"></td>
 <td align="right"></td>
 <td align="right"></td>
 <td align="right"></td>
-<td align="right"></td>
+<td align="right">1</td>
 <td align="right"></td>
 <td align="right"></td>
 </tr>
 <tr class="odd">
 <td align="left">kauaiensis</td>
-<td align="left">1ax1#5</td>
+<td align="left">1ax13</td>
 <td align="right">1</td>
 <td align="right"></td>
 <td align="right"></td>
 <td align="right"></td>
 <td align="right"></td>
 <td align="right"></td>
-<td align="right">1</td>
+<td align="right"></td>
 <td align="right"></td>
 <td align="right"></td>
 </tr>
 <tr class="even">
 <td align="left">kauaiensis</td>
 <td align="left">1ax15</td>
-<td align="right"></td>
+<td align="right">1</td>
 <td align="right"></td>
 <td align="right"></td>
 <td align="right"></td>
@@ -3056,45 +2735,6 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="odd">
-<td align="left">kauaiensis</td>
-<td align="left">1ax234113</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">kauaiensis</td>
-<td align="left">1ax234114</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">kauaiensis</td>
-<td align="left">1ax23415</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
 <td align="left">kauaiensis</td>
 <td align="left">2341</td>
 <td align="right">5</td>
@@ -3107,7 +2747,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">kauaiensis</td>
 <td align="left">2341x1a</td>
 <td align="right">1</td>
@@ -3120,23 +2760,10 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">kauaiensis</td>
 <td align="left">2341x6a2</td>
 <td align="right">2</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">kauaiensis</td>
-<td align="left">2341x7#3</td>
-<td align="right">1</td>
 <td align="right"></td>
 <td align="right"></td>
 <td align="right"></td>
@@ -3187,7 +2814,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 </tr>
 <tr class="odd">
 <td align="left">kauaiensis</td>
-<td align="left">245251x6a#6</td>
+<td align="left">245251x6a6</td>
 <td align="right"></td>
 <td align="right"></td>
 <td align="right"></td>
@@ -3226,7 +2853,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 </tr>
 <tr class="even">
 <td align="left">kauaiensis</td>
-<td align="left">2x5251#7</td>
+<td align="left">2x52517</td>
 <td align="right"></td>
 <td align="right"></td>
 <td align="right"></td>
@@ -3239,7 +2866,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 </tr>
 <tr class="odd">
 <td align="left">kauaiensis</td>
-<td align="left">2x5251#9</td>
+<td align="left">2x52519</td>
 <td align="right"></td>
 <td align="right"></td>
 <td align="right"></td>
@@ -3278,7 +2905,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 </tr>
 <tr class="even">
 <td align="left">kauaiensis</td>
-<td align="left">3a5a#5</td>
+<td align="left">3a5a5</td>
 <td align="right">1</td>
 <td align="right"></td>
 <td align="right"></td>
@@ -3291,7 +2918,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 </tr>
 <tr class="odd">
 <td align="left">kauaiensis</td>
-<td align="left">3ax5a#2</td>
+<td align="left">3ax5a2</td>
 <td align="right">3</td>
 <td align="right"></td>
 <td align="right"></td>
@@ -3304,7 +2931,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 </tr>
 <tr class="even">
 <td align="left">kauaiensis</td>
-<td align="left">3ax5a#3</td>
+<td align="left">3ax5a3</td>
 <td align="right">5</td>
 <td align="right"></td>
 <td align="right"></td>
@@ -3396,7 +3023,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <tr class="odd">
 <td align="left">kauaiensis</td>
 <td align="left">5251131</td>
-<td align="right">3</td>
+<td align="right">4</td>
 <td align="right"></td>
 <td align="right"></td>
 <td align="right"></td>
@@ -3407,19 +3034,6 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="even">
-<td align="left">kauaiensis</td>
-<td align="left">52511x3#1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
 <td align="left">kauaiensis</td>
 <td align="left">525131</td>
 <td align="right">1</td>
@@ -3432,20 +3046,20 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">kauaiensis</td>
 <td align="left">52516a2</td>
 <td align="right"></td>
 <td align="right"></td>
 <td align="right"></td>
 <td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
+<td align="right">2</td>
+<td align="right">1</td>
 <td align="right"></td>
 <td align="right"></td>
 <td align="right"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">kauaiensis</td>
 <td align="left">52516a3</td>
 <td align="right">2</td>
@@ -3458,7 +3072,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">kauaiensis</td>
 <td align="left">52516a4</td>
 <td align="right">2</td>
@@ -3471,7 +3085,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">kauaiensis</td>
 <td align="left">52516a6</td>
 <td align="right">3</td>
@@ -3480,59 +3094,20 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 <td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
+<td align="right">1</td>
+<td align="right">1</td>
 <td align="right"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">kauaiensis</td>
 <td align="left">52516a7</td>
-<td align="right">6</td>
+<td align="right">5</td>
 <td align="right"></td>
 <td align="right"></td>
 <td align="right"></td>
 <td align="right"></td>
 <td align="right"></td>
 <td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">kauaiensis</td>
-<td align="left">5251x6a#2</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">2</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">kauaiensis</td>
-<td align="left">5251x6a#6</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">kauaiensis</td>
-<td align="left">5251x6a6</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
 <td align="right"></td>
 <td align="right"></td>
 </tr>
@@ -3577,7 +3152,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 </tr>
 <tr class="odd">
 <td align="left">kauaiensis</td>
-<td align="left">7x2341#2</td>
+<td align="left">7x23412</td>
 <td align="right">3</td>
 <td align="right"></td>
 <td align="right"></td>
@@ -3629,8 +3204,8 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 </tr>
 <tr class="odd">
 <td align="left">kauaiensis</td>
-<td align="left">NuaS21</td>
-<td align="right">3</td>
+<td align="left">NuaSd13</td>
+<td align="right">1</td>
 <td align="right"></td>
 <td align="right"></td>
 <td align="right"></td>
@@ -3642,8 +3217,8 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 </tr>
 <tr class="even">
 <td align="left">kauaiensis</td>
-<td align="left">NuaSd1#3</td>
-<td align="right">1</td>
+<td align="left">NuaSd21</td>
+<td align="right">5</td>
 <td align="right"></td>
 <td align="right"></td>
 <td align="right"></td>
@@ -3655,31 +3230,18 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 </tr>
 <tr class="odd">
 <td align="left">kauaiensis</td>
-<td align="left">NuaSd2#1</td>
-<td align="right">3</td>
+<td align="left">Prog2x52519</td>
 <td align="right"></td>
+<td align="right">1</td>
+<td align="right">1</td>
 <td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
+<td align="right">1</td>
+<td align="right">1</td>
 <td align="right"></td>
 <td align="right"></td>
 <td align="right"></td>
 </tr>
 <tr class="even">
-<td align="left">kauaiensis</td>
-<td align="left">Prog2x5251#9</td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
 <td align="left">kaalae</td>
 <td align="left">1152</td>
 <td align="right"></td>
@@ -3692,7 +3254,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">kaalae</td>
 <td align="left">1162</td>
 <td align="right"></td>
@@ -3705,7 +3267,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">kaalae</td>
 <td align="left">1163</td>
 <td align="right"></td>
@@ -3718,7 +3280,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">kaalae</td>
 <td align="left">1251</td>
 <td align="right"></td>
@@ -3731,7 +3293,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">kaalae</td>
 <td align="left">1406</td>
 <td align="right"></td>
@@ -3744,7 +3306,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">kaalae</td>
 <td align="left">358710</td>
 <td align="right">2</td>
@@ -3757,7 +3319,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right">3</td>
 <td align="right"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">kaalae</td>
 <td align="left">358714</td>
 <td align="right">2</td>
@@ -3770,7 +3332,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right">8</td>
 <td align="right">1</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">kaalae</td>
 <td align="left">358715</td>
 <td align="right"></td>
@@ -3783,7 +3345,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right">3</td>
 <td align="right"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">kaalae</td>
 <td align="left">35877</td>
 <td align="right">1</td>
@@ -3796,7 +3358,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right">6</td>
 <td align="right">2</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">kaalae</td>
 <td align="left">3587A</td>
 <td align="right">2</td>
@@ -3809,7 +3371,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right">5</td>
 <td align="right"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">kaalae</td>
 <td align="left">3587C</td>
 <td align="right">2</td>
@@ -3822,7 +3384,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right">3</td>
 <td align="right"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">kaalae</td>
 <td align="left">8921</td>
 <td align="right">2</td>
@@ -3835,7 +3397,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right">7</td>
 <td align="right">1</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">kaalae</td>
 <td align="left">89210</td>
 <td align="right"></td>
@@ -3848,7 +3410,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right">1</td>
 <td align="right"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">kaalae</td>
 <td align="left">8923</td>
 <td align="right">1</td>
@@ -3861,7 +3423,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right">3</td>
 <td align="right"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">kaalae</td>
 <td align="left">8924</td>
 <td align="right">1</td>
@@ -3874,7 +3436,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right">5</td>
 <td align="right"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">kaalae</td>
 <td align="left">8925</td>
 <td align="right">2</td>
@@ -3884,62 +3446,10 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right">1</td>
 <td align="right">6</td>
-<td align="right">2</td>
+<td align="right">5</td>
 <td align="right">1</td>
-</tr>
-<tr class="odd">
-<td align="left">kaalae</td>
-<td align="left">8926</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
 </tr>
 <tr class="even">
-<td align="left">kaalae</td>
-<td align="left">8927</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">kaalae</td>
-<td align="left">8928</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">kaalae</td>
-<td align="left">8929</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
 <td align="left">kaalae</td>
 <td align="left">9042</td>
 <td align="right">2</td>
@@ -3952,7 +3462,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right">8</td>
 <td align="right">2</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">kaalae</td>
 <td align="left">9043</td>
 <td align="right">2</td>
@@ -3965,7 +3475,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right">7</td>
 <td align="right"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">kaalae</td>
 <td align="left">9045</td>
 <td align="right">2</td>
@@ -3978,7 +3488,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right">8</td>
 <td align="right">4</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">hookeri</td>
 <td align="left">7942</td>
 <td align="right"></td>
@@ -3991,7 +3501,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right">7</td>
 <td align="right">3</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">hookeri</td>
 <td align="left">7944</td>
 <td align="right">3</td>
@@ -4004,7 +3514,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right">9</td>
 <td align="right">5</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">hookeri</td>
 <td align="left">8662</td>
 <td align="right">2</td>
@@ -4017,7 +3527,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right">8</td>
 <td align="right">5</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">hookeri</td>
 <td align="left">879101</td>
 <td align="right">5</td>
@@ -4030,7 +3540,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right">8</td>
 <td align="right">4</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">hookeri</td>
 <td align="left">87922</td>
 <td align="right">4</td>
@@ -4043,7 +3553,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right">9</td>
 <td align="right">7</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">hookeri</td>
 <td align="left">87938</td>
 <td align="right">1</td>
@@ -4056,7 +3566,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 <td align="right"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">hookeri</td>
 <td align="left">879G2</td>
 <td align="right">3</td>
@@ -4069,7 +3579,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right">7</td>
 <td align="right">3</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">hookeri</td>
 <td align="left">879H2</td>
 <td align="right">1</td>
@@ -4082,7 +3592,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right">2</td>
 <td align="right">1</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">hookeri</td>
 <td align="left">879N5</td>
 <td align="right">3</td>
@@ -4095,41 +3605,27 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right">7</td>
 <td align="right">3</td>
 </tr>
-<tr class="odd">
-<td align="left">hookeri</td>
-<td align="left">899</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">4</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
 <tr class="even">
 <td align="left">hookeri</td>
 <td align="left">8992E</td>
-<td align="right"></td>
-<td align="right"></td>
+<td align="right">1</td>
 <td align="right"></td>
 <td align="right"></td>
 <td align="right">1</td>
 <td align="right">1</td>
-<td align="right"></td>
+<td align="right">1</td>
+<td align="right">4</td>
 <td align="right">4</td>
 <td align="right">3</td>
 </tr>
 </tbody>
 </table>
-<pre class="r"><code># to run this, comment out across(matches(&quot;(mom|dad)id&quot;), ~str_remove_all(.x, &quot;[ -]&quot;)) lines above
-# left_join(count(germ, momsp, germid=momid, name=&quot;germ&quot;) %&gt;% mutate(momid=str_remove_all(germid, &quot;[ -]&quot;)),
-#           germ %&gt;% group_by(momsp, germid=momid) %&gt;% summarize(tot.germ=sum(germinated))) %&gt;%
-#   full_join(count(surv, momsp, survid=momid, name=&quot;surv&quot;)%&gt;% mutate(momid=str_remove_all(survid, &quot;[ -]&quot;))) %&gt;%
-#   arrange(momsp, momid) %&gt;% select(momsp, momid, germid, survid, tot.germ, germ, surv) %&gt;%
-#   add_count(momid) 
-# #  write_tsv(&quot;data/survgerm_momids.tsv&quot;, na=&quot;&quot;)
+<pre class="r"><code># to run this, comment out dad|mom recode momid_fixes lines above
+# count(seeds, momsp, momid, name=&quot;seed&quot;) %&gt;% 
+#   full_join(count(germ, momsp, momid, name=&quot;germ&quot;)) %&gt;% 
+#   full_join(count(surv, momsp, momid, name=&quot;surv&quot;)) %&gt;%
+#   arrange(momsp, momid) %&gt;% 
+#   write_tsv(&quot;data/seedsgermsurv_momids.tsv&quot;, na=&quot;&quot;) #then hand annotate to make momid_fixes2
 
 mating &lt;- read_tsv(&quot;data/Pollen competition - mating.tsv&quot;) %&gt;% 
   left_join(tibble(momsp=sp_pairs, pair = factor(rep(1:5, each=2)))) %&gt;% 
@@ -4201,15 +3697,15 @@ germ.surv %&gt;% mutate(germalive = paste(is.na(germinated), is.na(alive)) %&gt;
 </tr>
 <tr class="even">
 <td align="left">mixed</td>
-<td align="right">33</td>
-<td align="right">45</td>
-<td align="right">60</td>
+<td align="right">34</td>
+<td align="right">44</td>
+<td align="right">59</td>
 </tr>
 <tr class="odd">
 <td align="left">inter</td>
-<td align="right">93</td>
-<td align="right">26</td>
-<td align="right">115</td>
+<td align="right">94</td>
+<td align="right">25</td>
+<td align="right">113</td>
 </tr>
 </tbody>
 </table>
@@ -4617,56 +4113,56 @@ ggplot(filter(seeds.bycross, !momsp %in% c(&quot;sarmentosa&quot;,&quot;sperguli
 <td align="left">menziesii</td>
 <td align="left">salicaria</td>
 <td align="right">0.4148</td>
-<td align="right">0.0713</td>
+<td align="right">0.0716</td>
 <td align="right">0.0000</td>
 </tr>
 <tr class="even">
 <td align="left">salicaria</td>
 <td align="left">menziesii</td>
 <td align="right">0.5457</td>
-<td align="right">0.0617</td>
+<td align="right">0.0619</td>
 <td align="right">0.0274</td>
 </tr>
 <tr class="odd">
 <td align="left">lydgatei</td>
 <td align="left">sarmentosa</td>
 <td align="right">0.1045</td>
-<td align="right">0.0482</td>
+<td align="right">0.0480</td>
 <td align="right">0.0000</td>
 </tr>
 <tr class="even">
 <td align="left">sarmentosa</td>
 <td align="left">lydgatei</td>
 <td align="right">0.5390</td>
-<td align="right">0.1011</td>
+<td align="right">0.1015</td>
 <td align="right">1.0000</td>
 </tr>
 <tr class="odd">
 <td align="left">stellarioides</td>
 <td align="left">spergulina</td>
 <td align="right">0.0386</td>
-<td align="right">0.0309</td>
+<td align="right">0.0300</td>
 <td align="right">0.0000</td>
 </tr>
 <tr class="even">
 <td align="left">spergulina</td>
 <td align="left">stellarioides</td>
 <td align="right">0.3860</td>
-<td align="right">0.1000</td>
+<td align="right">0.1002</td>
 <td align="right">0.0001</td>
 </tr>
 <tr class="odd">
 <td align="left">membranacea</td>
 <td align="left">kauaiensis</td>
 <td align="right">0.0129</td>
-<td align="right">0.0223</td>
+<td align="right">0.0222</td>
 <td align="right">0.0000</td>
 </tr>
 <tr class="even">
 <td align="left">kauaiensis</td>
 <td align="left">membranacea</td>
 <td align="right">0.0331</td>
-<td align="right">0.0171</td>
+<td align="right">0.0170</td>
 <td align="right">0.0000</td>
 </tr>
 <tr class="odd">
@@ -4680,7 +4176,7 @@ ggplot(filter(seeds.bycross, !momsp %in% c(&quot;sarmentosa&quot;,&quot;sperguli
 <td align="left">hookeri</td>
 <td align="left">kaalae</td>
 <td align="right">0.3021</td>
-<td align="right">0.0621</td>
+<td align="right">0.0622</td>
 <td align="right">0.0000</td>
 </tr>
 </tbody>
@@ -4945,50 +4441,50 @@ hybrid.phylodist.test %&gt;% select(trait, type, term, p.value) %&gt;% filter(ty
 <tr class="odd">
 <td align="left">Capsule formation</td>
 <td align="left">Interspecific</td>
-<td align="right">0.024</td>
-<td align="right">0.555</td>
+<td align="right">0.030</td>
+<td align="right">0.566</td>
 </tr>
 <tr class="even">
 <td align="left">Capsule formation</td>
 <td align="left">Competitive</td>
-<td align="right">0.527</td>
-<td align="right">0.686</td>
+<td align="right">0.555</td>
+<td align="right">0.710</td>
 </tr>
 <tr class="odd">
 <td align="left">Seed number</td>
 <td align="left">Interspecific</td>
-<td align="right">0.007</td>
-<td align="right">0.772</td>
+<td align="right">0.008</td>
+<td align="right">0.799</td>
 </tr>
 <tr class="even">
 <td align="left">Seed number</td>
 <td align="left">Competitive</td>
-<td align="right">0.128</td>
-<td align="right">0.637</td>
+<td align="right">0.113</td>
+<td align="right">0.669</td>
 </tr>
 <tr class="odd">
 <td align="left">Germination</td>
 <td align="left">Interspecific</td>
 <td align="right">0.007</td>
-<td align="right">0.432</td>
+<td align="right">0.430</td>
 </tr>
 <tr class="even">
 <td align="left">Germination</td>
 <td align="left">Competitive</td>
-<td align="right">0.044</td>
-<td align="right">0.139</td>
+<td align="right">0.043</td>
+<td align="right">0.127</td>
 </tr>
 <tr class="odd">
 <td align="left">Survival</td>
 <td align="left">Interspecific</td>
-<td align="right">0.307</td>
-<td align="right">0.777</td>
+<td align="right">0.309</td>
+<td align="right">0.784</td>
 </tr>
 <tr class="even">
 <td align="left">Survival</td>
 <td align="left">Competitive</td>
-<td align="right">0.044</td>
-<td align="right">0.466</td>
+<td align="right">0.042</td>
+<td align="right">0.470</td>
 </tr>
 <tr class="odd">
 <td align="left">Hybrid</td>
@@ -5048,42 +4544,42 @@ ggplot(postzygotic.ratios.phylo, aes(x=pd, y=RI)) +
 <td align="left">capsule.formed</td>
 <td align="left">menziesii</td>
 <td align="left">salicaria</td>
-<td align="right">0.047</td>
-<td align="right">0.974</td>
+<td align="right">0.048</td>
+<td align="right">0.937</td>
 </tr>
 <tr class="even">
 <td align="left">capsule.formed</td>
 <td align="left">salicaria</td>
 <td align="left">menziesii</td>
-<td align="right">0.011</td>
+<td align="right">0.007</td>
 <td align="right">1.000</td>
 </tr>
 <tr class="odd">
 <td align="left">capsule.formed</td>
 <td align="left">lydgatei</td>
 <td align="left">sarmentosa</td>
-<td align="right">0.004</td>
+<td align="right">0.002</td>
 <td align="right">1.000</td>
 </tr>
 <tr class="even">
 <td align="left">capsule.formed</td>
 <td align="left">stellarioides</td>
 <td align="left">spergulina</td>
-<td align="right">0.015</td>
+<td align="right">0.018</td>
 <td align="right">1.000</td>
 </tr>
 <tr class="odd">
 <td align="left">capsule.formed</td>
 <td align="left">kauaiensis</td>
 <td align="left">membranacea</td>
-<td align="right">0.537</td>
+<td align="right">0.602</td>
 <td align="right">0.000</td>
 </tr>
 <tr class="even">
 <td align="left">capsule.formed</td>
 <td align="left">membranacea</td>
 <td align="left">kauaiensis</td>
-<td align="right">0.311</td>
+<td align="right">0.274</td>
 <td align="right">0.000</td>
 </tr>
 <tr class="odd">
@@ -5091,7 +4587,7 @@ ggplot(postzygotic.ratios.phylo, aes(x=pd, y=RI)) +
 <td align="left">hookeri</td>
 <td align="left">kaalae</td>
 <td align="right">0.088</td>
-<td align="right">0.932</td>
+<td align="right">0.931</td>
 </tr>
 <tr class="even">
 <td align="left">capsule.formed</td>
@@ -5105,55 +4601,55 @@ ggplot(postzygotic.ratios.phylo, aes(x=pd, y=RI)) +
 <td align="left">menziesii</td>
 <td align="left">salicaria</td>
 <td align="right">0.065</td>
-<td align="right">0.040</td>
+<td align="right">0.041</td>
 </tr>
 <tr class="even">
 <td align="left">sds</td>
 <td align="left">salicaria</td>
 <td align="left">menziesii</td>
-<td align="right">-0.051</td>
-<td align="right">0.224</td>
+<td align="right">-0.054</td>
+<td align="right">0.199</td>
 </tr>
 <tr class="odd">
 <td align="left">sds</td>
 <td align="left">lydgatei</td>
 <td align="left">sarmentosa</td>
-<td align="right">0.047</td>
-<td align="right">0.247</td>
+<td align="right">0.056</td>
+<td align="right">0.201</td>
 </tr>
 <tr class="even">
 <td align="left">sds</td>
 <td align="left">sarmentosa</td>
 <td align="left">lydgatei</td>
 <td align="right">0.071</td>
-<td align="right">0.101</td>
+<td align="right">0.122</td>
 </tr>
 <tr class="odd">
 <td align="left">sds</td>
 <td align="left">spergulina</td>
 <td align="left">stellarioides</td>
 <td align="right">0.017</td>
-<td align="right">0.635</td>
+<td align="right">0.636</td>
 </tr>
 <tr class="even">
 <td align="left">sds</td>
 <td align="left">stellarioides</td>
 <td align="left">spergulina</td>
-<td align="right">0.184</td>
-<td align="right">0.058</td>
+<td align="right">0.110</td>
+<td align="right">0.214</td>
 </tr>
 <tr class="odd">
 <td align="left">sds</td>
 <td align="left">kauaiensis</td>
 <td align="left">membranacea</td>
-<td align="right">0.434</td>
+<td align="right">0.415</td>
 <td align="right">0.001</td>
 </tr>
 <tr class="even">
 <td align="left">sds</td>
 <td align="left">membranacea</td>
 <td align="left">kauaiensis</td>
-<td align="right">0.350</td>
+<td align="right">0.291</td>
 <td align="right">0.000</td>
 </tr>
 <tr class="odd">
@@ -5168,7 +4664,7 @@ ggplot(postzygotic.ratios.phylo, aes(x=pd, y=RI)) +
 <td align="left">kaalae</td>
 <td align="left">hookeri</td>
 <td align="right">0.104</td>
-<td align="right">0.224</td>
+<td align="right">0.214</td>
 </tr>
 <tr class="odd">
 <td align="left">prop.germ</td>
@@ -5223,7 +4719,7 @@ ggplot(postzygotic.ratios.phylo, aes(x=pd, y=RI)) +
 <td align="left">prop.germ</td>
 <td align="left">membranacea</td>
 <td align="left">kauaiensis</td>
-<td align="right">0.877</td>
+<td align="right">0.872</td>
 <td align="right">0.000</td>
 </tr>
 <tr class="odd">
@@ -5231,20 +4727,20 @@ ggplot(postzygotic.ratios.phylo, aes(x=pd, y=RI)) +
 <td align="left">hookeri</td>
 <td align="left">kaalae</td>
 <td align="right">-0.050</td>
-<td align="right">0.407</td>
+<td align="right">0.408</td>
 </tr>
 <tr class="even">
 <td align="left">prop.germ</td>
 <td align="left">kaalae</td>
 <td align="left">hookeri</td>
-<td align="right">0.616</td>
+<td align="right">0.622</td>
 <td align="right">0.000</td>
 </tr>
 <tr class="odd">
 <td align="left">prop.alive</td>
 <td align="left">menziesii</td>
 <td align="left">salicaria</td>
-<td align="right">-0.644</td>
+<td align="right">-0.643</td>
 <td align="right">0.000</td>
 </tr>
 <tr class="even">
@@ -5272,105 +4768,105 @@ ggplot(postzygotic.ratios.phylo, aes(x=pd, y=RI)) +
 <td align="left">prop.alive</td>
 <td align="left">spergulina</td>
 <td align="left">stellarioides</td>
-<td align="right">-0.532</td>
+<td align="right">-0.531</td>
 <td align="right">0.000</td>
 </tr>
 <tr class="even">
 <td align="left">prop.alive</td>
 <td align="left">stellarioides</td>
 <td align="left">spergulina</td>
-<td align="right">-0.056</td>
-<td align="right">0.122</td>
+<td align="right">-0.055</td>
+<td align="right">0.134</td>
 </tr>
 <tr class="odd">
 <td align="left">prop.alive</td>
 <td align="left">kauaiensis</td>
 <td align="left">membranacea</td>
-<td align="right">0.025</td>
-<td align="right">0.822</td>
+<td align="right">0.026</td>
+<td align="right">0.813</td>
 </tr>
 <tr class="even">
 <td align="left">prop.alive</td>
 <td align="left">membranacea</td>
 <td align="left">kauaiensis</td>
-<td align="right">0.158</td>
-<td align="right">0.333</td>
+<td align="right">0.174</td>
+<td align="right">0.270</td>
 </tr>
 <tr class="odd">
 <td align="left">prop.alive</td>
 <td align="left">hookeri</td>
 <td align="left">kaalae</td>
 <td align="right">-0.023</td>
-<td align="right">0.283</td>
+<td align="right">0.270</td>
 </tr>
 <tr class="even">
 <td align="left">prop.alive</td>
 <td align="left">kaalae</td>
 <td align="left">hookeri</td>
 <td align="right">0.056</td>
-<td align="right">0.094</td>
+<td align="right">0.096</td>
 </tr>
 <tr class="odd">
 <td align="left">all</td>
 <td align="left">menziesii</td>
 <td align="left">salicaria</td>
-<td align="right">-0.687</td>
+<td align="right">-0.685</td>
 <td align="right"></td>
 </tr>
 <tr class="even">
 <td align="left">all</td>
 <td align="left">salicaria</td>
 <td align="left">menziesii</td>
-<td align="right">-0.558</td>
+<td align="right">-0.563</td>
 <td align="right"></td>
 </tr>
 <tr class="odd">
 <td align="left">all</td>
 <td align="left">lydgatei</td>
 <td align="left">sarmentosa</td>
-<td align="right">-0.210</td>
+<td align="right">-0.203</td>
 <td align="right"></td>
 </tr>
 <tr class="even">
 <td align="left">all</td>
 <td align="left">sarmentosa</td>
 <td align="left">lydgatei</td>
-<td align="right">-0.456</td>
+<td align="right">-0.457</td>
 <td align="right"></td>
 </tr>
 <tr class="odd">
 <td align="left">all</td>
 <td align="left">stellarioides</td>
 <td align="left">spergulina</td>
-<td align="right">0.201</td>
+<td align="right">0.131</td>
 <td align="right"></td>
 </tr>
 <tr class="even">
 <td align="left">all</td>
 <td align="left">spergulina</td>
 <td align="left">stellarioides</td>
-<td align="right">-0.473</td>
+<td align="right">-0.472</td>
 <td align="right"></td>
 </tr>
 <tr class="odd">
 <td align="left">all</td>
 <td align="left">membranacea</td>
 <td align="left">kauaiensis</td>
-<td align="right">0.976</td>
+<td align="right">0.970</td>
 <td align="right"></td>
 </tr>
 <tr class="even">
 <td align="left">all</td>
 <td align="left">kauaiensis</td>
 <td align="left">membranacea</td>
-<td align="right">0.876</td>
+<td align="right">0.892</td>
 <td align="right"></td>
 </tr>
 <tr class="odd">
 <td align="left">all</td>
 <td align="left">kaalae</td>
 <td align="left">hookeri</td>
-<td align="right">0.713</td>
+<td align="right">0.718</td>
 <td align="right"></td>
 </tr>
 <tr class="even">
@@ -5401,41 +4897,41 @@ ggplot(postzygotic.ratios.phylo, aes(x=pd, y=RI)) +
 <tr class="odd">
 <td align="left">capsule.formed</td>
 <td align="left">pd</td>
-<td align="right">15.23</td>
-<td align="right">8.916</td>
-<td align="right">1.708</td>
-<td align="right">0.1385</td>
+<td align="right">15.77</td>
+<td align="right">9.857</td>
+<td align="right">1.600</td>
+<td align="right">0.1607</td>
 </tr>
 <tr class="even">
 <td align="left">sds</td>
 <td align="left">pd</td>
-<td align="right">18.95</td>
-<td align="right">5.015</td>
-<td align="right">3.779</td>
-<td align="right">0.0054</td>
+<td align="right">17.78</td>
+<td align="right">4.635</td>
+<td align="right">3.836</td>
+<td align="right">0.0050</td>
 </tr>
 <tr class="odd">
 <td align="left">prop.germ</td>
 <td align="left">pd</td>
-<td align="right">36.17</td>
-<td align="right">12.447</td>
-<td align="right">2.906</td>
-<td align="right">0.0197</td>
+<td align="right">36.18</td>
+<td align="right">12.421</td>
+<td align="right">2.913</td>
+<td align="right">0.0195</td>
 </tr>
 <tr class="even">
 <td align="left">prop.alive</td>
 <td align="left">pd</td>
-<td align="right">34.77</td>
-<td align="right">7.913</td>
-<td align="right">4.394</td>
+<td align="right">35.04</td>
+<td align="right">7.970</td>
+<td align="right">4.396</td>
 <td align="right">0.0023</td>
 </tr>
 <tr class="odd">
 <td align="left">all</td>
 <td align="left">pd</td>
-<td align="right">83.67</td>
-<td align="right">13.177</td>
-<td align="right">6.350</td>
+<td align="right">84.12</td>
+<td align="right">12.873</td>
+<td align="right">6.535</td>
 <td align="right">0.0002</td>
 </tr>
 </tbody>
@@ -5616,66 +5112,66 @@ hybrid.phylostyle %&gt;% group_by(name) %&gt;% nest() %&gt;%
 <tr class="odd">
 <td align="left">prop.hybrid.sdl</td>
 <td align="left">pd</td>
-<td align="right">-8.9758</td>
-<td align="right">5.8354</td>
-<td align="right">-1.5382</td>
-<td align="right">0.1679</td>
+<td align="right">-8.9704</td>
+<td align="right">5.8282</td>
+<td align="right">-1.5391</td>
+<td align="right">0.1677</td>
 </tr>
 <tr class="even">
 <td align="left">prop.hybrid.sdl</td>
 <td align="left">style_diff_rel</td>
-<td align="right">-0.2442</td>
-<td align="right">0.1253</td>
-<td align="right">-1.9495</td>
-<td align="right">0.0922</td>
+<td align="right">-0.2441</td>
+<td align="right">0.1251</td>
+<td align="right">-1.9508</td>
+<td align="right">0.0921</td>
 </tr>
 <tr class="odd">
 <td align="left">prop.hybrid.sds</td>
 <td align="left">pd</td>
-<td align="right">4.1633</td>
-<td align="right">8.1548</td>
-<td align="right">0.5105</td>
-<td align="right">0.6254</td>
+<td align="right">4.2406</td>
+<td align="right">8.2202</td>
+<td align="right">0.5159</td>
+<td align="right">0.6218</td>
 </tr>
 <tr class="even">
 <td align="left">prop.hybrid.sds</td>
 <td align="left">style_diff_rel</td>
-<td align="right">-0.1552</td>
-<td align="right">0.1751</td>
-<td align="right">-0.8865</td>
-<td align="right">0.4048</td>
+<td align="right">-0.1541</td>
+<td align="right">0.1765</td>
+<td align="right">-0.8730</td>
+<td align="right">0.4116</td>
 </tr>
 <tr class="odd">
 <td align="left">prop.hybrid.zyg</td>
 <td align="left">pd</td>
-<td align="right">17.7468</td>
-<td align="right">6.3356</td>
-<td align="right">2.8011</td>
-<td align="right">0.0265</td>
+<td align="right">17.4968</td>
+<td align="right">6.0780</td>
+<td align="right">2.8787</td>
+<td align="right">0.0237</td>
 </tr>
 <tr class="even">
 <td align="left">prop.hybrid.zyg</td>
 <td align="left">style_diff_rel</td>
-<td align="right">-0.1876</td>
-<td align="right">0.1360</td>
-<td align="right">-1.3796</td>
-<td align="right">0.2102</td>
+<td align="right">-0.1877</td>
+<td align="right">0.1305</td>
+<td align="right">-1.4383</td>
+<td align="right">0.1935</td>
 </tr>
 <tr class="odd">
 <td align="left">hybrid.RI.all</td>
 <td align="left">pd</td>
-<td align="right">90.8415</td>
-<td align="right">14.6054</td>
-<td align="right">6.2197</td>
+<td align="right">91.0401</td>
+<td align="right">14.2996</td>
+<td align="right">6.3666</td>
 <td align="right">0.0004</td>
 </tr>
 <tr class="even">
 <td align="left">hybrid.RI.all</td>
 <td align="left">style_diff_rel</td>
-<td align="right">0.3407</td>
-<td align="right">0.3136</td>
-<td align="right">1.0867</td>
-<td align="right">0.3132</td>
+<td align="right">0.3286</td>
+<td align="right">0.3070</td>
+<td align="right">1.0705</td>
+<td align="right">0.3199</td>
 </tr>
 </tbody>
 </table>
@@ -5739,18 +5235,18 @@ mod.pd.backest %&gt;% select(stage, data) %&gt;% unnest(data) %&gt;%
 </tr>
 <tr class="even">
 <td align="left">sdl</td>
-<td align="right">0.0203</td>
-<td align="right">0.0337</td>
+<td align="right">0.0190</td>
+<td align="right">0.0379</td>
 </tr>
 <tr class="odd">
 <td align="left">sds</td>
-<td align="right">0.0655</td>
-<td align="right">0.0011</td>
+<td align="right">0.0738</td>
+<td align="right">0.0261</td>
 </tr>
 <tr class="even">
 <td align="left">zyg</td>
-<td align="right">0.0202</td>
-<td align="right">0.0001</td>
+<td align="right">0.2897</td>
+<td align="right">0.0128</td>
 </tr>
 </tbody>
 </table>

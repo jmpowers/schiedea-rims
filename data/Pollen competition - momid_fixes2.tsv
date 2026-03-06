@@ -1,0 +1,260 @@
+momsp	seed	germ	surv	data_sets	momid	join	momid_fixed	notes_momid_fixes	problem	notes_JP	notes_SW
+menziesii	79	4	3	8	8491223						
+menziesii	8			1	84914C				loner		this matches 9.19.17 inventory
+menziesii	12	1	1	3	8491713						
+menziesii	74	5	5	6	849417						
+menziesii	28	3	3	6	8495739						
+menziesii	12	1	1	3	84957C						
+menziesii	7	1	1	3	84961A						
+menziesii		1	2	2	849772	1					
+menziesii	21			1	849772H	1	849772		one ds	drop the H?	yes, drop the H
+menziesii	29	2	2	3	84983A						
+menziesii	56	3	4	6	84989E						
+menziesii	55	5	5	9	84993C						
+menziesii	73	4	4	6	9504062						
+menziesii	5	7	1	3	9504102						
+menziesii	43	5	5	9	9504291						
+menziesii	19			1	9504422				one ds		OK, plant in inventory
+menziesii	2			1	950501				loner	okay, plant in inventory	OK, plant in inventory
+menziesii	12			1	95050136				loner	okay, plant in inventory	OK, plant in inventory
+salicaria	9	1	1	3	8421085						
+salicaria	11	1	1	3	84213956						
+salicaria	13	2	4	4	8421433						
+salicaria	40	2	2	4	842151E						
+salicaria	11			1	84216121	1	84216221		loner	inventory only has 162-21	this should be 84216221
+salicaria	43	1	1	4	84216221	1					
+salicaria	10	1	1	3	84216723						
+salicaria			1	2	84216754	1					
+salicaria		1			84216754F	1	84216754	JP: drop F			
+salicaria		2	2	2	84216923						
+salicaria	11	1	1	3	84217237	1					
+salicaria	4			1	84217337	1	84217237		loner	inventory only has 172-37	this should be 84217237
+salicaria	13	2	2	5	8421951						
+salicaria		2	2	2	84220145						
+salicaria	17		1	2	84220146			? 201-46 is in inventory, says hermaphrodite (201-45 is female). SGW says plant is real			
+salicaria	31	2	2	3	8422123						
+salicaria	10	1	1	3	8422152						
+salicaria	1	1	1	3	84222127						
+salicaria	41	2	2	4	842221F						
+salicaria	5	1	1	3	842223						
+salicaria		2	2	2	84224131	1					
+salicaria	1			1	84224131F	1	84224131		loner	drop the F?   	yes, drop the F
+salicaria	5	3	3	5	8423715						
+salicaria		1	1	2	84243a41						
+salicaria	21	2	2	4	8425120	1					
+salicaria		1	1	2	842691F						
+salicaria		1	1	2	8428019						
+salicaria	9			1	8428120	1	8425120		loner		this is probably 8425120
+salicaria		1	1	2	8428638						
+salicaria		1	1	2	842958						
+lydgatei	5			1	6682041	1	66822041		fixed	fixed to 66822041	OK
+lydgatei	61	3	3	6	66822041	1					
+lydgatei	31	2	2	3	66822092						
+lydgatei	52	3	3	7	66822121						
+lydgatei	64	4	3	9	66822171						
+lydgatei		1			66822211	1	66822221	221-1 not in inventory. SGW: book says 222-1 			
+lydgatei	33	3	2	6	66822221	1					
+lydgatei	61	3	3	3	66822231						
+lydgatei	60	3	3	3	66822292						
+lydgatei	71	6	2	9	66822332	1					
+lydgatei	29	1	2	3	66822341	1					
+lydgatei		1			66822342	1	66822341	234-2 not in inventory, SGW: book says 234-1			
+lydgatei	74	6	4	9	66822352						
+lydgatei			2		66832332	1	66822332	JP: fix population number			
+sarmentosa		4			8796123	1	896123	JP: too many population digits, drop 7			
+sarmentosa	17			2	8961221						
+sarmentosa		1			89612216	1	89612316	JP: 122-16 not in inventory			
+sarmentosa		4	3	4	8961222						
+sarmentosa	45	3	4	8	896123	1		JP: sarm based on population number, fixed momsp 2 rows in germ data			
+sarmentosa	68	7	4	8	89612316			sarm based on population number, so I fixed mom/dad1/dad2 species in 3 rows in germ data (lydg>sarm), in surv data kept as lydg and changed momid 896 123-16 > 6682 229-2			
+sarmentosa	45			2	896123LS7						
+sarmentosa	2			1	896143				loner	in inventory	OK to use
+sarmentosa		3	3	4	89682	1					
+sarmentosa		1			89682F	1	89682	JP: drop F			
+stellarioides	31	1	3		10C	1	1465110C	there are two 10C genotypes (14651 and 14765), SGW says 14651			
+stellarioides	5			1	10CC2x6GC1(SS1010)				loner		OK to use (plant used was result of a cross between two field plants. The progeny were labeled SS10, and the progeny IDs of the plants used in the crosses were 10, 29, and 43.
+stellarioides	19			1	10CC2x6GC1(SS1029)	1			one ds	same as SS1029?	OK to use (plant used was result of a cross between two field plants. The progeny were labeled SS10, and the progeny IDs of the plants used in the crosses were 10, 29, and 43.
+stellarioides	24			1	10CC2x6GC1(SS1043)	1			one ds	same as SS1043?	OK to use (plant used was result of a cross between two field plants. The progeny were labeled SS10, and the progeny IDs of the plants used in the crosses were 10, 29, and 43.
+stellarioides	20	1	1		1465110CC2	1	1465110C	JP: collapse clones			
+stellarioides	34			4	146513B						
+stellarioides		1			146513BC2	1	146513B	JP: collapse clones			
+stellarioides	53	1	1	5	1476510C	1					
+stellarioides	15			5	1476514B	1	1476514B			new: are there 3 plants, 14B, 14B-1, and 14B-2? I see 14B and two progeny in inventory.	This should be 147651B1G
+stellarioides			1		1476514B1	1	1476514B1				
+stellarioides	20			1	1476514B1G	1	1476514B1		loner	is the 1G another plant?	same as previous plant [1476514B]
+stellarioides	20	1	1		1476514B2	1	1476514B2				
+stellarioides		1			1476514BG	1	1476514B1				
+stellarioides	33	1	2		1476520J1	1	1476520J	JP: collapse clones			
+stellarioides	37	1	1		1476520J6	1	1476520J	JP: collapse clones			
+stellarioides	20	2	1	4	147654E	1					
+stellarioides	46			6	147656G	1					
+stellarioides			1		14B	1	1476514B				
+stellarioides	1			1	14B1	1	1476514B1		loner	add pop number?	Although two population numbers are used for S. stellarioides, they are from the two populations collected at different times. Not the best numbering system for ouir purposes, but that is what they did. 14B1 was used to indicate that a separate plant was detected in the pot (S. stellarioides was short lived but kept regenerating from seed. It is a different plant and therefore a valid loner.  
+stellarioides	5			1	14Bx6GC2(SS112)				loner		
+stellarioides	9			1	14Bx6GC2(SS121)				loner		
+stellarioides	11			1	14Bx9A(SS1113)				loner	maybe SS113?	There were two progeny IDs, SS11-3 and SS11-13 so both are correct
+stellarioides	3			1	14Bx9A(SS113)	1			loner	same as SS113(14Bx9A3)?	THere were two progeny IDs, SS11-3 and SS11-13 so both are correct
+stellarioides		1			1776510C	1	1476510C	JP: population one digit off			
+stellarioides	1	1	1		3B	1	146513B	JP: collapse clones			
+stellarioides			1		3BC2	1	146513B	JP: collapse clones			
+stellarioides	20			1	4E	1	147654E		loner	new: add pop number?	As before, all plants were from the same population, even though 2 numbers were used, so it doesn't matter (though I wish I had recorded it!)
+stellarioides	8			1	4Ex18E(SS21)	1			one ds		
+stellarioides	25			1	4Ex18E(SS212)	1			loner	same as SS212?	two different progeny were used- SS2-1 and SS2-12
+stellarioides	9			1	4Ex18E(SS234)				loner		
+stellarioides	2	3	3		6G	1	147656G	JP: collapse clones			
+stellarioides	6	1	1		6GC1	1	147656G	JP: collapse clones			
+stellarioides	3			1	6GC2	1	147656G	JP: collapse clones	loner	add pop number?	As before, only one population
+stellarioides	6			1	9A				loner	add pop number?	As before, only one population
+stellarioides	2			1	9Ex18E(SS21)	1	4Ex18E(SS21)		loner	new: 4E read as 9E?	
+stellarioides		1	1	2	SS1029	1	10CC2x6GC1(SS1029)			same as 10CC2x6GC1(SS1029)?	yes
+stellarioides		1	1	2	SS1043	1	10CC2x6GC1(SS1043)			same as 10CC2x6GC1(SS1043)?	yes
+stellarioides	4			1	SS113(14Bx9A3)	1	14Bx9A(SS113)		loner	same as 14Bx9A(SS113)?	this is SS11-3 (there is also SS11-13)
+stellarioides		1	1	2	SS212	1	4Ex18E(SS212)			same as 4Ex18E(SS212)?	yes, this is 4Ex18E (SS2-12)
+spergulina	19			1	12028911				loner	in inventory	OK
+spergulina		1	1	2	1202896						
+spergulina			1	1	1202897			? 120289-7 is in inventory, says female. Perhaps 120294-7? SGW confirms real plant	loner	in inventory	
+spergulina	55	2	1	4	1202899						
+spergulina		1	1	2	1202908						
+spergulina	46	1	1	4	1202928						
+spergulina		2	1	2	1202941						
+spergulina	34	1	2	6	1202944	1					
+spergulina		1			1202944F	1	1202944	JP: drop F			
+spergulina	54	4	2	6	1202947						
+spergulina	40	5	2	6	1202969						
+spergulina		2	1	2	1202984						
+membranacea	2			1	19033		86419033		one ds	in inventory	OK
+membranacea	32			3	19230	1	86419230			add pop number	
+membranacea	25			1	20111		86420111		one ds	in inventory, add pop number	OK (was 864 201-11)
+membranacea	5			1	2012	1	8642012		loner	not in inventory - 201-11?	same as 864 201-2
+membranacea	120	2	2	7	20211						was 2021-1
+membranacea	1			1	20228		86420228		loner	in inventory	OK (864 202-28)
+membranacea	60			2	5x9c7	1	8645x9c7			add pop number	
+membranacea		1		1	8641	1	864Notag1	none germinated	loner	same as Notag#1?	yes
+membranacea		1	1	2	86419230	1					OK, was 864 192-30
+membranacea		5	1	4	8642	1	864Notag2			same as Notag#2?	yes
+membranacea		1		1	8642012	1		only 5 seeds germinated	loner	not in inventory - 201-11?	OK, same as 864 201-2 (inconsistent use of pop number)
+membranacea		2	2	4	8645x9c7	1					
+membranacea		1	1	2	864Cross6	1					
+membranacea		1	1	2	Cross6	1	864Cross6		fixed	fixed to 864Cross6	
+membranacea	44			1	NoTag2	1	864Notag2		fixed	fixed case to Notag#2	OK
+membranacea	10			1	Notag1	1	864Notag1		one ds	same as 864#1?	Yes
+membranacea	79		1	1	Notag2	1	864Notag2		fixed	fixed case to Notag#2	OK
+membranacea		1	1		memb2	1	864Notag2	SGW confirmed No tag #2 and memb#2 are the same plant			
+membranacea	1			1	membcross10				loner		OK
+membranacea	37			2	membcross2						
+kauaiensis	49			1	1				one ds		1 and 1a (or 2 and 2a) refers to the direction of the original cross so they are different plants (although they have the same parents)
+kauaiensis	31			1	120741a	1	1a		one ds		
+kauaiensis	113	1		4	120747			only 1 seeds germinated			
+kauaiensis			1	1	120748X1207473a			? 12074-8X12074-7 3a is in inventory, SGW confirms real plant	loner		
+kauaiensis	159	3	1	6	1a	1					
+kauaiensis	11			1	1a234110				loner	seems intentional	full ID was 1a x 234-1 #10 (1a was the progeny of 12074-7 and 12074-8)
+kauaiensis	7			1	1a234111				loner	same without # sign	1a2341#11
+kauaiensis	11			1	1a234113	1			loner	same without # sign	1a2341#13
+kauaiensis	27	1		2	1a234114	1					
+kauaiensis	3			1	1a23413				one ds		
+kauaiensis	23			1	1a23414	1			one ds		 
+kauaiensis	93			1	1a23415	1			one ds		
+kauaiensis	8			1	1a23416				loner	seems intentional	yes, was 1a234-1#6 in SAS file
+kauaiensis	134	1		3	1a23417	1					
+kauaiensis	6			1	1a23419				loner		
+kauaiensis	4			1	1a525111				loner		was 1ax525-11#1
+kauaiensis	4			1	1a5251111				loner		was 1ax525-11#11
+kauaiensis	52			1	1a525113				one ds		was 1ax525-11#3
+kauaiensis	36			3	1a525114						was 1ax525-11#4
+kauaiensis	1			1	1a525117				loner		was 1ax525-11#7
+kauaiensis	80	1		2	1a525120	1		JP: 1a5251#20 is kauaiensis, changed in the data to 864192-30 based on MK6 code. Only changed this momid for this species!			
+kauaiensis	2			1	1a52516a2				loner		
+kauaiensis	1			1	1a52519				loner		was 1ax525-1#9
+kauaiensis	13			1	1ax11				one ds		OK
+kauaiensis	9			2	1ax12						
+kauaiensis	6			1	1ax13				loner		OK
+kauaiensis	20			2	1ax15						
+kauaiensis	1			1	1ax234113	1	1a234113	JP: drop x	loner		this cross is OK unless you want to add the # before the 13
+kauaiensis	3		1	1	1ax234114	1	1a234114	JP: drop x	loner		this cross is OK unless you want to add the # before the 14
+kauaiensis	8			1	1ax23415	1	1a23415	JP: drop x	loner		this cross is OK unless you want to add the # before the 15
+kauaiensis			1		1ax23417	1	1a23417	JP: drop x			
+kauaiensis			1		1ax525120	1	1a525120	JP: drop x			
+kauaiensis	108			1	2341				one ds		
+kauaiensis	4			1	2341x1a				loner		equals 234-1x1a
+kauaiensis	44			1	2341x6a2				one ds		equals 234-1x6a#2
+kauaiensis	15			1	2341x73				loner		
+kauaiensis		1		1	245251			only 3 seeds germinated	loner		OK
+kauaiensis		1		1	2452511			only 6 seeds germinated	loner		OK
+kauaiensis			1	1	245251x6a6			? 24525-1x6a#6 is not in 2019 inventory, SGW confirms real plant	loner		OK
+kauaiensis	88	1	1	5	2a						
+kauaiensis	44			1	2a52519				one ds	same without # sign	should be 2ax5251#9
+kauaiensis	6			1	2x52517				loner		OK
+kauaiensis	55			2	2x52519						
+kauaiensis	94	1		3	3a			only 5 seeds germinated			
+kauaiensis	5			1	3a52512				loner		OK
+kauaiensis	2			1	3a5a5				loner		change to 3ax5a#5
+kauaiensis	20			1	3ax5a2				one ds		
+kauaiensis	24			1	3ax5a3				one ds		
+kauaiensis	8			1	4631				one ds		
+kauaiensis	9			1	4633				one ds		
+kauaiensis	135			1	4634				one ds		
+kauaiensis	16			1	5251				loner	in inventory	this is a plant grown from field collected seeds- not many of these produce capsules because they suffered from severe inbreeding depression
+kauaiensis	7			1	52511				one ds		also grown from field seeds
+kauaiensis	4			1	5251121				loner		525-11x2#1
+kauaiensis	38			1	5251131	1			one ds	same without # sign	525-11x3#1
+kauaiensis	2			1	52511x31	1	5251131	JP: drop x	loner		OK
+kauaiensis	2			1	525131				loner		OK
+kauaiensis	10			1	52516a2	1			loner		OK
+kauaiensis	16			1	52516a3				one ds		
+kauaiensis	13			1	52516a4				one ds		
+kauaiensis	39			1	52516a6	1			one ds		
+kauaiensis	112			1	52516a7				one ds		
+kauaiensis		2	1	2	5251x6a2	1	52516a2	JP: drop x			
+kauaiensis	16	1		1	5251x6a6	1	52516a6	JP: drop x, only 7 seeds germinated	loner		OK
+kauaiensis	34			1	5256				one ds		
+kauaiensis		1		1	5a			none germinated	loner		OK
+kauaiensis	34			2	6a						OK
+kauaiensis	31			1	7x23412				one ds		OK
+kauaiensis	9			1	7x52511				loner		OK
+kauaiensis		1		1	7x8Prog2			only 10 seeds germinated	loner		not found in SAS file, delete
+kauaiensis	4			1	NuS211a				loner		OK
+kauaiensis	9			1	NuaS21	1	NuaSd21	JP: add d	one ds		Should be NuaSd2#1
+kauaiensis	1			1	NuaSd13				loner		OK
+kauaiensis	9			1	NuaSd21	1			one ds		OK
+kauaiensis		2			P252519	1	Prog2x52519	JP: reformat name			
+kauaiensis			2	4	Prog2x52519	1					
+kaalae	4	1	1	3	1152						
+kaalae	27	1	1	3	1162						
+kaalae			1	1	1163			? 116-3 frequently used plant as mom and dad, in germ as a dad, SGW confirms it's one of Thu's original crosses.	loner	ok, also a dadid 	I assume that it did not make it into the seed file because some seeds were lost
+kaalae	27	1	1	3	1251						
+kaalae			1	1	1406			? 140-6 only appears once in surv sheet, SGW confirms it's one of Thu's original crosses.	loner	140-6 likely from crossing expt	I assume that this is another case where seeds were lost so we had no data for "seeds intra"
+kaalae	10	4		4	358710			only 2 seeds germinated			
+kaalae	20	8	1	4	358714						
+kaalae	7	5		3	358715			only 4 seeds germinated			
+kaalae	21	7	3	6	35877						
+kaalae	8	7		4	3587A			only 7 seeds germinated			
+kaalae	14	4		4	3587C			only 4 seeds germinated			
+kaalae	15	9	1	5	8921						
+kaalae	2	2		3	89210			none germinated			
+kaalae	15	6	2	7	8923						
+kaalae	42	7	2	6	8924						
+kaalae	16	4	3	7	8925	1					
+kaalae		1		1	8926	1	8925	only 4 seeds germinated	fixed	fixed autofill	Another case of some seeds being lost when capsulew were collected
+kaalae		1		1	8927	1	8925	none germinated	fixed	fixed autofill	
+kaalae		1		1	8928	1	8925	none germinated	fixed	fixed autofill	
+kaalae		1		1	8929	1	8925	none germinated	fixed	fixed autofill	
+kaalae	20	10	4	6	9042						
+kaalae	17	9	2	5	9043						
+kaalae	37	10	5	6	9045						
+hookeri	55	12	8	8	7942			fixed momsp kaal > hook and type inter > intra in data, see verbatim file			
+hookeri	46	13	8	9	7944			fixed momsp kaal > hook and type inter > intra in data, see verbatim file			
+hookeri		1			8.99E+02	1	8992E	JP: Excel converted 2E-1 into an exponent			
+hookeri	55	10	7	9	8662			fixed momsp kaal > hook and type inter > intra in data, see verbatim file			
+hookeri	46	13	6	8	879101			fixed momsp kaal > hook and type inter > intra in data, see verbatim file			
+hookeri	24	12	6	7	87922			fixed momsp kaal > hook and type inter > intra in data, see verbatim file			
+hookeri			1		87923	1	87922	JP: looks like Excel auto-increment			
+hookeri			1		87924	1	87922	JP: looks like Excel auto-increment			
+hookeri			1		87925	1	87922	JP: looks like Excel auto-increment			
+hookeri			1		87926	1	87922	JP: looks like Excel auto-increment			
+hookeri			1		87927	1	87922	JP: looks like Excel auto-increment			
+hookeri	7			2	87938						
+hookeri	52	12	5	9	879G2			fixed momsp kaal > hook and type inter > intra in data, see verbatim file			
+hookeri	7	3	2	6	879H2	1					
+hookeri	75	11	6	9	879N5	1					
+hookeri	13			3	899	1	8992E			only one 899 plant, 2E?	899-2E-1 was the original label, so these two entries are the same thing
+hookeri		4	4		8992E1	1	8992E	JP: Excel converted 2E-1 into an exponent			

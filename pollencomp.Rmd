@@ -49,10 +49,8 @@ propnames <- set_names(c("Capsule formation","Seed number","Germination","Surviv
 vigornames <- c(hybrid.vigor.germsurv="Hybrid/intraspecific fitness:\ngermination and survival", 
                 hybrid.vigor.all="Hybrid/intraspecific fitness:\nseeds, germination, survivial")
 
-momid.fixes <- read_tsv("data/Pollen competition - momid_fixes.tsv")
-momid.fixes.seeds <- momid.fixes %>% drop_na(momid_fixed) %>% select(momid, momid_fixed) %>% deframe()
-momid.fixes.germ <- momid.fixes %>% drop_na(germid, momid_fixed) %>% select(momid, momid_fixed) %>% deframe()
-momid.fixes.surv <- momid.fixes %>% drop_na(survid, momid_fixed) %>% select(momid, momid_fixed) %>% deframe()
+momid.fixes <- read_tsv("data/Pollen competition - momid_fixes2.tsv") %>% 
+  drop_na(momid_fixed) %>% select(momid, momid_fixed) %>% deframe()
 
 seeds <- read_tsv("data/Pollen competition - seeds.tsv") %>% 
   mutate(dadspm = if_else(type=="mixed" & dadsp1==momsp, dadsp1, dadsp2), #rearrange dad1/dad2 to have dadsp match momsp
@@ -61,8 +59,8 @@ seeds <- read_tsv("data/Pollen competition - seeds.tsv") %>%
          dadid  = if_else(type=="mixed" & dadsp1==momsp, dadid2, dadid1), .after=momid) %>% 
   select(-matches("dad(sp|id)[12]")) %>% 
   mutate(across(matches("sp"), ~ recode(.x, !!!sp_pairs)),
-         across(matches("(dad|mom)id"), ~str_remove_all(.x, "[ -]")), 
-         across(matches("(dad|mom)id"), ~recode(.x, !!!momid.fixes.seeds)),
+         across(matches("(dad|mom)id"), ~str_remove_all(.x, "[ #-]")), 
+         across(matches("(dad|mom)id"), ~recode(.x, !!!momid.fixes)),
          sxc = paste(momsp, type, sep="."),
          type=factor(type, levels= names(typenames)), 
          across(matches("sp"), ~ factor(.x, levels = sp_pairs)),
@@ -80,8 +78,8 @@ germ.pot <- read_tsv("data/Pollen competition - germination.tsv") %>%
   select(-starts_with("germinated_n"), -transplanted_n, -matches("dad(sp|id)[12]")) %>% 
   drop_na(germinated) %>% #exclude one contaminated cross and "intra inv" inviability tests
   mutate(across(matches("sp"), ~ recode(.x, !!!sp_pairs)),
-         across(matches("(dad|mom)id"), ~str_remove_all(.x, "[ -]")), 
-         across(matches("(dad|mom)id"), ~recode(.x, !!!momid.fixes.germ)), #TODO are the momid fixes applicable to dads too?
+         across(matches("id"), ~str_remove_all(.x, "[ #-]")), 
+         across(matches("(dad|mom)id"), ~recode(.x, !!!momid.fixes)), #TODO are the momid fixes applicable to dads too?
          sxc = paste(momsp, type, sep="."),
          type=factor(type, levels= names(typenames)), 
          across(matches("sp"), ~ factor(.x, levels = sp_pairs)),
@@ -98,8 +96,8 @@ surv <- read_tsv("data/Pollen competition - survival.tsv") %>%
          dadsp  = if_else(type=="mixed" & dadsp1==momsp, dadsp2, dadsp1),
          dadid  = if_else(type=="mixed" & dadsp1==momsp, dadid2, dadid1), .after=momid) %>% 
   select(-matches("dad(sp|id)[12]")) %>% drop_na(dead) %>% #one row excluded
-  mutate(across(matches("(mom|dad)id"), ~str_remove_all(.x, "[ -]")), 
-         across(matches("(dad|mom)id"), ~recode(.x, !!!momid.fixes.surv)),
+  mutate(across(matches("(dad|mom)id"), ~str_remove_all(.x, "[ #-]")), 
+         across(matches("(dad|mom)id"), ~recode(.x, !!!momid.fixes)),
          sxc = paste(momsp, type, sep="."),
          type=factor(type, levels= names(typenames)),
          across(matches("sp"), ~ factor(.x, levels = sp_pairs)),
@@ -123,8 +121,10 @@ inventory %>%  group_by(type) %>% summarize(across(starts_with("crosses"), sum, 
 kable(caption="Number of crosses between individual plants used for seeds, germination and survival,
         and how many pots the seeds filled")
 
-inventory.momid <- surv %>% count(momsp, type, dadsp, momid) %>% count(momsp, type, dadsp, name="crosses_surv") %>% 
-  full_join(germ %>% count(momsp, type, dadsp, momid) %>% count(momsp, type, dadsp, name="crosses_germ"))
+inventory.momid <- 
+  seeds %>% count(momsp, type, dadsp, momid) %>% count(momsp, type, dadsp, name="crosses_seeds") %>% 
+  full_join(germ %>% count(momsp, type, dadsp, momid) %>% count(momsp, type, dadsp, name="crosses_germ")) %>% 
+  full_join(surv %>% count(momsp, type, dadsp, momid) %>% count(momsp, type, dadsp, name="crosses_surv"))
 kable(inventory.momid, caption="Number of maternal plants used for seeds, germination and survival")
 inventory.momid %>%  group_by(type) %>% summarize(across(starts_with("crosses"), sum, na.rm=T)) %>% 
    kable(caption="Number of maternal plants used for seeds, germination and survival")
@@ -139,16 +139,15 @@ inventory.dadid <- seeds %>% count(momsp, type, dadsp, momid, dadidm, dadspm, da
 
 inventory.dadid %>% select(-dadsp) %>% 
   pivot_wider(names_from = type, values_from = starts_with("dadids"), names_vary = "slowest") %>% 
-  rename_with(~str_remove(.x, "dadids_")) %>% write_tsv("data/pollencomp_dadids.tsv") %>% 
+  rename_with(~str_remove(.x, "dadids_")) %>% #write_tsv("data/pollencomp_dadids.tsv") %>% 
   kable(caption = "Number of paternal combinations per maternal plant")
 
-# to run this, comment out across(matches("(mom|dad)id"), ~str_remove_all(.x, "[ -]")) lines above
-# left_join(count(germ, momsp, germid=momid, name="germ") %>% mutate(momid=str_remove_all(germid, "[ -]")),
-#           germ %>% group_by(momsp, germid=momid) %>% summarize(tot.germ=sum(germinated))) %>%
-#   full_join(count(surv, momsp, survid=momid, name="surv")%>% mutate(momid=str_remove_all(survid, "[ -]"))) %>%
-#   arrange(momsp, momid) %>% select(momsp, momid, germid, survid, tot.germ, germ, surv) %>%
-#   add_count(momid) 
-# #  write_tsv("data/survgerm_momids.tsv", na="")
+# to run this, comment out dad|mom recode momid_fixes lines above
+# count(seeds, momsp, momid, name="seed") %>% 
+#   full_join(count(germ, momsp, momid, name="germ")) %>% 
+#   full_join(count(surv, momsp, momid, name="surv")) %>%
+#   arrange(momsp, momid) %>% 
+#   write_tsv("data/seedsgermsurv_momids.tsv", na="") #then hand annotate to make momid_fixes2
 
 mating <- read_tsv("data/Pollen competition - mating.tsv") %>% 
   left_join(tibble(momsp=sp_pairs, pair = factor(rep(1:5, each=2)))) %>% 
