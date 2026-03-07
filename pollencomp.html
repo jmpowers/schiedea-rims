@@ -11,7 +11,7 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2025-10-24" />
+<meta name="date" content="2026-03-06" />
 
 <title>Schiedea pollen competition</title>
 
@@ -253,7 +253,7 @@ div.tocify {
 <h1 class="title toc-ignore"><em>Schiedea</em> pollen competition</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John
 Powers</a></h4>
-<h4 class="date">2025-10-24</h4>
+<h4 class="date">2026-03-06</h4>
 
 </div>
 
@@ -3898,7 +3898,7 @@ ggplot(comp.ranef, aes(x=estimate, y=paste(str_sub(momsp,1,4),momid), color=moms
            trait = factor(trait, levels=names(propnames))) %&gt;% 
   select(trait, momsp, inter.minus.intra=estimate, std.error, adj.p.value)
   
-comp.emm &lt;-  map_dfr(comp.mod, ~emmeans(., ~sxc) %&gt;% summary(type=&quot;response&quot;) %&gt;%  #average over collect date
+comp.emm &lt;-  map_dfr(comp.mod, ~emmeans(., ~sxc) %&gt;% summary(type=&quot;response&quot;, level=1-2*pnorm(1, lower.tail=F)) %&gt;%  #average over collect date #use a confidence level of 68% to get the standard error (z*=1)
                              tidy %&gt;% rename(estimate=any_of(c(&quot;response&quot;,&quot;prob&quot;))), .id=&quot;trait&quot;) %&gt;% 
   separate(sxc, into = c(&quot;momsp&quot;,&quot;type&quot;)) %&gt;% 
   mutate(momsp=factor(momsp, levels=sp_pairs), 
@@ -4085,7 +4085,7 @@ ggplot(filter(seeds.bycross, !momsp %in% c(&quot;sarmentosa&quot;,&quot;sperguli
 <pre class="r"><code>ggplot(filter(surv, type==&quot;mixed&quot;), aes(x=momsp, y=prop.hybrid, fill=momsp)) + 
   geom_hline(yintercept=0.5)+ geom_violin(scale=&quot;width&quot;, draw_quantiles = c(0.25,0.5,0.75))+ 
   geom_pointrange(data=left_join(filter(comp.emm, trait==&quot;prop.hybrid&quot;), hybrid.test),
-                  aes(y=estimate, ymax=conf.high, ymin=conf.low, shape=p.adj &lt; 0.05), size=1) + 
+                  aes(y=estimate, ymax=conf.high, ymin=conf.low, shape=p.adj &lt; 0.05), size=1) + #NB these are SEs
   scale_shape_manual(&quot;Different from 50%&quot;, values=c(1, 19), labels=c(&quot;no&quot;,&quot;yes&quot;))+
   geom_text(data=hybrid.test, aes(y=1.1, label=crosses))+ annotate(&quot;text&quot;, x=11, y=1.1, label=&quot;crosses&quot;)+
   geom_text(data=hybrid.test, aes(y=1.04, label=alive))+ annotate(&quot;text&quot;, x=11, y=1.04, label=&quot;progeny&quot;)+
@@ -4276,7 +4276,7 @@ ggplot(styles, aes(x=momsp, y=style_length_mm, fill=momsp)) +
   geom_violin(scale=&quot;width&quot;)+ 
   geom_tile(data=tibble(momsp=sp_pairs[c(1,2,5,6,9,10)]), aes(x=momsp, y=4, height=8, width=1),  alpha=0.4, fill=&quot;grey&quot;, inherit.aes = F) +
   geom_violin(scale=&quot;width&quot;, draw_quantiles = c(0.25,0.5,0.75))+ 
-  geom_pointrange(data=styles.emm, aes(ymax=conf.high, ymin=conf.low)) + 
+  geom_pointrange(data=styles.emm, aes(ymax=style_length_mm+std.error, ymin=style_length_mm-std.error)) + 
   scale_fill_brewer(palette=&quot;Paired&quot;, guide=&quot;none&quot;) + scale_y_continuous(limits=c(0,NA))+
   labs(x=&quot;Species&quot;, y=&quot;Style length (mm)&quot;) + sp_theme</code></pre>
 <p><img src="figures-comp/style_length-1.svg" width="576" /></p>
@@ -4516,7 +4516,7 @@ ggplot(postzygotic.ratios.phylo, aes(x=pd, y=RI)) +
   facet_wrap(vars(trait), labeller=as_labeller(c(propnames, all=&quot;Cumulative&quot;)), nrow=1)+ 
   geom_hline(yintercept=0, linetype=2) + geom_hline(yintercept=-1)+ geom_hline(yintercept=1)+
   geom_smooth(method=&quot;lm&quot;, se=F, color=&quot;grey&quot;) + 
-  geom_errorbar(aes(color=momsp, ymin=low, ymax=high), width=0.001, linewidth=1) +
+  geom_errorbar(aes(color=momsp, ymin=low, ymax=high), width=0.001, linewidth=1) + #NB these are SEs
   geom_point(aes(color=momsp, shape = signif), size=2, stroke=2) + 
   scale_color_brewer(palette=&quot;Paired&quot;) +  scale_shape_manual(values=c(1, 19),guide=&quot;none&quot;, na.value=15)+
   labs(x=&quot;Phylogenetic distance (mutations/site)&quot;, color=&quot;Maternal species&quot;, y=&quot;Reproductive isolation&quot;) + 

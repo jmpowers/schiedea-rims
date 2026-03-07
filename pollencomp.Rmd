@@ -395,7 +395,7 @@ comp.tests <- map_dfr(comp.mod[-5], ~multcomp::glht(.x, linfct = multcomp::mcp(s
            trait = factor(trait, levels=names(propnames))) %>% 
   select(trait, momsp, inter.minus.intra=estimate, std.error, adj.p.value)
   
-comp.emm <-  map_dfr(comp.mod, ~emmeans(., ~sxc) %>% summary(type="response") %>%  #average over collect date
+comp.emm <-  map_dfr(comp.mod, ~emmeans(., ~sxc) %>% summary(type="response", level=1-2*pnorm(1, lower.tail=F)) %>%  #average over collect date #use a confidence level of 68% to get the standard error (z*=1)
                              tidy %>% rename(estimate=any_of(c("response","prob"))), .id="trait") %>% 
   separate(sxc, into = c("momsp","type")) %>% 
   mutate(momsp=factor(momsp, levels=sp_pairs), 
@@ -528,7 +528,7 @@ ggplot(surv, aes(x=momsp, fill=type, y=prop.alive)) + bxplt + alternate + bxplt 
 ggplot(filter(surv, type=="mixed"), aes(x=momsp, y=prop.hybrid, fill=momsp)) + 
   geom_hline(yintercept=0.5)+ geom_violin(scale="width", draw_quantiles = c(0.25,0.5,0.75))+ 
   geom_pointrange(data=left_join(filter(comp.emm, trait=="prop.hybrid"), hybrid.test),
-                  aes(y=estimate, ymax=conf.high, ymin=conf.low, shape=p.adj < 0.05), size=1) + 
+                  aes(y=estimate, ymax=conf.high, ymin=conf.low, shape=p.adj < 0.05), size=1) + #NB these are SEs
   scale_shape_manual("Different from 50%", values=c(1, 19), labels=c("no","yes"))+
   geom_text(data=hybrid.test, aes(y=1.1, label=crosses))+ annotate("text", x=11, y=1.1, label="crosses")+
   geom_text(data=hybrid.test, aes(y=1.04, label=alive))+ annotate("text", x=11, y=1.04, label="progeny")+
@@ -587,7 +587,7 @@ ggplot(styles, aes(x=momsp, y=style_length_mm, fill=momsp)) +
   geom_violin(scale="width")+ 
   geom_tile(data=tibble(momsp=sp_pairs[c(1,2,5,6,9,10)]), aes(x=momsp, y=4, height=8, width=1),  alpha=0.4, fill="grey", inherit.aes = F) +
   geom_violin(scale="width", draw_quantiles = c(0.25,0.5,0.75))+ 
-  geom_pointrange(data=styles.emm, aes(ymax=conf.high, ymin=conf.low)) + 
+  geom_pointrange(data=styles.emm, aes(ymax=style_length_mm+std.error, ymin=style_length_mm-std.error)) + 
   scale_fill_brewer(palette="Paired", guide="none") + scale_y_continuous(limits=c(0,NA))+
   labs(x="Species", y="Style length (mm)") + sp_theme
 
@@ -653,7 +653,7 @@ ggplot(postzygotic.ratios.phylo, aes(x=pd, y=RI)) +
   facet_wrap(vars(trait), labeller=as_labeller(c(propnames, all="Cumulative")), nrow=1)+ 
   geom_hline(yintercept=0, linetype=2) + geom_hline(yintercept=-1)+ geom_hline(yintercept=1)+
   geom_smooth(method="lm", se=F, color="grey") + 
-  geom_errorbar(aes(color=momsp, ymin=low, ymax=high), width=0.001, linewidth=1) +
+  geom_errorbar(aes(color=momsp, ymin=low, ymax=high), width=0.001, linewidth=1) + #NB these are SEs
   geom_point(aes(color=momsp, shape = signif), size=2, stroke=2) + 
   scale_color_brewer(palette="Paired") +  scale_shape_manual(values=c(1, 19),guide="none", na.value=15)+
   labs(x="Phylogenetic distance (mutations/site)", color="Maternal species", y="Reproductive isolation") + 
