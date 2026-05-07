@@ -26,6 +26,7 @@
   </clipPath>
 </defs>
 <g clip-path='url(#cpMC4wMHw1MDQuMDB8MC4wMHwyNTIuMDA=)'>
+<rect x='0.00' y='0.00' width='504.00' height='252.00' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
 </g>
 <defs>
   <clipPath id='cpMzUuNTZ8MzkzLjQyfDMxLjUwfDI0Ni41Mg=='>
@@ -99,10 +100,10 @@
 <circle cx='86.69' cy='81.84' r='4.62' style='stroke-width: 0.71; stroke: #6A3D9A; fill: #6A3D9A;' />
 </g>
 <g clip-path='url(#cpMC4wMHw1MDQuMDB8MC4wMHwyNTIuMDA=)'>
-<text x='86.69' y='26.56' text-anchor='middle' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Arial";'>Competition</text>
-<text x='171.89' y='26.56' text-anchor='middle' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Arial";'>Seed</text>
-<text x='257.09' y='26.56' text-anchor='middle' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Arial";'>Seedling</text>
-<text x='342.29' y='26.56' text-anchor='middle' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Arial";'>Plant</text>
+<text x='86.69' y='24.71' text-anchor='middle' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Arial";'>Competition</text>
+<text x='171.89' y='24.71' text-anchor='middle' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Arial";'>Seed</text>
+<text x='257.09' y='24.71' text-anchor='middle' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Arial";'>Seedling</text>
+<text x='342.29' y='24.71' text-anchor='middle' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Arial";'>Plant</text>
 <text x='30.63' y='244.25' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Arial";'>0.0</text>
 <text x='30.63' y='210.57' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Arial";'>0.1</text>
 <text x='30.63' y='176.89' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Arial";'>0.2</text>
@@ -140,7 +141,7 @@
 <text x='432.61' y='141.36' style='font-size: 8.80px; font-family: "Arial";'>stellarioides</text>
 <text x='432.61' y='158.64' style='font-size: 8.80px; font-family: "Arial";'>spergulina</text>
 <text x='432.61' y='175.92' style='font-size: 8.80px; font-family: "Arial";'>membranacea</text>
-<text x='432.61' y='193.20' style='font-size: 8.80px; font-family: "Arial";'>kauaiensis</text>
+<text x='432.61' y='193.20' style='font-size: 8.80px; font-family: "Arial";'>napaliensis</text>
 <text x='432.61' y='210.48' style='font-size: 8.80px; font-family: "Arial";'>kaalae</text>
 <text x='432.61' y='227.76' style='font-size: 8.80px; font-family: "Arial";'>hookeri</text>
 </g>

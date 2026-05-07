@@ -26,6 +26,7 @@
   </clipPath>
 </defs>
 <g clip-path='url(#cpMC4wMHw0MzIuMDB8MC4wMHwzNjAuMDA=)'>
+<rect x='0.000000000000032' y='0.00' width='432.00' height='360.00' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
 </g>
 <defs>
   <clipPath id='cpNDAuOTZ8NDI2LjUyfDU4LjM5fDMyOC41MA=='>
@@ -54,9 +55,6 @@
 <polyline points='346.60,272.82 346.60,271.49 ' style='stroke-width: 1.07; stroke: #CAB2D6; stroke-linecap: butt;' />
 <polyline points='346.60,272.16 310.14,272.16 ' style='stroke-width: 1.07; stroke: #CAB2D6; stroke-linecap: butt;' />
 <polyline points='310.14,272.82 310.14,271.49 ' style='stroke-width: 1.07; stroke: #CAB2D6; stroke-linecap: butt;' />
-<polyline points='290.07,312.14 290.07,310.80 ' style='stroke-width: 1.07; stroke: #FF7F00; stroke-linecap: butt;' />
-<polyline points='290.07,311.47 259.07,311.47 ' style='stroke-width: 1.07; stroke: #FF7F00; stroke-linecap: butt;' />
-<polyline points='259.07,312.14 259.07,310.80 ' style='stroke-width: 1.07; stroke: #FF7F00; stroke-linecap: butt;' />
 <polyline points='267.36,280.56 267.36,279.22 ' style='stroke-width: 1.07; stroke: #B2DF8A; stroke-linecap: butt;' />
 <polyline points='267.36,279.89 236.54,279.89 ' style='stroke-width: 1.07; stroke: #B2DF8A; stroke-linecap: butt;' />
 <polyline points='236.54,280.56 236.54,279.22 ' style='stroke-width: 1.07; stroke: #B2DF8A; stroke-linecap: butt;' />
@@ -66,6 +64,9 @@
 <polyline points='408.99,158.05 408.99,156.72 ' style='stroke-width: 1.07; stroke: #A6CEE3; stroke-linecap: butt;' />
 <polyline points='408.99,157.39 372.53,157.39 ' style='stroke-width: 1.07; stroke: #A6CEE3; stroke-linecap: butt;' />
 <polyline points='372.53,158.05 372.53,156.72 ' style='stroke-width: 1.07; stroke: #A6CEE3; stroke-linecap: butt;' />
+<polyline points='290.07,312.14 290.07,310.80 ' style='stroke-width: 1.07; stroke: #FF7F00; stroke-linecap: butt;' />
+<polyline points='290.07,311.47 259.07,311.47 ' style='stroke-width: 1.07; stroke: #FF7F00; stroke-linecap: butt;' />
+<polyline points='259.07,312.14 259.07,310.80 ' style='stroke-width: 1.07; stroke: #FF7F00; stroke-linecap: butt;' />
 <polyline points='276.47,108.85 276.47,107.51 ' style='stroke-width: 1.07; stroke: #1F78B4; stroke-linecap: butt;' />
 <polyline points='276.47,108.18 240.00,108.18 ' style='stroke-width: 1.07; stroke: #1F78B4; stroke-linecap: butt;' />
 <polyline points='240.00,108.85 240.00,107.51 ' style='stroke-width: 1.07; stroke: #1F78B4; stroke-linecap: butt;' />
@@ -84,9 +85,6 @@
 <polyline points='327.50,253.35 329.24,253.35 ' style='stroke-width: 1.07; stroke: #CAB2D6; stroke-linecap: butt;' />
 <polyline points='328.37,253.35 328.37,286.25 ' style='stroke-width: 1.07; stroke: #CAB2D6; stroke-linecap: butt;' />
 <polyline points='327.50,286.25 329.24,286.25 ' style='stroke-width: 1.07; stroke: #CAB2D6; stroke-linecap: butt;' />
-<polyline points='273.70,301.70 275.44,301.70 ' style='stroke-width: 1.07; stroke: #FF7F00; stroke-linecap: butt;' />
-<polyline points='274.57,301.70 274.57,316.23 ' style='stroke-width: 1.07; stroke: #FF7F00; stroke-linecap: butt;' />
-<polyline points='273.70,316.23 275.44,316.23 ' style='stroke-width: 1.07; stroke: #FF7F00; stroke-linecap: butt;' />
 <polyline points='251.08,256.62 252.82,256.62 ' style='stroke-width: 1.07; stroke: #B2DF8A; stroke-linecap: butt;' />
 <polyline points='251.95,256.62 251.95,295.33 ' style='stroke-width: 1.07; stroke: #B2DF8A; stroke-linecap: butt;' />
 <polyline points='251.08,295.33 252.82,295.33 ' style='stroke-width: 1.07; stroke: #B2DF8A; stroke-linecap: butt;' />
@@ -96,6 +94,9 @@
 <polyline points='389.89,128.57 391.63,128.57 ' style='stroke-width: 1.07; stroke: #A6CEE3; stroke-linecap: butt;' />
 <polyline points='390.76,128.57 390.76,184.77 ' style='stroke-width: 1.07; stroke: #A6CEE3; stroke-linecap: butt;' />
 <polyline points='389.89,184.77 391.63,184.77 ' style='stroke-width: 1.07; stroke: #A6CEE3; stroke-linecap: butt;' />
+<polyline points='273.70,301.70 275.44,301.70 ' style='stroke-width: 1.07; stroke: #FF7F00; stroke-linecap: butt;' />
+<polyline points='274.57,301.70 274.57,316.23 ' style='stroke-width: 1.07; stroke: #FF7F00; stroke-linecap: butt;' />
+<polyline points='273.70,316.23 275.44,316.23 ' style='stroke-width: 1.07; stroke: #FF7F00; stroke-linecap: butt;' />
 <polyline points='257.37,84.09 259.11,84.09 ' style='stroke-width: 1.07; stroke: #1F78B4; stroke-linecap: butt;' />
 <polyline points='258.24,84.09 258.24,132.73 ' style='stroke-width: 1.07; stroke: #1F78B4; stroke-linecap: butt;' />
 <polyline points='257.37,132.73 259.11,132.73 ' style='stroke-width: 1.07; stroke: #1F78B4; stroke-linecap: butt;' />
@@ -115,10 +116,10 @@
 <line x1='277.87' y1='200.45' x2='328.37' y2='272.16' style='stroke-width: 1.07; stroke: #6A3D9A; stroke-linecap: butt;' />
 <circle cx='277.87' cy='200.45' r='4.62' style='stroke-width: 0.71; stroke: #6A3D9A; fill: #6A3D9A;' />
 <circle cx='328.37' cy='272.16' r='4.62' style='stroke-width: 0.71; stroke: #CAB2D6; fill: #CAB2D6;' />
-<circle cx='274.57' cy='311.47' r='4.62' style='stroke-width: 0.71; stroke: #FF7F00; fill: #FF7F00;' />
 <circle cx='251.95' cy='279.89' r='4.62' style='stroke-width: 0.71; stroke: #B2DF8A; fill: #B2DF8A;' />
 <circle cx='283.19' cy='307.34' r='4.62' style='stroke-width: 0.71; stroke: #FDBF6F; fill: #FDBF6F;' />
 <circle cx='390.76' cy='157.39' r='4.62' style='stroke-width: 0.71; stroke: #A6CEE3; fill: #A6CEE3;' />
+<circle cx='274.57' cy='311.47' r='4.62' style='stroke-width: 0.71; stroke: #FF7F00; fill: #FF7F00;' />
 <circle cx='258.24' cy='108.18' r='4.62' style='stroke-width: 0.71; stroke: #1F78B4; fill: #1F78B4;' />
 <circle cx='162.97' cy='109.67' r='4.62' style='stroke-width: 0.71; stroke: #33A02C; fill: #33A02C;' />
 <circle cx='213.05' cy='186.36' r='4.62' style='stroke-width: 0.71; stroke: #E31A1C; fill: #E31A1C;' />
@@ -183,7 +184,7 @@
 <text x='242.56' y='20.49' style='font-size: 8.80px; font-family: "Arial";'>stellarioides</text>
 <text x='242.56' y='38.72' style='font-size: 8.80px; font-family: "Arial";'>spergulina</text>
 <text x='312.72' y='20.49' style='font-size: 8.80px; font-family: "Arial";'>membranacea</text>
-<text x='312.72' y='38.72' style='font-size: 8.80px; font-family: "Arial";'>kauaiensis</text>
+<text x='312.72' y='38.72' style='font-size: 8.80px; font-family: "Arial";'>napaliensis</text>
 <text x='392.65' y='20.49' style='font-size: 8.80px; font-family: "Arial";'>kaalae</text>
 <text x='392.65' y='38.72' style='font-size: 8.80px; font-family: "Arial";'>hookeri</text>
 </g>

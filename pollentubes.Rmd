@@ -66,30 +66,32 @@ signif.num <- function(x) {
 
 ```{r read}
 #long format: salmen (1 stigma/vial), lydsar (2 stigmas/vial), kaahoo (3 stigmas/vial without letter)
-#wide format: memkau (3-5 stigmas/vial), speste (6 stigmas/vial), kaahoo_extra(3-5 stigmas/vial)
+#wide format: memnap (3-5 stigmas/vial), speste (6 stigmas/vial), kaahoo_extra(3-5 stigmas/vial)
 pops <- list(sali="842", menz = c("849", "950"), 
              lydg="6682", sarm="896", 
              sper= c("120289","120294","120296"), stel = c("14651","14765"),
-             memb = c("mem","864"), kaua = "kaua",
+             memb = c("mem","864"), napa = "napa",
                kaal = c("892", "3587"), hook = c("794", "866", "879","899"))
 
 pair_labels <- c(salmen = "S. salicaria | S. menziesii",
                  lydsar = "S. lydgatei | S. sarmentosa",
                  speste = "S. spergulina | S. stellariodes",
-                 memkau = "S. membranacea | S. kauaiensis",
+                 memnap = "S. membranacea | S. napaliensis",
                  kaahoo = "S. kaalae | S. hookeri")
 
 abbrev <- list(salmen = c(S="Sl",M="Mn"), 
                lydsar = c(L="Ly",S="Sr"), 
                speste = c(Sp="Sp",St="St"), 
-               memkau = c(M="Mb",K="Ki"),
+               memnap = c(M="Mb",N="Np"),
                kaahoo = c(K="Kl",H="Ho"))
 
 species_names <- c("Mn"="menziesii", "Sl"="salicaria",
               "Ly"="lydgatei", "Sr" ="sarmentosa",
               "St"="stellarioides","Sp"="spergulina",
-              "Mb"="membranacea","Ki"="kauaiensis",
+              "Mb"="membranacea","Np"="napaliensis",
               "Kl"="kaalae", "Ho"="hookeri")
+
+napalize <- function(x) x %>% str_replace("kauaiensis", "napaliensis") %>% str_replace("kaua","napa")
 
 cross_levels <- map(abbrev, ~ c(paste0(.x[1],"x",.x[1]), paste0(.x[1],"x",.x[2]), paste0(.x[2],"x",.x[2]), paste0(.x[2],"x",.x[1])))
 
@@ -120,15 +122,17 @@ tubesl[["salmen"]] <- read_csv("data/pollentubes_salmen.csv") %>%
   mutate(mompop = str_sub(momid, 1, 3), dadpop = str_sub(dadid, 1, 3),
          momcross = ifelse(mompop %in% pops[["sali"]], "S", "M"), dadcross = ifelse(dadpop %in% pops[["sali"]], "S", "M"))
 
-# membranacea - kauaiensis
-tubesl[["memkau"]] <- read_csv("data/pollentubes_memkau.csv") %>% mutate(across(ends_with("sp"), as.factor)) %>% 
+# membranacea - napaliensis
+tubesl[["memnap"]] <- read_csv("data/pollentubes_memkau.csv") %>%
+  mutate(across(matches("sp"), napalize)) %>% 
+  mutate(across(ends_with("sp"), as.factor)) %>% 
   pivot_longer(starts_with(c("mid","bottom")), names_to=c("location","stigma"), names_sep="_", values_to="n_tubes") %>% 
   pivot_wider(names_from="location", values_from="n_tubes") %>% 
   mutate(status = fct_explicit_na(status, "OK"),
          mid =    ifelse(status=="no pollen on stigmas", NA, mid), #set to NA to drop, 0 to keep
          bottom = ifelse(status=="no pollen on stigmas", NA, bottom)) %>% #see SGW email 2022-05-09, NOTES tab
   drop_na(mid) %>% 
-  mutate(momcross = ifelse(momsp %in% pops[["memb"]], "M", "K"),  dadcross = ifelse(dadsp %in% pops[["memb"]], "M", "K"),
+  mutate(momcross = ifelse(momsp %in% pops[["memb"]], "M", "N"),  dadcross = ifelse(dadsp %in% pops[["memb"]], "M", "N"),
          momid = paste(momcross, momplant), dadid = paste(dadcross, dadplant),)
 
 #spergulina - stellarioides
@@ -351,6 +355,7 @@ ggplot(tubes, aes(x=bottom, y=mid)) +
 ```{r phylo_tubes, fig.height=8}
 library(ape)
 tree <- read.nexus("data/RAxML_1ps_nocp_bipartitionsBranchLabels.sch.short.nobs.nex")
+tree$tip.label <- napalize(tree$tip.label)
 
 tubes.phylodist <- tubes.mod %>% select(pair, ends_with("_emm")) %>% pivot_longer(ends_with("_emm"), names_to="trait") %>% 
   mutate(trait = str_remove(trait, "_emm")) %>% unnest(value) %>% 

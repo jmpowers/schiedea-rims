@@ -26,6 +26,7 @@
   </clipPath>
 </defs>
 <g clip-path='url(#cpMC4wMHw1MDQuMDB8MC4wMHwzNjAuMDA=)'>
+<rect x='0.00' y='0.00' width='504.00' height='360.00' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
 </g>
 <defs>
   <clipPath id='cpNDAuOTZ8NDk4LjUyfDEwNi42M3wzMjguNTA='>
@@ -40,20 +41,20 @@
 <polyline points='235.05,198.53 238.12,199.68 241.19,200.82 244.26,201.97 247.33,203.11 250.40,204.26 253.48,205.41 256.55,206.55 259.62,207.70 262.69,208.85 265.76,209.99 268.84,211.14 271.91,212.28 274.98,213.43 278.05,214.58 281.12,215.72 284.19,216.87 287.27,218.01 290.34,219.16 293.41,220.31 296.48,221.45 299.55,222.60 302.63,223.74 305.70,224.89 308.77,226.04 311.84,227.18 314.91,228.33 317.99,229.48 321.06,230.62 324.13,231.77 327.20,232.91 330.27,234.06 333.34,235.21 336.42,236.35 339.49,237.50 342.56,238.64 345.63,239.79 348.70,240.94 351.78,242.08 354.85,243.23 357.92,244.38 360.99,245.52 364.06,246.67 367.14,247.81 370.21,248.96 373.28,250.11 376.35,251.25 379.42,252.40 382.49,253.54 385.57,254.69 388.64,255.84 391.71,256.98 394.78,258.13 397.85,259.27 400.93,260.42 404.00,261.57 407.07,262.71 410.14,263.86 413.21,265.01 416.28,266.15 419.36,267.30 422.43,268.44 425.50,269.59 428.57,270.74 431.64,271.88 434.72,273.03 437.79,274.17 440.86,275.32 443.93,276.47 447.00,277.61 450.08,278.76 453.15,279.90 456.22,281.05 459.29,282.20 462.36,283.34 465.43,284.49 468.51,285.64 471.58,286.78 474.65,287.93 477.72,289.07 ' style='stroke-width: 2.13; stroke: #BEBEBE; stroke-linecap: butt;' />
 <line x1='477.72' y1='241.40' x2='477.72' y2='199.63' style='stroke-width: 1.07; stroke: #6A3D9A; stroke-linecap: butt;' />
 <line x1='477.72' y1='294.97' x2='477.72' y2='266.87' style='stroke-width: 1.07; stroke: #CAB2D6; stroke-linecap: butt;' />
-<line x1='473.25' y1='320.56' x2='473.25' y2='308.16' style='stroke-width: 1.07; stroke: #FF7F00; stroke-linecap: butt;' />
 <line x1='238.84' y1='302.72' x2='238.84' y2='269.67' style='stroke-width: 1.07; stroke: #B2DF8A; stroke-linecap: butt;' />
 <line x1='473.25' y1='318.47' x2='473.25' y2='302.57' style='stroke-width: 1.07; stroke: #FDBF6F; stroke-linecap: butt;' />
 <line x1='235.05' y1='208.32' x2='235.05' y2='160.34' style='stroke-width: 1.07; stroke: #A6CEE3; stroke-linecap: butt;' />
+<line x1='473.25' y1='320.56' x2='473.25' y2='308.16' style='stroke-width: 1.07; stroke: #FF7F00; stroke-linecap: butt;' />
 <line x1='235.05' y1='163.89' x2='235.05' y2='122.36' style='stroke-width: 1.07; stroke: #1F78B4; stroke-linecap: butt;' />
 <line x1='238.84' y1='178.42' x2='238.84' y2='110.90' style='stroke-width: 1.07; stroke: #33A02C; stroke-linecap: butt;' />
 <line x1='321.58' y1='240.73' x2='321.58' y2='173.93' style='stroke-width: 1.07; stroke: #E31A1C; stroke-linecap: butt;' />
 <line x1='321.58' y1='313.96' x2='321.58' y2='292.94' style='stroke-width: 1.07; stroke: #FB9A99; stroke-linecap: butt;' />
 <circle cx='477.72' cy='221.71' r='2.84' style='stroke-width: 1.42; stroke: #6A3D9A; fill: #6A3D9A;' />
 <circle cx='477.72' cy='282.93' r='2.84' style='stroke-width: 1.42; stroke: #CAB2D6; fill: #CAB2D6;' />
-<circle cx='473.25' cy='316.50' r='2.84' style='stroke-width: 1.42; stroke: #FF7F00; fill: #FF7F00;' />
 <circle cx='238.84' cy='289.53' r='2.84' style='stroke-width: 1.42; stroke: #B2DF8A; fill: #B2DF8A;' />
 <circle cx='473.25' cy='312.98' r='2.84' style='stroke-width: 1.42; stroke: #FDBF6F; fill: #FDBF6F;' />
 <circle cx='235.05' cy='184.94' r='2.84' style='stroke-width: 1.42; stroke: #A6CEE3; fill: #A6CEE3;' />
+<circle cx='473.25' cy='316.50' r='2.84' style='stroke-width: 1.42; stroke: #FF7F00; fill: #FF7F00;' />
 <circle cx='235.05' cy='142.93' r='2.84' style='stroke-width: 1.42; stroke: #1F78B4; fill: #1F78B4;' />
 <circle cx='238.84' cy='144.20' r='2.84' style='stroke-width: 1.42; stroke: #33A02C;' />
 <circle cx='321.58' cy='209.68' r='2.84' style='stroke-width: 1.42; stroke: #E31A1C; fill: #E31A1C;' />
@@ -99,7 +100,7 @@
 <text x='301.01' y='22.75' style='font-size: 8.80px; font-family: "Arial";'>stellarioides</text>
 <text x='301.01' y='45.51' style='font-size: 8.80px; font-family: "Arial";'>spergulina</text>
 <text x='375.69' y='22.75' style='font-size: 8.80px; font-family: "Arial";'>membranacea</text>
-<text x='375.69' y='45.51' style='font-size: 8.80px; font-family: "Arial";'>kauaiensis</text>
+<text x='375.69' y='45.51' style='font-size: 8.80px; font-family: "Arial";'>napaliensis</text>
 <text x='460.15' y='22.75' style='font-size: 8.80px; font-family: "Arial";'>kaalae</text>
 <text x='460.15' y='45.51' style='font-size: 8.80px; font-family: "Arial";'>hookeri</text>
 <text x='183.98' y='85.49' style='font-size: 11.00px; font-family: "Arial";'>Different from 50%</text>

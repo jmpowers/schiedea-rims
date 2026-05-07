@@ -38,8 +38,10 @@ ggplot2::theme_set(theme_minimal())
 sp_pairs <- c("menz"="menziesii", "sal"="salicaria",
               "lydg"="lydgatei", "sarm" ="sarmentosa",
               "stell"="stellarioides","sperg"="spergulina",
-              "memb"="membranacea","kaua"="kauaiensis",
+              "memb"="membranacea","napa"="napaliensis", 
               "kaal"="kaalae", "hook"="hookeri")
+#changed S. kauaiensis > S. napaliensis per Wagner & Weller 2025, doi:10.3897/phytokeys.254.148438
+napalize <- function(x) x %>% str_replace("kauaiensis", "napaliensis") %>% str_replace("kaua","napa")
 sp_pal <- set_names(brewer.pal(length(sp_pairs), "Paired"), sp_pairs)
 sp_pal_dark <- set_names(sp_pal[rep(seq(2,10,by=2), each=2)], sp_pairs)
 typenames <- set_names(c("Intraspecific","Competitive","Interspecific"),c("intra","mixed","inter"))
@@ -53,6 +55,7 @@ momid.fixes <- read_tsv("data/Pollen competition - momid_fixes2.tsv") %>%
   drop_na(momid_fixed) %>% select(momid, momid_fixed) %>% deframe()
 
 seeds <- read_tsv("data/Pollen competition - seeds.tsv") %>% 
+  mutate(across(matches("sp"), napalize)) %>% 
   mutate(dadspm = if_else(type=="mixed" & dadsp1==momsp, dadsp1, dadsp2), #rearrange dad1/dad2 to have dadsp match momsp
          dadidm = if_else(type=="mixed" & dadsp1==momsp, dadid1, dadid2),
          dadsp  = if_else(type=="mixed" & dadsp1==momsp, dadsp2, dadsp1),
@@ -71,6 +74,7 @@ seeds.bycross <- seeds %>% group_by(type, momsp, sxc, momid, dadspm, dadidm, dad
   summarize(capsule.formed=mean(capsule.formed), .groups="drop")
 
 germ.pot <- read_tsv("data/Pollen competition - germination.tsv") %>%  
+  mutate(across(matches("sp"), napalize)) %>% 
   mutate(dadspm = if_else(type=="mixed" & dadsp1==momsp, dadsp1, dadsp2), #rearrange dad1/dad2 to have dadsp match momsp
          dadidm = if_else(type=="mixed" & dadsp1==momsp, dadid1, dadid2),
          dadsp  = if_else(type=="mixed" & dadsp1==momsp, dadsp2, dadsp1),
@@ -91,6 +95,7 @@ germ <- germ.pot %>% group_by(date_planted, type, momsp, sxc, momid, dadspm, dad
          prop.germ.nz = (germinated+1)/(planted+1)) 
 
 surv <- read_tsv("data/Pollen competition - survival.tsv") %>% 
+  mutate(across(matches("sp"), napalize)) %>% 
   mutate(dadspm = if_else(type=="mixed" & dadsp1==momsp, dadsp1, dadsp2), #rearrange dad1/dad2 to have dadsp match momsp
          dadidm = if_else(type=="mixed" & dadsp1==momsp, dadid1, dadid2),
          dadsp  = if_else(type=="mixed" & dadsp1==momsp, dadsp2, dadsp1),
@@ -150,13 +155,16 @@ inventory.dadid %>% select(-dadsp) %>%
 #   write_tsv("data/seedsgermsurv_momids.tsv", na="") #then hand annotate to make momid_fixes2
 
 mating <- read_tsv("data/Pollen competition - mating.tsv") %>% 
+  mutate(across(matches("sp"), napalize)) %>% 
   left_join(tibble(momsp=sp_pairs, pair = factor(rep(1:5, each=2)))) %>% 
   mutate(momsp = factor(momsp, level=sp_pairs)) 
 
 styles <- read_tsv("data/Pollen competition - style_length.tsv") %>% 
+  mutate(across(matches("sp"), napalize)) %>% 
   mutate(momsp = factor(sp_pairs[momsp], levels=sp_pairs))
 
 seedsize <- read_csv("data/seedlengths.csv") %>% #from Schiedea monograph, SeedsNectaries project
+  mutate(across(matches("sp"), napalize)) %>% 
   mutate(seedlength_mm = (seedlength_low_mm + seedlength_high_mm)/2) %>%  #midpoint of range 
   rename(momsp=species) %>% left_join(mating) %>% drop_na(pair) %>% group_by(pair) %>% 
   mutate(momsp=factor(momsp, levels=sp_pairs), 
@@ -602,6 +610,7 @@ Load *Schiedea* tree inferred with RAxML from Willyard et al. nuclear dataset (n
 
 ```{r phylodist, fig.height=5, fig.width=9}
 tree <- read.nexus("data/RAxML_1ps_nocp_bipartitionsBranchLabels.sch.short.nobs.nex")
+tree$tip.label <- napalize(tree$tip.label)
 plot(tree, tip.color = sp_pal[tree$tip.label])
 
 # par(mfrow=c(1,2))

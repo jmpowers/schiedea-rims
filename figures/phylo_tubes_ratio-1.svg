@@ -113,33 +113,33 @@
 <text x='361.46' y='79.05' text-anchor='middle' style='font-size: 8.80px;fill: #1A1A1A; font-family: "Arial";'>24 h</text>
 </g>
 <g clip-path='url(#cpMC4wMHw0NjguMDB8MC4wMHwyODguMDA=)'>
-<polyline points='43.88,256.50 246.00,256.50 ' style='stroke-width: 1.07; stroke-linecap: butt;' />
-<polyline points='46.26,259.24 46.26,256.50 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
-<polyline points='108.46,259.24 108.46,256.50 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
-<polyline points='170.67,259.24 170.67,256.50 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
-<polyline points='232.87,259.24 232.87,256.50 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
-<text x='46.26' y='267.74' text-anchor='middle' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Arial";'>0.010</text>
-<text x='108.46' y='267.74' text-anchor='middle' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Arial";'>0.015</text>
-<text x='170.67' y='267.74' text-anchor='middle' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Arial";'>0.020</text>
-<text x='232.87' y='267.74' text-anchor='middle' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Arial";'>0.025</text>
-<polyline points='260.40,256.50 462.52,256.50 ' style='stroke-width: 1.07; stroke-linecap: butt;' />
-<polyline points='262.78,259.24 262.78,256.50 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
-<polyline points='324.98,259.24 324.98,256.50 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
-<polyline points='387.19,259.24 387.19,256.50 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
-<polyline points='449.39,259.24 449.39,256.50 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
-<text x='262.78' y='267.74' text-anchor='middle' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Arial";'>0.010</text>
-<text x='324.98' y='267.74' text-anchor='middle' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Arial";'>0.015</text>
-<text x='387.19' y='267.74' text-anchor='middle' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Arial";'>0.020</text>
-<text x='449.39' y='267.74' text-anchor='middle' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Arial";'>0.025</text>
-<polyline points='43.88,256.50 43.88,84.35 ' style='stroke-width: 1.07; stroke-linecap: butt;' />
-<text x='38.95' y='220.74' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Arial";'>-50%</text>
-<text x='38.95' y='177.64' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Arial";'>-25%</text>
-<text x='38.95' y='134.54' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Arial";'>0%</text>
-<text x='38.95' y='91.45' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Arial";'>25%</text>
-<polyline points='41.14,217.59 43.88,217.59 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
-<polyline points='41.14,174.49 43.88,174.49 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
-<polyline points='41.14,131.39 43.88,131.39 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
-<polyline points='41.14,88.30 43.88,88.30 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
+<polyline points='43.88,256.50 246.00,256.50 ' style='stroke-width: 1.07; stroke-linecap: square;' />
+<polyline points='46.26,259.24 46.26,256.50 ' style='stroke-width: 1.07; stroke-linecap: butt;' />
+<polyline points='108.46,259.24 108.46,256.50 ' style='stroke-width: 1.07; stroke-linecap: butt;' />
+<polyline points='170.67,259.24 170.67,256.50 ' style='stroke-width: 1.07; stroke-linecap: butt;' />
+<polyline points='232.87,259.24 232.87,256.50 ' style='stroke-width: 1.07; stroke-linecap: butt;' />
+<text x='46.26' y='267.74' text-anchor='middle' style='font-size: 8.80px; font-family: "Arial";'>0.010</text>
+<text x='108.46' y='267.74' text-anchor='middle' style='font-size: 8.80px; font-family: "Arial";'>0.015</text>
+<text x='170.67' y='267.74' text-anchor='middle' style='font-size: 8.80px; font-family: "Arial";'>0.020</text>
+<text x='232.87' y='267.74' text-anchor='middle' style='font-size: 8.80px; font-family: "Arial";'>0.025</text>
+<polyline points='260.40,256.50 462.52,256.50 ' style='stroke-width: 1.07; stroke-linecap: square;' />
+<polyline points='262.78,259.24 262.78,256.50 ' style='stroke-width: 1.07; stroke-linecap: butt;' />
+<polyline points='324.98,259.24 324.98,256.50 ' style='stroke-width: 1.07; stroke-linecap: butt;' />
+<polyline points='387.19,259.24 387.19,256.50 ' style='stroke-width: 1.07; stroke-linecap: butt;' />
+<polyline points='449.39,259.24 449.39,256.50 ' style='stroke-width: 1.07; stroke-linecap: butt;' />
+<text x='262.78' y='267.74' text-anchor='middle' style='font-size: 8.80px; font-family: "Arial";'>0.010</text>
+<text x='324.98' y='267.74' text-anchor='middle' style='font-size: 8.80px; font-family: "Arial";'>0.015</text>
+<text x='387.19' y='267.74' text-anchor='middle' style='font-size: 8.80px; font-family: "Arial";'>0.020</text>
+<text x='449.39' y='267.74' text-anchor='middle' style='font-size: 8.80px; font-family: "Arial";'>0.025</text>
+<polyline points='43.88,256.50 43.88,84.35 ' style='stroke-width: 1.07; stroke-linecap: square;' />
+<text x='38.95' y='220.74' text-anchor='end' style='font-size: 8.80px; font-family: "Arial";'>-50%</text>
+<text x='38.95' y='177.64' text-anchor='end' style='font-size: 8.80px; font-family: "Arial";'>-25%</text>
+<text x='38.95' y='134.54' text-anchor='end' style='font-size: 8.80px; font-family: "Arial";'>0%</text>
+<text x='38.95' y='91.45' text-anchor='end' style='font-size: 8.80px; font-family: "Arial";'>25%</text>
+<polyline points='41.14,217.59 43.88,217.59 ' style='stroke-width: 1.07; stroke-linecap: butt;' />
+<polyline points='41.14,174.49 43.88,174.49 ' style='stroke-width: 1.07; stroke-linecap: butt;' />
+<polyline points='41.14,131.39 43.88,131.39 ' style='stroke-width: 1.07; stroke-linecap: butt;' />
+<polyline points='41.14,88.30 43.88,88.30 ' style='stroke-width: 1.07; stroke-linecap: butt;' />
 <text x='253.20' y='280.20' text-anchor='middle' style='font-size: 11.00px; font-family: "Arial";'>Phylogenetic distance (mutations/site)</text>
 <text transform='translate(13.36,170.43) rotate(-90)' text-anchor='middle' style='font-size: 11.00px; font-family: "Arial";'>Change in base/midpoint ratio in hybrid crosses</text>
 <rect x='48.65' y='5.48' width='409.09' height='51.00' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
@@ -182,7 +182,7 @@
 <text x='264.29' y='22.75' style='font-size: 8.80px; font-family: "Arial";'>stellarioides</text>
 <text x='264.29' y='45.51' style='font-size: 8.80px; font-family: "Arial";'>spergulina</text>
 <text x='338.96' y='22.75' style='font-size: 8.80px; font-family: "Arial";'>membranacea</text>
-<text x='338.96' y='45.51' style='font-size: 8.80px; font-family: "Arial";'>kauaiensis</text>
+<text x='338.96' y='45.51' style='font-size: 8.80px; font-family: "Arial";'>napaliensis</text>
 <text x='423.42' y='22.75' style='font-size: 8.80px; font-family: "Arial";'>kaalae</text>
 <text x='423.42' y='45.51' style='font-size: 8.80px; font-family: "Arial";'>hookeri</text>
 </g>

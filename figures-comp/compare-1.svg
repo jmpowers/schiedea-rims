@@ -26,6 +26,7 @@
   </clipPath>
 </defs>
 <g clip-path='url(#cpMC4wMHw1MDQuMDB8MC4wMHwzNjAuMDA=)'>
+<rect x='0.00' y='0.00' width='504.00' height='360.00' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
 </g>
 <defs>
   <clipPath id='cpNDUuODV8NDk4LjUyfDY3LjQ0fDMyOC41MA=='>
@@ -265,44 +266,44 @@
 <text x='498.52' y='339.74' text-anchor='middle' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Arial";'>100%</text>
 <text x='272.18' y='352.20' text-anchor='middle' style='font-size: 11.00px; font-family: "Arial";'>Germination</text>
 <text transform='translate(13.36,197.97) rotate(-90)' text-anchor='middle' style='font-size: 11.00px; font-family: "Arial";'>Survival</text>
-<text x='-39.62' y='34.92' style='font-size: 11.00px; font-family: "Arial";'>Maternal species</text>
-<circle cx='57.69' cy='19.60' r='1.95' style='stroke-width: 0.71; stroke: #A6CEE3; fill: #A6CEE3;' />
-<line x1='50.77' y1='19.60' x2='64.60' y2='19.60' style='stroke-width: 2.13; stroke: #A6CEE3; stroke-linecap: butt;' />
-<circle cx='57.69' cy='42.36' r='1.95' style='stroke-width: 0.71; stroke: #1F78B4; fill: #1F78B4;' />
-<line x1='50.77' y1='42.36' x2='64.60' y2='42.36' style='stroke-width: 2.13; stroke: #1F78B4; stroke-linecap: butt;' />
-<circle cx='122.60' cy='19.60' r='1.95' style='stroke-width: 0.71; stroke: #B2DF8A; fill: #B2DF8A;' />
-<line x1='115.68' y1='19.60' x2='129.51' y2='19.60' style='stroke-width: 2.13; stroke: #B2DF8A; stroke-linecap: butt;' />
-<circle cx='122.60' cy='42.36' r='1.95' style='stroke-width: 0.71; stroke: #33A02C; fill: #33A02C;' />
-<line x1='115.68' y1='42.36' x2='129.51' y2='42.36' style='stroke-width: 2.13; stroke: #33A02C; stroke-linecap: butt;' />
-<circle cx='196.79' cy='19.60' r='1.95' style='stroke-width: 0.71; stroke: #FB9A99; fill: #FB9A99;' />
-<line x1='189.88' y1='19.60' x2='203.70' y2='19.60' style='stroke-width: 2.13; stroke: #FB9A99; stroke-linecap: butt;' />
-<circle cx='196.79' cy='42.36' r='1.95' style='stroke-width: 0.71; stroke: #E31A1C; fill: #E31A1C;' />
-<line x1='189.88' y1='42.36' x2='203.70' y2='42.36' style='stroke-width: 2.13; stroke: #E31A1C; stroke-linecap: butt;' />
-<circle cx='271.46' cy='19.60' r='1.95' style='stroke-width: 0.71; stroke: #FDBF6F; fill: #FDBF6F;' />
-<line x1='264.55' y1='19.60' x2='278.38' y2='19.60' style='stroke-width: 2.13; stroke: #FDBF6F; stroke-linecap: butt;' />
-<circle cx='271.46' cy='42.36' r='1.95' style='stroke-width: 0.71; stroke: #FF7F00; fill: #FF7F00;' />
-<line x1='264.55' y1='42.36' x2='278.38' y2='42.36' style='stroke-width: 2.13; stroke: #FF7F00; stroke-linecap: butt;' />
-<circle cx='355.92' cy='19.60' r='1.95' style='stroke-width: 0.71; stroke: #CAB2D6; fill: #CAB2D6;' />
-<line x1='349.01' y1='19.60' x2='362.83' y2='19.60' style='stroke-width: 2.13; stroke: #CAB2D6; stroke-linecap: butt;' />
-<circle cx='355.92' cy='42.36' r='1.95' style='stroke-width: 0.71; stroke: #6A3D9A; fill: #6A3D9A;' />
-<line x1='349.01' y1='42.36' x2='362.83' y2='42.36' style='stroke-width: 2.13; stroke: #6A3D9A; stroke-linecap: butt;' />
-<text x='71.80' y='22.75' style='font-size: 8.80px; font-family: "Arial";'>menziesii</text>
-<text x='71.80' y='45.51' style='font-size: 8.80px; font-family: "Arial";'>salicaria</text>
-<text x='136.72' y='22.75' style='font-size: 8.80px; font-family: "Arial";'>lydgatei</text>
-<text x='136.72' y='45.51' style='font-size: 8.80px; font-family: "Arial";'>sarmentosa</text>
-<text x='210.91' y='22.75' style='font-size: 8.80px; font-family: "Arial";'>stellarioides</text>
-<text x='210.91' y='45.51' style='font-size: 8.80px; font-family: "Arial";'>spergulina</text>
-<text x='285.58' y='22.75' style='font-size: 8.80px; font-family: "Arial";'>membranacea</text>
-<text x='285.58' y='45.51' style='font-size: 8.80px; font-family: "Arial";'>kauaiensis</text>
-<text x='370.04' y='22.75' style='font-size: 8.80px; font-family: "Arial";'>kaalae</text>
-<text x='370.04' y='45.51' style='font-size: 8.80px; font-family: "Arial";'>hookeri</text>
-<text x='420.80' y='23.54' style='font-size: 11.00px; font-family: "Arial";'>type</text>
-<line x1='448.82' y1='19.60' x2='462.65' y2='19.60' style='stroke-width: 2.13; stroke: #3366FF; stroke-linecap: butt;' />
-<line x1='494.16' y1='19.60' x2='507.98' y2='19.60' style='stroke-width: 2.13; stroke: #3366FF; stroke-dasharray: 5.69,5.69; stroke-linecap: butt;' />
-<line x1='545.86' y1='19.60' x2='559.69' y2='19.60' style='stroke-width: 2.13; stroke: #3366FF; stroke-dasharray: 11.38,5.69; stroke-linecap: butt;' />
-<text x='469.85' y='22.75' style='font-size: 8.80px; font-family: "Arial";'>intra</text>
-<text x='515.19' y='22.75' style='font-size: 8.80px; font-family: "Arial";'>mixed</text>
-<text x='566.89' y='22.75' style='font-size: 8.80px; font-family: "Arial";'>inter</text>
+<text x='-39.62' y='23.54' style='font-size: 11.00px; font-family: "Arial";'>type</text>
+<line x1='-11.60' y1='19.60' x2='2.22' y2='19.60' style='stroke-width: 2.13; stroke: #3366FF; stroke-linecap: butt;' />
+<line x1='33.73' y1='19.60' x2='47.55' y2='19.60' style='stroke-width: 2.13; stroke: #3366FF; stroke-dasharray: 5.69,5.69; stroke-linecap: butt;' />
+<line x1='85.44' y1='19.60' x2='99.26' y2='19.60' style='stroke-width: 2.13; stroke: #3366FF; stroke-dasharray: 11.38,5.69; stroke-linecap: butt;' />
+<text x='9.43' y='22.75' style='font-size: 8.80px; font-family: "Arial";'>intra</text>
+<text x='54.76' y='22.75' style='font-size: 8.80px; font-family: "Arial";'>mixed</text>
+<text x='106.47' y='22.75' style='font-size: 8.80px; font-family: "Arial";'>inter</text>
+<text x='145.48' y='34.92' style='font-size: 11.00px; font-family: "Arial";'>Maternal species</text>
+<circle cx='242.79' cy='19.60' r='1.95' style='stroke-width: 0.71; stroke: #A6CEE3; fill: #A6CEE3;' />
+<line x1='235.88' y1='19.60' x2='249.70' y2='19.60' style='stroke-width: 2.13; stroke: #A6CEE3; stroke-linecap: butt;' />
+<circle cx='242.79' cy='42.36' r='1.95' style='stroke-width: 0.71; stroke: #1F78B4; fill: #1F78B4;' />
+<line x1='235.88' y1='42.36' x2='249.70' y2='42.36' style='stroke-width: 2.13; stroke: #1F78B4; stroke-linecap: butt;' />
+<circle cx='307.70' cy='19.60' r='1.95' style='stroke-width: 0.71; stroke: #B2DF8A; fill: #B2DF8A;' />
+<line x1='300.79' y1='19.60' x2='314.61' y2='19.60' style='stroke-width: 2.13; stroke: #B2DF8A; stroke-linecap: butt;' />
+<circle cx='307.70' cy='42.36' r='1.95' style='stroke-width: 0.71; stroke: #33A02C; fill: #33A02C;' />
+<line x1='300.79' y1='42.36' x2='314.61' y2='42.36' style='stroke-width: 2.13; stroke: #33A02C; stroke-linecap: butt;' />
+<circle cx='381.89' cy='19.60' r='1.95' style='stroke-width: 0.71; stroke: #FB9A99; fill: #FB9A99;' />
+<line x1='374.98' y1='19.60' x2='388.80' y2='19.60' style='stroke-width: 2.13; stroke: #FB9A99; stroke-linecap: butt;' />
+<circle cx='381.89' cy='42.36' r='1.95' style='stroke-width: 0.71; stroke: #E31A1C; fill: #E31A1C;' />
+<line x1='374.98' y1='42.36' x2='388.80' y2='42.36' style='stroke-width: 2.13; stroke: #E31A1C; stroke-linecap: butt;' />
+<circle cx='456.57' cy='19.60' r='1.95' style='stroke-width: 0.71; stroke: #FDBF6F; fill: #FDBF6F;' />
+<line x1='449.66' y1='19.60' x2='463.48' y2='19.60' style='stroke-width: 2.13; stroke: #FDBF6F; stroke-linecap: butt;' />
+<circle cx='456.57' cy='42.36' r='1.95' style='stroke-width: 0.71; stroke: #FF7F00; fill: #FF7F00;' />
+<line x1='449.66' y1='42.36' x2='463.48' y2='42.36' style='stroke-width: 2.13; stroke: #FF7F00; stroke-linecap: butt;' />
+<circle cx='541.03' cy='19.60' r='1.95' style='stroke-width: 0.71; stroke: #CAB2D6; fill: #CAB2D6;' />
+<line x1='534.11' y1='19.60' x2='547.94' y2='19.60' style='stroke-width: 2.13; stroke: #CAB2D6; stroke-linecap: butt;' />
+<circle cx='541.03' cy='42.36' r='1.95' style='stroke-width: 0.71; stroke: #6A3D9A; fill: #6A3D9A;' />
+<line x1='534.11' y1='42.36' x2='547.94' y2='42.36' style='stroke-width: 2.13; stroke: #6A3D9A; stroke-linecap: butt;' />
+<text x='256.91' y='22.75' style='font-size: 8.80px; font-family: "Arial";'>menziesii</text>
+<text x='256.91' y='45.51' style='font-size: 8.80px; font-family: "Arial";'>salicaria</text>
+<text x='321.82' y='22.75' style='font-size: 8.80px; font-family: "Arial";'>lydgatei</text>
+<text x='321.82' y='45.51' style='font-size: 8.80px; font-family: "Arial";'>sarmentosa</text>
+<text x='396.01' y='22.75' style='font-size: 8.80px; font-family: "Arial";'>stellarioides</text>
+<text x='396.01' y='45.51' style='font-size: 8.80px; font-family: "Arial";'>spergulina</text>
+<text x='470.69' y='22.75' style='font-size: 8.80px; font-family: "Arial";'>membranacea</text>
+<text x='470.69' y='45.51' style='font-size: 8.80px; font-family: "Arial";'>napaliensis</text>
+<text x='555.14' y='22.75' style='font-size: 8.80px; font-family: "Arial";'>kaalae</text>
+<text x='555.14' y='45.51' style='font-size: 8.80px; font-family: "Arial";'>hookeri</text>
 </g>
 </g>
 </svg>

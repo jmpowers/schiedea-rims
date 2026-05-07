@@ -26,6 +26,7 @@
   </clipPath>
 </defs>
 <g clip-path='url(#cpMC4wMHw1MDQuMDB8MC4wMHwzNjAuMDA=)'>
+<rect x='0.00' y='0.00' width='504.00' height='360.00' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
 </g>
 <defs>
   <clipPath id='cpMzMuMTN8MTI4LjMzfDU1Ljc3fDEzMS43NQ=='>
@@ -1424,15 +1425,6 @@
 <g clip-path='url(#cpMC4wMHw1MDQuMDB8MC4wMHwzNjAuMDA=)'>
 </g>
 <defs>
-  <clipPath id='cpMjM0LjQ5fDMyOS42OXwyNTIuNTJ8MzI4LjUw'>
-    <rect x='234.49' y='252.52' width='95.20' height='75.98' />
-  </clipPath>
-</defs>
-<g clip-path='url(#cpMjM0LjQ5fDMyOS42OXwyNTIuNTJ8MzI4LjUw)'>
-</g>
-<g clip-path='url(#cpMC4wMHw1MDQuMDB8MC4wMHwzNjAuMDA=)'>
-</g>
-<defs>
   <clipPath id='cpMzM1LjE3fDQzMC4zN3w1NS43N3wxMzEuNzU='>
     <rect x='335.17' y='55.77' width='95.20' height='75.98' />
   </clipPath>
@@ -1911,15 +1903,6 @@
 <g clip-path='url(#cpMC4wMHw1MDQuMDB8MC4wMHwzNjAuMDA=)'>
 </g>
 <defs>
-  <clipPath id='cpMzM1LjE3fDQzMC4zN3wyNTIuNTJ8MzI4LjUw'>
-    <rect x='335.17' y='252.52' width='95.20' height='75.98' />
-  </clipPath>
-</defs>
-<g clip-path='url(#cpMzM1LjE3fDQzMC4zN3wyNTIuNTJ8MzI4LjUw)'>
-</g>
-<g clip-path='url(#cpMC4wMHw1MDQuMDB8MC4wMHwzNjAuMDA=)'>
-</g>
-<defs>
   <clipPath id='cpMzMuMTN8MTI4LjMzfDIzNS42MXwyNTIuNTI='>
     <rect x='33.13' y='235.61' width='95.20' height='16.92' />
   </clipPath>
@@ -1936,24 +1919,6 @@
 </defs>
 <g clip-path='url(#cpMTMzLjgxfDIyOS4wMXwyMzUuNjF8MjUyLjUy)'>
 <text x='181.41' y='247.21' text-anchor='middle' style='font-size: 8.80px;fill: #1A1A1A; font-family: "Arial";'>hookeri</text>
-</g>
-<g clip-path='url(#cpMC4wMHw1MDQuMDB8MC4wMHwzNjAuMDA=)'>
-</g>
-<defs>
-  <clipPath id='cpMjM0LjQ5fDMyOS42OXwyMzUuNjF8MjUyLjUy'>
-    <rect x='234.49' y='235.61' width='95.20' height='16.92' />
-  </clipPath>
-</defs>
-<g clip-path='url(#cpMjM0LjQ5fDMyOS42OXwyMzUuNjF8MjUyLjUy)'>
-</g>
-<g clip-path='url(#cpMC4wMHw1MDQuMDB8MC4wMHwzNjAuMDA=)'>
-</g>
-<defs>
-  <clipPath id='cpMzM1LjE3fDQzMC4zN3wyMzUuNjF8MjUyLjUy'>
-    <rect x='335.17' y='235.61' width='95.20' height='16.92' />
-  </clipPath>
-</defs>
-<g clip-path='url(#cpMzM1LjE3fDQzMC4zN3wyMzUuNjF8MjUyLjUy)'>
 </g>
 <g clip-path='url(#cpMC4wMHw1MDQuMDB8MC4wMHwzNjAuMDA=)'>
 </g>
@@ -1993,7 +1958,7 @@
   </clipPath>
 </defs>
 <g clip-path='url(#cpMzM1LjE3fDQzMC4zN3wxMzcuMjN8MTU0LjE1)'>
-<text x='382.77' y='148.84' text-anchor='middle' style='font-size: 8.80px;fill: #1A1A1A; font-family: "Arial";'>kauaiensis</text>
+<text x='382.77' y='148.84' text-anchor='middle' style='font-size: 8.80px;fill: #1A1A1A; font-family: "Arial";'>napaliensis</text>
 </g>
 <g clip-path='url(#cpMC4wMHw1MDQuMDB8MC4wMHwzNjAuMDA=)'>
 </g>

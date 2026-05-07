@@ -11,7 +11,7 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2026-03-06" />
+<meta name="date" content="2026-05-05" />
 
 <title>Schiedea pollen competition</title>
 
@@ -253,7 +253,7 @@ div.tocify {
 <h1 class="title toc-ignore"><em>Schiedea</em> pollen competition</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John
 Powers</a></h4>
-<h4 class="date">2026-03-06</h4>
+<h4 class="date">2026-05-05</h4>
 
 </div>
 
@@ -279,8 +279,10 @@ ggplot2::theme_set(theme_minimal())</code></pre>
 sp_pairs &lt;- c(&quot;menz&quot;=&quot;menziesii&quot;, &quot;sal&quot;=&quot;salicaria&quot;,
               &quot;lydg&quot;=&quot;lydgatei&quot;, &quot;sarm&quot; =&quot;sarmentosa&quot;,
               &quot;stell&quot;=&quot;stellarioides&quot;,&quot;sperg&quot;=&quot;spergulina&quot;,
-              &quot;memb&quot;=&quot;membranacea&quot;,&quot;kaua&quot;=&quot;kauaiensis&quot;,
+              &quot;memb&quot;=&quot;membranacea&quot;,&quot;napa&quot;=&quot;napaliensis&quot;, 
               &quot;kaal&quot;=&quot;kaalae&quot;, &quot;hook&quot;=&quot;hookeri&quot;)
+#changed S. kauaiensis &gt; S. napaliensis per Wagner &amp; Weller 2025, doi:10.3897/phytokeys.254.148438
+napalize &lt;- function(x) x %&gt;% str_replace(&quot;kauaiensis&quot;, &quot;napaliensis&quot;) %&gt;% str_replace(&quot;kaua&quot;,&quot;napa&quot;)
 sp_pal &lt;- set_names(brewer.pal(length(sp_pairs), &quot;Paired&quot;), sp_pairs)
 sp_pal_dark &lt;- set_names(sp_pal[rep(seq(2,10,by=2), each=2)], sp_pairs)
 typenames &lt;- set_names(c(&quot;Intraspecific&quot;,&quot;Competitive&quot;,&quot;Interspecific&quot;),c(&quot;intra&quot;,&quot;mixed&quot;,&quot;inter&quot;))
@@ -294,6 +296,7 @@ momid.fixes &lt;- read_tsv(&quot;data/Pollen competition - momid_fixes2.tsv&quot
   drop_na(momid_fixed) %&gt;% select(momid, momid_fixed) %&gt;% deframe()
 
 seeds &lt;- read_tsv(&quot;data/Pollen competition - seeds.tsv&quot;) %&gt;% 
+  mutate(across(matches(&quot;sp&quot;), napalize)) %&gt;% 
   mutate(dadspm = if_else(type==&quot;mixed&quot; &amp; dadsp1==momsp, dadsp1, dadsp2), #rearrange dad1/dad2 to have dadsp match momsp
          dadidm = if_else(type==&quot;mixed&quot; &amp; dadsp1==momsp, dadid1, dadid2),
          dadsp  = if_else(type==&quot;mixed&quot; &amp; dadsp1==momsp, dadsp2, dadsp1),
@@ -312,6 +315,7 @@ seeds.bycross &lt;- seeds %&gt;% group_by(type, momsp, sxc, momid, dadspm, dadid
   summarize(capsule.formed=mean(capsule.formed), .groups=&quot;drop&quot;)
 
 germ.pot &lt;- read_tsv(&quot;data/Pollen competition - germination.tsv&quot;) %&gt;%  
+  mutate(across(matches(&quot;sp&quot;), napalize)) %&gt;% 
   mutate(dadspm = if_else(type==&quot;mixed&quot; &amp; dadsp1==momsp, dadsp1, dadsp2), #rearrange dad1/dad2 to have dadsp match momsp
          dadidm = if_else(type==&quot;mixed&quot; &amp; dadsp1==momsp, dadid1, dadid2),
          dadsp  = if_else(type==&quot;mixed&quot; &amp; dadsp1==momsp, dadsp2, dadsp1),
@@ -332,6 +336,7 @@ germ &lt;- germ.pot %&gt;% group_by(date_planted, type, momsp, sxc, momid, dadsp
          prop.germ.nz = (germinated+1)/(planted+1)) 
 
 surv &lt;- read_tsv(&quot;data/Pollen competition - survival.tsv&quot;) %&gt;% 
+  mutate(across(matches(&quot;sp&quot;), napalize)) %&gt;% 
   mutate(dadspm = if_else(type==&quot;mixed&quot; &amp; dadsp1==momsp, dadsp1, dadsp2), #rearrange dad1/dad2 to have dadsp match momsp
          dadidm = if_else(type==&quot;mixed&quot; &amp; dadsp1==momsp, dadid1, dadid2),
          dadsp  = if_else(type==&quot;mixed&quot; &amp; dadsp1==momsp, dadsp2, dadsp1),
@@ -580,7 +585,7 @@ germination and survival, and how many pots the seeds filled</caption>
 <tr class="even">
 <td align="left">membranacea</td>
 <td align="left">mixed</td>
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="right">5</td>
 <td align="right">206</td>
 <td align="right">6</td>
@@ -590,7 +595,7 @@ germination and survival, and how many pots the seeds filled</caption>
 <tr class="odd">
 <td align="left">membranacea</td>
 <td align="left">inter</td>
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="right">1</td>
 <td align="right">153</td>
 <td align="right">4</td>
@@ -598,9 +603,9 @@ germination and survival, and how many pots the seeds filled</caption>
 <td align="right">4.500</td>
 </tr>
 <tr class="even">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">intra</td>
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="right">2</td>
 <td align="right">1500</td>
 <td align="right">9</td>
@@ -608,7 +613,7 @@ germination and survival, and how many pots the seeds filled</caption>
 <td align="right">2.111</td>
 </tr>
 <tr class="odd">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">mixed</td>
 <td align="left">membranacea</td>
 <td align="right">7</td>
@@ -618,7 +623,7 @@ germination and survival, and how many pots the seeds filled</caption>
 <td align="right">7.875</td>
 </tr>
 <tr class="even">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">inter</td>
 <td align="left">membranacea</td>
 <td align="right">1</td>
@@ -890,7 +895,7 @@ survival</caption>
 <tr class="even">
 <td align="left">membranacea</td>
 <td align="left">mixed</td>
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="right">5</td>
 <td align="right">5</td>
 <td align="right">5</td>
@@ -898,21 +903,21 @@ survival</caption>
 <tr class="odd">
 <td align="left">membranacea</td>
 <td align="left">inter</td>
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="right">8</td>
 <td align="right">3</td>
 <td align="right">1</td>
 </tr>
 <tr class="even">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">intra</td>
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="right">53</td>
 <td align="right">8</td>
 <td align="right">2</td>
 </tr>
 <tr class="odd">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">mixed</td>
 <td align="left">membranacea</td>
 <td align="right">10</td>
@@ -920,7 +925,7 @@ survival</caption>
 <td align="right">7</td>
 </tr>
 <tr class="even">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">inter</td>
 <td align="left">membranacea</td>
 <td align="right">15</td>
@@ -2397,7 +2402,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="odd">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">1</td>
 <td align="right">3</td>
 <td align="right"></td>
@@ -2410,7 +2415,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="even">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">120747</td>
 <td align="right">8</td>
 <td align="right">1</td>
@@ -2423,7 +2428,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="odd">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">120748X1207473a</td>
 <td align="right"></td>
 <td align="right"></td>
@@ -2436,7 +2441,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="even">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">1a</td>
 <td align="right">10</td>
 <td align="right">2</td>
@@ -2449,7 +2454,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="odd">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">1a234110</td>
 <td align="right">2</td>
 <td align="right"></td>
@@ -2462,7 +2467,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="even">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">1a234111</td>
 <td align="right">1</td>
 <td align="right"></td>
@@ -2475,7 +2480,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="odd">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">1a234113</td>
 <td align="right">1</td>
 <td align="right"></td>
@@ -2488,7 +2493,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="even">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">1a234114</td>
 <td align="right">4</td>
 <td align="right"></td>
@@ -2501,7 +2506,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="odd">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">1a23413</td>
 <td align="right">2</td>
 <td align="right"></td>
@@ -2514,7 +2519,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="even">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">1a23414</td>
 <td align="right">5</td>
 <td align="right"></td>
@@ -2527,7 +2532,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="odd">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">1a23415</td>
 <td align="right">7</td>
 <td align="right"></td>
@@ -2540,7 +2545,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="even">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">1a23416</td>
 <td align="right">1</td>
 <td align="right"></td>
@@ -2553,7 +2558,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="odd">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">1a23417</td>
 <td align="right">6</td>
 <td align="right"></td>
@@ -2566,7 +2571,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="even">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">1a23419</td>
 <td align="right">1</td>
 <td align="right"></td>
@@ -2579,7 +2584,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="odd">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">1a525111</td>
 <td align="right">1</td>
 <td align="right"></td>
@@ -2592,7 +2597,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="even">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">1a5251111</td>
 <td align="right">1</td>
 <td align="right"></td>
@@ -2605,7 +2610,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="odd">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">1a525113</td>
 <td align="right">7</td>
 <td align="right"></td>
@@ -2618,7 +2623,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="even">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">1a525114</td>
 <td align="right">2</td>
 <td align="right"></td>
@@ -2631,7 +2636,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="odd">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">1a525117</td>
 <td align="right">1</td>
 <td align="right"></td>
@@ -2644,7 +2649,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="even">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">1a525120</td>
 <td align="right"></td>
 <td align="right"></td>
@@ -2657,7 +2662,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="odd">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">1a52516a2</td>
 <td align="right"></td>
 <td align="right"></td>
@@ -2670,7 +2675,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="even">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">1a52519</td>
 <td align="right">1</td>
 <td align="right"></td>
@@ -2683,7 +2688,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="odd">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">1ax11</td>
 <td align="right">3</td>
 <td align="right"></td>
@@ -2696,7 +2701,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="even">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">1ax12</td>
 <td align="right">1</td>
 <td align="right"></td>
@@ -2709,7 +2714,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="odd">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">1ax13</td>
 <td align="right">1</td>
 <td align="right"></td>
@@ -2722,7 +2727,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="even">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">1ax15</td>
 <td align="right">1</td>
 <td align="right"></td>
@@ -2735,7 +2740,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="odd">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">2341</td>
 <td align="right">5</td>
 <td align="right"></td>
@@ -2748,7 +2753,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="even">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">2341x1a</td>
 <td align="right">1</td>
 <td align="right"></td>
@@ -2761,7 +2766,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="odd">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">2341x6a2</td>
 <td align="right">2</td>
 <td align="right"></td>
@@ -2774,7 +2779,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="even">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">2341x73</td>
 <td align="right">3</td>
 <td align="right"></td>
@@ -2787,7 +2792,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="odd">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">245251</td>
 <td align="right"></td>
 <td align="right">1</td>
@@ -2800,7 +2805,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="even">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">2452511</td>
 <td align="right"></td>
 <td align="right">1</td>
@@ -2813,7 +2818,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="odd">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">245251x6a6</td>
 <td align="right"></td>
 <td align="right"></td>
@@ -2826,7 +2831,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right">1</td>
 </tr>
 <tr class="even">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">2a</td>
 <td align="right">2</td>
 <td align="right"></td>
@@ -2839,7 +2844,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="odd">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">2a52519</td>
 <td align="right">2</td>
 <td align="right"></td>
@@ -2852,7 +2857,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="even">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">2x52517</td>
 <td align="right"></td>
 <td align="right"></td>
@@ -2865,7 +2870,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="odd">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">2x52519</td>
 <td align="right"></td>
 <td align="right"></td>
@@ -2878,7 +2883,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="even">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">3a</td>
 <td align="right">3</td>
 <td align="right">1</td>
@@ -2891,7 +2896,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="odd">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">3a52512</td>
 <td align="right">1</td>
 <td align="right"></td>
@@ -2904,7 +2909,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="even">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">3a5a5</td>
 <td align="right">1</td>
 <td align="right"></td>
@@ -2917,7 +2922,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="odd">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">3ax5a2</td>
 <td align="right">3</td>
 <td align="right"></td>
@@ -2930,7 +2935,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="even">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">3ax5a3</td>
 <td align="right">5</td>
 <td align="right"></td>
@@ -2943,7 +2948,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="odd">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">4631</td>
 <td align="right">2</td>
 <td align="right"></td>
@@ -2956,7 +2961,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="even">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">4633</td>
 <td align="right">2</td>
 <td align="right"></td>
@@ -2969,7 +2974,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="odd">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">4634</td>
 <td align="right">6</td>
 <td align="right"></td>
@@ -2982,7 +2987,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="even">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">5251</td>
 <td align="right">1</td>
 <td align="right"></td>
@@ -2995,7 +3000,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="odd">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">52511</td>
 <td align="right">3</td>
 <td align="right"></td>
@@ -3008,7 +3013,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="even">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">5251121</td>
 <td align="right">1</td>
 <td align="right"></td>
@@ -3021,7 +3026,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="odd">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">5251131</td>
 <td align="right">4</td>
 <td align="right"></td>
@@ -3034,7 +3039,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="even">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">525131</td>
 <td align="right">1</td>
 <td align="right"></td>
@@ -3047,7 +3052,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="odd">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">52516a2</td>
 <td align="right"></td>
 <td align="right"></td>
@@ -3060,7 +3065,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="even">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">52516a3</td>
 <td align="right">2</td>
 <td align="right"></td>
@@ -3073,7 +3078,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="odd">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">52516a4</td>
 <td align="right">2</td>
 <td align="right"></td>
@@ -3086,7 +3091,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="even">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">52516a6</td>
 <td align="right">3</td>
 <td align="right"></td>
@@ -3099,7 +3104,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="odd">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">52516a7</td>
 <td align="right">5</td>
 <td align="right"></td>
@@ -3112,7 +3117,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="even">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">5256</td>
 <td align="right">2</td>
 <td align="right"></td>
@@ -3125,7 +3130,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="odd">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">5a</td>
 <td align="right"></td>
 <td align="right">1</td>
@@ -3138,7 +3143,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="even">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">6a</td>
 <td align="right">7</td>
 <td align="right"></td>
@@ -3151,7 +3156,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="odd">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">7x23412</td>
 <td align="right">3</td>
 <td align="right"></td>
@@ -3164,7 +3169,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="even">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">7x52511</td>
 <td align="right">1</td>
 <td align="right"></td>
@@ -3177,7 +3182,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="odd">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">7x8Prog2</td>
 <td align="right"></td>
 <td align="right">1</td>
@@ -3190,7 +3195,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="even">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">NuS211a</td>
 <td align="right">1</td>
 <td align="right"></td>
@@ -3203,7 +3208,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="odd">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">NuaSd13</td>
 <td align="right">1</td>
 <td align="right"></td>
@@ -3216,7 +3221,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="even">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">NuaSd21</td>
 <td align="right">5</td>
 <td align="right"></td>
@@ -3229,7 +3234,7 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 <td align="right"></td>
 </tr>
 <tr class="odd">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">Prog2x52519</td>
 <td align="right"></td>
 <td align="right">1</td>
@@ -3628,13 +3633,16 @@ inventory.dadid %&gt;% select(-dadsp) %&gt;%
 #   write_tsv(&quot;data/seedsgermsurv_momids.tsv&quot;, na=&quot;&quot;) #then hand annotate to make momid_fixes2
 
 mating &lt;- read_tsv(&quot;data/Pollen competition - mating.tsv&quot;) %&gt;% 
+  mutate(across(matches(&quot;sp&quot;), napalize)) %&gt;% 
   left_join(tibble(momsp=sp_pairs, pair = factor(rep(1:5, each=2)))) %&gt;% 
   mutate(momsp = factor(momsp, level=sp_pairs)) 
 
 styles &lt;- read_tsv(&quot;data/Pollen competition - style_length.tsv&quot;) %&gt;% 
+  mutate(across(matches(&quot;sp&quot;), napalize)) %&gt;% 
   mutate(momsp = factor(sp_pairs[momsp], levels=sp_pairs))
 
 seedsize &lt;- read_csv(&quot;data/seedlengths.csv&quot;) %&gt;% #from Schiedea monograph, SeedsNectaries project
+  mutate(across(matches(&quot;sp&quot;), napalize)) %&gt;% 
   mutate(seedlength_mm = (seedlength_low_mm + seedlength_high_mm)/2) %&gt;%  #midpoint of range 
   rename(momsp=species) %&gt;% left_join(mating) %&gt;% drop_na(pair) %&gt;% group_by(pair) %&gt;% 
   mutate(momsp=factor(momsp, levels=sp_pairs), 
@@ -4025,7 +4033,7 @@ kable(asym.test, caption=&quot;Differences in hybrid proportions by cross direct
 <td align="right">0.0648</td>
 <td align="right">1</td>
 <td align="right">0.7991</td>
-<td align="left">membranacea-kauaiensis</td>
+<td align="left">membranacea-napaliensis</td>
 </tr>
 <tr class="odd">
 <td align="left">5</td>
@@ -4153,13 +4161,13 @@ ggplot(filter(seeds.bycross, !momsp %in% c(&quot;sarmentosa&quot;,&quot;sperguli
 </tr>
 <tr class="odd">
 <td align="left">membranacea</td>
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="right">0.0129</td>
 <td align="right">0.0222</td>
 <td align="right">0.0000</td>
 </tr>
 <tr class="even">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">membranacea</td>
 <td align="right">0.0331</td>
 <td align="right">0.0170</td>
@@ -4252,7 +4260,7 @@ hybrid.test %&gt;% left_join(pivot_wider(comp.emm, id_cols = momsp, names_from=c
 <td align="right">4</td>
 </tr>
 <tr class="even">
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="right">8</td>
 </tr>
 <tr class="odd">
@@ -4363,7 +4371,7 @@ species</caption>
 </tr>
 <tr class="even">
 <td align="left">4</td>
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="right">4.289</td>
 <td align="right">0.1562</td>
 <td align="right">0.2922</td>
@@ -4393,6 +4401,7 @@ species</caption>
 <p>Load <em>Schiedea</em> tree inferred with RAxML from Willyard et
 al. nuclear dataset (no chloroplast data, 1 accession per species).</p>
 <pre class="r"><code>tree &lt;- read.nexus(&quot;data/RAxML_1ps_nocp_bipartitionsBranchLabels.sch.short.nobs.nex&quot;)
+tree$tip.label &lt;- napalize(tree$tip.label)
 plot(tree, tip.color = sp_pal[tree$tip.label])</code></pre>
 <p><img src="figures-comp/phylodist-1.svg" width="864" /></p>
 <pre class="r"><code># par(mfrow=c(1,2))
@@ -4570,16 +4579,16 @@ ggplot(postzygotic.ratios.phylo, aes(x=pd, y=RI)) +
 </tr>
 <tr class="odd">
 <td align="left">capsule.formed</td>
-<td align="left">kauaiensis</td>
 <td align="left">membranacea</td>
-<td align="right">0.602</td>
+<td align="left">napaliensis</td>
+<td align="right">0.274</td>
 <td align="right">0.000</td>
 </tr>
 <tr class="even">
 <td align="left">capsule.formed</td>
+<td align="left">napaliensis</td>
 <td align="left">membranacea</td>
-<td align="left">kauaiensis</td>
-<td align="right">0.274</td>
+<td align="right">0.602</td>
 <td align="right">0.000</td>
 </tr>
 <tr class="odd">
@@ -4640,17 +4649,17 @@ ggplot(postzygotic.ratios.phylo, aes(x=pd, y=RI)) +
 </tr>
 <tr class="odd">
 <td align="left">sds</td>
-<td align="left">kauaiensis</td>
 <td align="left">membranacea</td>
-<td align="right">0.415</td>
-<td align="right">0.001</td>
+<td align="left">napaliensis</td>
+<td align="right">0.291</td>
+<td align="right">0.000</td>
 </tr>
 <tr class="even">
 <td align="left">sds</td>
+<td align="left">napaliensis</td>
 <td align="left">membranacea</td>
-<td align="left">kauaiensis</td>
-<td align="right">0.291</td>
-<td align="right">0.000</td>
+<td align="right">0.415</td>
+<td align="right">0.001</td>
 </tr>
 <tr class="odd">
 <td align="left">sds</td>
@@ -4710,17 +4719,17 @@ ggplot(postzygotic.ratios.phylo, aes(x=pd, y=RI)) +
 </tr>
 <tr class="odd">
 <td align="left">prop.germ</td>
-<td align="left">kauaiensis</td>
 <td align="left">membranacea</td>
-<td align="right">0.262</td>
-<td align="right">0.620</td>
+<td align="left">napaliensis</td>
+<td align="right">0.872</td>
+<td align="right">0.000</td>
 </tr>
 <tr class="even">
 <td align="left">prop.germ</td>
+<td align="left">napaliensis</td>
 <td align="left">membranacea</td>
-<td align="left">kauaiensis</td>
-<td align="right">0.872</td>
-<td align="right">0.000</td>
+<td align="right">0.262</td>
+<td align="right">0.620</td>
 </tr>
 <tr class="odd">
 <td align="left">prop.germ</td>
@@ -4780,17 +4789,17 @@ ggplot(postzygotic.ratios.phylo, aes(x=pd, y=RI)) +
 </tr>
 <tr class="odd">
 <td align="left">prop.alive</td>
-<td align="left">kauaiensis</td>
 <td align="left">membranacea</td>
-<td align="right">0.026</td>
-<td align="right">0.813</td>
+<td align="left">napaliensis</td>
+<td align="right">0.174</td>
+<td align="right">0.270</td>
 </tr>
 <tr class="even">
 <td align="left">prop.alive</td>
+<td align="left">napaliensis</td>
 <td align="left">membranacea</td>
-<td align="left">kauaiensis</td>
-<td align="right">0.174</td>
-<td align="right">0.270</td>
+<td align="right">0.026</td>
+<td align="right">0.813</td>
 </tr>
 <tr class="odd">
 <td align="left">prop.alive</td>
@@ -4851,13 +4860,13 @@ ggplot(postzygotic.ratios.phylo, aes(x=pd, y=RI)) +
 <tr class="odd">
 <td align="left">all</td>
 <td align="left">membranacea</td>
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="right">0.970</td>
 <td align="right"></td>
 </tr>
 <tr class="even">
 <td align="left">all</td>
-<td align="left">kauaiensis</td>
+<td align="left">napaliensis</td>
 <td align="left">membranacea</td>
 <td align="right">0.892</td>
 <td align="right"></td>
@@ -5235,18 +5244,18 @@ mod.pd.backest %&gt;% select(stage, data) %&gt;% unnest(data) %&gt;%
 </tr>
 <tr class="even">
 <td align="left">sdl</td>
-<td align="right">0.0190</td>
-<td align="right">0.0379</td>
+<td align="right">0.0109</td>
+<td align="right">0.0415</td>
 </tr>
 <tr class="odd">
 <td align="left">sds</td>
-<td align="right">0.0738</td>
-<td align="right">0.0261</td>
+<td align="right">0.0485</td>
+<td align="right">0.0382</td>
 </tr>
 <tr class="even">
 <td align="left">zyg</td>
-<td align="right">0.2897</td>
-<td align="right">0.0128</td>
+<td align="right">0.0752</td>
+<td align="right">0.0441</td>
 </tr>
 </tbody>
 </table>

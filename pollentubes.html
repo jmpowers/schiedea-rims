@@ -11,7 +11,7 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2025-09-22" />
+<meta name="date" content="2026-05-07" />
 
 <title>Schiedea pollen tube growth</title>
 
@@ -253,7 +253,7 @@ div.tocify {
 <h1 class="title toc-ignore"><em>Schiedea</em> pollen tube growth</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John
 Powers</a></h4>
-<h4 class="date">2025-09-22</h4>
+<h4 class="date">2026-05-07</h4>
 
 </div>
 
@@ -329,30 +329,32 @@ signif.num &lt;- function(x) {
 <div id="read-data" class="section level1">
 <h1>Read data</h1>
 <pre class="r"><code>#long format: salmen (1 stigma/vial), lydsar (2 stigmas/vial), kaahoo (3 stigmas/vial without letter)
-#wide format: memkau (3-5 stigmas/vial), speste (6 stigmas/vial), kaahoo_extra(3-5 stigmas/vial)
+#wide format: memnap (3-5 stigmas/vial), speste (6 stigmas/vial), kaahoo_extra(3-5 stigmas/vial)
 pops &lt;- list(sali=&quot;842&quot;, menz = c(&quot;849&quot;, &quot;950&quot;), 
              lydg=&quot;6682&quot;, sarm=&quot;896&quot;, 
              sper= c(&quot;120289&quot;,&quot;120294&quot;,&quot;120296&quot;), stel = c(&quot;14651&quot;,&quot;14765&quot;),
-             memb = c(&quot;mem&quot;,&quot;864&quot;), kaua = &quot;kaua&quot;,
+             memb = c(&quot;mem&quot;,&quot;864&quot;), napa = &quot;napa&quot;,
                kaal = c(&quot;892&quot;, &quot;3587&quot;), hook = c(&quot;794&quot;, &quot;866&quot;, &quot;879&quot;,&quot;899&quot;))
 
 pair_labels &lt;- c(salmen = &quot;S. salicaria | S. menziesii&quot;,
                  lydsar = &quot;S. lydgatei | S. sarmentosa&quot;,
                  speste = &quot;S. spergulina | S. stellariodes&quot;,
-                 memkau = &quot;S. membranacea | S. kauaiensis&quot;,
+                 memnap = &quot;S. membranacea | S. napaliensis&quot;,
                  kaahoo = &quot;S. kaalae | S. hookeri&quot;)
 
 abbrev &lt;- list(salmen = c(S=&quot;Sl&quot;,M=&quot;Mn&quot;), 
                lydsar = c(L=&quot;Ly&quot;,S=&quot;Sr&quot;), 
                speste = c(Sp=&quot;Sp&quot;,St=&quot;St&quot;), 
-               memkau = c(M=&quot;Mb&quot;,K=&quot;Ki&quot;),
+               memnap = c(M=&quot;Mb&quot;,N=&quot;Np&quot;),
                kaahoo = c(K=&quot;Kl&quot;,H=&quot;Ho&quot;))
 
 species_names &lt;- c(&quot;Mn&quot;=&quot;menziesii&quot;, &quot;Sl&quot;=&quot;salicaria&quot;,
               &quot;Ly&quot;=&quot;lydgatei&quot;, &quot;Sr&quot; =&quot;sarmentosa&quot;,
               &quot;St&quot;=&quot;stellarioides&quot;,&quot;Sp&quot;=&quot;spergulina&quot;,
-              &quot;Mb&quot;=&quot;membranacea&quot;,&quot;Ki&quot;=&quot;kauaiensis&quot;,
+              &quot;Mb&quot;=&quot;membranacea&quot;,&quot;Np&quot;=&quot;napaliensis&quot;,
               &quot;Kl&quot;=&quot;kaalae&quot;, &quot;Ho&quot;=&quot;hookeri&quot;)
+
+napalize &lt;- function(x) x %&gt;% str_replace(&quot;kauaiensis&quot;, &quot;napaliensis&quot;) %&gt;% str_replace(&quot;kaua&quot;,&quot;napa&quot;)
 
 cross_levels &lt;- map(abbrev, ~ c(paste0(.x[1],&quot;x&quot;,.x[1]), paste0(.x[1],&quot;x&quot;,.x[2]), paste0(.x[2],&quot;x&quot;,.x[2]), paste0(.x[2],&quot;x&quot;,.x[1])))
 
@@ -383,15 +385,17 @@ tubesl[[&quot;salmen&quot;]] &lt;- read_csv(&quot;data/pollentubes_salmen.csv&qu
   mutate(mompop = str_sub(momid, 1, 3), dadpop = str_sub(dadid, 1, 3),
          momcross = ifelse(mompop %in% pops[[&quot;sali&quot;]], &quot;S&quot;, &quot;M&quot;), dadcross = ifelse(dadpop %in% pops[[&quot;sali&quot;]], &quot;S&quot;, &quot;M&quot;))
 
-# membranacea - kauaiensis
-tubesl[[&quot;memkau&quot;]] &lt;- read_csv(&quot;data/pollentubes_memkau.csv&quot;) %&gt;% mutate(across(ends_with(&quot;sp&quot;), as.factor)) %&gt;% 
+# membranacea - napaliensis
+tubesl[[&quot;memnap&quot;]] &lt;- read_csv(&quot;data/pollentubes_memkau.csv&quot;) %&gt;%
+  mutate(across(matches(&quot;sp&quot;), napalize)) %&gt;% 
+  mutate(across(ends_with(&quot;sp&quot;), as.factor)) %&gt;% 
   pivot_longer(starts_with(c(&quot;mid&quot;,&quot;bottom&quot;)), names_to=c(&quot;location&quot;,&quot;stigma&quot;), names_sep=&quot;_&quot;, values_to=&quot;n_tubes&quot;) %&gt;% 
   pivot_wider(names_from=&quot;location&quot;, values_from=&quot;n_tubes&quot;) %&gt;% 
   mutate(status = fct_explicit_na(status, &quot;OK&quot;),
          mid =    ifelse(status==&quot;no pollen on stigmas&quot;, NA, mid), #set to NA to drop, 0 to keep
          bottom = ifelse(status==&quot;no pollen on stigmas&quot;, NA, bottom)) %&gt;% #see SGW email 2022-05-09, NOTES tab
   drop_na(mid) %&gt;% 
-  mutate(momcross = ifelse(momsp %in% pops[[&quot;memb&quot;]], &quot;M&quot;, &quot;K&quot;),  dadcross = ifelse(dadsp %in% pops[[&quot;memb&quot;]], &quot;M&quot;, &quot;K&quot;),
+  mutate(momcross = ifelse(momsp %in% pops[[&quot;memb&quot;]], &quot;M&quot;, &quot;N&quot;),  dadcross = ifelse(dadsp %in% pops[[&quot;memb&quot;]], &quot;M&quot;, &quot;N&quot;),
          momid = paste(momcross, momplant), dadid = paste(dadcross, dadplant),)
 
 #spergulina - stellarioides
@@ -526,17 +530,17 @@ str(tubes)</code></pre>
 <td align="right">80</td>
 </tr>
 <tr class="even">
-<td align="left">MbxKi</td>
+<td align="left">MbxNp</td>
 <td align="right">87</td>
 <td align="right">95</td>
 </tr>
 <tr class="odd">
-<td align="left">KixKi</td>
+<td align="left">NpxNp</td>
 <td align="right">73</td>
 <td align="right">76</td>
 </tr>
 <tr class="even">
-<td align="left">KixMb</td>
+<td align="left">NpxMb</td>
 <td align="right">67</td>
 <td align="right">68</td>
 </tr>
@@ -589,7 +593,7 @@ str(tubes)</code></pre>
 <td align="right">236</td>
 </tr>
 <tr class="even">
-<td align="left">memkau</td>
+<td align="left">memnap</td>
 <td align="right">302</td>
 <td align="right">319</td>
 </tr>
@@ -645,7 +649,7 @@ str(tubes)</code></pre>
 <td align="right">74</td>
 </tr>
 <tr class="even">
-<td align="left">memkau</td>
+<td align="left">memnap</td>
 <td align="right">5</td>
 <td align="right">11</td>
 <td align="right">91</td>
@@ -691,7 +695,7 @@ str(tubes)</code></pre>
 <td align="right">40</td>
 </tr>
 <tr class="even">
-<td align="left">memkau</td>
+<td align="left">memnap</td>
 <td align="right">90</td>
 <td align="right">90</td>
 </tr>
@@ -776,23 +780,23 @@ str(tubes)</code></pre>
 <td align="right">5</td>
 </tr>
 <tr class="odd">
-<td align="left">memkau</td>
+<td align="left">memnap</td>
 <td align="left">MbxMb</td>
 <td align="right">6</td>
 </tr>
 <tr class="even">
-<td align="left">memkau</td>
-<td align="left">MbxKi</td>
+<td align="left">memnap</td>
+<td align="left">MbxNp</td>
 <td align="right">6</td>
 </tr>
 <tr class="odd">
-<td align="left">memkau</td>
-<td align="left">KixKi</td>
+<td align="left">memnap</td>
+<td align="left">NpxNp</td>
 <td align="right">6</td>
 </tr>
 <tr class="even">
-<td align="left">memkau</td>
-<td align="left">KixMb</td>
+<td align="left">memnap</td>
+<td align="left">NpxMb</td>
 <td align="right">6</td>
 </tr>
 <tr class="odd">
@@ -852,7 +856,7 @@ str(tubes)</code></pre>
 <td align="right">0</td>
 </tr>
 <tr class="even">
-<td align="left">memkau</td>
+<td align="left">memnap</td>
 <td align="right">6</td>
 <td align="right">18</td>
 <td align="right">0</td>
@@ -1449,10 +1453,10 @@ crosses</caption>
 <td align="right">0.107</td>
 </tr>
 <tr class="odd">
-<td align="left">memkau</td>
+<td align="left">memnap</td>
 <td align="left">mid</td>
-<td align="left">KixKi4hr</td>
-<td align="left">KixMb4hr</td>
+<td align="left">NpxNp4hr</td>
+<td align="left">NpxMb4hr</td>
 <td align="right">0.000</td>
 <td align="right">1.781</td>
 <td align="right">0.354</td>
@@ -1460,10 +1464,10 @@ crosses</caption>
 <td align="right">0.801</td>
 </tr>
 <tr class="even">
-<td align="left">memkau</td>
+<td align="left">memnap</td>
 <td align="left">mid</td>
-<td align="left">KixKi24hr</td>
-<td align="left">KixMb24hr</td>
+<td align="left">NpxNp24hr</td>
+<td align="left">NpxMb24hr</td>
 <td align="right">0.001</td>
 <td align="right">4.767</td>
 <td align="right">2.669</td>
@@ -1471,9 +1475,9 @@ crosses</caption>
 <td align="right">0.440</td>
 </tr>
 <tr class="odd">
-<td align="left">memkau</td>
+<td align="left">memnap</td>
 <td align="left">mid</td>
-<td align="left">MbxKi4hr</td>
+<td align="left">MbxNp4hr</td>
 <td align="left">MbxMb4hr</td>
 <td align="right">0.910</td>
 <td align="right">1.954</td>
@@ -1482,9 +1486,9 @@ crosses</caption>
 <td align="right">-0.021</td>
 </tr>
 <tr class="even">
-<td align="left">memkau</td>
+<td align="left">memnap</td>
 <td align="left">mid</td>
-<td align="left">MbxKi24hr</td>
+<td align="left">MbxNp24hr</td>
 <td align="left">MbxMb24hr</td>
 <td align="right">0.003</td>
 <td align="right">2.681</td>
@@ -1493,10 +1497,10 @@ crosses</caption>
 <td align="right">0.397</td>
 </tr>
 <tr class="odd">
-<td align="left">memkau</td>
+<td align="left">memnap</td>
 <td align="left">bottom</td>
-<td align="left">KixKi4hr</td>
-<td align="left">KixMb4hr</td>
+<td align="left">NpxNp4hr</td>
+<td align="left">NpxMb4hr</td>
 <td align="right">0.000</td>
 <td align="right">0.356</td>
 <td align="right">0.040</td>
@@ -1504,10 +1508,10 @@ crosses</caption>
 <td align="right">0.888</td>
 </tr>
 <tr class="even">
-<td align="left">memkau</td>
+<td align="left">memnap</td>
 <td align="left">bottom</td>
-<td align="left">KixKi24hr</td>
-<td align="left">KixMb24hr</td>
+<td align="left">NpxNp24hr</td>
+<td align="left">NpxMb24hr</td>
 <td align="right">0.000</td>
 <td align="right">3.908</td>
 <td align="right">0.710</td>
@@ -1515,9 +1519,9 @@ crosses</caption>
 <td align="right">0.818</td>
 </tr>
 <tr class="odd">
-<td align="left">memkau</td>
+<td align="left">memnap</td>
 <td align="left">bottom</td>
-<td align="left">MbxKi4hr</td>
+<td align="left">MbxNp4hr</td>
 <td align="left">MbxMb4hr</td>
 <td align="right">0.093</td>
 <td align="right">0.460</td>
@@ -1526,9 +1530,9 @@ crosses</caption>
 <td align="right">-0.932</td>
 </tr>
 <tr class="even">
-<td align="left">memkau</td>
+<td align="left">memnap</td>
 <td align="left">bottom</td>
-<td align="left">MbxKi24hr</td>
+<td align="left">MbxNp24hr</td>
 <td align="left">MbxMb24hr</td>
 <td align="right">0.000</td>
 <td align="right">0.499</td>
@@ -1537,10 +1541,10 @@ crosses</caption>
 <td align="right">0.873</td>
 </tr>
 <tr class="odd">
-<td align="left">memkau</td>
+<td align="left">memnap</td>
 <td align="left">ratio</td>
-<td align="left">KixKi4hr</td>
-<td align="left">KixMb4hr</td>
+<td align="left">NpxNp4hr</td>
+<td align="left">NpxMb4hr</td>
 <td align="right">0.282</td>
 <td align="right">0.189</td>
 <td align="right">0.081</td>
@@ -1548,10 +1552,10 @@ crosses</caption>
 <td align="right">0.573</td>
 </tr>
 <tr class="even">
-<td align="left">memkau</td>
+<td align="left">memnap</td>
 <td align="left">ratio</td>
-<td align="left">KixKi24hr</td>
-<td align="left">KixMb24hr</td>
+<td align="left">NpxNp24hr</td>
+<td align="left">NpxMb24hr</td>
 <td align="right">0.000</td>
 <td align="right">0.804</td>
 <td align="right">0.263</td>
@@ -1559,9 +1563,9 @@ crosses</caption>
 <td align="right">0.673</td>
 </tr>
 <tr class="odd">
-<td align="left">memkau</td>
+<td align="left">memnap</td>
 <td align="left">ratio</td>
-<td align="left">MbxKi4hr</td>
+<td align="left">MbxNp4hr</td>
 <td align="left">MbxMb4hr</td>
 <td align="right">0.057</td>
 <td align="right">0.260</td>
@@ -1570,9 +1574,9 @@ crosses</caption>
 <td align="right">-1.418</td>
 </tr>
 <tr class="even">
-<td align="left">memkau</td>
+<td align="left">memnap</td>
 <td align="left">ratio</td>
-<td align="left">MbxKi24hr</td>
+<td align="left">MbxNp24hr</td>
 <td align="left">MbxMb24hr</td>
 <td align="right">0.000</td>
 <td align="right">0.190</td>
@@ -1730,6 +1734,7 @@ crosses</caption>
 <h1>Phylogenetic distance</h1>
 <pre class="r"><code>library(ape)
 tree &lt;- read.nexus(&quot;data/RAxML_1ps_nocp_bipartitionsBranchLabels.sch.short.nobs.nex&quot;)
+tree$tip.label &lt;- napalize(tree$tip.label)
 
 tubes.phylodist &lt;- tubes.mod %&gt;% select(pair, ends_with(&quot;_emm&quot;)) %&gt;% pivot_longer(ends_with(&quot;_emm&quot;), names_to=&quot;trait&quot;) %&gt;% 
   mutate(trait = str_remove(trait, &quot;_emm&quot;)) %&gt;% unnest(value) %&gt;% 
@@ -1866,33 +1871,33 @@ ggplot(tubes.phylodist, aes(x=pd, y=trait_diff)) + facet_grid(trait~hr, scales=&
   Flexibility Among Packages for Zero-inflated Generalized Linear Mixed
   Modeling. The R Journal, 9(2), 378-400. doi: 10.32614/RJ-2017-066.
 
-A BibTeX entry for LaTeX users is
+To cite glmmTMB in publications use:
 
-  @Article{,
-    author = {Mollie E. Brooks and Kasper Kristensen and Koen J. {van Benthem} and Arni Magnusson and Casper W. Berg and Anders Nielsen and Hans J. Skaug and Martin Maechler and Benjamin M. Bolker},
-    title = {{glmmTMB} Balances Speed and Flexibility Among Packages for Zero-inflated Generalized Linear Mixed Modeling},
-    year = {2017},
-    journal = {The R Journal},
-    doi = {10.32614/RJ-2017-066},
-    pages = {378--400},
-    volume = {9},
-    number = {2},
-  }</code></pre>
+  McGillycuddy M, Warton DI, Popovic G, Bolker BM (2025).
+  &quot;Parsimoniously Fitting Large Multivariate Random Effects in
+  glmmTMB.&quot; _Journal of Statistical Software_, *112*(1), 1-19.
+  doi:10.18637/jss.v112.i01 &lt;https://doi.org/10.18637/jss.v112.i01&gt;.
+
+To see these entries in BibTeX format, use &#39;print(&lt;citation&gt;,
+bibtex=TRUE)&#39;, &#39;toBibtex(.)&#39;, or set
+&#39;options(citation.bibtex.max=999)&#39;.</code></pre>
 <pre class="r"><code>citation(&quot;emmeans&quot;)</code></pre>
 <pre><code>To cite package &#39;emmeans&#39; in publications use:
 
-  Lenth R (2024). _emmeans: Estimated Marginal Means, aka Least-Squares
-  Means_. R package version 1.10.1,
-  &lt;https://CRAN.R-project.org/package=emmeans&gt;.
+  Lenth R (2025). _emmeans: Estimated Marginal Means, aka Least-Squares
+  Means_. doi:10.32614/CRAN.package.emmeans
+  &lt;https://doi.org/10.32614/CRAN.package.emmeans&gt;. R package version
+  1.11.1, &lt;https://CRAN.R-project.org/package=emmeans&gt;.
 
 A BibTeX entry for LaTeX users is
 
   @Manual{,
     title = {emmeans: Estimated Marginal Means, aka Least-Squares Means},
     author = {Russell V. Lenth},
-    year = {2024},
-    note = {R package version 1.10.1},
+    year = {2025},
+    note = {R package version 1.11.1},
     url = {https://CRAN.R-project.org/package=emmeans},
+    doi = {10.32614/CRAN.package.emmeans},
   }</code></pre>
 <pre class="r"><code>citation(&quot;multcomp&quot;)</code></pre>
 <pre><code>Please cite the multcomp package by the following reference:
