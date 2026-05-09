@@ -306,7 +306,7 @@ legend("bottomright", legend=c("diploid","tetraploid"), fill=c(1,2))
 nodelabels(node=polyploid.event, col=2, pch=19, cex=2)
 ```
 
-Connect by maternal species
+### Connect by maternal species
 
 ```{r pf_mom, fig.height=9, fig.width=12}
 pf %>% ggplot(aes(x=pd, y=ft, color=momsp)) + 
@@ -318,7 +318,7 @@ pf %>% ggplot(aes(x=pd, y=ft, color=momsp)) +
   labs(x="Phylogenetic distance (mutations/site)", y="Pollen viability", color="Maternal species")
 ```
 
-Just the species pairs 
+### Just the species pairs 
 
 ```{r pf_pairs,fig.height=5, fig.width=8}
 sppairs <- c("menz x sali", "sali x menz", "lydg x sarm", "sarm x lydg",
@@ -346,7 +346,7 @@ pf %>%  filter(crossname %in% sppairs) %>%
   labs(x="Phylogenetic distance (mutations/site)", y="Pollen viability", color="Maternal species")+
   theme(legend.position = "top") 
 
-pf %>%  filter(crossname %in% sppairs) %>% arrange(pd) %>% select(pd, crossname, ft, q25, q75) %>% kable()
+pf %>%  filter(crossname %in% sppairs) %>% arrange(pd) %>% select(pd, crossname, ft, q25, q75, N) %>% kable()
 
 pf %>% filter(momsp %in% names(sp), dadsp %in% names(sp)) %>% 
   ggplot(aes(x=pd, y=ft, color=factor(sp[momsp], levels=sp))) + 

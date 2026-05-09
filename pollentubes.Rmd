@@ -153,7 +153,9 @@ tubes <- bind_rows(tubesl, .id = "pair") %>%
          dadcross = map2_chr(pair, dadcross, ~ abbrev[[.x]][[.y]]),
          cross = factor(paste0(momcross,"x",dadcross), levels=unlist(cross_levels)),
          crosshr = factor(paste0(cross, hr), levels = paste(rep(levels(cross),each=2), levels(hr), sep="")),
-         pair = factor(pair, levels=names(pair_labels))) %>% arrange(pair)
+         pair = factor(pair, levels=names(pair_labels)),
+         momsp = species_names[momcross], dadsp=species_names[dadcross],
+         type = factor(if_else(momcross==dadcross, "intra", "inter"))) %>% arrange(pair)
 str(tubes)
 ```
 
@@ -162,12 +164,18 @@ str(tubes)
 ```{r pollentube_inventory}
 kable(with(tubes, table(cross, hr)), caption="Number of styles of each cross type")
 kable(with(tubes, table(pair, hr)), caption="Number of styles of each species pair")
-nrow(tubes)
 kable(tubes %>% count(pair, cross, momid, dadid, hr, vial) %>% with(table(pair, n)), caption = "Number of styles counted per vial")
 kable(tubes %>% count(pair, cross, hr, momid, vial) %>% with(table(pair, hr)), caption = "Number of vials for each cross type")
-tubes %>% count(pair, cross, hr, momid, vial) %>% nrow()
-kable(tubes %>% count(pair, cross, momid) %>% count(pair, cross), caption="Number of maternal plants of each cross type")
 kable(tubes %>% count(pair, cross, momid, dadid) %>% count(pair, cross, momid) %>% with(table(pair, n)), caption="Number of paternal plants per maternal plant")
+
+list(tubes %>% count(momsp, type, momid) %>% count(momsp, type, name="moms"),
+     tubes %>% count(momsp, type, momid, dadid) %>% count(momsp, type, name="momxdads"),
+     tubes %>% count(momsp, type, hr, momid, vial) %>% count(momsp, type, name="pollinations"),
+     tubes %>% count(momsp, type, name="styles")) %>% 
+  reduce(full_join) %>% 
+  bind_rows(summarise(.,across(where(is.numeric), sum))) %>% 
+  kable(caption="Number of maternal plants, maternal x paternal combinations, pollinations, and styles 
+        for each maternal species and cross type")
 ```
 
 # Models

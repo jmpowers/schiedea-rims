@@ -11,11 +11,11 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2024-04-26" />
+<meta name="date" content="2026-05-09" />
 
 <title>Schiedea hybrid pollen fertility</title>
 
-<script src="libs/header-attrs-2.26/header-attrs.js"></script>
+<script src="libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -254,7 +254,7 @@ div.tocify {
 fertility</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John
 Powers</a></h4>
-<h4 class="date">2024-04-26</h4>
+<h4 class="date">2026-05-09</h4>
 
 </div>
 
@@ -1316,7 +1316,8 @@ pf$momdadploidy &lt;-paste(pf$momploidy, pf$dadploidy, sep=&quot;, &quot;)
 legend(&quot;bottomright&quot;, legend=c(&quot;diploid&quot;,&quot;tetraploid&quot;), fill=c(1,2))
 nodelabels(node=polyploid.event, col=2, pch=19, cex=2)</code></pre>
 <p><img src="figures-fertility/pf2-3.svg" width="864" /></p>
-<p>Connect by maternal species</p>
+<div id="connect-by-maternal-species" class="section level3">
+<h3>Connect by maternal species</h3>
 <pre class="r"><code>pf %&gt;% ggplot(aes(x=pd, y=ft, color=momsp)) + 
   facet_wrap(vars(momploidy), 
              labeller = as_labeller(set_names(paste0(&quot;Maternal plant &quot;, c(&quot;di&quot;, &quot;tetra&quot;), &quot;ploid&quot;), c(&quot;di&quot;, &quot;tetra&quot;))))+
@@ -1325,7 +1326,9 @@ nodelabels(node=polyploid.event, col=2, pch=19, cex=2)</code></pre>
   scale_y_continuous(labels=scales::percent_format(), limits=c(0,1))+ guides(color=&quot;none&quot;)+
   labs(x=&quot;Phylogenetic distance (mutations/site)&quot;, y=&quot;Pollen viability&quot;, color=&quot;Maternal species&quot;)</code></pre>
 <p><img src="figures-fertility/pf_mom-1.svg" width="1152" /></p>
-<p>Just the species pairs</p>
+</div>
+<div id="just-the-species-pairs" class="section level3">
+<h3>Just the species pairs</h3>
 <pre class="r"><code>sppairs &lt;- c(&quot;menz x sali&quot;, &quot;sali x menz&quot;, &quot;lydg x sarm&quot;, &quot;sarm x lydg&quot;,
               &quot;stel x sper&quot;, &quot;sper x stel&quot;, &quot;memb x kaua&quot;, &quot;kaua x memb&quot;,
               &quot;kaal x hook&quot;, &quot;hook x kaal&quot;)
@@ -1580,7 +1583,7 @@ pol.sppair %&gt;% group_by(dataset, crossname, type) %&gt;%
   labs(x=&quot;Phylogenetic distance (mutations/site)&quot;, y=&quot;Pollen viability&quot;, color=&quot;Maternal species&quot;)+
   theme(legend.position = &quot;top&quot;) </code></pre>
 <p><img src="figures-fertility/pf_pairs-1.svg" width="768" /></p>
-<pre class="r"><code>pf %&gt;%  filter(crossname %in% sppairs) %&gt;% arrange(pd) %&gt;% select(pd, crossname, ft, q25, q75) %&gt;% kable()</code></pre>
+<pre class="r"><code>pf %&gt;%  filter(crossname %in% sppairs) %&gt;% arrange(pd) %&gt;% select(pd, crossname, ft, q25, q75, N) %&gt;% kable()</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -1589,6 +1592,7 @@ pol.sppair %&gt;% group_by(dataset, crossname, type) %&gt;%
 <th align="right">ft</th>
 <th align="right">q25</th>
 <th align="right">q75</th>
+<th align="right">N</th>
 </tr>
 </thead>
 <tbody>
@@ -1598,6 +1602,7 @@ pol.sppair %&gt;% group_by(dataset, crossname, type) %&gt;%
 <td align="right">0.9600000</td>
 <td align="right">0.9050000</td>
 <td align="right">0.9850000</td>
+<td align="right">99</td>
 </tr>
 <tr class="even">
 <td align="right">0.010547</td>
@@ -1605,6 +1610,7 @@ pol.sppair %&gt;% group_by(dataset, crossname, type) %&gt;%
 <td align="right">0.9525000</td>
 <td align="right">0.8587500</td>
 <td align="right">0.9750000</td>
+<td align="right">68</td>
 </tr>
 <tr class="odd">
 <td align="right">0.010778</td>
@@ -1612,6 +1618,7 @@ pol.sppair %&gt;% group_by(dataset, crossname, type) %&gt;%
 <td align="right">0.9325000</td>
 <td align="right">0.8350000</td>
 <td align="right">0.9650000</td>
+<td align="right">36</td>
 </tr>
 <tr class="even">
 <td align="right">0.010778</td>
@@ -1619,6 +1626,7 @@ pol.sppair %&gt;% group_by(dataset, crossname, type) %&gt;%
 <td align="right">0.9350000</td>
 <td align="right">0.8637500</td>
 <td align="right">0.9700000</td>
+<td align="right">100</td>
 </tr>
 <tr class="odd">
 <td align="right">0.015814</td>
@@ -1626,6 +1634,7 @@ pol.sppair %&gt;% group_by(dataset, crossname, type) %&gt;%
 <td align="right">0.6250000</td>
 <td align="right">0.5525000</td>
 <td align="right">0.6475000</td>
+<td align="right">19</td>
 </tr>
 <tr class="even">
 <td align="right">0.015814</td>
@@ -1633,6 +1642,7 @@ pol.sppair %&gt;% group_by(dataset, crossname, type) %&gt;%
 <td align="right">0.6400000</td>
 <td align="right">0.5550000</td>
 <td align="right">0.6975000</td>
+<td align="right">51</td>
 </tr>
 <tr class="odd">
 <td align="right">0.025045</td>
@@ -1640,6 +1650,7 @@ pol.sppair %&gt;% group_by(dataset, crossname, type) %&gt;%
 <td align="right">0.5650000</td>
 <td align="right">0.4100000</td>
 <td align="right">0.6225000</td>
+<td align="right">19</td>
 </tr>
 <tr class="even">
 <td align="right">0.025045</td>
@@ -1647,6 +1658,7 @@ pol.sppair %&gt;% group_by(dataset, crossname, type) %&gt;%
 <td align="right">0.5800000</td>
 <td align="right">0.3523611</td>
 <td align="right">0.6287500</td>
+<td align="right">8</td>
 </tr>
 <tr class="odd">
 <td align="right">0.025317</td>
@@ -1654,6 +1666,7 @@ pol.sppair %&gt;% group_by(dataset, crossname, type) %&gt;%
 <td align="right">0.5200000</td>
 <td align="right">0.2906977</td>
 <td align="right">0.6806723</td>
+<td align="right">61</td>
 </tr>
 <tr class="even">
 <td align="right">0.025317</td>
@@ -1661,6 +1674,7 @@ pol.sppair %&gt;% group_by(dataset, crossname, type) %&gt;%
 <td align="right">0.4505929</td>
 <td align="right">0.2674651</td>
 <td align="right">0.5503876</td>
+<td align="right">49</td>
 </tr>
 </tbody>
 </table>
@@ -1673,6 +1687,7 @@ pol.sppair %&gt;% group_by(dataset, crossname, type) %&gt;%
   labs(x=&quot;Phylogenetic distance (mutations/site)&quot;, y=&quot;Pollen viability&quot;, color=&quot;Maternal species&quot;)+
   theme(legend.position = &quot;top&quot;) </code></pre>
 <p><img src="figures-fertility/pf_pairs-2.svg" width="768" /></p>
+</div>
 </div>
 <div id="tree-from-pollen-viability" class="section level2">
 <h2>Tree from pollen viability</h2>

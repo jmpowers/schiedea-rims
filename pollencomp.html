@@ -11,7 +11,7 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2026-05-05" />
+<meta name="date" content="2026-05-09" />
 
 <title>Schiedea pollen competition</title>
 
@@ -253,7 +253,7 @@ div.tocify {
 <h1 class="title toc-ignore"><em>Schiedea</em> pollen competition</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John
 Powers</a></h4>
-<h4 class="date">2026-05-05</h4>
+<h4 class="date">2026-05-09</h4>
 
 </div>
 
@@ -354,3278 +354,7 @@ surv &lt;- read_tsv(&quot;data/Pollen competition - survival.tsv&quot;) %&gt;%
          prop.alive = alive / total,
          prop.alive.nz = (alive+1)/(total+1))
 
-germ %&gt;% summarize(across(c(n.pdishes, planted, germinated), sum))</code></pre>
-<pre><code># A tibble: 1 × 3
-  n.pdishes planted germinated
-      &lt;int&gt;   &lt;dbl&gt;      &lt;dbl&gt;
-1      1658   27812      18732</code></pre>
-<pre class="r"><code>inventory &lt;- surv %&gt;% count(momsp, type, dadsp, name=&quot;crosses_surv&quot;) %&gt;% 
-  full_join(seeds %&gt;% count(momsp, type, dadsp, name=&quot;crosses_seeds&quot;)) %&gt;% 
-  full_join(germ %&gt;% count(momsp, type, dadsp, name=&quot;crosses_germ&quot;)) %&gt;% 
-  full_join(germ.pot %&gt;% count(momsp, type, dadsp, name = &quot;pots_germ&quot;)) %&gt;%
-  mutate(pots_per_cross = pots_germ/crosses_germ) 
-kable(inventory, caption=&quot;Number of crosses between individual plants used for seeds, germination and survival,
-        and how many pots the seeds filled&quot;)</code></pre>
-<table style="width:100%;">
-<caption>Number of crosses between individual plants used for seeds,
-germination and survival, and how many pots the seeds filled</caption>
-<colgroup>
-<col width="14%" />
-<col width="6%" />
-<col width="14%" />
-<col width="13%" />
-<col width="14%" />
-<col width="13%" />
-<col width="10%" />
-<col width="15%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="left">momsp</th>
-<th align="left">type</th>
-<th align="left">dadsp</th>
-<th align="right">crosses_surv</th>
-<th align="right">crosses_seeds</th>
-<th align="right">crosses_germ</th>
-<th align="right">pots_germ</th>
-<th align="right">pots_per_cross</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">menziesii</td>
-<td align="left">intra</td>
-<td align="left">menziesii</td>
-<td align="right">7</td>
-<td align="right">64</td>
-<td align="right">8</td>
-<td align="right">74</td>
-<td align="right">9.250</td>
-</tr>
-<tr class="even">
-<td align="left">menziesii</td>
-<td align="left">mixed</td>
-<td align="left">salicaria</td>
-<td align="right">11</td>
-<td align="right">170</td>
-<td align="right">16</td>
-<td align="right">80</td>
-<td align="right">5.000</td>
-</tr>
-<tr class="odd">
-<td align="left">menziesii</td>
-<td align="left">inter</td>
-<td align="left">salicaria</td>
-<td align="right">19</td>
-<td align="right">301</td>
-<td align="right">18</td>
-<td align="right">87</td>
-<td align="right">4.833</td>
-</tr>
-<tr class="even">
-<td align="left">salicaria</td>
-<td align="left">intra</td>
-<td align="left">salicaria</td>
-<td align="right">11</td>
-<td align="right">82</td>
-<td align="right">11</td>
-<td align="right">97</td>
-<td align="right">8.818</td>
-</tr>
-<tr class="odd">
-<td align="left">salicaria</td>
-<td align="left">mixed</td>
-<td align="left">menziesii</td>
-<td align="right">14</td>
-<td align="right">99</td>
-<td align="right">12</td>
-<td align="right">76</td>
-<td align="right">6.333</td>
-</tr>
-<tr class="even">
-<td align="left">salicaria</td>
-<td align="left">inter</td>
-<td align="left">menziesii</td>
-<td align="right">13</td>
-<td align="right">125</td>
-<td align="right">12</td>
-<td align="right">53</td>
-<td align="right">4.417</td>
-</tr>
-<tr class="odd">
-<td align="left">lydgatei</td>
-<td align="left">intra</td>
-<td align="left">lydgatei</td>
-<td align="right">5</td>
-<td align="right">111</td>
-<td align="right">5</td>
-<td align="right">42</td>
-<td align="right">8.400</td>
-</tr>
-<tr class="even">
-<td align="left">lydgatei</td>
-<td align="left">mixed</td>
-<td align="left">sarmentosa</td>
-<td align="right">5</td>
-<td align="right">96</td>
-<td align="right">11</td>
-<td align="right">56</td>
-<td align="right">5.091</td>
-</tr>
-<tr class="odd">
-<td align="left">lydgatei</td>
-<td align="left">inter</td>
-<td align="left">sarmentosa</td>
-<td align="right">19</td>
-<td align="right">334</td>
-<td align="right">20</td>
-<td align="right">90</td>
-<td align="right">4.500</td>
-</tr>
-<tr class="even">
-<td align="left">sarmentosa</td>
-<td align="left">intra</td>
-<td align="left">sarmentosa</td>
-<td align="right">2</td>
-<td align="right">103</td>
-<td align="right">2</td>
-<td align="right">20</td>
-<td align="right">10.000</td>
-</tr>
-<tr class="odd">
-<td align="left">sarmentosa</td>
-<td align="left">mixed</td>
-<td align="left">lydgatei</td>
-<td align="right">5</td>
-<td align="right"></td>
-<td align="right">12</td>
-<td align="right">63</td>
-<td align="right">5.250</td>
-</tr>
-<tr class="even">
-<td align="left">sarmentosa</td>
-<td align="left">inter</td>
-<td align="left">lydgatei</td>
-<td align="right">7</td>
-<td align="right">74</td>
-<td align="right">9</td>
-<td align="right">41</td>
-<td align="right">4.556</td>
-</tr>
-<tr class="odd">
-<td align="left">stellarioides</td>
-<td align="left">intra</td>
-<td align="left">stellarioides</td>
-<td align="right">5</td>
-<td align="right">192</td>
-<td align="right">6</td>
-<td align="right">26</td>
-<td align="right">4.333</td>
-</tr>
-<tr class="even">
-<td align="left">stellarioides</td>
-<td align="left">mixed</td>
-<td align="left">spergulina</td>
-<td align="right">6</td>
-<td align="right">137</td>
-<td align="right">6</td>
-<td align="right">27</td>
-<td align="right">4.500</td>
-</tr>
-<tr class="odd">
-<td align="left">stellarioides</td>
-<td align="left">inter</td>
-<td align="left">spergulina</td>
-<td align="right">10</td>
-<td align="right">163</td>
-<td align="right">7</td>
-<td align="right">13</td>
-<td align="right">1.857</td>
-</tr>
-<tr class="even">
-<td align="left">spergulina</td>
-<td align="left">intra</td>
-<td align="left">spergulina</td>
-<td align="right">5</td>
-<td align="right">159</td>
-<td align="right">9</td>
-<td align="right">67</td>
-<td align="right">7.444</td>
-</tr>
-<tr class="odd">
-<td align="left">spergulina</td>
-<td align="left">mixed</td>
-<td align="left">stellarioides</td>
-<td align="right">4</td>
-<td align="right"></td>
-<td align="right">8</td>
-<td align="right">50</td>
-<td align="right">6.250</td>
-</tr>
-<tr class="even">
-<td align="left">spergulina</td>
-<td align="left">inter</td>
-<td align="left">stellarioides</td>
-<td align="right">4</td>
-<td align="right">89</td>
-<td align="right">3</td>
-<td align="right">14</td>
-<td align="right">4.667</td>
-</tr>
-<tr class="odd">
-<td align="left">membranacea</td>
-<td align="left">intra</td>
-<td align="left">membranacea</td>
-<td align="right">4</td>
-<td align="right">57</td>
-<td align="right">5</td>
-<td align="right">27</td>
-<td align="right">5.400</td>
-</tr>
-<tr class="even">
-<td align="left">membranacea</td>
-<td align="left">mixed</td>
-<td align="left">napaliensis</td>
-<td align="right">5</td>
-<td align="right">206</td>
-<td align="right">6</td>
-<td align="right">60</td>
-<td align="right">10.000</td>
-</tr>
-<tr class="odd">
-<td align="left">membranacea</td>
-<td align="left">inter</td>
-<td align="left">napaliensis</td>
-<td align="right">1</td>
-<td align="right">153</td>
-<td align="right">4</td>
-<td align="right">18</td>
-<td align="right">4.500</td>
-</tr>
-<tr class="even">
-<td align="left">napaliensis</td>
-<td align="left">intra</td>
-<td align="left">napaliensis</td>
-<td align="right">2</td>
-<td align="right">1500</td>
-<td align="right">9</td>
-<td align="right">19</td>
-<td align="right">2.111</td>
-</tr>
-<tr class="odd">
-<td align="left">napaliensis</td>
-<td align="left">mixed</td>
-<td align="left">membranacea</td>
-<td align="right">7</td>
-<td align="right">240</td>
-<td align="right">8</td>
-<td align="right">63</td>
-<td align="right">7.875</td>
-</tr>
-<tr class="even">
-<td align="left">napaliensis</td>
-<td align="left">inter</td>
-<td align="left">membranacea</td>
-<td align="right">1</td>
-<td align="right">242</td>
-<td align="right">1</td>
-<td align="right">3</td>
-<td align="right">3.000</td>
-</tr>
-<tr class="odd">
-<td align="left">kaalae</td>
-<td align="left">intra</td>
-<td align="left">kaalae</td>
-<td align="right">7</td>
-<td align="right">34</td>
-<td align="right">20</td>
-<td align="right">35</td>
-<td align="right">1.750</td>
-</tr>
-<tr class="even">
-<td align="left">kaalae</td>
-<td align="left">mixed</td>
-<td align="left">hookeri</td>
-<td align="right">10</td>
-<td align="right">93</td>
-<td align="right">6</td>
-<td align="right">34</td>
-<td align="right">5.667</td>
-</tr>
-<tr class="odd">
-<td align="left">kaalae</td>
-<td align="left">inter</td>
-<td align="left">hookeri</td>
-<td align="right">11</td>
-<td align="right">175</td>
-<td align="right">72</td>
-<td align="right">118</td>
-<td align="right">1.639</td>
-</tr>
-<tr class="even">
-<td align="left">hookeri</td>
-<td align="left">intra</td>
-<td align="left">hookeri</td>
-<td align="right">12</td>
-<td align="right">35</td>
-<td align="right">21</td>
-<td align="right">128</td>
-<td align="right">6.095</td>
-</tr>
-<tr class="odd">
-<td align="left">hookeri</td>
-<td align="left">mixed</td>
-<td align="left">kaalae</td>
-<td align="right">11</td>
-<td align="right">189</td>
-<td align="right">8</td>
-<td align="right">70</td>
-<td align="right">8.750</td>
-</tr>
-<tr class="even">
-<td align="left">hookeri</td>
-<td align="left">inter</td>
-<td align="left">kaalae</td>
-<td align="right">34</td>
-<td align="right">156</td>
-<td align="right">61</td>
-<td align="right">107</td>
-<td align="right">1.754</td>
-</tr>
-</tbody>
-</table>
-<pre class="r"><code>inventory %&gt;%  group_by(type) %&gt;% summarize(across(starts_with(&quot;crosses&quot;), sum, na.rm=T)) %&gt;% 
-kable(caption=&quot;Number of crosses between individual plants used for seeds, germination and survival,
-        and how many pots the seeds filled&quot;)</code></pre>
-<table>
-<caption>Number of crosses between individual plants used for seeds,
-germination and survival, and how many pots the seeds filled</caption>
-<thead>
-<tr class="header">
-<th align="left">type</th>
-<th align="right">crosses_surv</th>
-<th align="right">crosses_seeds</th>
-<th align="right">crosses_germ</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">intra</td>
-<td align="right">60</td>
-<td align="right">2337</td>
-<td align="right">96</td>
-</tr>
-<tr class="even">
-<td align="left">mixed</td>
-<td align="right">78</td>
-<td align="right">1230</td>
-<td align="right">93</td>
-</tr>
-<tr class="odd">
-<td align="left">inter</td>
-<td align="right">119</td>
-<td align="right">1812</td>
-<td align="right">207</td>
-</tr>
-</tbody>
-</table>
-<pre class="r"><code>inventory.momid &lt;- 
-  seeds %&gt;% count(momsp, type, dadsp, momid) %&gt;% count(momsp, type, dadsp, name=&quot;crosses_seeds&quot;) %&gt;% 
-  full_join(germ %&gt;% count(momsp, type, dadsp, momid) %&gt;% count(momsp, type, dadsp, name=&quot;crosses_germ&quot;)) %&gt;% 
-  full_join(surv %&gt;% count(momsp, type, dadsp, momid) %&gt;% count(momsp, type, dadsp, name=&quot;crosses_surv&quot;))
-kable(inventory.momid, caption=&quot;Number of maternal plants used for seeds, germination and survival&quot;)</code></pre>
-<table>
-<caption>Number of maternal plants used for seeds, germination and
-survival</caption>
-<colgroup>
-<col width="18%" />
-<col width="8%" />
-<col width="18%" />
-<col width="18%" />
-<col width="17%" />
-<col width="17%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="left">momsp</th>
-<th align="left">type</th>
-<th align="left">dadsp</th>
-<th align="right">crosses_seeds</th>
-<th align="right">crosses_germ</th>
-<th align="right">crosses_surv</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">menziesii</td>
-<td align="left">intra</td>
-<td align="left">menziesii</td>
-<td align="right">5</td>
-<td align="right">5</td>
-<td align="right">4</td>
-</tr>
-<tr class="even">
-<td align="left">menziesii</td>
-<td align="left">mixed</td>
-<td align="left">salicaria</td>
-<td align="right">7</td>
-<td align="right">7</td>
-<td align="right">7</td>
-</tr>
-<tr class="odd">
-<td align="left">menziesii</td>
-<td align="left">inter</td>
-<td align="left">salicaria</td>
-<td align="right">15</td>
-<td align="right">11</td>
-<td align="right">11</td>
-</tr>
-<tr class="even">
-<td align="left">salicaria</td>
-<td align="left">intra</td>
-<td align="left">salicaria</td>
-<td align="right">5</td>
-<td align="right">6</td>
-<td align="right">6</td>
-</tr>
-<tr class="odd">
-<td align="left">salicaria</td>
-<td align="left">mixed</td>
-<td align="left">menziesii</td>
-<td align="right">10</td>
-<td align="right">11</td>
-<td align="right">12</td>
-</tr>
-<tr class="even">
-<td align="left">salicaria</td>
-<td align="left">inter</td>
-<td align="left">menziesii</td>
-<td align="right">6</td>
-<td align="right">9</td>
-<td align="right">10</td>
-</tr>
-<tr class="odd">
-<td align="left">lydgatei</td>
-<td align="left">intra</td>
-<td align="left">lydgatei</td>
-<td align="right">6</td>
-<td align="right">5</td>
-<td align="right">5</td>
-</tr>
-<tr class="even">
-<td align="left">lydgatei</td>
-<td align="left">mixed</td>
-<td align="left">sarmentosa</td>
-<td align="right">5</td>
-<td align="right">5</td>
-<td align="right">5</td>
-</tr>
-<tr class="odd">
-<td align="left">lydgatei</td>
-<td align="left">inter</td>
-<td align="left">sarmentosa</td>
-<td align="right">9</td>
-<td align="right">9</td>
-<td align="right">9</td>
-</tr>
-<tr class="even">
-<td align="left">sarmentosa</td>
-<td align="left">intra</td>
-<td align="left">sarmentosa</td>
-<td align="right">4</td>
-<td align="right">2</td>
-<td align="right">2</td>
-</tr>
-<tr class="odd">
-<td align="left">sarmentosa</td>
-<td align="left">inter</td>
-<td align="left">lydgatei</td>
-<td align="right">5</td>
-<td align="right">4</td>
-<td align="right">4</td>
-</tr>
-<tr class="even">
-<td align="left">stellarioides</td>
-<td align="left">intra</td>
-<td align="left">stellarioides</td>
-<td align="right">15</td>
-<td align="right">6</td>
-<td align="right">5</td>
-</tr>
-<tr class="odd">
-<td align="left">stellarioides</td>
-<td align="left">mixed</td>
-<td align="left">spergulina</td>
-<td align="right">6</td>
-<td align="right">6</td>
-<td align="right">6</td>
-</tr>
-<tr class="even">
-<td align="left">stellarioides</td>
-<td align="left">inter</td>
-<td align="left">spergulina</td>
-<td align="right">7</td>
-<td align="right">4</td>
-<td align="right">5</td>
-</tr>
-<tr class="odd">
-<td align="left">spergulina</td>
-<td align="left">intra</td>
-<td align="left">spergulina</td>
-<td align="right">6</td>
-<td align="right">5</td>
-<td align="right">5</td>
-</tr>
-<tr class="even">
-<td align="left">spergulina</td>
-<td align="left">inter</td>
-<td align="left">stellarioides</td>
-<td align="right">5</td>
-<td align="right">3</td>
-<td align="right">4</td>
-</tr>
-<tr class="odd">
-<td align="left">membranacea</td>
-<td align="left">intra</td>
-<td align="left">membranacea</td>
-<td align="right">6</td>
-<td align="right">4</td>
-<td align="right">4</td>
-</tr>
-<tr class="even">
-<td align="left">membranacea</td>
-<td align="left">mixed</td>
-<td align="left">napaliensis</td>
-<td align="right">5</td>
-<td align="right">5</td>
-<td align="right">5</td>
-</tr>
-<tr class="odd">
-<td align="left">membranacea</td>
-<td align="left">inter</td>
-<td align="left">napaliensis</td>
-<td align="right">8</td>
-<td align="right">3</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="left">napaliensis</td>
-<td align="left">intra</td>
-<td align="left">napaliensis</td>
-<td align="right">53</td>
-<td align="right">8</td>
-<td align="right">2</td>
-</tr>
-<tr class="odd">
-<td align="left">napaliensis</td>
-<td align="left">mixed</td>
-<td align="left">membranacea</td>
-<td align="right">10</td>
-<td align="right">7</td>
-<td align="right">7</td>
-</tr>
-<tr class="even">
-<td align="left">napaliensis</td>
-<td align="left">inter</td>
-<td align="left">membranacea</td>
-<td align="right">15</td>
-<td align="right">1</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td align="left">kaalae</td>
-<td align="left">intra</td>
-<td align="left">kaalae</td>
-<td align="right">12</td>
-<td align="right">12</td>
-<td align="right">5</td>
-</tr>
-<tr class="even">
-<td align="left">kaalae</td>
-<td align="left">mixed</td>
-<td align="left">hookeri</td>
-<td align="right">5</td>
-<td align="right">5</td>
-<td align="right">8</td>
-</tr>
-<tr class="odd">
-<td align="left">kaalae</td>
-<td align="left">inter</td>
-<td align="left">hookeri</td>
-<td align="right">14</td>
-<td align="right">14</td>
-<td align="right">6</td>
-</tr>
-<tr class="even">
-<td align="left">hookeri</td>
-<td align="left">intra</td>
-<td align="left">hookeri</td>
-<td align="right">9</td>
-<td align="right">8</td>
-<td align="right">6</td>
-</tr>
-<tr class="odd">
-<td align="left">hookeri</td>
-<td align="left">mixed</td>
-<td align="left">kaalae</td>
-<td align="right">7</td>
-<td align="right">7</td>
-<td align="right">9</td>
-</tr>
-<tr class="even">
-<td align="left">hookeri</td>
-<td align="left">inter</td>
-<td align="left">kaalae</td>
-<td align="right">10</td>
-<td align="right">9</td>
-<td align="right">9</td>
-</tr>
-<tr class="odd">
-<td align="left">sarmentosa</td>
-<td align="left">mixed</td>
-<td align="left">lydgatei</td>
-<td align="right"></td>
-<td align="right">4</td>
-<td align="right">4</td>
-</tr>
-<tr class="even">
-<td align="left">spergulina</td>
-<td align="left">mixed</td>
-<td align="left">stellarioides</td>
-<td align="right"></td>
-<td align="right">4</td>
-<td align="right">4</td>
-</tr>
-</tbody>
-</table>
-<pre class="r"><code>inventory.momid %&gt;%  group_by(type) %&gt;% summarize(across(starts_with(&quot;crosses&quot;), sum, na.rm=T)) %&gt;% 
-   kable(caption=&quot;Number of maternal plants used for seeds, germination and survival&quot;)</code></pre>
-<table>
-<caption>Number of maternal plants used for seeds, germination and
-survival</caption>
-<thead>
-<tr class="header">
-<th align="left">type</th>
-<th align="right">crosses_seeds</th>
-<th align="right">crosses_germ</th>
-<th align="right">crosses_surv</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">intra</td>
-<td align="right">121</td>
-<td align="right">61</td>
-<td align="right">44</td>
-</tr>
-<tr class="even">
-<td align="left">mixed</td>
-<td align="right">55</td>
-<td align="right">61</td>
-<td align="right">67</td>
-</tr>
-<tr class="odd">
-<td align="left">inter</td>
-<td align="right">94</td>
-<td align="right">67</td>
-<td align="right">60</td>
-</tr>
-</tbody>
-</table>
-<pre class="r"><code>inventory.dadid &lt;- seeds %&gt;% count(momsp, type, dadsp, momid, dadidm, dadspm, dadsp, dadid) %&gt;% 
-  count(momsp, type, dadsp, momid, name=&quot;dadids_seeds&quot;) %&gt;% 
-  full_join(germ %&gt;% count(momsp, type, dadsp, momid, dadidm, dadspm, dadsp, dadid) %&gt;% 
-              count(momsp, type, dadsp, momid, name=&quot;dadids_germ&quot;)) %&gt;% 
-  full_join(surv %&gt;% count(momsp, type, dadsp, momid, dadidm, dadspm, dadsp, dadid) %&gt;% 
-              count(momsp, type, dadsp, momid, name=&quot;dadids_surv&quot;)) %&gt;% 
-  arrange(momsp, momid, type)
-
-inventory.dadid %&gt;% select(-dadsp) %&gt;% 
-  pivot_wider(names_from = type, values_from = starts_with(&quot;dadids&quot;), names_vary = &quot;slowest&quot;) %&gt;% 
-  rename_with(~str_remove(.x, &quot;dadids_&quot;)) %&gt;% #write_tsv(&quot;data/pollencomp_dadids.tsv&quot;) %&gt;% 
-  kable(caption = &quot;Number of paternal combinations per maternal plant&quot;)</code></pre>
-<table>
-<caption>Number of paternal combinations per maternal plant</caption>
-<colgroup>
-<col width="10%" />
-<col width="14%" />
-<col width="8%" />
-<col width="8%" />
-<col width="8%" />
-<col width="8%" />
-<col width="8%" />
-<col width="8%" />
-<col width="8%" />
-<col width="8%" />
-<col width="8%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="left">momsp</th>
-<th align="left">momid</th>
-<th align="right">seeds_intra</th>
-<th align="right">germ_intra</th>
-<th align="right">surv_intra</th>
-<th align="right">seeds_mixed</th>
-<th align="right">germ_mixed</th>
-<th align="right">surv_mixed</th>
-<th align="right">seeds_inter</th>
-<th align="right">germ_inter</th>
-<th align="right">surv_inter</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">menziesii</td>
-<td align="left">8491223</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">3</td>
-<td align="right">2</td>
-<td align="right">2</td>
-</tr>
-<tr class="even">
-<td align="left">menziesii</td>
-<td align="left">84914C</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">menziesii</td>
-<td align="left">8491713</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">menziesii</td>
-<td align="left">849417</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">2</td>
-<td align="right">2</td>
-<td align="right">2</td>
-<td align="right">2</td>
-<td align="right">3</td>
-<td align="right">3</td>
-</tr>
-<tr class="odd">
-<td align="left">menziesii</td>
-<td align="left">8495739</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">2</td>
-<td align="right">2</td>
-<td align="right">2</td>
-</tr>
-<tr class="even">
-<td align="left">menziesii</td>
-<td align="left">84957C</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td align="left">menziesii</td>
-<td align="left">84961A</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="left">menziesii</td>
-<td align="left">849772</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">2</td>
-<td align="right">1</td>
-<td align="right">2</td>
-</tr>
-<tr class="odd">
-<td align="left">menziesii</td>
-<td align="left">84983A</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">2</td>
-<td align="right">2</td>
-<td align="right">2</td>
-</tr>
-<tr class="even">
-<td align="left">menziesii</td>
-<td align="left">84989E</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">2</td>
-<td align="right">2</td>
-<td align="right">2</td>
-<td align="right">1</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td align="left">menziesii</td>
-<td align="left">84993C</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">2</td>
-<td align="right">2</td>
-<td align="right">2</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="left">menziesii</td>
-<td align="left">9504062</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">2</td>
-<td align="right">2</td>
-<td align="right">2</td>
-</tr>
-<tr class="odd">
-<td align="left">menziesii</td>
-<td align="left">9504102</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">2</td>
-<td align="right">7</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">menziesii</td>
-<td align="left">9504291</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">2</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">2</td>
-<td align="right">2</td>
-<td align="right">2</td>
-</tr>
-<tr class="odd">
-<td align="left">menziesii</td>
-<td align="left">9504422</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">2</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">menziesii</td>
-<td align="left">950501</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">menziesii</td>
-<td align="left">95050136</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">salicaria</td>
-<td align="left">8421085</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">salicaria</td>
-<td align="left">84213956</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">salicaria</td>
-<td align="left">8421433</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">2</td>
-<td align="right">2</td>
-<td align="right">2</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td align="left">salicaria</td>
-<td align="left">842151E</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">2</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">salicaria</td>
-<td align="left">84216221</td>
-<td align="right">2</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">2</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">salicaria</td>
-<td align="left">84216723</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">salicaria</td>
-<td align="left">84216754</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td align="left">salicaria</td>
-<td align="left">84216923</td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">salicaria</td>
-<td align="left">84217237</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">3</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">salicaria</td>
-<td align="left">8421951</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="left">salicaria</td>
-<td align="left">84220145</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">2</td>
-<td align="right">2</td>
-</tr>
-<tr class="odd">
-<td align="left">salicaria</td>
-<td align="left">84220146</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">2</td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">salicaria</td>
-<td align="left">8422123</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">2</td>
-<td align="right">2</td>
-<td align="right">2</td>
-</tr>
-<tr class="odd">
-<td align="left">salicaria</td>
-<td align="left">8422152</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="left">salicaria</td>
-<td align="left">84222127</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">salicaria</td>
-<td align="left">842221F</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">salicaria</td>
-<td align="left">842223</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">salicaria</td>
-<td align="left">84224131</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">salicaria</td>
-<td align="left">8423715</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right">2</td>
-<td align="right">2</td>
-</tr>
-<tr class="odd">
-<td align="left">salicaria</td>
-<td align="left">84243a41</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="left">salicaria</td>
-<td align="left">8425120</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">salicaria</td>
-<td align="left">842691F</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="left">salicaria</td>
-<td align="left">8428019</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">salicaria</td>
-<td align="left">8428638</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">salicaria</td>
-<td align="left">842958</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td align="left">lydgatei</td>
-<td align="left">66822041</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">2</td>
-<td align="right">2</td>
-<td align="right">2</td>
-</tr>
-<tr class="even">
-<td align="left">lydgatei</td>
-<td align="left">66822092</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">2</td>
-<td align="right">2</td>
-<td align="right">2</td>
-</tr>
-<tr class="odd">
-<td align="left">lydgatei</td>
-<td align="left">66822121</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">3</td>
-<td align="right">2</td>
-<td align="right">2</td>
-</tr>
-<tr class="even">
-<td align="left">lydgatei</td>
-<td align="left">66822171</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td align="left">lydgatei</td>
-<td align="left">66822221</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">lydgatei</td>
-<td align="left">66822231</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">3</td>
-<td align="right">3</td>
-<td align="right">3</td>
-</tr>
-<tr class="odd">
-<td align="left">lydgatei</td>
-<td align="left">66822292</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">5</td>
-<td align="right">3</td>
-<td align="right">3</td>
-</tr>
-<tr class="even">
-<td align="left">lydgatei</td>
-<td align="left">66822332</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">2</td>
-<td align="right">2</td>
-<td align="right">2</td>
-</tr>
-<tr class="odd">
-<td align="left">lydgatei</td>
-<td align="left">66822341</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">3</td>
-<td align="right">2</td>
-<td align="right">2</td>
-</tr>
-<tr class="even">
-<td align="left">lydgatei</td>
-<td align="left">66822352</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">2</td>
-<td align="right">2</td>
-<td align="right">2</td>
-</tr>
-<tr class="odd">
-<td align="left">sarmentosa</td>
-<td align="left">8961221</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">sarmentosa</td>
-<td align="left">8961222</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">2</td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td align="left">sarmentosa</td>
-<td align="left">896123</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">2</td>
-<td align="right">2</td>
-</tr>
-<tr class="even">
-<td align="left">sarmentosa</td>
-<td align="left">89612316</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right">2</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">2</td>
-<td align="right">2</td>
-</tr>
-<tr class="odd">
-<td align="left">sarmentosa</td>
-<td align="left">896123LS7</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">sarmentosa</td>
-<td align="left">896143</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">sarmentosa</td>
-<td align="left">89682</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right">2</td>
-<td align="right">2</td>
-</tr>
-<tr class="even">
-<td align="left">stellarioides</td>
-<td align="left">10CC2x6GC1(SS1010)</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">stellarioides</td>
-<td align="left">10CC2x6GC1(SS1029)</td>
-<td align="right">2</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">stellarioides</td>
-<td align="left">10CC2x6GC1(SS1043)</td>
-<td align="right">2</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">stellarioides</td>
-<td align="left">1465110C</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right">2</td>
-</tr>
-<tr class="even">
-<td align="left">stellarioides</td>
-<td align="left">146513B</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">3</td>
-<td align="right">2</td>
-<td align="right">2</td>
-</tr>
-<tr class="odd">
-<td align="left">stellarioides</td>
-<td align="left">1476510C</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">2</td>
-<td align="right">1</td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">stellarioides</td>
-<td align="left">1476514B</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">2</td>
-<td align="right"></td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td align="left">stellarioides</td>
-<td align="left">1476514B1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">stellarioides</td>
-<td align="left">1476514B2</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">stellarioides</td>
-<td align="left">1476520J</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">3</td>
-<td align="right">1</td>
-<td align="right">2</td>
-</tr>
-<tr class="even">
-<td align="left">stellarioides</td>
-<td align="left">147654E</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">stellarioides</td>
-<td align="left">147656G</td>
-<td align="right">2</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">3</td>
-<td align="right">3</td>
-<td align="right">3</td>
-</tr>
-<tr class="even">
-<td align="left">stellarioides</td>
-<td align="left">14Bx6GC2(SS112)</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">stellarioides</td>
-<td align="left">14Bx6GC2(SS121)</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">stellarioides</td>
-<td align="left">14Bx9A(SS1113)</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">stellarioides</td>
-<td align="left">14Bx9A(SS113)</td>
-<td align="right">2</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">stellarioides</td>
-<td align="left">4Ex18E(SS21)</td>
-<td align="right">2</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">stellarioides</td>
-<td align="left">4Ex18E(SS212)</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">stellarioides</td>
-<td align="left">4Ex18E(SS234)</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">stellarioides</td>
-<td align="left">9A</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">spergulina</td>
-<td align="left">12028911</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">spergulina</td>
-<td align="left">1202896</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="left">spergulina</td>
-<td align="left">1202897</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td align="left">spergulina</td>
-<td align="left">1202899</td>
-<td align="right">2</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">spergulina</td>
-<td align="left">1202908</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td align="left">spergulina</td>
-<td align="left">1202928</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">spergulina</td>
-<td align="left">1202941</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">spergulina</td>
-<td align="left">1202944</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="left">spergulina</td>
-<td align="left">1202947</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">spergulina</td>
-<td align="left">1202969</td>
-<td align="right">1</td>
-<td align="right">2</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">spergulina</td>
-<td align="left">1202984</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">membranacea</td>
-<td align="left">20211</td>
-<td align="right">2</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">2</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">membranacea</td>
-<td align="left">86419033</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">2</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">membranacea</td>
-<td align="left">86419230</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">membranacea</td>
-<td align="left">86420111</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">3</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">membranacea</td>
-<td align="left">8642012</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">membranacea</td>
-<td align="left">86420228</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">membranacea</td>
-<td align="left">8645x9c7</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">membranacea</td>
-<td align="left">864Cross6</td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">membranacea</td>
-<td align="left">864Notag1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">3</td>
-<td align="right">1</td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">membranacea</td>
-<td align="left">864Notag2</td>
-<td align="right">2</td>
-<td align="right">2</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">3</td>
-<td align="right">2</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td align="left">membranacea</td>
-<td align="left">membcross10</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">membranacea</td>
-<td align="left">membcross2</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">napaliensis</td>
-<td align="left">1</td>
-<td align="right">3</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">napaliensis</td>
-<td align="left">120747</td>
-<td align="right">8</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right">2</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">napaliensis</td>
-<td align="left">120748X1207473a</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">napaliensis</td>
-<td align="left">1a</td>
-<td align="right">10</td>
-<td align="right">2</td>
-<td align="right"></td>
-<td align="right">3</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">4</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">napaliensis</td>
-<td align="left">1a234110</td>
-<td align="right">2</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">napaliensis</td>
-<td align="left">1a234111</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">napaliensis</td>
-<td align="left">1a234113</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">napaliensis</td>
-<td align="left">1a234114</td>
-<td align="right">4</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">napaliensis</td>
-<td align="left">1a23413</td>
-<td align="right">2</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">napaliensis</td>
-<td align="left">1a23414</td>
-<td align="right">5</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">napaliensis</td>
-<td align="left">1a23415</td>
-<td align="right">7</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">2</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">napaliensis</td>
-<td align="left">1a23416</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">napaliensis</td>
-<td align="left">1a23417</td>
-<td align="right">6</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">napaliensis</td>
-<td align="left">1a23419</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">napaliensis</td>
-<td align="left">1a525111</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">napaliensis</td>
-<td align="left">1a5251111</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">napaliensis</td>
-<td align="left">1a525113</td>
-<td align="right">7</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">napaliensis</td>
-<td align="left">1a525114</td>
-<td align="right">2</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">napaliensis</td>
-<td align="left">1a525117</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">napaliensis</td>
-<td align="left">1a525120</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">2</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">napaliensis</td>
-<td align="left">1a52516a2</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">napaliensis</td>
-<td align="left">1a52519</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">napaliensis</td>
-<td align="left">1ax11</td>
-<td align="right">3</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">napaliensis</td>
-<td align="left">1ax12</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">napaliensis</td>
-<td align="left">1ax13</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">napaliensis</td>
-<td align="left">1ax15</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">napaliensis</td>
-<td align="left">2341</td>
-<td align="right">5</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">napaliensis</td>
-<td align="left">2341x1a</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">napaliensis</td>
-<td align="left">2341x6a2</td>
-<td align="right">2</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">napaliensis</td>
-<td align="left">2341x73</td>
-<td align="right">3</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">napaliensis</td>
-<td align="left">245251</td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">napaliensis</td>
-<td align="left">2452511</td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">napaliensis</td>
-<td align="left">245251x6a6</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="left">napaliensis</td>
-<td align="left">2a</td>
-<td align="right">2</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">2</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">napaliensis</td>
-<td align="left">2a52519</td>
-<td align="right">2</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">napaliensis</td>
-<td align="left">2x52517</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">napaliensis</td>
-<td align="left">2x52519</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">2</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">2</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">napaliensis</td>
-<td align="left">3a</td>
-<td align="right">3</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">napaliensis</td>
-<td align="left">3a52512</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">napaliensis</td>
-<td align="left">3a5a5</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">napaliensis</td>
-<td align="left">3ax5a2</td>
-<td align="right">3</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">napaliensis</td>
-<td align="left">3ax5a3</td>
-<td align="right">5</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">napaliensis</td>
-<td align="left">4631</td>
-<td align="right">2</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">napaliensis</td>
-<td align="left">4633</td>
-<td align="right">2</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">napaliensis</td>
-<td align="left">4634</td>
-<td align="right">6</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">napaliensis</td>
-<td align="left">5251</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">napaliensis</td>
-<td align="left">52511</td>
-<td align="right">3</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">napaliensis</td>
-<td align="left">5251121</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">napaliensis</td>
-<td align="left">5251131</td>
-<td align="right">4</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">napaliensis</td>
-<td align="left">525131</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">napaliensis</td>
-<td align="left">52516a2</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">2</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">napaliensis</td>
-<td align="left">52516a3</td>
-<td align="right">2</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">napaliensis</td>
-<td align="left">52516a4</td>
-<td align="right">2</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">napaliensis</td>
-<td align="left">52516a6</td>
-<td align="right">3</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">napaliensis</td>
-<td align="left">52516a7</td>
-<td align="right">5</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">napaliensis</td>
-<td align="left">5256</td>
-<td align="right">2</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">napaliensis</td>
-<td align="left">5a</td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">napaliensis</td>
-<td align="left">6a</td>
-<td align="right">7</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">napaliensis</td>
-<td align="left">7x23412</td>
-<td align="right">3</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">napaliensis</td>
-<td align="left">7x52511</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">napaliensis</td>
-<td align="left">7x8Prog2</td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">napaliensis</td>
-<td align="left">NuS211a</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">napaliensis</td>
-<td align="left">NuaSd13</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">napaliensis</td>
-<td align="left">NuaSd21</td>
-<td align="right">5</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">napaliensis</td>
-<td align="left">Prog2x52519</td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">kaalae</td>
-<td align="left">1152</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">kaalae</td>
-<td align="left">1162</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">kaalae</td>
-<td align="left">1163</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">kaalae</td>
-<td align="left">1251</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">2</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">kaalae</td>
-<td align="left">1406</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">kaalae</td>
-<td align="left">358710</td>
-<td align="right">2</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">6</td>
-<td align="right">3</td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">kaalae</td>
-<td align="left">358714</td>
-<td align="right">2</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">10</td>
-<td align="right">8</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td align="left">kaalae</td>
-<td align="left">358715</td>
-<td align="right"></td>
-<td align="right">2</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">5</td>
-<td align="right">3</td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">kaalae</td>
-<td align="left">35877</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">7</td>
-<td align="right">6</td>
-<td align="right">2</td>
-</tr>
-<tr class="odd">
-<td align="left">kaalae</td>
-<td align="left">3587A</td>
-<td align="right">2</td>
-<td align="right">2</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">5</td>
-<td align="right">5</td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">kaalae</td>
-<td align="left">3587C</td>
-<td align="right">2</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">6</td>
-<td align="right">3</td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">kaalae</td>
-<td align="left">8921</td>
-<td align="right">2</td>
-<td align="right">2</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">7</td>
-<td align="right">7</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="left">kaalae</td>
-<td align="left">89210</td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">2</td>
-<td align="right">1</td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">kaalae</td>
-<td align="left">8923</td>
-<td align="right">1</td>
-<td align="right">2</td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">5</td>
-<td align="right">3</td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">kaalae</td>
-<td align="left">8924</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">2</td>
-<td align="right">2</td>
-<td align="right">2</td>
-<td align="right">7</td>
-<td align="right">5</td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">kaalae</td>
-<td align="left">8925</td>
-<td align="right">2</td>
-<td align="right">2</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">6</td>
-<td align="right">5</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="left">kaalae</td>
-<td align="left">9042</td>
-<td align="right">2</td>
-<td align="right">2</td>
-<td align="right">2</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">8</td>
-<td align="right">8</td>
-<td align="right">2</td>
-</tr>
-<tr class="odd">
-<td align="left">kaalae</td>
-<td align="left">9043</td>
-<td align="right">2</td>
-<td align="right">2</td>
-<td align="right">2</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">7</td>
-<td align="right">7</td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">kaalae</td>
-<td align="left">9045</td>
-<td align="right">2</td>
-<td align="right">2</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">8</td>
-<td align="right">8</td>
-<td align="right">4</td>
-</tr>
-<tr class="odd">
-<td align="left">hookeri</td>
-<td align="left">7942</td>
-<td align="right"></td>
-<td align="right">3</td>
-<td align="right">4</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">10</td>
-<td align="right">7</td>
-<td align="right">3</td>
-</tr>
-<tr class="even">
-<td align="left">hookeri</td>
-<td align="left">7944</td>
-<td align="right">3</td>
-<td align="right">2</td>
-<td align="right">2</td>
-<td align="right">3</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">9</td>
-<td align="right">9</td>
-<td align="right">5</td>
-</tr>
-<tr class="odd">
-<td align="left">hookeri</td>
-<td align="left">8662</td>
-<td align="right">2</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">7</td>
-<td align="right">8</td>
-<td align="right">5</td>
-</tr>
-<tr class="even">
-<td align="left">hookeri</td>
-<td align="left">879101</td>
-<td align="right">5</td>
-<td align="right">4</td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">10</td>
-<td align="right">8</td>
-<td align="right">4</td>
-</tr>
-<tr class="odd">
-<td align="left">hookeri</td>
-<td align="left">87922</td>
-<td align="right">4</td>
-<td align="right">3</td>
-<td align="right">3</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">8</td>
-<td align="right">9</td>
-<td align="right">7</td>
-</tr>
-<tr class="even">
-<td align="left">hookeri</td>
-<td align="left">87938</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">4</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">hookeri</td>
-<td align="left">879G2</td>
-<td align="right">3</td>
-<td align="right">4</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">8</td>
-<td align="right">7</td>
-<td align="right">3</td>
-</tr>
-<tr class="even">
-<td align="left">hookeri</td>
-<td align="left">879H2</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">5</td>
-<td align="right">2</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td align="left">hookeri</td>
-<td align="left">879N5</td>
-<td align="right">3</td>
-<td align="right">3</td>
-<td align="right">1</td>
-<td align="right">3</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">8</td>
-<td align="right">7</td>
-<td align="right">3</td>
-</tr>
-<tr class="even">
-<td align="left">hookeri</td>
-<td align="left">8992E</td>
-<td align="right">1</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">4</td>
-<td align="right">4</td>
-<td align="right">3</td>
-</tr>
-</tbody>
-</table>
-<pre class="r"><code># to run this, comment out dad|mom recode momid_fixes lines above
+# to run this, comment out dad|mom recode momid_fixes lines above
 # count(seeds, momsp, momid, name=&quot;seed&quot;) %&gt;% 
 #   full_join(count(germ, momsp, momid, name=&quot;germ&quot;)) %&gt;% 
 #   full_join(count(surv, momsp, momid, name=&quot;surv&quot;)) %&gt;%
@@ -3647,6 +376,490 @@ seedsize &lt;- read_csv(&quot;data/seedlengths.csv&quot;) %&gt;% #from Schiedea 
   rename(momsp=species) %&gt;% left_join(mating) %&gt;% drop_na(pair) %&gt;% group_by(pair) %&gt;% 
   mutate(momsp=factor(momsp, levels=sp_pairs), 
          seed_diff_mm = seedlength_mm-min(seedlength_mm)) %&gt;% arrange(momsp)</code></pre>
+<pre class="r"><code>list(seeds %&gt;% summarize(across(sds, sum)),
+  germ %&gt;% summarize(across(c(planted, germinated), sum)),
+  surv %&gt;% summarize(across(c(scored=total, alive, hybrid), sum))) %&gt;% reduce(bind_cols) %&gt;% 
+  kable(caption=&quot;Number of seeds counted, planted, germinated, scored, survived, and that were hybrids&quot;)</code></pre>
+<table>
+<caption>Number of seeds counted, planted, germinated, scored, survived,
+and that were hybrids</caption>
+<thead>
+<tr class="header">
+<th align="right">sds</th>
+<th align="right">planted</th>
+<th align="right">germinated</th>
+<th align="right">scored</th>
+<th align="right">alive</th>
+<th align="right">hybrid</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">47422</td>
+<td align="right">27812</td>
+<td align="right">18732</td>
+<td align="right">12514</td>
+<td align="right">8869</td>
+<td align="right">3706</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>make.inventory &lt;- function(x, name) {
+  list(x %&gt;% count(momsp, type, momid) %&gt;% count(momsp, type, name=paste0(&quot;moms_&quot;,name)),
+       x %&gt;% count(momsp, type, momid, dadid) %&gt;% count(momsp, type, name=paste0(&quot;momxdads_&quot;,name)),
+       x %&gt;% count(momsp, type, name=paste0(&quot;pollinations_&quot;,name))) %&gt;% 
+    reduce(full_join)
+}
+list(seeds, germ, surv) %&gt;% #could also do germ.pot and do pots_per_cross = pots_germ/crosses_germ 
+  map2(c(&quot;seeds&quot;,&quot;germ&quot;, &quot;surv&quot;), make.inventory) %&gt;% reduce(full_join) %&gt;% 
+  bind_rows(summarise(.,across(where(is.numeric), sum, na.rm=T))) %&gt;% 
+  kable(caption =&quot;Number of maternal plants, maternal x paternal combinations, and pollinations that made it into each dataset&quot;)</code></pre>
+<table>
+<caption>Number of maternal plants, maternal x paternal combinations,
+and pollinations that made it into each dataset</caption>
+<colgroup>
+<col width="9%" />
+<col width="4%" />
+<col width="7%" />
+<col width="10%" />
+<col width="12%" />
+<col width="6%" />
+<col width="9%" />
+<col width="12%" />
+<col width="6%" />
+<col width="9%" />
+<col width="12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">momsp</th>
+<th align="left">type</th>
+<th align="right">moms_seeds</th>
+<th align="right">momxdads_seeds</th>
+<th align="right">pollinations_seeds</th>
+<th align="right">moms_germ</th>
+<th align="right">momxdads_germ</th>
+<th align="right">pollinations_germ</th>
+<th align="right">moms_surv</th>
+<th align="right">momxdads_surv</th>
+<th align="right">pollinations_surv</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">menziesii</td>
+<td align="left">intra</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">64</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">8</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">7</td>
+</tr>
+<tr class="even">
+<td align="left">menziesii</td>
+<td align="left">mixed</td>
+<td align="right">7</td>
+<td align="right">7</td>
+<td align="right">170</td>
+<td align="right">7</td>
+<td align="right">8</td>
+<td align="right">16</td>
+<td align="right">7</td>
+<td align="right">8</td>
+<td align="right">11</td>
+</tr>
+<tr class="odd">
+<td align="left">menziesii</td>
+<td align="left">inter</td>
+<td align="right">15</td>
+<td align="right">25</td>
+<td align="right">301</td>
+<td align="right">11</td>
+<td align="right">18</td>
+<td align="right">18</td>
+<td align="right">11</td>
+<td align="right">19</td>
+<td align="right">19</td>
+</tr>
+<tr class="even">
+<td align="left">salicaria</td>
+<td align="left">intra</td>
+<td align="right">5</td>
+<td align="right">6</td>
+<td align="right">82</td>
+<td align="right">6</td>
+<td align="right">6</td>
+<td align="right">11</td>
+<td align="right">6</td>
+<td align="right">6</td>
+<td align="right">11</td>
+</tr>
+<tr class="odd">
+<td align="left">salicaria</td>
+<td align="left">mixed</td>
+<td align="right">10</td>
+<td align="right">14</td>
+<td align="right">99</td>
+<td align="right">11</td>
+<td align="right">12</td>
+<td align="right">12</td>
+<td align="right">12</td>
+<td align="right">13</td>
+<td align="right">14</td>
+</tr>
+<tr class="even">
+<td align="left">salicaria</td>
+<td align="left">inter</td>
+<td align="right">6</td>
+<td align="right">9</td>
+<td align="right">125</td>
+<td align="right">9</td>
+<td align="right">12</td>
+<td align="right">12</td>
+<td align="right">10</td>
+<td align="right">13</td>
+<td align="right">13</td>
+</tr>
+<tr class="odd">
+<td align="left">lydgatei</td>
+<td align="left">intra</td>
+<td align="right">6</td>
+<td align="right">6</td>
+<td align="right">111</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="left">lydgatei</td>
+<td align="left">mixed</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">96</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">11</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">5</td>
+</tr>
+<tr class="odd">
+<td align="left">lydgatei</td>
+<td align="left">inter</td>
+<td align="right">9</td>
+<td align="right">23</td>
+<td align="right">334</td>
+<td align="right">9</td>
+<td align="right">19</td>
+<td align="right">20</td>
+<td align="right">9</td>
+<td align="right">19</td>
+<td align="right">19</td>
+</tr>
+<tr class="even">
+<td align="left">sarmentosa</td>
+<td align="left">intra</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">103</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">sarmentosa</td>
+<td align="left">inter</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">74</td>
+<td align="right">4</td>
+<td align="right">7</td>
+<td align="right">9</td>
+<td align="right">4</td>
+<td align="right">7</td>
+<td align="right">7</td>
+</tr>
+<tr class="even">
+<td align="left">stellarioides</td>
+<td align="left">intra</td>
+<td align="right">15</td>
+<td align="right">20</td>
+<td align="right">192</td>
+<td align="right">6</td>
+<td align="right">6</td>
+<td align="right">6</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">5</td>
+</tr>
+<tr class="odd">
+<td align="left">stellarioides</td>
+<td align="left">mixed</td>
+<td align="right">6</td>
+<td align="right">6</td>
+<td align="right">137</td>
+<td align="right">6</td>
+<td align="right">6</td>
+<td align="right">6</td>
+<td align="right">6</td>
+<td align="right">6</td>
+<td align="right">6</td>
+</tr>
+<tr class="even">
+<td align="left">stellarioides</td>
+<td align="left">inter</td>
+<td align="right">7</td>
+<td align="right">15</td>
+<td align="right">163</td>
+<td align="right">4</td>
+<td align="right">7</td>
+<td align="right">7</td>
+<td align="right">5</td>
+<td align="right">10</td>
+<td align="right">10</td>
+</tr>
+<tr class="odd">
+<td align="left">spergulina</td>
+<td align="left">intra</td>
+<td align="right">6</td>
+<td align="right">7</td>
+<td align="right">159</td>
+<td align="right">5</td>
+<td align="right">6</td>
+<td align="right">9</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="left">spergulina</td>
+<td align="left">inter</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">89</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">membranacea</td>
+<td align="left">intra</td>
+<td align="right">6</td>
+<td align="right">8</td>
+<td align="right">57</td>
+<td align="right">4</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">membranacea</td>
+<td align="left">mixed</td>
+<td align="right">5</td>
+<td align="right">6</td>
+<td align="right">206</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">6</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">5</td>
+</tr>
+<tr class="odd">
+<td align="left">membranacea</td>
+<td align="left">inter</td>
+<td align="right">8</td>
+<td align="right">15</td>
+<td align="right">153</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">napaliensis</td>
+<td align="left">intra</td>
+<td align="right">53</td>
+<td align="right">150</td>
+<td align="right">1500</td>
+<td align="right">8</td>
+<td align="right">9</td>
+<td align="right">9</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">napaliensis</td>
+<td align="left">mixed</td>
+<td align="right">10</td>
+<td align="right">13</td>
+<td align="right">240</td>
+<td align="right">7</td>
+<td align="right">8</td>
+<td align="right">8</td>
+<td align="right">7</td>
+<td align="right">7</td>
+<td align="right">7</td>
+</tr>
+<tr class="even">
+<td align="left">napaliensis</td>
+<td align="left">inter</td>
+<td align="right">15</td>
+<td align="right">21</td>
+<td align="right">242</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">kaalae</td>
+<td align="left">intra</td>
+<td align="right">12</td>
+<td align="right">21</td>
+<td align="right">34</td>
+<td align="right">12</td>
+<td align="right">20</td>
+<td align="right">20</td>
+<td align="right">5</td>
+<td align="right">7</td>
+<td align="right">7</td>
+</tr>
+<tr class="even">
+<td align="left">kaalae</td>
+<td align="left">mixed</td>
+<td align="right">5</td>
+<td align="right">7</td>
+<td align="right">93</td>
+<td align="right">5</td>
+<td align="right">6</td>
+<td align="right">6</td>
+<td align="right">8</td>
+<td align="right">9</td>
+<td align="right">10</td>
+</tr>
+<tr class="odd">
+<td align="left">kaalae</td>
+<td align="left">inter</td>
+<td align="right">14</td>
+<td align="right">89</td>
+<td align="right">175</td>
+<td align="right">14</td>
+<td align="right">72</td>
+<td align="right">72</td>
+<td align="right">6</td>
+<td align="right">11</td>
+<td align="right">11</td>
+</tr>
+<tr class="even">
+<td align="left">hookeri</td>
+<td align="left">intra</td>
+<td align="right">9</td>
+<td align="right">23</td>
+<td align="right">35</td>
+<td align="right">8</td>
+<td align="right">21</td>
+<td align="right">21</td>
+<td align="right">6</td>
+<td align="right">12</td>
+<td align="right">12</td>
+</tr>
+<tr class="odd">
+<td align="left">hookeri</td>
+<td align="left">mixed</td>
+<td align="right">7</td>
+<td align="right">11</td>
+<td align="right">189</td>
+<td align="right">7</td>
+<td align="right">7</td>
+<td align="right">8</td>
+<td align="right">9</td>
+<td align="right">9</td>
+<td align="right">11</td>
+</tr>
+<tr class="even">
+<td align="left">hookeri</td>
+<td align="left">inter</td>
+<td align="right">10</td>
+<td align="right">73</td>
+<td align="right">156</td>
+<td align="right">9</td>
+<td align="right">61</td>
+<td align="right">61</td>
+<td align="right">9</td>
+<td align="right">34</td>
+<td align="right">34</td>
+</tr>
+<tr class="odd">
+<td align="left">sarmentosa</td>
+<td align="left">mixed</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right">4</td>
+<td align="right">5</td>
+<td align="right">12</td>
+<td align="right">4</td>
+<td align="right">5</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="left">spergulina</td>
+<td align="left">mixed</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">8</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
+<td align="right">270</td>
+<td align="right">599</td>
+<td align="right">5379</td>
+<td align="right">189</td>
+<td align="right">355</td>
+<td align="right">396</td>
+<td align="right">171</td>
+<td align="right">242</td>
+<td align="right">257</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>inventory.dadid &lt;- seeds %&gt;% count(momsp, type, dadsp, momid, dadidm, dadspm, dadsp, dadid) %&gt;% 
+  count(momsp, type, dadsp, momid, name=&quot;dadids_seeds&quot;) %&gt;% 
+  full_join(germ %&gt;% count(momsp, type, dadsp, momid, dadidm, dadspm, dadsp, dadid) %&gt;% 
+              count(momsp, type, dadsp, momid, name=&quot;dadids_germ&quot;)) %&gt;% 
+  full_join(surv %&gt;% count(momsp, type, dadsp, momid, dadidm, dadspm, dadsp, dadid) %&gt;% 
+              count(momsp, type, dadsp, momid, name=&quot;dadids_surv&quot;)) %&gt;% 
+  arrange(momsp, momid, type) %&gt;% 
+  select(-dadsp) %&gt;% pivot_wider(names_from = type, values_from = starts_with(&quot;dadids&quot;), names_vary = &quot;slowest&quot;) %&gt;%
+  rename_with(~str_remove(.x, &quot;dadids_&quot;)) #%&gt;% write_tsv(&quot;data/pollencomp_dadids.tsv&quot;)</code></pre>
 </div>
 <div id="scoring-dates" class="section level1">
 <h1>Scoring dates</h1>

@@ -113,40 +113,6 @@ surv <- read_tsv("data/Pollen competition - survival.tsv") %>%
          prop.alive = alive / total,
          prop.alive.nz = (alive+1)/(total+1))
 
-germ %>% summarize(across(c(n.pdishes, planted, germinated), sum))
-
-inventory <- surv %>% count(momsp, type, dadsp, name="crosses_surv") %>% 
-  full_join(seeds %>% count(momsp, type, dadsp, name="crosses_seeds")) %>% 
-  full_join(germ %>% count(momsp, type, dadsp, name="crosses_germ")) %>% 
-  full_join(germ.pot %>% count(momsp, type, dadsp, name = "pots_germ")) %>%
-  mutate(pots_per_cross = pots_germ/crosses_germ) 
-kable(inventory, caption="Number of crosses between individual plants used for seeds, germination and survival,
-        and how many pots the seeds filled")
-inventory %>%  group_by(type) %>% summarize(across(starts_with("crosses"), sum, na.rm=T)) %>% 
-kable(caption="Number of crosses between individual plants used for seeds, germination and survival,
-        and how many pots the seeds filled")
-
-inventory.momid <- 
-  seeds %>% count(momsp, type, dadsp, momid) %>% count(momsp, type, dadsp, name="crosses_seeds") %>% 
-  full_join(germ %>% count(momsp, type, dadsp, momid) %>% count(momsp, type, dadsp, name="crosses_germ")) %>% 
-  full_join(surv %>% count(momsp, type, dadsp, momid) %>% count(momsp, type, dadsp, name="crosses_surv"))
-kable(inventory.momid, caption="Number of maternal plants used for seeds, germination and survival")
-inventory.momid %>%  group_by(type) %>% summarize(across(starts_with("crosses"), sum, na.rm=T)) %>% 
-   kable(caption="Number of maternal plants used for seeds, germination and survival")
-
-inventory.dadid <- seeds %>% count(momsp, type, dadsp, momid, dadidm, dadspm, dadsp, dadid) %>% 
-  count(momsp, type, dadsp, momid, name="dadids_seeds") %>% 
-  full_join(germ %>% count(momsp, type, dadsp, momid, dadidm, dadspm, dadsp, dadid) %>% 
-              count(momsp, type, dadsp, momid, name="dadids_germ")) %>% 
-  full_join(surv %>% count(momsp, type, dadsp, momid, dadidm, dadspm, dadsp, dadid) %>% 
-              count(momsp, type, dadsp, momid, name="dadids_surv")) %>% 
-  arrange(momsp, momid, type)
-
-inventory.dadid %>% select(-dadsp) %>% 
-  pivot_wider(names_from = type, values_from = starts_with("dadids"), names_vary = "slowest") %>% 
-  rename_with(~str_remove(.x, "dadids_")) %>% #write_tsv("data/pollencomp_dadids.tsv") %>% 
-  kable(caption = "Number of paternal combinations per maternal plant")
-
 # to run this, comment out dad|mom recode momid_fixes lines above
 # count(seeds, momsp, momid, name="seed") %>% 
 #   full_join(count(germ, momsp, momid, name="germ")) %>% 
@@ -169,6 +135,34 @@ seedsize <- read_csv("data/seedlengths.csv") %>% #from Schiedea monograph, Seeds
   rename(momsp=species) %>% left_join(mating) %>% drop_na(pair) %>% group_by(pair) %>% 
   mutate(momsp=factor(momsp, levels=sp_pairs), 
          seed_diff_mm = seedlength_mm-min(seedlength_mm)) %>% arrange(momsp)
+```
+
+```{r inventory}
+list(seeds %>% summarize(across(sds, sum)),
+  germ %>% summarize(across(c(planted, germinated), sum)),
+  surv %>% summarize(across(c(scored=total, alive, hybrid), sum))) %>% reduce(bind_cols) %>% 
+  kable(caption="Number of seeds counted, planted, germinated, scored, survived, and that were hybrids")
+
+make.inventory <- function(x, name) {
+  list(x %>% count(momsp, type, momid) %>% count(momsp, type, name=paste0("moms_",name)),
+       x %>% count(momsp, type, momid, dadid) %>% count(momsp, type, name=paste0("momxdads_",name)),
+       x %>% count(momsp, type, name=paste0("pollinations_",name))) %>% 
+    reduce(full_join)
+}
+list(seeds, germ, surv) %>% #could also do germ.pot and do pots_per_cross = pots_germ/crosses_germ 
+  map2(c("seeds","germ", "surv"), make.inventory) %>% reduce(full_join) %>% 
+  bind_rows(summarise(.,across(where(is.numeric), sum, na.rm=T))) %>% 
+  kable(caption ="Number of maternal plants, maternal x paternal combinations, and pollinations that made it into each dataset")
+
+inventory.dadid <- seeds %>% count(momsp, type, dadsp, momid, dadidm, dadspm, dadsp, dadid) %>% 
+  count(momsp, type, dadsp, momid, name="dadids_seeds") %>% 
+  full_join(germ %>% count(momsp, type, dadsp, momid, dadidm, dadspm, dadsp, dadid) %>% 
+              count(momsp, type, dadsp, momid, name="dadids_germ")) %>% 
+  full_join(surv %>% count(momsp, type, dadsp, momid, dadidm, dadspm, dadsp, dadid) %>% 
+              count(momsp, type, dadsp, momid, name="dadids_surv")) %>% 
+  arrange(momsp, momid, type) %>% 
+  select(-dadsp) %>% pivot_wider(names_from = type, values_from = starts_with("dadids"), names_vary = "slowest") %>%
+  rename_with(~str_remove(.x, "dadids_")) #%>% write_tsv("data/pollencomp_dadids.tsv")
 ```
 
 # Scoring dates
@@ -582,7 +576,9 @@ hybrid.test %>% left_join(pivot_wider(comp.emm, id_cols = momsp, names_from=c(tr
 # Style length
 
 ```{r style_length, fig.width=6, fig.height=4}
-count(styles, momsp, plantid) %>% count(momsp) %>% kable(caption = "Number of plants for style length")
+styles %>% count(momsp, plantid) %>% count(momsp, name="moms") %>% 
+  left_join(count(styles, momsp, name="styles")) %>% mutate(styles_per_mom=styles/moms) %>% 
+  kable(caption = "Number of plants and styles measured")
 
 styles.emm <- glmmTMB(style_length_mm ~ momsp + (1|plantid), data=styles) %>% 
   emmeans(~momsp) %>% summary(type="response") %>% tidy %>% rename(style_length_mm = estimate) %>% 
