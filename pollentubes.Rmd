@@ -128,7 +128,7 @@ tubesl[["memnap"]] <- read_csv("data/pollentubes_memkau.csv") %>%
   mutate(across(ends_with("sp"), as.factor)) %>% 
   pivot_longer(starts_with(c("mid","bottom")), names_to=c("location","stigma"), names_sep="_", values_to="n_tubes") %>% 
   pivot_wider(names_from="location", values_from="n_tubes") %>% 
-  mutate(status = fct_explicit_na(status, "OK"),
+  mutate(status = fct_na_value_to_level(status, "OK"),
          mid =    ifelse(status=="no pollen on stigmas", NA, mid), #set to NA to drop, 0 to keep
          bottom = ifelse(status=="no pollen on stigmas", NA, bottom)) %>% #see SGW email 2022-05-09, NOTES tab
   drop_na(mid) %>% 
@@ -166,13 +166,15 @@ kable(with(tubes, table(cross, hr)), caption="Number of styles of each cross typ
 kable(with(tubes, table(pair, hr)), caption="Number of styles of each species pair")
 kable(tubes %>% count(pair, cross, momid, dadid, hr, vial) %>% with(table(pair, n)), caption = "Number of styles counted per vial")
 kable(tubes %>% count(pair, cross, hr, momid, vial) %>% with(table(pair, hr)), caption = "Number of vials for each cross type")
-kable(tubes %>% count(pair, cross, momid, dadid) %>% count(pair, cross, momid) %>% with(table(pair, n)), caption="Number of paternal plants per maternal plant")
+kable(tubes %>% count(pair, cross, hr, momid, dadid) %>% count(pair, cross, hr, momid) %>% count(pair, cross, hr, n) %>% 
+        pivot_wider(names_from = n, values_from=nn, names_sort = T), caption="Number of paternal plants per maternal plant")
 
 list(tubes %>% count(momsp, type, momid) %>% count(momsp, type, name="moms"),
      tubes %>% count(momsp, type, momid, dadid) %>% count(momsp, type, name="momxdads"),
      tubes %>% count(momsp, type, hr, momid, vial) %>% count(momsp, type, name="pollinations"),
      tubes %>% count(momsp, type, name="styles")) %>% 
   reduce(full_join) %>% 
+  mutate(momsp = factor(momsp, levels=species_names)) %>% arrange(momsp, desc(type)) %>% 
   bind_rows(summarise(.,across(where(is.numeric), sum))) %>% 
   kable(caption="Number of maternal plants, maternal x paternal combinations, pollinations, and styles 
         for each maternal species and cross type")
@@ -377,6 +379,7 @@ tubes.phylodist <- tubes.mod %>% select(pair, ends_with("_emm")) %>% pivot_longe
               mutate(momsp = factor(species_names[str_sub(lvl1, 1,2)], levels=species_names),
                      hr = factor(str_sub(lvl1,6,10), levels=c("4hr","24hr")))) %>% 
   mutate(pd = map2_dbl(as.character(momsp), as.character(dadsp), ~cophenetic(tree)[.x,.y]))
+save(tubes.phylodist, file="data/tubes_phylodist.rda")
 
 ggplot(tubes.phylodist, aes(x=pd, y=trait_diff)) + facet_grid(trait~hr, scales="free_y") +
   geom_smooth(method="lm", se=F, color="grey") + 
@@ -397,7 +400,9 @@ tubes.phylodist %>% filter(trait=="ratio") %>%
   ggplot(aes(x=pd, y=-trait_diff)) + facet_wrap(vars(hr), labeller = as_labeller(c(`4hr`="4 h", `24hr`="24 h"))) + 
   geom_hline(yintercept=0)+
   geom_smooth(method="lm", se=F, color="grey") + 
-  geom_pointrange(aes(color=momsp, ymin=-(trait_diff-trait_se), ymax=-(trait_diff+trait_se), shape=adj.p.value < 0.05)) + 
+  geom_errorbar(aes(color=momsp, ymin=-(trait_diff-trait_se), ymax=-(trait_diff+trait_se)),
+                  width=0.001, linewidth=1) + 
+  geom_point(aes(color=momsp, shape=adj.p.value < 0.05), size=2, stroke=2) + 
   scale_color_brewer(palette="Paired")+  scale_shape_manual(values = c(1,19), guide ="none")+
   scale_y_continuous(labels=scales::percent_format()) + 
   labs(x="Phylogenetic distance (mutations/site)", color="Maternal\nspecies", 

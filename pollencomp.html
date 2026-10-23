@@ -11,7 +11,7 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2026-05-09" />
+<meta name="date" content="2026-10-23" />
 
 <title>Schiedea pollen competition</title>
 
@@ -253,7 +253,7 @@ div.tocify {
 <h1 class="title toc-ignore"><em>Schiedea</em> pollen competition</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John
 Powers</a></h4>
-<h4 class="date">2026-05-09</h4>
+<h4 class="date">2026-10-23</h4>
 
 </div>
 
@@ -412,6 +412,8 @@ and that were hybrids</caption>
 }
 list(seeds, germ, surv) %&gt;% #could also do germ.pot and do pots_per_cross = pots_germ/crosses_germ 
   map2(c(&quot;seeds&quot;,&quot;germ&quot;, &quot;surv&quot;), make.inventory) %&gt;% reduce(full_join) %&gt;% 
+  mutate(momsp = factor(momsp, levels=sp_pairs), 
+         type=factor(type, levels=c(&quot;intra&quot;, &quot;inter&quot;,&quot;mixed&quot;))) %&gt;% arrange(momsp, type) %&gt;% 
   bind_rows(summarise(.,across(where(is.numeric), sum, na.rm=T))) %&gt;% 
   kable(caption =&quot;Number of maternal plants, maternal x paternal combinations, and pollinations that made it into each dataset&quot;)</code></pre>
 <table>
@@ -461,19 +463,6 @@ and pollinations that made it into each dataset</caption>
 </tr>
 <tr class="even">
 <td align="left">menziesii</td>
-<td align="left">mixed</td>
-<td align="right">7</td>
-<td align="right">7</td>
-<td align="right">170</td>
-<td align="right">7</td>
-<td align="right">8</td>
-<td align="right">16</td>
-<td align="right">7</td>
-<td align="right">8</td>
-<td align="right">11</td>
-</tr>
-<tr class="odd">
-<td align="left">menziesii</td>
 <td align="left">inter</td>
 <td align="right">15</td>
 <td align="right">25</td>
@@ -484,6 +473,19 @@ and pollinations that made it into each dataset</caption>
 <td align="right">11</td>
 <td align="right">19</td>
 <td align="right">19</td>
+</tr>
+<tr class="odd">
+<td align="left">menziesii</td>
+<td align="left">mixed</td>
+<td align="right">7</td>
+<td align="right">7</td>
+<td align="right">170</td>
+<td align="right">7</td>
+<td align="right">8</td>
+<td align="right">16</td>
+<td align="right">7</td>
+<td align="right">8</td>
+<td align="right">11</td>
 </tr>
 <tr class="even">
 <td align="left">salicaria</td>
@@ -500,19 +502,6 @@ and pollinations that made it into each dataset</caption>
 </tr>
 <tr class="odd">
 <td align="left">salicaria</td>
-<td align="left">mixed</td>
-<td align="right">10</td>
-<td align="right">14</td>
-<td align="right">99</td>
-<td align="right">11</td>
-<td align="right">12</td>
-<td align="right">12</td>
-<td align="right">12</td>
-<td align="right">13</td>
-<td align="right">14</td>
-</tr>
-<tr class="even">
-<td align="left">salicaria</td>
 <td align="left">inter</td>
 <td align="right">6</td>
 <td align="right">9</td>
@@ -523,6 +512,19 @@ and pollinations that made it into each dataset</caption>
 <td align="right">10</td>
 <td align="right">13</td>
 <td align="right">13</td>
+</tr>
+<tr class="even">
+<td align="left">salicaria</td>
+<td align="left">mixed</td>
+<td align="right">10</td>
+<td align="right">14</td>
+<td align="right">99</td>
+<td align="right">11</td>
+<td align="right">12</td>
+<td align="right">12</td>
+<td align="right">12</td>
+<td align="right">13</td>
+<td align="right">14</td>
 </tr>
 <tr class="odd">
 <td align="left">lydgatei</td>
@@ -539,19 +541,6 @@ and pollinations that made it into each dataset</caption>
 </tr>
 <tr class="even">
 <td align="left">lydgatei</td>
-<td align="left">mixed</td>
-<td align="right">5</td>
-<td align="right">5</td>
-<td align="right">96</td>
-<td align="right">5</td>
-<td align="right">5</td>
-<td align="right">11</td>
-<td align="right">5</td>
-<td align="right">5</td>
-<td align="right">5</td>
-</tr>
-<tr class="odd">
-<td align="left">lydgatei</td>
 <td align="left">inter</td>
 <td align="right">9</td>
 <td align="right">23</td>
@@ -562,6 +551,19 @@ and pollinations that made it into each dataset</caption>
 <td align="right">9</td>
 <td align="right">19</td>
 <td align="right">19</td>
+</tr>
+<tr class="odd">
+<td align="left">lydgatei</td>
+<td align="left">mixed</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">96</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">11</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">5</td>
 </tr>
 <tr class="even">
 <td align="left">sarmentosa</td>
@@ -590,6 +592,19 @@ and pollinations that made it into each dataset</caption>
 <td align="right">7</td>
 </tr>
 <tr class="even">
+<td align="left">sarmentosa</td>
+<td align="left">mixed</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right">4</td>
+<td align="right">5</td>
+<td align="right">12</td>
+<td align="right">4</td>
+<td align="right">5</td>
+<td align="right">5</td>
+</tr>
+<tr class="odd">
 <td align="left">stellarioides</td>
 <td align="left">intra</td>
 <td align="right">15</td>
@@ -601,19 +616,6 @@ and pollinations that made it into each dataset</caption>
 <td align="right">5</td>
 <td align="right">5</td>
 <td align="right">5</td>
-</tr>
-<tr class="odd">
-<td align="left">stellarioides</td>
-<td align="left">mixed</td>
-<td align="right">6</td>
-<td align="right">6</td>
-<td align="right">137</td>
-<td align="right">6</td>
-<td align="right">6</td>
-<td align="right">6</td>
-<td align="right">6</td>
-<td align="right">6</td>
-<td align="right">6</td>
 </tr>
 <tr class="even">
 <td align="left">stellarioides</td>
@@ -629,6 +631,19 @@ and pollinations that made it into each dataset</caption>
 <td align="right">10</td>
 </tr>
 <tr class="odd">
+<td align="left">stellarioides</td>
+<td align="left">mixed</td>
+<td align="right">6</td>
+<td align="right">6</td>
+<td align="right">137</td>
+<td align="right">6</td>
+<td align="right">6</td>
+<td align="right">6</td>
+<td align="right">6</td>
+<td align="right">6</td>
+<td align="right">6</td>
+</tr>
+<tr class="even">
 <td align="left">spergulina</td>
 <td align="left">intra</td>
 <td align="right">6</td>
@@ -641,7 +656,7 @@ and pollinations that made it into each dataset</caption>
 <td align="right">5</td>
 <td align="right">5</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">spergulina</td>
 <td align="left">inter</td>
 <td align="right">5</td>
@@ -650,6 +665,19 @@ and pollinations that made it into each dataset</caption>
 <td align="right">3</td>
 <td align="right">3</td>
 <td align="right">3</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">spergulina</td>
+<td align="left">mixed</td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right"></td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">8</td>
 <td align="right">4</td>
 <td align="right">4</td>
 <td align="right">4</td>
@@ -669,19 +697,6 @@ and pollinations that made it into each dataset</caption>
 </tr>
 <tr class="even">
 <td align="left">membranacea</td>
-<td align="left">mixed</td>
-<td align="right">5</td>
-<td align="right">6</td>
-<td align="right">206</td>
-<td align="right">5</td>
-<td align="right">5</td>
-<td align="right">6</td>
-<td align="right">5</td>
-<td align="right">5</td>
-<td align="right">5</td>
-</tr>
-<tr class="odd">
-<td align="left">membranacea</td>
 <td align="left">inter</td>
 <td align="right">8</td>
 <td align="right">15</td>
@@ -692,6 +707,19 @@ and pollinations that made it into each dataset</caption>
 <td align="right">1</td>
 <td align="right">1</td>
 <td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">membranacea</td>
+<td align="left">mixed</td>
+<td align="right">5</td>
+<td align="right">6</td>
+<td align="right">206</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">6</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">5</td>
 </tr>
 <tr class="even">
 <td align="left">napaliensis</td>
@@ -708,19 +736,6 @@ and pollinations that made it into each dataset</caption>
 </tr>
 <tr class="odd">
 <td align="left">napaliensis</td>
-<td align="left">mixed</td>
-<td align="right">10</td>
-<td align="right">13</td>
-<td align="right">240</td>
-<td align="right">7</td>
-<td align="right">8</td>
-<td align="right">8</td>
-<td align="right">7</td>
-<td align="right">7</td>
-<td align="right">7</td>
-</tr>
-<tr class="even">
-<td align="left">napaliensis</td>
 <td align="left">inter</td>
 <td align="right">15</td>
 <td align="right">21</td>
@@ -731,6 +746,19 @@ and pollinations that made it into each dataset</caption>
 <td align="right">1</td>
 <td align="right">1</td>
 <td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">napaliensis</td>
+<td align="left">mixed</td>
+<td align="right">10</td>
+<td align="right">13</td>
+<td align="right">240</td>
+<td align="right">7</td>
+<td align="right">8</td>
+<td align="right">8</td>
+<td align="right">7</td>
+<td align="right">7</td>
+<td align="right">7</td>
 </tr>
 <tr class="odd">
 <td align="left">kaalae</td>
@@ -747,19 +775,6 @@ and pollinations that made it into each dataset</caption>
 </tr>
 <tr class="even">
 <td align="left">kaalae</td>
-<td align="left">mixed</td>
-<td align="right">5</td>
-<td align="right">7</td>
-<td align="right">93</td>
-<td align="right">5</td>
-<td align="right">6</td>
-<td align="right">6</td>
-<td align="right">8</td>
-<td align="right">9</td>
-<td align="right">10</td>
-</tr>
-<tr class="odd">
-<td align="left">kaalae</td>
 <td align="left">inter</td>
 <td align="right">14</td>
 <td align="right">89</td>
@@ -770,6 +785,19 @@ and pollinations that made it into each dataset</caption>
 <td align="right">6</td>
 <td align="right">11</td>
 <td align="right">11</td>
+</tr>
+<tr class="odd">
+<td align="left">kaalae</td>
+<td align="left">mixed</td>
+<td align="right">5</td>
+<td align="right">7</td>
+<td align="right">93</td>
+<td align="right">5</td>
+<td align="right">6</td>
+<td align="right">6</td>
+<td align="right">8</td>
+<td align="right">9</td>
+<td align="right">10</td>
 </tr>
 <tr class="even">
 <td align="left">hookeri</td>
@@ -786,19 +814,6 @@ and pollinations that made it into each dataset</caption>
 </tr>
 <tr class="odd">
 <td align="left">hookeri</td>
-<td align="left">mixed</td>
-<td align="right">7</td>
-<td align="right">11</td>
-<td align="right">189</td>
-<td align="right">7</td>
-<td align="right">7</td>
-<td align="right">8</td>
-<td align="right">9</td>
-<td align="right">9</td>
-<td align="right">11</td>
-</tr>
-<tr class="even">
-<td align="left">hookeri</td>
 <td align="left">inter</td>
 <td align="right">10</td>
 <td align="right">73</td>
@@ -810,31 +825,18 @@ and pollinations that made it into each dataset</caption>
 <td align="right">34</td>
 <td align="right">34</td>
 </tr>
-<tr class="odd">
-<td align="left">sarmentosa</td>
-<td align="left">mixed</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">4</td>
-<td align="right">5</td>
-<td align="right">12</td>
-<td align="right">4</td>
-<td align="right">5</td>
-<td align="right">5</td>
-</tr>
 <tr class="even">
-<td align="left">spergulina</td>
+<td align="left">hookeri</td>
 <td align="left">mixed</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">4</td>
-<td align="right">4</td>
+<td align="right">7</td>
+<td align="right">11</td>
+<td align="right">189</td>
+<td align="right">7</td>
+<td align="right">7</td>
 <td align="right">8</td>
-<td align="right">4</td>
-<td align="right">4</td>
-<td align="right">4</td>
+<td align="right">9</td>
+<td align="right">9</td>
+<td align="right">11</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
@@ -1268,7 +1270,7 @@ given plant x plant cross. Points show estimated marginal mean and 95%
 CI.</p>
 <pre class="r"><code>sp_theme &lt;- theme(legend.position = &quot;top&quot;, 
                   panel.grid.major.x=element_blank(), panel.grid.minor.y=element_blank(), 
-                  axis.text.x = element_text(angle=20), axis.text = element_text(color=&quot;black&quot;))
+                  axis.text.x = element_text(angle=20, hjust=0.5, vjust=0), axis.text = element_text(color=&quot;black&quot;))
 bxplt &lt;- geom_boxplot(position = position_dodge(width=0.9), color=&quot;grey50&quot;, outlier.size=0.5)
 alternate &lt;- geom_tile(data=tibble(momsp=sp_pairs[seq(1,10,by=2)]), aes(x=momsp, y=0.5, height=1, width=1),  alpha=0.4, fill=&quot;grey&quot;, inherit.aes = F) 
 
@@ -1286,7 +1288,7 @@ ggplot(filter(seeds.bycross, !momsp %in% c(&quot;sarmentosa&quot;,&quot;sperguli
   geom_pointrange(data=filter(comp.emm, trait==&quot;sds&quot;), aes(y=estimate, ymax=conf.high, ymin=conf.low, color=type),
                   position = position_dodge(width=0.9), size=0.5, show.legend=F) + 
   scale_fill_manual(values=type_pal, labels=typenames) + scale_color_manual(values=type_pal_dark, labels=typenames) +
-  scale_y_continuous(expand=c(0.02,0))+
+  scale_x_discrete(position=&quot;top&quot;, drop=FALSE) + scale_y_continuous(expand=c(0.02,0))+
   labs(x=&quot;Maternal species&quot;, y=&quot;Seeds&quot;, fill=&quot;Pollination&quot;) + sp_theme</code></pre>
 <p><img src="figures-comp/rawdata-2.svg" width="672" /></p>
 <pre class="r"><code>ggplot(germ, aes(x=momsp, fill=type, y=prop.germ))   + bxplt + alternate + bxplt + 
@@ -1303,6 +1305,45 @@ ggplot(filter(seeds.bycross, !momsp %in% c(&quot;sarmentosa&quot;,&quot;sperguli
   scale_x_discrete(position=&quot;top&quot;) +  pct_y +
   labs(x=&quot;Maternal species&quot;, y=&quot;Survival&quot;, fill=&quot;Pollination&quot;) + sp_theme</code></pre>
 <p><img src="figures-comp/rawdata-4.svg" width="672" /></p>
+<pre class="r"><code>comp.emm %&gt;% summarize(.by=&quot;trait&quot;, min = min(estimate), max=max(estimate)) %&gt;% 
+  kable(digits=2, caption = &quot;Ranges of means across all species and cross types&quot;)</code></pre>
+<table>
+<caption>Ranges of means across all species and cross types</caption>
+<thead>
+<tr class="header">
+<th align="left">trait</th>
+<th align="right">min</th>
+<th align="right">max</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">capsule.formed</td>
+<td align="right">0.18</td>
+<td align="right">1.00</td>
+</tr>
+<tr class="even">
+<td align="left">sds</td>
+<td align="right">1.46</td>
+<td align="right">23.23</td>
+</tr>
+<tr class="odd">
+<td align="left">prop.germ</td>
+<td align="right">0.05</td>
+<td align="right">0.84</td>
+</tr>
+<tr class="even">
+<td align="left">prop.alive</td>
+<td align="right">0.20</td>
+<td align="right">0.96</td>
+</tr>
+<tr class="odd">
+<td align="left">prop.hybrid</td>
+<td align="right">0.02</td>
+<td align="right">0.54</td>
+</tr>
+</tbody>
+</table>
 <pre class="r"><code>ggplot(filter(surv, type==&quot;mixed&quot;), aes(x=momsp, y=prop.hybrid, fill=momsp)) + 
   geom_hline(yintercept=0.5)+ geom_violin(scale=&quot;width&quot;, draw_quantiles = c(0.25,0.5,0.75))+ 
   geom_pointrange(data=left_join(filter(comp.emm, trait==&quot;prop.hybrid&quot;), hybrid.test),
@@ -1434,55 +1475,79 @@ hybrid.test %&gt;% left_join(pivot_wider(comp.emm, id_cols = momsp, names_from=c
 </div>
 <div id="style-length" class="section level1">
 <h1>Style length</h1>
-<pre class="r"><code>count(styles, momsp, plantid) %&gt;% count(momsp) %&gt;% kable(caption = &quot;Number of plants for style length&quot;)</code></pre>
+<pre class="r"><code>styles %&gt;% count(momsp, plantid) %&gt;% count(momsp, name=&quot;moms&quot;) %&gt;% 
+  left_join(count(styles, momsp, name=&quot;styles&quot;)) %&gt;% mutate(styles_per_mom=styles/moms) %&gt;% 
+  kable(caption = &quot;Number of plants and styles measured&quot;)</code></pre>
 <table>
-<caption>Number of plants for style length</caption>
+<caption>Number of plants and styles measured</caption>
 <thead>
 <tr class="header">
 <th align="left">momsp</th>
-<th align="right">n</th>
+<th align="right">moms</th>
+<th align="right">styles</th>
+<th align="right">styles_per_mom</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left">menziesii</td>
 <td align="right">5</td>
+<td align="right">25</td>
+<td align="right">5.000</td>
 </tr>
 <tr class="even">
 <td align="left">salicaria</td>
 <td align="right">5</td>
+<td align="right">25</td>
+<td align="right">5.000</td>
 </tr>
 <tr class="odd">
 <td align="left">lydgatei</td>
 <td align="right">7</td>
+<td align="right">35</td>
+<td align="right">5.000</td>
 </tr>
 <tr class="even">
 <td align="left">sarmentosa</td>
 <td align="right">4</td>
+<td align="right">20</td>
+<td align="right">5.000</td>
 </tr>
 <tr class="odd">
 <td align="left">stellarioides</td>
 <td align="right">5</td>
+<td align="right">25</td>
+<td align="right">5.000</td>
 </tr>
 <tr class="even">
 <td align="left">spergulina</td>
 <td align="right">5</td>
+<td align="right">25</td>
+<td align="right">5.000</td>
 </tr>
 <tr class="odd">
 <td align="left">membranacea</td>
 <td align="right">4</td>
+<td align="right">20</td>
+<td align="right">5.000</td>
 </tr>
 <tr class="even">
 <td align="left">napaliensis</td>
 <td align="right">8</td>
+<td align="right">25</td>
+<td align="right">3.125</td>
 </tr>
 <tr class="odd">
 <td align="left">kaalae</td>
 <td align="right">5</td>
+<td align="right">25</td>
+<td align="right">5.000</td>
 </tr>
 <tr class="even">
 <td align="left">hookeri</td>
 <td align="right">9</td>
+<td align="right">44</td>
+<td align="right">4.889</td>
 </tr>
 </tbody>
 </table>
@@ -2472,6 +2537,28 @@ mod.pd.backest %&gt;% select(stage, data) %&gt;% unnest(data) %&gt;%
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div id="pollen-tube-growth-vs.-competitiveness" class="section level2">
+<h2>Pollen tube growth vs. competitiveness</h2>
+<pre class="r"><code>load(file=&quot;data/tubes_phylodist.rda&quot;)
+
+tubes.backest &lt;- left_join(tubes.phylodist, 
+                           mod.pd.backest %&gt;% select(data) %&gt;% unnest(data) %&gt;% select(-pair,-pd))
+
+ggplot(tubes.backest %&gt;% filter(hr==&quot;24hr&quot;, !is.na(stage)), 
+       aes(y=prop, x=trait_diff)) + facet_grid(stage~trait, scales=&quot;free_x&quot;) +
+  geom_pointrange(aes(color=momsp, xmin=trait_diff-trait_se, xmax=trait_diff+trait_se, shape=adj.p.value &lt; 0.05)) +
+    geom_smooth(method=&quot;lm&quot;, se=F, color=&quot;black&quot;) + 
+  scale_color_brewer(palette=&quot;Paired&quot;) + scale_shape_manual(values = c(1,19), guide =&quot;none&quot;)+
+  labs(y=&quot;Proportion of hybrids&quot;, color=&quot;Maternal species&quot;,
+       x=&quot;Difference between intra and interspecies cross&quot;) + theme_bw() + 
+  theme(legend.position = &quot;top&quot;)</code></pre>
+<p><img src="figures-comp/tubes_backest-1.svg" width="672" /></p>
+</div>
+<div id="competitive-pollinations-and-style-length"
+class="section level2">
+<h2>Competitive pollinations and style length</h2>
 <pre class="r"><code>left_join(filter(comp.emm, trait==&quot;prop.hybrid&quot;), hybrid.test) %&gt;% 
 left_join(select(styles.emm, momsp, style_length_mm, mating, style_conf.low=conf.low, style_conf.high=conf.high)) %&gt;% 
   ggplot(aes(x=style_length_mm, y=estimate, color=momsp)) + geom_hline(aes(yintercept=0.5), linetype=2) +  
@@ -2483,7 +2570,6 @@ left_join(select(styles.emm, momsp, style_length_mm, mating, style_conf.low=conf
                           legend.key.size=unit(0.8, &quot;lines&quot;))+
   guides(color = guide_legend(override.aes = list(size = 4)))</code></pre>
 <p><img src="figures-comp/progeny_styles-1.svg" width="576" /></p>
-</div>
 </div>
 </div>
 

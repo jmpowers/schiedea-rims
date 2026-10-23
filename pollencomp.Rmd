@@ -151,6 +151,8 @@ make.inventory <- function(x, name) {
 }
 list(seeds, germ, surv) %>% #could also do germ.pot and do pots_per_cross = pots_germ/crosses_germ 
   map2(c("seeds","germ", "surv"), make.inventory) %>% reduce(full_join) %>% 
+  mutate(momsp = factor(momsp, levels=sp_pairs), 
+         type=factor(type, levels=c("intra", "inter","mixed"))) %>% arrange(momsp, type) %>% 
   bind_rows(summarise(.,across(where(is.numeric), sum, na.rm=T))) %>% 
   kable(caption ="Number of maternal plants, maternal x paternal combinations, and pollinations that made it into each dataset")
 
@@ -492,7 +494,7 @@ Boxplots of the germination and survival proportions in each plant x plant cross
 ```{r rawdata}
 sp_theme <- theme(legend.position = "top", 
                   panel.grid.major.x=element_blank(), panel.grid.minor.y=element_blank(), 
-                  axis.text.x = element_text(angle=20), axis.text = element_text(color="black"))
+                  axis.text.x = element_text(angle=20, hjust=0.5, vjust=0), axis.text = element_text(color="black"))
 bxplt <- geom_boxplot(position = position_dodge(width=0.9), color="grey50", outlier.size=0.5)
 alternate <- geom_tile(data=tibble(momsp=sp_pairs[seq(1,10,by=2)]), aes(x=momsp, y=0.5, height=1, width=1),  alpha=0.4, fill="grey", inherit.aes = F) 
 
@@ -510,7 +512,7 @@ ggplot(seeds %>% filter(sds>0), aes(x=momsp, fill=type, y=sds))  + bxplt +
   geom_pointrange(data=filter(comp.emm, trait=="sds"), aes(y=estimate, ymax=conf.high, ymin=conf.low, color=type),
                   position = position_dodge(width=0.9), size=0.5, show.legend=F) + 
   scale_fill_manual(values=type_pal, labels=typenames) + scale_color_manual(values=type_pal_dark, labels=typenames) +
-  scale_y_continuous(expand=c(0.02,0))+
+  scale_x_discrete(position="top", drop=FALSE) + scale_y_continuous(expand=c(0.02,0))+
   labs(x="Maternal species", y="Seeds", fill="Pollination") + sp_theme
 
 ggplot(germ, aes(x=momsp, fill=type, y=prop.germ))   + bxplt + alternate + bxplt + 
@@ -526,6 +528,9 @@ ggplot(surv, aes(x=momsp, fill=type, y=prop.alive)) + bxplt + alternate + bxplt 
   scale_fill_manual(values=type_pal, labels=typenames) +  scale_color_manual(values=type_pal_dark, labels=typenames) +
   scale_x_discrete(position="top") +  pct_y +
   labs(x="Maternal species", y="Survival", fill="Pollination") + sp_theme
+
+comp.emm %>% summarize(.by="trait", min = min(estimate), max=max(estimate)) %>% 
+  kable(digits=2, caption = "Ranges of means across all species and cross types")
 
 ggplot(filter(surv, type=="mixed"), aes(x=momsp, y=prop.hybrid, fill=momsp)) + 
   geom_hline(yintercept=0.5)+ geom_violin(scale="width", draw_quantiles = c(0.25,0.5,0.75))+ 
@@ -866,6 +871,27 @@ mod.pd.backest %>% select(stage, coef) %>% unnest(coef) %>% filter(term %in% c("
   select(stage, term, p.value) %>% pivot_wider(names_from=term, values_from=p.value) %>% kable(caption="P values")
 ```
 
+## Pollen tube growth vs. competitiveness
+
+```{r tubes_backest}
+load(file="data/tubes_phylodist.rda")
+
+tubes.backest <- left_join(tubes.phylodist, 
+                           mod.pd.backest %>% select(data) %>% unnest(data) %>% select(-pair,-pd))
+
+ggplot(tubes.backest %>% filter(hr=="24hr", !is.na(stage)), 
+       aes(y=prop, x=trait_diff)) + facet_grid(stage~trait, scales="free_x") +
+  geom_pointrange(aes(color=momsp, xmin=trait_diff-trait_se, xmax=trait_diff+trait_se, shape=adj.p.value < 0.05)) +
+    geom_smooth(method="lm", se=F, color="black") + 
+  scale_color_brewer(palette="Paired") + scale_shape_manual(values = c(1,19), guide ="none")+
+  labs(y="Proportion of hybrids", color="Maternal species",
+       x="Difference between intra and interspecies cross") + theme_bw() + 
+  theme(legend.position = "top")
+```
+
+
+
+## Competitive pollinations and style length
 
 ```{r progeny_styles, fig.width=6, fig.height=5}
 left_join(filter(comp.emm, trait=="prop.hybrid"), hybrid.test) %>% 
