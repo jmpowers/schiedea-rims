@@ -11,7 +11,7 @@
 
 <meta name="author" content="John Powers" />
 
-<meta name="date" content="2026-10-23" />
+<meta name="date" content="2026-11-16" />
 
 <title>Schiedea pollen competition</title>
 
@@ -253,7 +253,7 @@ div.tocify {
 <h1 class="title toc-ignore"><em>Schiedea</em> pollen competition</h1>
 <h4 class="author"><a href="http://sites.uci.edu/powers/">John
 Powers</a></h4>
-<h4 class="date">2026-10-23</h4>
+<h4 class="date">2026-11-16</h4>
 
 </div>
 
@@ -288,7 +288,7 @@ sp_pal_dark &lt;- set_names(sp_pal[rep(seq(2,10,by=2), each=2)], sp_pairs)
 typenames &lt;- set_names(c(&quot;Intraspecific&quot;,&quot;Competitive&quot;,&quot;Interspecific&quot;),c(&quot;intra&quot;,&quot;mixed&quot;,&quot;inter&quot;))
 type_pal &lt;- set_names(brewer.pal(6,&quot;Pastel1&quot;)[c(2,3,5)], names(typenames))
 type_pal_dark &lt;- set_names(brewer.pal(6,&quot;Set1&quot;)[c(2,3,5)], names(typenames))
-propnames &lt;- set_names(c(&quot;Capsule formation&quot;,&quot;Seed number&quot;,&quot;Germination&quot;,&quot;Survival&quot;,&quot;Hybrid&quot;), c(&quot;capsule.formed&quot;,&quot;sds&quot;,&quot;prop.germ&quot;, &quot;prop.alive&quot;, &quot;prop.hybrid&quot;))
+propnames &lt;- set_names(c(&quot;Capsule formation&quot;,&quot;Seed production&quot;,&quot;Germination&quot;,&quot;Survival&quot;,&quot;Hybrid&quot;), c(&quot;capsule.formed&quot;,&quot;sds&quot;,&quot;prop.germ&quot;, &quot;prop.alive&quot;, &quot;prop.hybrid&quot;))
 vigornames &lt;- c(hybrid.vigor.germsurv=&quot;Hybrid/intraspecific fitness:\ngermination and survival&quot;, 
                 hybrid.vigor.all=&quot;Hybrid/intraspecific fitness:\nseeds, germination, survivial&quot;)
 
@@ -406,7 +406,7 @@ and that were hybrids</caption>
 </table>
 <pre class="r"><code>make.inventory &lt;- function(x, name) {
   list(x %&gt;% count(momsp, type, momid) %&gt;% count(momsp, type, name=paste0(&quot;moms_&quot;,name)),
-       x %&gt;% count(momsp, type, momid, dadid) %&gt;% count(momsp, type, name=paste0(&quot;momxdads_&quot;,name)),
+       x %&gt;% count(momsp, type, momid, dadspm, dadidm, dadsp, dadid) %&gt;% count(momsp, type, name=paste0(&quot;momxdads_&quot;,name)),
        x %&gt;% count(momsp, type, name=paste0(&quot;pollinations_&quot;,name))) %&gt;% 
     reduce(full_join)
 }
@@ -478,13 +478,13 @@ and pollinations that made it into each dataset</caption>
 <td align="left">menziesii</td>
 <td align="left">mixed</td>
 <td align="right">7</td>
-<td align="right">7</td>
+<td align="right">11</td>
 <td align="right">170</td>
 <td align="right">7</td>
-<td align="right">8</td>
+<td align="right">16</td>
 <td align="right">16</td>
 <td align="right">7</td>
-<td align="right">8</td>
+<td align="right">10</td>
 <td align="right">11</td>
 </tr>
 <tr class="even">
@@ -751,7 +751,7 @@ and pollinations that made it into each dataset</caption>
 <td align="left">napaliensis</td>
 <td align="left">mixed</td>
 <td align="right">10</td>
-<td align="right">13</td>
+<td align="right">15</td>
 <td align="right">240</td>
 <td align="right">7</td>
 <td align="right">8</td>
@@ -842,18 +842,27 @@ and pollinations that made it into each dataset</caption>
 <td align="left"></td>
 <td align="left"></td>
 <td align="right">270</td>
-<td align="right">599</td>
+<td align="right">605</td>
 <td align="right">5379</td>
 <td align="right">189</td>
-<td align="right">355</td>
+<td align="right">363</td>
 <td align="right">396</td>
 <td align="right">171</td>
-<td align="right">242</td>
+<td align="right">244</td>
 <td align="right">257</td>
 </tr>
 </tbody>
 </table>
-<pre class="r"><code>inventory.dadid &lt;- seeds %&gt;% count(momsp, type, dadsp, momid, dadidm, dadspm, dadsp, dadid) %&gt;% 
+<pre class="r"><code>#mom-dad-dad combinations for mixed pollinations
+# seeds %&gt;% filter(type==&quot;mixed&quot;) %&gt;% #copied to mixed_multipledads sheet
+#   count(momsp, momid, dadspm, dadidm, dadsp, dadid, name=&quot;pollinations&quot;) %&gt;% 
+#   mutate(combos = n(), .by=c(momsp, momid)) %&gt;% filter(combos&gt;1) 
+
+# moms from mixed pollinations reused in other types
+# seeds %&gt;% count(momsp, momid, type) %&gt;% pivot_wider(names_from=type, values_from=n, values_fill=0) %&gt;% 
+#   filter(mixed&gt;0 &amp; (intra&gt;0 | inter&gt;0))
+
+inventory.dadid &lt;- seeds %&gt;% count(momsp, type, dadsp, momid, dadidm, dadspm, dadsp, dadid) %&gt;% 
   count(momsp, type, dadsp, momid, name=&quot;dadids_seeds&quot;) %&gt;% 
   full_join(germ %&gt;% count(momsp, type, dadsp, momid, dadidm, dadspm, dadsp, dadid) %&gt;% 
               count(momsp, type, dadsp, momid, name=&quot;dadids_germ&quot;)) %&gt;% 
@@ -1064,7 +1073,7 @@ ggplot(F1.backest.long, aes(x=fct_rev(stage), color=momsp, y=prop)) +
   geom_path(aes(group=paste(batch, samp)), alpha=0.2)+ 
   geom_violin(draw_quantiles = c(0.25, 0.5, 0.75)) + geom_jitter(size=0.2, height=0, width=0.2)  +
   scale_color_brewer(palette = &quot;Paired&quot;) + guides(color=&quot;none&quot;) +
-  scale_x_discrete(labels=c(zyg=&quot;Comp&quot;, sds=&quot;Seed&quot;, sdl=&quot;Seedling&quot;, plt=&quot;Plant&quot;))+
+  scale_x_discrete(labels=c(zyg=&quot;Competition&quot;, sds=&quot;Seed&quot;, sdl=&quot;Seedling&quot;, plt=&quot;Plant&quot;))+
   labs(x=&quot;Life stage&quot;, y=&quot;Proportion of hybrids&quot;)</code></pre>
 <p><img src="figures-comp/backwards-1.svg" width="768" /></p>
 </div>
@@ -1289,7 +1298,7 @@ ggplot(filter(seeds.bycross, !momsp %in% c(&quot;sarmentosa&quot;,&quot;sperguli
                   position = position_dodge(width=0.9), size=0.5, show.legend=F) + 
   scale_fill_manual(values=type_pal, labels=typenames) + scale_color_manual(values=type_pal_dark, labels=typenames) +
   scale_x_discrete(position=&quot;top&quot;, drop=FALSE) + scale_y_continuous(expand=c(0.02,0))+
-  labs(x=&quot;Maternal species&quot;, y=&quot;Seeds&quot;, fill=&quot;Pollination&quot;) + sp_theme</code></pre>
+  labs(x=&quot;Maternal species&quot;, y=&quot;Seed production&quot;, fill=&quot;Pollination&quot;) + sp_theme</code></pre>
 <p><img src="figures-comp/rawdata-2.svg" width="672" /></p>
 <pre class="r"><code>ggplot(germ, aes(x=momsp, fill=type, y=prop.germ))   + bxplt + alternate + bxplt + 
   geom_pointrange(data=filter(comp.emm, trait==&quot;prop.germ&quot;), aes(y=estimate, ymax=conf.high, ymin=conf.low, color=type),
@@ -1348,14 +1357,15 @@ ggplot(filter(seeds.bycross, !momsp %in% c(&quot;sarmentosa&quot;,&quot;sperguli
   geom_hline(yintercept=0.5)+ geom_violin(scale=&quot;width&quot;, draw_quantiles = c(0.25,0.5,0.75))+ 
   geom_pointrange(data=left_join(filter(comp.emm, trait==&quot;prop.hybrid&quot;), hybrid.test),
                   aes(y=estimate, ymax=conf.high, ymin=conf.low, shape=p.adj &lt; 0.05), size=1) + #NB these are SEs
-  scale_shape_manual(&quot;Different from 50%&quot;, values=c(1, 19), labels=c(&quot;no&quot;,&quot;yes&quot;))+
+  scale_shape_manual(&quot;Different from 50%&quot;, values=c(1, 19), labels=c(&quot;no&quot;,&quot;yes&quot;), guide=&quot;none&quot;)+
   geom_text(data=hybrid.test, aes(y=1.1, label=crosses))+ annotate(&quot;text&quot;, x=11, y=1.1, label=&quot;crosses&quot;)+
   geom_text(data=hybrid.test, aes(y=1.04, label=alive))+ annotate(&quot;text&quot;, x=11, y=1.04, label=&quot;progeny&quot;)+
   coord_cartesian(clip=&quot;off&quot;)+
   scale_fill_brewer(palette=&quot;Paired&quot;, guide=&quot;none&quot;) +
   scale_y_continuous(breaks=(0:4)/4, labels=~scales::percent(.,accuracy=1), expand=c(0.02,0), limits=c(0,1.1))+
   labs(x=&quot;Maternal species&quot;, y=&quot;Hybrids from competitive pollinations&quot;) + sp_theme + 
-  theme(plot.margin = unit(5.5*c(1,6,1,1), &quot;points&quot;))</code></pre>
+  theme(plot.margin = unit(5.5*c(1,6,1,1), &quot;points&quot;),
+                  axis.text.x = element_text(angle=20, hjust=0.5, vjust=1))</code></pre>
 <p><img src="figures-comp/rawdata-5.svg" width="672" /></p>
 <pre class="r"><code>hybrid.test %&gt;% left_join(filter(comp.emm, trait==&quot;prop.hybrid&quot;)) %&gt;% 
   select(momsp, dadsp, prop.hybrid, std.error, p.adj) %&gt;% kable(caption=&quot;Test if hybrid proportions differ from 50%&quot;)</code></pre>
@@ -1738,13 +1748,13 @@ hybrid.phylodist.test %&gt;% select(trait, type, term, p.value) %&gt;% filter(ty
 <td align="right">0.710</td>
 </tr>
 <tr class="odd">
-<td align="left">Seed number</td>
+<td align="left">Seed production</td>
 <td align="left">Interspecific</td>
 <td align="right">0.008</td>
 <td align="right">0.799</td>
 </tr>
 <tr class="even">
-<td align="left">Seed number</td>
+<td align="left">Seed production</td>
 <td align="left">Competitive</td>
 <td align="right">0.113</td>
 <td align="right">0.669</td>
@@ -2262,7 +2272,7 @@ sp_pairs %&gt;% matrix(ncol=2, byrow=T) %&gt;%
   geom_hline(yintercept=0.5, linetype=2)+
   geom_smooth(method=&quot;lm&quot;, se=F, color=&quot;grey&quot;) +
   geom_pointrange(aes(ymax=conf.high, ymin=conf.low, color=momsp, shape=p.adj &lt; 0.05)) + 
-  scale_shape_manual(&quot;Different from 50%&quot;, values=c(1, 19), labels=c(&quot;no&quot;,&quot;yes&quot;))+
+  scale_shape_manual(&quot;Different from 50%&quot;, values=c(1, 19), labels=c(&quot;no&quot;,&quot;yes&quot;), guide=&quot;none&quot;)+
   scale_color_brewer(palette=&quot;Paired&quot;) + 
   scale_alpha_manual(breaks=c(T,F), values=c(0.5, 1))+
   scale_y_continuous(breaks=(0:4)/4, labels=~scales::percent(.,accuracy=1), expand=c(0.02,0), limits=c(0,NA))+
@@ -2332,7 +2342,7 @@ labs.phylostyle &lt;- c(hybrid.RI.all=&quot;Reproductive isolation&quot;,#\n(het
                      prop.hybrid=&quot;Hybrid plants\n(observed)&quot;,
                      prop.hybrid.sdl=&quot;Hybrid seedlings\n(estimated)&quot;,
                      prop.hybrid.sds=&quot;Hybrid seeds\n(estimated)&quot;,
-                     prop.hybrid.zyg = &quot;Hybrid pollen\ncompetiveness (est.)&quot;,
+                     prop.hybrid.zyg = &quot;Hybrid pollen\ncompetition (est.)&quot;,
                      style_length_mm = &quot;Style length (mm)&quot;, 
                      pd=&quot;Phylogenetic distance (mutations/site)&quot;)
 

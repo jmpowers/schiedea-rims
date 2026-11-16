@@ -709,15 +709,13 @@ str(tubes)</code></pre>
 </tr>
 </tbody>
 </table>
-<pre class="r"><code>kable(tubes %&gt;% count(pair, cross, hr, momid, dadid) %&gt;% count(pair, cross, hr, momid) %&gt;% count(pair, cross, hr, n) %&gt;% 
+<pre class="r"><code>kable(tubes %&gt;% count(pair, cross, hr, momid, dadid) %&gt;% count(pair, cross, hr, momid) %&gt;% count(pair, n) %&gt;% 
         pivot_wider(names_from = n, values_from=nn, names_sort = T), caption=&quot;Number of paternal plants per maternal plant&quot;)</code></pre>
 <table>
 <caption>Number of paternal plants per maternal plant</caption>
 <thead>
 <tr class="header">
 <th align="left">pair</th>
-<th align="left">cross</th>
-<th align="left">hr</th>
 <th align="right">1</th>
 <th align="right">2</th>
 <th align="right">3</th>
@@ -726,323 +724,33 @@ str(tubes)</code></pre>
 <tbody>
 <tr class="odd">
 <td align="left">salmen</td>
-<td align="left">SlxSl</td>
-<td align="left">4hr</td>
+<td align="right">1</td>
+<td align="right">57</td>
+<td align="right">7</td>
+</tr>
+<tr class="even">
+<td align="left">lydsar</td>
 <td align="right"></td>
+<td align="right">42</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">speste</td>
 <td align="right">8</td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">salmen</td>
-<td align="left">SlxSl</td>
-<td align="left">24hr</td>
-<td align="right"></td>
+<td align="right">24</td>
 <td align="right">8</td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">salmen</td>
-<td align="left">SlxMn</td>
-<td align="left">4hr</td>
-<td align="right">1</td>
-<td align="right">8</td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">salmen</td>
-<td align="left">SlxMn</td>
-<td align="left">24hr</td>
-<td align="right"></td>
-<td align="right">8</td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">salmen</td>
-<td align="left">MnxMn</td>
-<td align="left">4hr</td>
-<td align="right"></td>
-<td align="right">5</td>
-<td align="right">3</td>
-</tr>
-<tr class="even">
-<td align="left">salmen</td>
-<td align="left">MnxMn</td>
-<td align="left">24hr</td>
-<td align="right"></td>
-<td align="right">6</td>
-<td align="right">2</td>
-</tr>
-<tr class="odd">
-<td align="left">salmen</td>
-<td align="left">MnxSl</td>
-<td align="left">4hr</td>
-<td align="right"></td>
-<td align="right">7</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="left">salmen</td>
-<td align="left">MnxSl</td>
-<td align="left">24hr</td>
-<td align="right"></td>
-<td align="right">7</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td align="left">lydsar</td>
-<td align="left">LyxLy</td>
-<td align="left">4hr</td>
-<td align="right"></td>
-<td align="right">7</td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">lydsar</td>
-<td align="left">LyxLy</td>
-<td align="left">24hr</td>
-<td align="right"></td>
-<td align="right">7</td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">lydsar</td>
-<td align="left">LyxSr</td>
-<td align="left">4hr</td>
-<td align="right"></td>
-<td align="right">7</td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">lydsar</td>
-<td align="left">LyxSr</td>
-<td align="left">24hr</td>
-<td align="right"></td>
-<td align="right">7</td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">lydsar</td>
-<td align="left">SrxSr</td>
-<td align="left">4hr</td>
-<td align="right"></td>
-<td align="right">4</td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">lydsar</td>
-<td align="left">SrxSr</td>
-<td align="left">24hr</td>
-<td align="right"></td>
-<td align="right">4</td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">lydsar</td>
-<td align="left">SrxLy</td>
-<td align="left">4hr</td>
-<td align="right"></td>
-<td align="right">3</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="left">lydsar</td>
-<td align="left">SrxLy</td>
-<td align="left">24hr</td>
-<td align="right"></td>
-<td align="right">3</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td align="left">speste</td>
-<td align="left">SpxSp</td>
-<td align="left">4hr</td>
-<td align="right">1</td>
-<td align="right">4</td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">speste</td>
-<td align="left">SpxSp</td>
-<td align="left">24hr</td>
-<td align="right">1</td>
-<td align="right">4</td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">speste</td>
-<td align="left">SpxSt</td>
-<td align="left">4hr</td>
-<td align="right"></td>
-<td align="right">4</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="left">speste</td>
-<td align="left">SpxSt</td>
-<td align="left">24hr</td>
-<td align="right"></td>
-<td align="right">4</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td align="left">speste</td>
-<td align="left">StxSt</td>
-<td align="left">4hr</td>
-<td align="right"></td>
-<td align="right">2</td>
-<td align="right">3</td>
-</tr>
-<tr class="even">
-<td align="left">speste</td>
-<td align="left">StxSt</td>
-<td align="left">24hr</td>
-<td align="right"></td>
-<td align="right">2</td>
-<td align="right">3</td>
-</tr>
-<tr class="odd">
-<td align="left">speste</td>
-<td align="left">StxSp</td>
-<td align="left">4hr</td>
-<td align="right">3</td>
-<td align="right">2</td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">speste</td>
-<td align="left">StxSp</td>
-<td align="left">24hr</td>
-<td align="right">3</td>
-<td align="right">2</td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">memnap</td>
-<td align="left">MbxMb</td>
-<td align="left">4hr</td>
-<td align="right">3</td>
-<td align="right">3</td>
-<td align="right"></td>
 </tr>
 <tr class="even">
 <td align="left">memnap</td>
-<td align="left">MbxMb</td>
-<td align="left">24hr</td>
-<td align="right">3</td>
-<td align="right">3</td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">memnap</td>
-<td align="left">MbxNp</td>
-<td align="left">4hr</td>
-<td align="right">1</td>
-<td align="right">5</td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">memnap</td>
-<td align="left">MbxNp</td>
-<td align="left">24hr</td>
-<td align="right">1</td>
-<td align="right">5</td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">memnap</td>
-<td align="left">NpxNp</td>
-<td align="left">4hr</td>
-<td align="right">2</td>
-<td align="right">4</td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">memnap</td>
-<td align="left">NpxNp</td>
-<td align="left">24hr</td>
-<td align="right">2</td>
-<td align="right">4</td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">memnap</td>
-<td align="left">NpxMb</td>
-<td align="left">4hr</td>
-<td align="right">1</td>
-<td align="right">5</td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">memnap</td>
-<td align="left">NpxMb</td>
-<td align="left">24hr</td>
-<td align="right">1</td>
-<td align="right">5</td>
+<td align="right">14</td>
+<td align="right">34</td>
 <td align="right"></td>
 </tr>
 <tr class="odd">
 <td align="left">kaahoo</td>
-<td align="left">KlxKl</td>
-<td align="left">4hr</td>
+<td align="right">20</td>
+<td align="right">15</td>
 <td align="right">3</td>
-<td align="right"></td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="left">kaahoo</td>
-<td align="left">KlxKl</td>
-<td align="left">24hr</td>
-<td align="right">4</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">kaahoo</td>
-<td align="left">KlxHo</td>
-<td align="left">4hr</td>
-<td align="right">3</td>
-<td align="right">1</td>
-<td align="right"></td>
-</tr>
-<tr class="even">
-<td align="left">kaahoo</td>
-<td align="left">KlxHo</td>
-<td align="left">24hr</td>
-<td align="right">5</td>
-<td align="right"></td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">kaahoo</td>
-<td align="left">HoxHo</td>
-<td align="left">4hr</td>
-<td align="right">1</td>
-<td align="right">3</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="left">kaahoo</td>
-<td align="left">HoxHo</td>
-<td align="left">24hr</td>
-<td align="right">1</td>
-<td align="right">4</td>
-<td align="right"></td>
-</tr>
-<tr class="odd">
-<td align="left">kaahoo</td>
-<td align="left">HoxKl</td>
-<td align="left">4hr</td>
-<td align="right">2</td>
-<td align="right">3</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="left">kaahoo</td>
-<td align="left">HoxKl</td>
-<td align="left">24hr</td>
-<td align="right">1</td>
-<td align="right">4</td>
-<td align="right"></td>
 </tr>
 </tbody>
 </table>

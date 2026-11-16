@@ -166,7 +166,7 @@ kable(with(tubes, table(cross, hr)), caption="Number of styles of each cross typ
 kable(with(tubes, table(pair, hr)), caption="Number of styles of each species pair")
 kable(tubes %>% count(pair, cross, momid, dadid, hr, vial) %>% with(table(pair, n)), caption = "Number of styles counted per vial")
 kable(tubes %>% count(pair, cross, hr, momid, vial) %>% with(table(pair, hr)), caption = "Number of vials for each cross type")
-kable(tubes %>% count(pair, cross, hr, momid, dadid) %>% count(pair, cross, hr, momid) %>% count(pair, cross, hr, n) %>% 
+kable(tubes %>% count(pair, cross, hr, momid, dadid) %>% count(pair, cross, hr, momid) %>% count(pair, n) %>% 
         pivot_wider(names_from = n, values_from=nn, names_sort = T), caption="Number of paternal plants per maternal plant")
 
 list(tubes %>% count(momsp, type, momid) %>% count(momsp, type, name="moms"),

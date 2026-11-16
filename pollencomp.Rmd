@@ -47,7 +47,7 @@ sp_pal_dark <- set_names(sp_pal[rep(seq(2,10,by=2), each=2)], sp_pairs)
 typenames <- set_names(c("Intraspecific","Competitive","Interspecific"),c("intra","mixed","inter"))
 type_pal <- set_names(brewer.pal(6,"Pastel1")[c(2,3,5)], names(typenames))
 type_pal_dark <- set_names(brewer.pal(6,"Set1")[c(2,3,5)], names(typenames))
-propnames <- set_names(c("Capsule formation","Seed number","Germination","Survival","Hybrid"), c("capsule.formed","sds","prop.germ", "prop.alive", "prop.hybrid"))
+propnames <- set_names(c("Capsule formation","Seed production","Germination","Survival","Hybrid"), c("capsule.formed","sds","prop.germ", "prop.alive", "prop.hybrid"))
 vigornames <- c(hybrid.vigor.germsurv="Hybrid/intraspecific fitness:\ngermination and survival", 
                 hybrid.vigor.all="Hybrid/intraspecific fitness:\nseeds, germination, survivial")
 
@@ -145,7 +145,7 @@ list(seeds %>% summarize(across(sds, sum)),
 
 make.inventory <- function(x, name) {
   list(x %>% count(momsp, type, momid) %>% count(momsp, type, name=paste0("moms_",name)),
-       x %>% count(momsp, type, momid, dadid) %>% count(momsp, type, name=paste0("momxdads_",name)),
+       x %>% count(momsp, type, momid, dadspm, dadidm, dadsp, dadid) %>% count(momsp, type, name=paste0("momxdads_",name)),
        x %>% count(momsp, type, name=paste0("pollinations_",name))) %>% 
     reduce(full_join)
 }
@@ -155,6 +155,15 @@ list(seeds, germ, surv) %>% #could also do germ.pot and do pots_per_cross = pots
          type=factor(type, levels=c("intra", "inter","mixed"))) %>% arrange(momsp, type) %>% 
   bind_rows(summarise(.,across(where(is.numeric), sum, na.rm=T))) %>% 
   kable(caption ="Number of maternal plants, maternal x paternal combinations, and pollinations that made it into each dataset")
+
+#mom-dad-dad combinations for mixed pollinations
+# seeds %>% filter(type=="mixed") %>% #copied to mixed_multipledads sheet
+#   count(momsp, momid, dadspm, dadidm, dadsp, dadid, name="pollinations") %>% 
+#   mutate(combos = n(), .by=c(momsp, momid)) %>% filter(combos>1) 
+
+# moms from mixed pollinations reused in other types
+# seeds %>% count(momsp, momid, type) %>% pivot_wider(names_from=type, values_from=n, values_fill=0) %>% 
+#   filter(mixed>0 & (intra>0 | inter>0))
 
 inventory.dadid <- seeds %>% count(momsp, type, dadsp, momid, dadidm, dadspm, dadsp, dadid) %>% 
   count(momsp, type, dadsp, momid, name="dadids_seeds") %>% 
@@ -340,7 +349,7 @@ ggplot(F1.backest.long, aes(x=fct_rev(stage), color=momsp, y=prop)) +
   geom_path(aes(group=paste(batch, samp)), alpha=0.2)+ 
   geom_violin(draw_quantiles = c(0.25, 0.5, 0.75)) + geom_jitter(size=0.2, height=0, width=0.2)  +
   scale_color_brewer(palette = "Paired") + guides(color="none") +
-  scale_x_discrete(labels=c(zyg="Comp", sds="Seed", sdl="Seedling", plt="Plant"))+
+  scale_x_discrete(labels=c(zyg="Competition", sds="Seed", sdl="Seedling", plt="Plant"))+
   labs(x="Life stage", y="Proportion of hybrids")
 ```
 
@@ -513,7 +522,7 @@ ggplot(seeds %>% filter(sds>0), aes(x=momsp, fill=type, y=sds))  + bxplt +
                   position = position_dodge(width=0.9), size=0.5, show.legend=F) + 
   scale_fill_manual(values=type_pal, labels=typenames) + scale_color_manual(values=type_pal_dark, labels=typenames) +
   scale_x_discrete(position="top", drop=FALSE) + scale_y_continuous(expand=c(0.02,0))+
-  labs(x="Maternal species", y="Seeds", fill="Pollination") + sp_theme
+  labs(x="Maternal species", y="Seed production", fill="Pollination") + sp_theme
 
 ggplot(germ, aes(x=momsp, fill=type, y=prop.germ))   + bxplt + alternate + bxplt + 
   geom_pointrange(data=filter(comp.emm, trait=="prop.germ"), aes(y=estimate, ymax=conf.high, ymin=conf.low, color=type),
@@ -536,14 +545,15 @@ ggplot(filter(surv, type=="mixed"), aes(x=momsp, y=prop.hybrid, fill=momsp)) +
   geom_hline(yintercept=0.5)+ geom_violin(scale="width", draw_quantiles = c(0.25,0.5,0.75))+ 
   geom_pointrange(data=left_join(filter(comp.emm, trait=="prop.hybrid"), hybrid.test),
                   aes(y=estimate, ymax=conf.high, ymin=conf.low, shape=p.adj < 0.05), size=1) + #NB these are SEs
-  scale_shape_manual("Different from 50%", values=c(1, 19), labels=c("no","yes"))+
+  scale_shape_manual("Different from 50%", values=c(1, 19), labels=c("no","yes"), guide="none")+
   geom_text(data=hybrid.test, aes(y=1.1, label=crosses))+ annotate("text", x=11, y=1.1, label="crosses")+
   geom_text(data=hybrid.test, aes(y=1.04, label=alive))+ annotate("text", x=11, y=1.04, label="progeny")+
   coord_cartesian(clip="off")+
   scale_fill_brewer(palette="Paired", guide="none") +
   scale_y_continuous(breaks=(0:4)/4, labels=~scales::percent(.,accuracy=1), expand=c(0.02,0), limits=c(0,1.1))+
   labs(x="Maternal species", y="Hybrids from competitive pollinations") + sp_theme + 
-  theme(plot.margin = unit(5.5*c(1,6,1,1), "points"))
+  theme(plot.margin = unit(5.5*c(1,6,1,1), "points"),
+                  axis.text.x = element_text(angle=20, hjust=0.5, vjust=1))
 
 hybrid.test %>% left_join(filter(comp.emm, trait=="prop.hybrid")) %>% 
   select(momsp, dadsp, prop.hybrid, std.error, p.adj) %>% kable(caption="Test if hybrid proportions differ from 50%")
@@ -726,7 +736,7 @@ left_join(hybrid.phylodist, filter(hybrid.phylodist.test, term=="pd")) %>%
   geom_hline(yintercept=0.5, linetype=2)+
   geom_smooth(method="lm", se=F, color="grey") +
   geom_pointrange(aes(ymax=conf.high, ymin=conf.low, color=momsp, shape=p.adj < 0.05)) + 
-  scale_shape_manual("Different from 50%", values=c(1, 19), labels=c("no","yes"))+
+  scale_shape_manual("Different from 50%", values=c(1, 19), labels=c("no","yes"), guide="none")+
   scale_color_brewer(palette="Paired") + 
   scale_alpha_manual(breaks=c(T,F), values=c(0.5, 1))+
   scale_y_continuous(breaks=(0:4)/4, labels=~scales::percent(.,accuracy=1), expand=c(0.02,0), limits=c(0,NA))+
@@ -795,7 +805,7 @@ labs.phylostyle <- c(hybrid.RI.all="Reproductive isolation",#\n(heterosis \U2194
                      prop.hybrid="Hybrid plants\n(observed)",
                      prop.hybrid.sdl="Hybrid seedlings\n(estimated)",
                      prop.hybrid.sds="Hybrid seeds\n(estimated)",
-                     prop.hybrid.zyg = "Hybrid pollen\ncompetiveness (est.)",
+                     prop.hybrid.zyg = "Hybrid pollen\ncompetition (est.)",
                      style_length_mm = "Style length (mm)", 
                      pd="Phylogenetic distance (mutations/site)")
 

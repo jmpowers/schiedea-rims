@@ -2,7 +2,7 @@
 
 This [repository](https://github.com/jmpowers/schiedea-rims) contains the data and code for the following articles. Follow the links for reports that explain how the data is organized and the analyses and figures are generated. 
 
-Powers, J.M., Wickett, N.J., Moore, M.J., Wagner, W.L., McDonnell, A.J., Skogen, K.A., Weisenberger, L.A., Adler, A.M., Hsu, T.I., Ma, F., Zonis, S.R., Sakai, A.K., Weller, S.G. **Pollen tube growth as a barrier to hybridization in *Schiedea* (Caryophyllaceae).**
+Powers, J.M., Wickett, N.J., Moore, M.J., Wagner, W.L., McDonnell, A.J., Skogen, K.A., Weisenberger, L.A., Adler, A.M., Hsu, T.I., Ma, F., Zonis, S.R., Sakai, A.K., Weller, S.G. **Divergent pollination systems and phylogenetic distance impact post-pollination prezygotic barriers in Hawaiian *Schiedea* (Caryophyllaceae)**
 
 * [Pollen tube growth](./pollentubes.html)
 
